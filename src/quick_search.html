@@ -1,0 +1,380 @@
+<!--------------------------------
+@author: Gaurav Agarwal.
+@description: UO1 Version-1.0.1
+@date-created: March 12, 2018
+@updated: October 19, 2018
+------------------------------->
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123338976-1"></script>
+    <script async src="js/ga.js" type="text/javascript"></script>
+
+    <!--put minified file here-->
+    <script type="text/javascript" src="libraries/jquery/jquery-1.9.1.js"></script>
+    <!--put minified file here-->
+    <script type="text/javascript" src="libraries/jquery/1.10.1-jquery-ui.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Quick search - glygen</title>
+    <meta name="description" content="Search for glycan structures based on their GlyTouCan registry IDs, native mass, glycan type or organism. It is also possible to search for glycans based on enzymes that have been involved in the biosynthesis or proteins that this glycan was attached to">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="glycan, carbohydrate, search, mass search, glycoprotein search">
+    <link href="libraries/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!--put minified file here-->
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/alertify.css">
+    <!-- CSS for tippy tooltip -->
+    <link rel="stylesheet" type="text/css" href="css/tippy.css">
+    <link rel="stylesheet" type="text/css" href="css/feedback.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- UI CSS -->
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <!-- CSS main -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- CSS side-navigation -->
+    <link rel="stylesheet" href="css/faq_style.css">
+    <!-- Modernizr -->
+    <script src="js/modernizr.js"></script>
+    <!-- CSS for alertify -->
+    <link rel="stylesheet" type="text/css" href="css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="css/server.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- script for jquery -->
+    <script src="libraries/jquery/jquery-3.1.js"></script>
+    <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icons/favicomatic/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icons/favicomatic/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icons/favicomatic/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icons/favicomatic/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/icons/favicomatic/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icons/favicomatic/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/icons/favicomatic/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/icons/favicomatic/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="GlyGen" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="images/icons/favicomatic/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="images/icons/favicomatic/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="images/icons/favicomatic/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="images/icons/favicomatic/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="images/icons/favicomatic/mstile-310x310.png" />
+</head>
+
+<body onload="tracking()">
+    <script src="libraries/w3.js"></script>
+    <div w3-include-html="header.html"></div>
+    <script>
+        w3.includeHTML();
+    </script>
+    <div class="container">
+        <section class="cd-faq">
+            <ul class="cd-faq-categories">
+                <li>
+                    <a class="selected" href="#search_glycan">Glycan</a>
+                </li>
+                <li>
+                    <a href="#search_protein">Protein</a>
+                </li>
+                <li>
+                    <a href="#search_species">Species</a>
+                </li>
+                <li>
+                    <a href="#search_disease">Disease</a>
+                </li>
+            </ul>
+
+            <h2 class="page-heading" style="text-align: center; margin-bottom: 30px;">Quick Search </h2>
+
+            <!--Search by Glycan-->
+            <!-- cd-faq-categories -->
+            <div class="cd-faq-items">
+                <div class="alert alert-danger" style="display:none;">
+                    <strong>No Results Found</strong>
+                    <br>Sorry, we couldn't find any data matching your input. Please change your search term and try again.</div>
+                <ul id="search_glycan" class="cd-faq-group">
+                    <li class="cd-faq-title">
+                        <h2>Search by Glycan</h2>
+                    </li>
+                    <li id="li_q1">
+                        <a class="cd-faq-trigger localized" id="QUESTION_1" data-key="QUESTION_1"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Glycan&nbsp;X:</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="GlytoucanID" placeholder="GlyTouCan Accession" id="bioenzyme" onkeyup="validateGlycanAcc(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleBioenzyme" data-tippy="Click to Insert">G17689DH</a>
+                                    <br>
+                                    <span id="glycanAccMsg" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="bioEnzyme()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="li_q2">
+                        <a class="cd-faq-trigger localized" id="QUESTION_2" data-key="QUESTION_2"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Glycan&nbsp;X:</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="Glytoucan" placeholder="GlyTouCan Accession" id="glycansite" onkeyup="validateGlycanAcc1(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleGlycansite" data-tippy="Click to Insert">G17689DH</a>
+                                    <br>
+                                    <span id="glycanAccMsg1" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycanSite()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="li_q3">
+                        <a class="cd-faq-trigger localized" id="QUESTION_3" data-key="QUESTION_3"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Glycan&nbsp;X:</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="Glytoucan" placeholder="GlyTouCan Accession" id="glycangene" onkeyup="validateGlycanAcc2(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleGlycangene" data-tippy="Click to Insert">G17689DH</a>
+                                    <br>
+                                    <span id="glycanAccMsg2" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycanGene()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- End seach by Glycan -->
+
+                <!--  Search by Protein -->
+                <ul id="search_protein" class="cd-faq-group">
+                    <li class="cd-faq-title">
+                        <h2>Search by Protein</h2>
+                    </li>
+
+                    <li id="li_q4">
+                        <a class="cd-faq-trigger localized" id="QUESTION_4" data-key="QUESTION_4"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Protein&nbsp;X:</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="ProteinID" placeholder="UniProtKB Accession" id="proteinorthologues" onkeyup="validateProteinAcc(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleOrthologues" data-tippy="Click to Insert">P14210-1</a>
+                                    <br>
+                                    <span id="proteinAccMsg" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="proteinOrthologues()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="li_q5">
+                        <a class="cd-faq-trigger localized" id="QUESTION_5" data-key="QUESTION_5"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Protein&nbsp;X:</label>
+                            <div class="col-sm-6 gg-form-group">
+                                <input class="form-control" type="text" name="Protein" placeholder="UniProtKB Accession" id="proteinfunction" onkeyup="validateProteinAcc1(this)">
+                                <!--//<label id="protein-error">no result found</label>-->
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleFunction" data-tippy="Click to Insert">P14210-1</a>
+                                    <br>
+                                    <span id="proteinAccMsg1" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="proteinFunction()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="li_q6">
+                        <a class="cd-faq-trigger localized" id="QUESTION_6" data-key="QUESTION_6"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Enzyme&nbsp;X:</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="Enzyme" id="glycanenzyme" placeholder="UniProtKB Accession" onkeyup="validateProteinAcc2(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleGlycanenzyme" data-tippy="Click to Insert">P15291-1</a>
+                                    <br>
+                                    <span id="proteinAccMsg2" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycanEnzyme()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Search by Species-->
+                <!-- cd-faq-group -->
+                <ul id="search_species" class="cd-faq-group">
+                    <li class="cd-faq-title">
+                        <h2>Search by Species</h2>
+                    </li>
+
+                    <li id="li_q7">
+                        <a class="cd-faq-trigger localized" id="QUESTION_7" data-key="QUESTION_7"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Species:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control organism" id="organism1">
+                                    <option value="0">Select Organism</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycosylTransferases()" class="btn-sm btn-primary gg-faq-button" id="glycosyltransferases">Search</button>
+                            </div>
+                        </div>
+                        <!-- cd-faq-content -->
+                    </li>
+
+                    <li id="li_q8">
+                        <a class="cd-faq-trigger localized" id="QUESTION_8" data-key="QUESTION_8"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Species:</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control organism" id="organism2">
+                                    <option value="0">Select Organism</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycoHydrolases()" class="btn-sm btn-primary gg-faq-button" id="glycohydrolases">Search</button>
+                            </div>
+                        </div>
+                        <!-- cd-faq-content -->
+                    </li>
+
+                    <li id="li_q9">
+                        <a class="cd-faq-trigger localized" id="QUESTION_9" data-key="QUESTION_9"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+
+                            <label class="control-label col-sm-2">Species:</label>
+
+                            <div class="col-sm-3">
+                                <select class="form-control organism" id="organism3">
+                                    <option value="0">Select Organism</option>
+                                </select>
+                            </div>
+
+                            <label class="control-label col-sm-1">Type:</label>
+
+                            <div class="col-sm-3">
+                                <select name="species_type" class="biginput form-control" id="species">
+                                    <option value="">Select Type </option>
+                                    <option value="reported">Reported</option>
+                                    <option value="predicted">Predicted</option>
+                                    <option value="both">Both</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycoProteins()" class="btn-sm btn-primary gg-faq-button" id="glycoproteins">Search</button>
+                            </div>
+                        </div>
+                        <!-- cd-faq-content -->
+                    </li>
+                </ul>
+                <!--Search by Disease-->
+                <ul id="search_disease" class="cd-faq-group">
+                    <li class="cd-faq-title">
+                        <h2>Search by Disease</h2>
+                    </li>
+                    <li id="li_q10">
+                        <a class="cd-faq-trigger" href="#0" id="QUESTION_10">Which glycosyltransferases are known to be involved in disease X?</a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Disease:</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="disease" placeholder="Disease Name" id="glycosyltransferasesdisease" onkeyup="validateDiseaseName(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExGlycosyltransferasesdisease" data-tippy="Click to Insert">Ehlers-Danlos syndrome progeroid type</a>
+                                    <br>
+                                    <span id="diseaseNameMsg" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="glycosyTtransferasesDisease()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                        <!-- cd-faq-content -->
+                    </li>
+                </ul>
+                <!-- cd-faq-group -->
+
+                <!-- cd-faq-items -->
+                <a href="#0" class="cd-close-panel">Close</a>
+        </section>
+        <!-- cd-faq -->
+        </div>
+        <div w3-include-html="footer.html"></div>
+
+</body>
+<!-- Resource jQuery -->
+<script src="libraries/jquery/jquery-ui.js"></script>
+<!-- script for getting Web Service URLs -->
+<script type="text/javascript" src="js/domain_url.js"></script>
+<script src="js/ws_url.js"></script>
+<!-- script for logging activity -->
+<script src="js/activity_tracker.js"></script>
+<!-- SIDE NAVIAGTION -->
+<script src="js/faq_main.js"></script>
+<!-- Error Handling -->
+<script type="text/javascript" src="js/utility.js"></script>
+<!-- alertify-->
+<script type="text/javascript" src="libraries/alertify.js"></script>
+<script type="text/javascript" src="libraries/contact.js"></script>
+<!-- NAVIGATION -->
+<script src="js/navbar.js"></script>
+<!-- script for client validation -->
+<script src="js/validation.js"></script>
+<!-- Quick_Search -->
+<script type="text/javascript" src="js/quick_search.js"></script>
+<script src="js/text_example.js"></script>
+<script src="js/config.js"></script>
+<script>
+    //  required to open each QUESTIONs
+    faqMain();
+
+</script>
+
+
+</html>

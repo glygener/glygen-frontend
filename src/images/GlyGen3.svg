@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="485px" height="387px" viewBox="0 0 485 387" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>GlyGen_circle</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="113.6" cy="72.4" r="72"></circle>
+        <filter x="-11.1%" y="-9.7%" width="122.2%" height="122.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.347599638 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="72" cy="72" r="72"></circle>
+        <filter x="-11.1%" y="-9.7%" width="122.2%" height="122.2%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.347146739 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-5" cx="72" cy="72" r="72"></circle>
+        <filter x="-11.1%" y="-9.7%" width="122.2%" height="122.2%" filterUnits="objectBoundingBox" id="filter-6">
+            <feMorphology radius="5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.344684103 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="GlyGen2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-6.000000, -24.000000)">
+        <g id="GlyGen_circle" transform="translate(17.000000, 27.000000)">
+            <g id="Big-Circle" transform="translate(49.000000, 0.000000)">
+                <circle id="Oval-4-Copy" stroke="#2E78B7" stroke-width="6" cx="180" cy="166.2" r="166.2"></circle>
+                <polygon id="Triangle" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(345.182014, 181.925235) rotate(8.000000) translate(-345.182014, -181.925235) " points="345.182014 161.925235 358.182014 201.925235 332.182014 201.925235"></polygon>
+                <polygon id="Triangle-Copy" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(14.800000, 181.223835) rotate(-5.000000) translate(-14.800000, -181.223835) " points="14.8 161.223835 27.8 201.223835 1.8 201.223835"></polygon>
+                <polygon id="Triangle-Copy-2" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(266.253719, 306.795498) rotate(-124.000000) translate(-266.253719, -306.795498) " points="266.253719 286.795498 279.253719 326.795498 253.253719 326.795498"></polygon>
+                <polygon id="Triangle-Copy-4" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(92.843467, 306.258330) scale(-1, 1) rotate(-125.000000) translate(-92.843467, -306.258330) " points="92.8434671 286.25833 105.843467 326.25833 79.8434671 326.25833"></polygon>
+                <polygon id="Triangle-Copy-5" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(279.074227, 30.814330) scale(-1, 1) rotate(-130.000000) translate(-279.074227, -30.814330) " points="279.074227 10.81433 289.128901 41.751789 292.074227 50.81433 266.074227 50.81433"></polygon>
+                <polygon id="Triangle-Copy-3" stroke="#45A6FA" stroke-width="0.6" fill="#2E78B7" transform="translate(84.022959, 28.932405) rotate(-131.000000) translate(-84.022959, -28.932405) " points="84.022959 8.93240512 97.022959 48.9324051 71.022959 48.9324051"></polygon>
+            </g>
+            <g id="Glycan" transform="translate(277.400000, 21.600000)">
+                <g id="Oval-Glycan">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use stroke="#00D646" stroke-width="6" fill="#E6EFF9" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <text id="P" font-family="Verdana-Bold, Verdana" font-size="38" font-weight="bold" letter-spacing="0.0593749993" fill="#00C832">
+                    <tspan x="99.6" y="60.4">P</tspan>
+                </text>
+                <text id="Protein" font-family="Verdana-Bold, Verdana" font-size="28" font-weight="bold" letter-spacing="0.0988235399" fill="#035AAF">
+                    <tspan x="58" y="98.4">Protein</tspan>
+                </text>
+            </g>
+            <g id="Protein" transform="translate(0.000000, 22.000000)">
+                <g id="Oval-Protein">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use stroke="#058AFF" stroke-width="6" fill="#E6EFF9" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <text id="G" font-family="Verdana-Bold, Verdana" font-size="38" font-weight="bold" letter-spacing="0.0600000009" fill="#058AFF">
+                    <tspan x="57" y="60">G</tspan>
+                </text>
+                <text id="Glycan" font-family="Verdana-Bold, Verdana" font-size="28" font-weight="bold" letter-spacing="0.0933333412" fill="#035AAF">
+                    <tspan x="19" y="97">Glycan</tspan>
+                </text>
+            </g>
+            <g id="Proteoform" transform="translate(156.000000, 227.000000)">
+                <g id="Oval-ProteoForm">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                    <use stroke="#058AFF" stroke-width="6" fill="#E6EFF9" fill-rule="evenodd" xlink:href="#path-5"></use>
+                </g>
+                <path d="M72,137 C107.898509,137 137,107.898509 137,72 C137,67.5850401 136.559835,63.2728864 135.720994,59.1050288 C129.73913,29.3835924 103.483549,7 72,7 C36.1014913,7 7,36.1014913 7,72 C7,107.898509 36.1014913,137 72,137 Z" id="Oval-ProteoForm-Copy" stroke="#00D646" stroke-width="7"></path>
+                <text id="GP" font-family="Verdana-Bold, Verdana" font-size="38" font-weight="bold" letter-spacing="0.059375003">
+                    <tspan x="43" y="52" fill="#058AFF">G</tspan>
+                    <tspan x="73.8787109" y="52" fill="#00C832">P</tspan>
+                </text>
+                <text id="Glyco--Protein" font-family="Verdana-Bold, Verdana" font-size="24" font-weight="bold" letter-spacing="0.161904782" fill="#035AAF">
+                    <tspan x="28.8111607" y="79">Glyco-</tspan>
+                    <tspan x="22.3493489" y="108">Protein</tspan>
+                </text>
+            </g>
+            <g id="GlyGen" transform="translate(133.000000, 90.000000)" fill="#2E78B7" font-family="Verdana-Bold, Verdana" font-size="48" font-weight="bold" letter-spacing="0.266666681">
+                <text>
+                    <tspan x="14" y="91">GlyGen</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

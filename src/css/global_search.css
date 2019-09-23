@@ -1,0 +1,50 @@
+/* ---------------------------------------------------------------------
+@author: Gaurav Agarwal.
+@description: used on the global search result page
+@date-created: 18th January 2019
+-------------------------------------------------------------------------*/
+
+.gg-result-container{
+    padding-bottom: 14%;
+}
+
+.gg-panel{
+    padding: 1px;
+    text-align: center;
+}
+
+.result-count{
+    position: absolute;
+    background-color: #2E78B7;
+    color: white !important;
+    border-radius: 3px;
+    padding: 3px;
+    margin-right: 10px;
+    right: 0;
+}
+
+.head-result-count{
+    background-color: #2E78B7;
+    font-size: 2rem;
+    color: white !important;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+a.result-count{
+    text-decoration: none;
+}
+
+.result-count-inactive{
+    background-color: #6B6B6B;
+}
+
+#display_search_term{
+    color: #2E78B7;
+}
+
+/* the count displayed beside the heading */
+/* .title>.result-count{
+    right: 10px;
+    font-size: 2rem;
+} */

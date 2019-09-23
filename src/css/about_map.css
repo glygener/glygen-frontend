@@ -1,0 +1,99 @@
+ul#continents {
+    list-style: none;
+    background: url(../images/about_world_map.png) no-repeat 0 0;
+    position: relative;
+    width: 580px;
+    height: 268px;
+    margin: 0;
+    padding: 0;
+}
+
+ul#continents li {
+/*Remove border*/
+/* border: 1px solid #000;*/
+    position: absolute;
+}
+
+ul#continents li a{
+    display: block;
+    height: 100%;
+    text-decoration: none;
+
+}
+
+#northamerica {
+    width: 103px;
+    height: 50px;
+    top: 80px;
+    left: 31px;
+}
+
+#europe {
+    width: 20px;
+    height: 20px;
+    top: 63px;
+    left: 228px;
+}
+
+#asia {
+    width: 22px;
+    height: 35px;
+    top: 86px;
+    left: 458px;
+}
+
+#australia {
+    width: 77px;
+    height: 56px;
+    top: 199px;
+    left: 432px;
+}
+
+ul#continents li a:hover {
+    background: url(../images/about_world_map.png) no-repeat 0 0;
+}
+/*
+
+ul#continents li#northamerica a:hover {
+    background-position: 0 -270px;
+}
+
+ul#continents li#europe a:hover {
+    background-position: -22px -427px;
+}
+
+ul#continents li#asia a:hover {
+    background-position: -363px -268px;
+}
+
+ul#continents li#australia a:hover {
+    background-position: -412px -455px;
+}
+*/
+
+ul#continents li a span {
+    display: none;
+}
+
+ul#continents li a:hover span {
+    display: block;
+    padding: 5px;
+    width: 130px;
+    background: #222;
+    position: relative;
+    top: 70%;
+    font: 14px Arial, Helvetica, sans-serif;
+    opacity: .75;
+    filter:alpha(opacity=75);
+    font-weight: 500;
+    color: #FFF;
+    border-radius: 5px;
+}
+@media only screen and (max-width: 700px) {
+
+    ul#continents  {
+    background: url(../images/about_world_map_mobile.png) no-repeat 0 0;
+    width: auto;
+    height: 150px;
+    }
+}
