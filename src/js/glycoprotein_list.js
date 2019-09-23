@@ -29,7 +29,7 @@ var globalSearchTerm = "";
 function buildSummary(queryInfo) {
     var summaryTemplate = $('#summary-template').html();
     if (queryInfo.glycosylated_aa) {
-        queryInfo.glycosylated_aa = queryInfo.glycosylated_aa.join(', ');
+        queryInfo.glycosylated_aa = queryInfo.glycosylated_aa.aa_list.join(', ');
     }
     queryInfo.execution_time = moment().format('MMMM Do YYYY, h:mm:ss a')
     if (queryInfo.mass) {
@@ -185,7 +185,7 @@ $(document).ready(function () {
 function downloadPrompt() {
     var page_type = "protein_list";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
+    var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(id, format, IsCompressed, page_type);
 }
 

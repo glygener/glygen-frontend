@@ -1,0 +1,435 @@
+/* =========================================
+    Default Theme
+    ----------------------------------------
+    Fonts: Raleway & Open Sans
+    ----------------------------------------
+    Colors:
+        Green:               #60BA4B
+        Blue:                #2F78B7
+        Grey:                #212226
+        White Smoke:         #f4f4f4
+        White:               #fff
+        Black:               #000   
+============================================ */
+
+
+/* =========================================
+                Html, Body
+============================================ */
+
+p {
+    font-family: "Verdana", "Geneva", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+section {
+    background: #fff;
+    overflow: hidden;
+}
+
+/* =========================================
+                Buttons
+============================================ */
+
+.btn-general {
+    font-family: "Verdana", "Geneva", sans-serif;
+    border-radius: 28px;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 0 6px;
+    padding: 12px 46px 12px 46px;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.btn-blue {
+    color: #2e78b7;
+    border: 1px solid #2e78b7;
+    background-color: #fff;
+}
+
+.btn-blue:hover,
+.btn-blue:focus {
+    color: #fff;
+    background-color: #2e78b7;
+    border: 1px solid #2e78b7;
+}
+
+.btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 3px 15px;
+    border-radius: 4px;
+    font-size: 22px;
+    display: none;
+}
+
+/* =========================================
+                Content Boxes
+============================================ */
+
+.content-box-md {
+    padding: 40px 0;
+}
+
+.media-container {
+    background: #fff; 
+    margin-bottom: 35px;
+    padding: 0 5% 0;
+}
+
+/* =========================================
+        Vertical/Horizontal Headings
+============================================ */
+
+.vertical-heading h5 {
+    color: #60BA4B;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    word-spacing: 9px;
+    display: inline-block;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    position: relative;
+    top: 60px;
+    left: -53px;
+}
+
+.vertical-heading h2 {
+    margin: 0 0 30px 35px;
+}
+
+.horizontal-heading h2,
+.vertical-heading h2 {
+    font-size: 38px;
+    font-weight: 100;
+    line-height: 45px;
+}
+
+.horizontal-heading {
+    margin-bottom: 30px;
+}
+
+.horizontal-heading h5 {
+    font-size: 16px;
+    color: #60BA4B;
+    font-weight: 540 !important;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.horizontal-heading h2 {
+    margin: 0;
+}
+
+/* =========================================
+               Citations
+============================================ */
+
+.logo-citations {
+    margin-top: 50px;
+}
+
+.text-indent p {
+    text-indent: -50px;
+    padding-left: 50px;
+}
+
+/* =========================================
+                Services 01
+============================================ */
+
+#services-01 img {
+    margin: 60px 0;
+}
+
+.service {
+    margin: 35px 0;
+}
+
+.service .icon {
+    font-size: 42px;
+    margin: 0;
+    color: #2e78b7;
+    -webkit-transition: all 400ms linear;
+    transition: all 400ms linear;
+}
+
+.service:hover .icon {
+    color: #60BA4B;
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px);
+}
+
+.service .icon-svg {
+    font-size: 42px;
+    margin: 0;
+    -webkit-transition: all 400ms linear;
+    transition: all 400ms linear;
+    /* SVG color converter https://codepen.io/sosuke/pen/Pjoqqp */
+    filter: invert(37%) sepia(87%) saturate(410%) hue-rotate(163deg) brightness(93%) contrast(98%);
+}
+
+.service:hover .icon-svg {
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px);
+    filter: invert(61%) sepia(23%) saturate(1009%) hue-rotate(63deg) brightness(98%) contrast(98%);
+}
+
+.service h5 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #2e78b7;
+    margin: 0 0 6px 0;
+}
+
+.service:hover h5 {
+    color: #60BA4B;
+}
+
+.service h4 {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+}
+
+.service p {
+    line-height: normal;
+}
+
+
+/* =========================================
+    Services 02 (Responsive Tabs)
+============================================ */
+
+#services-02 {
+    background: #f4f4f4;
+}
+
+#services-tabs ul {
+    margin-bottom: 10px;
+}
+
+#services-tabs ul li {
+    padding: 5px 20px;
+}
+
+#services-tabs ul li a {
+    font-family: "Verdana", "Geneva", sans-serif;
+    font-size: 13px;
+    color: #212226;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0;
+    text-decoration: none;
+}
+
+#services-tabs ul li a:hover {
+    color: #60BA4B;
+}
+
+/* Tab active state */
+
+#services-tabs ul li.r-tabs-state-active a {
+    color: #60BA4B;
+    font-weight: 700;
+    border-bottom: 3px solid #60BA4B;
+    padding-bottom: 5px;
+    -webkit-transition: border-color 300ms linear;
+    transition: border-color 300ms linear;
+}
+
+.service-tab .col-md-6 {
+    padding: 0;
+}
+
+.service-tab iframe {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.service-tab img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.service-tab .tab-bg {
+    background: #fff;
+    padding: 30px;
+    height: 480px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.service-tab h2 {
+    font-family: "Verdana", "Geneva", sans-serif;
+    font-size: 48px !important;
+    color: #bbb !important;
+    margin-bottom: 20px;
+    font-weight: 100 !important;
+}
+
+.service-tab h3 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.service-tab p {
+    line-height: 24px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+                Portfolio
+============================================ */
+
+
+#portfolio .vertical-heading {
+    margin-bottom: 50px;
+}
+
+.row.no-gutters [class*=col-] {
+    padding: 0;
+}
+
+.portfolio-item {
+    overflow: hidden;
+    position: relative;
+}
+
+
+/* Filters CSS */
+
+#isotope-filters {
+    margin-bottom: 10px;
+    padding: 20px 25px 20px 0;
+}
+
+#isotope-filters button {
+    font-family: "Verdana", "Geneva", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding-right: 35px;
+    outline: 0;
+}
+
+#isotope-filters button:hover {
+    color: #60BA4B;
+}
+
+#isotope-filters button span {
+    display: block;
+    padding-bottom: 5px;
+    -webkit-transition: border-color .4s ease-in-out;
+    transition: border-color .4s ease-in-out;
+}
+
+#isotope-filters button.active span {
+    color: #60BA4B;
+    border-bottom: 3px solid #60BA4B;
+}
+
+
+/* Zoom Effect */
+
+.portfolio-item img {
+    width: 100%;
+    height: auto;
+    -webkit-transition: -webkit-transform .5s ease;
+    transition: -webkit-transform .5s ease;
+    transition: transform .5s ease;
+    transition: transform .5s ease, -webkit-transform .5s ease;
+}
+
+.portfolio-item:hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+/* Overlay Effect */
+
+.portfolio-item-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(14, 14, 17, 0.9);
+    cursor: -webkit-zoom-in;
+    cursor: pointer;
+    opacity: 0;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+/* Item Details Effect */
+
+.portfolio-item-details {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.portfolio-item-details h3 {
+    color: #60BA4B;
+    text-transform: uppercase;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translateY(-20%);
+    transform: translateY(-20%);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.portfolio-item-details span {
+    display: inline-block;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    height: 6px;
+    width: 30px;
+    margin: 11px auto 5px auto;
+}
+
+.portfolio-item-details p {
+    font-size: 17px;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translateY(20%);
+    transform: translateY(20%);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+
+/* Show Overlay on mouse over */
+
+.portfolio-item:hover .portfolio-item-details h3 {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.portfolio-item:hover .portfolio-item-details p {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.portfolio-item:hover .portfolio-item-overlay {
+    opacity: 1;
+}

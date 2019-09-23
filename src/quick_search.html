@@ -6,7 +6,6 @@
 ------------------------------->
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123338976-1"></script>
@@ -89,6 +88,7 @@
     </script>
     <div class="container">
         <section class="cd-faq">
+            <h2 class="page-heading" style="text-align: center; margin-bottom: 30px;">Quick Search </h2>
             <ul class="cd-faq-categories">
                 <li>
                     <a class="selected" href="#search_glycan">Glycan</a>
@@ -103,9 +103,6 @@
                     <a href="#search_disease">Disease</a>
                 </li>
             </ul>
-
-            <h2 class="page-heading" style="text-align: center; margin-bottom: 30px;">Quick Search </h2>
-
             <!--Search by Glycan-->
             <!-- cd-faq-categories -->
             <div class="cd-faq-items">
@@ -140,10 +137,8 @@
                         <a class="cd-faq-trigger localized" id="QUESTION_2" data-key="QUESTION_2"></a>
                         <div class="cd-faq-content form-group form-horizontal padding-bottom">
                             <label class="control-label col-sm-2">Glycan&nbsp;X:</label>
-
                             <div class="col-sm-6">
                                 <input class="form-control" type="text" name="Glytoucan" placeholder="GlyTouCan Accession" id="glycansite" onkeyup="validateGlycanAcc1(this)">
-
                                 <div class="gg-text-example"> Example:
                                     <a href="" id="textExampleGlycansite" data-tippy="Click to Insert">G17689DH</a>
                                     <br>
@@ -225,11 +220,9 @@
                     <li id="li_q6">
                         <a class="cd-faq-trigger localized" id="QUESTION_6" data-key="QUESTION_6"></a>
                         <div class="cd-faq-content form-group form-horizontal padding-bottom">
-                            <label class="control-label col-sm-2">Enzyme&nbsp;X:</label>
-
+                            <label class="control-label col-sm-2">Enzyme &nbsp;X:</label>
                             <div class="col-sm-6">
                                 <input class="form-control" type="text" name="Enzyme" id="glycanenzyme" placeholder="UniProtKB Accession" onkeyup="validateProteinAcc2(this)">
-
                                 <div class="gg-text-example"> Example:
                                     <a href="" id="textExampleGlycanenzyme" data-tippy="Click to Insert">P15291-1</a>
                                     <br>
@@ -238,6 +231,25 @@
                             </div>
                             <div>
                                 <button type="button" name="submit" onclick="glycanEnzyme()" class="btn-sm btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="li_q11">
+                        <a class="cd-faq-trigger localized" id="QUESTION_11" data-key="QUESTION_11"></a>
+                        <div class="cd-faq-content form-group form-horizontal padding-bottom">
+                            <label class="control-label col-sm-2">Protein&nbsp;X:</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="ProteinID" placeholder="UniProtKB Accession" id="proteinSequon" onkeyup="validateProteinAcc(this)">
+
+                                <div class="gg-text-example"> Example:
+                                    <a href="" id="textExampleSequon" data-tippy="Click to Insert">P14210-1</a>
+                                    <br>
+                                    <span id="proteinAccMsg" class="validation-message-quick"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" name="submit" onclick="proteinSequon()" class="btn-sm btn-primary">Search</button>
                             </div>
                         </div>
                     </li>
@@ -344,7 +356,7 @@
                 <a href="#0" class="cd-close-panel">Close</a>
         </section>
         <!-- cd-faq -->
-        </div>
+    </div>
         <div w3-include-html="footer.html"></div>
 
 </body>

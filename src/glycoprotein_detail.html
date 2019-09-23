@@ -45,8 +45,7 @@
     <link rel="stylesheet" type="text/css" href="css/alertify.css">
     <link rel="stylesheet" type="text/css" href="css/feedback.css">
     <!--<link rel="stylesheet" type="text/css" href="css/protein-search.css">-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- CSS common-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/server.css">
@@ -95,6 +94,9 @@
                 <a href="#function">Function</a>
             </li>
             <li>
+                <a href="#go_annotation">GO Annotation</a>
+            </li>
+            <li>
                 <a href="#glycosylation">Glycosylation</a>
             </li>
             <li>
@@ -130,45 +132,48 @@
         </ul>
         <!-- cd-faq-categories -->
         <!-- main content for page -->
-        <div class="cd-faq-items" id="content" style="margin-bottom: 400px; margin-right: 0;">
+        <div class="cd-faq-items container-fluid" id="content" style="margin-bottom: 400px; margin-right: 0;">
             <script id="item_template" type="text/template">
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <!-- breadcrumb filled by javascript -->
-                    <ul class="gg-breadcrumb">
-                        <li id="li-breadcrumb-search"><a href="#" id="breadcrumb-search">Glycoprotein Search</a></li>
-                        <li id="li-breadcrumb-list"><a href="#" id="breadcrumb-list">Glycoprotein List</a></li>
-                        <li id="li-breadcrumb-detail">Glycoprotein Detail</li>
-                    </ul>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <!-- breadcrumb filled by javascript -->
+                        <ul class="gg-breadcrumb">
+                            <li id="li-breadcrumb-search"><a href="#" id="breadcrumb-search">Glycoprotein Search</a></li>
+                            <li id="li-breadcrumb-list"><a href="#" id="breadcrumb-list">Glycoprotein List</a></li>
+                            <li id="li-breadcrumb-detail">Glycoprotein Detail</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <!--Accession  starts here for page -->
-            <center><h2 class="page-heading" style="margin-top: -5px;">Details for Glycoprotein <span> {{#uniprot}} {{uniprot_canonical_ac}} {{/uniprot}} </span>
-            </h2></center>
+                <!--Accession  starts here for page -->
+                <center>
+                    <h2 class="page-heading" style="margin-top: -5px;">Details for Glycoprotein <span> {{#uniprot}} {{uniprot_canonical_ac}} {{/uniprot}} </span>
+                    </h2>
+                </center>
 
-            <div class="row">
-                <div class="dropdown gg-download text-right">
-                    <button class="btn btn-link btn-link-detail dropdown-toggle" type="button" id="download"
-                            alt="Download results" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="glyphicon glyphicon-save"></i> DOWNLOAD
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-box dropdown-menu-right" aria-labelledby="download">
-                        <div class="row">
-                            <div class="col-md-7"><label>Download&nbsp;format: </label></div>
-                            <div class="col-md-5 text-right"><select id='download_format'>
-                                <option value='fasta'>FASTA</option>
-                                <option value='json'>JSON</option>
-                            </select></div>
-                        </div>
-                        <!-- <div class="row">
+                <div class="row">
+                    <div class="dropdown gg-download text-right">
+                        <button class="btn btn-link btn-link-detail dropdown-toggle" type="button" id="download" alt="Download results" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="glyphicon glyphicon-save"></i> DOWNLOAD
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-box dropdown-menu-right" aria-labelledby="download">
+                            <div class="row">
+                                <div class="col-md-7"><label>Download&nbsp;format: </label></div>
+                                <div class="col-md-5 text-left"><select id='download_format'>
+                                        <option value='fasta'>FASTA</option>
+                                        <option value='json'>JSON</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
                             <div class="col-md-7"><label>Compressed: </label></div>
                             <div class="col-md-5"><input type='checkbox' id='download_compression'/></div>
-                        </div> -->
-                        <div class="row" style="padding-top: 15px;">
-                            <div class="col-md-7"></div>
-                            <div class="col-md-5 text-right">
-                                <button class="btn-default" onclick="downloadPrompt();">OK</button>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-7"></div>
+                                <div class="col-md-5 text-right">
+                                    <button class="btn-default" onclick="downloadPrompt();">OK</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -188,6 +193,8 @@
                                 <li class="list-group"><strong>Gene Name:</strong>
                                     <a class="panelcontent" href="{{{url}}}" target="_blank">{{name}}</a>
                                 </li>
+                                <li class="list-group"><strong>Gene Location:</strong> Chromosome: {{locus.chromosome}} ({{locus.start_pos}} - {{locus.end_pos}})
+                                </li> 
                                 {{/gene}}
                                 {{^gene}} {{/gene}}
 
@@ -198,7 +205,7 @@
                                 </li>
                                 {{/uniprot_id}}
                                 {{^uniprot_id}} {{/uniprot_id}}
-
+                                
                                 {{#uniprot_canonical_ac}}
                                 <li class="list-group"><strong>UniProtKB Accession:</strong>
                                     <a class="panelcontent" href="{{url}}" target="_blank">{{uniprot_canonical_ac}}</a>
@@ -206,6 +213,16 @@
                                 {{/uniprot_canonical_ac}}
                                 {{^uniprot_canonical_ac}} {{/uniprot_canonical_ac}}
                                 {{/uniprot}}
+                                
+                                {{#sequence}}
+                                {{#length}}
+                                <li class="list-group"><strong>UniProtKB Accession Length:</strong>
+                                    <a class="panelcontent" href="{{url}}" target="_blank">{{length}}</a>
+                                </li>
+                                {{/length}}
+                                {{^length}} {{/length}}
+                                {{/sequence}}
+                            
 
                                 {{#recommendedname}} {{#full}}
                                 <li class="list-group"><strong>UniProtKB Entry
@@ -214,458 +231,519 @@
                                 </li>
                                 {{/full}}
                                 {{/recommendedname}}
-
+                                {{#mass}}
+                                <li class="list-group"><strong>Chemical Mass:</strong> {{mass.chemical_mass}} Da</li>
+                                {{/mass}}
                                 {{#refseq}}
                                 {{#refseq.ac}}
                                 <li class="list-group"><strong>RefSeq Accession:</strong>
                                     <a class="panelcontent" href="{{{refseq.url}}}" target="_blank">{{refseq.ac}}</a>
                                 </li>
                                 <li class="list-group"><strong>RefSeq Name:</strong> {{refseq.name}}</li>
+                                <li class="list-group"><strong>RefSeq Summary:</strong> {{summary}}</li>
                                 {{/refseq.ac}}
                                 {{/refseq}}
-                                {{#mass}}
-                                
-
-                                <li class="list-group"><strong>Chemical Mass:</strong> {{mass.chemical_mass}} Da</li>
-                                {{/mass}}
+                               
                             </div>
                         </div>
                     </div>
-                </div>
-            </ul>
+                </ul>
 
-            <!-- species -->
-            <ul id="species" class="cd-faq-group">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Species</h4>
-                    </div>
-                    <div class="panel-body">
-                        {{#species}}
-                        <div class="row">
-                            <div class='col-md-12 col-xs-12'>
+                <!-- species -->
+                <ul id="species" class="cd-faq-group">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Species</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#species}}
                                 <div class="row">
-                                    <div class='col-md-6 col-xs-6'>
+                                    <div class='col-md-12 col-xs-12'>
                                         <b>{{name}}:</b>
                                         {{#databases}}
-                                        <span class="evidence_badge"
-                                              style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px">
-                                    <button class="btn btn-primary evidence-badge-btn color-{{database}}" type="button"
-                                            style="background-color:{{color}}; border-color:{{color}}">
-                                        {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
-                                     </button>
-                                    <div class='hidden evidence_links'
-                                         style="position: absolute; left: 0; width: 200px;">
-                                        <ul>
-                                            id:
-                                            {{#links}}
-                                                <li style="position: relative; display: inline-block; padding-left: 5px;"><a
-                                                    class="panelcontent" href="{{url}}" target="_blank">{{id}}</a></li>
-                                            {{/links}}
-                                        </ul>
-                                    </div>
-                                </span>
+                                            <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px">
+                                                <button class="btn btn-primary evidence-badge-btn color-{{database}}" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                </button>
+                                                <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                                    <ul>
+                                                        {{#links}}
+                                                            <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a>
+                                                            </li>
+                                                        {{/links}}
+                                                    </ul>
+                                                </div>
+                                            </span>
                                         {{/databases}}
                                     </div>
                                 </div>
-                            </div>
+                            {{/species}}
+                            {{^species}} No data available. {{/species}}
                         </div>
-                        {{/species}}
-                        {{^species}} No data available. {{/species}}
                     </div>
-                </div>
-            </ul>
+                </ul>
 
-            <!-- Function -->
-            <!-- Function -->
-            <ul id="function" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Function</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            {{#function}}
+                <!-- Function -->
+                <ul id="function" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Function</h4>
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
-                                <div class='col-md-12 col-xs-12'>
-                                    <div class='col-md-9 col-xs-8' style="position: relative; display:block; padding-left: 20px; padding-bottom: 5px; padding-top: 5px">
-                                  {{annotation}}</div>
-                                    {{#databases}}
-                                    <div class='col-md-3 col-xs-4' style="position: relative; display:block; padding-left: 5px; padding-bottom: 5px; padding-top: 5px">
-                                    <span class="evidence_badge"
-                                          style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px">
-                                <button class="btn btn-primary evidence-badge-btn" type="button"
-                                        style="background-color:{{color}}; border-color:{{color}}">
-                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
-                                 </button>
+                                <div class="col-md-12">
+                                    <table id="tbl_function" class="table function-table">
+                                        <tbody>
+                                            {{#function}}
+                                                <tr>
+                                                    <td class="annotation">{{annotation}}</td>
+                                                    <td class="function-table-td">
+                                                        {{#databases}}
+                                                            <div class="evidence_badge">
+                                                                <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                                </button>
+                                                                <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                                                    <ul>
 
-                                <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
-                                    <ul>
-                                        id:
-                                        {{#links}}
-                                        <!--  <div class='col-md-6 col-xs-6' id="evidence_div"> -->
-                                            <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a></li>
-                                        <!--</div>- -->
-                                        {{/links}}
-                                    </ul>
+                                                                        {{#links}}
+                                                                            <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a></li>
+                                                                        {{/links}}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        {{/databases}}
+                                                    </td>
+                                                </tr>
+                                            {{/function}}
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </span>
+                            </div>
+                            {{^function}} No data available. {{/function}}
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Go annotation -->
+                <ul id="go_annotation" class="cd-faq-group">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>GO Annotation</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#go_annotation}}
+                                {{#go_annotation.categories}}
+                                    <div class="row">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class='panelmaincontent'>
+                                                    <li class="list-group2"><Strong>{{name}}:</Strong> </li>
+                                                    {{#go_terms}}
+                                                        <div class='col-md-12 col-xs-12 no-before'>
+                                                            <li style="padding-bottom: 10px;" class="list-group-indent">
+                                                                <a href="{{url}}" target="_blank">{{name}} ({{id}})</a>
+                                                                {{#databases}}
+                                                                    <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 5px; padding-top: 10px">
+                                                                        <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                                            {{database}}&nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                                        </button>
+                                                                        <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                                                            <ul>
+                                                                                {{#links}}
+                                                                                    <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a></li>
+                                                                                {{/links}}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </span>
+                                                                {{/databases}}
+                                                            </li>
+                                                        </div>
+                                                    {{/go_terms}}
+                                                </div>
+                                            </div>
+                                            <div style="margin-top: 10px;">
+                                                <a href="#" onclick="openGOTermListPage();return false;" target="_blank">Total {{total}} in {{name}} category.</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {{/databases}}
-                                    <!--: <a href="{{url}}">{{annotation}}</a>-->
-                                </div>
-                            </div>
-                            {{/function}}
-                        </div>
-                        {{^function}} No data available. {{/function}}
-                    </div>
-                </div>
-            </ul>
-
-
-            <!--Glycosylation-->
-            <ul id="glycosylation" class="cd-faq-group selected">
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Glycosylation</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class='col-md-12 col-xs-12'>
-                            <ul style="margin-bottom: 20px;" class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#1a" data-toggle="tab">With Reported Glycans</a>
-                                </li>
-                                <li><a href="#2a" data-toggle="tab">Without Reported Glycans</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content clearfix">
-                            <div style="margin-bottom: 20px;" class="tab-pane active EmptyFind" id="1a">
-                                {{#hasGlycosylation}}
-                                <table id="glycosylation-table">
-                                </table>
-                                {{/hasGlycosylation}} {{^hasGlycosylation}} No data available. {{/hasGlycosylation}}
-                            </div>
-                            <div class="tab-pane" id="2a">
-                                {{#hasGlycosylation}}
-                                <table id="glycosylation-table2">
-                                </table>
-                                {{/hasGlycosylation}} {{^hasGlycosylation}} No data available. {{/hasGlycosylation}}
-                            </div>
+                                {{/go_annotation.categories}}
+                            {{/go_annotation}}
+                            {{^go_annotation}} No data available. {{/go_annotation}}
                         </div>
                     </div>
-                </div>
-            </ul>
+                </ul>
 
-            <!-- Sequence -->
-            <ul id="sequence" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Sequence</h4>
-                    </div>
-                    <div class="panel-body">
-
-                        {{#sequence}}
-                        <div class="box">
-                            <div class="col-lg-9 col-md-12 col-xs-12 sequence-panel" id="sequnce_highlight"></div>
-                            <div class="col-lg-3 col-md-12 col-sm-12 active">
-                                <ul class="highlight-panel-categories" style="width:100%;">
-                                    <li>
-                                        <input type="checkbox" name="checkbox" id="seq_n_link"
-                                               onchange="checkUncheck('n_link_glycosylation', this)"/>&nbsp;<span
-                                            class="sequnce1">N-linked Glycosylation</span>
+                <!--Glycosylation-->
+                <ul id="glycosylation" class="cd-faq-group selected">
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Glycosylation</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class='col-md-12 col-xs-12'>
+                                <ul style="margin-bottom: 20px;" class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#1a" data-toggle="tab">With Reported Glycans</a>
                                     </li>
-                                    <li>
-                                        <input type="checkbox" name="checkbox"
-                                               onchange="checkUncheck('o_link_glycosylation', this)"/>&nbsp;<span
-                                            class="sequnce2">O-linked Glycosylation</span>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="checkbox"
-                                               onchange="checkUncheck('mutation', this)"/>&nbsp;<span class="sequnce3">Mutation</span>
+                                    <li><a href="#2a" data-toggle="tab">Without Reported Glycans</a>
                                     </li>
                                 </ul>
                             </div>
+                            <div class="tab-content clearfix">
+                                <div style="margin-bottom: 20px;" class="tab-pane active EmptyFind" id="1a">
+                                    {{#hasGlycosylation}}
+                                        <table id="glycosylation-table">
+                                        </table>
+                                    {{/hasGlycosylation}} {{^hasGlycosylation}} No data available. {{/hasGlycosylation}}
+                                </div>
+                                <div class="tab-pane" id="2a">
+                                    {{#hasGlycosylation}}
+                                        <table id="glycosylation-table2">
+                                        </table>
+                                    {{/hasGlycosylation}} {{^hasGlycosylation}} No data available. {{/hasGlycosylation}}
+                                </div>
+                            </div>
                         </div>
-                        {{/sequence}}
-                        {{^sequence}} No data available. {{/sequence}}
                     </div>
-                </div>
-            </ul>
+                </ul>
 
-            <!--Cross References-->
-            <ul id="crossReferences" class="cd-faq-group selected">
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Cross References</h4>
-                    </div>
-                    <div class="panel-body">
-                        {{#itemscrossRef}}
-                        <div class="panelmaincontent">
+                <!-- Sequence -->
+                <ul id="sequence" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
                             <div class="row">
-                                <li class="list-group2"><strong>{{database}}:</strong></li>
-                                {{#links}}
-                                <div class=" col-xs-6 col-sm-3">
-                                    <li class="list-group-indent"><a class="panelcontent" href="{{url}}"
-                                                                     target="_blank">{{id}}&nbsp</a></li>
+                                <div class="col-md-9">
+                                    <h4>Sequence</h4>
                                 </div>
-                                {{/links}}
-                                {{^link}} {{/link}}
+                                <div class="col-md-3">
+                                    <button onclick="proteinView()" class="btn btn-primary" id="viewprotein">
+                                        <font color="white">ProtVista</font> <i class="fas fa-search-plus" style="font-size:24px;color:white"></i>
+                                    </button></div>
                             </div>
                         </div>
-                        {{/itemscrossRef}} {{^itemscrossRef}} No data available. {{/itemscrossRef}}
-                    </div>
-                </div>
-            </ul>
+                        <div class="panel-body">
 
-            <!-- Pathway-->
-            <ul id="pathway" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Pathway</h4>
-                    </div>
-                    <div class="panel-body">
-                        {{#itemsPathway}}
-                        <div class="panelmaincontent">
-                            <li class="list-group"><strong>{{resource}}:</strong></li>
-                            {{#links}}
-                            <li class="list-group-indent">{{name}} &nbsp<a class="panelcontent" href="{{url}}"
-                                                                          target="_blank">{{id}}</a></li>
-                            {{/links}}
+                            {{#sequence}}
+                                <div class="box">
+                                    <div class="col-lg-9 col-md-12 col-xs-12 sequence-panel" id="sequnce_highlight"></div>
+                                    <div class="col-lg-3 col-md-12 col-sm-12 active">
+                                        <ul class="highlight-panel-categories" style="width:100%;">
+                                            <li data-type="n_link_glycosylation">
+                                                <p><input type="checkbox" name="checkbox" id="seq_n_link" {{^n_link_glycosylation_count}}disabled{{/n_link_glycosylation_count}} onchange="checkUncheck('n_link_glycosylation', this)" />&nbsp;<span class="sequnce1">N-linked Sites</span>
+                                                    {{#n_link_glycosylation_count}}<span class="badge badge-light">{{n_link_glycosylation_count}}</span>{{/n_link_glycosylation_count}}</p>
+                                            </li>
+                                            <li data-type="o_link_glycosylation">
+                                                <p><input type="checkbox" name="checkbox" {{^o_link_glycosylation_count}}disabled{{/o_link_glycosylation_count}} onchange="checkUncheck('o_link_glycosylation', this)" />&nbsp;<span class="sequnce2">O-linked Sites </span>{{#o_link_glycosylation_count}}<span class="badge badge-light">{{o_link_glycosylation_count}}</span>{{/o_link_glycosylation_count}}</p>
+                                            </li>
+                                            <li data-type="mutation">
+                                                <p><input type="checkbox" name="checkbox" {{^mutation_count}}disabled{{/mutation_count}} onchange="checkUncheck('mutation', this)" />&nbsp;<span class="sequnce3">Mutation</span>
+                                                    {{#mutation_count}}<span class="badge badge-light">{{mutation_count}}</span>{{/mutation_count}}</p>
+                                            </li>
+                                            <li data-type="site_annotation">
+                                                <p><input type="checkbox" name="checkbox" id="sequon_link" {{^site_annotation_count}}disabled{{/site_annotation_count}}
+                                                       onchange="checkUncheck('site_annotation', this)"/>&nbsp;<span class="sequnce4">Sequon</span>    
+                                                       {{#site_annotation_count}}<span class="badge badge-light" >{{site_annotation_count}}</span>{{/site_annotation_count}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/sequence}}
+                            {{^sequence}} No data available. {{/sequence}}
                         </div>
-                        {{/itemsPathway}} {{^itemsPathway}} No data available. {{/itemsPathway}}
                     </div>
-                </div>
-            </ul>
+                </ul>
 
-            <!--Isoforms-->
-            <ul id="isoform" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Isoforms</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            {{#isoforms}}
-                            <div class="col-lg-9 col-md-12 col-sm-12">
+                <!--Cross References-->
+                <ul id="crossReferences" class="cd-faq-group selected">
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Cross References</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#itemscrossRef}}
                                 <div class="panelmaincontent">
-                                    <li class="list-group"><strong>UniProtKB Isoform Accession:</strong> <a
-                                            class="panelcontent" href="{{{url}}}" target="_blank">{{isoform_ac}}</a>
-                                    </li>
-                                </div>
-                                <div class="panelmaincontent list-group">
-                                    Chromosome: {{locus.chromosome}} ({{locus.start_pos}} - {{locus.end_pos}})
-                                </div>
-                                    {{#databases}}
-                                   <!-- <div class='col-md-6 col-xs-6'> -->
-                               <span class="evidence_badge"
-                                     style="position: relative; display: inline-block; padding-left: 15px; padding-bottom: 15px; padding-top: 5px;">
-                                <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
-                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
-                                 </button>
-
-                                <div class='hidden evidence_links' style="position: absolute; left: 15px; width: 200px;">
-                                    <ul>
+                                    <div class="row">
+                                        <li class="list-group2"><strong>{{database}}:</strong></li>
                                         {{#links}}
-                                            <li class="evidence_id"> <a
-                                                    href="{{url}}" target="_blank">{{id}} </a></li>
+                                            <div class=" col-xs-6 col-sm-3">
+                                                <li class="list-group-indent"><a class="panelcontent" href="{{url}}" target="_blank">{{id}}&nbsp</a></li>
+                                            </div>
                                         {{/links}}
-                                    </ul>
+                                        {{^link}} {{/link}}
+                                    </div>
                                 </div>
-                              </span>
-                                   <!-- </div>  -->
-                                    {{/databases}}
-                                {{^databases}} {{/databases}}
-                                <div class="plus-button-margin-bottom"></div>
-                                <div id="fasta">
-                                    <pre class="highlight-text">{{{sequence.sequence}}}</pre>
+                            {{/itemscrossRef}} {{^itemscrossRef}} No data available. {{/itemscrossRef}}
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Pathway-->
+                <ul id="pathway" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Pathway</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#itemsPathway}}
+                                <div class="panelmaincontent">
+                                    <li class="list-group"><strong>{{resource}}:</strong></li>
+                                    {{#links}}
+                                        <li class="list-group-indent">{{name}} &nbsp<a class="panelcontent" href="{{url}}" target="_blank">{{id}}</a></li>
+                                    {{/links}}
                                 </div>
-                                <br>
+                            {{/itemsPathway}} {{^itemsPathway}} No data available. {{/itemsPathway}}
+                        </div>
+                    </div>
+                </ul>
+
+                <!--Isoforms-->
+                <ul id="isoform" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Isoforms</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                {{#isoforms}}
+                                    <div class="col-lg-9 col-md-12 col-sm-12">
+                                        <div class="panelmaincontent">
+                                            <li class="list-group"><strong>UniProtKB Isoform Accession:</strong> <a class="panelcontent" href="{{{url}}}" target="_blank">{{isoform_ac}}</a>
+                                            </li>
+                                        </div>
+                                        <div class="panelmaincontent list-group">
+                                            Chromosome: {{locus.chromosome}} ({{locus.start_pos}} - {{locus.end_pos}})
+                                        </div>
+                                        <div class="panelmaincontent list-group">UniProtKB Accession Length:
+                                            <a class="panelcontent" href="{{url}}" target="_blank">{{sequence.length}}</a>
+                                        </div>
+                                        {{#databases}}
+                                            <!-- <div class='col-md-6 col-xs-6'> -->
+                                            <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 15px; padding-bottom: 15px; padding-top: 5px;">
+                                                <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                </button>
+
+                                                <div class='hidden evidence_links' style="position: absolute; left: 15px; width: 200px;">
+                                                    <ul>
+
+                                                        {{#links}}
+                                                            <li class="evidence_id"> <a href="{{url}}" target="_blank">{{id}} </a></li>
+                                                        {{/links}}
+                                                    </ul>
+                                                </div>
+                                            </span>
+                                            <!-- </div>  -->
+                                        {{/databases}}
+                                        {{^databases}} {{/databases}}
+                                        <div class="plus-button-margin-bottom"></div>
+                                        <div id="fasta">
+                                            <pre class="highlight-text">{{{sequence.sequence}}}</pre>
+                                        </div>
+                                        <br>
+                                    </div>
+                                {{/isoforms}}
                             </div>
-                            {{/isoforms}}
+                            {{^isoforms}} No data available. {{/isoforms}}
                         </div>
-                        {{^isoforms}} No data available. {{/isoforms}}
                     </div>
-                </div>
-                </div>
-            </ul>
-       <!--Orthologs-->
-       <ul id="orthologs" class="cd-faq-group selected">
-        <li class="cd-faq-title"/>
-        <div class="panel panel-default">
-            <div class="gg-panel-heading">
-                <h4>Orthologs</h4>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    {{#orthologs}}
-                    <div class="col-lg-9 col-md-12 col-sm-12">
-                        <div class="panelmaincontent">
-                            <li class="list-group"><strong>UniProtKB Isoform Accession:</strong> <a
-                                    class="panelcontent" href="{{{url}}}" target="_blank">{{uniprot_canonical_ac}}</a>
-                            </li>
+                </ul>
+
+                <!--Orthologs-->
+                <ul id="orthologs" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Orthologs</h4>
                         </div>
-                        
-                            {{#databases}}
-                           <!-- <div class='col-md-6 col-xs-6'> -->
-                       <span class="evidence_badge"
-                             style="position: relative; display: inline-block; padding-left: 15px; padding-bottom: 15px; padding-top: 5px;">
-                        <button class="btn btn-primary evidence-badge-btn upper-case" type="button" style="background-color:{{color}}; border-color:{{color}}">
-                            {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
-                         </button>
-                        <div class='hidden evidence_links' style="position: absolute; left: 15px; width: 200px;">
-                            <ul>
-                                
-                                {{#links}}
-                                    <li class="evidence_id"> <a
-                                            href="{{url}}" target="_blank">{{id}} </a></li>
-                                {{/links}}
-                            </ul>
+                        <div class="panel-body">
+                            <div class="row">
+                                {{#orthologs}}
+                                    <div class="col-lg-9 col-md-12 col-sm-12">
+                                        <div class="panelmaincontent">
+                                            <li class="list-group"><strong>UniProtKB Ortholog Accession:</strong>
+                                                <a class="panelcontent" href="#" onclick="openProteinDetailPage('{{uniprot_canonical_ac}}');return false;" target="_blank">{{uniprot_canonical_ac}}</a>
+                                            </li>
+                                            <div class="panelmaincontent list-group">
+                                                Organism: {{organism}}
+                                            </div>
+                                        </div>
+
+                                        {{#databases}}
+                                            <!-- <div class='col-md-6 col-xs-6'> -->
+                                            <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 15px; padding-bottom: 15px; padding-top: 5px;">
+                                                <button class="btn btn-primary upper-case evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                </button>
+                                                <div class='hidden evidence_links' style="position: absolute; left: 15px; width: 200px;">
+                                                    <ul>
+
+                                                        {{#links}}
+                                                            <li class="evidence_id"> <a href="{{url}}" target="_blank">{{id}} </a></li>
+                                                        {{/links}}
+                                                    </ul>
+                                                </div>
+                                            </span>
+                                            <!-- </div>  -->
+                                        {{/databases}}
+                                        {{^databases}} {{/databases}}
+                                        <div class="plus-button-margin-bottom"></div>
+                                        <div id="fasta">
+                                            <pre class="highlight-text">{{{sequence.sequence}}}</pre>
+                                        </div>
+                                        <br>
+                                    </div>
+                                {{/orthologs}}
+                            </div>
+                            {{^orthologs}} No data available. {{/orthologs}}
                         </div>
-                      </span>
-                           <!-- </div>  -->
-                            {{/databases}}
-                        {{^databases}} {{/databases}}
-                        <div class="plus-button-margin-bottom"></div>
-                        <div id="fasta">
-                            <pre class="highlight-text">{{{sequence.sequence}}}</pre>
-                        </div>
-                        <br>
                     </div>
-                    {{/orthologs}}
-                </div>
-                {{^orthologs}} No data available. {{/orthologs}}
-            </div>
-        </div>
-        </div>
-    </ul>
-            <!-- Disease -->
-            <ul id="disease" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Disease</h4>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            {{#disease}}
+                </ul>
+
+                <!-- Disease -->
+                <ul id="disease" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Disease</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                {{#disease}}
+                                    <div class="row">
+                                        <div class='col-md-12 col-xs-12'>
+                                            <div class='col-md-8 col-xs-8'>
+                                                {{name}} <br>({{#icd10}}ICD10: {{icd10}}; {{/icd10}}DOID:
+                                                <a class="panelcontent" href="{{{url}}}" target="_blank">{{doid}}</a>)
+                                            </div>
+                                            {{#databases}}
+                                                <div class='col-md-4 col-xs-4'>
+                                                    <span class="evidence_badge" style="position: relative; display: inline-block; padding-left:-15px;  padding-bottom: 30px">
+                                                        <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                            {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                        </button>
+
+                                                        <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                                            <ul>
+                                                                {{#links}}
+                                                                    <li style="position: relative; display: inline-block;"><a href="{{url}}" target="_blank">{{id}}</a></li>
+                                                                {{/links}}
+                                                            </ul>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            {{/databases}}
+                                        </div>
+                                    </div>
+                                {{/disease}}
+                            </div>
+                            {{^disease}} No data available. {{/disease}}
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Mutation -->
+                <ul id="mutation" class="cd-faq-group selected">
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Mutation</h4>
+                        </div>
+                        <div class="panel-body">
                             <div class="row">
                                 <div class='col-md-12 col-xs-12'>
-                                    <div class='col-md-6 col-xs-6'>
-                                        {{name}} ({{#icd10}}ICD10: {{icd10}}; {{/icd10}}DOID: 
-                                        <a class="panelcontent" href="{{{url}}}" target="_blank">{{doid}}</a>): 
-                                    </div>
+                                    {{#mutation}}
+                                        <table id="mutation-table"></table>
+                                    {{/mutation}} {{^mutation}}No data available.{{/mutation}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Expression Tissue -->
+                <ul id="expressionTissue" class="cd-faq-group selected">
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Expression Tissue</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class='col-md-12 col-xs-12'>
+                                    {{#expression_tissue}}
+                                        <table id="expressionTissue-table">
+                                        </table>
+                                    {{/expression_tissue}} {{^expression_tissue}} No data available. {{/expression_tissue}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Expression Disease -->
+                <ul id="expressionDisease" class="cd-faq-group selected">
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Expression Disease</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class='col-md-12 col-xs-12'>
+                                    {{#expression_disease}}
+                                        <table id="expressionDisease-table">
+                                        </table>
+                                    {{/expression_disease}} {{^expression_disease}} No data available.
+                                    {{/expression_disease}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+
+                <!--Publications-->
+                <ul id="publications" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Publications</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#publication}}
+                                <p class="panelmaincontent">
+                                    <li class="list-group" id="panelmaincontent1"> <strong> {{title}}</strong><br>
+                                        {{authors}}.<br>
+                                       <li class="journal">{{journal}}.  {{date}}<br>
+                                            <i class="fas fa-book"></i> PMID:<a href="{{url}}" target="_blank">{{pmid}}</a></li>
+
                                     {{#databases}}
-                                    <div class='col-md-6 col-xs-6'>
-                               <span class="evidence_badge"
-                              style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 30px">
-                                <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
-                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
-                                 </button>
-
-                                <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
-                                    <ul>
-                                        id:
-                                        {{#links}}
-                                            <li style="position: relative; display: inline-block;"><a href="{{url}}" target="_blank">{{id}}</a></li>
-                                        {{/links}}
-                                    </ul>
-                                </div>
-                              </span>
-                                    </div>
-                                    {{/databases}}
-                                </div>
-                            </div>
-                            {{/disease}}
-                        </div>
-                        {{^disease}} No data available. {{/disease}}
-                    </div>
-                </div>
-            </ul>
-
-
-            <!-- Mutation -->
-            <ul id="mutation" class="cd-faq-group selected">
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Mutation</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class='col-md-12 col-xs-12'>
-                                {{#mutation}}
-                                <table id="mutation-table"></table>
-                                {{/mutation}} {{^mutation}}No data available.{{/mutation}}
-                            </div>
+                                    <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px">
+                                        <button class="btn btn-primary evidence-badge-btn color-{{database}}" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                            {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                        </button>
+                                        <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                            <ul>
+                                                {{#links}}
+                                                    <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a>
+                                                    </li>
+                                                {{/links}}
+                                            </ul>
+                                        </div>
+                                    </span>
+                                {{/databases}}
+                            {{/publication}} {{^publication}} No data available. {{/publication}}
                         </div>
                     </div>
-                </div>
-            </ul>
+                </ul>
+              
 
-            <!-- Expression Tissue -->
-            <ul id="expressionTissue" class="cd-faq-group selected">
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Expression Tissue</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class='col-md-12 col-xs-12'>
-                                {{#expression_tissue}}
-                                <table id="expressionTissue-table">
-                                </table>
-                                {{/expression_tissue}} {{^expression_tissue}} No data available. {{/expression_tissue}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ul>
-
-            <!-- Expression Disease -->
-            <ul id="expressionDisease" class="cd-faq-group selected">
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Expression Disease</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class='col-md-12 col-xs-12'>
-                                {{#expression_disease}}
-                                <table id="expressionDisease-table">
-                                </table>
-                                {{/expression_disease}} {{^expression_disease}} No data available.
-                                {{/expression_disease}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ul>
-
-            <!--Publications-->
-            <ul id="publications" class="cd-faq-group selected">
-                <li class="cd-faq-title"/>
-                <div class="panel panel-default">
-                    <div class="gg-panel-heading">
-                        <h4>Publications</h4>
-                    </div>
-                    <div class="panel-body">
-                        {{#publication}}
-                        <p class="panelmaincontent">
-                        <li class="list-group" id="panelmaincontent1"><strong>Journal:</strong> {{journal}}<br>
-                            <strong>Title:</strong> {{title}}<br>
-                            <i class="fas fa-book"></i> PMID:<a href="{{url}}" target="_blank">{{pmid}}</a></li>
-                        {{/publication}} {{^publication}} No data available. {{/publication}}
-                    </div>
-                </div>
-            </ul>
-
-            <a href="#0" class="cd-close-panel">Close</a>
-        </script>
+                <a href="#0" class="cd-close-panel">Close</a>
+            </script>
         </div>
     </section>
 
@@ -706,7 +784,7 @@
 
     <!-- Please do not change this it breaks hash scroll code-->
     <script type="text/javascript">
-        $(document).ajaxStop(function () {
+        $(document).ajaxStop(function() {
             // calls the sidebar function only when all ajax calls are completed
             faqMain();
 
@@ -723,13 +801,10 @@
                     }, 200);
                 }
             }
-
             if (window.location.hash) {
                 scrollToPanel(window.location.hash);
             }
         });
     </script>
-
 </body>
-
 </html>

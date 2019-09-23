@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="row" id="paginationctrl1">
-            <div class="col-md-12 col-xs-12">
+            <div class="col-md-10 col-xs-10">
                 <form class="form-inline" onsubmit="return false;">
                     <label>Page</label>
                     <button type="button" class="btn btn-primary prevbutton" onclick="prev();">Prev</button>
@@ -119,6 +119,8 @@
                     <thead>
                     <tr>
                         <th  data-field="databases" data-sortable="true" data-formatter="EvidencebadgeFormator">Source</th>
+                        <th data-field="uniprot_canonical_ac" data-formatter="PageFormat" data-sortable="true">
+                            UniProtKB Accession</th>
                         <th data-field="protein_name" data-sortable="true">Protein Name  </th> 
                         <th data-field="organism" data-sortable="true">Organism
                         </th>

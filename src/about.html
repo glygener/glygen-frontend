@@ -1,6 +1,6 @@
 <!--------------------------------
 @author: Tatiana Williamson.
-@description: UO1 Version-1.0.1
+@description: About us page
 @date-created: July 1, 2018
 ----------------------------------->
 <!DOCTYPE html>
@@ -26,10 +26,10 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-   
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
     <link rel="stylesheet" type="text/css" href="css/server.css">
     <link rel="stylesheet" type="text/css" href="css/about_map.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icons/favicomatic/apple-touch-icon-57x57.png" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icons/favicomatic/apple-touch-icon-114x114.png" />
@@ -66,7 +66,7 @@
     <div class="cover mission-img">
         <div class="cover-text content">
             <h2>Our Mission</h2>
-            <hr id="img-hr">
+            <hr class="img-hr">
             <ul class="list">
                 <li><b>Provide computational and informatics resources and tools for glycosciences research.</b></li>
                 <li><b>Integrate data and knowledge from diverse disciplines relevant to glycobiology.</b></li>
@@ -88,12 +88,12 @@
                 <div class="col-sm-6 team">
                     <a href="https://www.ccrc.uga.edu/" target="_blank">
 
-                        <img src="images/logo_uga_about.png">
+                        <img src="images/about/logo_uga_about.png">
                     </a>
                 </div>
                 <div class="col-sm-3 team">
                     <a href="https://smhs.gwu.edu/" target="_blank">
-                        <img src="images/logo_gwu_about.png">
+                        <img src="images/about/logo_gwu_about.png">
                     </a>
                 </div>
             </div>
@@ -209,12 +209,30 @@
             </div>
 
             <div class="col-sm-4">
-                <a href="https://www.nih.gov/" target="_blank"><img style="width: 60%; float5: left;" src="images/logo-NIH.PNG"></a>
+                <a href="https://www.nih.gov/" target="_blank"><img style="width: 60%;" src="images/about/logo-NIH.PNG"></a>
                 
-                <a href="https://commonfund.nih.gov/glycoscience" target="_blank"><img style="width: 30%; float: right;" src="images/logo-Glycoscience.png"></a>
+                <a href="https://commonfund.nih.gov/glycoscience" target="_blank"><img style="width: 30%; float: right;" src="images/about/logo-Glycoscience.png"></a>
             </div>
         </div>
     </section>
+    <!-- Team members image-background -->
+    <section id="team-members">
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="team-members-heading" class="text-center">
+                            <h1>Meet Our</h1><br><br>
+                            <h1>Talented <span>Team</span></h1>
+                            
+                            <p> Our innovative and experienced team dedicated their hard work to develop GlyGen portal for glycosciences research. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Investigators -->
     <section id="investigators" class="about-block">
         <h2 class="page-heading">Principal Investigators</h2>
         <!--        <p class="lead">GlyGen is a collaborative project led by</p>-->
@@ -236,6 +254,7 @@
             </div>
         </div>
     </section>
+    <!-- Advocates -->
     <section class="about-block about-section">
         <h2 class="page-heading">Advocates</h2>
         <br>
@@ -260,6 +279,7 @@
             </div>
         </div>
     </section>
+    <!-- Collaborators / Co-Investigators -->
     <section class="about-block">
         <h2 class="page-heading">Key Collaborators /Co-Investigators</h2>
         <h3>Integration with EBI and NCBI</h3>
@@ -267,39 +287,43 @@
             <div class="col-sm-4">
                 <a href="https://www.ebi.ac.uk/about/people/maria-jesus-martin" target="_blank"><img src="images/team/Maria-Martin.png" alt="Team member" class="img-circle" id="team-img"></a>
                 <h4><a class="about-link" href="https://www.ebi.ac.uk/about/people/maria-jesus-martin" target="_blank">Maria Martin</a></h4>
-                <p>European Molecular Biology Laboratory,
-                    <br>EMBL-EBI, Team Leader: Protein Function Development</p>
-            </div>
-            <div class="col-sm-4">
-                <a href="https://www.ebi.ac.uk/about/people/leyla-jael-garcia-castro" target="_blank"><img src="images/team/Pic_Female.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://www.ebi.ac.uk/about/people/leyla-jael-garcia-castro" target="_blank">Leyla Jael Garcia Castro</a></h4>
-                <p>European Molecular Biology Laboratory,
-                    <br>EMBL-EBI, Senior Software Engineer: Protein Function development</p>
+                <p>Team Leader 
+                <br>Protein Function Development
+                <br>EMBL-EBI,
+                <br>Hinxton, Cambridgeshire, UK
+                <br></p>
             </div>
             <div class="col-sm-4">
                 <a href="https://www.ebi.ac.uk/about/people/preethi-vasudev" target="_blank"><img src="images/team/Preethi-Vasudev.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://www.ebi.ac.uk/about/people/preethi-vasudev" target="_blank">Preethi Vasudev</a></h4>
-                <p>European Molecular Biology Laboratory,
-                    <br>EMBL-EBI, Software Engineer: Protein Function development</p>
+                <h4><a class="about-link" href="https://www.ebi.ac.uk/about/people/preethi-vasudev" target="_blank">Preethi Vasudev</a></h4>   
+                <p>Software Engineer 
+                <br>Protein Function Development
+                <br>EMBL-EBI,
+                <br>Hinxton, Cambridgeshire, UK
+                <br></p>
+            </div>
+            <div class="col-sm-4">
+                <img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img">
+                <h4 class="about-link">Evan Bolton</h4>
+                <p>National Center for 
+                <br>Biotechnology Information, 
+                <br>Bethesda, MD</p>
             </div>
         </div>
         <div class="row team">
             <div class="col-sm-4">
-                <a href="javascript://" target="_blank"><img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="javascript://" target="_blank">Evan Bolton</a></h4>
-                <p>National Center for Biotechnology Information, <br>Bethesda, MD</p>
-            </div>
-            <div class="col-sm-4">
-                <a href="javascript://" target="_blank"><img src="images/team/Pic_Female.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="javascript://" target="_blank">Kim Pruitt</a></h4>
-                <p>National Center for Biotechnology Information, <br>Bethesda, MD</p>
+                <img src="images/team/Pic_Female.png" alt="Team member" class="img-circle" id="team-img">
+                <h4 class="about-link">Kim Pruitt</h4>
+                <p>National Center for 
+                <br>Biotechnology Information, 
+                <br>Bethesda, MD</p>
             </div>
         </div>
         <h3>Tool Development and Data Integration</h3>
         <div class="row team">
             <div class="col-sm-4">
-                <a href="javascript://" target="_blank"><img src="images/team/Rene-Ranzinger.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="javascript://" target="_blank">Rene Ranzinger</a></h4>
+                <img src="images/team/Rene-Ranzinger.png" alt="Team member" class="img-circle" id="team-img">
+                <h4 class="about-link" href="javascript://" target="_blank">Rene Ranzinger</h4>
                 <p>Project Software Lead
                     <br>The University of Georgia,
                     <br>Athens, GA</p>
@@ -354,10 +378,9 @@
                     <br>Athens, GA</p>
             </div>
             <div class="col-sm-4">
-                <a href="https://www.gwumc.edu/smhs/facultydirectory/profile.cfm?empName=Brian%20Fochtman&FacID=2061526911&show=1" target="_blank"><img src="images/team/Brian-Fochtman.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://www.gwumc.edu/smhs/facultydirectory/profile.cfm?empName=Brian%20Fochtman&FacID=2061526911&show=1" target="_blank">Brian Fochtman</a></h4>
-                <p>Project Co-Data Lead
-                    <br>The George Washington University,
+                <a href="https://www.linkedin.com/in/wenjinzhang/" target="_blank"><img src="images/team/WenjinZhang.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/wenjinzhang/" target="_blank">Wenjin Zhang  </a></h4>
+                <p>The Georgetown University,
                     <br>Washington, DC</p>
             </div>
         </div>
@@ -376,15 +399,29 @@
                     <br>Cambridge, MA</p>
             </div>
             <div class="col-sm-4">
-                <a href="javascript://" target="_blank"><img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="javascript://" target="_blank">Jefferey Gildersleeve</a></h4>
+                <img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img">
+                <h4 class="about-link">Jefferey Gildersleeve</h4>
                 <p>National Center for Biotechnology Information, <br>Bethesda, MD</p>
             </div>
         </div>
+        <div class="row team">
+            <div class="col-sm-4">
+                <a href="https://www.imperial.ac.uk/people/y.akune" target="_blank"><img src="images/team/YukieAkune.jpg" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.imperial.ac.uk/people/y.akune" target="_blank">Yukie Akune</a></h4>
+                <p>The Imperial College,
+                    <br>London, UK</p>
+            </div>
+            <div class="col-sm-4">
+                <a href="https://www.linkedin.com/in/akulmehta/" target="_blank"><img src="images/team/AkulMehta.jpg" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/akulmehta/" target="_blank">Akul Mehta</a></h4>
+                <p>The Harvard University
+                    <br>Cambridge, MA</p>
+            </div>
+        </div>
     </section>
+    <!-- Data management team -->
     <section class="about-block about-section">
         <h2 class="page-heading">Data Management Team</h2>
-        <!--        <p class="lead">The Data Management Team Members are</p>-->
         <br>
         <div class="row team">
             <div class="col-sm-4">
@@ -395,20 +432,20 @@
             </div>
             <div class="col-sm-4">
                 <a href="https://www.linkedin.com/in/rahi-navelkar-b24b08131/" target="_blank"><img src="images/team/Rahi-Navelkar.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://www.linkedin.com/in/rahi-navelkar-b24b08131/" target="_blank">
-                        Rahi Navelkar</a></h4>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/rahi-navelkar-b24b08131/" target="_blank">Rahi Navelkar</a></h4>
                 <p>The George Washington University,
                     <br>Washington, DC</p>
             </div>
-            <div class="col-sm-3">
-                <a href="https://scholar.google.com/citations?user=L41RrFcAAAAJ&hl=en" target="_blank"><img src="images/team/RezaMousavi.jpg" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://scholar.google.com/citations?user=L41RrFcAAAAJ&hl=en" target="_blank">
-                        Reza Mousavi</a></h4>
+            <div class="col-sm-4">
+                <a href="https://www.linkedin.com/in/xavier-holmes-b579a7173/" target="_blank"><img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/xavier-holmes-b579a7173/" target="_blank">
+                        Xavier Holmes</a></h4>
                 <p>The George Washington University,
                     <br>Washington, DC</p>
             </div>
         </div>
     </section>
+    <!-- Web Developers -->
     <section class="about-block">
         <h2 class="page-heading">Web Developers</h2>
         <br>
@@ -421,16 +458,16 @@
                     <br>Athens, GA</p>
             </div>
             <div class="col-sm-4">
-                <a href=" https://www.linkedin.com/in/glagarwal/" target="_blank"><img src="images/team/Gaurav-Agarval.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href=" https://www.linkedin.com/in/glagarwal/" target="_blank">Gaurav Agarwal</a></h4>
+                <a href="https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/" target="_blank"><img src="images/team/Sujeet.jpeg" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/" target="_blank">Sujeet Kulkarni</a></h4>
                 <p>UI Developer
                     <br>The University of Georgia,
                     <br>Athens, GA</p>
             </div>
             <div class="col-sm-4">
-                <a href="https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/" target="_blank"><img src="images/team/Sujeet.jpeg" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/" target="_blank">Sujeet Kulkarni</a></h4>
-                <p>UI Developer
+                <a href="https://www.linkedin.com/in/nakaras/" target="_blank"><img src="images/team/Pic_Male.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/nakaras/" target="_blank">Sandeep Nakarakommula</a></h4>
+                <p>Full Stock Developer
                     <br>The University of Georgia,
                     <br>Athens, GA</p>
             </div>
@@ -445,8 +482,8 @@
                     <br>Athens, GA</p>
             </div>
             <div class="col-sm-4">
-                <a href="javascript://" target="_blank"><img src="images/team/SenaArpinar.png" alt="Team member" class="img-circle" id="team-img"></a>
-                <h4><a class="about-link" href="javascript://" target="_blank">Sena Arpinar</a></h4>
+                <img src="images/team/SenaArpinar.png" alt="Team member" class="img-circle" id="team-img">
+                <h4 class="about-link">Sena Arpinar</h4>
                 <p>Backend Developer
                     <br>The University of Georgia,
                     <br>Athens, GA</p>
@@ -454,21 +491,126 @@
             <div class="col-sm-4">
                 <a href="https://www.linkedin.com/in/sanathb/" target="_blank"><img src="images/team/Sanath-Bhat.png" alt="Team member" class="img-circle" id="team-img"></a>
                 <h4><a class="about-link" href="https://www.linkedin.com/in/sanathb/" target="_blank">Sanath Bhat</a></h4>
-                <p>UI Developer
+                <p>Full Stock Developer
                     <br>The University of Georgia,
                     <br>Athens, GA</p>
+            </div>
+        </div>
+        
+    </section>
+    <!-- Former members -->
+    <section class="about-block about-section">
+        <h2 class="page-heading">Former Members</h2>
+        <br>
+        <div class="row team">
+            <div class="col-sm-4">
+                <a href="https://www.linkedin.com/in/vinamra-jain09/" target="_blank"><img src="images/team/Vinamra-Jain.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.linkedin.com/in/vinamra-jain09/" target="_blank">Vinamra Jain</a></h4>
+                <p>Backend Developer
+                    <br>The University of Georgia,
+                    <br>Athens, GA
+                    <br><em>Left project March 2019</em></p>
+            </div>
+            <div class="col-sm-4">
+                <a href="https://www.ebi.ac.uk/about/people/leyla-jael-garcia-castro" target="_blank"><img src="images/team/Pic_Female.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.ebi.ac.uk/about/people/leyla-jael-garcia-castro" target="_blank">Leyla Jael Garcia Castro</a></h4>
+                <p>European Molecular Biology Laboratory,
+                    <br>EMBL-EBI, Senior Software Engineer: Protein Function development
+                    <br><em>Left project May 2019</em></p>
+            </div>
+            <div class="col-sm-4">
+                <a href=" https://www.linkedin.com/in/glagarwal/" target="_blank"><img src="images/team/Gaurav-Agarval.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href=" https://www.linkedin.com/in/glagarwal/" target="_blank">Gaurav Agarwal</a></h4>
+                <p>UI Developer
+                    <br>The University of Georgia,
+                    <br>Athens, GA
+                    <br><em>Left project June 2019</em></p>
+            </div>
+        </div>
+        <div class="row team">
+            <div class="col-sm-4">
+                <a href="https://www.gwumc.edu/smhs/facultydirectory/profile.cfm?empName=Brian%20Fochtman&FacID=2061526911&show=1" target="_blank"><img src="images/team/Brian-Fochtman.png" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://www.gwumc.edu/smhs/facultydirectory/profile.cfm?empName=Brian%20Fochtman&FacID=2061526911&show=1" target="_blank">Brian Fochtman</a></h4>
+                <p>Project Co-Data Lead
+                <br>The George Washington University,
+                <br>Washington, DC
+                <br><em>Left project June 2019</em></p>
+            </div>
+            <div class="col-sm-4">
+                <a href="https://scholar.google.com/citations?user=L41RrFcAAAAJ&hl=en" target="_blank"><img src="images/team/RezaMousavi.jpg" alt="Team member" class="img-circle" id="team-img"></a>
+                <h4><a class="about-link" href="https://scholar.google.com/citations?user=L41RrFcAAAAJ&hl=en" target="_blank">Reza Mousavi</a></h4>
+                <p>Data Management
+                <br>The George Washington University,
+                <br>Washington, DC
+                <br><em>Left project July 2019</em></p>
+            </div>
+        </div>
+    </section>
+    <!-- University logos -->
+    <section id="university-logos" class="about-block">
+        <div class="content-box-lg">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-125 col-sm-125">
+                        <div id="univ-logo-list" class="owl-carousel owl-theme">
+                            <!-- University 01 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/uga.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 02 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/gw.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 03 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/georgetown.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 04 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/harvard.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 05 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/ncbi.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 06 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/griffith.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 07 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/imperial.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 08 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/embl.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 09 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/soka.png" class="img-responsive" alt="university logo">
+                            </div>
+                            <!-- University 10 -->
+                            <div class="univ-logo col-md-2 col-sm-6 col-xs-12">
+                                <img src="images/about/univ-logo/glyspaceIcon.png" class="img-responsive" alt="university logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     
     <div w3-include-html="footer.html"></div>
     <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
+    <!-- script for jquery -->
+    <script type="text/javascript" src="libraries/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/navbar.js"></script>
     <script type="text/javascript" src="js/domain_url.js"></script>
     <script src="js/ws_url.js"></script> <!-- script for getting Web Service URLs -->
     <script src="js/activity_tracker.js"></script> <!-- script for logging activity -->
     <script src="js/utility.js"></script>
+
 </body>
 
 </html>

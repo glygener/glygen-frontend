@@ -221,3 +221,10 @@ body{
   .name{
       color: white;   
   }
+  .protvistaicon{
+    position: fixed;
+    top:50%;
+  }
+  ol{
+    color:#fffff8;
+  }

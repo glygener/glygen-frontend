@@ -75,6 +75,66 @@ $("#gene_name").autocomplete({
     }
 });
 
+/** categorized typeahead auto complete widget
+ */
+$.widget("custom.categoryautocomplete", $.ui.autocomplete, {
+    _create: function() {
+        this._super();
+        this.widget().menu("option", "items", "> :not(.ui-autocomplete-lable)");
+    },
+    _renderMenu: function(ul, items) {
+        var that = this,
+        curCategory = "";
+    $.each(items, function(index, item) {
+        if (item.category !== curCategory) {
+            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            curCategory = item.category;
+        }
+        that._renderItemData(ul, item);
+    });
+    }
+});
+
+/** returns category and label wise sorted typeahead suggestions
+ */
+function getSortedCategorizedTypeahead(suggestions) {
+
+    var category_sorted =  suggestions.sort(function(a, b){ 
+        if (a.category.toUpperCase() === b.category.toUpperCase()) return 0; 
+        else if(a.category.toUpperCase() > b.category.toUpperCase()) return 1;
+        else if(a.category.toUpperCase() < b.category.toUpperCase()) return -1;
+    });
+    
+    var category_label_sorted =  category_sorted.sort(function(a, b){ 
+        if (a.category.toUpperCase() === b.category.toUpperCase()) {
+            if (a.label.toUpperCase() === b.label.toUpperCase()) return 0; 
+            else if(a.label.toUpperCase() > b.label.toUpperCase()) return 1;
+            else if(a.label.toUpperCase() < b.label.toUpperCase()) return -1;
+        }
+    });
+
+    return category_label_sorted;
+}
+
+/** go_term on change detect and suggest auto complete options from retrieved Json
+ * @gotermjson - forms the JSON to post
+ * @data-returns the categorized go_term
+ */
+$("#go_term").categoryautocomplete({
+    delay: 0,
+    source: function (request, response) {
+        var queryUrl = getWsUrl("categorized_typeahead") + "?" + getSearchCategorizedTypeheadData("go_term", request.term, 15, 5);
+        $.getJSON(queryUrl, function (suggestions) {
+            category_label_sorted = getSortedCategorizedTypeahead(suggestions);
+            response(category_label_sorted);
+        });
+    },
+    minLength: 1,
+    select: function (event, ui) {
+        console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+    }
+});
+
 /** pathway field on change detect and suggest auto complete options from retrieved Json
  * @pathwayjson - forms the JSON to post
  * @data-returns the pathway.

@@ -38,8 +38,11 @@ $(function () {
 });
 
 var searchInitValues;
-var mass_max;
-var mass_min;
+var mass_type_native;
+var native_mass_min;
+var native_mass_max;
+var perMet_mass_min;
+var perMet_mass_max;
 var sugar_mass_min;
 var sugar_mass_max;
 $(document).ready(function () {
@@ -71,8 +74,20 @@ $(document).ready(function () {
                 createOption(glycanElement, result.glycan_type[x].name, result.glycan_type[x].name);
             }
 
-            mass_max = Math.ceil(result.glycan_mass.max);
-            mass_min = Math.floor(result.glycan_mass.min);
+            mass_type_native = result.glycan_mass.native.name;
+            native_mass_max = Math.ceil(result.glycan_mass.native.max);
+            native_mass_min = Math.floor(result.glycan_mass.native.min);
+            perMet_mass_max = Math.ceil(result.glycan_mass.permethylated.max);      
+            perMet_mass_min = Math.floor(result.glycan_mass.permethylated.min);           
+
+            var massType = $("#mass-drop").get(0);
+            result.organism.sort(sortDropdown);
+
+            for (mstype in result.glycan_mass){
+                createOption(massType, result.glycan_mass[mstype].name, result.glycan_mass[mstype].name);
+            }
+            massType.value = result.glycan_mass.native.name;
+
             var sugar_mass_min = Math.floor(result.number_monosaccharides.min);
             var sugar_mass_max = Math.ceil(result.number_monosaccharides.max);
 
@@ -82,12 +97,12 @@ $(document).ready(function () {
             }
             new Sliderbox({
                 target: '.sliderbox',
-                start: [mass_min, mass_max], // Handle start position
+                start: [native_mass_min, native_mass_max], // Handle start position
                 connect: true, // Display a colored bar between the handles
                 behaviour: 'tap-drag', // Move handle on tap, bar is draggable
                 range: { // Slider can select '0' to '100'
-                    'min': mass_min,
-                    'max': mass_max
+                    'min': native_mass_min,
+                    'max': native_mass_max
                 }
             });
             new Sliderbox1({
@@ -222,6 +237,47 @@ Sliderbox1.prototype.handler = function (target) {
     });
 };
 
+/** glycan mass type dropdown on change event handler 
+ */
+$('#mass-drop').on('change', function (){
+    
+    var minval_range;
+    var maxval_range;
+    var glycan_mass_type = $("#mass-drop option:selected").val();
+    var slider = $("#sliderbox-slider").get(0);
+    var mass_slider = slider.noUiSlider.get();
+    var minval = mass_slider[0];
+    var maxval = mass_slider[1];
+
+    if (glycan_mass_type == mass_type_native){
+        minval_range = native_mass_min;
+        maxval_range = native_mass_max;
+
+        if (minval == perMet_mass_min)
+            minval = native_mass_min;
+
+        if (maxval == perMet_mass_max)
+            maxval = native_mass_max;
+    } else {
+        minval_range = perMet_mass_min;
+        maxval_range = perMet_mass_max;
+
+        if (minval == native_mass_min)
+            minval = perMet_mass_min;
+
+        if (maxval == native_mass_max)
+            maxval = perMet_mass_max;
+    }
+
+    slider.noUiSlider.updateOptions({
+        range: {
+            'min': minval_range,
+            'max': maxval_range
+        }
+    });
+    slider.noUiSlider.set([minval, maxval]);
+});
+
 /** glycan sub type dropdown function based on type field
  * @param {numeric} ddl1 - User selected glycan type
  * @param {numeric} ddl2 - Glycan sub type
@@ -290,6 +346,7 @@ function submitvalues() {
     var prevListId = getParameterByName("id") || "";
     activityTracker("user", prevListId, "Performing Advanced Search");
     var query_type = "search_glycan";
+    var mass_type = document.getElementById("mass-drop").value;
     var mass_slider = document.getElementById("sliderbox-slider").noUiSlider.get();
     var sugar_slider = document.getElementById("sliderbox-slider1").noUiSlider.get();
     var glycan_id = document.getElementById("glycan_id").value;
@@ -303,7 +360,7 @@ function submitvalues() {
     var proteinid = document.getElementById("protein").value;
     var enzyme = document.getElementById("enzyme").value;
     var glycan_motif = document.getElementById("motif").value;
-    var formObject = searchjson(query_type, glycan_id, mass_slider[0], mass_slider[1], sugar_slider[0], sugar_slider[1], organism, glycan_type, glycan_subtype, enzyme, proteinid, glycan_motif);
+    var formObject = searchjson(query_type, glycan_id, mass_type, mass_slider[0], mass_slider[1], sugar_slider[0], sugar_slider[1], organism, glycan_type, glycan_subtype, enzyme, proteinid, glycan_motif);
     var json = "query=" + JSON.stringify(formObject);
     $.ajax({
         type: 'post',
@@ -338,9 +395,10 @@ function resetAdvanced() {
     setFormValues({
         query: {
             query_type: "search_glycan",
+            mass_type: mass_type_native,
             mass: {
-                "min": mass_min,
-                "max": mass_max
+                "min": native_mass_min,
+                "max": native_mass_max
             },
             number_monosaccharides: {
                 "min": 1,
@@ -349,7 +407,12 @@ function resetAdvanced() {
             enzyme: {},
             glytoucan_ac: "",
             organism: {
-                id: "0"
+                organism_list: [
+                    {
+                        "id": 0,
+                    }
+                ],
+                "operation":"or"
             },
             glycan_type: "",
             glycan_subtype: "",
@@ -363,6 +426,7 @@ function resetAdvanced() {
  * Forms searchjson from the form values submitted
  * @param {string} input_query_type query search
  * @param {string} input_glycan_id user glycan id input
+ * @param {string} input_mass_type user mass type input
  * @param {string} mass_min user mass min input
  * @param {string} mass_max user mass max input
  * @param {string} input_organism user organism input
@@ -373,7 +437,7 @@ function resetAdvanced() {
  * @param {string} input_motif user motif input
  * @return {string} returns text or id
  */
-function searchjson(input_query_type, input_glycan_id, mass_min, mass_max, sugar_min, sugar_max, input_organism, input_glycantype, input_glycansubtype, input_enzyme, input_proteinid, input_motif) {
+function searchjson(input_query_type, input_glycan_id, input_mass_type, mass_min, mass_max, sugar_min, sugar_max, input_organism, input_glycantype, input_glycansubtype, input_enzyme, input_proteinid, input_motif) {
     var enzymes = {}
     if (input_enzyme) {
         enzymes = {
@@ -385,13 +449,14 @@ function searchjson(input_query_type, input_glycan_id, mass_min, mass_max, sugar
         "id": 0,
         "name": "All"
     }
-    if (input_organism.id !== "0") {
+    if (input_organism.id !== 0) {
         organisms.id = input_organism.id;
         organisms.name = input_organism.name;
     }
     var formjson = {
         "operation": "AND",
         query_type: input_query_type,
+        mass_type: input_mass_type,
         mass: {
             "min": parseInt(mass_min),
             "max": parseInt(mass_max)
@@ -403,7 +468,15 @@ function searchjson(input_query_type, input_glycan_id, mass_min, mass_max, sugar
         },
         enzyme: enzymes,
         glytoucan_ac: input_glycan_id,
-        organism: organisms,
+        organism: {
+            organism_list: [
+                {
+                    "id": organisms.id,
+                    "name": organisms.name
+                }
+            ],
+            "operation":"or"
+        },
         glycan_type: input_glycantype,
         glycan_subtype: input_glycansubtype,
         protein_identifier: input_proteinid,

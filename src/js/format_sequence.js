@@ -47,6 +47,25 @@ function getMutationHighlightData(mutationData) {
 }
 
 /**
+ * Getting sequon data
+ * @param {array} sequonData
+ * @return an array of highlight info.
+ */
+function getSequonHighlightData(sequonData) {
+    var result = [];
+    var positions = {};
+    for (var x = 0; x < sequonData.length; x++) {
+        if (!positions[sequonData[x].start_pos]) {
+            positions[sequonData[x].start_pos] = true;
+            result.push({
+                start: sequonData[x].start_pos,
+                length: (sequonData[x].end_pos - sequonData[x].start_pos) + 1
+            });
+        }
+    }
+    return result;
+}
+/**
  * checking is highlighted or not
  * @param {number} position
  * @param {array} selection
@@ -84,7 +103,8 @@ function buildHighlightData(sequence, highlightData) {
                 character: sequence[x],
                 n_link_glycosylation: isHighlighted(position, highlightData.n_link_glycosylation),
                 o_link_glycosylation: isHighlighted(position, highlightData.o_link_glycosylation),
-                mutation: isHighlighted(position, highlightData.mutation)
+                mutation: isHighlighted(position, highlightData.mutation),
+                site_annotation: isHighlighted(position, highlightData.site_annotation)
             });
         }
         return result;
@@ -147,6 +167,12 @@ function createHighlightRow(start, rowData) {
         .hide()
         .appendTo($section);
 
+        $('<span class="highlight-highlight"></span>')
+        .attr('data-type', 'site_annotation')
+        .html(buildRowHighlight(rowData, 'site_annotation'))
+        .hide()
+        .appendTo($section);
+
     $('<span class="highlight-highlight"></span>')
         .attr('data-type', 'n_link_glycosylation')
         .html(buildRowHighlight(rowData, 'n_link_glycosylation'))
@@ -182,7 +208,8 @@ function createHighlightUi(highlightData, perLine) {
                     character: '&nbsp;',
                     n_link_glycosylation: false,
                     o_link_glycosylation: false,
-                    mutation: false
+                    mutation: false,
+                    site_annotation:false
                 });
             }
             $.merge(rowData, rowDataTemp[i]);

@@ -99,46 +99,80 @@
 
         </div>
         <script id="item_template_detail" type="text/template">
-        <!-- Glycan ID Title -->
-        <center><h2 class="page-heading motif-panel-space" style="margin-top: -5px;">Motif Details for <span>
-                {{#glytoucan}}{{glytoucan_ac}}{{/glytoucan}}</span></h2></center>
-        </div>
+            <!-- Glycan ID Title -->
+            <center>
+                <h2 class="page-heading motif-panel-space" style="margin-top: -5px;">Motif Details for <span>
+                        {{#glytoucan}}{{glytoucan_ac}}{{/glytoucan}}</span></h2>
+            </center>
+            </div>
 
-
-        <!-- General Panel-->
-        <ul id="general" class="cd-faq-group">
-            <li class="cd-faq-title"/>
-            <div class="panel panel-default">
-                <div class="gg-panel-heading"><h4>General</h4></div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12">
-                            <div class='img-wrapper1'>
-                                <img class='img-cartoon1' src="{{imagePath}}" alt='Cartoon' width='90%'/>
-                                <br/>
-                            </div>
+            <!-- Download -->
+            <div class="row">
+                <div class="dropdown gg-download text-right">
+                    <button class="btn btn-link btn-link-detail dropdown-toggle" type="button"
+                            id="download" alt="Download results" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">
+                        <i class="glyphicon glyphicon-save"></i> DOWNLOAD
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-box dropdown-menu-right" aria-labelledby="download">
+                        <div class="row">
+                            <div class="col-md-7"><label>Download&nbsp;format: </label></div>
+                            <div class="col-md-5 text-left"><select id='download_format'>
+                                <option value='json'>JSON</option>
+                            </select></div>
                         </div>
-                        <div class="col-md-12 col-xs-6">
-                            {{#glytoucan}}
-                            <li class="list-group"><strong>GlyTouCan Accession:</strong> <a class="panelcontent"
-                             href="{{glytoucan_url}}" target="_blank">  {{glytoucan_ac}} </a>
-                            </li>{{/glytoucan}}
-
-                            {{#mass}}
-                            <li class="list-group"><strong>Chemical Mass:</strong> {{mass}} Da </li>{{/mass}}
-
-                            {{#classification}}
-                            <li class="list-group"><strong>Glycan Type/Subtype:</strong>
-                                {{type.name}}
-                                {{subtype.name}}
-                            </li>
-                            {{/classification}} {{^classification}}  {{/classification}}
+                        <div class="row">
+                            <div class="col-md-7"><label>Compressed: </label></div>
+                            <div class="col-md-5"><input type='checkbox' id='download_compression'/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5 text-right">
+                                <button class="btn-default" onclick="downloadPrompt();">OK</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </ul>
-    </script>
+
+            <!-- General Panel-->
+            <ul id="general" class="cd-faq-group">
+                <li class="cd-faq-title" />
+                <div class="panel panel-default">
+                    <div class="gg-panel-heading">
+                        <h4>General</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div class='img-wrapper1'>
+                                    <img class='img-cartoon1' src="{{imagePath}}" alt='Cartoon' width='90%' />
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xs-6">
+                                {{#glytoucan}}
+                                    <li class="list-group"><strong>GlyTouCan Accession:</strong> <a class="panelcontent" href="{{glytoucan_url}}" target="_blank"> {{glytoucan_ac}} </a>
+                                    </li>
+                                {{/glytoucan}}
+
+                                {{#mass}}
+                                    <li class="list-group"><strong>Chemical Mass:</strong> {{mass}} Da </li>
+                                {{/mass}}
+
+                                {{#classification}}
+                                    <li class="list-group"><strong>Glycan Type/Subtype:</strong>
+                                        {{type.name}}
+                                        {{subtype.name}}
+                                    </li>
+                                {{/classification}} {{^classification}} {{/classification}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </script>
         <div class="cd-faq-items motif-panel-space" id="content">
             <!-- Glycans Containing this Motif-->
             <!--        <div class="cd-faq-items">-->
@@ -210,25 +244,25 @@
         <div class="cd-faq-items" id="content_publ" style="margin-bottom: 600px;">
         </div>
         <script id="item_template_publ" type="text/template">
-        <!--Publications-->
-        <ul id="publications" class="cd-faq-group selected">
-            <li class="cd-faq-title" />
-            <div class="panel panel-default">
-                <div class="gg-panel-heading">
-                    <h4>Publications</h4>
+            <!--Publications-->
+            <ul id="publications" class="cd-faq-group selected">
+                <li class="cd-faq-title" />
+                <div class="panel panel-default">
+                    <div class="gg-panel-heading">
+                        <h4>Publications</h4>
+                    </div>
+                    <div class="panel-body">
+                        {{#publication}}
+                            <p class="panelmaincontent">
+                                <li class="list-group" id="panelmaincontent1"> <strong>Journal:</strong> {{journal}}<br>
+                                    <strong>Title:</strong> {{title}}<br>
+                                    <i class="fas fa-book"></i> PMID:<a href="{{url}}" target="_blank">{{pmid}}</a></li>
+                        {{/publication}} {{^publication}} No data available. {{/publication}}
+                    </div>
                 </div>
-                <div class="panel-body">
-                    {{#publication}}
-                    <p class="panelmaincontent">
-                    <li class="list-group" id="panelmaincontent1"> <strong>Journal:</strong> {{journal}}<br>
-                        <strong>Title:</strong> {{title}}<br>
-                        <i class="fas fa-book"></i> PMID:<a href="{{url}}" target="_blank">{{pmid}}</a></li>
-                    {{/publication}} {{^publication}} No data available. {{/publication}}
-                </div>
-            </div>
-        </ul>
+            </ul>
 
-    </script>
+        </script>
         </div>
 
         <a href="#0" class="cd-close-panel">Close</a>
@@ -271,11 +305,9 @@
     <script src="js/evidence_badge.js"></script>
 
     <script type="text/javascript">
-        $(document).ajaxStop(function () {
+        $(document).ajaxStop(function() {
             // calls the sidebar function only when all ajax calls are completed
             faqMain();
         });
     </script>
-</body>
-
-</html>
+</body></html>

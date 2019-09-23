@@ -71,28 +71,23 @@
     <div class="container-fluid text-center homepageContainer">
         <div class="row">
             <!--  <div class="col-sm-9">-->
-            <div class="col-lg-9 col-md-12">
+            <div class="col-md-9 col-sm-12">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <div class="panel panel-default text-left card">
-                            <div class="panel-body">
-                                <div class="col-lg-122 col-lg-3 glygenIconIndex">
-                                    <img class="glygenIconIndex" src="images/glygen-icon.svg" style="width: 100%; padding-top: 30px;">
-                                </div>
-                                <div class="col-lg-122 col-lg-9">
-
-                                    <h1 id="glygen-h1">GlyGen</h1>
-                                    <h3 class="title">
-                                        Computational and Informatics Resources for Glycoscience
-                                    </h3>
-                                    <p>
-                                        GlyGen is a data integration and dissemination project for carbohydrate and
-                                        glycoconjugate related data. GlyGen retrieves information from multiple
-                                        international data sources and integrates and harmonizes this data. This web
-                                        portal allows exploring this data and performing unique searches that cannot be
-                                        executed in any of the integrated databases alone.
-                                    </p>
-                                </div>
+                            <div class="panel-body top-info-card">
+                                <img class="img-responsive pull-left" src="images/homepage/glygen-symble.svg">
+                                <h1 id="glygen-h1">GlyGen</h1>
+                                <h3 class="title">
+                                    Computational and Informatics Resources for Glycoscience
+                                </h3>
+                                <p>
+                                    GlyGen is a data integration and dissemination project for carbohydrate and
+                                    glycoconjugate related data. GlyGen retrieves information from multiple
+                                    international data sources and integrates and harmonizes this data. This web
+                                    portal allows exploring this data and performing unique searches that cannot be
+                                    executed in any of the integrated databases alone.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +97,7 @@
                     <div class="col-sm-4">
                         <div class="thumbnail card">
                             <a class="gg-img-card" href="glycan_search.html">
-                                <img src="images/glycan.png" alt="Glycan" style="width: 90%;">
+                                <img src="images/homepage/glycan-img.svg" alt="Glycan" style="width5: 90%;">
                             </a>
                             <div class="caption text-left">
 
@@ -121,7 +116,7 @@
                     <div class="col-sm-4">
                         <div class="thumbnail card">
                             <a class="gg-img-card" href="protein_search.html">
-                                <img src="images/protein.png" alt="protein" style="width: 90%;">
+                                <img src="images/homepage/protein-img.svg" alt="protein" style="width5: 90%;">
                             </a>
                             <div class="caption text-left">
                                 <h3 class="title">Protein</h3>
@@ -139,7 +134,7 @@
                     <div class="col-sm-4">
                         <div class="thumbnail card">
                             <a class="gg-img-card" href="glycoprotein_search.html">
-                                <img src="images/glycoprotein.png" alt="Glycoprotein" style="width: 90%;">
+                                <img src="images/homepage/glycoprotein-img.svg" alt="Glycoprotein" style="width5: 90%;">
                             </a>
                             <div class="caption text-left">
                                 <h3 class="title glycoprotein">Glycoprotein</h3>
@@ -222,13 +217,13 @@
                                     <p>
                                         <a href="#void" class="list-group-item" onclick="tryBioEnzyme()">
                                             What are the enzymes involved in the biosynthesis of
-                                            <span style="color: #2F78B7;"> Man5 </span>in human?
+                                            <span style="color: #2F78B7;"> Man5-(G55220VL) </span>in human?
                                         </a>
 
                                         <a href="#void" class="list-group-item" onclick="tryGlycanSite()">
                                             Which proteins have been shown to bear
-                                            <span style="color: #2F78B7;"> a bi-antennary fully sialylated N-Glycan
-                                            </span>and which site is this glycan attached
+                                            <span style="color: #2F78B7;"> a bi-antennary fully sialylated N-Glycan-(G77252PU)
+                                            </span> and which site is this glycan attached
                                             to?
                                         </a>
 
@@ -260,7 +255,7 @@
 
             <div class="row" style="padding-bottom: 18px;">
                 <!--  <div class="col-sm-3"> -->
-                <div class="col-lg-3 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class=" panel panel-default thumbnail card">
                         <h3 class="home-headings">Version</h3>
                         <div id="loadVersion" class="loading-indicator"> <img src="images/page_loading.gif" /></div>
@@ -275,7 +270,7 @@
                         <h3 class="home-headings">Your Opinion Matters</h3>
                         <br>
                         <a href="feedback.html">
-                            <img src="images/feedback-img.png" alt="Feedback">
+                            <img src="images/homepage/feedback-icon.svg" alt="Feedback image">
                         </a>
                         <div class="caption text-left">
                             <p>
@@ -293,12 +288,19 @@
 
                     <div class="panel panel-default thumbnail card">
 
-                        <h3 class="home-headings">Statistics &amp; Facts</h3>
+<!--                        <h3 class="home-headings">Statistics &amp; Facts</h3>-->
+                       <h3 class="home-headings">Database Statistics</h3>
                         
                         <div id="loadStatistics" class="loading-indicator"> <img src="images/page_loading.gif" /></div>
+                        
+<!--                        <a href="statistics.html">-->
+<!--                            <img src="images/homepage/statistics.svg"                                 alt="statistics image">-->
+<!--                        </a>-->
+<!--
                         <div class="caption">
                             <p>GlyGen's Database Statistics.</p>
                         </div>
+-->
                         <div id="statistics-display" class="caption text-left table-hover statistics-table" style="padding-left: 18px;"></div>
                     </div>
 
@@ -306,7 +308,7 @@
                         <h3 class="home-headings">Explore Other Resources</h3>
                         <br>
                         <a href="resources.html">
-                            <img src="images/resources/Resources-hands.png" alt="resources">
+                            <img src="images/homepage/resources-hands.svg" alt="resources image">
                         </a>
                         <p class="caption text-left">GlyGen is pleased to provide users with a variety of resources in
                             glycobiology.</p>

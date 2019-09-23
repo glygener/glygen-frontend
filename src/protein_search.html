@@ -121,8 +121,7 @@
                                     <div class="col-sm-4 gg-form-group">
                                         <select id="simplifiedCategory">
 <!--                                            <option value="any"></option>-->
-                                        </select>
-                                       
+                                        </select>   
                                     </div>
                                     <div class="col-sm-6 gg-form-group">
                                         <input type="text" 
@@ -136,11 +135,11 @@
                                     <div class="col-sm-2 gg-form-group text-right">
                                         <input type="button" class="btn-lg btn-primary" value="Search" onclick="searchProteinSimple()">
                                     </div>
-                                    
                                     <div id="search-simple-display"></div>
-                              
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        * <em>"<strong>Any category</strong>"</em> allows you to search an entire GlyGen database, including the context match. *
+                                    </div>
                                 </div>
-                               
                             </div> <!--    End Simplified Search Div-->
                         </div> <!--  End first Tab -->
 
@@ -167,8 +166,8 @@
                                                     data-placement="top"
                                                     data-trigger="click"
                                                     data-html="true"
-                                                    data-content="A unique identifier assigned to a isoform chosen to be the canonical sequence in UniProt database. <br><br>Enter the UniProtKB Accession of your protein. Explore <a href='https://www.uniprot.org/' target='_blank'>UniProtKB</a>"
-                                                    tooltip-title="A unique identifier assigned to a isoform chosen to be the canonical sequence in UniProt database. <br><br>Enter the UniProtKB Accession of your protein.">
+                                                    data-content="Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database. <br><br>Enter the UniProtKB Accession of your protein. Explore <a href='https://www.uniprot.org/' target='_blank'>UniProtKB</a>"
+                                                    tooltip-title="Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database. <br><br>Enter the UniProtKB Accession of your protein.">
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span> UniProtKB Accession:
                                             </label>
@@ -319,12 +318,12 @@
                                                     data-placement="top"
                                                     data-trigger="click"
                                                     data-html="true"
-                                                    data-content="Name/Symbol of the gene officially assigned by the HUGO Gene Nomenclature Committee (HGNC). <br><br>Enter the Name of the Gene encoding your protein. Explore <a href='https://www.ncbi.nlm.nih.gov/gene'  target='_blank'> Gene Name"
-                                                    tooltip-title="Name/Symbol of the gene officially assigned by the HUGO Gene Nomenclature Committee (HGNC). <br><br>Enter the Name of the Gene encoding your protein. ">
+                                                    data-content="Name/Symbol of the gene officially assigned by the Gene Nomenclature Committees (HGNC, ICSGNM, RGNC etc). <br><br>Enter the Name of the Gene encoding your protein. Explore <a href='https://www.ncbi.nlm.nih.gov/gene'  target='_blank'> Gene Name"
+                                                    tooltip-title="Name/Symbol of the gene officially assigned by the Gene Nomenclature Committees (HGNC, ICSGNM, RGNC etc). <br><br>Enter the Name of the Gene encoding your protein. ">
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span> Gene Name:
                                             </label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8 gg-form-group">
                                                 <input type="text" 
                                                     name="GeneName" 
                                                     class="form-control gene_name"
@@ -342,6 +341,46 @@
                                                 </div>
                                                 <br>
                                                 <h6 id='geneNameMsg' class="validation-message"></h6>
+                                            </div>
+                                        </div>
+                                         <!-- GO Name -->
+                                         <div class="row">
+                                            <label class="control-label col-sm-4" for="go_term">
+                                                <span><a class="link-with-tooltip" href="javascript://" \
+                                                    title="GO Name"
+                                                    data-toggle="popover"
+                                                    data-placement="top"
+                                                    data-trigger="click"
+                                                    data-html="true"
+                                                    data-content="Gene ontology is a precisely defined, common controlled vocabulary for describing the roles of genes and gene products in any organism and includes three categories: Molecular function, Biological process, and Cellular component.
+                                                    <br><br>
+                                                    GO Name - term name, which may be a word or string of words.
+                                                    GO ID - a unique alphanumeric identifier. Explore <a href='http://geneontology.org/docs/ontology/' target='_blank'> GO Name"
+                                                    tooltip-title="Gene ontology is a precisely defined, common controlled vocabulary for describing the roles of genes and gene products in any organism and includes three categories: Molecular function, Biological process, and Cellular component.
+                                                    <br><br>
+                                                    GO Name - term name, which may be a word or string of words.
+                                                    GO ID - a unique alphanumeric identifier.">
+                                                    <i class="far fa-question-circle help-sign"></i></a>
+                                                </span>GO Name:
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text"
+                                                    name="GOTerm"
+                                                    class="form-control go_term"
+                                                    id="go_term"
+                                                    placeholder="Enter the GO Name of your protein" onkeyup="validateGOTerm(this)">   
+                                                <div>
+                                                    <div class="gg-text-left">Example: <a
+                                                    href="#mitochondrion" id="textExampleGOTerm"
+                                                    data-toggle="tooltip"
+                                                    data-tippy="Click to Insert">mitochondrion</a></div>
+
+                                                    <div class="gg-text-right">Explore <a href="http://geneontology.org/docs/ontology/" 
+                                                    target="_blank"
+                                                    data-tippy="Explore GO Name Database">GO Name</a></div>
+                                                </div>
+                                                <br>
+                                                <h6 id='goTermMsg' class="validation-message"></h6>
                                             </div>
                                         </div>
                                         <!-- Protein or Peptide Sequence -->
@@ -399,8 +438,8 @@
                                                     data-placement="top"
                                                     data-trigger="click"
                                                     data-html="true"
-                                                    data-content="A biological pathway is a series of actions among molecules in a cell that leads to a certain product or a change in the cell. <br><br>Enter a Pathway ID from KEGG or Reactome. Explore <a href='https://www.genome.jp/kegg/pathway.html' target='_blank'> KEGG</a> or <a href='https://reactome.org/' target='_blank'> Peptide Sequence</a>"
-                                                    tooltip-title="A biological pathway is a series of actions among molecules in a cell that leads to a certain product or a change in the cell. <br><br>Enter a Pathway ID from KEGG or Reactome.">
+                                                    data-content="A biological pathway is a series of actions among molecules in a cell that leads to a certain product or a change in the cell. <br><br>Enter a Pathway ID from KEGG Pathway or Reactome. Explore <a href='https://www.genome.jp/kegg/pathway.html' target='_blank'> KEGG Pathway</a> or <a href='https://reactome.org/' target='_blank'> Peptide Sequence</a>"
+                                                    tooltip-title="A biological pathway is a series of actions among molecules in a cell that leads to a certain product or a change in the cell. <br><br>Enter a Pathway ID from KEGG Pathway or Reactome.">
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span> Pathway ID: </label>
                                             <div class="col-sm-8">
@@ -409,7 +448,7 @@
                                                     name="pathway" 
                                                     class="form-control pathway"
                                                     id="pathway" 
-                                                    placeholder="Enter a KEGG or Reactome ID"
+                                                    placeholder="Enter a KEGG Pathway or Reactome ID"
                                                     onkeyup="validatePathwayID(this)">
                                                 <div>
                                                     <div class="gg-text-left">Example: <a class="textExamplePathway" 
@@ -417,7 +456,7 @@
                                                     data-tippy="Click to Insert">hsa:3082</a></div>
                                                     
                                                     <div class="gg-text-right">Explore <a href="https://www.genome.jp/kegg/pathway.html" target="_blank"
-                                                    data-tippy="Explore KEGG Database">KEGG</a></div>  
+                                                    data-tippy="Explore KEGG Pathway Database">KEGG Pathway</a></div>  
                                                     <br> 
                                                     <div class="gg-text-left">Example: <a class="textExamplePathway" 
                                                     href="#R-HSA-114608"

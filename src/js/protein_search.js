@@ -42,6 +42,7 @@ function resetAdvanced() {
             refseq_ac: "",
             protein_name: "",
             gene_name: "",
+            go_term: "",
             pathway_id: "",
             uniprot_canonical_ac: "",
             sequence: {
@@ -260,9 +261,10 @@ function ajaxProteinSearchSuccess() {
     var refseq_id = $("#refseq").val();
     var gene_name = $("#gene_name").val();
     var protein_name = $("#protein_name").val();
+    var go_term = $("#go_term").val();
     var pathway_id = $("#pathway").val();
     var sequence = $("#sequences").val().replace(/\n/g, "");
-    var formObject = searchJson(query_type, mass_slider[0], mass_slider[1], organism, uniprot_id, refseq_id, gene_name, protein_name, pathway_id, sequence)
+    var formObject = searchJson(query_type, mass_slider[0], mass_slider[1], organism, uniprot_id, refseq_id, gene_name, protein_name, go_term, pathway_id, sequence)
     var json = "query=" + JSON.stringify(formObject);
     $.ajax({
         type: 'post',
@@ -299,12 +301,13 @@ function ajaxProteinSearchSuccess() {
  * @param {string} input_refseq_id user input
  * @param {string} input_gene_name user input
  * @param {string} input_protein_name user input
+ * @param {string} input_go_term user input
  * @param {string} input_pathway_id user input
  * @param {string} input_sequence user input
  * @return {string} returns text or id
  */
 function searchJson(input_query_type, mass_min, mass_max, input_organism, input_protein_id,
-    input_refseq_id, input_gene_name, input_protein_name, input_pathway_id, input_sequence) {
+    input_refseq_id, input_gene_name, input_protein_name, input_go_term, input_pathway_id, input_sequence) {
     var sequences;
     if (input_sequence) {
         sequences = {
@@ -331,6 +334,7 @@ function searchJson(input_query_type, mass_min, mass_max, input_organism, input_
         refseq_ac: input_refseq_id? input_refseq_id: undefined,
         protein_name: input_protein_name? input_protein_name: undefined,
         gene_name: input_gene_name?input_gene_name: undefined,
+        go_term: input_go_term? input_go_term: undefined,
         pathway_id: input_pathway_id ?input_pathway_id: undefined,
         uniprot_canonical_ac: input_protein_id ?input_protein_id: undefined
     });

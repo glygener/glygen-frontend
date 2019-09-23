@@ -190,8 +190,8 @@ $(document).ajaxStop(function () {
  * @since Oct 22, 2018.
  */
 function downloadPrompt() {
-    var page_type = "glycan_list";
+    var page_type = "motif_detail";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
-    downloadFromServer(id, format, IsCompressed, page_type);
+    var IsCompressed = $('#download_compression').is(':checked');
+    downloadFromServer(glytoucan_ac, format, IsCompressed, page_type);
 }

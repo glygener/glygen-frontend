@@ -1,0 +1,333 @@
+/* @author:Rupali Mahadik.
+ @description: UO1 Version-1.1. 
+ @date:17 June 2019
+ */
+
+.main {
+  display: grid;
+  grid-template-columns: 12% auto;
+}
+
+.main-nav {
+  padding-top: 1.2rem;
+  height: 90vh;
+  /* padding-top: 1.5rem; */
+}
+
+.active {
+  font-weight: bold;
+}
+
+.main-nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-nav__list li a {
+  display: block;
+  padding-left: 1rem;
+  width: 100%;
+  line-height: 4rem;
+  color: #000000;
+  text-decoration: none;
+}
+
+.main-nav__list li a:hover {
+  color: #fffff8;
+  color: #000000;
+}
+
+.main-content {
+  color: #fffff8;
+  padding: 1rem;
+}
+
+/********************/
+
+/** InterPro Track **/
+
+/********************/
+
+.child-location-group path {
+  stroke-width: 1px;
+}
+
+.child-location-group.clg-0 path {
+  stroke: #aed0e4;
+}
+
+.child-location-group.clg-1 path {
+  stroke: #1ba3b6;
+}
+
+.child-location-group.clg-2 path {
+  stroke: #d0aee4;
+}
+
+.child-location-group.clg-3 path {
+  stroke: #a31bb6;
+}
+
+.child-location-group.clg-4 path {
+  stroke: #e4d0ae;
+}
+
+.child-location-group.clg-5 path {
+  stroke: #b6a31b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#nglyco {
+  padding-left: 20%;
+}
+
+#oglyco {
+  padding-left: 20%;
+}
+
+/* Style the tab */
+
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 300px;
+}
+
+/* Style the buttons inside the tab */
+
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 300px;
+}
+
+.nav-item {
+  border-bottom: 1px solid #ACABAB;
+  height: 45px;
+  background-color: #E6E6E6
+}
+
+.nav-item1 {
+  border-bottom: 1px solid #ACABAB;
+  height: 45px;
+  background-color: #E6E6E6
+}
+
+.nav-track {
+  border-bottom: 1px solid rgb(166, 166, 169);
+  height: 45px;
+  /* background-color: #b2f5ff; */
+  /* background-color: #e4d0ae */
+}
+
+ 
+.hidden {
+  display: none !important;
+}
+
+.nav-link {
+  overflow: hidden;
+}
+.fa {
+  font: normal normal normal 22px/1 FontAwesome;
+ 
+ 
+  
+}
+.fa fa-caret-right{
+  color: lawngreen
+}
+.img-wrapper {
+  z-index: -1;
+  padding-left: 10px;
+  padding: 0.5em;
+  width: 500px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  color: #333333;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+small {
+  font-size: 1rem;
+}
+
+.img-cartoon {
+  display: block;
+  max-width: 400px;
+  max-height: 160px;
+  width: auto;
+  height: auto;
+  -webkit-transform: scale(1);
+  transform: scale(0.8);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+
+  /* //z-index: 99999; */
+  overflow: scroll;
+}
+
+.marker {
+  font-size: 20px;
+  /* color: #0886f4; */
+  color: white;
+}
+
+.footernote {
+  position: absolute;
+  left: 0;
+  bottom: 6%;
+
+  width: 100%;
+  background-color: #b5b1b1;
+  text-align-last: center;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+  padding: 2px;
+}
+@media only screen and (max-width: 500px) {
+  .footernote {
+    width: 100%;
+    bottom: 20%;
+  }
+  
+}
+
+body {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.header {
+  color: #ffffff;
+  padding: 15px;
+}
+
+ul {
+  color: black;
+}
+
+
+/* circle */
+.super1 {
+  color: red;
+  font-size: 22px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+/* triangle */
+.super2 {
+  color: red;
+  font-size: 14px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+/* circle */
+.super3 {
+  color: blue;
+  font-size: 22px;
+  cursor: pointer;
+}
+/* triangle */
+.super4 {
+  color: blue;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* dimond  */
+.super5 {
+  font-size: 22px;
+  color: green;
+  cursor: pointer;
+}
+.super6 {
+  font-size: 22px;
+  color: orange;
+  cursor: pointer;
+}
+.superx {
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+}
+
+#glycotrack, #glycotrack1{
+  height: 60px;
+}
+
+.nav-glycosylation{
+  height: 60px;
+}
+.nav-combinetrack{
+  height: 60px;
+}
+.indentsubnav{
+  padding-left:17px;
+  background-color: rgb(252, 252, 252)
+}
+
+.arrowanimation {
+  transition: transform 100ms;
+}
+
+#arrowanimation.arrowanimation-down {
+  transform: rotate(90deg);
+}

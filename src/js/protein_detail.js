@@ -39,11 +39,11 @@ function ajaxSuccess(data) {
             if (data.gene) {
                 for (var i = 0; i < data.gene.length; i++) {
                     // assign the newly result of running formatSequence() to replace the old value
-                     data.gene[i].locus.start_pos = addCommas(data.gene[i].locus.start_pos);
-                    data.gene[i].locus.end_pos = addCommas(data.gene[i].locus.end_pos);  
-                   
+                    if (data.gene[i].locus){
+                        data.gene[i].locus.start_pos = addCommas(data.gene[i].locus.start_pos);
+                        data.gene[i].locus.end_pos = addCommas(data.gene[i].locus.end_pos);
+                    }
                 }
-             
             }
 
             if (data.isoforms) {
@@ -69,7 +69,28 @@ function ajaxSuccess(data) {
                 }
             }
         }
+
+        if (data.go_annotation && data.go_annotation.categories) {
+
+            // Sorting Go term categories in specific order - 1. "MOLECULAR FUNCTION", 2. "BIOLOGICAL PROCESS", 3. "CELLULAR COMPONENT".
+            // This will help mustache template to show categories in specific order. 
+            var mapGOTerm = { "MOLECULAR FUNCTION":1, "BIOLOGICAL PROCESS":2, "CELLULAR COMPONENT":3 };     
+
+            data.go_annotation.categories = data.go_annotation.categories.sort(function(a, b){ 
+                var resVal1 = mapGOTerm[a.name.toUpperCase()];
+                var resVal2 = mapGOTerm[b.name.toUpperCase()]
+
+                return resVal1 - resVal2;
+            });
+
+            for (var i = 0; i < data.go_annotation.categories.length; i++) {
+                // assign the newly result of running formatSequence() to replace the old value
+                formatEvidences(data.go_annotation.categories[i].go_terms);
+            }
+        }
+
         formatEvidences(data.species);
+        formatEvidences(data.publication);
         formatEvidences(data.function);
         formatEvidences(data.mutation);
         formatEvidences(data.glycosylation);
@@ -140,6 +161,37 @@ function ajaxSuccess(data) {
 
             data.itemsPathway = itemsPathway;
         }
+        var itemspublication = [];
+        if (data.publication) {
+            for (var i = 0; i < data.publication.length; i++) {
+                var publicationitem = data.publication[i];
+                var found = '';
+                for (var j = 0; j < itemspublication.length; j++) {
+                    var databaseitem1 = itemspublication[j];
+                    if (databaseitem1.resource === publicationitem.resource) {
+                        found = true;
+                        databaseitem1.links.push({
+                            url: publicationitem.url,
+                            id: publicationitem.id,
+                            name: publicationitem.name
+                        });
+                    }
+                }
+                if (!found) {
+                    itemspublication.push({
+                        resource: publicationitem.resource,
+                        links: [{
+                            url: publicationitem.url,
+                            id: publicationitem.id,
+                            name: publicationitem.name
+                        }]
+                    });
+                }
+            }
+
+            data.itemspublication = itemspublication;
+        }
+       
 
         if (data.glycosylation) {
             highlight.o_link_glycosylation = getGlycosylationHighlightData(data.glycosylation, 'O-linked');
@@ -166,7 +218,7 @@ function ajaxSuccess(data) {
 
         if (data.glycosylation) {
             data.glycosylation = data.glycosylation.map(function (item) {
-                item.residue = item.residue + item.position;
+                item.respos = item.residue + item.position;
                 return item;
             });
 
@@ -202,6 +254,9 @@ function ajaxSuccess(data) {
             }
         }
 
+        if (data.site_annotation){
+        highlight.site_annotation = getSequonHighlightData(data.site_annotation);
+    }
 
         if (data.glycosylation) {
             data.o_link_glycosylation_count = highlight.o_link_glycosylation.reduce(function (total, current) {
@@ -219,6 +274,11 @@ function ajaxSuccess(data) {
                 return total + current.length;
             }, 0);
         }
+
+        if (data.site_annotation) {
+            data.site_annotation_count = data.site_annotation.length;
+        }
+
         var sequenceData = buildHighlightData(originalSequence, highlight);
         var html = Mustache.to_html(template, data);
         var $container = $('#content');
@@ -256,15 +316,19 @@ function ajaxSuccess(data) {
                 },
 
                 {
-                    field: 'residue',
+                    field: 'respos',
                     title: 'Residue',
-                    sortable: true
+                    sortable: true,
+                    formatter: function (value, row, index, field) {
+                        var uniprotAcc = getParameterByName("uniprot_canonical_ac"); 
+                        return "<a href='site_view.html?uniprot_canonical_ac=" + uniprotAcc + "&position=" + row.position +"&listID=" + getParameterByName("listID") + "&gs=" + getParameterByName("gs")+ "'>" + value + "</a>";
+               }
+                    
                 },
                 {
                     field: 'imageFormat',
                     title: 'Image of Glycan Structure',
                     sortable: true,
-
                     formatter: function imageFormat(value, row, index, field) {
                         var url = getWsUrl('glycan_image', row.glytoucan_ac);
                         return "<div class='img-wrapper'><img class='img-cartoon' src='" + url + "' alt='Cartoon' /></div>";
@@ -297,17 +361,20 @@ function ajaxSuccess(data) {
                 },
 
                 {
-                    field: 'residue',
+                    field: 'respos',
                     title: 'Residue',
-                    sortable: true
-
-                }
+                    sortable: true,
+                    formatter: function (value, row, index, field) {
+                        var uniprotAcc = getParameterByName("uniprot_canonical_ac"); 
+                        return "<a href='site_view.html?uniprot_canonical_ac=" + uniprotAcc + "&position=" + row.position +"&listID=" + getParameterByName("listID") + "&gs=" + getParameterByName("gs")+ "'>" + value + "</a>";
+               }
+            },
             ],
             pagination: 10,
             data: data.itemsGlycosyl2,
             onPageChange: function () {
                 scrollToPanel("#glycosylation");
-                // setupEvidenceList();
+                 setupEvidenceList();
             },
           
        
@@ -371,6 +438,10 @@ function ajaxSuccess(data) {
                 }],
             pagination: 10,
             data: itemsMutate,
+            onPageChange: function () {
+
+                setupEvidenceList();
+            }
           
         });
 
@@ -458,6 +529,11 @@ function ajaxSuccess(data) {
     setupEvidenceList();
     $('#loading_image').fadeOut();
     updateBreadcrumbLinks();
+
+    if (select ==='site_annotation'){
+        $("#sequon_link").prop( "checked", true );
+        $('#sequon_link').trigger('change');
+    }
 }
 
 
@@ -481,7 +557,6 @@ function LoadData(uniprot_canonical_ac) {
 }
 
 
-
 /**
  * getParameterByName function to extract query parametes from url
  * @param {name} string for the name of the variable variable to extract from query string
@@ -499,15 +574,46 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function proteinView(){
+    var url = 'protvista_index.html';
+    url += '?uniprot_canonical_ac=' + uniprot_canonical_ac;
+    url += "&listID=" + getParameterByName("listID") || "";
+    // window.open(url); 
+    window.location.href=url;
+}
+
 
 
 $(document).ready(function () {
     uniprot_canonical_ac = getParameterByName('uniprot_canonical_ac');
+    select = getParameterByName('select');
     id = uniprot_canonical_ac;
     document.title = uniprot_canonical_ac + " Detail - glygen"; //updates title with the protein ID
     LoadData(uniprot_canonical_ac);
     updateBreadcrumbLinks();
+  
 });
+
+
+
+
+/**
+ * This function opens the page listing GO terms.
+ */
+function openGOTermListPage(){
+    // Static url for listing GO terms.
+    var url = 'https://www.ebi.ac.uk/QuickGO/annotations?geneProductId=';
+    url += uniprot_canonical_ac.split("-")[0];
+    window.open(url);
+}
+
+/**
+ * This function opens the Protein Detail page.
+ */
+function openProteinDetailPage(uniprot_orthologs_ac){
+    var url = window.location.origin + "/protein_detail.html?uniprot_canonical_ac=" + uniprot_orthologs_ac;
+    window.open(url);
+}
 
 /**
  * this function gets the URL query values
@@ -548,6 +654,6 @@ function updateBreadcrumbLinks() {
 function downloadPrompt() {
     var page_type = "protein_detail";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
+    var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(uniprot_canonical_ac, format, IsCompressed, page_type);
 }

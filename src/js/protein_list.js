@@ -198,7 +198,7 @@ $(document).ajaxStop(function () {
 function downloadPrompt() {
     var page_type = "protein_list";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
+    var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(id, format, IsCompressed, page_type);
 }
 
@@ -217,7 +217,6 @@ function updateBreadcrumbLinks() {
 
 
 $(document).ready(function () {
-    // limit = $(element).val();
     LoadDataList();
     updateBreadcrumbLinks();
 });

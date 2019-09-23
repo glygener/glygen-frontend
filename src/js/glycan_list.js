@@ -144,6 +144,7 @@ function ajaxListSuccess(data) {
                 items.push({
                     glytoucan_ac: glycan.glytoucan_ac,
                     mass: glycan.mass,
+                    mass_pme: glycan.mass_pme,
                     number_proteins: glycan.number_proteins,
                     number_enzymes: glycan.number_enzymes,
                     number_monosaccharides: glycan.number_monosaccharides,
@@ -239,7 +240,7 @@ $(document).ajaxStop(function () {
 function downloadPrompt() {
     var page_type = "glycan_list";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
+    var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(id, format, IsCompressed, page_type);
 }
 

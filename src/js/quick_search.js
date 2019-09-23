@@ -227,7 +227,20 @@ function glycanEnzyme() {
         }
     })
 }
-
+/**
+ * Sorts dropdown list in asc order in advanced search
+ * @param {string} a dropdown name
+ * @param {string} b dropdown name
+ * @return {string} asc order name
+ */
+function sortDropdown(a, b) {
+    if (a.name < b.name) {
+        return -1;
+    } else if (b.name < a.name) {
+        return 1;
+    }
+    return 0;
+}
 /**
  * Q.7- What are the glycosyltransferases in species X?
  */
@@ -237,8 +250,10 @@ $(document).ready(function () {
     $.getJSON(getWsUrl("search_init_glycan"), function (result) {
         searchInitValues = result;
         var orgElement = $("#organism1").get(0);
-        createOption(orgElement, result.organism[0].name, result.organism[0].id);
-        createOption(orgElement, result.organism[1].name, result.organism[1].id);
+        result.organism.sort(sortDropdown);
+        for (var x = 0; x < result.organism.length; x++) {
+                createOption(orgElement, result.organism[x].name, result.organism[x].id);
+            }
     });
      /** 
     * @param {string} No results found 
@@ -286,8 +301,10 @@ $(document).ready(function () {
     $.getJSON(getWsUrl("search_init_glycan"), function (result) {
         searchInitValues = result;
         var orgElement = $("#organism2").get(0);
-        createOption(orgElement, result.organism[0].name, result.organism[0].id);
-        createOption(orgElement, result.organism[1].name, result.organism[1].id);
+        result.organism.sort(sortDropdown);
+        for (var x = 0; x < result.organism.length; x++) {
+                createOption(orgElement, result.organism[x].name, result.organism[x].id);
+            }
     });
 });
 
@@ -327,8 +344,10 @@ $(document).ready(function () {
     $.getJSON(getWsUrl("search_init_glycan"), function (result) {
         searchInitValues = result;
         var orgElement = $("#organism3").get(0);
-        createOption(orgElement, result.organism[0].name, result.organism[0].id);
-        createOption(orgElement, result.organism[1].name, result.organism[1].id);
+        result.organism.sort(sortDropdown);
+        for (var x = 0; x < result.organism.length; x++) {
+                createOption(orgElement, result.organism[x].name, result.organism[x].id);
+            }
         var question = getParameterByName('question');
         var id = getParameterByName('id');
         if(id) {
@@ -407,6 +426,43 @@ function glycosyTtransferasesDisease() {
     })
 }
 //Q.10.
+
+/**
+ * Q-11.What are the SEQUON of protein X in different species?
+ */
+$("#proteinSequon").autocomplete({
+    source: function (request, response) {
+        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("uniprot_canonical_ac", request.term);
+        $.getJSON(queryUrl, function (suggestions) {
+            suggestions.length = Math.min(suggestions.length, 5);
+            response(suggestions);
+        });
+    },
+    minLength: 1,
+    select: function (event, ui) {
+        console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+    }
+});
+
+function proteinSequon() {
+    var id = $("#proteinSequon").val();
+    $.ajax({
+        type: 'post',
+        url: getWsUrl("search_proteinSequon", id),
+        error: ajaxFailure,
+        success: function (results) {
+            if (results.list_id) {
+                // window.location = './protein_detail.html?id='+ "&question=QUESTION_11";
+                window.location = "protein_detail.html?uniprot_canonical_ac=" + id +'&select=site_annotation'+'#sequence';
+            }
+            else {
+                //displayErrorByCode('no-results-found');
+                showNoResultsFound("li_q11");
+            }
+        }
+    })
+}
+
 
 function populateLastGlycanSearch(question, id) {
     $.ajax({
@@ -504,6 +560,7 @@ function populateLastSearch(question, id) {
         case 'QUESTION_4':
             populateLastOrthougusSearch(question, id);
             break;
+            
         default:
             // call API for all others
             populateLastProteinSearch(question, id);

@@ -42,7 +42,8 @@ function databasecolor(name) {
         case 'mgi': return '#ff8080';
         case 'hgnc': return '#518a8a';
         case 'homologene': return '#9a039a';
-        case 'oma': return '#bbea5e';
+        case 'oma': return '#89a15c';
+        case 'mgi_homologset': return '#e8a2e8';
 
     }
 }
@@ -408,6 +409,8 @@ function downloadFromServer(id, format, compressed, type) {
     $('#loading_image').fadeIn();
 
     var mimeType = "text";
+    var fields = undefined;
+    var data = "text";
     var ext = "";
     if (format === "csv") {
         mimeType = "text/csv";
@@ -419,7 +422,9 @@ function downloadFromServer(id, format, compressed, type) {
     } else if (format === "json") {
         mimeType = "application/json";
         ext = ".json";
-    } else if (format === "image") {
+    } else if (format === "png") {
+        data = undefined;
+        fields = {responseType:"blob"};
         mimeType = "image/png";
         ext = ".png";
     } else if (format === "tsv") {
@@ -427,9 +432,17 @@ function downloadFromServer(id, format, compressed, type) {
         ext = ".tsv";
     }
 
+    if (compressed){
+        data = undefined;
+        fields = {responseType:"blob"};
+        mimeType += ", application/gzip";
+        ext += ".gzip";
+    }
+  
     $.ajax({
         method: 'POST',
-        dataType: "text",
+        dataType: data,
+        xhrFields: fields,
         url: getWsUrl('data_download') + "?query=" + JSON.stringify(download_query),
         success: function (result) {
             //uses the download.js library.
@@ -513,11 +526,13 @@ function populateFromKeyValueStore(controlId, key, prefix, suffix, contentsIndex
         $("#" + controlId).contents()[contentsIndex].data = prefix + jsonData[key].display_name + suffix;
     });
 }
+
+//Moved this function to navbar.js line 72
 // for Data and SPARQL link in header page
-$(function () {
-    $("#a_data").attr('href', ws_base_data);
+//$(function () {
+    //$("#a_data").attr('href', ws_base_data);
     //$("#a_sparql").attr('href', ws_base_sparql);
-});
+//});
 
 
 // Details pages scrolling to top :
@@ -538,3 +553,4 @@ $(function () {
 // if (window.location.hash) {
 //     scrollToPanel(window.location.hash);
 // }
+

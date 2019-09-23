@@ -92,10 +92,17 @@ function tryMouseGlycans() {
         "operation": "AND",
         "query_type": "search_glycan",
         "mass": {},
+        "mass_type":"native",
         "number_monosaccharides": {},
         "enzyme": { "type": "gene", "id": "Mgat1" },
-        "organism": { "id": 10090, "name": "Mus musculus" }
+        "organism": {"organism_list":[{"id":10090,"name":"Mus musculus"}],"operation":"and"}   
     };
+
+   
+
+
+
+
     var json = "query=" + JSON.stringify(jsonData);
 
     $.ajax({

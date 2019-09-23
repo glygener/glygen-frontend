@@ -114,16 +114,16 @@
                     <div class="dropdown-menu dropdown-menu-box dropdown-menu-right" aria-labelledby="download">
                         <div class="row">
                             <div class="col-md-7"><label>Download&nbsp;format: </label> </div>
-                            <div class="col-md-5 text-right"><select id='download_format'>
+                            <div class="col-md-5 text-left"><select id='download_format'>
                                     <option value='csv'>CSV</option>
                                     <option value='json'>JSON</option>
                                 </select></div>
                         </div>
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-md-7"><label>Compressed: </label></div>
                             <div class="col-md-5"><input type='checkbox' id='download_compression' /></div>
-                        </div> -->
-                        <div class="row" style="padding-top: 15px;">
+                        </div>
+                        <div class="row">
                             <div class="col-md-7"></div>
                             <div class="col-md-5 text-right">
                                 <button class="btn-default" onclick="downloadPrompt();">OK</button>
@@ -164,7 +164,7 @@
                         <tr>
                             <td>Mass:</td>
                             {{#mass.min}}
-                            <td>{{mass.min}}{{/mass.min}}-{{#mass.max}}{{mass.max}} Da</td>
+                            <td>{{mass.min}}{{/mass.min}}&#8209;{{#mass.max}}{{mass.max}}&nbsp;Da&nbsp;({{mass_type}})</td>
                             {{/mass.max}}
                         </tr>
                         {{/mass.min}}
@@ -184,14 +184,16 @@
                         {{/number_monosaccharides.min}}
 
                         <!--organism-->
-                        {{#organism.name}}
+                        {{#organism}}
                         <tr>
                             <td>Organism:</td>
                             <td>
-                                {{organism.name}}
+                                {{#organism.organism_list}}
+                                    {{name}}
+                                {{/organism.organism_list}}
                             </td>
                         </tr>
-                        {{/organism.name}}
+                        {{/organism}}
 
                         <!--glycan type-->
                         {{#glycan_type}}
@@ -275,6 +277,9 @@
                     <th data-field="glycan_image" data-formatter="imageFormat" style="width:10%">Image of <br>Glycan
                         Structure</th>
                     <th data-field="mass" data-formatter="massFormatter" data-sortable="true">Monoisotopic Mass
+                        <br>(Da)
+                    </th>
+                    <th data-field="mass_pme" data-formatter="massFormatter" data-sortable="true">Monoisotopic Mass-pMe
                         <br>(Da)
                     </th>
                     <th data-field="number_monosaccharides" data-sortable="true">No of

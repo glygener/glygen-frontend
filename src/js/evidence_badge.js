@@ -49,7 +49,6 @@ function EvidencebadgeFormator(value, row, index, field) {
             linksHtml += '<li class="linkHtml5">' +
                 '<a href="' + w.url + '" target="_blank">' + w.id + '</a></li>'
         });
-
         buttonsHtml += '<span class="evidence_badge">' +
             '<button class="btn btn-primary color-' + v.database + ' evidence-badge-btn" type="button" style="background-color: ' + v.color + '; border-color: ' + v.color + '">' + v.database +
             '&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge">' + v.links.length + '</span>' +
@@ -64,10 +63,9 @@ function EvidencebadgeFormator(value, row, index, field) {
 
 // setting evidnec list for each badge
 function setupEvidenceList() {
-    // var $evidenceBadges = $('.evidence_badge');
-    // $evidenceBadges.each(function () {
+        $('#content').off('click', '.evidence-badge-btn');
         $('#content').on('click', '.evidence-badge-btn', show_evidence);
-    // });
+    
 }
 
 // show and hide evidences 
@@ -83,7 +81,7 @@ function show_evidence() {
     }
 
 }
-
+// Grouping evidences according to database
 function groupEvidences(item) {
     //group by evidence ids
     if (item && item.length) {

@@ -28,7 +28,14 @@ function buildSummary(queryInfo, question) {
     $('#summary-table').html(summaryHtml);
 }
 
-
+/**
+ * Format function to create link to the details page
+ * @param {object} value - The data binded to that particular cell.
+ * @return -Details particular Protein Id
+ */
+function PageFormat(value, row, index, field) {
+    return "<a href='protein_detail.html?uniprot_canonical_ac=" + value + "&listID=" + id + "'>" + value + "</a>";
+}
 
 // to show results on list page 
 function totalNoSearch(total_length) {

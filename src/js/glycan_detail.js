@@ -58,12 +58,94 @@ function ajaxSuccess(data) {
         }
         formatEvidences(data.species);
         formatEvidences(data.glycoprotein);
+        formatEvidences(data.publication);
 
         //Adding breaklines
         if (data.glycoct) {
-            data.glycoct = data.glycoct.replace(/ /g, '<br>');
+            data.glycoct = data.glycoct.replace(/\\n/g, '<br />');
         }
-        data.wurcs = data.wurcs.replace(/ /g, '<br>');
+
+        if (data.classification) {
+
+            //Filter the Glycan type if it is "OTHER".
+            data.classification = data.classification.filter(function(current, index, classArray){
+                return current.type.name.toUpperCase() != "OTHER";
+            });
+
+             //Set the Glycan sub type to "" if it is "OTHER".
+            for (var i = 0; data.classification && i < data.classification.length ; i++) {
+                if (data.classification[i].subtype.name.toUpperCase() == "OTHER"){
+                    data.classification[i].subtype.name = "";
+                }
+            }
+        }
+        var itemspublication = [];
+        if (data.publication) {
+            for (var i = 0; i < data.publication.length; i++) {
+                var publicationitem = data.publication[i];
+                var found = '';
+                for (var j = 0; j < itemspublication.length; j++) {
+                    var databaseitem1 = itemspublication[j];
+                    if (databaseitem1.resource === publicationitem.resource) {
+                        found = true;
+                        databaseitem1.links.push({
+                            url: publicationitem.url,
+                            id: publicationitem.id,
+                            name: publicationitem.name
+                        });
+                    }
+                }
+                if (!found) {
+                    itemspublication.push({
+                        resource: publicationitem.resource,
+                        links: [{
+                            url: publicationitem.url,
+                            id: publicationitem.id,
+                            name: publicationitem.name
+                        }]
+                    });
+                }
+            }
+
+            data.itemspublication = itemspublication;
+        }
+        // Sorting composition residues in specific order - hex hexnac dhex neuac neugc … other.
+        // This will help mustache template to show residues in specific order. 
+        if (data.composition) {
+            var mapComp = { "hex":1, "hexnac":2, "dhex":3, "neuac":4, "neugc":5, "other":7 };     
+
+            data.composition = data.composition.sort(function(a, b){ 
+
+                var resVal1 = mapComp[a.residue.toLowerCase()];
+                var resVal2 = mapComp[b.residue.toLowerCase()]
+                
+                if (!resVal1)
+                    resVal1 = 6;
+
+                if (!resVal2)
+                    resVal2 = 6;
+
+                return resVal1 - resVal2;
+            });
+
+            // Replacing residue names with the ones to be displayed.
+            for (var i = 0; i < data.composition.length; i++) {
+                if (data.composition[i].residue == "hex"){
+                    data.composition[i].residue = "Hex";
+                } else  if (data.composition[i].residue == "hexnac"){
+                    data.composition[i].residue = "HexNAc";
+                } else if (data.composition[i].residue == "dhex"){
+                    data.composition[i].residue = "dHex";
+                } else if (data.composition[i].residue == "neuac"){
+                    data.composition[i].residue = "NeuAc";
+                } else if (data.composition[i].residue == "neugc"){
+                    data.composition[i].residue = "NeuGc";
+                } else if (data.composition[i].residue == "other"){
+                    data.composition[i].residue = "(+x other residues)";
+                }
+            }
+        }
+
         if (data.mass) {
             data.mass = addCommas(data.mass);
         }
@@ -243,6 +325,8 @@ function updateBreadcrumbLinks() {
 function downloadPrompt() {
     var page_type = "glycan_detail";
     var format = $('#download_format').val();
-    var IsCompressed = false; //$('#download_compression').is(':checked');
+    if (format == "png")
+        page_type = "glycan_image";
+    var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(glytoucan_ac, format, IsCompressed, page_type);
 }

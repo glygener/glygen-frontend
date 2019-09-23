@@ -6,12 +6,12 @@
 * validation for simple category  field
 */
 function validateSimpleCategory(input) {
-    var validLength = (input.value.length <=13);
+    var validLength = (input.value.length <=20);
     if (validLength) {
         document.getElementById("simpleCategoryMsg").innerHTML = " ";
         return true;
     } else {
-        document.getElementById("simpleCategoryMsg").innerHTML = "Entry is too long - max length is 13.";
+        document.getElementById("simpleCategoryMsg").innerHTML = "Entry is too long - max length is 20.";
         return false;
     }
 }
@@ -22,12 +22,12 @@ function validateSimpleCategory(input) {
 * validation for each field
 */
 function validatePathwayID(input) {
-    var validLength = (input.value.length <=13);
+    var validLength = (input.value.length <=20);
     if (validLength) {
         document.getElementById("pathwayIDMsg").innerHTML = " ";
         return true;
     } else {
-        document.getElementById("pathwayIDMsg").innerHTML = "Entry is too long - max length is 13.";
+        document.getElementById("pathwayIDMsg").innerHTML = "Entry is too long - max length is 20.";
         return false;
     }
 }
@@ -227,6 +227,20 @@ function validateGeneName(input) {
         return true;
     } else {
         document.getElementById("geneNameMsg").innerHTML = "Entry is too long - max length is 47";
+        return false;
+    }
+}
+
+/** 
+* validation for each field
+*/
+function validateGOTerm(input) {
+    var validLength = (input.value.length <=50);
+    if (validLength) {
+        document.getElementById("goTermMsg").innerHTML = " ";
+        return true;
+    } else {
+        document.getElementById("goTermMsg").innerHTML = "Entry is too long - max length is 50.";
         return false;
     }
 }

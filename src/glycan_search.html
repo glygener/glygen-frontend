@@ -132,8 +132,11 @@
                                     <div class="col-sm-2 gg-form-group text-right">
                                         <input type="button" class="btn-lg btn-primary" value="Search" onclick="searchGlycanSimple()">
                                     </div>
+                                    <div id="search-simple-display"></div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        * <em>"<strong>Any category</strong>"</em> allows you to search an entire GlyGen database, including the context match. *
+                                    </div>
                                 </div>
-                                <div id="search-simple-display"></div>
                             </div> <!--    End Simplified Search Div-->
                         </div> <!--  End first Tab -->
                         <!-- Start Tab 2 Advanced search-->
@@ -179,7 +182,7 @@
                                                     href="#G17689DH" id="textExampleGlycan"
                                                     data-tippy="Click to Insert">G17689DH</a></div>
                                                     
-                                                    <div class="gg-text-right">Explore <a href="https://glytoucan.org/Structures/graphical" 
+                                                    <div class="gg-text-right">Explore <a href="https://glytoucan.org/Structures" 
                                                     target="_blank"
                                                     data-tippy="Explore GlyTouCan Database">GlyTouCan Accession</a></div>
                                                 </div>
@@ -204,8 +207,11 @@
                                                 </label>
                                             </div>
                                             <div class="col-sm-10 row glycanSizeMargin">
+                                                    <div class="col-xs-8 col-sm-offset-6 gg-form-group gg-form-mass-margin slider-alignment">
+                                                            <select class="glycan_mass" id="mass-drop"></select>                                                        
+                                                    </div>
                                                 <!-- First range-->
-                                                <div style="margin-top: -35px;" class="col-xs-8 col-sm-offset-6 gg-form-group slider-alignment" id="slider">
+                                                <div class="col-xs-8 col-sm-offset-6 gg-form-group slider-alignment" id="slider">
                                                     <div class="sliderbox">
                                                         <div class="sliderbox-slider" id="sliderbox-slider"></div>
                                                         <div class="row">
