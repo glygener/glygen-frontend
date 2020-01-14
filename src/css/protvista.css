@@ -331,3 +331,8 @@ ul {
 #arrowanimation.arrowanimation-down {
   transform: rotate(90deg);
 }
+
+
+.nav-link + .tooltip > .tooltip-inner {color:white;}
+.nav-link + .tooltip > .tooltip-inner {background-color:#666;}
+

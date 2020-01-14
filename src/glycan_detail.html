@@ -25,7 +25,11 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Details - glygen</title>
+    <title>Glycan Details | Details for Selected Glycan | glygen.org</title>
+
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Detailed information about selected glycan and it associated metadata.">
+    <meta name="keywords" content="glycan, structure, meta data, general, Species, Motif, Found Glycoproteins, Cross References, Biosynthetic Enzymes, Digital Sequence, Publications, Homo sapiens, Mus musculus, Rattus norvegicus.">
 
     <!-- Please do not change Sequence-->
     <!-- CSS reset -->
@@ -38,6 +42,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+   
+    <!-- CSS for tippy tooltip -->
+    <link rel="stylesheet" type="text/css" href="css/tippy.css">
     <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-table.min.css">
     <!-- CSS for sidenavgation-->
     <link rel="stylesheet" href="css/faq_style.css">
@@ -49,7 +56,7 @@
     <link rel="stylesheet" type="text/css" href="css/alertify.css">
     <link rel="stylesheet" type="text/css" href="css/feedback.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  
+    
     <!-- CSS common-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/server.css">
@@ -75,7 +82,6 @@
     <meta name="msapplication-wide310x150logo" content="images/icons/favicomatic/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="images/icons/favicomatic/mstile-310x310.png" />
 
-
     <style>
         #evidence_div {
             width: 50%;
@@ -85,7 +91,6 @@
             font-size: 13px;
             box-sizing: border-box;
         }
-       
     </style>
 </head>
 
@@ -115,18 +120,18 @@
                 <a href="#foundGlycoproteins">Found Glycoproteins</a>
             </li>
             <li>
-                <a href="#crossReferences">Cross References</a>
-            </li>
-            <li>
                 <a href="#biosyntheticEnzymes">Biosynthetic Enzymes</a>
             </li>
             <li>
                 <a href="#digitalSequence">Digital Sequence</a>
             </li>
             <li>
+                <a href="#crossReferences">Cross References</a>
+            </li>
+            <li>
                 <a href="#publications">Publications</a>
             </li>
-           
+
         </ul>
         <!-- cd-faq-categories -->
         <!-- main content for page -->
@@ -159,16 +164,17 @@
                         <div class="dropdown-menu dropdown-menu-box dropdown-menu-right" aria-labelledby="download">
                             <div class="row">
                                 <div class="col-md-7"><label>Download&nbsp;format: </label></div>
-                                <div class="col-md-5 text-right"><select id='download_format'>
+                                <div class="col-md-5 text-left"><select id='download_format'>
                                         <option value='json'>JSON</option>
                                         <option value='png'>PNG</option>
-                                    </select></div>
+                                    </select>
+                                </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                             <div class="col-md-7"><label>Compressed: </label></div>
                             <div class="col-md-5"><input type='checkbox' id='download_compression'/></div>
-                        </div> -->
-                            <div class="row" style="padding-top: 15px;">
+                        </div>
+                            <div class="row">
                                 <div class="col-md-7"></div>
                                 <div class="col-md-5 text-right">
                                     <button class="btn-default" onclick="downloadPrompt();">OK</button>
@@ -182,42 +188,68 @@
                     <li class="cd-faq-title" />
                     <div class="panel panel-default">
                         <div class="gg-panel-heading">
-                            <h4>General</h4>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h4>General</h4>
+                                </div>
+                            <div class="col-md-2">
+                                {{#glytoucan}}
+                                <a href="javascript://" data-tippy="Related glycans…" data-tippy-pos='up' onclick="openSubsumptionbrowser('{{glytoucan_ac}}'); return false; "target="_blank">
+                                    <button type="submit" class="btn subsum-brow"><img class='subsum-brow-icon-wrapper' src="/images/icons/subsumptionbrowser.svg" alt='Cartoon'/></button>
+                                </a>
+                                {{/glytoucan}}
+                            </div>
+                            </div>
                         </div>
+
                         <div class="panel-body">
                             <div class="row">
                                 <!--always try to use double quotes for HTML attributes. -->
-                                <div class="col-md-6 col-xs-12">
-                                    <div class='img-wrapper1'>
-                                        <img class='img-cartoon1' src="{{imagePath}}" alt='Cartoon' width='90%' />
-                                        <Br />
-                                    </div>
+                                <div class="col-lg-7">
+                                    <img class='img-cartoon1' src="{{imagePath}}" alt='Cartoon' width='90%'/>
+                                    <Br />
                                 </div>
-                                <div class="col-md-12 col-xs-6">
-                                    {{#glytoucan}}
-                                        <li class="list-group"><strong>GlyTouCan Accession:</strong> <a class="panelcontent" href="{{glytoucan_url}}" target="_blank">
-                                                {{glytoucan_ac}} </a></li>
-                                    {{/glytoucan}}
+                                {{#glytoucan}}
+                                <div class="col-lg-5 txt-wrapper1" style="text-align:right;">
+                                    <a href="#" onclick="openSubsumptionbrowser('{{glytoucan_ac}}');return false;" target="_blank">Related glycans…</a>
+                                </div>
+                                {{/glytoucan}}
+                            </div>
+                            <div class="col-md-12 col-xs-6">
+                                {{#glytoucan}}
+                                    <li class="list-group"><strong>GlyTouCan Accession:</strong> <a class="panelcontent" href="{{glytoucan_url}}" target="_blank">
+                                            {{glytoucan_ac}} </a></li>
+                                {{/glytoucan}}
 
-                                    {{#mass}}
-                                        <li class="list-group"><strong>Monoisotopic Mass:</strong> {{mass}} Da <strong>(Permethylated:</strong> {{mass_pme}} Da<strong>)</strong></li>
-                                    {{/mass}}
+                                <li class="list-group"><strong>Monoisotopic Mass:</strong> {{#mass}}{{mass}} Da {{/mass}}{{^mass}} No data available. {{/mass}}
+                                    <strong>(Permethylated:</strong> {{#mass_pme}}{{mass_pme}} Da{{/mass_pme}}{{^mass_pme}} No data available.{{/mass_pme}}<strong>)</strong>
+                                </li>
+                                
 
-                                    <li class="list-group"><strong>Composition:</strong>
-                                        {{#composition}}
-                                        {{residue}}{{count}}
-                                        {{/composition}}
-                                        {{^composition}} No data available. {{/composition}}
+                                <li class="list-group"><strong>Composition:</strong>
+                                    {{#composition}}
+                                        {{#url}}
+                                            <a href="{{url}}" target="_blank">{{residue}}</a><sub>{{count}}</sub>
+                                        {{/url}}
+                                        {{^url}}
+                                            {{residue}}<sub>{{count}}</sub>
+                                        {{/url}}
+                                    {{/composition}}
+                                    {{^composition}} No data available. {{/composition}}
+                                </li>
+
+                                {{#classification}}
+                                    <li class="list-group"><strong>Glycan Type/Subtype:</strong>
+                                        {{type.name}}
+                                        {{subtype.name}}
                                     </li>
+                                {{/classification}} {{^classification}} {{/classification}}
 
-                                    {{#classification}}
-                                        <li class="list-group"><strong>Glycan Type/Subtype:</strong>
-                                            {{type.name}}
-                                            {{subtype.name}}
-                                        </li>
-                                    {{/classification}} {{^classification}} {{/classification}}
-
-                                </div>
+                                {{#inchi_key}}
+                                    <li class="list-group"><strong>InChI Key:</strong>
+                                        <a href="{{url}}" target="_blank">{{key}}</a>
+                                    </li>
+                                {{/inchi_key}} {{^inchi_key}} {{/inchi_key}}
                             </div>
                         </div>
                     </div>
@@ -295,26 +327,6 @@
                     </div>
                 </ul>
 
-                <!-- Cross References -->
-                <ul id="crossReferences" class="cd-faq-group">
-                    <li class="cd-faq-title" />
-                    <!-- Glycan Cross Referance panel starts here for page -->
-                    <div class="panel panel-default">
-                        <div class="gg-panel-heading">
-                            <h4>Cross References</h4>
-                        </div>
-                        <div class="panel-body">
-                            {{#crossref}}
-
-                                <li class="list-group" id="panelmaincontent1"><Strong>{{database}}:</Strong>
-                                    <a class="panelcontent" href="{{url}}" target="_blank">{{id}}</a>
-                                </li>
-
-                            {{/crossref}} {{^crossref}} No data available. {{/crossref}}
-                        </div>
-                    </div>
-                </ul>
-
                 <!--Biosynthetic Enzymes -->
                 <ul id="biosyntheticEnzymes" class="cd-faq-group">
                     <li class="cd-faq-title" />
@@ -361,11 +373,6 @@
                                 <pre class="text-overflow">{{{smiles_isomeric}}}</pre>
                             {{/smiles_isomeric}}
 
-                            {{#inchi_key}}
-                                <strong>InChI Key</strong>
-                                <pre class="text-overflow">{{{inchi_key}}}</pre>
-                            {{/inchi_key}}
-
                             {{#inchi}}
                                 <strong>InChI</strong>
                                 <pre class="text-overflow">{{{inchi}}}</pre>
@@ -374,6 +381,31 @@
                                 <strong>GlycoCT</strong>
                                 <pre id="break">{{{glycoct}}}</pre>
                             {{/glycoct}}
+                        </div>
+                    </div>
+                </ul>
+
+                <!--Cross References-->
+                <ul id="crossReferences" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Cross References</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#itemscrossRef}}
+                                <div class="panelmaincontent">
+                                    <div class="row">
+                                        <li class="list-group2"><strong>{{database}}:</strong></li>
+                                        {{#links}}
+                                            <div class=" col-xs-6 col-sm-3">
+                                                <li class="list-group-indent"><a class="panelcontent" href="{{url}}" target="_blank">{{id}}&nbsp</a></li>
+                                            </div>
+                                        {{/links}}
+                                        {{^link}} {{/link}}
+                                    </div>
+                                </div>
+                            {{/itemscrossRef}} {{^itemscrossRef}} No data available. {{/itemscrossRef}}
                         </div>
                     </div>
                 </ul>

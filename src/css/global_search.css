@@ -43,6 +43,17 @@ a.result-count{
     color: #2E78B7;
 }
 
+.exact-match {
+    font-size: 1.125em;
+    font-family: "Verdana", "Geneva", sans-serif;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+.exact-match-margin {
+    margin: 0px 0px 10px 0px;
+}
+
 /* the count displayed beside the heading */
 /* .title>.result-count{
     right: 10px;

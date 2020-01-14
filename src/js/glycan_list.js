@@ -20,7 +20,7 @@ String.prototype.trunc = String.prototype.trunc ||
         return (this.length > n) ? this.substr(0, n - 1) + '&hellip;' : this;
     };
 var page = 1;
-var sort = 'glytoucan_ac';
+var sort = undefined;
 var dir = 'asc';
 var url = getWsUrl('glycan_list') + "?action=get_user";
 var limit = 20;
@@ -42,6 +42,30 @@ function buildSummary(queryInfo) {
     if (question) {
         queryInfo = { question: MESSAGES[question] };
     }
+
+    if (queryInfo.organism && queryInfo.organism.organism_list) {
+        var organism_name = queryInfo.organism.organism_list.map(function(organism){ return organism.name})
+        queryInfo.organism.organism_list = organism_name.join(' ' + queryInfo.organism.operation + ' ');
+    }
+
+    if (queryInfo.composition) {
+        var residue_comp = undefined;
+        residue_comp = [];
+        var jsnObj = getJSON(getCompoSearchJSONFile());
+        for (var x = 0; x < queryInfo.composition.length; x++) {
+            if (parseInt(queryInfo.composition[x].max) > 0) {
+                queryInfo.composition[x].short_name = jsnObj[queryInfo.composition[x].residue].short_name;
+            }
+        }
+    }
+
+    if (queryInfo.glytoucan_ac) {
+        queryInfo.glytoucan_ac = queryInfo.glytoucan_ac.trim();
+        queryInfo.glytoucan_ac = queryInfo.glytoucan_ac.replace(/,/g, ",\u200B");
+        queryInfo.glytoucan_ac = queryInfo.glytoucan_ac.replace(/-/g, "\u2011");
+        queryInfo.glytoucan_ac = queryInfo.glytoucan_ac + "\u200B";
+    }
+
     queryInfo.execution_time = moment().format('MMMM Do YYYY, h:mm:ss a')
     summaryHtml = Mustache.render(summaryTemplate, queryInfo);
     $('#summary-table').html(summaryHtml);
@@ -84,11 +108,11 @@ function imageFormat(value, row, index, field) {
  */
 
 function massFormatter(value) {
-    if (value) {
-        var mass = value;
+    if (value > -1) {
+        var mass = value  ;
         return value;
     } else {
-        return "NA";
+        return "N/A";
     }
 }
 

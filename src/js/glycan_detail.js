@@ -79,6 +79,37 @@ function ajaxSuccess(data) {
                 }
             }
         }
+        
+        var itemscrossRef = [];
+        //check data.
+        if (data.crossref) {
+            for (var i = 0; i < data.crossref.length; i++) {
+                var crossrefitem = data.crossref[i];
+                var found = '';
+                for (var j = 0; j < itemscrossRef.length; j++) {
+                    var databaseitem = itemscrossRef[j];
+                    if (databaseitem.database === crossrefitem.database) {
+                        found = true;
+                        databaseitem.links.push({
+                            url: crossrefitem.url,
+                            id: crossrefitem.id
+                        });
+                    }
+                }
+                if (!found) {
+                    itemscrossRef.push({
+                        database: crossrefitem.database,
+                        links: [{
+                            url: crossrefitem.url,
+                            id: crossrefitem.id
+                        }]
+                    });
+                }
+            }
+
+            data.itemscrossRef = itemscrossRef;
+        }
+        
         var itemspublication = [];
         if (data.publication) {
             for (var i = 0; i < data.publication.length; i++) {
@@ -155,20 +186,7 @@ function ajaxSuccess(data) {
 
         $container.html(html);
         //setupEvidenceList();
-        // $container.find('.open-close-button').each(function (i, element) {
-        //     $(element).on('click', function () {
-        //         var $this = $(this);
-        //         var buttonText = $this.text();
-
-        //         if (buttonText === '+') {
-        //             $this.text('-');
-        //             $this.parent().next().show();
-        //         } else {
-        //             $this.text('+');
-        //             $this.parent().next().hide();
-        //         }
-        //     });
-        // });
+       
 
         $('#glycosylation-table').bootstrapTable({
             columns: [{
@@ -193,7 +211,13 @@ function ajaxSuccess(data) {
                 field: 'protein_name',
                 title: 'Protein Name',
                 sortable: true
-            }],
+            },
+            {
+                field: 'tax_name',
+                title: 'Species',
+                sortable: true
+            }
+        ],
             pagination: 10,
             data: items,
             onSort: function () {
@@ -226,10 +250,15 @@ function ajaxSuccess(data) {
                     }
                 },
                 {
-                    field: 'position',
+                    field: 'position '+ 'residue',
                     title: 'Position',
-                    sortable: true
+                    sortable: true,
+                    formatter: function (value, row, index, field) {
+                        return  row.residue+row.position ;
+                        
+                    }
                 }
+
             ],
             pagination: 10,
             data: data.glycoprotein,
@@ -288,7 +317,7 @@ function getParameterByName(name, url) {
 $(document).ready(function () {
     glytoucan_ac = getParameterByName('glytoucan_ac');
     id = glytoucan_ac;
-    document.title = glytoucan_ac + " Detail - glygen"; //updates title with the glycan ID
+    document.title = glytoucan_ac + " Glycan Details | Details for Selected Glycan | glygen.org"; //updates title with the glycan ID
     LoadData(glytoucan_ac);
     updateBreadcrumbLinks();
 });
@@ -330,3 +359,12 @@ function downloadPrompt() {
     var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(glytoucan_ac, format, IsCompressed, page_type);
 }
+
+/**
+ * This function opens the Subsumption browser page.
+ */
+function openSubsumptionbrowser(glytoucan_ac){
+    var url = "https://raw.githack.com/glygen-glycan-data/GNOme/GlyGen_DEV/restrictions/GNOme_GlyGen.browser.html?focus=" + glytoucan_ac;
+    window.open(url);
+}
+

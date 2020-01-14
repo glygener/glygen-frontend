@@ -15,8 +15,12 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Locus list page - glygen</title>
+    <title>Quick List | Results of a Gene Search | glygen.org</title>
 
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Results of a gene search - a list of genetic loci conforming to the query parameters. What are the gene locations of the enzymes involved in the biosynthesis of your glytoucan accession in human?">
+    <meta name="keywords" content="gene, locus, locations, enzymes, involved, biosynthesis, glytoucan accession, human, gene mapping, UniProtKB Accession, Gene Name	Gene location, Protein Name, Organism, Tax ID.">
+    
     <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
 
     <!--[if lt IE 9]>
@@ -119,6 +123,7 @@
                         <tr>
                             <th data-field="uniprot_canonical_ac" data-formatter="pageFormat" data-sortable="true">UniProtKB Accession</th>
                             <th data-field="gene_name" data-formatter="pageFormat1" data-sortable="true">Gene Name</th>
+                            <th data-field= "chromosome" data-formatter="chromosomeFormat" data-sortable="true">Gene Location</th>
                             <th data-field="protein_name" data-sortable="true">Protein Name </th>
                             <th data-field="organism" data-sortable="true">Organism</th>
                             <th data-field="tax_id" data-sortable="true">Tax ID</th>

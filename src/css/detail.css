@@ -25,6 +25,15 @@
     cursor:pointer;
     
 }
+
+.actionbutton{
+    margin-top:4px;
+    /* border-color:white; */
+    background-color: #337ab7;
+    cursor:pointer;
+    font-size: 17px;
+    
+}
 .img-wrapper1 {
     overflow: hidden;
     z-index: -9999;
@@ -34,6 +43,29 @@
     margin-top: 20px;
     margin-bottom: 0px;
     width: 500px;
+}
+
+.txt-wrapper1 {
+    height: auto;
+    max-width: 550px;
+}
+
+.subsum-brow-icon-wrapper {
+    height: 30px;
+    width: 30px;
+    float: right;
+}
+
+.subsum-brow {
+    background-color: #fff;
+    border-color: #2e6da4;
+    float: right;
+}
+
+.subsum-brow:hover,
+.subsum-brow:focus {
+  border-color: #555;
+  background-color: #D8D8D8;
 }
 
 .img-cartoon1:hover {
@@ -452,4 +484,8 @@ h4 {
 .text-overflow {
     white-space: initial;
 }
-
+.form-group{
+    margin-bottom:15px;
+    /* margin-top: 15px; */
+    font-size: large;
+}

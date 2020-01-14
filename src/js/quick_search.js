@@ -293,7 +293,7 @@ function glycosylTransferases() {
 }
 
 /**
- * Q.8- What are the glycohydrolases in species X?
+ * Q.8- What are the glycosylhydrolases in species X?
  */
 var searchInitValues;
 

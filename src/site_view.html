@@ -16,7 +16,13 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>SiteView - glygen</title>
+  
+  <title>Site View | Sequence View | Site Annotation | glygen.org</title>
+  
+  <!-- GlyGen SEO -->
+    <meta name="description" content="A site view of your protein includes general information, sequence view, and site annotation.">
+    <meta name="keywords" content="site view, sequence view, site annotation, general information.">
+  
   <!-- Please do not change Sequence-->
   <!-- CSS reset -->
   <link rel="stylesheet" href="css/reset.css" />
@@ -256,10 +262,11 @@
                            <th data-field="typeAnnotate" data-sortable="true">Annotation</th>
 
                            <th data-field="position" data-sortable="true">Position</th>
+                           <th  data-field="databases" data-sortable="true" data-formatter="EvidencebadgeFormator">Source</th>
 
-                           <th data-field="glycan_image" data-formatter="imageFormat" style="width:10%">Image of <br>Glycan
-                               Structure</th>
-                               <th  data-field="databases" data-sortable="true" data-formatter="EvidencebadgeFormator">Source</th>
+                           <th data-field="glycan_image" data-formatter="imageFormat" style="width:10%">Additional<br>Information
+                               </th>
+                              
                          </tr>
                        </thead>
                      </table>
@@ -282,6 +289,7 @@
   <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-table.min.js"></script>
   <!-- script for error-message/header-footer js -->
   <script src="js/utility.js"></script>
+  <script src="js/polyfill.js"></script>
   <!-- script for detail page -->
   <script type="text/javascript" src="js/siteview.js"></script>
   <!-- script for template engine -->

@@ -22,7 +22,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>Details - glygen</title>
+    
+    <title>Protein Details | Details for Selected Protein | glygen.org</title>
+
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Detailed information about selected protein and it associated metadata.">
+    <meta name="keywords" content="protein, general, Species, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus.">
+    
     <!-- Please do not change Sequence-->
     <!-- CSS reset -->
     <link rel="stylesheet" href="css/reset.css">
@@ -45,7 +51,8 @@
     <link rel="stylesheet" type="text/css" href="css/alertify.css">
     <link rel="stylesheet" type="text/css" href="css/feedback.css">
     <!--<link rel="stylesheet" type="text/css" href="css/protein-search.css">-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
     <!-- CSS common-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/server.css">
@@ -103,16 +110,13 @@
                 <a href="#sequence">Sequence</a>
             </li>
             <li>
-                <a href="#crossReferences">Cross References</a>
-            </li>
-            <li>
                 <a href="#pathway">Pathway</a>
             </li>
             <li>
-                <a href="#isoform">Isoform</a>
+                <a href="#isoforms">Isoforms</a>
             </li>
             <li>
-                <a href="#orthologs">Orthologs</a>
+                <a href="#homologs">Homologs</a>
             </li>
             <li>
                 <a href="#disease">Disease</a>
@@ -125,6 +129,9 @@
             </li>
             <li>
                 <a href="#expressionDisease">Expression Disease</a>
+            </li>
+            <li>
+                <a href="#crossReferences">Cross References</a>
             </li>
             <li>
                 <a href="#publications">Publications</a>
@@ -189,16 +196,32 @@
                     <div class="panel-body">
                         <div class="row">
                             <!--always try to use double quotes for HTML attributes.-->
-                            <div class="col-md-12 col-xs-6">
-                                {{#gene}}
-                                <li class="list-group"><strong>Gene Name:</strong>
-                                    <a class="panelcontent" href="{{{url}}}" target="_blank">{{name}}</a>
-                                </li>
-                                <li class="list-group"><strong>Gene Location:</strong> Chromosome: {{locus.chromosome}} ({{locus.start_pos}} - {{locus.end_pos}})
-                                </li> 
-                                {{/gene}}
-                                {{^gene}} {{/gene}}
-
+                            <div class="col-md-12 col-xs-12">
+                                    {{#gene}}
+                                    <li class="list-group"><strong>Gene Name:</strong>
+                                        <a class="panelcontent" href="{{{url}}}" target="_blank">{{name}}</a>
+                                    </li>
+                                    <li class="list-group"><strong>Gene Location:</strong> Chromosome: {{locus.chromosome}} ({{locus.start_pos}} - {{locus.end_pos}})
+                                    <br>
+                                        {{#databases}}
+                                            <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px; padding-top: 5px;">
+                                                <button class="btn btn-primary evidence-badge-btn color-{{database}}" type="button" style="background-color:{{color}}; border-color:{{color}}">
+                                                    {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
+                                                </button>
+                                                <div class='hidden evidence_links' style="position: absolute; left: 0; width: 200px;">
+                                                    <ul>
+                                                        {{#links}}
+                                                            <li style="position: relative; display: inline-block; padding-left: 5px;"><a href="{{url}}" target="_blank">{{id}}</a>
+                                                            </li>
+                                                        {{/links}}
+                                                    </ul>
+                                                </div>
+                                            </span>
+                                        {{/databases}}
+                                    </li> 
+                                    {{/gene}}
+                                    {{^gene}} {{/gene}}
+                                
                                 {{#uniprot}}
                                 {{#uniprot_id}}
                                 <li class="list-group"><strong>UniProtKB ID:</strong>
@@ -218,7 +241,7 @@
                                 {{#sequence}}
                                 {{#length}}
                                 <li class="list-group"><strong>UniProtKB Accession Length:</strong>
-                                    <a class="panelcontent" href="{{url}}" target="_blank">{{length}}</a>
+                                    <a class="panelcontent" href="#" onclick="openSequencePage('{{uniprot_canonical_ac}}');return false;" target="_blank">{{length}}</a>
                                 </li>
                                 {{/length}}
                                 {{^length}} {{/length}}
@@ -233,7 +256,8 @@
                                 {{/full}}
                                 {{/recommendedname}}
                                 {{#mass}}
-                                <li class="list-group"><strong>Chemical Mass:</strong> {{mass.chemical_mass}} Da</li>
+                                <li class="list-group"><strong>Chemical Mass:</strong> {{#mass.chemical_mass}}{{mass.chemical_mass}} Da {{/mass.chemical_mass}}{{^mass.chemical_mass}} No data available. {{/mass.chemical_mass}}
+                                </li>
                                 {{/mass}}
                                 {{#refseq}}
                                 {{#refseq.ac}}
@@ -244,7 +268,9 @@
                                 <li class="list-group"><strong>RefSeq Summary:</strong> {{summary}}</li>
                                 {{/refseq.ac}}
                                 {{/refseq}}
-                               
+                                
+                                
+
                             </div>
                         </div>
                     </div>
@@ -261,7 +287,7 @@
                             {{#species}}
                                 <div class="row">
                                     <div class='col-md-12 col-xs-12'>
-                                        <b>{{name}}:</b>
+                                            <li class="list-group"> <b>{{name}}</b>
                                         {{#databases}}
                                             <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 5px; padding-bottom: 20px">
                                                 <button class="btn btn-primary evidence-badge-btn color-{{database}}" type="button" style="background-color:{{color}}; border-color:{{color}}">
@@ -277,8 +303,11 @@
                                                 </div>
                                             </span>
                                         {{/databases}}
+                                        </li>
+
                                     </div>
                                 </div>
+                                <li class="list-group"> <b> Taxonomy ID: </b>{{taxid}}</li>
                             {{/species}}
                             {{^species}} No data available. {{/species}}
                         </div>
@@ -459,30 +488,6 @@
                     </div>
                 </ul>
 
-                <!--Cross References-->
-                <ul id="crossReferences" class="cd-faq-group selected">
-                    <div class="panel panel-default">
-                        <div class="gg-panel-heading">
-                            <h4>Cross References</h4>
-                        </div>
-                        <div class="panel-body">
-                            {{#itemscrossRef}}
-                                <div class="panelmaincontent">
-                                    <div class="row">
-                                        <li class="list-group2"><strong>{{database}}:</strong></li>
-                                        {{#links}}
-                                            <div class=" col-xs-6 col-sm-3">
-                                                <li class="list-group-indent"><a class="panelcontent" href="{{url}}" target="_blank">{{id}}&nbsp</a></li>
-                                            </div>
-                                        {{/links}}
-                                        {{^link}} {{/link}}
-                                    </div>
-                                </div>
-                            {{/itemscrossRef}} {{^itemscrossRef}} No data available. {{/itemscrossRef}}
-                        </div>
-                    </div>
-                </ul>
-
                 <!-- Pathway-->
                 <ul id="pathway" class="cd-faq-group selected">
                     <li class="cd-faq-title" />
@@ -504,12 +509,28 @@
                 </ul>
 
                 <!--Isoforms-->
-                <ul id="isoform" class="cd-faq-group selected">
+                <ul id="isoforms" class="cd-faq-group selected">
                     <li class="cd-faq-title" />
                     <div class="panel panel-default">
                         <div class="gg-panel-heading">
-                            <h4>Isoforms</h4>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Isoforms</h4>
+                                </div>
+                            <div class="col-md-3 text-right">
+                                    <form method="get" action="isoform_alignment.html">
+                                        <input id="hidden_uca" type="hidden" name="uniprot_canonical_ac" value="{{uniprot_canonical_ac}}" />
+                                        <input id="hidden_lid" type="hidden" name="listID" value="{{listID}}" />
+                                        <input id="hidden_alng" type="hidden" name="alignment" value="isoformset.uniprotkb" />
+                                        <input type="submit" class="btn btn-primary actionbutton" value="Alignment"  />
+                                    </form>
+                            </div>
+                            <div class="col-md-3">
+                                <input id="isoform_seq_tog" type="submit" onclick="showHideSequences('isoform_seq_tog', 'iso-sequence')" class="btn btn-primary actionbutton" value="Show Sequences"  />       
+                            </div>
+                    </div>
+                
+                </div>
                         <div class="panel-body">
                             <div class="row">
                                 {{#isoforms}}
@@ -544,7 +565,7 @@
                                         {{/databases}}
                                         {{^databases}} {{/databases}}
                                         <div class="plus-button-margin-bottom"></div>
-                                        <div id="fasta">
+                                        <div class="iso-sequence" id="fasta">
                                             <pre class="highlight-text">{{{sequence.sequence}}}</pre>
                                         </div>
                                         <br>
@@ -556,12 +577,33 @@
                     </div>
                 </ul>
 
-                <!--Orthologs-->
-                <ul id="orthologs" class="cd-faq-group selected">
+                <!--homologs-->
+                <ul id="homologs" class="cd-faq-group selected">
                     <li class="cd-faq-title" />
                     <div class="panel panel-default">
-                        <div class="gg-panel-heading">
-                            <h4>Orthologs</h4>
+                        <div class="gg-panel-heading">  
+                                <div class="row">
+                             <div class="col-md-4">  
+                            <h4>Homologs</h4>
+                             </div>
+                             <div class="col-md-5 text-right">  
+                            <div id="isoform-alignment">
+                                <form method="get" action="homolog_alignment.html">
+                                        <input id="hidden_uca" type="hidden" name="uniprot_canonical_ac" value="{{uniprot_canonical_ac}}" />
+                                        <input id="hidden_lid" type="hidden" name="listID" value="{{listID}}" />
+                                    <select name="alignment"class="form-group">
+                                    <option value="" selected="">select</option>
+                                        <option value="homologset.oma">homologset.oma</option>
+                                        <option value="homologset.mgi">homologset.mgi</option>        
+                                    </select>
+                                    <input type="submit" class="btn btn-primary actionbutton" value="Alignment" aria-disabled="true" disabled="true" />
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="homologs_seq_tog" type="submit" onclick="showHideSequences('homologs_seq_tog', 'hom-sequence')" class="btn btn-primary actionbutton" value="Show Sequences"  />       
+                        </div>
+                        </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -575,7 +617,6 @@
                                                 Organism: {{organism}}
                                             </div>
                                         </div>
-
                                         {{#databases}}
                                             <!-- <div class='col-md-6 col-xs-6'> -->
                                             <span class="evidence_badge" style="position: relative; display: inline-block; padding-left: 15px; padding-bottom: 15px; padding-top: 5px;">
@@ -584,7 +625,6 @@
                                                 </button>
                                                 <div class='hidden evidence_links' style="position: absolute; left: 15px; width: 200px;">
                                                     <ul>
-
                                                         {{#links}}
                                                             <li class="evidence_id"> <a href="{{url}}" target="_blank">{{id}} </a></li>
                                                         {{/links}}
@@ -595,7 +635,7 @@
                                         {{/databases}}
                                         {{^databases}} {{/databases}}
                                         <div class="plus-button-margin-bottom"></div>
-                                        <div id="fasta">
+                                        <div class="hom-sequence" id="fasta">
                                             <pre class="highlight-text">{{{sequence.sequence}}}</pre>
                                         </div>
                                         <br>
@@ -620,13 +660,14 @@
                                 {{#disease}}
                                     <div class="row">
                                         <div class='col-md-12 col-xs-12'>
-                                            <div class='col-md-8 col-xs-8'>
-                                                {{name}} <br>({{#icd10}}ICD10: {{icd10}}; {{/icd10}}DOID:
+                                            <div class='col-md-12 col-xs-12'>
+                                                <strong>{{name}}</strong> <br>({{#icd10}}ICD10: {{icd10}}; {{/icd10}}DOID:
                                                 <a class="panelcontent" href="{{{url}}}" target="_blank">{{doid}}</a>)
                                             </div>
-                                            {{#databases}}
-                                                <div class='col-md-4 col-xs-4'>
-                                                    <span class="evidence_badge" style="position: relative; display: inline-block; padding-left:-15px;  padding-bottom: 30px">
+                                            
+                                            <div class='col-md-12 col-xs-12'>
+                                                {{#databases}}
+                                                    <span class="evidence_badge" style="position: relative; display: inline-block; padding-left:-15px; padding-bottom: 30px; padding-top: 5px;">
                                                         <button class="btn btn-primary evidence-badge-btn" type="button" style="background-color:{{color}}; border-color:{{color}}">
                                                             {{database}} &nbsp;&nbsp;<span class="badge">{{links.length}}</span>
                                                         </button>
@@ -639,8 +680,8 @@
                                                             </ul>
                                                         </div>
                                                     </span>
-                                                </div>
-                                            {{/databases}}
+                                                {{/databases}}    
+                                            </div>
                                         </div>
                                     </div>
                                 {{/disease}}
@@ -703,6 +744,31 @@
                                     {{/expression_disease}}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </ul>
+
+                <!--Cross References-->
+                <ul id="crossReferences" class="cd-faq-group selected">
+                    <li class="cd-faq-title" />
+                    <div class="panel panel-default">
+                        <div class="gg-panel-heading">
+                            <h4>Cross References</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{#itemscrossRef}}
+                                <div class="panelmaincontent">
+                                    <div class="row">
+                                        <li class="list-group2"><strong>{{database}}:</strong></li>
+                                        {{#links}}
+                                            <div class=" col-xs-6 col-sm-3">
+                                                <li class="list-group-indent"><a class="panelcontent" href="{{url}}" target="_blank">{{id}}&nbsp</a></li>
+                                            </div>
+                                        {{/links}}
+                                        {{^link}} {{/link}}
+                                    </div>
+                                </div>
+                            {{/itemscrossRef}} {{^itemscrossRef}} No data available. {{/itemscrossRef}}
                         </div>
                     </div>
                 </ul>
@@ -782,10 +848,12 @@
     <!-- for sequenceview js -->
     <script src="js/format_sequence.js"></script>
 
+    <!-- <script src="js/alignment.js"></script> -->
+
 
     <!-- Please do not change this it breaks hash scroll code-->
     <script type="text/javascript">
-        $(document).ajaxStop(function() {
+        $(document).ajaxStop(function () {
             // calls the sidebar function only when all ajax calls are completed
             faqMain();
 
@@ -808,4 +876,5 @@
         });
     </script>
 </body>
+
 </html>

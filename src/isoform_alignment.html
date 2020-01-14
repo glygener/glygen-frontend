@@ -1,0 +1,163 @@
+<!--------------------------------
+@author: Rupali Mahadik
+@description: UO1 Version-1.0.
+@date-created:
+------------------------------------>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Isoform Alignment | glygen.org</title>
+    
+    <!-- GlyGen SEO -->
+    <meta name="description" content="The Isoform alignment summary includes the date, algorithm, similar position, cluster ID, identity, and identity position.">
+    <meta name="keywords" content="Isoform, isoform alignment, summary, date, algorithm, similar position, cluster ID, identity, identity position.">
+    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">  
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- CSS for sidenavgation-->
+    <link rel="stylesheet" href="css/faq_style.css">
+    <link rel="stylesheet" type="text/css" href="css/alignment.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/server.css">
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icons/favicomatic/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icons/favicomatic/apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icons/favicomatic/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icons/favicomatic/apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/icons/favicomatic/apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icons/favicomatic/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/icons/favicomatic/apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/icons/favicomatic/apple-touch-icon-152x152.png" />
+        <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-196x196.png" sizes="196x196" />
+        <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="images/icons/favicomatic/favicon-128.png" sizes="128x128" />
+        <meta name="application-name" content="GlyGen"/>
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="images/icons/favicomatic/mstile-144x144.png" />
+        <meta name="msapplication-square70x70logo" content="images/icons/favicomatic/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="images/icons/favicomatic/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="images/icons/favicomatic/mstile-310x150.png" />
+        <meta name="msapplication-square310x310logo" content="images/icons/favicomatic/mstile-310x310.png" />
+</head>
+<body onload="tracking()">
+    <!-- <div id='header'></div> -->
+    <script src="libraries/w3.js"></script>
+    <div w3-include-html="header.html"></div>
+    <script>w3.includeHTML();</script>
+    <section class="cd-faq">
+        <ul class="cd-faq-categories">
+            <li>
+                <a class="selected" href="#alignment">Alignment</a>
+            </li>
+            <li>
+                <a href="#summary">Summary</a>
+            </li>
+            </ul>
+      
+            <div class="cd-faq-items container-fluid" id="content" style="margin-bottom: 400px; margin-right: 0;">
+        <ul class="gg-breadcrumb">
+            <li id="li-breadcrumb-search">
+               <a href="#" id="breadcrumb-search">Protein Search</a>
+            </li>
+            <li id="li-breadcrumb-list">
+               <a href="#" id="breadcrumb-list">Protein List</a>
+            </li>
+            <!-- <li><a href="#">Protein Detail</a></li> -->
+            <li id="li-breadcrumb-detail">
+               <a href="#" id="breadcrumb-detail">Protein Detail</a>
+            </li>
+            <li id="li-breadcrumb-homoalignment">Isoform  Alignment</li>
+         </ul>
+         <center>
+            <h3 class="page-heading" style="margin-top: -5px;">Isoform Alignment for
+               <span class='title_protein'> </span>
+            </h3>
+         </center>
+         <div class="row">
+                <div class="col-sm-12 panel panel-default summarystly" id="alignment" >
+                    <div class="panel-heading">
+                        <b>
+                            <center>Alignment</center>
+                        </b>
+                    </div>
+                    <div class="panel-body" id="sequncealign">
+                    </div>
+                </div>
+    
+                
+            </div>
+         <div class="row">
+            <div class="col-sm-12 panel panel-default summarystly"id="summary">
+                <div class="panel-heading">
+                    <center>
+                        <b>Alignment Summary</b>
+                    </center>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li>
+                            <span class="boldd">Date: </span>
+                            <span id="date"> </span>
+                        </li>
+                        <hr>
+                        <li>
+                            <span class="boldd">Alogorithm: </span>
+                            <a id="algo"></a>
+                        </li>
+                        <hr>
+                        <li>
+                            <span class="boldd">Similar Position: </span>
+                            <span id="pos"> </span>
+                        </li>
+                        <hr>
+                        <li>
+                            <span class="boldd">Cluster ID: </span>
+                            <span id="cluid"> </span>
+                        </li>
+                        <hr>
+                        <li>
+                            <span class="boldd">Identity: </span>
+                            <span id="ident"> </span>
+                        </li>
+                        <hr>
+                        <li>
+                            <span class="boldd">Identity_position: </span>
+                            <span id="identpos"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+         </div>
+
+    </div>
+</section>
+    <div w3-include-html="footer.html"></div>
+    <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
+    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/faq_main.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/domain_url.js"></script>
+    <script src="js/ws_url.js"></script>    <!-- script for getting Web Service URLs -->
+    <script src="js/activity_tracker.js"></script>  <!-- script for logging activity -->
+    <script src="js/utility.js"></script>
+    <script src="js/homolog_alignment.js"></script>
+    <!-- <div id='footer'></div> -->
+</body>
+</html>
+
+  

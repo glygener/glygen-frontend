@@ -18,20 +18,26 @@
     <script async src="js/ga.js" type="text/javascript"></script>
 
     <meta charset="utf-8">
-    <meta name="description" content="Search for glycan structures based on their GlyTouCan registry IDs, native mass, glycan type or organism. It is also possible to search for glycans based on enzymes that have been involved in the biosynthesis or proteins that this glycan was attached to">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="glycan, carbohydrate, search, mass search, glycoprotein search">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Glycan search - glygen</title>
+    <title>Glycan Search | Search for Glycan Structures | glygen.org</title>
+
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Search for glycan structures based on their GlyTouCan accession, monoisotopic mass, sugars, organism, glycan type, glycosylated protein, motif, or enzyme.">
+    <meta name="keywords" content="glycan, glycan search, monoisotopic mass, GlyTouCan accession, number of sugars, organism, glycan type, glycosylated protein, glycan motif, biosynthetic enzyme.">
+
+    
     <!-- CSS for UI Typeahead -->
      <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
     <!--This does not work as downloaded version so UI using this as CDN for font.css-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
         crossorigin="anonymous">
+    <!-- CSS for chosen -->
+    <link rel="stylesheet" type="text/css" href="css/chosen.css">
     <!-- CSS for boots -->
     <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
     <!-- CSS for tippy tooltip -->
@@ -105,6 +111,10 @@
                                 Advanced Search </a>
                         </li>
                         <li>
+                            <a href="#composition_search" data-toggle="tab" id="tab-composition">
+                                Composition Search </a>
+                        </li>
+                        <li>
                             <a href="#tutorial" data-toggle="tab">
                                 Tutorial </a>
                         </li>
@@ -156,35 +166,39 @@
                                                 value="Search Glycan"
                                                 onclick="submitvalues()">
                                         </div>
-                                        <!-- GlyTouCan Accession -->
+                                        <!-- Glycan Id -->
                                         <div class="row">
                                             <label id="lbl_glytoucan_acc" class="control-label col-sm-4" for="glycan_id">
                                                 <span><a class="link-with-tooltip" href="javascript://"
-                                                    tooltip-title="Unique accessions assigned to the registered glycan structures in GlyTouCan database. <br><br> Enter complete or partial GlyTouCan Accession of your glycan." 
-                                                    title="GlyTouCan Accession" 
-                                                    data-content="Unique accessions assigned to the registered glycan structures in GlyTouCan database. <br><br> Enter complete or partial GlyTouCan Accession of your glycan. Explore <a href='https://glytoucan.org/Structures/graphical' target='_blank'>GlyTouCan</a>"
+                                                    tooltip-title="You can search <strong>Glycan Id</strong> by single or multiple <strong>comma-separated</strong> GlyTouCan Accession(s) or Cross Reference(s) Id. <br><br> Unique accessions assigned to the registered glycan structures in GlyTouCan database." 
+                                                    title="Glycan Id" 
+                                                    data-content="You can search <strong>Glycan Id</strong> by single or multiple <strong>comma-separated</strong> GlyTouCan Accession(s) or Cross Reference(s) Id.<br><br> Unique Id assigned to the registered glycan structures in Glycan database."
                                                     data-placement="top"
                                                     data-trigger="click"
                                                     data-html="true" 
-                                                    data-toggle="popover" 
-                                                    >
+                                                    data-toggle="popover">
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span> 
                                             </label>
                                             <div class="col-sm-8 gg-form-group">
-                                                <input type="text" 
+                                                <textarea type="text" 
                                                     name="glycan_id" 
-                                                    class="form-control glycan" 
+                                                    class="multiinput-textarea form-control glycan" 
                                                     id="glycan_id"
-                                                    placeholder="Enter complete or partial GlyTouCan Accession" onkeyup="validateGlycanAcc(this)">
+                                                    rows="3"
+                                                    placeholder="Enter single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) Id." onkeyup="validateGlycanAcc(this)"></textarea>
                                                 <div>
-                                                    <div class="gg-text-left">Example: <a
-                                                    href="#G17689DH" id="textExampleGlycan"
+                                                    <div class="gg-text-left">GlyTouCan Accession Example: <a
+                                                    href="#G17689DH" class="textExampleGlycan"
                                                     data-tippy="Click to Insert">G17689DH</a></div>
                                                     
                                                     <div class="gg-text-right">Explore <a href="https://glytoucan.org/Structures" 
                                                     target="_blank"
                                                     data-tippy="Explore GlyTouCan Database">GlyTouCan Accession</a></div>
+                                                    <br>
+                                                    <div class="gg-text-left">Cross References Id Example: <a
+                                                    href="#G10716" class="textExampleGlycan"
+                                                    data-tippy="Click to Insert">G10716</a></div>
                                                 </div>
                                                 <br>
                                                 <h6 id='glycanAccMsg' class="validation-message"></h6>
@@ -265,11 +279,16 @@
                                                         tooltip-title="An individual animal, plant, or single-celled life form. <br><br>Click to select an Organism that makes your glycan(s).">
                                                         <i class="far fa-question-circle help-sign"></i>
                                                     </a>
-                                                </span> Organism:</label>
-
-                                            <div class="col-sm-8">
-                                                <select class="organism" id="species">
-                                                    <option value="0">Select Organism</option>
+                                                </span> Organism:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <select id="species" class="form-control organism" multiple="true">
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <select class="organism_operation" id="species_operation">
+                                                    <option value="or">OR</option>
+                                                    <option value="and">AND</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -336,9 +355,9 @@
                                                     placeholder="Enter the UniProtKB Accession of your protein" onkeyup="validateProteinAcc(this)">
                                                 <div>
                                                     <div class="gg-text-left">Example: <a 
-                                                    href="#P14210-1" 
+                                                    href="#P14210" 
                                                     id="textExampleProtein"
-                                                    data-tippy="Click to Insert">P14210-1
+                                                    data-tippy="Click to Insert">P14210
                                                     </a></div>
                                                    
                                                     <div class="gg-text-right">Explore <a href="https://www.uniprot.org/help/accession_numbers" 
@@ -421,6 +440,41 @@
                                                 <h6 id='enzymeAccMsg' class="validation-message"></h6>
                                             </div>
                                         </div>
+                                        <!-- PMID -->
+                                        <div class="gg-form-group row">
+                                                <label class="control-label col-sm-4" for="pmid">
+                                                    <span><a class="link-with-tooltip" href="javascript://" 
+                                                        title="Glycan pmid" 
+                                                        data-toggle="popover"
+                                                        data-placement="top" 
+                                                        data-trigger="click"
+                                                        data-html="true"
+                                                        data-content="A PMID is the unique identifier number used in PubMed for each article. The PMID is assigned to each article record when it enters the PubMed system. Explore <a href='https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/' target='_blank'>PubMed ID</a>"
+                                                        tooltip-title="A PMID is the unique identifier number used in PubMed for each article. The PMID is assigned to each article record when it enters the PubMed system.  <br><br>Enter a PMID of article.">
+                                                        <i class="far fa-question-circle help-sign"></i></a>
+                                                    </span> Pubmed ID:
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" 
+                                                        name="Glycanpmid" 
+                                                        class="form-control pmid" 
+                                                        id="pmid"
+                                                        placeholder="Enter the Pubmed ID" onkeyup="validatepmidName(this)">
+                                                    <div>
+                                                        <div class="gg-text-left">Example: <a 
+                                                        href="#30964610" 
+                                                        id="textExamplepmid"
+                                                        data-tippy="Click to Insert">9449027
+                                                        </a></div>
+                                                        
+                                                        <div class="gg-text-right">Explore <a
+                                                        href="https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/" target="_blank" 
+                                                        data-tippy="Explore Glycan pmid Database">Pubmed ID</a></div>
+                                                    </div>
+                                                    <br>
+                                                    <h6 id='pmidNameMsg' class="validation-message"></h6>
+                                                </div>
+                                            </div>
                                         <!-- Bottom button  -->
                                         <div class="row">
                                             <input type="button" class="btn-lg btn-primary bottom-table-margin"
@@ -431,6 +485,60 @@
                                 </div>
                             </div>
                         </div>
+                         <div class="tab-pane fade in" id="composition_search">
+                            <div class="container">
+                                <div class="row compositionSearch-container">
+                                    <div class="col-sm-12">
+                                        <label class="control-label col-sm-5 text-left heading" for="comp_search">
+                                            <Strong>Residue</Strong>
+                                        </label>
+                                        <label class="control-label col-sm-3 text-center heading" for="comp_search">
+                                            <Strong></Strong>Contains</Strong>
+                                        </label>
+                                        <label class="control-label col-sm-2 text-center heading" for="comp_search">
+                                            <Strong></Strong>Min</Strong>
+                                        </label>
+                                        <label class="control-label col-sm-2 text-center heading" for="comp_search">
+                                            <Strong></Strong>Max</Strong>
+                                        </label>
+                                    </div>
+                                    <div id="comp_tab" class="col-sm-12" style="padding: 0px 0px"></div>
+                                    <div class="col-sm-12" style="text-align: center; padding: 20px 0px 0px 0px">
+                                        <input 
+                                            type="button" 
+                                            class="btn-lg btn-primary-clear-fields adv-top-button"
+                                            value="All No" 
+                                            onclick="setCompSearchValues('no')">
+                                        <input 
+                                            type="button" 
+                                            class="btn-lg btn-primary-clear-fields adv-top-button"
+                                            value="All Yes" 
+                                            onclick="setCompSearchValues('yes')">
+                                        <input 
+                                            type="button" 
+                                            class="btn-lg btn-primary-clear-fields adv-top-button"
+                                            value="Clear Fields" 
+                                            onclick="resetAdvanced()">
+                                        <input id="comp_undo_btn"
+                                            type="button" 
+                                            class="btn-lg btn-primary-clear-fields adv-top-button"
+                                            value="Undo" 
+                                            disabled=true
+                                            onclick="compSearchUndoRedo('undo')">
+                                        <input id="comp_redo_btn"
+                                            type="button" 
+                                            class="btn-lg btn-primary-clear-fields adv-top-button"
+                                            value="Redo" 
+                                            disabled=true
+                                            onclick="compSearchUndoRedo('redo')">
+                                        <input type="button" 
+                                            class="btn-lg btn-primary adv-right-button" 
+                                            value="Search Glycan"
+                                            onclick="submitvalues()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--  Composition Search Tab End -->
                         <!-- Start Tab Tutorial -->
                         <div class="tab-pane fade in" id="tutorial">
                             <div class="container">
@@ -555,6 +663,8 @@
 <script type="text/javascript" src="libraries/jquery/jquery-ui.js"></script>
 <!-- script for tippy library tooltip-->
 <!--<script type="text/javascript" src="libraries/tippy.all.min.js"></script>-->
+<!-- script for choosing from listfield -->
+<script type="text/javascript" src="libraries/chosen.js"></script>
 <!-- script for range bar to work-->
 <script src="libraries/nouislider.js"></script>
 <!-- script for navigation -->

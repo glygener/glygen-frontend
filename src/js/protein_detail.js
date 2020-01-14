@@ -13,8 +13,7 @@
 // @update: Jan 17th, 2019 - Rupali Mahadik - added new evidence display 
 // @update: Mar 12, 2019 - Gaurav Agarwal - added breadcrumbs
 // @update: April 7th, 2019 - Rupali Mahadik - Seqeunce display improved
-
-
+// @update: Sep, 2019 - Rupali Mahadik - Seqeunce alignment
 
 
 /**
@@ -39,9 +38,11 @@ function ajaxSuccess(data) {
             if (data.gene) {
                 for (var i = 0; i < data.gene.length; i++) {
                     // assign the newly result of running formatSequence() to replace the old value
-                    if (data.gene[i].locus){
-                        data.gene[i].locus.start_pos = addCommas(data.gene[i].locus.start_pos);
-                        data.gene[i].locus.end_pos = addCommas(data.gene[i].locus.end_pos);
+                    data.gene[i].locus.start_pos = addCommas(data.gene[i].locus.start_pos);
+                    data.gene[i].locus.end_pos = addCommas(data.gene[i].locus.end_pos);
+                    if (data.gene[i].locus && data.gene[i].locus.evidence){
+                         data.gene[i].evidence = data.gene[i].locus.evidence;
+                        formatEvidences([data.gene[i]]);
                     }
                 }
             }
@@ -88,7 +89,8 @@ function ajaxSuccess(data) {
                 formatEvidences(data.go_annotation.categories[i].go_terms);
             }
         }
-
+        
+        formatEvidences(data.gene);
         formatEvidences(data.species);
         formatEvidences(data.publication);
         formatEvidences(data.function);
@@ -279,6 +281,34 @@ function ajaxSuccess(data) {
             data.site_annotation_count = data.site_annotation.length;
         }
 
+        data.uniprot_canonical_ac = id;
+        data.listID = getParameterByName('listID');
+
+        var hasfoundoma = false;
+        var hasfoundmgi = false;
+
+       if (data.orthologs){
+        for(var i=0; i < data.orthologs.length; i++)
+        {
+            var databases = data.orthologs[i].databases;
+            for(var j =0; j < databases.length; j++)
+            {
+                if(databases[j].database === "MGI")
+                {
+                    hasfoundmgi = true;
+                }
+                if(databases[j].database === "OMA")
+                {
+                    hasfoundoma = true;
+                }
+            }
+        }
+    }
+
+
+        data.hasoma = hasfoundoma;
+        data.hasmgi = hasfoundmgi;
+
         var sequenceData = buildHighlightData(originalSequence, highlight);
         var html = Mustache.to_html(template, data);
         var $container = $('#content');
@@ -338,7 +368,7 @@ function ajaxSuccess(data) {
             pagination: 10,
             data: data.itemsGlycosyl,
             onPageChange: function () {
-                scrollToPanel("#glycosylation");
+                // scrollToPanel("#glycosylation");
                 // setupEvidenceList();
             },
            
@@ -373,7 +403,7 @@ function ajaxSuccess(data) {
             pagination: 10,
             data: data.itemsGlycosyl2,
             onPageChange: function () {
-                scrollToPanel("#glycosylation");
+                // scrollToPanel("#glycosylation");
                  setupEvidenceList();
             },
           
@@ -534,6 +564,8 @@ function ajaxSuccess(data) {
         $("#sequon_link").prop( "checked", true );
         $('#sequon_link').trigger('change');
     }
+
+    setupIsoformAlignmentOptions();
 }
 
 
@@ -584,14 +616,28 @@ function proteinView(){
 
 
 
+
+function setupIsoformAlignmentOptions() {
+    $('#isoform-alignment select').change(function() {
+        /* alert("hi"); */
+        var op =$(this).val();
+        if(op !='') {                 
+            $('#isoform-alignment input').prop('disabled',false);
+        } else {
+            $('#isoform-alignment input').prop('disabled', true);
+        }   
+    });
+   
+}
+
+
 $(document).ready(function () {
     uniprot_canonical_ac = getParameterByName('uniprot_canonical_ac');
     select = getParameterByName('select');
     id = uniprot_canonical_ac;
-    document.title = uniprot_canonical_ac + " Detail - glygen"; //updates title with the protein ID
+    document.title = uniprot_canonical_ac + " Protein Details | Details for Selected Protein | glygen.org"; //updates title with the protein ID
     LoadData(uniprot_canonical_ac);
     updateBreadcrumbLinks();
-  
 });
 
 
@@ -645,6 +691,7 @@ function updateBreadcrumbLinks() {
     }
 }
 
+
 /**
  * Gets the values selected in the download dropdown 
  * and sends to the downloadFromServer() function in utility.js
@@ -656,4 +703,29 @@ function downloadPrompt() {
     var format = $('#download_format').val();
     var IsCompressed = $('#download_compression').is(':checked');
     downloadFromServer(uniprot_canonical_ac, format, IsCompressed, page_type);
+}
+
+/**
+ * This function shows and hide sequences.
+ */
+function showHideSequences(button_id, seq_class){
+
+     if ($('.' + seq_class).css('display') === "none") {
+        $('#' + button_id).attr("value", "Hide Sequences");
+     }  else {
+        $('#' + button_id).attr("value", "Show Sequences");
+     }
+
+    $.each($('.' + seq_class), function(i, v) {
+        $(v).toggle()
+    });
+
+}
+
+/**
+ * This function opens the Sequence page.
+ */
+function openSequencePage(uniprot_ac){
+    var url = "https://www.uniprot.org/uniprot/" + uniprot_ac + "#sequences";
+    window.open(url);
 }

@@ -32,6 +32,12 @@ function pageFormat1(value, row, index, field) {
 }
 
 
+function chromosomeFormat(value, row, index, field) {
+    return  ' Chr  ' + row.chromosome + ' (' + row.start_pos + ' - ' + row.end_pos + ')';
+}
+
+
+
 /**
  * Summary top table
  * @param {number} queryInfo [[Execution time]]

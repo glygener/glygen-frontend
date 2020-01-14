@@ -7,14 +7,16 @@
     <script async src="js/ga.js" type="text/javascript"></script>
 
     <meta charset="utf-8">
-    <meta name="description" content="Search the entire database for the specified term">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="glycan, carbohydrate, search, global search">
 
-    <title>Global search - glygen</title>
+    <title>Global Search | Glycans | Proteins | Glycoproteins | glygen.org</title>
 
-    <!--This does not work as downloaded version so UX using this as CDN for font.css-->
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Search the entire database for the specified term.">
+    <meta name="keywords" content="database, global search, glycans, proteins, glycoproteins.">
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!-- CSS for boots -->
@@ -78,8 +80,19 @@
         <div id="result">
             <!-- using mustache.js templating -->
             <script id="result_template" type="text/template">
+                {{#exact_match}}
+                <div class="row text-center">
+                    <li class="exact-match exact-match-margin">
+                        <a href="#" onclick="openDetailPage('{{type}}', '{{id}}');return false;" target="_blank">
+                            Your input is an exact match to one {{type}}.
+                        </a>
+                    </li>       
+                </div>       
+                {{/exact_match}}
+                <div class="exact-match-margin"></div>
             <div class="row">
                 <!-- glycan results -->
+                {{#other_matches}}
                 <div class="col-sm-4">
                     <div class="thumbnail card">
                         <div class="caption text-left">
@@ -329,7 +342,7 @@
                 <div class="col-sm-4">
                     <div class="thumbnail card">
                         <div class="caption text-left">
-                            {{#protein}}
+                            {{#glycoprotein}}
                             {{#all}}
                             {{#list_id}}
                             <a class="directToListPage" href="protein_list.html?id={{list_id}}">
@@ -341,7 +354,7 @@
                             {{/list_id}}
                             <h6 class="card-subtitle mb-2 text-muted">match <span class="gg-search-term"></span></h6>
                             {{/all}}
-                            {{/protein}}
+                            {{/glycoprotein}}
                         </div>
                         <ul class="list-group list-group-flush">
                             {{#glycoprotein}}
@@ -433,6 +446,7 @@
                         </ul>
                     </div>
                 </div>
+                {{/other_matches}}
             </div>
             
         </script>

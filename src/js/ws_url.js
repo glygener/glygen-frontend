@@ -22,6 +22,7 @@ function getWsUrl(request, id, id1, glytoucan_ac) {
     var ws_dataDownload = ws_base + "data/download";
     var ws_globalSearch = ws_base + "globalsearch/search";
     var ws_base_motif = ws_base + "motif";
+  
 
     // var ws_base_loci=ws_base+"usecases";
 
@@ -76,6 +77,9 @@ function getWsUrl(request, id, id1, glytoucan_ac) {
 
         case "protein_detail":
             return ws_base_protein + "/detail/" + id;
+
+         case "protein_alignment":
+         return ws_base_protein + "/alignment/";
 
         //Typeahead webservices
 
@@ -150,7 +154,9 @@ function getListPostData(id, page, sort, dir, limit) {
     var query = {};
     query.id = id;
     //query.offset = parseInt(page);
-    query.sort = sort;
+    if (sort){
+        query.sort = sort;
+    }
     query.offset = ((page - 1) * limit) + 1;
     query.limit = parseInt(limit);
     query.order = dir;
@@ -184,5 +190,12 @@ function getListPostMotifData(glytoucan_ac, page, sort, dir, limit) {
     query.limit = parseInt(limit);
     query.order = dir;
 
+    return "query=" + JSON.stringify(query);
+}
+
+function getAlignmentPostData(uniprot_canonical_ac, cluster_type) {
+    var query = {};
+    query.uniprot_canonical_ac = uniprot_canonical_ac;
+    query.cluster_type = cluster_type;
     return "query=" + JSON.stringify(query);
 }

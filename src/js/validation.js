@@ -32,18 +32,32 @@ function validatePathwayID(input) {
     }
 }
 
-
+/** 
+* returns sanitized string
+*/
+function getSanitizedString(input) {
+    var input_val = input;
+    input_val = input_val.replace(/\u200B/g, "");
+    input_val = input_val.replace(/\s+/g, ",");
+    input_val = input_val.replace(/,+/g, ",");
+    var index = input_val.lastIndexOf(",");
+    if (index > -1 && (index + 1) == input_val.length) {
+        input_val = input_val.substr(0, index);
+    }
+    return input_val;
+}
 
 /** 
 * validation for each field
 */
 function validateProteinAcc(input) {
-    var validLength = (input.value.length <=12);
+    var input_val = getSanitizedString(input.value);
+    var validLength = (input_val.length <= 2500);
     if (validLength) {
         document.getElementById("proteinAccMsg").innerHTML = " ";
         return true;
     } else {
-        document.getElementById("proteinAccMsg").innerHTML = "Entry is too long - max length is 12.";
+        document.getElementById("proteinAccMsg").innerHTML = "Entry is too long - max length is 2500.";
         return false;
     }
 }
@@ -179,12 +193,13 @@ function validateMotifName(input) {
 * validation for each field
 */
 function validateGlycanAcc(input) {
-    var validLength = (input.value.length <= 8);
+    var input_val = getSanitizedString(input.value);
+    var validLength = (input_val.length <= 2500);
     if (validLength) {
         document.getElementById("glycanAccMsg").innerHTML = " ";
         return true;
     } else {
-        document.getElementById("glycanAccMsg").innerHTML = "Entry is too long - max length is 8.";
+        document.getElementById("glycanAccMsg").innerHTML = "Entry is too long - max length is 2500.";
         return false;
     }
 }
@@ -241,6 +256,20 @@ function validateGOTerm(input) {
         return true;
     } else {
         document.getElementById("goTermMsg").innerHTML = "Entry is too long - max length is 50.";
+        return false;
+    }
+}
+
+/** 
+* validation for each field
+*/
+function validateGOID(input) {
+    var validLength = (input.value.length <=25);
+    if (validLength) {
+        document.getElementById("goIDMsg").innerHTML = " ";
+        return true;
+    } else {
+        document.getElementById("goIDMsg").innerHTML = "Entry is too long - max length is 25.";
         return false;
     }
 }

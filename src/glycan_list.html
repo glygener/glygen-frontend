@@ -18,7 +18,11 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>List page - glygen</title>
+    <title>Glycan List | Summary of Your Glycan Search | glygen.org</title>
+    
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Results of a glycan structure search - a list of glycans conforming to the query parameters. Select the GlyTouCan Accession from the list.">
+    <meta name="keywords" content="glycan, structure, collection, GlyTouCan Accession, Image of Glycan Structure, Monoisotopic Mass (Da), Monoisotopic Mass-pMe (Da), Number of Sugars, How Many Glycoproteins, How Many Enzymes.">
 
     <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
 
@@ -146,14 +150,14 @@
                  <center><b>{{question}}</b></center>
                 <h6><center>Performed on: {{execution_time}} (EST)</center></h6>
 
-                <div>
+                <div align="center">
                     <table class="table table-hover">
                         <tbody>
 
                         <!--glycan typeahead-->
                         {{#glytoucan_ac}}
                         <tr>
-                            <td>GlyTouCan Accession:</td>
+                            <td>Glycan Id:</td>
                             <td>{{glytoucan_ac}}</td>
                         </tr>
                         {{/glytoucan_ac}}
@@ -171,17 +175,14 @@
 
                         <!--glycan sugar-->
 
-                        {{#number_monosaccharides.min}}
+                        {{#number_monosaccharides.max}}
                         <tr>
                             <td>No. of Sugars:</td>
-                            {{#number_monosaccharides.min}}
-
                             <td>
-                                {{number_monosaccharides.min}}{{/number_monosaccharides.min}}-{{#number_monosaccharides.max}}{{number_monosaccharides.max}}
+                                {{number_monosaccharides.min}}-{{number_monosaccharides.max}}
                             </td>
-                            {{/number_monosaccharides.max}}
                         </tr>
-                        {{/number_monosaccharides.min}}
+                        {{/number_monosaccharides.max}}
 
                         <!--organism-->
                         {{#organism}}
@@ -189,7 +190,7 @@
                             <td>Organism:</td>
                             <td>
                                 {{#organism.organism_list}}
-                                    {{name}}
+                                    {{.}}
                                 {{/organism.organism_list}}
                             </td>
                         </tr>
@@ -211,13 +212,13 @@
                         </tr>
                         {{/glycan_subtype}}
 
-                        <!--protein typeahead-->
-                        {{#uniprot_canonical_ac}}
+                        <!--protein accession-->
+                        {{#protein_identifier}}
                         <tr>
                             <td>UniProtKB Accession:</td>
-                            <td>{{uniprot_canonical_ac}}</td>
+                            <td>{{protein_identifier}}</td>
                         </tr>
-                        {{/uniprot_canonical_ac}}
+                        {{/protein_identifier}}
                         <!--enzyme typeahead-->
                         {{#enzyme.id}}
                         <tr>
@@ -234,6 +235,25 @@
                             <td>{{glycan_motif}}</td>
                         </tr>
                         {{/glycan_motif}}
+                          <!--PMID-->
+                          {{#pmid}}
+                          <tr>
+                              <td>PMID:</td>
+                              <td>{{pmid}}</td>
+                          </tr>
+                          {{/pmid}}
+
+
+                        {{#composition}}
+                            {{#short_name}}
+                            <tr>
+                                <td>{{{short_name}}}:</td>
+                                <td>
+                                    {{min}} - {{max}}
+                                </td>
+                            </tr>
+                            {{/short_name}}
+                        {{/composition}}
 
                         {{#term}}
                         <tr>
@@ -268,8 +288,7 @@
         </script>
 
         <!-- table start here -->
-        <table id="gen-table" data-show-export="true" data-toggle="table" data-sort-name="glytoucan_ac"
-            data-sort-order="asc" data-page-size="10">
+        <table id="gen-table" data-show-export="true" data-toggle="table" data-page-size="10">
             <thead>
                 <tr>
                     <th data-field="glytoucan_ac" data-formatter="pageFormat" data-sortable="true">GlyTouCan
@@ -282,7 +301,7 @@
                     <th data-field="mass_pme" data-formatter="massFormatter" data-sortable="true">Monoisotopic Mass-pMe
                         <br>(Da)
                     </th>
-                    <th data-field="number_monosaccharides" data-sortable="true">No of
+                    <th data-field="number_monosaccharides"data-formatter="massFormatter" data-sortable="true">No of
                         <br>Sugars
                     </th>
                     <th data-field="number_proteins" data-sortable="true">On How Many

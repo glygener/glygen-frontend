@@ -1,0 +1,63 @@
+{
+    "hex": {
+        "order_id": 100,
+        "name": "Hexose",
+        "subtext": "Hex, e.g., Glc, Gal, Man",
+        "short_name": "Hex"
+    },
+    "hexnac": {
+        "order_id": 200,
+        "name": "N-Acetyl-Hexosamine",
+        "subtext": "HexNAc, e.g., GlcNAc, GalNAc",
+        "short_name": "HexNAc"
+    },
+    "hexn": {
+        "order_id": 300,
+        "name": "Hexosamine",
+        "subtext": "HexN, e.g., GlcN",
+        "short_name": "HexN"
+    },
+    "dhex": {
+        "order_id": 400,
+        "name": "Deoxy-Hexose",
+        "subtext": "dHex, e.g., Fuc",
+        "short_name": "dHex"
+    },
+    "neuac": {
+        "order_id": 500,
+        "name": "N-Acetyl-Neuraminic acid",
+        "subtext": "Sialic acid as NeuAc",
+        "short_name": "NeuAc"
+    },
+    "neugc": {
+        "order_id": 600,
+        "name": "N-Glycolyl-Neuraminic acid",
+        "subtext": "Sialic acid as NeuGc",
+        "short_name": "NeuGc"
+    },
+    "hexa": {
+        "order_id": 700,
+        "name": "Uronic acid",
+        "subtext": "UA, e.g., GlcA, GalA",
+        "short_name": "UA"
+    },
+    "p": {
+        "order_id": 800,
+        "name": "Phosphate",
+        "max": 2,
+        "subtext": "PO<sub>3<sub>",
+        "short_name": "PO<sub>3<sub>"
+    },
+    "s": {
+        "order_id": 900,
+        "name": "Sulfate",
+        "subtext": "SO<sub>3<sub>",
+        "short_name": "SO<sub>3<sub>"
+    },
+    "other": {
+        "order_id": 1000,
+        "name": "Other",
+        "subtext": "",
+        "short_name": "Other"
+    }
+}

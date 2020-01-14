@@ -27,23 +27,30 @@ function addCommas(nStr) {
 
 
 function databasecolor(name) {
-    switch (name) {
-        case 'GlycomeDB': return '#a06868';
-        case 'UniCarbKB': return '#6b7f71';
-        case 'UniProtKB': return '#4b8aa0';
-        case 'PubMed': return '#7c985d';
-        case 'RefSeq': return '#3ea2ad';
-        case 'Ensembl Peptide': return '#936caf';
-        case 'Ensembl Transcript': return '#b971a6';
-        case 'OMIM': return '#8d85fa';
-        case 'BioMuta': return '#7975af';
-        case 'Bgee': return '#798bae';
-        case 'BioXpress': return '#7f989a';
+    switch (name.toLowerCase()) {
+       
+        case 'glycomedb': return '#a06868';
+        case 'glytoucan': return '#ff6464';
+        case 'unicarbkb': return '#6b7f71';
+        case 'uniprotkb': return '#4b8aa0';
+        case 'pubmed': return '#7c985d';
+        case 'refseq': return '#3ea2ad';
+        case 'ensembl peptide': return '#936caf';
+        case 'ensembl transcript': return '#b971a6';
+        case 'ensembl gene': return '#468FE0';
+        case 'omim': return '#8d85fa';
+        case 'biomuta': return '#7975af';
+        case 'bgee': return '#798bae';
+        case 'bioxpress': return '#7f989a';
         case 'mgi': return '#ff8080';
         case 'hgnc': return '#518a8a';
         case 'homologene': return '#9a039a';
         case 'oma': return '#89a15c';
         case 'mgi_homologset': return '#e8a2e8';
+        case 'mondo': return '#be9fe1';
+        case 'genomics england': return '#8ac6d1';
+
+        
 
     }
 }
@@ -193,7 +200,7 @@ function displayError(message, title) {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
     }
     else {
-        if (pagePath.substring(pagePath.lastIndexOf('/') + 1).toLocaleLowerCase().includes("list")) {
+        if (pagePath.substring(pagePath.lastIndexOf('/') + 1).toLocaleLowerCase().indexOf("list") >= 0) {
             // for all list pages, if any error occurs, it will go back to the previous page.
             alertify.alert(title, message, function () { window.history.back(); }).set('modal', false);
         } else {
@@ -525,6 +532,54 @@ function populateFromKeyValueStore(controlId, key, prefix, suffix, contentsIndex
     $.getJSON("content/key-value.json", function (jsonData) {
         $("#" + controlId).contents()[contentsIndex].data = prefix + jsonData[key].display_name + suffix;
     });
+}
+
+/**
+ * getJSON gets JSON object from the file.
+ * @param {string} file - json file path.
+ **/
+function getJSON(file){
+    var jsonObject = undefined;
+    $.ajax({
+               dataType: "json",
+               url: file,
+               async:false,
+               success: processData
+           });
+
+    function processData(data) {
+       jsonObject = data;
+  }
+
+    return jsonObject;
+}
+
+/**
+ * getSelectionValue returns selection control value based on min, max.
+ * @param {object} min - min value.
+ * @param {object} max - max value.
+ * @param {object} residue_min - residue min value.
+ * @param {object} residue_max - residue max value.
+ **/
+function getSelectionValue(cur_min, cur_max, residue_min, residue_max) {
+    var selection = "maybe";
+    
+    if (cur_min == residue_min && cur_max == residue_min){
+        selection = "no";
+    } else if (cur_min == residue_min && cur_max <= residue_max){
+        selection = "maybe";
+    } else if (cur_min > residue_min && cur_max <= residue_max){
+        selection = "yes";
+    }
+    return selection;
+}
+
+/**
+ * getCompoSearchJSONFile returns composition search JSON File.
+ **/
+function getCompoSearchJSONFile() {
+    var getCompoSearchJSONFile = "../content/composition-search.json";
+    return getCompoSearchJSONFile;
 }
 
 //Moved this function to navbar.js line 72

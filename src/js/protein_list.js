@@ -15,8 +15,8 @@ String.prototype.trunc = String.prototype.trunc ||
     };
 
 var page = 1;
-var sort = 'protein_name_long';
-var dir = 'desc'
+var sort = undefined;
+var dir = 'asc';
 var url = getWsUrl('protein_list');
 var limit = 20;
 
@@ -37,6 +37,12 @@ function buildSummary(queryInfo) {
     if (queryInfo.mass) {
         queryInfo.mass.min = addCommas(queryInfo.mass.min);
         queryInfo.mass.max = addCommas(queryInfo.mass.max);
+    }
+    if (queryInfo.uniprot_canonical_ac) {
+        queryInfo.uniprot_canonical_ac = queryInfo.uniprot_canonical_ac.trim();
+        queryInfo.uniprot_canonical_ac = queryInfo.uniprot_canonical_ac.replace(/,/g, ",\u200B");
+        queryInfo.uniprot_canonical_ac = queryInfo.uniprot_canonical_ac.replace(/-/g, "\u2011");
+        queryInfo.uniprot_canonical_ac = queryInfo.uniprot_canonical_ac + "\u200B";
     }
     var question = getParameterByName('question');
     if (question) {
@@ -98,12 +104,12 @@ function PageFormat(value, row, index, field) {
  * @param {object} value - The data binded to that particular cell.
  * @return- Protein Mass if available else NA
  */
-function MassFormatter(value) {
-    if (value) {
-        var mass = value;
+function massFormatter(value) {
+    if (value > -1) {
+        var mass = value  ;
         return value;
     } else {
-        return "NA";
+        return "N/A";
     }
 }
 

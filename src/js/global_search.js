@@ -59,3 +59,16 @@ function loadResult() {
         error: ajaxFailure
     });
 }
+
+/**
+ * This function opens the Protein or Glycan Detail page.
+ */
+function openDetailPage(type, id){
+    var url = "";
+    if (type == "protein"){
+        url = window.location.origin + "/protein_detail.html?uniprot_canonical_ac=" + id + "&gs=" + id;
+    } else if (type == "glycan"){
+        url = window.location.origin + "/glycan_detail.html?glytoucan_ac=" + id + "&gs=" + id;
+    }
+    location.href = url;
+}

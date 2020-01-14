@@ -1045,6 +1045,15 @@ ____________________________________  */
     padding: 2% 5% 0;
 }
 
+.iso-sequence, .hom-sequence {
+    display: none;
+}
+
+sub {
+  vertical-align: middle;
+  font-size: smaller;
+}
+
 /* ----------------------------
     @media Mobile screen adjustment 
 --------------------------------*/
@@ -1236,3 +1245,69 @@ ul.gg-breadcrumb {
     text-decoration: underline !important;
   }
   /* --- css for breadcrumb ends --- */
+
+
+/* =========================================
+        Vertical/Horizontal Headings
+============================================ */
+
+.vertical-heading h5 {
+    color: #60BA4B;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    word-spacing: 9px;
+    display: inline-block;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    position: relative;
+    top: 60px;
+    left: -53px;
+}
+
+.vertical-heading h2 {
+    margin: 0 0 30px 35px;
+}
+
+.horizontal-heading h2,
+.vertical-heading h2 {
+    font-size: 38px;
+    font-weight: 100;
+    line-height: 45px;
+}
+
+.horizontal-heading {
+    margin-bottom: 30px;
+}
+
+.horizontal-heading h5 {
+    font-size: 16px;
+    color: #60BA4B;
+    font-weight: 540 !important;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.horizontal-heading h2 {
+    margin: 0;
+}
+
+
+/* =========================================
+               Citations
+============================================ */
+
+.logo-citations {
+    margin-top: 50px;
+}
+
+.text-indent  div {
+    text-indent: -50px;
+    padding-left: 50px;
+}
+
+.heading-box-sm {
+    padding: 40px 20px;
+    background-color: #fff;
+}

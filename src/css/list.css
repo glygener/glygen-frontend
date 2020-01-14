@@ -137,6 +137,8 @@ pre {
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-bottom: none;
+    text-decoration: none;
 }
 
 .evidence_badge {
@@ -158,4 +160,8 @@ pre {
 .evidence_id {
     position: relative; 
    display: inline-block;     
+}
+
+abbr[title], acronym[title] {
+    border-bottom: none;
 }

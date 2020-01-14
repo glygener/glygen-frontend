@@ -61,15 +61,14 @@ function PageFormat(value, row, index, field) {
  * @param {object} value - The data binded to that particular cell.
  * @return- Protein Mass if available else NA
  */
-function MassFormatter(value) {
-    if (value) {
-        var mass = value;
+function massFormatter(value) {
+    if (value > -1) {
+        var mass = value  ;
         return value;
     } else {
-        return "NA";
+        return "N/A";
     }
 }
-
 var lastSearch;
 
 /**

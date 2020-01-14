@@ -18,15 +18,19 @@
     <script async src="js/ga.js" type="text/javascript"></script>
 
     <meta charset="utf-8">
-    <meta name="description" content="Search for glycan structures based on their GlyTouCan registry IDs, native mass, glycan type or organism. It is also possible to search for glycans based on enzymes that have been involved in the biosynthesis or proteins that this glycan was attached to">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="glycan, carbohydrate, search, mass search, glycoprotein search">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Protein search - glygen</title>
+    <title>Protein Search | Search for Protein Structures | glygen.org</title>
+
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Search for protein structures based on their UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein or Peptide Sequence, Pathway ID.">
+    <meta name="keywords" content="protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID.">
+    
+    
     <!-- CSS for UI Typeahead -->
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
     <!--This does not work as downloaded version so UX using this as CDN for font.css-->
@@ -166,22 +170,23 @@
                                                     data-placement="top"
                                                     data-trigger="click"
                                                     data-html="true"
-                                                    data-content="Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database. <br><br>Enter the UniProtKB Accession of your protein. Explore <a href='https://www.uniprot.org/' target='_blank'>UniProtKB</a>"
-                                                    tooltip-title="Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database. <br><br>Enter the UniProtKB Accession of your protein.">
+                                                    data-content="You can search <strong>UniProtKB Accession</strong> by single or multiple <strong>comma-separated</strong> UniProtKB Accession(s). <br><br> Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database. Explore <a href='https://www.uniprot.org/' target='_blank'>UniProtKB</a>"
+                                                    tooltip-title="You can search <strong>UniProtKB Accession</strong> by single or multiple <strong>comma-separated</strong> UniProtKB Accession(s). <br><br> Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database.">
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span> UniProtKB Accession:
                                             </label>
                                             <div class="col-sm-8 gg-form-group">
-                                                <input type="text" 
+                                                <textarea type="text" 
                                                     name="ProteinID" 
-                                                    class="form-control" 
+                                                    class="multiinput-textarea form-control" 
                                                     id="protein" 
-                                                    placeholder="Enter the UniProtKB Accession of your protein" onkeyup="validateProteinAcc(this)">
+                                                    rows="3"
+                                                    placeholder="Enter single or multiple comma-separated UniProtKB Accession(s)." onkeyup="validateProteinAcc(this)"></textarea>
                                                 <div> 
                                                     <div class="gg-text-left">Example: <a
-                                                    href="#P14210-1" 
+                                                    href="#P14210" 
                                                     id="textExampleProtein"
-                                                    data-tippy="Click to Insert">P14210-1</a></div>
+                                                    data-tippy="Click to Insert">P14210</a></div>
                                                     
                                                     <div class="gg-text-right" >Explore <a href="https://www.uniprot.org/help/accession_numbers" 
                                                     target="_blank" 
@@ -363,7 +368,7 @@
                                                     <i class="far fa-question-circle help-sign"></i></a>
                                                 </span>GO Name:
                                             </label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8 gg-form-group">
                                                 <input type="text"
                                                     name="GOTerm"
                                                     class="form-control go_term"
@@ -381,6 +386,46 @@
                                                 </div>
                                                 <br>
                                                 <h6 id='goTermMsg' class="validation-message"></h6>
+                                            </div>
+                                        </div>
+                                        <!-- GO ID -->
+                                         <div class="row">
+                                            <label class="control-label col-sm-4" for="go_id">
+                                                <span><a class="link-with-tooltip" href="javascript://" \
+                                                    title="GO ID"
+                                                    data-toggle="popover"
+                                                    data-placement="top"
+                                                    data-trigger="click"
+                                                    data-html="true"
+                                                    data-content="Gene ontology is a precisely defined, common controlled vocabulary for describing the roles of genes and gene products in any organism and includes three categories: Molecular function, Biological process, and Cellular component.
+                                                    <br><br>
+                                                    GO Name - term name, which may be a word or string of words.
+                                                    GO ID - a unique alphanumeric identifier. Explore <a href='http://geneontology.org/docs/ontology/' target='_blank'> GO ID"
+                                                    tooltip-title="Gene ontology is a precisely defined, common controlled vocabulary for describing the roles of genes and gene products in any organism and includes three categories: Molecular function, Biological process, and Cellular component.
+                                                    <br><br>
+                                                    GO Name - term name, which may be a word or string of words.
+                                                    GO ID - a unique alphanumeric identifier.">
+                                                    <i class="far fa-question-circle help-sign"></i></a>
+                                                </span>GO ID:
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text"
+                                                    name="GOID"
+                                                    class="form-control go_id"
+                                                    id="go_id"
+                                                    placeholder="Enter the GO ID of your protein" onkeyup="validateGOTerm(this)">   
+                                                <div>
+                                                    <div class="gg-text-left">Example: <a
+                                                    href="#GO:0005739" id="textExampleGOID"
+                                                    data-toggle="tooltip"
+                                                    data-tippy="Click to Insert">GO:0005739</a></div>
+
+                                                    <div class="gg-text-right">Explore <a href="http://geneontology.org/docs/ontology/" 
+                                                    target="_blank"
+                                                    data-tippy="Explore GO ID Database">GO ID</a></div>
+                                                </div>
+                                                <br>
+                                                <h6 id='goIDMsg' class="validation-message"></h6>
                                             </div>
                                         </div>
                                         <!-- Protein or Peptide Sequence -->
@@ -467,6 +512,41 @@
                                                     data-tippy="Explore Reactome Database">Reactome</a></div>
                                                 </div>
                                                 <label id='pathwayIDMsg' class="validation-message"></label>
+                                            </div>
+                                        </div>
+                                        <!-- PMID -->
+                                        <div class="gg-form-group row">
+                                            <label class="control-label col-sm-4" for="pmid">
+                                                <span><a class="link-with-tooltip" href="javascript://" 
+                                                    title="Glycan pmid" 
+                                                    data-toggle="popover"
+                                                    data-placement="top" 
+                                                    data-trigger="click"
+                                                    data-html="true"
+                                                    data-content="A PMID is the unique identifier number used in PubMed for each article. The PMID is assigned to each article record when it enters the PubMed system. Explore <a href='https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/' target='_blank'>PubMed ID</a>"
+                                                    tooltip-title="A PMID is the unique identifier number used in PubMed for each article. The PMID is assigned to each article record when it enters the PubMed system.  <br><br>Enter a PMID of article.">
+                                                    <i class="far fa-question-circle help-sign"></i></a>
+                                                </span> Pubmed ID:
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" 
+                                                    name="Glycanpmid" 
+                                                    class="form-control pmid" 
+                                                    id="pmid"
+                                                    placeholder="Enter the Pubmed ID" onkeyup="validatepmidName(this)">
+                                                <div>
+                                                    <div class="gg-text-left">Example: <a 
+                                                    href="#30964610" 
+                                                    id="textExamplepmid"
+                                                    data-tippy="Click to Insert">30964610
+                                                    </a></div>
+                                                    
+                                                    <div class="gg-text-right">Explore <a
+                                                    href="https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/" target="_blank" 
+                                                    data-tippy="Explore Glycan pmid Database">Pubmed ID</a></div>
+                                                </div>
+                                                <br>
+                                                <h6 id='pmidNameMsg' class="validation-message"></h6>
                                             </div>
                                         </div>
                                         <!-- bottom button -->

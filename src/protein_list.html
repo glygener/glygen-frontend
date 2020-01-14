@@ -17,7 +17,12 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>List page - glygen</title>
+    <title>Protein List | Summary of Your Protein Search | glygen.org</title>
+    
+    <!-- GlyGen SEO -->
+    <meta name="description" content="Results of a protein structure search - a list of proteins conforming to the query parameters. Select the UniProtKB Accession from the list.">
+    <meta name="keywords" content="protein, UniProtKB Accession, Gene Name, UniProtKB Name, Chemical Mass (Da), Organism, RefSeq Name, RefSeq Accession.">
+    
     <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
 
     <!--[if lt IE 9]>
@@ -84,23 +89,23 @@
             </div>
         </div>
         <div class="row" id="paginationctrl1">
-                <div class="col-md-9 col-xs-9">
-                    <form class="form-inline col-sm-10" onsubmit="return false;">
-                        <label>Page</label>
-                        <button type="button" class="btn btn-primary prevbutton" onclick="prev();">Prev</button>
-                        <select class="page-select form-control" onchange="xpage(this);"></select>
-                        <button type="button" class="btn btn-primary nextbutton" onclick="next();">Next</button>
-                        <label>Records per page</label>
-                        <select class="limit-select form-control" onchange="xlimit(this);">
-                            <option selected>20</option>
-                            <option>40</option>
-                            <option>60</option>
-                            <option>80</option>
-                        </select>
-                        <label class="searchresult"></label>
-                    </form>
-                </div>
-                <div class="col-md-3 col-xs-3">
+            <div class="col-md-9 col-xs-9">
+                <form class="form-inline col-sm-10" onsubmit="return false;">
+                    <label>Page</label>
+                    <button type="button" class="btn btn-primary prevbutton" onclick="prev();">Prev</button>
+                    <select class="page-select form-control" onchange="xpage(this);"></select>
+                    <button type="button" class="btn btn-primary nextbutton" onclick="next();">Next</button>
+                    <label>Records per page</label>
+                    <select class="limit-select form-control" onchange="xlimit(this);">
+                        <option selected>20</option>
+                        <option>40</option>
+                        <option>60</option>
+                        <option>80</option>
+                    </select>
+                    <label class="searchresult"></label>
+                </form>
+            </div>
+            <div class="col-md-3 col-xs-3">
                 <div class="dropdown gg-download text-right">
                     <button class="btn btn-link btn-link-detail dropdown-toggle" type="button" id="download" alt="Download results" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
@@ -207,6 +212,21 @@
                         </tr>
                         {{/go_term}}
 
+                        <!--Go ID-->
+
+                        {{#go_id}}
+                        <tr>
+                            <td>GO ID:</td>
+                            <td>{{go_id}}</td>
+                        </tr>
+                        {{/go_id}}
+                     <!--PMID-->
+ {{#pmid}}
+ <tr>
+     <td>PMID:</td>
+     <td>{{pmid}}</td>
+ </tr>
+ {{/pmid}}
                         <!--peptide seq-->
                         {{#sequence.aa_sequence}}
                         <tr>
@@ -267,14 +287,14 @@
 
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <table id="gen-table" data-show-export="true" data-toggle="table" data-sort-name="protein_name_long" data-sort-order="desc">
+                <table id="gen-table" data-show-export="true" data-toggle="table">
                     <thead>
                         <tr>
                             <th data-field="uniprot_canonical_ac" data-formatter="PageFormat" data-sortable="true">
                                 UniProtKB Accession</th>
                             <th data-field="gene_name" data-sortable="true">Gene Name</th>
                             <th data-field="protein_name_long" data-sortable="true">UniProtKB Name</th>
-                            <th data-field="mass" data-formatter="MassFormatter" data-sortable="true">Chemical Mass (Da)
+                            <th data-field="mass" data-formatter="massFormatter" data-sortable="true">Chemical Mass (Da)
                             </th>
                             <th data-field="organism" data-sortable="true">Organism</th>
                             <th data-field="refseq_name" data-sortable="true">RefSeq Name</th>
@@ -345,4 +365,5 @@
     <script src="libraries/download.js"></script>
 
 </body>
+
 </html>

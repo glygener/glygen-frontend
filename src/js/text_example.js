@@ -14,7 +14,7 @@
 // select already you input element for re-use
 var $tagsInputGlycan = $('#glycan_id');
 // bind a click event to links within ".textExample" element
-$('#textExampleGlycan').click(function() {
+$('.textExampleGlycan').click(function() {
     // append link text to the input field value
     $tagsInputGlycan.val($(this).text());
     return false;
@@ -37,6 +37,15 @@ $('#textExampleProtein').click(function() {
 var $tagsInputMotif = $('#motif');
 $('#textExampleMotif').click(function() {
     $tagsInputMotif.val($(this).text());
+    return false;
+});
+/**
+ * Makes the example clickable and inserts it into the search input field.
+ * @param {string} tagsInputpmid
+ */
+var $tagsInputpmid = $('#pmid');
+$('#textExamplepmid').click(function() {
+    $tagsInputpmid.val($(this).text());
     return false;
 });
 
@@ -91,6 +100,29 @@ $('#textExampleGeneName').click(function() {
 var $tagsInputGOTerm = $('#go_term');
 $('#textExampleGOTerm').click(function() {
      $tagsInputGOTerm.val($(this).text());
+    return false;
+});
+
+/**
+ * Makes the example clickable and inserts it into the search input field.
+ * @param {string} tagsInputGOID
+ */
+var $tagsInputGOID = $('#go_id');
+$('#textExampleGOID').click(function() {
+     $tagsInputGOID.val($(this).text());
+    return false;
+});
+
+/**
+ * Makes the example clickable and inserts it into the search input field.
+ * @param {string} tagsInputGlycan
+ */
+// select already you input element for re-use
+var $tagsInputGlycan = $('#glycan_id');
+// bind a click event to links within ".textExample" element
+$('#textExampleInterGlycan').click(function() {
+    // append link text to the input field value
+    $tagsInputGlycan.val($(this).text());
     return false;
 });
 

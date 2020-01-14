@@ -43,8 +43,10 @@ function resetAdvanced() {
             protein_name: "",
             gene_name: "",
             go_term: "",
+            go_id: "",
             pathway_id: "",
             uniprot_canonical_ac: "",
+            pmid:"",
             sequence: {
                 glycosylated_aa: "",
                 type: ""
@@ -117,8 +119,8 @@ $(document).ready(function () {
             for (var x = 0; x < result.simple_search_category.length; x++) {
                 createOption(categoryType, result.simple_search_category[x].display, result.simple_search_category[x].id);
             }
-            mass_max = Math.ceil(result.protein_mass.max);
-            mass_min = Math.floor(result.protein_mass.min);
+            mass_max = Math.ceil(result.protein_mass.max + 1);
+            mass_min = Math.floor(result.protein_mass.min - 1);
             // mass(mass_min, mass_max);
             // check for ID to see if we need to load search values
             // please do not remove this code as it is required prepopulate search values
@@ -257,14 +259,24 @@ function ajaxProteinSearchSuccess() {
         "id": parseInt(selected_species.value),
         "name": selected_species.options[selected_species.selectedIndex].text
     };
-    var uniprot_id = $("#protein").val();
+    var uniprot_id = $("#protein").val().trim();
+    uniprot_id = uniprot_id.replace(/\u200B/g, "");
+    uniprot_id = uniprot_id.replace(/\u2011/g, "-");
+    uniprot_id = uniprot_id.replace(/\s+/g, ",");
+    uniprot_id = uniprot_id.replace(/,+/g, ",");
+    var index = uniprot_id.lastIndexOf(",");
+    if (index > -1 && (index + 1) == uniprot_id.length) {
+        uniprot_id = uniprot_id.substr(0, index);
+    }
     var refseq_id = $("#refseq").val();
     var gene_name = $("#gene_name").val();
     var protein_name = $("#protein_name").val();
     var go_term = $("#go_term").val();
+    var go_id = $("#go_id").val();
     var pathway_id = $("#pathway").val();
     var sequence = $("#sequences").val().replace(/\n/g, "");
-    var formObject = searchJson(query_type, mass_slider[0], mass_slider[1], organism, uniprot_id, refseq_id, gene_name, protein_name, go_term, pathway_id, sequence)
+    var pmid = document.getElementById("pmid").value;
+    var formObject = searchJson(query_type, mass_slider[0], mass_slider[1], organism, uniprot_id, refseq_id, gene_name, protein_name, go_term, go_id, pathway_id, sequence,pmid)
     var json = "query=" + JSON.stringify(formObject);
     $.ajax({
         type: 'post',
@@ -294,20 +306,21 @@ function ajaxProteinSearchSuccess() {
 /**
  * Forms searchjson from the form values submitted
  * @param {string} input_query_type query search
- * @param {string} mass_min user mass min input
- * @param {string} mass_max user mass max input
+ * @param {string} input_mass_min user mass min input
+ * @param {string} input_mass_max user mass max input
  * @param {string} user organism input
  * @param {string} input_protein_id user protein input
  * @param {string} input_refseq_id user input
  * @param {string} input_gene_name user input
  * @param {string} input_protein_name user input
  * @param {string} input_go_term user input
+ * @param {string} input_go_id user input
  * @param {string} input_pathway_id user input
  * @param {string} input_sequence user input
  * @return {string} returns text or id
  */
-function searchJson(input_query_type, mass_min, mass_max, input_organism, input_protein_id,
-    input_refseq_id, input_gene_name, input_protein_name, input_go_term, input_pathway_id, input_sequence) {
+function searchJson(input_query_type, input_mass_min, input_mass_max, input_organism, input_protein_id,
+    input_refseq_id, input_gene_name, input_protein_name, input_go_term, input_go_id, input_pathway_id, input_sequence,input_pmid) {
     var sequences;
     if (input_sequence) {
         sequences = {
@@ -315,28 +328,38 @@ function searchJson(input_query_type, mass_min, mass_max, input_organism, input_
             "aa_sequence": input_sequence
         }
     }
-    
-    var organism;
+    var selected_organism = undefined;
     if (input_organism.id != "0") {
-        organism = {"id":0,"name":"All"};
-        organism.id = input_organism.id;
-        organism.name = input_organism.name;
+        selected_organism = {
+            "id": input_organism.id,
+            "name": input_organism.name
+        }
     }
+
+    var input_mass = undefined;
+    if (mass_min != input_mass_min || mass_max !=  input_mass_max) {
+        input_mass = {
+            "min" : parseInt(input_mass_min),
+            "max" : parseInt(input_mass_max)
+        };
+    }
+
     var formjson = $.extend({}, {
         "operation": "AND",
         query_type: input_query_type,
-        mass: {
-            "min": parseInt(mass_min),
-            "max": parseInt(mass_max)
-        },
+        mass: input_mass,
         sequence: sequences ?sequences:undefined,
-        organism: organism ?organism:undefined,
+        organism: selected_organism,
         refseq_ac: input_refseq_id? input_refseq_id: undefined,
         protein_name: input_protein_name? input_protein_name: undefined,
         gene_name: input_gene_name?input_gene_name: undefined,
         go_term: input_go_term? input_go_term: undefined,
+        go_id: input_go_id? input_go_id: undefined,
+        pmid: input_pmid? input_pmid: undefined,
         pathway_id: input_pathway_id ?input_pathway_id: undefined,
         uniprot_canonical_ac: input_protein_id ?input_protein_id: undefined
+  
+        
     });
     return formjson;
 }
@@ -399,10 +422,10 @@ function populateExample() {
             examples = ["hsa:3082"];
             break;
         case "protein":
-            examples = ["P14210-1"];
+            examples = ["P14210"];
             break;
         default:
-            examples = ["P14210-1", "G17689DH", "hsa:3082", "Homo sapiens", "Deafness"];
+            examples = ["P14210", "G17689DH", "hsa:3082", "Homo sapiens", "Deafness"];
             exampleText += "s";
             break;
     }

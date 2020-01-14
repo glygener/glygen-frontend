@@ -9,7 +9,7 @@
  */
 $("#protein").autocomplete({
     source: function (request, response) {
-        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("uniprot_canonical_ac", request.term);
+        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("uniprot_canonical_ac", getLastTerm(request.term));
         $.getJSON(queryUrl, function (suggestions) {
             suggestions.length = Math.min(suggestions.length, 5);
             response(suggestions);
@@ -17,7 +17,15 @@ $("#protein").autocomplete({
     },
     minLength: 1,
     select: function (event, ui) {
+        var termList = splitValue(this.value);
+        // remove user input
+        termList.pop();
+        // add user selected value
+        termList.push(ui.item.value);
+        termList.push("");
+        this.value = termList.join(",");
         console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        return false;
     }
 });
 
@@ -117,7 +125,7 @@ function getSortedCategorizedTypeahead(suggestions) {
 }
 
 /** go_term on change detect and suggest auto complete options from retrieved Json
- * @gotermjson - forms the JSON to post
+ * @go_term - forms the JSON to post
  * @data-returns the categorized go_term
  */
 $("#go_term").categoryautocomplete({
@@ -127,6 +135,24 @@ $("#go_term").categoryautocomplete({
         $.getJSON(queryUrl, function (suggestions) {
             category_label_sorted = getSortedCategorizedTypeahead(suggestions);
             response(category_label_sorted);
+        });
+    },
+    minLength: 1,
+    select: function (event, ui) {
+        console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+    }
+});
+
+/** go_id on change detect and suggest auto complete options from retrieved Json
+ * @go_id - forms the JSON to post
+ * @data-returns the go_id.
+ */
+$("#go_id").autocomplete({
+    source: function (request, response) {
+        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("go_id", request.term);
+        $.getJSON(queryUrl, function (suggestions) {
+            suggestions.length = Math.min(suggestions.length, 10);
+            response(suggestions);
         });
     },
     minLength: 1,
@@ -159,7 +185,7 @@ $("#pathway").autocomplete({
  */
 $("#glycan_id").autocomplete({
     source: function (request, response) {
-        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("glytoucan_ac", request.term);
+        var queryUrl = getWsUrl("type-ahead") + "?" + getSearchtypeheadData("glytoucan_ac", getLastTerm(request.term));
         $.getJSON(queryUrl, function (suggestions) {
             suggestions.length = Math.min(suggestions.length, 5);
             response(suggestions);
@@ -167,9 +193,33 @@ $("#glycan_id").autocomplete({
     },
     minLength: 1,
     select: function (event, ui) {
+        var termList = splitValue(this.value);
+        // remove user input
+        termList.pop();
+        // add user selected value
+        termList.push(ui.item.value);
+        termList.push("");
+        this.value = termList.join(",");
         console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        return false;
     }
 });
+
+/** function splits comma separated string
+ * @param {string} - comma separated string
+ * @return string array.
+ */
+function splitValue(value) {
+    return value.split(/,\s*/);
+}
+
+/** function returns last term in comma separated string
+ * @param {string} - comma separated string
+ * @return last term.
+ */
+function getLastTerm(term) {
+    return splitValue(term).pop();
+}
 
 /** motif field on change detect and suggest auto complete options from retrieved Json
  * @motif idjson - forms the JSON to post
