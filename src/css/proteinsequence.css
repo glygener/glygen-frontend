@@ -1,0 +1,137 @@
+/* --------------------------
+    Sequence Highlighting
+ ----------------------------*/
+.highlight-row {
+	font-family: monospace;
+}
+
+.highlight-line-number {
+	white-space: pre;
+}
+
+.highlight-section {
+	position: relative;
+}
+
+.highlight-highlight {
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+
+.highlight-highlight[data-type="mutation"] .highlight-highlight-area {
+	/* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
+
+	background: rgb(131, 235, 131);
+}
+
+.highlight-highlight[data-type="o_link_glycosylation"]
+	.highlight-highlight-area {
+	/* background-image: linear-gradient(rgba(100, 236, 100, 1), transparent);   */
+	border-bottom: 3px solid blue;
+}
+/*     */
+
+.highlight-highlight[data-type="n_link_glycosylation"]
+	.highlight-highlight-area {
+	border-bottom: 3px solid red;
+}
+
+.highlight-highlight[data-type="site_annotation"] .highlight-highlight-area {
+	/* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
+	background: 3px orange;
+	/* border-top: 3px orange; */
+	padding-top: 1px;
+}
+.sequnce_highlight {
+	display: block;
+	display: inline-table;
+	padding: 9px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: rgba(0, 0, 0);
+	/* background-color: #e6e6e6; */
+	background-color: rgba(0, 0, 0, 0.05);
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	overflow-y: scroll;
+}
+
+/*n_link_glycosylation"*/
+.sequnce1 {
+	border-bottom: 3px solid red;
+	/* font-family: monospace; */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+
+/*o_link_glycosylation"*/
+.sequnce2 {
+	border-bottom: 3px solid blue;
+	/* font-family: monospace; */
+	/* font-size: 14px; */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+/*mutation*/
+.sequnce3 {
+	background: rgb(131, 235, 131);
+	/* font-family: monospace; */
+	/* font-size: 14px; */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+/*Sequon*/
+.sequnce4 {
+	background: rgb(244, 151, 37);
+	/* font-family: monospace; */
+	/* font-size: 14px; */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+.highlight-panel-categories {
+	margin: 0 0 0 30px;
+	padding: 5px;
+	width: 100%;
+	overflow: auto;
+}
+
+.sequence-panel {
+	margin-left: 5%;
+}
+@media (max-width: 1345px) {
+	/* @media (max-width: 757px) { */
+	.content-box {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+	.content-active {
+		order: -1;
+		flex: 1 0 100%;
+	}
+}
+
+.sequencePreClass {
+	border: 0px;
+	padding: 0px;
+	margin-bottom: 0px;
+	font-family: monospace;
+	font-size: 14px;
+}
+
+.highlight-text {
+	font-family: monospace !important;
+	font-size: 14px;
+	position: relative;
+	z-index: 10;
+}

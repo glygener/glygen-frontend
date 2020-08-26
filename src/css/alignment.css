@@ -1,101 +1,94 @@
 .aln-block {
-    display: table;
+  display: table;
 }
 
 .aln-line {
-    display: table-row;
+  display: table-row;
 }
 
 .aln-line > * {
-    display: table-cell;
-    white-space: nowrap;
-    padding: 0 .25em;
+  display: table-cell;
+  white-space: nowrap;
+  padding: 0 0.25em;
 }
 
-
-     .aln-block{
-       
-      padding-top:15px
-    }
-    .aln-line-link{
-        display: inline-block;
-        width: 13rem;
-        padding-left: 9px;
-    }
-    .aln-line-title{
-        
-        display: inline-block;
-        width: 20rem
-    }
-    .aln-line-alignment{
-        font-family:monospace;
-        display: inline-block;
-        margin-left: 30%
-    
-    }
-   .aln-line-value{
-       font-family: monospace;
-       display: inline-block;
-       word-break: break-all;
-
-   }
-
-   .aln-line-consensus{
-    overflow: hidden;
-    font-family: monospace;
-    display: inline-block;
-    word-break: break-all;
-  
-   }
-.boldd{
-    font-weight: bold;
+.aln-block {
+  padding-top: 15px;
 }
-.summarystly{
-    padding-right: 0px;
-    padding-left: 0px;
+.aln-line-link {
+  display: inline-block;
+  width: 13rem;
+  padding-left: 9px;
+}
+.aln-line-title {
+  display: inline-block;
+  width: 20rem;
+}
+.aln-line-alignment {
+  font-family: monospace;
+  display: inline-block;
+  margin-left: 30%;
+}
+.aln-line-value {
+  font-family: monospace;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.aln-line-consensus {
+  overflow: hidden;
+  font-family: monospace;
+  display: inline-block;
+  word-break: break-all;
+}
+.boldd {
+  font-weight: bold;
+}
+.summarystly {
+  padding-right: 0px;
+  padding-left: 0px;
 }
 .cd-faq-categories {
-    width: auto;
+  width: auto;
 }
 /** Overriding the code of faq_style.css for Detail page.
   * @author Gaurav Agarwal
   * @date 21 June 2018
   */
-  .cd-faq-items {
-    overflow-x: hidden !important;
+.cd-faq-items {
+  overflow-x: hidden !important;
 }
 
 @media only screen and (min-width: 1024px) {
-    .cd-faq-categories {
-        width: 290px;
-    }
+  .cd-faq-categories {
+    width: 290px;
+  }
 
-    .pull-left {
-        width: 50%;
-    }
+  .pull-left {
+    width: 50%;
+  }
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1300px) {
-    .cd-faq-items {
-        padding-left: 300px;
-    }
+  .cd-faq-items {
+    padding-left: 300px;
+  }
 
-    .pull-left {
-        width: 100%;
-    }
+  .pull-left {
+    width: 100%;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .cd-faq-items {
-        width: 62%;
-    }
+  .cd-faq-items {
+    width: 62%;
+  }
 
-    .pull-left {
-        width: 100%;
-    }
+  .pull-left {
+    width: 100%;
+  }
 }
 
-
 .cd-faq {
-  
-    max-width: 1400px;}
+  max-width: 1400px;
+}

@@ -1,0 +1,23 @@
+TY  - JOUR
+TI  - GlycoGlyph: a glycan visualizing, drawing and naming application
+AU  - Mehta, Akul Y.
+AU  - Cummings, Richard D.
+T2  - Bioinformatics (Oxford, England)
+AB  - MOTIVATION: Glycan structures are commonly represented using symbols or linear nomenclature such as that from the Consortium for Functional Glycomics (also known as modified IUPAC-condensed nomenclature). No current tool allows for writing the name in such format using a graphical user interface (GUI); thus, names are prone to errors or non-standardized representations.
+RESULTS: Here we present GlycoGlyph, a web application built using JavaScript, which is capable of drawing glycan structures using a GUI and providing the linear nomenclature as an output or using it as an input in a dynamic manner. GlycoGlyph also allows users to save the structures as an SVG vector graphic, and allows users to export the structure as condensed GlycoCT.
+AVAILABILITY AND IMPLEMENTATION: The application can be used at: https://glycotoolkit.com/Tools/GlycoGlyph/. The application is tested to work in modern web browsers such as Firefox or Chrome.
+CONTACT: aymehta@bidmc.harvard.edu or rcummin1@bidmc.harvard.edu.
+DA  - 2020/06/01/
+PY  - 2020
+DO  - 10.1093/bioinformatics/btaa190
+DP  - PubMed
+VL  - 36
+IS  - 11
+SP  - 3613
+EP  - 3614
+J2  - Bioinformatics
+LA  - eng
+SN  - 1367-4811
+ST  - GlycoGlyph
+ER  - 
+

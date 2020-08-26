@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="16px" viewBox="0 0 24 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>quote-open-outline-white</title>
+    <desc>Created with Sketch.</desc>
+    <g id="REACT-Homepage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="quote-open-outline-white" transform="translate(-3.000000, -7.000000)">
+            <g id="Icon" transform="translate(3.789474, 7.578947)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M10.1052632,15.1578947 L10.1052632,5.05263158 L7.73052632,5.05263158 L10.2568421,0 L3.00631579,0 L0,6.01263158 L0,15.1578947 M7.57894737,12.6315789 L2.52631579,12.6315789 L2.52631579,6.61894737 L4.57263158,2.52631579 L6.16421053,2.52631579 L3.63789474,7.57894737 L7.57894737,7.57894737 M22.7368421,15.1578947 L22.7368421,5.05263158 L20.3621053,5.05263158 L22.8884211,0 L15.6378947,0 L12.6315789,6.01263158 L12.6315789,15.1578947 M20.2105263,12.6315789 L15.1578947,12.6315789 L15.1578947,6.61894737 L17.2042105,2.52631579 L18.7957895,2.52631579 L16.2694737,7.57894737 L20.2105263,7.57894737 L20.2105263,12.6315789 Z" id="Icon-Shape"></path>
+            </g>
+            <rect id="ViewBox" x="0" y="0" width="30.3157895" height="30.3157895"></rect>
+        </g>
+    </g>
+</svg>

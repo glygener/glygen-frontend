@@ -1,0 +1,42 @@
+TY  - JOUR
+TI  - GlyGen data model and processing workflow
+AU  - Kahsay, Robel
+AU  - Vora, Jeet
+AU  - Navelkar, Rahi
+AU  - Mousavi, Reza
+AU  - Fochtman, Brian C.
+AU  - Holmes, Xavier
+AU  - Pattabiraman, Nagarajan
+AU  - Ranzinger, Rene
+AU  - Mahadik, Rupali
+AU  - Williamson, Tatiana
+AU  - Kulkarni, Sujeet
+AU  - Agarwal, Gaurav
+AU  - Martin, Maria
+AU  - Vasudev, Preethi
+AU  - Garcia, Leyla
+AU  - Edwards, Nathan
+AU  - Zhang, Wenjin
+AU  - Natale, Darren A.
+AU  - Ross, Karen
+AU  - Aoki-Kinoshita, Kiyoko F.
+AU  - Campbell, Matthew P.
+AU  - York, William S.
+AU  - Mazumder, Raja
+T2  - Bioinformatics (Oxford, England)
+AB  - SUMMARY: Glycoinformatics plays a major role in glycobiology research, and the development of a comprehensive glycoinformatics knowledgebase is critical. This application note describes the GlyGen data model, processing workflow and the data access interfaces featuring programmatic use case example queries based on specific biological questions. The GlyGen project is a data integration, harmonization and dissemination project for carbohydrate and glycoconjugate-related data retrieved from multiple international data sources including UniProtKB, GlyTouCan, UniCarbKB and other key resources.
+AVAILABILITY AND IMPLEMENTATION: GlyGen web portal is freely available to access at https://glygen.org. The data portal, web services, SPARQL endpoint and GitHub repository are also freely available at https://data.glygen.org, https://api.glygen.org, https://sparql.glygen.org and https://github.com/glygener, respectively. All code is released under license GNU General Public License version 3 (GNU GPLv3) and is available on GitHub https://github.com/glygener. The datasets are made available under Creative Commons Attribution 4.0 International (CC BY 4.0) license.
+SUPPLEMENTARY INFORMATION: Supplementary data are available at Bioinformatics online.
+DA  - 2020/06/01/
+PY  - 2020
+DO  - 10.1093/bioinformatics/btaa238
+DP  - PubMed
+VL  - 36
+IS  - 12
+SP  - 3941
+EP  - 3943
+J2  - Bioinformatics
+LA  - eng
+SN  - 1367-4811
+ER  - 
+

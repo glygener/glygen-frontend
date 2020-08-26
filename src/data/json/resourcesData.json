@@ -1,0 +1,251 @@
+{
+	"dataResourcesData": [
+		{
+			"category": "Database",
+			"website": {
+				"name": "CAZy",
+				"url": "http://www.cazy.org/"
+			},
+			"description": "The CAZy database describes the families of structurally-related catalytic and carbohydrate-binding modules (or functional domains) of enzymes that degrade, modify, or create glycosidic bonds.",
+			"contains_publ": "",
+			"experimental_data": "",
+			"curated": "Yes"
+		},
+		{
+			"category": "Knowledgebase",
+			"website": {
+				"name": "CAZypedia",
+				"url": "https://www.cazypedia.org/index.php/Main_Page"
+			},
+			"description": "CAZypedia is a community-driven resource to assemble a comprehensive encyclopedia of the carbohydrate-active enzymes and associated carbohydrate-binding modules involved in the synthesis and degradation of complex carbohydrates. CAZypedia is closely connected with, the actively curated CAZy Database.",
+			"contains_publ": "",
+			"experimental_data": "",
+			"curated": ""
+		},
+		{
+			"category": "Database",
+			"website": {
+				"name": "CSDB: Carbohydrate Structure Database",
+				"url": "http://csdb.glycoscience.ru/"
+			},
+			"description": "A set of manually curated carbohydrate structure databases with associated metadata (taxonomic annotation, bibliography, and NMR data). There are subdatabases focusing on bacterial carbohydrates, plant and fungal carbohydrates as well as a database for glycosyltransferases.",
+			"contains_publ": "Yes",
+			"experimental_data": "NMR",
+			"curated": "Yes"
+		},
+		{
+			"category": "Database",
+			"website": {
+				"name": "GlycoStore",
+				"url": "https://www.glycostore.org/"
+			},
+			"description": "GlycoStore is a curated chromatographic, electrophoretic and mass-spectrometry composition database of N-, O-, glycosphingolipid (GSL) glycans and free oligosaccharides associated with a range of glycoproteins, glycolipids and biotherapeutics. This database associates glycan structures with standardized retention times (UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS).",
+			"contains_publ": "Yes",
+			"experimental_data": "UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS",
+			"curated": ""
+		},
+		{
+			"category": "Repository",
+			"website": {
+				"name": "GlyTouCan",
+				"url": "https://glytoucan.org/"
+			},
+			"description": "GlyTouCan is the international glycan structure repository. This repository is the uncurated registry for glycan structures that assigns globally unique accession numbers to any glycan independent of the level of information provided by the experimental method used to identify the structure.",
+			"contains_publ": "Yes",
+			"experimental_data": "",
+			"curated": ""
+		},
+		{
+			"category": "Knowledgebase",
+			"website": {
+				"name": "UniCarbKB",
+				"url": "http://www.unicarbkb.org/"
+			},
+			"description": "UniCarbKB is a curated knowledgebase of glycosylated proteins, the attached glycan structures and if known, the glycosylation site.",
+			"contains_publ": "Yes",
+			"experimental_data": "",
+			"curated": "Yes"
+		},
+		{
+			"category": "Knowledgebase",
+			"website": {
+				"name": "GlycoPOD",
+				"url": "https://jcggdb.jp/GlycoPOD/protocolListShow"
+			},
+			"description": "GlycoPOD is the glycosciences protocol database. This resources contains an extensive and curated list of experimental protocols and detailed instructions on the execution of these protocols as well as the necessary reagents and hardware.",
+			"contains_publ": "Yes",
+			"experimental_data": "",
+			"curated": "Yes"
+		},
+		{
+			"category": "Database",
+			"website": {
+				"name": "DAGR",
+				"url": "https://ccr2.cancer.gov/resources/Cbl/Tools/Antibody/Default.aspx"
+			},
+			"description": "Database of Anti-Glycan Reagents (DAGR) is a publicly available, comprehensive resource for anticarbohydrate antibodies, their applications, availability, and quality. DAGR allows to search and identify antibodies and reagent lectins to various carbohydrates as well as to obtain information about those antibodies. In addition, users can add new antibodies/lectins to the database or information about them.",
+			"contains_publ": "Yes",
+			"experimental_data": "",
+			"curated": "Yes"
+		}
+	],
+	"toolsResourcesData": [
+		{
+			"category": "Tools",
+			"website": {
+				"name": "GRITS Toolbox",
+				"url": "http://www.grits-toolbox.org/"
+			},
+			"description": "GRITS Toolbox is a modular software suite for processing, annotating and archiving of glycomics data with a focus on MS data.The software allows users to upload their instrument MS data files in open file formats (either as mzXML or mzML) and annotated them using the integration annotation module Glycomics Elucidation and Annotation Tool (GELATO). Extensions are available to process glycolipid MS data and glycan array data.",
+			"experimental_data": "MS, glycan array",
+			"availability": "Free"
+		},
+		{
+			"category": "Tool collection",
+			"website": {
+				"name": "VirtualGlycome",
+				"url": "https://virtualglycome.org/"
+			},
+			"description": "A set of tools for the processing of glycoproteomics MS data and for the drawing of glycan structures consistent with the SNFG structure format.",
+			"experimental_data": "MS",
+			"availability": "Free"
+		},
+		{
+			"category": "Tool collection",
+			"website": {
+				"name": "RINGS",
+				"url": "http://rings.t.soka.ac.jp/"
+			},
+			"description": "RINGS is a web resource providing algorithmic and data mining tools to aid glycobiology research. There are also many tools for converting between different carbohydrate sequence formats, predicting glycan pathways and mapping glycans to organs in human and mouse.",
+			"experimental_data": "",
+			"availability": "Free"
+		},
+		{
+			"category": "Tool collection",
+			"website": {
+				"name": "ISOGlyP",
+				"url": "http://isoglyp.utep.edu/index.php"
+			},
+			"description": "ISOGlyP is an Isoform Specific O-Glycosylation Prediction. This tool allows you to analyze the sequence either by uploading a file with the sequences in FASTA format or by copy and paste the sequence(s) inside the text area.",
+			"experimental_data": "",
+			"availability": "Free"
+		}
+	],
+	"organizResourcesData": [
+		{
+			"category": "Consortium/Initiative",
+			"website": {
+				"name": "MIRAGE",
+				"url": "https://www.beilstein-institut.de/en/projects/mirage"
+			},
+			"description": "MIRAGE stands for “Minimum Information Required for A Glycomics Experiment”. The aim of the MIRAGE project is to improve the quality of glycomics data in the scientific literature be providing minimum reporting guidelines.",
+			"domain": "Glycomics"
+		},
+		{
+			"category": "Consortium/Initiative",
+			"website": {
+				"name": "GLIC",
+				"url": "https://glic.glycoinfo.org/"
+			},
+			"description": "GLIC is the Glycoinformatics Consortium. The purpose of Glycoinformatics Consortium(GLIC) is to provide and maintain a centralized source of software repository for the glycoscientists. In addition, it is aimed to be provided as a communication point for glycoscientists and glycoinformaticians.",
+			"domain": "Glycomics"
+		},
+		{
+			"category": "Link page",
+			"website": {
+				"name": "NCBI Glycan",
+				"url": "https://www.ncbi.nlm.nih.gov/glycans/"
+			},
+			"description": "Glycan information site in NCBI, highlights some useful resources for better integrating the study of glycans into the mainstream of biology.",
+			"domain": "Glycomics"
+		},
+		{
+			"category": "Link page",
+			"website": {
+				"name": "ExPASy Bioinformatics Resource Portal",
+				"url": "https://www.expasy.org/glycomics"
+			},
+			"description": "A link page providing links and information about glycan-related databases and software tools.",
+			"domain": "Glycomics / Proteomics"
+		}
+	],
+	"learnResourcesData": [
+		{
+			"name": "Essentials of Glycobiology",
+			"type": {
+				"name": "e-Book",
+				"url": "https://www.ncbi.nlm.nih.gov/books/NBK310274/"
+			},
+			"description": "Glycobiology is the study of structure, biosynthesis, biology, and evolution of saccharides that are widely distributed in nature in all living life forms.",
+			"glycan": "Yes",
+			"protein": "Yes",
+			"glycoprotein": "Yes"
+		},
+		{
+			"name": "Glycan assembly",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=Vu8t7c310m0"
+			},
+			"description": "Types of glycans found on human glycoproteins, and enzymatic glycan synthesis.",
+			"glycan": "Yes",
+			"protein": "",
+			"glycoprotein": ""
+		},
+		{
+			"name": "Glycans",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=BgZ61TxnxKo"
+			},
+			"description": "Where are glycans and what do they do?",
+			"glycan": "Yes",
+			"protein": "",
+			"glycoprotein": ""
+		},
+		{
+			"name": "Inner Life of the Cell",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=FzcTgrxMzZk"
+			},
+			"description": "Full version of inner life of the cell, narrated.",
+			"glycan": "Yes",
+			"protein": "",
+			"glycoprotein": ""
+		},
+		{
+			"name": "Biochemistry",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=ZfsuDfui0oU&index=12&list=PL9jo2wQj1WCNTJhgaXpsI1tzi0bemyl4j"
+			},
+			"description": "Introduction to Proteins.",
+			"glycan": "",
+			"protein": "Yes",
+			"glycoprotein": ""
+		},
+		{
+			"name": "Tools for Glycoprotein analysis",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=9wcxfVZHGNg"
+			},
+			"description": "This tutorial introduces the functions of N- and O-glycans, and discusses enzymes used in deglycosylation.",
+			"glycan": "",
+			"protein": "",
+			"glycoprotein": "Yes"
+		},
+		{
+			"name": "Tools for Glycoprotein analysis",
+			"type": {
+				"name": "Video",
+				"url": "https://www.youtube.com/watch?v=u38LjCOvDZU"
+			},
+			"description": "NDSU Virtual Cell Animations Project animation 'Protein Modification (Golgi)'.",
+			"glycan": "",
+			"protein": "",
+			"glycoprotein": "Yes"
+		}
+	]
+}

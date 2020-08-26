@@ -1,0 +1,190 @@
+{
+  "glycan": {
+    "general": {
+      "title": "General",
+      "text": "General information about your selected glycan.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "species": {
+      "title": "Species",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "motif": {
+      "title": "Motif",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycoproteins": {
+      "title": "Associated Glycoproteins",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "biosyntheticEnzyme": {
+      "title": "Biosynthetic Enzyme",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "digitalSequence": {
+      "title": "Digital Sequence",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "crossReferences": {
+      "title": "Cross References",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "publications": {
+      "title": "Publications",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  },
+  "motif": {
+    "general": {
+      "title": "General",
+      "text": "General information about your selected motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycans": {
+      "title": "Glycans",
+      "text": "Glycans containing this motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "publications": {
+      "title": "Publications",
+      "text": "Publications related to your selected motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  },
+  "alignment": {
+    "Isoalignment": {
+      "title": "Isoalignment",
+      "text": "Isoform alignment information about your selected protein.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "Homoalignment": {
+      "title": "Homoalignment",
+      "text": "Homolog alignment information about your selected protein.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "summary": {
+      "title": "Summary",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  },
+  "protein": {
+    "general": {
+      "title": "General",
+      "text": "General information about your selected protein.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "species": {
+      "title": "Species",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "function": {
+      "title": "Function",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "goannotation": {
+      "title": "Go Annotations",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycosylations": {
+      "title": "Glycosylation",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "sequence": {
+      "title": " Sequence",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "pathway": {
+      "title": " Pathway",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "isoforms": {
+      "title": " Isoforms",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "homologs": {
+      "title": " Homologs",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "disease": {
+      "title": " Disease",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "mutation": {
+      "title": " Mutation",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "annotation": {
+      "title": " Annotation",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "expression_tissue": {
+      "title": " Expression Tissue",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "expression_disease": {
+      "title": " Expression Disease",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "crossReferences": {
+      "title": "Cross References",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "publications": {
+      "title": "Publications",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  }
+}

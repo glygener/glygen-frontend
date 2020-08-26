@@ -1,0 +1,11 @@
+{
+	"question_tryMe1":{
+		"text": "What are the glycosyltransferases used to add the residues contained in {0} in human?"
+	},
+	"question_tryMe2":{
+		"text": "Which proteins have been shown to bear {0} and which site is this glycan attached to?"
+	},
+	"question_tryMe3":{
+		"text": "Which glycans might have been synthesized in mouse using {0}?"
+	}
+}

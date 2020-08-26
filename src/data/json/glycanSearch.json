@@ -1,0 +1,190 @@
+{
+    "pageTitle": "Glycan Search",
+    "simple_search": {
+        "tabTitle": "Simple Search",
+        "length": 100,
+        "errorText":"Entry is too long - max length is 100.",
+        "categories": {
+            "enzyme": {
+                "examples": [
+                    "B4GALT1"
+                ],
+                "placeholder": "Enter the enzyme"
+            },
+            "glycan": {
+                "examples": [
+                    "G17689DH"
+                ],
+                "placeholder": "Enter the GlyTouCan Accession"
+            },
+            "organism": {
+                "examples": [
+                    "Homo sapiens"
+                ],
+                "placeholder": "Enter the organism"
+            },
+            "protein": {
+                "examples": [
+                    "P14210"
+                ],
+                "placeholder": "Enter the UniProtKB Accession"
+            },
+            "any": {
+                "examples": [
+                    "G17689DH",
+                    "P14210",
+                    "B4GALT1",
+                    "Homo sapiens"
+                ],
+                "placeholder": "Enter the search term"
+            }
+        }
+    },
+    "advanced_search": {
+        "tabTitle": "Advanced Search",
+        "glycan_id": {
+            "length": 2500,
+            "errorText": "Entry is too long - max length is 2500.",
+            "typeahedID": "glytoucan_ac",
+            "placeholder": "Enter single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) Id",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "GlyTouCan Accession Example",
+                        "id": "G17689DH"
+                    },
+                    "explore": {
+                        "id": "GlyTouCan Accession",
+                        "url": "https://glytoucan.org/Structures"
+                    }
+                },
+                {
+                    "orderID": 200,
+                    "example": {
+                        "name": "Cross References ID Example",
+                        "id": "G10716"
+                    }
+                }
+            ]
+        },
+        "organism": {
+            "placeholder": "Click to select one or multiple Organisms",
+            "operations": [
+                {
+                    "id": "or",
+                    "name": "Or"
+                },
+                {
+                    "id": "and",
+                    "name": "And"
+                }
+            ]
+        },
+        "glycan_type": {
+            "placeholder": "Select Glycan Type",
+            "placeholderName": "",
+            "placeholderId": ""
+        },
+        "glycan_subtype": {
+            "placeholder": "Select Glycan Subtype",
+            "placeholderName": "",
+            "placeholderId": ""
+        },
+        "protein_identifier": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "uniprot_canonical_ac",
+            "placeholder": "Enter the UniProtKB Accession of your protein",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "P14210"
+                    },
+                    "explore": {
+                        "id": "UniProtKB Accession",
+                        "url": "https://www.uniprot.org/help/accession_numbers"
+                    }
+                }
+            ]
+        },
+        "glycan_motif": {
+            "length": 1000,
+            "errorText": "Entry is too long - max length is 1000.",
+            "typeahedID": "motif_name",
+            "placeholder": "Enter the name of a Glycan Motif contained in your glycan",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "N-Glycan complex"
+                    },
+                    "explore": {
+                        "id": "Glycan Motif",
+                        "url": "https://www.uniprot.org/help/carbohyd"
+                    }
+                }
+            ]
+        },
+        "enzyme": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "enzyme",
+            "placeholder": "Enter the Gene Name or UniProtKB Accession of an enzyme",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "B4GALT1"
+                    },
+                    "explore": {
+                        "id": "Biosynthetic Enzyme",
+                        "url": "https://enzyme.expasy.org/"
+                    }
+                }
+            ]
+        },
+        "pmid": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "placeholder": "Enter the Pubmed ID",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "9449027"
+                    },
+                    "explore": {
+                        "id": "Pubmed ID",
+                        "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
+                    }
+                }
+            ]
+        }
+    },
+    "composition_search": {
+        "tabTitle": "Composition Search",
+        "contains": [
+            {
+                "id": "maybe",
+                "name": "Maybe"
+            },
+            {
+                "id": "yes",
+                "name": "Yes"
+            },
+            {
+                "id": "no",
+                "name": "No"
+            }
+        ]
+    },
+    "tutorial": {
+        "tabTitle": "Tutorial"
+    }
+}

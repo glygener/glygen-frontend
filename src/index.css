@@ -1,0 +1,65 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 18px !important;
+	color: #4a4a4a !important;
+	/* color: red !important; */
+}
+
+code {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif !important;
+	font-size: 18px !important;
+}
+
+p {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 18px !important;
+	color: #4a4a4a;
+	/* color: green !important; */
+}
+.table {
+	color: #4a4a4a !important;
+	/* color: yellowgreen !important; */
+}
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	color: #4a4a4a !important;
+	/* color: pink; */
+}
+.table-bordered td {
+	border: 1px solid #ced2d6 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #4a4a4a;
+	margin-bottom: 3px !important;
+}
+
+.MuiFormHelperText-root.Mui-error {
+	/* color: #f44336; */
+	margin-left: 0;
+}
+/* strong,
+b {
+	color: #4a4a4a;
+} */

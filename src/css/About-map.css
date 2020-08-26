@@ -1,0 +1,78 @@
+/* World Map hot-spot on hover */
+ul#continents {
+	list-style: none;
+	/* background-image: url(../images/about/about_world_map-circle.svg) no-repeat 0
+		0; */
+	position: relative;
+	width: 580px;
+	height: 268px;
+	margin: 0;
+	padding: 0;
+}
+
+ul#continents li {
+	/*Remove border*/
+	/*  border: 1px solid #000; */
+	position: absolute;
+}
+
+ul#continents li a {
+	display: block;
+	height: 100%;
+	text-decoration: none;
+}
+
+#northamerica {
+	width: 105px;
+	height: 48px;
+	top: 65px;
+	left: 38px;
+}
+
+#europe {
+	width: 23px;
+	height: 23px;
+	top: 45px;
+	left: 232px;
+}
+
+#asia {
+	width: 25px;
+	height: 35px;
+	top: 68px;
+	left: 462px;
+}
+
+#australia {
+	width: 77px;
+	height: 56px;
+	top: 182px;
+	left: 439px;
+}
+
+ul#continents li a span {
+	display: none;
+}
+
+ul#continents li a:hover span {
+	display: block;
+	padding: 5px;
+	width: 130px;
+	background: #222;
+	position: relative;
+	top: 70%;
+	font: 14px Arial, Helvetica, sans-serif;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	font-weight: 500;
+	color: #fff;
+	border-radius: 5px;
+}
+@media only screen and (max-width: 767px) {
+	ul#continents {
+		/* background-image: url(../images/about/about-world-map-mobile-circle.svg)
+			no-repeat 0 0; */
+		width: auto;
+		height: 150px;
+	}
+}

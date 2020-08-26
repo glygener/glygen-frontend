@@ -1,0 +1,214 @@
+{
+	"databasesLicenseData": [
+		{
+			"databases": {
+				"name": "BioXpress",
+				"url": "https://hive.biochemistry.gwu.edu/bioxpress"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "BioMuta",
+				"url": "https://hive.biochemistry.gwu.edu/biomuta/about"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "ChEBI",
+				"url": "https://www.ebi.ac.uk/chebi/aboutChebiForward.do"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "Disease Ontology",
+				"url": "https://disease-ontology.org/resources/"
+			},
+			"licenseType": {
+				"name": "CC0 1.0",
+				"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "Genomics England PanelApp",
+				"url": "https://panelapp.genomicsengland.co.uk/#!Content"
+			},
+			"licenseType": {
+				"name": "Terms of Use",
+				"url": "https://panelapp.genomicsengland.co.uk/media/files/GEL_-_PanelApp_Terms_of_Use_December_2019.pdf"
+			}
+		},
+		{
+			"databases": {
+				"name": "GlyConnect",
+				"url": "https://glyconnect.expasy.org/browser/"
+			},
+			"licenseType": {
+				"name": "CC BY-NC-ND 3.0",
+				"url": "https://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US"
+			}
+		},
+		{
+			"databases": {
+				"name": "GlyCosmos",
+				"url": "https://glycosmos.org/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "GlyTouCan",
+				"url": "http://code.glytoucan.org/sitePolicy/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "GPT Wiki",
+				"url": "https://edwardslab.bmcb.georgetown.edu/gptwiki/Main_Page"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "MatrixDB",
+				"url": "http://matrixdb.univ-lyon1.fr/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "MGI",
+				"url": "http://www.informatics.jax.org/mgihome/projects/aboutmgi.shtml"
+			},
+			"licenseType": {
+				"name": "Warranty Disclaimer And Copyright Notice",
+				"url": "http://www.informatics.jax.org/mgihome/other/copyright.shtml"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI PubChem",
+				"url": "https://pubchem.ncbi.nlm.nih.gov/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI PubMed",
+				"url": "https://www.ncbi.nlm.nih.gov/pubmed/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI Refseq",
+				"url": "https://www.ncbi.nlm.nih.gov/refseq/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI Taxonomy",
+				"url": "https://www.ncbi.nlm.nih.gov/taxonomy/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "OMA Browser",
+				"url": "https://omabrowser.org/oma/about/"
+			},
+			"licenseType": {
+				"name": "CC BY-SA 2.5",
+				"url": "https://creativecommons.org/licenses/by-sa/2.5/"
+			}
+		},
+		{
+			"databases": {
+				"name": "PRO",
+				"url": "http://www.obofoundry.org/ontology/pr.html"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "RCSB PDB",
+				"url": "https://www.rcsb.org/"
+			},
+			"licenseType": {
+				"name": "RCSB PDB Policies",
+				"url": "https://www.rcsb.org/pages/policies"
+			}
+		},
+		{
+			"databases": {
+				"name": "The Monarch Initiative",
+				"url": "https://monarchinitiative.org/"
+			},
+			"licenseType": {
+				"name": "CC BY 3.0",
+				"url": "https://creativecommons.org/licenses/by/3.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "UniCarbKB",
+				"url": "http://unicarbkb.org/about"
+			},
+			"licenseType": {
+				"name": "CC BY-NC-ND 3.0",
+				"url": "https://creativecommons.org/licenses/by-nc-nd/3.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "UniProtKB",
+				"url": "https://www.uniprot.org/help/uniprotkb"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		}
+	]
+}

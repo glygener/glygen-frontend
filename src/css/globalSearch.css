@@ -1,0 +1,95 @@
+/* ---------------------------------------------------------------------
+@author: Gaurav Agarwal.
+@description: used on the global search result page
+@date-created: 18th January 2019
+-------------------------------------------------------------------------*/
+
+/* =========================================
+              Global Search Result
+============================================ */
+.gs-panel{
+    padding: 1px;
+    text-align: center;
+}
+
+.gs-panel-heading {
+    background-color: #E8E8E8 !important;
+    color: #444 !important;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.gs-result-paper {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+}
+
+.gs-exact-match {
+   margin: 0px !important;
+   padding: 16px 16px 0px;
+   text-align: center;
+}
+
+.gs-exact-match-link {
+   padding: 0px !important;
+   align-items: center;
+}
+
+
+/* =========================================
+              Global Search Component
+============================================ */
+
+.gs-icon-button {
+    padding: 10,
+}
+
+.gs-icon-button:disabled:hover,
+.gs-icon-button:disabled {
+	pointer-events: auto	!important;
+	cursor: no-drop !important;
+}
+
+.gs-comp-paper {
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    min-width: 298px	!important;
+  }
+
+.gs-input {
+    margin-left: 10px;
+    flex: 1;
+}
+
+.gs-divider {
+    height: 34px;
+    margin: 4px;
+}
+
+/* =========================================
+              Global Search Card
+============================================ */
+
+.gs-cell {
+    font-size: inherit   !important;
+}
+
+.gs-cell-left {
+    min-width: 100px  !important;
+    text-align: left   !important;
+}
+
+.gs-cell-center {
+    min-width: 60px   !important;
+    text-align: center   !important;
+}
+
+.head-result-count{
+    background-color: #2E78B7;
+    color: white !important;
+    border-radius: 3px;
+    padding: 3px;
+}

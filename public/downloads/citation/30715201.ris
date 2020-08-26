@@ -1,0 +1,31 @@
+TY  - JOUR
+TI  - GLAD: GLycan Array Dashboard, a visual analytics tool for glycan microarrays
+AU  - Mehta, Akul Y.
+AU  - Cummings, Richard D.
+T2  - Bioinformatics (Oxford, England)
+AB  - MOTIVATION: Traditional glycan microarray data is typically presented as excel files with limited visualization and interactivity. Thus, comparisons and analysis of glycan array data have been difficult, and there is need for a tool to facilitate data mining of glycan array data.
+RESULTS: GLAD (GLycan Array Dashboard) is a web-based tool to visualize, analyze, present and mine glycan microarray data. GLAD allows users to input multiple data files to create comparisons. GLAD extends the capability of the microarray data to produce more comparative visualizations in the form of grouped bar charts, heatmaps, calendar heatmaps, force graphs and correlation maps in order to analyze broad sets of samples. Additionally, it allows users to filter, sort and normalize the data and view glycan structures in an interactive manner, to facilitate faster visual data mining.
+AVAILABILITY AND IMPLEMENTATION: GLAD is freely available for use on the Web at https://glycotoolkit.com/Tools/GLAD/ with all major modern browsers (Edge, Firefox, Chrome, Safari).
+SUPPLEMENTARY INFORMATION: Full documentation and video tutorials for GLAD can be found on https://glycotoolkit.com/GLAD.
+DA  - 2019//09/15
+PY  - 2019
+DO  - 10.1093/bioinformatics/btz075
+DP  - PubMed
+VL  - 35
+IS  - 18
+SP  - 3536
+EP  - 3537
+J2  - Bioinformatics
+LA  - eng
+SN  - 1367-4811
+ST  - GLAD
+KW  - Animals
+KW  - Data Mining
+KW  - Documentation
+KW  - Mice
+KW  - Microarray Analysis
+KW  - Polysaccharides
+KW  - Software
+KW  - Workflow
+ER  - 
+

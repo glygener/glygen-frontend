@@ -1,0 +1,110 @@
+{
+	"searchByGlycan": {
+		"common":{
+			"label": "Glycan X",
+			"typeahedID": "glytoucan_ac",
+			"length": 100,
+			"errorText": "Entry is too long - max length is 100.",
+			"placeholder": "Enter GlyTouCan Accession",
+			"examples": [
+				{
+					"orderID": 100,
+					"example": {
+						"name": "Example",
+						"id": "G17689DH"
+					}
+				}
+			]
+		},
+		"question_1": {
+			"text": "What are the glycosyltransferases used to add the residues contained in glycan X in human?"
+		},
+		"question_2": {
+			"text": "Which proteins have been shown to bear glycan X and which site is this glycan attached to?"
+		},
+		"question_3": {
+			"text": "What are the gene locations of the enzymes involved in the biosynthesis of glycan X in human?"
+		}
+	},
+	"searchByProtein": {
+		"common":{
+			"label": "Protein X",
+			"typeahedID": "uniprot_canonical_ac",
+			"length": 100,
+			"errorText": "Entry is too long - max length is 100.",
+			"placeholder": "Enter UniProtKB Accession",
+			"examples": [
+				{
+					"orderID": 100,
+					"example": {
+						"name": "Example",
+						"id": "P14210-1"
+					}
+				}
+			]
+		},
+		"question_4": {
+			"text": "What are the orthologs of protein X in different species?"
+		},
+		"question_5": {
+			"text": "What are the functions of protein X?"
+		},
+		"question_6": {
+			"text": "Which glycans might have been synthesized in mouse using enzyme X?",
+			"label": "Enzyme X",
+			"examples": [
+				{
+					"orderID": 100,
+					"example": {
+						"name": "Example",
+						"id": "P15291-1"
+					}
+				}
+			]
+		},
+		"question_7": {
+			"text": "Where are the N-Glycosylation Sequons of the Protein X?"
+		}
+	},
+	"searchBySpecies": {
+		"common":{
+			"label": "Species",
+			"organism": {
+				"placeholder": "Select Organism",
+				"placeholderName": "All",
+				"placeholderId": "0"
+			}
+		},
+		"question_8": {
+			"text": "What are the glycosyltransferases in species X?"
+		},
+		"question_9": {
+			"text": "What are the glycosylhydrolases in species X?"
+		},
+		"question_10": {
+			"text": "What are the reported or predicted glycosylated proteins in species X?",
+			"labelType": "Type"
+		}
+	},
+	"searchByDisease": {
+		"common":{
+			"label": "Disease",
+			"typeahedID": "disease_name",
+			"length": 1000,
+			"errorText": "Entry is too long - max length is 1000.",
+			"placeholder": "Enter Disease Name",
+			"examples": [
+				{
+					"orderID": 100,
+					"example": {
+						"name": "Example",
+						"id": "Ehlers-Danlos syndrome progeroid type"
+					}
+				}
+			]
+		},
+		"question_11": {
+			"text": "Which glycosyltransferases are known to be involved in disease X?"
+		}
+	}
+}

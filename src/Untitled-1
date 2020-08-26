@@ -1,0 +1,2 @@
+import IsoAlignment from "./pages/IsoAlignment";
+import ProtVista from "./pages/ProtVista";

@@ -1,46 +1,58 @@
 .zoom {
-    font-size: 30px;
-  }
-  .next{
-    margin-top: -20px
-  }
-  .zoom {
-    font-size: 25px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height: 2em;
-  }
+  font-size: 30px;
+}
+.next {
+  margin-top: -20px;
+}
+.zoom {
+  font-size: 25px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 2em;
+}
 
-  .zoom-sequence {
-    display: flex;
-    font-family: monospace;
-  }
+.sequence-scroll {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
-  .zoom-sequence span {
-    padding: 0 0.25em;
-    transition: font-size 0.5s;
-  }
+.zoom-sequence {
+  overflow: scroll;
+  overflow-x: scroll;
+  display: flex;
+  font-family: monospace;
+}
 
-  .zoom-sequence span.highlightN {
-    color: rgb(235, 107, 107);
-    /* transform: translateY(-10px); */
-  }
+.sequenceDisplay {
+  padding-top: 20px;
+  justify-content: center !important;
+}
 
-  .zoom-sequence span.highlightO {
-    color: blue;
-    /* transform: translateY(-10px); */
-  }
+.zoom-sequence span {
+  padding: 0 0.25em;
+  transition: font-size 0.5s;
+}
 
-  .zoom-sequence span.highlightMutate {
-    color: green;
-    /* transform: translateY(-10px); */
-  }
+.zoom-sequence span.highlightN {
+  color: rgb(235, 107, 107);
+  /* transform: translateY(-10px); */
+}
 
-  #label {
-    font-size: 24px;
-    color: black;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 60px;
-    margin-left: 390px;
-  }
+.zoom-sequence span.highlightO {
+  color: blue;
+  /* transform: translateY(-10px); */
+}
+
+.zoom-sequence span.highlightMutate {
+  color: green;
+  /* transform: translateY(-10px); */
+}
+
+#label {
+  font-size: 24px;
+  color: black;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 60px;
+  margin-left: 390px;
+}

@@ -1,491 +1,113 @@
-/* ---------------------------------------------------------------------
-@author: Rupali Mahadik
-@co-author: Tatiana Williamson
-@description: detail.css UO1 Version-1.0.1
-@date-created: January 2018
-@update: October 12 2018 - Tatiana Williamson - Added headline and styled download button.
--------------------------------------------------------------------------*/
-.img-cartoon1 {
-    display: block;
-    max-width: 500px;
-    max-height: 160px;
-    width: auto;
-    height: auto;
-    -webkit-transform: scale(1.0);
-    transform: scale(0.8);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    box-shadow: 10px 10px 5px #ddd;
-    z-index: 99999;
-}
-#viewprotein{
-    margin-top:4px;
-    /* border-color:white; */
-    background-color: #337ab7;
-    cursor:pointer;
-    
-}
-
-.actionbutton{
-    margin-top:4px;
-    /* border-color:white; */
-    background-color: #337ab7;
-    cursor:pointer;
-    font-size: 17px;
-    
-}
-.img-wrapper1 {
-    overflow: hidden;
-    z-index: -9999;
-    padding: 0.5em;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    width: 500px;
-}
-
-.txt-wrapper1 {
-    height: auto;
-    max-width: 550px;
-}
-
-.subsum-brow-icon-wrapper {
-    height: 30px;
-    width: 30px;
-    float: right;
-}
-
-.subsum-brow {
-    background-color: #fff;
-    border-color: #2e6da4;
-    float: right;
-}
-
-.subsum-brow:hover,
-.subsum-brow:focus {
-  border-color: #555;
-  background-color: #D8D8D8;
-}
-
-.img-cartoon1:hover {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.0);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    z-index: 99999;
-}
-
-/* -----------------------------
-    motif images 
---------------------------------*/
-.img-cartoon2 {
-    display: block;
-    max-width: 500px;
-    max-height: 160px;
-    width: auto;
-    height: auto;
-    -webkit-transform: scale(1.0);
-    transform: scale(0.8);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    box-shadow: 10px 10px 5px #ddd;
-    z-index: 99999;
-}
-
-.img-wrapper2 {
-    overflow: hidden;
-    z-index: -9999;
-    padding: 0.5em;
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    width: 500px;
-}
-
-.img-cartoon2:hover {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.0);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    z-index: 99999;
-}
-
-.panel-default > .gg-panel-heading {
-    background-image: none;
-    background-color: #D8D8D8;
-    color: #555;
-    padding: 3px 15px;
-/*    margin: 0;*/
-}
-
-/* .breadcrumb {
-
-   background-color: transparent; 
-    font-size: 18px;
-    margin-top: -30px; 
-} */
-
-#panelmaincontent {
-    font-size: 16px;
-    overflow-wrap: break-word;
-}
-
-#activepage {
-    color: #555;
-}
-
-.footer {
-    margin-bottom: 0px;
-    margin-top: 470px;
-}
-
-pre {
-    background-color: #e6e6e6;
-}
-
-.panel-heading {
-    padding: 2px 2px;
-}
-
-.panelmaincontent {
-    font-size: 16px;
-}
-
-.panelmaincontent2 {
-    margin-right: 20px;
-    padding-right: 10px;
-}
-
-.panelcontent {
-    font-size: 15px;
-/*    color: #659BC9; 
-    Removed by Tatiana - it overrides links color on detail pages May 20, 2019
-*/
-}
-
-.list-group {
-    font-size: 16px;
-    list-style-type: square;
-    margin: 0 0 0 20px !important;
-}
-.journal{
-    font-size: 12px;
-    margin: 0 0 0 20px !important;
-}
-
-.list-group2 {
-    font-size: 16px;
-    list-style-type: square;
-    margin: 0 0 0 35px;
-}
-
-.list-group-indent {
-    font-size: 15px;
-    margin-left: 50px;
-    list-style-type: square;
-}
-
-.plus-button-margin-bottom {
-    margin-bottom: 15px;
-}
-
-thead {
-    background: #659BC9;
-    color: #fff;
-}
-
-.cd-close-panel {
-    padding-right: 70px;
-    top: 20px;
-}
-
-#gene {
-    padding-left: 45px;
-}
-
-.cd-faq-categories {
-    width: auto;
-}
-
-/** Overriding the code of faq_style.css for Detail page.
-  * @author Gaurav Agarwal
-  * @date 21 June 2018
-  */
-.cd-faq-items {
-    overflow-x: hidden !important;
-}
-
-@media only screen and (min-width: 1024px) {
-    .cd-faq-categories {
-        width: 290px;
-    }
-
-    .pull-left {
-        width: 50%;
-    }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1300px) {
-    .cd-faq-items {
-        padding-left: 300px;
-    }
-
-    .pull-left {
-        width: 100%;
-    }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .cd-faq-items {
-        width: 62%;
-    }
-
-    .pull-left {
-        width: 100%;
-    }
-}
-
-h4 {
-    overflow: auto;
-}
-
-.fasta {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-all;
-}
-
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
-#glycosylation-table {
-    border-bottom: 1px solid #ccc !important;
-}
-
-#glycosylation-table1 {
-    border-bottom: 1px solid #ccc !important;
-}
-
-.fixed-table-footer {
-    display: block;
-}
-
-.fixed-table-footer {
-    overflow-x: auto;
-    overflow-y: auto;
-    height: 100%;
-    border-bottom: 1px solid silver;
-}
-
-.non-selection {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* --------------------------
-    Sequence Highlighting
- ----------------------------*/
-.highlight-row {
-    font-family: monospace;
-}
-
-.highlight-line-number {
-    white-space: pre;
-}
-
-.highlight-section {
-    position: relative;
-}
-
-.highlight-highlight {
-    top: 0;
-    left: 0;
-    position: absolute;
-}
-
-.highlight-highlight[data-type="mutation"] .highlight-highlight-area {
-  
-     /* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
-     
-      background: rgb(131, 235, 131);
-}
-
-.highlight-highlight[data-type="o_link_glycosylation"] .highlight-highlight-area {
-    /* background-image: linear-gradient(rgba(100, 236, 100, 1), transparent);   */
-    border-bottom: 3px solid blue;
-
-    
-}
-/*     */
-
-
-.highlight-highlight[data-type="n_link_glycosylation"] .highlight-highlight-area {
-     border-bottom: 3px solid red; 
-}
-
-.highlight-highlight[data-type="site_annotation"] .highlight-highlight-area {
-  
-    /* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
-    background:3px orange;
-    /* border-top: 3px orange; */
-    padding-top: 1px;
-}
-#sequnce_highlight {
-    display: block;
-    padding: 9.0px;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color:rgba(0, 0, 0);
-    background-color: #e6e6e6;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow-y: scroll;
-}
-/*n_link_glycosylation"*/
-.sequnce1 {
-    border-bottom: 3px solid red;
-    font-family: monospace;
-    font-size:14px;
-}
-
-/*o_link_glycosylation"*/
-.sequnce2 {
-    border-bottom: 3px solid blue;
-    font-family: monospace;
-    font-size:14px;
-}
-/*mutation*/
-.sequnce3 {
-    background: rgb(131, 235, 131);
-    font-family: monospace;
-   font-size:14px;
-}
-/*Sequon*/
-.sequnce4{
-    background: rgb(244, 151, 37);
-    font-family: monospace;
-    font-size:14px;
-}
-.highlight-panel-categories {
-    margin: 0;
-    padding: 5px;
-    width: 180px;
-    overflow: auto;
-}
-.sequence-panel {
-    margin-left: 5%;
-}
-@media (max-width: 1280px) {
-    .box {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    }
-    .active {
-        order: -1;
-        flex: 1 0 100%;
-    }
-}
-/*---------------------------
-    Motif details 
------------------------------*/
-.motif-panel-space {
-    margin-bottom: 20px;
-}
-
-
-.btn-primary-motif {
-    color: #204d74;
-    background-color: #fff;
-    border-color: #337ab7; 
-}
-
-.btn-primary-motif:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
-}
-
-.highlight-text{
-    font-family:monospace;
-    font-size:14px;
-    line-height: 26px;
-}
-
-.upper-case {
-    text-transform: capitalize;
-}
-/*---------------------------
-    Evidences css for details
------------------------------*/
-.evidence_badge {
-    position: relative; 
-    padding-left: 5px; 
-    padding-bottom: 10px;
-    vertical-align: middle;
-    display: inline-block;
-}
-.hidden evidence_links {
-    position: absolute; 
-    left:  0; 
-    width: 200px;
-}
-.linkHtml {
-   position: relative; 
-   display: inline-block; 
-}
-.evidence_id {
-    position: relative; 
-    display: block; 
-        
-}
-
-.highlight-text {
-    font-family: monospace;
-    font-size: 14px;
-    position: relative;
-    z-index: 10;
- 
-}
-
-.annotation {
-    white-space: pre-wrap;
-}
-
-.function-table tr:first-child td{
-    border: none;
-}
-
-.function-table-td {
-    vertical-align: middle  !important;
-}
-
-.no-before ::before {
-    content: none;
-}
-
 .text-overflow {
-    white-space: initial;
+	display: block;
+	padding: 9.5px;
+	margin-bottom: 25px;
+	/* margin: 0 0 10px; */
+	/* font-size: 13px; */
+	line-height: 1.42857143;
+	/* color: #333; */
+	background-color: rgba(0, 0, 0, 0.05);
+	overflow: auto;
+	word-break: break-all;
+	word-wrap: break-word;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	overflow-x: "scroll";
+	white-space: pre-line;
 }
-.form-group{
-    margin-bottom:15px;
-    /* margin-top: 15px; */
-    font-size: large;
+
+.page-item.active .page-link {
+	background-color: white;
+}
+.badge {
+	display: inline-block;
+	padding: 0.25em 0.6em;
+	margin-left: 2px;
+	font-size: 75%;
+	color: white;
+	font-weight: 700;
+	line-height: 1;
+	background-color: #777;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.45rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.badge-div .MuiButton-root:focus,
+.badge-div .MuiButton-root:active {
+	outline: 0 !important;
+}
+.badge-count {
+	background-color: white;
+	color: black;
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	text-align: center;
+	font-size: 1em;
+	margin-left: 5px;
+}
+.badge-div {
+	/* margin: 0.5em 0 0; */
+	/* margin-left: -20px; */
+	margin-top: 5px !important;
+}
+
+.badge-div + .badge-div {
+	margin: 10px 0 0 !important;
+	margin-left: 2px;
+}
+legend {
+	all: unset;
+}
+
+.Species {
+	row-count: 3;
+}
+
+.img-wrapper {
+	overflow: hidden;
+	z-index: -1000;
+}
+.img-cartoon {
+	/* display: block; */
+	width: auto;
+	height: auto;
+	-webkit-transform: scale(0.9);
+	transform: scale(0.9);
+	-webkit-transition: 0.3s ease-in-out;
+	transition: 0.3s ease-in-out;
+	box-shadow: 10px 10px 5px #ddd;
+}
+.img-cartoon:hover,
+.img-cartoon:focus {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: 0.3s ease-in-out;
+	transition: 0.3s ease-in-out;
+	z-index: 1000;
+	box-shadow: none !important;
+}
+.no-data-msg {
+	margin-left: 15px;
+}
+.no-data-msg-publication {
+	margin: 20px 0 36px 20px;
+}
+.go-annotation-total {
+	margin-left: 20px;
+}
+
+.badge-grid {
+	padding-bottom: 20px;
+}
+@media (max-width: 480px) {
+	.img-cartoon {
+		width: 100% !important;
+		margin: 0 auto !important;
+	}
 }
