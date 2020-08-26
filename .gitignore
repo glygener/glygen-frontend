@@ -3,6 +3,9 @@
 
 #Ignore file auto created by Mac OS
 .DS_Store
+node_modules
+
+datasetviewer/deploy.sh
 
 #Ignore hidden files and folders
 .*
