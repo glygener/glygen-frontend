@@ -22,7 +22,7 @@ export default function CompositionSearchControl(props) {
 	const [undoVal, setUndoVal] = useState({});
 	const [redoDisabled, setRedoDisabled] = useState(true);
 	const [undoDisabled, setUndoDisabled] = useState(true);
-	const [searchDisabled, setSearchDisabled] = useState(false);
+	const [searchDisabled, setSearchDisabled] = useState(true);
 
 	const minInputChange = (event) => {
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
@@ -468,7 +468,7 @@ export default function CompositionSearchControl(props) {
 		return true;
 	};
 
-	const clearCompSearch = () => {
+	const allMaybe = () => {
 		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
 
 		for (var x = 0; x < props.compositionInitMap.length; x++) {
@@ -645,8 +645,8 @@ export default function CompositionSearchControl(props) {
 				<Button className='gg-btn-outline mr-4 mb-3' onClick={allNo}>
 					All No
 				</Button>
-				<Button className='gg-btn-outline mr-4 mb-3' onClick={clearCompSearch}>
-					Clear Fields
+				<Button className='gg-btn-outline mr-4 mb-3' onClick={allMaybe}>
+					All Maybe
 				</Button>
 				<Button
 					className='gg-btn-outline mr-4 mb-3'

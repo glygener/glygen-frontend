@@ -133,7 +133,7 @@ const HiglightSelecter = ({
 
 const ProteinSequenceDisplay = ({
   sequenceObject,
-  glycosylation = [],
+  glycosylation,
   mutation,
   siteAnnotation,
   selectedHighlights, 

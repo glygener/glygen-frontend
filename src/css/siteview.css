@@ -18,7 +18,7 @@
 
 .zoom-sequence {
   overflow: scroll;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   display: flex;
   font-family: monospace;
 }
@@ -45,6 +45,14 @@
 
 .zoom-sequence span.highlightMutate {
   color: green;
+  /* transform: translateY(-10px); */
+}
+.zoom-sequence span.highlightMutagenesis {
+  color: purple;
+  /* transform: translateY(-10px); */
+}
+.zoom-sequence span.highlightGlycation {
+  color: olive;
   /* transform: translateY(-10px); */
 }
 

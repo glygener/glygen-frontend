@@ -28,8 +28,8 @@ import { axiosError } from "../data/axiosError";
 const proteinStrings = stringConstants.protein.common;
 
 const items = [
-  { label: stringConstants.sidebar.alignment.displayname, id: "alignment" },
-  { label: stringConstants.sidebar.summary.displayname, id: "summary" }
+  { label: stringConstants.sidebar.alignment.displayname, id: "Alignment" },
+  { label: stringConstants.sidebar.summary.displayname, id: "Summary" }
 ];
 
 const ProteinAlignment = () => {
@@ -37,7 +37,7 @@ const ProteinAlignment = () => {
 
   const [data, setData] = useState({});
 
-  const isIsoform = alignment === "isoformset-uniprotkb";
+  const isIsoform = alignment === "isoformset.uniprotkb";
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -104,7 +104,7 @@ const ProteinAlignment = () => {
                       {" "}
                       <span>
                         {isIsoform ? "Isoform" : "Homolog"} Alignment for
-                        protein <strong className="nowrap">{id}</strong>
+                        Protein <strong className="nowrap">{id}</strong>
                       </span>
                     </h2>
                   </div>
@@ -140,7 +140,7 @@ const ProteinAlignment = () => {
               </div>
               {/* Alignment */}
               <Accordion
-                id="alignment"
+                id="Alignment"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -157,7 +157,7 @@ const ProteinAlignment = () => {
                       />
                     </span>
                     <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.alignment.displayname}:
+                      {stringConstants.sidebar.alignment.displayname}
                     </h4>
                     <div className="float-right">
                       <Accordion.Toggle
@@ -184,7 +184,7 @@ const ProteinAlignment = () => {
               </Accordion>
               {/* Summary */}
               <Accordion
-                id="summary"
+                id="Summary"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -231,7 +231,7 @@ const ProteinAlignment = () => {
                             <tr className="table-row">
                               <div className="trclass">
                                 <strong>
-                                  {proteinStrings.algorithm.name}:
+                                  {proteinStrings.algorithm.name}:{" "}
                                 </strong>
                                 <a
                                   href={data.algorithm.url}

@@ -6,7 +6,7 @@ export const axiosError = (error, id, msg, setPageLoading, setAlertDialogInput) 
     console.log(error);
     let message = msg || "";
     let pageId = id || "";
-    if (!error.response) {
+    if (!error || !error.response) {
         logActivity("error", pageId, "Network error. " + message);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": stringConstants.errors.networkError.id}));

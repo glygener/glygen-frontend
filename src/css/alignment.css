@@ -1,5 +1,8 @@
 .aln-block {
   display: table;
+  padding-top: 15px;
+  padding-right: 20px;
+  overflow-y: scroll;
 }
 
 .aln-line {
@@ -12,9 +15,6 @@
   padding: 0 0.25em;
 }
 
-.aln-block {
-  padding-top: 15px;
-}
 .aln-line-link {
   display: inline-block;
   width: 13rem;
@@ -33,6 +33,7 @@
   font-family: monospace;
   display: inline-block;
   word-break: break-all;
+  padding-left: 15px;
 }
 
 .aln-line-consensus {
@@ -40,6 +41,7 @@
   font-family: monospace;
   display: inline-block;
   word-break: break-all;
+  padding-left: 15px;
 }
 .boldd {
   font-weight: bold;
@@ -91,4 +93,8 @@
 
 .cd-faq {
   max-width: 1400px;
+}
+
+#sequncealign {
+  overflow-x: scroll;
 }

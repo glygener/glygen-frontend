@@ -20,23 +20,23 @@ import {
   getProteinToOrthologs,
   getOrthologsList,
   getBiosynthesisEnzymeToGlycans,
-  getSpeciesToGlycosyltransferases,
-  getSpeciesToGlycohydrolases,
-  getSpeciesToGlycoproteins,
-  getGeneLocusList
+  getOrganismToGlycosyltransferases,
+  getOrganismToGlycohydrolases,
+  getOrganismToGlycoproteins,
+  getGeneLocusList,
 } from "../data/usecases";
 import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
 import routeConstants from "../data/json/routeConstants";
 import SearchByGlycan from "../components/quickSearch/SearchByGlycan";
 import SearchByProtein from "../components/quickSearch/SearchByProtein";
-import SearchBySpecies from "../components/quickSearch/SearchBySpecies";
+import SearchByOrganism from "../components/quickSearch/SearchByOrganism";
 import SearchByDisease from "../components/quickSearch/SearchByDisease";
 import { getProteinList } from "../data/protein";
 import { getGlycanList } from "../data/glycan";
 import { GLYGEN_BASENAME } from "../envVariables";
 
-const QuickSearch = props => {
+const QuickSearch = (props) => {
   let { id } = useParams("");
   let { questionId } = useParams("");
   let quickSearch = stringConstants.quick_search;
@@ -45,26 +45,26 @@ const QuickSearch = props => {
     h5VerticalText: "Searches",
     h2textTop: "Perform",
     h2textBottom: "A",
-    h2textBottomStrongAfter: "Quick Search"
+    h2textBottomStrongAfter: "Quick Search",
   };
 
   const items = [
     {
       label: stringConstants.sidebar.search_by_glycan.displayname,
-      id: "glycan"
+      id: "Search-by-Glycan",
     },
     {
       label: stringConstants.sidebar.search_by_protein.displayname,
-      id: "protein"
+      id: "Search-by-Protein",
     },
     {
-      label: stringConstants.sidebar.search_by_species.displayname,
-      id: "species"
+      label: stringConstants.sidebar.search_by_organism.displayname,
+      id: "Search-by-Organism",
     },
     {
       label: stringConstants.sidebar.search_by_disease.displayname,
-      id: "disease"
-    }
+      id: "Search-by-Disease",
+    },
   ];
 
   const [glycanInitData, setGlycanInitData] = useState({});
@@ -74,45 +74,35 @@ const QuickSearch = props => {
     { show: false, id: "" }
   );
 
-  const [alertText, setAlertText] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      question: "",
-      input: { show: false, id: "" },
-      default: { show: false, id: "" }
-    }
-  );
+  const [alertText, setAlertText] = useReducer((state, newState) => ({ ...state, ...newState }), {
+    question: "",
+    input: { show: false, id: "" },
+    default: { show: false, id: "" },
+  });
 
-  const [inputValue, setInputValue] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      question_1: "",
-      question_2: "",
-      question_3: "",
-      question_4: "",
-      question_5: "",
-      question_6: "",
-      question_7: "",
-      question_8: "0",
-      question_9: "0",
-      question_10: { organism: "0", glycosylation_evidence: "" },
-      question_11: ""
-    }
-  );
+  const [inputValue, setInputValue] = useReducer((state, newState) => ({ ...state, ...newState }), {
+    question_1: "",
+    question_2: "",
+    question_3: "",
+    question_4: "",
+    question_5: "",
+    question_6: "",
+    question_7: "",
+    question_8: "0",
+    question_9: "0",
+    question_10: { organism: "0", glycosylation_evidence: "" },
+    question_11: "",
+  });
 
   const searchQuestion1 = () => {
     setPageLoading(true);
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_1 = /9606/" + inputValue.question_1;
     getGlycanToBiosynthesisEnzymes(9606, inputValue.question_1)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -127,12 +117,12 @@ const QuickSearch = props => {
             question: quickSearch.question_1.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -142,14 +132,10 @@ const QuickSearch = props => {
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_2 = /0/" + inputValue.question_2;
     getGlycanToGlycoproteins(0, inputValue.question_2)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -164,12 +150,12 @@ const QuickSearch = props => {
             question: quickSearch.question_2.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -179,19 +165,12 @@ const QuickSearch = props => {
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_3 = /9606/" + inputValue.question_3;
     getGlycanToEnzymeGeneLoci(9606, inputValue.question_3)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
-              routeConstants.locusList +
-                response.data["list_id"] +
-                "/" +
-                quickSearch.question_3.id
+              routeConstants.locusList + response.data["list_id"] + "/" + quickSearch.question_3.id
             );
           });
         } else {
@@ -201,12 +180,12 @@ const QuickSearch = props => {
             question: quickSearch.question_3.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -216,14 +195,10 @@ const QuickSearch = props => {
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_4 = /" + inputValue.question_4;
     getProteinToOrthologs(inputValue.question_4)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.orthologsList +
                 response.data["list_id"] +
@@ -238,29 +213,22 @@ const QuickSearch = props => {
             question: quickSearch.question_4.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
 
   const searchQuestion5 = () => {
     let message = `Quick Search Question_5 =/${inputValue.question_5} function`;
-    logActivity(
-      "user",
-      (id || "") + ">" + inputValue.question_5,
-      message
-    ).finally(() => {
+    logActivity("user", (id || "") + ">" + inputValue.question_5, message).finally(() => {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
-        basename +
-        routeConstants.proteinDetail +
-        inputValue.question_5 +
-        "#function";
+        basename + routeConstants.proteinDetail + inputValue.question_5 + "#Function";
     });
   };
 
@@ -269,19 +237,12 @@ const QuickSearch = props => {
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_6 = /10090/" + inputValue.question_6;
     getBiosynthesisEnzymeToGlycans(10090, inputValue.question_6)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
-              routeConstants.glycanList +
-                response.data["list_id"] +
-                "/" +
-                quickSearch.question_6.id
+              routeConstants.glycanList + response.data["list_id"] + "/" + quickSearch.question_6.id
             );
           });
         } else {
@@ -291,29 +252,25 @@ const QuickSearch = props => {
             question: quickSearch.question_6.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
 
   const searchQuestion7 = () => {
     let message = `Quick Search Question_7 =/${inputValue.question_7} sequence`;
-    logActivity(
-      "user",
-      (id || "") + ">" + inputValue.question_7,
-      message
-    ).finally(() => {
+    logActivity("user", (id || "") + ">" + inputValue.question_7, message).finally(() => {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
         basename +
         routeConstants.proteinDetail +
         inputValue.question_7 +
-        "/site_annotation#sequence";
+        "/site_annotation#Sequence";
     });
   };
 
@@ -321,15 +278,11 @@ const QuickSearch = props => {
     setPageLoading(true);
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_8 = /" + inputValue.question_8;
-    getSpeciesToGlycosyltransferases(inputValue.question_8)
-      .then(response => {
+    getOrganismToGlycosyltransferases(inputValue.question_8)
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -344,12 +297,12 @@ const QuickSearch = props => {
             question: quickSearch.question_8.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -358,15 +311,11 @@ const QuickSearch = props => {
     setPageLoading(true);
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_9 = /" + inputValue.question_9;
-    getSpeciesToGlycohydrolases(inputValue.question_9)
-      .then(response => {
+    getOrganismToGlycohydrolases(inputValue.question_9)
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -381,12 +330,12 @@ const QuickSearch = props => {
             question: quickSearch.question_9.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -395,18 +344,14 @@ const QuickSearch = props => {
     setPageLoading(true);
     logActivity("user", id, "Performing Quick Search");
     let message = "Quick Search Question_10 = /9606/" + inputValue.question_10;
-    getSpeciesToGlycoproteins(
+    getOrganismToGlycoproteins(
       inputValue.question_10.organism,
       inputValue.question_10.glycosylation_evidence
     )
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -421,12 +366,12 @@ const QuickSearch = props => {
             question: quickSearch.question_10.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -435,17 +380,12 @@ const QuickSearch = props => {
     setPageLoading(true);
     logActivity("user", id, "Performing Quick Search");
     var formObject = { do_name: inputValue.question_11, tax_id: 0 };
-    let message =
-      "Quick Search Question_11 query=" + JSON.stringify(formObject);
+    let message = "Quick Search Question_11 query=" + JSON.stringify(formObject);
     getDiseaseToGlycosyltransferases(formObject)
-      .then(response => {
+      .then((response) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
-          logActivity(
-            "user",
-            (id || "") + ">" + response.data["list_id"],
-            message
-          ).finally(() => {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
             props.history.push(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -460,12 +400,12 @@ const QuickSearch = props => {
             question: quickSearch.question_11.id,
             input: {
               show: true,
-              id: stringConstants.errors.quickSerarchError.id
-            }
+              id: stringConstants.errors.quickSerarchError.id,
+            },
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
@@ -474,10 +414,8 @@ const QuickSearch = props => {
     let listApi = getListApi(questionId);
     if ("getGlycanList" === listApi) return getGlycanList(listId, 1, 1);
     else if ("getProteinList" === listApi) return getProteinList(listId, 1, 1);
-    else if ("getGeneLocusList" === listApi)
-      return getGeneLocusList(listId, 1, 1);
-    else if ("getOrthologsList" === listApi)
-      return getOrthologsList(listId, 1, 1);
+    else if ("getGeneLocusList" === listApi) return getGeneLocusList(listId, 1, 1);
+    else if ("getOrthologsList" === listApi) return getOrthologsList(listId, 1, 1);
     return undefined;
   }
 
@@ -503,7 +441,7 @@ const QuickSearch = props => {
     } else if (questionId === quickSearch.question_10.id) {
       return {
         organism: response.query.organism.id,
-        glycosylation_evidence: response.query.evidence_type
+        glycosylation_evidence: response.query.evidence_type,
       };
     } else if (questionId === quickSearch.question_11.id) {
       return response.query.do_name;
@@ -546,17 +484,15 @@ const QuickSearch = props => {
 
     let question = quickSearch[questionId];
     getGlycanInit()
-      .then(response => {
+      .then((response) => {
         setGlycanInitData(response.data);
         const anchorElement = props.history.location.hash;
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
-          document
-            .getElementById(anchorElement.substr(1))
-            .scrollIntoView({ behavior: "auto" });
+          document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
         }
         if (!id || !question) setPageLoading(false);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         let message = "search_init api call";
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
@@ -564,13 +500,13 @@ const QuickSearch = props => {
     id &&
       question &&
       getListData(id)
-        .then(response => {
+        .then((response) => {
           setInputValue({
-            [questionId]: getListApiResponse(questionId, response.data)
+            [questionId]: getListApiResponse(questionId, response.data),
           });
           setPageLoading(false);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           let message = "list api call";
           axiosError(error, "", message, setPageLoading, setAlertDialogInput);
         });
@@ -590,14 +526,11 @@ const QuickSearch = props => {
         </Col>
         <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
           <Container maxWidth="md" className="sidebar-page-mb">
-            <VerticalHeading
-              post={vertHeadQuickSearch}
-              style={{ margin: "0 auto" }}
-            />
+            <VerticalHeading post={vertHeadQuickSearch} style={{ margin: "0 auto" }} />
             <PageLoader pageLoading={pageLoading} />
             <DialogAlert
               alertInput={alertDialogInput}
-              setOpen={input => {
+              setOpen={(input) => {
                 setAlertDialogInput({ show: input });
               }}
             />
@@ -609,7 +542,7 @@ const QuickSearch = props => {
               searchQuestion3={searchQuestion3}
               questionId={questionId}
               alertText={alertText}
-              id="glycan"
+              id="Search-by-Glycan"
             />
             <SearchByProtein
               setInputValue={setInputValue}
@@ -620,9 +553,9 @@ const QuickSearch = props => {
               searchQuestion7={searchQuestion7}
               questionId={questionId}
               alertText={alertText}
-              id="protein"
+              id="Search-by-Protein"
             />
-            <SearchBySpecies
+            <SearchByOrganism
               setInputValue={setInputValue}
               inputValue={inputValue}
               glycanInitData={glycanInitData}
@@ -631,7 +564,7 @@ const QuickSearch = props => {
               searchQuestion10={searchQuestion10}
               questionId={questionId}
               alertText={alertText}
-              id="species"
+              id="Search-by-Organism"
             />
             <SearchByDisease
               setInputValue={setInputValue}
@@ -639,7 +572,7 @@ const QuickSearch = props => {
               searchQuestion11={searchQuestion11}
               questionId={questionId}
               alertText={alertText}
-              id="disease"
+              id="Search-by-Disease"
             />
           </Container>
         </Col>

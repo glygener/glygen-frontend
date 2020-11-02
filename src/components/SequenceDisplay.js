@@ -145,6 +145,7 @@ const SequenceDisplay = ({ sequenceData, selectedHighlights }) => {
       </pre>
       {rows.map((row, index) => (
         <SequenceRow
+          key={index}
           rowData={row}
           start={index * perLine}
           selectedHighlights={selectedHighlights}

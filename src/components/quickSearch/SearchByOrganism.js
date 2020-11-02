@@ -13,9 +13,9 @@ import stringConstants from "../../data/json/stringConstants";
 import proteinSearchData from "../../data/json/proteinSearch";
 import TextAlert from "../alert/TextAlert";
 
-const SearchBySpecies = props => {
+const SearchByOrganism = props => {
   let quickSearch = stringConstants.quick_search;
-  let searchBySpecies = quickSearchData.searchBySpecies;
+  let searchByOrganism = quickSearchData.searchByOrganism;
   let advancedSearch = proteinSearchData.advanced_search;
 
   return (
@@ -23,7 +23,7 @@ const SearchBySpecies = props => {
       <div id={props.id}>
         <section className="content-box-sm" style={{ margin: "0 auto" }}>
           <div className="quick-search-heading">
-            <h4>{stringConstants.sidebar.search_by_species.displayname}</h4>
+            <h4>{stringConstants.sidebar.search_by_organism.displayname}</h4>
           </div>
           <div className="quick-search">
             <ExpansionPanel
@@ -38,7 +38,7 @@ const SearchBySpecies = props => {
                 <Typography className="gg-blue-color">
                   {quickSearch.question_8.text.split("{0}")[0]}
                   <strong className="gg-blue-color">
-                    {searchBySpecies.common.label}
+                    {searchByOrganism.common.label}
                   </strong>
                   {quickSearch.question_8.text.split("{0}")[1]}
                 </Typography>
@@ -57,18 +57,18 @@ const SearchBySpecies = props => {
                   <Grid item xs={12} sm={6} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
-                        {searchBySpecies.common.label}
+                        {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl
                         inputValue={props.inputValue.question_8}
                         placeholder={
-                          searchBySpecies.common.organism.placeholder
+                          searchByOrganism.common.organism.placeholder
                         }
                         placeholderId={
-                          searchBySpecies.common.organism.placeholderId
+                          searchByOrganism.common.organism.placeholderId
                         }
                         placeholderName={
-                          searchBySpecies.common.organism.placeholderName
+                          searchByOrganism.common.organism.placeholderName
                         }
                         menu={
                           props.glycanInitData.organism
@@ -107,7 +107,7 @@ const SearchBySpecies = props => {
                 <Typography className="gg-blue-color">
                   {quickSearch.question_9.text.split("{0}")[0]}
                   <strong className="gg-blue-color">
-                    {searchBySpecies.common.label}
+                    {searchByOrganism.common.label}
                   </strong>
                   {quickSearch.question_9.text.split("{0}")[1]}
                 </Typography>
@@ -126,18 +126,18 @@ const SearchBySpecies = props => {
                   <Grid item xs={12} sm={6} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
-                        {searchBySpecies.common.label}
+                        {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl
                         inputValue={props.inputValue.question_9}
                         placeholder={
-                          searchBySpecies.common.organism.placeholder
+                          searchByOrganism.common.organism.placeholder
                         }
                         placeholderId={
-                          searchBySpecies.common.organism.placeholderId
+                          searchByOrganism.common.organism.placeholderId
                         }
                         placeholderName={
-                          searchBySpecies.common.organism.placeholderName
+                          searchByOrganism.common.organism.placeholderName
                         }
                         menu={
                           props.glycanInitData.organism
@@ -176,7 +176,7 @@ const SearchBySpecies = props => {
                 <Typography className="gg-blue-color">
                   {quickSearch.question_10.text.split("{0}")[0]}
                   <strong className="gg-blue-color">
-                    {searchBySpecies.common.label}
+                    {searchByOrganism.common.label}
                   </strong>
                   {quickSearch.question_10.text.split("{0}")[1]}
                 </Typography>
@@ -195,18 +195,18 @@ const SearchBySpecies = props => {
                   <Grid item xs={12} sm={6} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
-                        {searchBySpecies.common.label}
+                        {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl
                         inputValue={props.inputValue.question_10.organism}
                         placeholder={
-                          searchBySpecies.common.organism.placeholder
+                          searchByOrganism.common.organism.placeholder
                         }
                         placeholderId={
-                          searchBySpecies.common.organism.placeholderId
+                          searchByOrganism.common.organism.placeholderId
                         }
                         placeholderName={
-                          searchBySpecies.common.organism.placeholderName
+                          searchByOrganism.common.organism.placeholderName
                         }
                         menu={
                           props.glycanInitData.organism
@@ -231,7 +231,7 @@ const SearchBySpecies = props => {
                   <Grid item xs={12} sm={3} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
-                        {searchBySpecies.question_10.labelType}
+                        {searchByOrganism.question_10.labelType}
                       </Typography>
                       <SelectControl
                         inputValue={
@@ -285,4 +285,4 @@ const SearchBySpecies = props => {
     </>
   );
 };
-export default SearchBySpecies;
+export default SearchByOrganism;

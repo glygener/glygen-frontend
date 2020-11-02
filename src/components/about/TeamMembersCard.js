@@ -11,7 +11,7 @@ const TeamMembersCard = (props) => {
 
 				<Row className="gg-align-center">
 					{props.data.people.map((json) => (
-						<Col md={3} className="team">
+						<Col md={4} lg={3} className="team">
 							<>
 								{json.url ? (
 									<>

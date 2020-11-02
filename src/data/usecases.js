@@ -203,17 +203,17 @@ export const getProteinToOrthologs = proteinId => {
   return getJson(url);
 };
 
-export const getSpeciesToGlycosyltransferases = organism => {
+export const getOrganismToGlycosyltransferases = organism => {
   const url = "/usecases/species_to_glycosyltransferases/" + organism;
   return getJson(url);
 };
 
-export const getSpeciesToGlycohydrolases = organism => {
+export const getOrganismToGlycohydrolases = organism => {
   const url = "/usecases/species_to_glycohydrolases/" + organism;
   return getJson(url);
 };
 
-export const getSpeciesToGlycoproteins = (organism, evidenceType) => {
+export const getOrganismToGlycoproteins = (organism, evidenceType) => {
   const url =
     "/usecases/species_to_glycoproteins/" + organism + "/" + evidenceType;
   return getJson(url);

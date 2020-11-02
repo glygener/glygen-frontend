@@ -83,6 +83,12 @@
   margin-left: 10px !important;
   cursor: pointer;
 }
+.super7 {
+  font-size: 26px;
+  color: purple;
+  cursor: pointer;
+  line-height: 20px !important;
+}
 
 #glycotrack,
 #glycotrack1 {
@@ -96,11 +102,11 @@
 }
 .nav-combinetrack {
   height: 80px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 .nav-links {
-  padding-top: 50px;
-  padding-left: 15px;
+  /* padding-top: 50px; */
+  margin-left: 15px !important;
 }
 .indentsubnav {
   padding-bottom: -10px;
@@ -108,7 +114,9 @@
   background-color: rgb(252, 252, 252);
 }
 .legendlist {
-  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   list-style: none !important;
   border-bottom: 1px solid rgb(166, 166, 169);
 }
@@ -118,13 +126,8 @@
 .highlight {
   background-color: rgb(243, 240, 211);
 }
-
 .sidebarpadding {
   padding-top: 30px;
-}
-
-.nav-combinetrack {
-  padding-top: 0.9rem;
 }
 .main-nav-list {
   padding: 0 0 0 15px !important;

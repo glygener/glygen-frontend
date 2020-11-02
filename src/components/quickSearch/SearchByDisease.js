@@ -42,55 +42,58 @@ const SearchByGlycan = props => {
                   {quickSearch.question_11.text.split("{0}")[1]}
                 </Typography>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Grid container xs={12} sm={12}>
-                  <Grid item xs={12} sm={12}>
-                    <TextAlert
-                      alertInput={
-                        props.alertText.question === quickSearch.question_11.id
-                          ? props.alertText.input
-                          : props.alertText.default
-                      }
-                    />
-                  </Grid>
+              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_11.length <= searchByDisease.common.length) props.searchQuestion11()}}>
+                <ExpansionPanelDetails>
+                  <Grid container xs={12} sm={12}>
+                    <Grid item xs={12} sm={12}>
+                      <TextAlert
+                        alertInput={
+                          props.alertText.question === quickSearch.question_11.id
+                            ? props.alertText.input
+                            : props.alertText.default
+                        }
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} sm={6} className="quick-search-control">
-                    <FormControl fullWidth variant="outlined">
-                      <Typography className="qs-search-lbl" gutterBottom>
-                        {searchByDisease.common.label}
-                      </Typography>
-                      <AutoTextInput
-                        inputValue={props.inputValue.question_11}
-                        setInputValue={input =>
-                          props.setInputValue({ question_11: input })
+                    <Grid item xs={12} sm={6} className="quick-search-control">
+                      <FormControl fullWidth variant="outlined">
+                        <Typography className="qs-search-lbl" gutterBottom>
+                          {searchByDisease.common.label}
+                        </Typography>
+                        <AutoTextInput
+                          inputValue={props.inputValue.question_11}
+                          setInputValue={input =>
+                            props.setInputValue({ question_11: input })
+                          }
+                          required={true}
+                          placeholder={searchByDisease.common.placeholder}
+                          typeahedID={searchByDisease.common.typeahedID}
+                          length={searchByDisease.common.length}
+                          errorText={searchByDisease.common.errorText}
+                        />
+                        <ExampleExploreControl
+                          setInputValue={input =>
+                            props.setInputValue({ question_11: input })
+                          }
+                          inputValue={searchByDisease.common.examples}
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={2} className="quick-search-control">
+                      <Typography gutterBottom>&nbsp;</Typography>
+                      <Button
+                        className="gg-btn-blue"
+                        onClick={props.searchQuestion11}
+                        disabled={
+                          props.inputValue.question_11.trim().length === 0
                         }
-                        placeholder={searchByDisease.common.placeholder}
-                        typeahedID={searchByDisease.common.typeahedID}
-                        length={searchByDisease.common.length}
-                        errorText={searchByDisease.common.errorText}
-                      />
-                      <ExampleExploreControl
-                        setInputValue={input =>
-                          props.setInputValue({ question_11: input })
-                        }
-                        inputValue={searchByDisease.common.examples}
-                      />
-                    </FormControl>
+                      >
+                        Search
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={2} className="quick-search-control">
-                    <Typography gutterBottom>&nbsp;</Typography>
-                    <Button
-                      className="gg-btn-blue"
-                      onClick={props.searchQuestion11}
-                      disabled={
-                        props.inputValue.question_11.trim().length === 0
-                      }
-                    >
-                      Search
-                    </Button>
-                  </Grid>
-                </Grid>
-              </ExpansionPanelDetails>
+                </ExpansionPanelDetails>
+              </form>
             </ExpansionPanel>
           </div>
         </section>

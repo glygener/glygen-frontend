@@ -95,7 +95,7 @@
 		"meta": [
 			{
 				"name": "description",
-				"content": "Programming libraries and frameworks used to develop GlyGen. React.js, HTML5, CSS3, Axios, Bootstrap, Python, Protvista, d3.js, JavaScript, React.js, Mustache."
+				"content": "Programming libraries and frameworks used to develop GlyGen. React.js, HTML5, CSS3, Axios, Bootstrap, Python, ProtVista, d3.js, JavaScript, React.js, Mustache."
 			},
 			{
 				"name": "keywords",
@@ -204,7 +204,20 @@
 			},
 			{
 				"name": "keywords",
-				"content": "glycan, structure, meta data, general, species, motif, found glycoproteins, cross references, biosynthetic enzymes, digital sequence, publications, homo sapiens, mus musculus, rattus norvegicus."
+				"content": "glycan, structure, meta data, general, organism, motif, found glycoproteins, cross references, biosynthetic enzymes, digital sequence, publications, homo sapiens, mus musculus, rattus norvegicus."
+			}
+		]
+	},
+	"motifList": {
+		"title": "Motif List | List of Motifs | glygen.org",
+		"meta": [
+			{
+				"name": "description",
+				"content": "List of motifs available in GlyGen. Each motif includes detailed information and it's associated metadata."
+			},
+			{
+				"name": "keywords",
+				"content": "glycan, motif ID, motif accession, Image of Glycan Structure, motif name, Number of Glycans, GlyTouCan accession, motif synonyms, pmid list."
 			}
 		]
 	},
@@ -256,7 +269,7 @@
 			},
 			{
 				"name": "keywords",
-				"content": "Protein, general, Species, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
+				"content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
 			}
 		]
 	},
@@ -269,20 +282,20 @@
 			},
 			{
 				"name": "keywords",
-				"content": "Protein, general, Species, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
+				"content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
 			}
 		]
 	},
 	"quickSearch": {
-		"title": "Quick Search | by Glycan | by Protein | by Species | by Disease",
+		"title": "Quick Search | by Glycan | by Protein | by Organism | by Disease",
 		"meta": [
 			{
 				"name": "description",
-				"content": "Search for glycans, proteins, species or disease using queries prepared to provide answers to complex biological questions with minimal user input."
+				"content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
 			},
 			{
 				"name": "keywords",
-				"content": "Search by glycan, by protein, by species, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
+				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
 			}
 		]
 	},
@@ -291,11 +304,11 @@
 		"meta": [
 			{
 				"name": "description",
-				"content": "Search for glycans, proteins, species or disease using queries prepared to provide answers to complex biological questions with minimal user input."
+				"content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
 			},
 			{
 				"name": "keywords",
-				"content": "Search by glycan, by protein, by species, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, human, Homo sapiens, Mus musculus, Rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, predicted N-glycosylation site, synthesized, enzyme, orthologs."
+				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, human, Homo sapiens, Mus musculus, Rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, predicted N-glycosylation site, synthesized, enzyme, orthologs."
 			}
 		]
 	},
@@ -317,7 +330,7 @@
 		"meta": [
 			{
 				"name": "description",
-				"content": "A list of orthologs conforming to the query parameters. What are the orthologs of UniProt canonical accession in different species?"
+				"content": "A list of orthologs conforming to the query parameters. What are the orthologs of UniProt canonical accession in different organism?"
 			},
 			{
 				"name": "keywords",
@@ -399,7 +412,7 @@
 			},
 			{
 				"name": "keywords",
-				"content": "Search by glycan, by protein, by species, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
+				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
 			}
 		]
 	},

@@ -45,15 +45,20 @@ const ProteinSearch = (props) => {
 			proGeneName: "",
 			proGOName: "",
 			proGOId: "",
-			proGlytoucanAc: "",
-			proRelation: "attached",
 			proAminoAcid: [],
 			proAminoAcidOperation: "or",
 			proSequence: "",
 			proPathwayId: "",
 			proPubId: "",
 			proGlyEvidence: "",
+			proDiseaseName: "",
+			proDiseaseId: "",
+			proAttachedGlycanId: "",
+			proBindingGlycanId: "",
 			proAdvSearchValError: [
+				false,
+				false,
+				false,
 				false,
 				false,
 				false,
@@ -67,7 +72,7 @@ const ProteinSearch = (props) => {
 			],
 		}
 	);
-	const [proActTabKey, setProActTabKey] = useState("simple_search");
+	const [proActTabKey, setProActTabKey] = useState("Simple-Search");
 	const [pageLoading, setPageLoading] = useState(true);
 	const [alertTextInput, setAlertTextInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
@@ -108,7 +113,12 @@ const ProteinSearch = (props) => {
 				});
 
 				setInitData(initData);
-				setProActTabKey("simple_search");
+				const anchorElement = props.history.location.hash;
+				if (anchorElement) {
+					setProActTabKey(anchorElement.substr(1));	
+				} else {
+					setProActTabKey("Simple-Search");
+				}
 				if (id === undefined) setPageLoading(false);
 
 				id &&
@@ -123,12 +133,7 @@ const ProteinSearch = (props) => {
 									data.query.term_category ? data.query.term_category : "any"
 								);
 								setProSimpleSearchTerm(data.query.term ? data.query.term : "");
-								const anchorElement = props.history.location.hash;
-								if (anchorElement) {
-									setProActTabKey(anchorElement.substr(1));	
-								} else {
-									setProActTabKey("simple_search");
-								}
+								setProActTabKey("Simple-Search");
 								setPageLoading(false);
 							} else {
 								setProAdvSearchData({
@@ -190,14 +195,6 @@ const ProteinSearch = (props) => {
 										data.query.go_term === undefined ? "" : data.query.go_term,
 									proGOId:
 										data.query.go_id === undefined ? "" : data.query.go_id,
-									proGlytoucanAc:
-										data.query.glycan === undefined
-											? ""
-											: data.query.glycan.glytoucan_ac,
-									proRelation:
-										data.query.glycan === undefined
-											? "attached"
-											: data.query.glycan.relation,
 									proAminoAcid:
 										data.query.glycosylated_aa === undefined
 											? []
@@ -224,9 +221,25 @@ const ProteinSearch = (props) => {
 										data.query.glycosylation_evidence === undefined
 											? advancedSearch.glycosylation_evidence.placeholderId
 											: data.query.glycosylation_evidence,
+									proDiseaseName:
+										data.query.disease_name === undefined
+											? ""
+											: data.query.disease_name,
+									proDiseaseId:
+										data.query.disease_id === undefined
+										? ""
+										: data.query.disease_id,
+									proAttachedGlycanId:
+										data.query.attached_glycan_id === undefined
+											? ""
+											: data.query.attached_glycan_id,
+									proBindingGlycanId:
+										data.query.binding_glycan_id === undefined
+										? ""
+										: data.query.binding_glycan_id,
 								});
 
-								setProActTabKey("advanced_search");
+								setProActTabKey("Advanced-Search");
 								setPageLoading(false);
 							}
 						})
@@ -299,6 +312,10 @@ const ProteinSearch = (props) => {
 	 * @param {string} input_pathway_id user input
 	 * @param {string} input_pmid user input
 	 * @param {string} input_relation user input
+	 * @param {string} input_disease_name user input
+	 * @param {string} input_disease_id user input
+	 * @param {string} input_attached_glycan_id user input
+	 * @param {string} input_binding_glycan_id user input
 	 * @return {string} returns json
 	 */
 	function searchJson(
@@ -312,14 +329,16 @@ const ProteinSearch = (props) => {
 		input_gene_name,
 		input_go_term,
 		input_go_id,
-		input_glycan,
-		input_relation,
 		input_glycosylated_aa,
 		input_glycosylated_aa_operation,
 		input_sequence,
 		input_pathway_id,
 		input_pmid,
-		input_glycosylation_evidence
+		input_glycosylation_evidence,
+		input_disease_name,
+		input_disease_id,
+		input_attached_glycan_id,
+		input_binding_glycan_id
 	) {
 		var uniprot_id = input_protein_id;
 		if (uniprot_id) {
@@ -342,13 +361,6 @@ const ProteinSearch = (props) => {
 			};
 		}
 
-		var glycans = undefined;
-		if (input_glycan) {
-			glycans = {
-				relation: input_relation,
-				glytoucan_ac: input_glycan,
-			};
-		}
 		var selected_organism = undefined;
 		if (
 			input_organism &&
@@ -397,7 +409,6 @@ const ProteinSearch = (props) => {
 				: undefined,
 			[commonProteinData.go_term.id]: input_go_term ? input_go_term : undefined,
 			[commonProteinData.go_id.id]: input_go_id ? input_go_id : undefined,
-			[commonProteinData.glycan.id]: glycans ? glycans : undefined,
 			[commonProteinData.glycosylated_aa.id]: glyco_aa ? glyco_aa : undefined,
 			[commonProteinData.sequence.id]: sequences ? sequences : undefined,
 			[commonProteinData.pathway_id.id]: input_pathway_id
@@ -408,6 +419,10 @@ const ProteinSearch = (props) => {
 				.id]: input_glycosylation_evidence
 				? input_glycosylation_evidence
 				: undefined,
+			[commonProteinData.disease_name.id]: input_disease_name ? input_disease_name : undefined,
+			[commonProteinData.disease_id.id]: input_disease_id ? input_disease_id : undefined,
+			[commonProteinData.attached_glycan_id.id]: input_attached_glycan_id ? input_attached_glycan_id : undefined,
+			[commonProteinData.binding_glycan_id.id]: input_binding_glycan_id ? input_binding_glycan_id : undefined,
 		};
 		return formjson;
 	}
@@ -424,8 +439,6 @@ const ProteinSearch = (props) => {
 			proAdvSearchData.proGeneName,
 			proAdvSearchData.proGOName,
 			proAdvSearchData.proGOId,
-			proAdvSearchData.proGlytoucanAc,
-			proAdvSearchData.proRelation,
 			proAdvSearchData.proAminoAcid.map((aminoAcid) => {
 				return aminoAcid.key;
 			}),
@@ -433,7 +446,11 @@ const ProteinSearch = (props) => {
 			proAdvSearchData.proSequence,
 			proAdvSearchData.proPathwayId,
 			proAdvSearchData.proPubId,
-			proAdvSearchData.proGlyEvidence
+			proAdvSearchData.proGlyEvidence,
+			proAdvSearchData.proDiseaseName,
+			proAdvSearchData.proDiseaseId,
+			proAdvSearchData.proAttachedGlycanId,
+			proAdvSearchData.proBindingGlycanId,
 		);
 		logActivity("user", id, "Performing Advanced Search");
 		let message = "Advanced Search query=" + JSON.stringify(formObject);
@@ -496,14 +513,14 @@ const ProteinSearch = (props) => {
 						<h1 className="page-heading">{proteinSearchData.pageTitle}</h1>
 					</div>
 					<Tabs
-						defaultActiveKey="advanced_search"
+						defaultActiveKey="Advanced-Search"
 						transition={false}
 						activeKey={proActTabKey}
 						mountOnEnter={true}
 						unmountOnExit={true}
 						onSelect={(key) => setProActTabKey(key)}>
 						<Tab
-							eventKey="simple_search"
+							eventKey="Simple-Search"
 							className="tab-content-padding"
 							title={simpleSearch.tabTitle}>
 							<TextAlert alertInput={alertTextInput} />
@@ -528,7 +545,7 @@ const ProteinSearch = (props) => {
 							</Container>
 						</Tab>
 						<Tab
-							eventKey="advanced_search"
+							eventKey="Advanced-Search"
 							className="tab-content-padding"
 							title={advancedSearch.tabTitle}>
 							<TextAlert alertInput={alertTextInput} />
@@ -544,7 +561,7 @@ const ProteinSearch = (props) => {
 							</Container>
 						</Tab>
 						<Tab
-							eventKey="tutorial"
+							eventKey="Tutorial"
 							title={proteinSearchData.tutorial.tabTitle}
 							className="tab-content-padding">
 							<Container className="tab-content-border">

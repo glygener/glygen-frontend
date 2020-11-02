@@ -18,10 +18,12 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { getGlobalSearch} from '../data/commonApi';
-
+import stringConstants from "../data/json/stringConstants";
 
 const GlobalSearchResult = (props) => {
 	let { id } = useParams("");
+	let glycanGlobalSearch = stringConstants.glycan.global_search_results;
+	let proteinGlobalSearch = stringConstants.protein.global_search_results;
 
 	const [pageLoading, setPageLoading] = useState(true);
 	const [alertDialogInput, setAlertDialogInput] = useReducer(
@@ -97,7 +99,7 @@ const GlobalSearchResult = (props) => {
 									colHeading1={"Database"}
 									colHeading2={"Glycan"}
 									searchItems={Object.keys(globalSearchData.other_matches.glycan)
-										.map((searchItem)  => {return {name: searchItem, count: globalSearchData.other_matches.glycan[searchItem].count, list_id : globalSearchData.other_matches.glycan[searchItem].list_id}})}
+										.map((searchItem)  => {return {name: glycanGlobalSearch[searchItem] ? glycanGlobalSearch[searchItem].name : searchItem, count: globalSearchData.other_matches.glycan[searchItem].count, list_id : globalSearchData.other_matches.glycan[searchItem].list_id}})}
 								/>}
 							</Grid>
 							<Grid item md={6}>
@@ -115,7 +117,7 @@ const GlobalSearchResult = (props) => {
 									colHeading2={"Protein"}
 									colHeading3={"Glycoprotein"}
 									searchItems={Object.keys(globalSearchData.other_matches.protein)
-										.map((searchItem)  => {return {name: searchItem, count1: globalSearchData.other_matches.protein[searchItem].count, list_id1 : globalSearchData.other_matches.protein[searchItem].list_id,
+										.map((searchItem)  => {return {name: proteinGlobalSearch[searchItem] ? proteinGlobalSearch[searchItem].name : searchItem, count1: globalSearchData.other_matches.protein[searchItem].count, list_id1 : globalSearchData.other_matches.protein[searchItem].list_id,
 																count2: globalSearchData.other_matches.glycoprotein[searchItem].count, list_id2 : globalSearchData.other_matches.glycoprotein[searchItem].list_id}})}
 								/>}
 							</Grid>

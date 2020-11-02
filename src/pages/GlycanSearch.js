@@ -44,6 +44,7 @@ const GlycanSearch = (props) => {
 		(state, newState) => ({ ...state, ...newState }),
 		{
 			glycanId: '',
+			glycanIdSubsumption: 'none',
 			glyMassType: 'Native',
 			glyMass: [150, 6751],
 			glyMassInput: [Number(150).toLocaleString('en-US'), Number(6751).toLocaleString('en-US')],
@@ -52,6 +53,7 @@ const GlycanSearch = (props) => {
 			glyNumSugarsRange: [1, 37],
 			glyNumSugarsInput: [Number(1).toLocaleString('en-US'), Number(37).toLocaleString('en-US')],
 			glyOrganisms: [],
+			glyOrgAnnotationCat: '',
 			glyOrgOperation: 'or',
 			glyType: '',
 			glySubType: '',
@@ -60,6 +62,7 @@ const GlycanSearch = (props) => {
 			glyMotif: '',
 			glyBioEnz: '',
 			glyPubId: '',
+			glyBindingProteinId: '',
 			glyAdvSearchValError: [false, false, false, false, false],
 		}
 	);
@@ -67,7 +70,7 @@ const GlycanSearch = (props) => {
 		(state, newState) => ({ ...state, ...newState }),
 		{}
 	);
-	const [glyActTabKey, setGlyActTabKey] = useState('simple_search');
+	const [glyActTabKey, setGlyActTabKey] = useState('Simple-Search');
 	const [pageLoading, setPageLoading] = useState(true);
 	const [alertTextInput, setAlertTextInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
@@ -161,11 +164,11 @@ const GlycanSearch = (props) => {
 					min: compositionData[x].min,
 					selectValue: getSelectionValue(
 						compositionData[x].min,
-						compositionData[x].max,
+						compositionData[x].min,
 						compositionData[x].min,
 						compositionData[x].max
 					),
-					max: compositionData[x].max,
+					max: compositionData[x].min,
 				};
 			}
 			initData.glycan_mass.native.min = Math.floor(
@@ -190,7 +193,7 @@ const GlycanSearch = (props) => {
 			if (anchorElement) {
 				setGlyActTabKey(anchorElement.substr(1));	
 			} else {
-				setGlyActTabKey("simple_search");
+				setGlyActTabKey("Simple-Search");
 			}
 			if (id === undefined) setPageLoading(false);
 
@@ -215,21 +218,25 @@ const GlycanSearch = (props) => {
 							};
 						}
 						setGlyCompData(queryCompData);
-						setGlyActTabKey("composition_search");
+						setGlyActTabKey("Composition-Search");
 						setPageLoading(false);
 					} else if (data.query.query_type === glycanData.simple_search.query_type.name) {
 						setGlySimpleSearchCategory(
 							data.query.term_category ? data.query.term_category : 'any'
 						);
 						setGlySimpleSearchTerm(data.query.term ? data.query.term : '');
-						setGlyActTabKey("simple_search");
+						setGlyActTabKey("Simple-Search");
 						setPageLoading(false);
 					} else {
 						setGlyAdvSearchData({
 							glycanId:
-								data.query.glytoucan_ac === undefined
+								data.query.glycan_identifier === undefined
 									? ''
-									: data.query.glytoucan_ac + ",",
+									: data.query.glycan_identifier.glycan_id + ",",
+							glycanIdSubsumption:
+								data.query.glycan_identifier === undefined
+									? 'none'
+									: data.query.glycan_identifier.subsumption,
 							glyMassType:
 								data.query.mass_type === undefined
 									? initData.glycan_mass.native.name
@@ -291,6 +298,10 @@ const GlycanSearch = (props) => {
 											Number(data.query.number_monosaccharides.min).toLocaleString('en-US'),
 											Number(data.query.number_monosaccharides.max).toLocaleString('en-US'),
 									  ],
+							glyOrgAnnotationCat:
+								data.query.organism === undefined
+									? ''
+									: data.query.organism.annotation_category,
 							glyOrgOperation:
 								data.query.organism === undefined
 									? 'or'
@@ -320,10 +331,14 @@ const GlycanSearch = (props) => {
 							glyBioEnz:
 								data.query.enzyme === undefined ? '' : data.query.enzyme.id,
 							glyPubId: data.query.pmid === undefined ? '' : data.query.pmid,
-							glyAdvSearchValError: [false, false, false, false, false],
+							glyBindingProteinId:
+							data.query.binding_protein_id === undefined
+								? ''
+								: data.query.binding_protein_id,
+							glyAdvSearchValError: [false, false, false, false, false, false],
 						});
 
-						setGlyActTabKey("advanced_search");
+						setGlyActTabKey("Advanced-Search");
 						setPageLoading(false);
 					}
 				})
@@ -341,12 +356,14 @@ const GlycanSearch = (props) => {
 	function searchjson(
 		input_query_type,
 		input_glycan_id,
+		input_glycan_id_subsumption,
 		input_mass_type,
 		input_mass_min,
 		input_mass_max,
 		input_sugar_min,
 		input_sugar_max,
 		input_organism,
+		input_organism_annotation_cat,
 		input_organism_operation,
 		input_glycantype,
 		input_glycansubtype,
@@ -354,6 +371,7 @@ const GlycanSearch = (props) => {
 		input_proteinid,
 		input_motif,
 		input_pmid,
+		input_binding_protein_id,
 		input_residue_comp
 	) {
 		var enzymes = {};
@@ -406,10 +424,12 @@ const GlycanSearch = (props) => {
 		if (input_organism && input_organism.length > 0) {
 			organisms = {
 				organism_list: input_organism,
-				operation: input_organism_operation,
+				annotation_category: input_organism_annotation_cat,
+				operation: input_organism_operation
 			};
 		}
 
+		var glycan_identifier = undefined;
 		var glycan_id = input_glycan_id;
 		if (glycan_id) {
 			glycan_id = glycan_id.trim();
@@ -421,6 +441,10 @@ const GlycanSearch = (props) => {
 			if (index > -1 && index + 1 === glycan_id.length) {
 				glycan_id = glycan_id.substr(0, index);
 			}
+			glycan_identifier = {
+				glycan_id: glycan_id,
+				subsumption: input_glycan_id_subsumption 
+			}
 		}
 
 		var formjson = {
@@ -430,13 +454,14 @@ const GlycanSearch = (props) => {
 			[commonGlycanData.mass.id]: input_mass,
 			[commonGlycanData.number_monosaccharides.id]: monosaccharides,
 			[commonGlycanData.enzyme.id]: enzymes,
-			[commonGlycanData.glycan_id.id]: glycan_id,
+			[commonGlycanData.glycan_identifier.id]: glycan_identifier,
 			[commonGlycanData.organism.id]: organisms,
 			[commonGlycanData.glycan_type.id]: input_glycantype,
 			[commonGlycanData.glycan_subtype.id]: input_glycansubtype,
 			[commonGlycanData.protein_identifier.id]: input_proteinid,
 			[commonGlycanData.glycan_motif.id]: input_motif,
 			[commonGlycanData.pmid.id]: input_pmid,
+			[commonGlycanData.binding_protein_id.id]: input_binding_protein_id,
 			[commonGlycanData.composition.id]: input_residue_comp,
 		};
 		return formjson;
@@ -475,12 +500,14 @@ const GlycanSearch = (props) => {
 		let formObject = searchjson(
 			glycanData.advanced_search.query_type.name,
 			glyAdvSearchData.glycanId,
+			glyAdvSearchData.glycanIdSubsumption,
 			glyAdvSearchData.glyMassType,
 			glyAdvSearchData.glyMass[0],
 			glyAdvSearchData.glyMass[1],
 			glyAdvSearchData.glyNumSugars[0],
 			glyAdvSearchData.glyNumSugars[1],
 			glyAdvSearchData.glyOrganisms,
+			glyAdvSearchData.glyOrgAnnotationCat,
 			glyAdvSearchData.glyOrgOperation,
 			glyAdvSearchData.glyType,
 			glyAdvSearchData.glySubType,
@@ -488,6 +515,7 @@ const GlycanSearch = (props) => {
 			glyAdvSearchData.glyProt,
 			glyAdvSearchData.glyMotif,
 			glyAdvSearchData.glyPubId,
+			glyAdvSearchData.glyBindingProteinId,
 			undefined
 		);
 		logActivity("user", id, "Performing Advanced Search");
@@ -527,6 +555,9 @@ const GlycanSearch = (props) => {
 
 		let formObject = searchjson(
 			glycanData.composition_search.query_type.name,
+			undefined,
+			undefined,
+			undefined,
 			undefined,
 			undefined,
 			undefined,
@@ -601,14 +632,14 @@ const GlycanSearch = (props) => {
 						<h1 className='page-heading'>{glycanSearchData.pageTitle}</h1>
 					</div>
 					<Tabs
-						defaultActiveKey='advanced_search'
+						defaultActiveKey='Advanced-Search'
 						transition={false}
 						activeKey={glyActTabKey}
 						mountOnEnter={true}
 						unmountOnExit={true}
 						onSelect={(key) => setGlyActTabKey(key)}>
 						<Tab
-							eventKey='simple_search'
+							eventKey='Simple-Search'
 							className='tab-content-padding'
 							title={simpleSearch.tabTitle}>
 							<TextAlert
@@ -633,7 +664,7 @@ const GlycanSearch = (props) => {
 							</Container>
 						</Tab>
 						<Tab
-							eventKey='advanced_search'
+							eventKey='Advanced-Search'
 							className='tab-content-padding'
 							title={advancedSearch.tabTitle}>
 							<TextAlert
@@ -651,7 +682,7 @@ const GlycanSearch = (props) => {
 							</Container>
 						</Tab>
 						<Tab
-							eventKey='composition_search'
+							eventKey='Composition-Search'
 							title={compositionSearch.tabTitle}
 							className='tab-content-padding'>
 							<TextAlert
@@ -671,7 +702,7 @@ const GlycanSearch = (props) => {
 							</Container>
 						</Tab>
 						<Tab
-							eventKey='tutorial'
+							eventKey='Tutorial'
 							title={glycanSearchData.tutorial.tabTitle}
 							className='tab-content-padding'>
 							<Container className='tab-content-border'>

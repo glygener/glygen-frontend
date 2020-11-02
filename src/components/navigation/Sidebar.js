@@ -1,9 +1,12 @@
-import React, { useState, useLayoutEffect } from "react";
-import { Link } from "@material-ui/core";
+import React, { useState, useLayoutEffect, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../../css/Sidebar.css";
 
 function Sidebar({ items, offset = 105 }) {
   const [activeLink, setActiveLink] = useState(items[0].id);
+
+  useEffect(() => {
+  }, [items])
 
   useLayoutEffect(() => {
     const handleScrollEvent = () => {
@@ -37,11 +40,11 @@ function Sidebar({ items, offset = 105 }) {
       <div className="sidebar">
         {items.map(({ label, id }) => (
           <>
-            <Link href={"#" + id}>
+            <Link to={"#" + id}>
               <ul
                 key={id}
                 button
-                onClick={() => setActiveLink(id)}
+                onClick={() => setActiveLink(id)}         
                 className={
                   "sidebar-item" + (activeLink === id ? " active" : "")
                 }

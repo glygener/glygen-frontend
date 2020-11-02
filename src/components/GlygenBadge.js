@@ -13,7 +13,7 @@ function databasecolor(name) {
     case "uniprotkb":
       return "#4b8aa0";
     case "pubmed":
-      return "#7c985d";
+      return "#51B0A5";
     case "refseq":
       return "#3ea2ad";
     case "ensembl peptide":
@@ -37,7 +37,7 @@ function databasecolor(name) {
     case "homologene":
       return "#9a039a";
     case "oma":
-      return "#89a15c";
+      return "#7FB97A";
     case "mgi_homologset":
       return "#e8a2e8";
     case "mondo":
@@ -47,16 +47,32 @@ function databasecolor(name) {
     case "glyconnect":
       return "#fcba03";
     case "mim":
-      return "#eb4034";
+      return "#BF8181";
     case "dbsnp":
-      return "#ebbd34";
-    case "subsumption":
-      return "#33b8ff";
+      return "#FFC47F";
+    case "gnome":
+      return "#029AEC";
+    case "exac":
+      return "#ff9a76";
+    case "topmed":
+      return "#e97171";
+    case "gnomad":
+      return "#AF5A62";
+    case "matrixdb":
+      return "#64958f";
+    case "glygen":
+      return "#2F78B7";
+    case "automatic literature mining":
+      return "#649093";
+    case "uniref":
+      return "#358C92";
+    case "rcsb pdb":
+      return "#7e8a97";
   }
   return "#9033ff";
 }
-
-const GlygenBadge = props => {
+// 9d65c9
+const GlygenBadge = (props) => {
   const [showExpandList, setShowExpandList] = useState(false);
 
   const { text } = props;
@@ -67,14 +83,12 @@ const GlygenBadge = props => {
         className="badge-button"
         style={{
           backgroundColor: databasecolor(text),
-          color: "white"
+          color: "white",
         }}
         onClick={() => setShowExpandList(!showExpandList)}
       >
         {text}
-        &nbsp;<span className="badge-count">
-          {props.expandList.length}
-        </span>{" "}
+        &nbsp;<span className="badge-count">{props.expandList.length}</span>{" "}
         {/* <Badge variant="light">{props.expandList.length}</Badge> */}
         {/* <Badge color="primary" badgeContent={props.expandList.length}></Badge> */}
       </Button>
@@ -96,7 +110,7 @@ const GlygenBadge = props => {
 GlygenBadge.propTypes = {
   text: PropTypes.string,
   expandList: PropTypes.array,
-  color: PropTypes.array
+  color: PropTypes.array,
 };
 
 export default GlygenBadge;

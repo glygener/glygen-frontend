@@ -35,9 +35,9 @@ const PanelHowToCite = (props) => {
 											<p>
 												{json.comingSoon}
 												<div>
-													<h6 style={{ marginBottom: "3px" }}>
+													<h5 style={{ marginBottom: "3px" }}>
 														<strong>{json.heading}</strong>
-													</h6>
+													</h5>
 												</div>
 												{json.authors}
 												<div

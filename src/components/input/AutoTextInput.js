@@ -50,6 +50,7 @@ export default function AutoTextInput(props) {
 					<TextField
 						{...params}
 						variant='outlined'
+						required={props.required}
 						placeholder={props.placeholder}
 						error={props.inputValue.length > props.length}
 					/>
@@ -70,5 +71,6 @@ AutoTextInput.propTypes = {
 	typeahedID: PropTypes.string,
 	errorText: PropTypes.string,
 	length: PropTypes.number,
+	required: PropTypes.bool,
 	setInputValue: PropTypes.func,
 };

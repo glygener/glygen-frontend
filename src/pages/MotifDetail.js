@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { getGlycanImageUrl } from "../data/glycan";
 import { useParams } from "react-router-dom";
-import { getMotifList } from "../data/motif";
+import { getMotifDetail } from "../data/motif";
 import PaginatedTable from "../components/PaginatedTable";
 import { MOTIF_COLUMNS } from "../data/motif";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -34,14 +34,15 @@ import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
 
 const glycanStrings = stringConstants.glycan.common;
-const proteinStrings = stringConstants.protein.common;
+const motifStrings = stringConstants.motif.common;
+
 const items = [
-  { label: stringConstants.sidebar.general.displayname, id: "general" },
-  { label: stringConstants.sidebar.glycans.displayname, id: "glycans" },
+  { label: stringConstants.sidebar.general.displayname, id: "General" },
+  { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motifs" },
   {
     label: stringConstants.sidebar.publication.displayname,
-    id: "publication"
-  }
+    id: "Publications",
+  },
 ];
 
 function addCommas(nStr) {
@@ -57,14 +58,19 @@ function addCommas(nStr) {
   return x1 + x2;
 }
 
-const MotifDetail = props => {
+const MotifDetail = (props) => {
   let { id } = useParams();
+  // let { namespace } = useParams();
+  // let { ac } = useParams();
+  // const id = namespace + "." + ac;
 
   const [data, setData] = useState([]);
   const [publication, setPublication] = useState([]);
   const [glytoucan, setGlytoucan] = useState([]);
   const [motif, setMotif] = useState([]);
   const [mass, setMass] = useState([]);
+  const [motifName, setMotifName] = useState([]);
+  const [motifSynonym, setMotifSynonym] = useState([]);
   const [classification, setClassification] = useState([]);
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(MOTIF_COLUMNS);
@@ -80,8 +86,8 @@ const MotifDetail = props => {
   useEffect(() => {
     setPageLoading(true);
     logActivity("user", id);
-    const getMotifListdata = getMotifList(id);
-    getMotifList(id).then(({ data }) => {
+    const getMotifDetaildata = getMotifDetail(id);
+    getMotifDetaildata.then(({ data }) => {
       if (data.code) {
         let message = "Motif Detail api call";
         logActivity("user", id, "No results. " + message);
@@ -96,44 +102,39 @@ const MotifDetail = props => {
         setPageLoading(false);
       }
     });
-    getMotifListdata.catch(({ response }) => {
+    getMotifDetaildata.catch(({ response }) => {
       let message = "motif api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
   }, []);
 
-  const handleTableChange = (
-    type,
-    { page, sizePerPage, sortField, sortOrder }
-  ) => {
+  const handleTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     setPage(page);
     setSizePerPage(sizePerPage);
 
-    getMotifList(
-      id,
-      (page - 1) * sizePerPage + 1,
-      sizePerPage,
-      sortField,
-      sortOrder
-    ).then(({ data }) => {
-      // place to change values before rendering
+    getMotifDetail(id, (page - 1) * sizePerPage + 1, sizePerPage, sortField, sortOrder).then(
+      ({ data }) => {
+        // place to change values before rendering
 
-      setData(data.results);
-      setPublication(data.publication);
-      setGlytoucan(data.glytoucan);
-      setPagination(data.pagination);
-      setMass(data.mass);
-      setMotif(data.motif);
-      setClassification(
-        data.classification.filter(
-          classif =>
-            !(classif.type.name === "Other" && classif.subtype.name === "Other")
-        )
-      );
+        setData(data.results);
+        setPublication(data.publication);
+        setGlytoucan(data.glytoucan);
+        setPagination(data.pagination);
+        setMass(data.mass);
+        setMotif(data.motif);
+        setMotifName(data.name);
+        setMotifSynonym(data.synonym);
+        // setClassification(
+        //   data.classification.filter(
+        //     classif =>
+        //       !(classif.type.name === "Other" && classif.subtype.name === "Other")
+        //   )
+        // );
 
-      //   setSizePerPage()
-      setTotalSize(data.pagination.total_length);
-    });
+        //   setSizePerPage()
+        setTotalSize(data.pagination.total_length);
+      }
+    );
   };
   function rowStyleFormat(row, rowIdx) {
     return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
@@ -147,14 +148,11 @@ const MotifDetail = props => {
    * Adding toggle collapse arrow icon to card header individualy.
    * @param {object} glytoucan_ac- glytoucan accession ID.
    **/
-  const [collapsed, setCollapsed] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      general: true,
-      glycans: true,
-      publication: true
-    }
-  );
+  const [collapsed, setCollapsed] = useReducer((state, newState) => ({ ...state, ...newState }), {
+    general: true,
+    glycans: true,
+    publication: true,
+  });
 
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
@@ -181,11 +179,7 @@ const MotifDetail = props => {
                       {" "}
                       <span>
                         Motif Details for
-                        <strong>
-                          {glytoucan && glytoucan.glytoucan_ac && (
-                            <> {glytoucan.glytoucan_ac}</>
-                          )}
-                        </strong>
+                        <strong>{motif && motif.accession && <> {motif.accession}</>}</strong>
                       </span>
                     </h2>
                   </div>
@@ -198,14 +192,13 @@ const MotifDetail = props => {
                   {
                     display: stringConstants.download.motif_image.displayname,
                     type: "png",
-                    data: "glycan_image"
+                    data: "glycan_image",
                   },
                   {
-                    display:
-                      stringConstants.download.motif_jsondata.displayname,
+                    display: stringConstants.download.motif_jsondata.displayname,
                     type: "json",
-                    data: "motif_detail"
-                  }
+                    data: "motif_detail",
+                  },
                 ]}
                 dataId={id}
                 dataType="motif_detail"
@@ -214,10 +207,7 @@ const MotifDetail = props => {
             <React.Fragment>
               <Helmet>
                 {getTitle("motifDetail", {
-                  glytoucan_ac:
-                    glytoucan && glytoucan.glytoucan_ac
-                      ? glytoucan.glytoucan_ac
-                      : ""
+                  glytoucan_ac: glytoucan && glytoucan.glytoucan_ac ? glytoucan.glytoucan_ac : "",
                 })}
 
                 {getMeta("motifDetail")}
@@ -226,7 +216,7 @@ const MotifDetail = props => {
               <PageLoader pageLoading={pageLoading} />
               <DialogAlert
                 alertInput={alertDialogInput}
-                setOpen={input => {
+                setOpen={(input) => {
                   setAlertDialogInput({ show: input });
                 }}
               />
@@ -254,40 +244,48 @@ const MotifDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("general", collapsed.general)
-                        }
+                        onClick={() => toggleCollapse("general", collapsed.general)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.general ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.general ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <p>
-                        {glytoucan && glytoucan.glytoucan_ac && (
+                        {motif && motif.accession && (
                           <>
                             <p>
                               <img
                                 className="img-cartoon"
-                                src={getGlycanImageUrl(glytoucan.glytoucan_ac)}
+                                src={getGlycanImageUrl(motif.accession)}
                                 alt="Cartoon"
                               />
                             </p>
                             <div>
-                              <strong>
-                                {proteinStrings.glytoucan_ac.shortName}:{" "}
-                              </strong>
-                              <a
-                                href={glytoucan.glytoucan_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {glytoucan.glytoucan_ac}
+                              <strong>{motifStrings.motif_id.name}: </strong>
+                              <a href={motif.url} target="_blank" rel="noopener noreferrer">
+                                {motif.accession}
                               </a>
+                            </div>
+                            <div>
+                              <strong>{motifStrings.motif_name.name}: </strong>
+                              <a href={motif.url} target="_blank" rel="noopener noreferrer">
+                                {motifName}
+                              </a>
+                            </div>
+                            <div>
+                              {motifSynonym && motifSynonym.length > 0 ? (
+                                <>
+                                  <strong>{motifStrings.motif_synonym.synonym}: </strong>
+                                  <a href={motif.url} target="_blank" rel="noopener noreferrer">
+                                    {motifSynonym}
+                                  </a>
+                                </>
+                              ) : (
+                                <>{""}</>
+                              )}
                             </div>
                             <div>
                               <strong>{glycanStrings.mass.shortName}: </strong>
@@ -304,7 +302,7 @@ const MotifDetail = props => {
                                 {glycanStrings.glycan_subtype.name}:{" "}
                               </strong>
 
-                              {classification.map(Formatclassification => (
+                              {classification.map((Formatclassification) => (
                                 <>
                                   <a
                                     href={Formatclassification.type.url}
@@ -332,7 +330,7 @@ const MotifDetail = props => {
               </Accordion>
               {/* Glycans Containing This Motif */}
               <Accordion
-                id="glycans"
+                id="Glycans-With-This-Motifs"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -354,14 +352,10 @@ const MotifDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("glycans", collapsed.glycans)
-                        }
+                        onClick={() => toggleCollapse("glycans", collapsed.glycans)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.glycans ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.glycans ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -386,7 +380,7 @@ const MotifDetail = props => {
               </Accordion>
               {/* publication */}
               <Accordion
-                id="publication"
+                id="Publications"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -409,62 +403,57 @@ const MotifDetail = props => {
                       <Accordion.Toggle
                         // as={Card.Header}
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("publication", collapsed.publication)
-                        }
+                        onClick={() => toggleCollapse("publication", collapsed.publication)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.publication ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.publication ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={!collapsed.publication}>
                     <Card.Body className="card-padding-zero">
                       <Table hover fluid>
-                        {publication && (
+                        {publication && publication.length > 0 ? (
                           <tbody className="table-body">
                             {publication.map((pub, pubIndex) => (
                               <tr className="table-row">
                                 <td key={pubIndex}>
                                   <p>
                                     <div>
-                                      <h6 style={{ marginBottom: "3px" }}>
+                                      <h5 style={{ marginBottom: "3px" }}>
                                         <strong>{pub.title}</strong>
-                                      </h6>
+                                      </h5>
                                     </div>
                                     <div>{pub.authors}</div>
                                     <div>
-                                      {pub.journal} <span>&nbsp;</span>(
-                                      {pub.date})
+                                      {pub.journal} <span>&nbsp;</span>({pub.date})
                                     </div>
                                     <div>
-                                      <FiBookOpen />
-                                      <span style={{ paddingLeft: "15px" }}>
-                                        {glycanStrings.pmid.shortName}:
-                                      </span>{" "}
-                                      <a
-                                        href={pub.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {pub.pmid}
-                                      </a>
+                                      {pub.reference.map((ref) => (
+                                        <>
+                                          <FiBookOpen />
+                                          <span style={{ paddingLeft: "15px" }}>
+                                            {glycanStrings.pmid.shortName}:
+                                            {/* {glycanStrings.referenceType[ref.type].shortName}: */}
+                                          </span>{" "}
+                                          <a
+                                            href={ref.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            <>{ref.id}</>
+                                          </a>
+                                        </>
+                                      ))}
                                     </div>
-                                    <EvidenceList
-                                      evidences={groupEvidences(pub.evidence)}
-                                    />
+                                    <EvidenceList evidences={groupEvidences(pub.evidence)} />
                                   </p>
                                 </td>
                               </tr>
                             ))}
                           </tbody>
-                        )}
-                        {!publication && (
-                          <p className="no-data-msg-publication">
-                            No data available.
-                          </p>
+                        ) : (
+                          <p className="no-data-msg-publication">No data available.</p>
                         )}
                       </Table>
                     </Card.Body>

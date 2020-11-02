@@ -12,140 +12,125 @@ import routeConstants from "../../data/json/routeConstants.json";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-	mainFeaturedCard: {
-		position: "relative",
-		backgroundColor: theme.palette.grey[800],
-		color: theme.palette.common.white,
-		marginBottom: theme.spacing(4),
-		// backgroundImage: 'url(https://source.unsplash.com/random)',
-		backgroundSize: "cover",
-		backgroundRepeat: "no-repeat",
-		backgroundPosition: "center",
-	},
-	overlay: {
-		position: "absolute",
-		top: 0,
-		bottom: 0,
-		right: 0,
-		left: 0,
-		backgroundColor: "rgba(0,0,0,.4)",
-	},
-	mainFeaturedCardContent: {
-		position: "relative",
-		textAlign: "center",
-		padding: theme.spacing(2),
-		[theme.breakpoints.up("md")]: {
-			padding: theme.spacing(3, 4),
-			textAlign: "left",
-		},
-	},
-	mainFeaturedCardButtons: {
-		position: "relative",
-		textAlign: "center",
-		padding: theme.spacing(2),
-		[theme.breakpoints.up("md")]: {
-			padding: theme.spacing(3, 4),
-			textAlign: "right",
-		},
-	},
-	// linkText: {
-	// 	color: "#ffffff !important",
-	// 	fontWeight: "600",
-	// 	"&:hover": {
-	// 		color: "#57affa",
-	// 	},
-	// },
+  mainFeaturedCard: {
+    position: "relative",
+    backgroundColor: theme.palette.grey[800],
+    color: theme.palette.common.white,
+    marginBottom: theme.spacing(4),
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,.4)",
+  },
+  mainFeaturedCardContent: {
+    position: "relative",
+    textAlign: "center",
+    padding: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(3, 4),
+      textAlign: "left",
+    },
+  },
+  mainFeaturedCardButtons: {
+    position: "relative",
+    textAlign: "center",
+    padding: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(3, 4),
+      textAlign: "right",
+    },
+  },
+  // linkText: {
+  // 	color: "#ffffff !important",
+  // 	fontWeight: "600",
+  // 	"&:hover": {
+  // 		color: "#57affa",
+  // 	},
+  // },
 }));
 export default function MainFeaturedCard(props) {
-	const classes = useStyles();
-	const { post } = props;
+  const classes = useStyles();
+  const { post } = props;
 
-	return (
-		<Paper
-			className={classes.mainFeaturedCard}
-			style={{ backgroundImage: `url(${post.image})` }}>
-			{
-				<img
-					style={{ display: "none" }}
-					src={post.image}
-					alt={post.imageText}
-				/>
-			}
-			<div className={classes.overlay} />
-			{/* <Grid container className="gg-align-center"> */}
-			<Grid container>
-				{/* <Grid item sm={ 12 } lg={ 8 }> */}
-				<Grid item sm={12} md={8} lg={6} className="text-left">
-					<div
-						className={classes.mainFeaturedCardContent}
-						style={{ letterSpacing: "1px" }}>
-						<Typography
-							component="h5"
-							variant="h6"
-							color="inherit"
-							gutterBottom>
-							{post.title}
-						</Typography>
-						<Typography component="h6" color="inherit" paragraph>
-							{post.description}
-						</Typography>
-					</div>
-				</Grid>
-				{/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
-				<Grid item sm={12} md={4} lg={6} className="btn-outline-white-col">
-					<div className={classes.mainFeaturedCardButtons}>
-						<div className="btn-outline-white">
-							<Link
-								to={routeConstants.howToCite}
-								className="gg-btn-outline-white">
-								<span
-									style={{
-										paddingRight: "15px",
-										paddingLeft: "5px",
-									}}>
-									{/* <FormatQuoteOutlinedIcon
+  return (
+    <Paper className={classes.mainFeaturedCard} style={{ backgroundImage: `url(${post.image})` }}>
+      {<img style={{ display: "none" }} src={post.image} alt={post.imageText} />}
+      <div className={classes.overlay} />
+      {/* <Grid container className="gg-align-center"> */}
+      <Grid container>
+        {/* <Grid item sm={ 12 } lg={ 8 }> */}
+        <Grid item sm={12} md={8} lg={6} className="text-left">
+          <div className={classes.mainFeaturedCardContent} style={{ letterSpacing: "1px" }}>
+            <Typography component="h5" variant="h6" color="inherit" gutterBottom>
+              {post.title}
+            </Typography>
+            <Typography component="h6" color="inherit" paragraph>
+              {post.description}
+            </Typography>
+          </div>
+        </Grid>
+        {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
+        <Grid item sm={12} md={4} lg={6} className="btn-outline-white-col">
+          <div className={classes.mainFeaturedCardButtons}>
+            <div className="btn-outline-white">
+              <Link to={routeConstants.howToCite} className="gg-btn-outline-blue">
+                <span
+                  style={{
+                    paddingRight: "15px",
+                    paddingLeft: "5px",
+                  }}
+                >
+                  {/* <FormatQuoteOutlinedIcon
 										style={{
 											fontSize: "26px",
 										}}
 									/> */}
-									<img
-										component="img"
-										style={{
-											paddingBottom: "4px",
-											paddingTop: "4px",
-										}}
-										src={quoteIcon}
-										alt="quote icon"
-									/>
-								</span>
-								How To Cite
-							</Link>
-						</div>
-						<div className="btn-outline-white">
-							<Link to={routeConstants.tryMe} className="gg-btn-outline-white">
-								<span style={{ paddingRight: "10px" }}>
-									<HourglassEmptyIcon style={{ fontSize: "24px" }} />
-								</span>
-								Quick Start
-							</Link>
-						</div>
-						<div className="btn-outline-white">
-							<Link to={routeConstants.about} className="gg-btn-outline-white">
-								<span style={{ paddingRight: "10px" }}>
-									<PersonPinCircleOutlinedIcon style={{ fontSize: "24px" }} />
-								</span>
-								Our Mission
-							</Link>
-						</div>
-					</div>
-				</Grid>
-			</Grid>
-		</Paper>
-	);
+                  <img
+                    component="img"
+                    style={{
+                      paddingBottom: "4px",
+                      paddingTop: "4px",
+                    }}
+                    src={quoteIcon}
+                    alt="quote icon"
+                  />
+                </span>
+                How To Cite
+              </Link>
+            </div>
+            <div className="btn-outline-white">
+              <Link to={routeConstants.tryMe} className="gg-btn-outline-white">
+                <span style={{ paddingRight: "10px" }}>
+                  <HourglassEmptyIcon style={{ fontSize: "24px" }} />
+                </span>
+                Quick Start
+              </Link>
+            </div>
+            <div className="btn-outline-white">
+              <Link to={routeConstants.about} className="gg-btn-outline-white">
+                <span style={{ paddingRight: "10px" }}>
+                  <PersonPinCircleOutlinedIcon style={{ fontSize: "24px" }} />
+                </span>
+                Our Mission
+              </Link>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
+    </Paper>
+  );
 }
 
 MainFeaturedCard.propTypes = {
-	post: PropTypes.object,
+  post: PropTypes.object,
 };
 
 // Proposal 1

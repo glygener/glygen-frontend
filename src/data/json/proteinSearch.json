@@ -50,8 +50,8 @@
     "advanced_search": {
         "tabTitle": "Advanced Search",
         "uniprot_canonical_ac": {
-            "length": 2500,
-            "errorText": "Entry is too long - max length is 2500.",
+            "length": 10000,
+            "errorText": "Entry is too long - max length is 10000.",
             "typeahedID": "uniprot_canonical_ac",
             "placeholder": "Enter single or multiple comma-separated UniProtKB Accession(s)",
             "examples": [
@@ -168,7 +168,7 @@
                 }
             ]
         },
-        "glytoucan_ac": {
+        "attached_glycan_id": {
             "length": 100,
             "errorText": "Entry is too long - max length is 100.",
             "typeahedID": "glytoucan_ac",
@@ -179,6 +179,29 @@
                     "example": {
                         "name": "Example",
                         "id": "G17689DH"
+                    },
+                    "explore": {
+                        "id": "GlyTouCan Accession",
+                        "url": "https://glytoucan.org/Structures"
+                    }
+                }
+            ]
+        },
+        "binding_glycan_id": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "glytoucan_ac",
+            "placeholder": "Enter the GlyTouCan Accession",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "G19059PI"
+                    },
+                    "explore": {
+                        "id": "GlyTouCan Accession",
+                        "url": "https://glytoucan.org/Structures"
                     }
                 }
             ]
@@ -247,6 +270,7 @@
         "pmid": {
             "length": 100,
             "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "protein_pmid",
             "placeholder": "Enter the Pubmed ID",
             "examples": [
                 {
@@ -278,6 +302,36 @@
                 {
                     "id": "predicted",
                     "name": "Predicted"
+                }
+            ]
+        },
+        "disease_name": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "disease_name",
+            "placeholder": "Enter the Disease Name of your protein",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "Deafness"
+                    }
+                }
+            ]
+        },
+        "disease_id": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "disease_id",
+            "placeholder": "Enter the Disease ID of your protein",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "DOID:1324"
+                    }
                 }
             ]
         }

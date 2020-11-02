@@ -44,7 +44,7 @@
 			]
 		},
 		"question_4": {
-			"text": "What are the orthologs of protein X in different species?"
+			"text": "What are the orthologs of protein X in different organism?"
 		},
 		"question_5": {
 			"text": "What are the functions of protein X?"
@@ -66,9 +66,9 @@
 			"text": "Where are the N-Glycosylation Sequons of the Protein X?"
 		}
 	},
-	"searchBySpecies": {
+	"searchByOrganism": {
 		"common":{
-			"label": "Species",
+			"label": "Organism",
 			"organism": {
 				"placeholder": "Select Organism",
 				"placeholderName": "All",
@@ -76,13 +76,13 @@
 			}
 		},
 		"question_8": {
-			"text": "What are the glycosyltransferases in species X?"
+			"text": "What are the glycosyltransferases in organism X?"
 		},
 		"question_9": {
-			"text": "What are the glycosylhydrolases in species X?"
+			"text": "What are the glycosylhydrolases in organism X?"
 		},
 		"question_10": {
-			"text": "What are the reported or predicted glycosylated proteins in species X?",
+			"text": "What are the reported or predicted glycosylated proteins in organism X?",
 			"labelType": "Type"
 		}
 	},

@@ -52,6 +52,17 @@ const FunctionList = ({ functions }) => {
 
   const formattedFunctions = formatFunctions(functions);
 
+  formattedFunctions.sort((a, b) => {
+    const keyA = Object.keys(a.evidence)[0];
+    const keyB = Object.keys(b.evidence)[0];
+
+    if (keyA === "UniProtKB") return -1;
+    if (keyB === "UniProtKB") return 1;
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+
   return (
     <Table hover fluid>
       {formattedFunctions.map((group, funIndex) => (

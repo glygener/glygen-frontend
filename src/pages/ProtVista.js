@@ -79,75 +79,84 @@ const ProtVista = () => {
       color: "green",
       shape: "diamond"
     };
-    for (let glyco of data.glycosylation) {
-      // $.each(data.glycosylation, function (i, glyco) {
-      if (glyco.type === "N-linked") {
-        if (glyco.glytoucan_ac) {
-          glycos[0].residues.push({
-            start: glyco.position,
-            end: glyco.position,
-            color: glycos[0].color,
-            shape: glycos[0].shape,
-            accession: data.uniprot.uniprot_canonical_ac,
-            type: glyco.residue,
-            title: glyco.residue + "-" + glyco.position,
-            tooltipContent:
-              "<img src='https://api.glygen.org/glycan/image/" +
-              glyco.glytoucan_ac +
-              "' /><br/></br>"
-          });
-        } else {
-          glycos[1].residues.push({
-            start: glyco.position,
-            end: glyco.position,
-            color: glycos[1].color,
-            shape: glycos[1].shape,
-            accession: data.uniprot.uniprot_canonical_ac,
-            type: glyco.residue,
-            title: glyco.residue + "-" + glyco.position,
-            tooltipContent:
-              "<span className=marker>Glycosylation site without reported glycan at " +
-              glyco.position +
-              "," +
-              " Click to see site details. </span>"
-          });
-        }
-      } else if (glyco.type === "O-linked") {
-        if (glyco.glytoucan_ac) {
-          glycos[2].residues.push({
-            start: glyco.position,
-            end: glyco.position,
-            color: glycos[2].color,
-            shape: glycos[2].shape,
-            accession: data.uniprot.uniprot_canonical_ac,
-            type: glyco.residue,
-            title: glyco.residue + "-" + glyco.position,
-            tooltipContent:
-              "<img src='https://api.glygen.org/glycan/image/" +
-              glyco.glytoucan_ac +
-              "' /><br/><br/><span className=marker>Click marker show more</span>"
-          });
-        } else {
-          glycos[3].residues.push({
-            start: glyco.position,
-            end: glyco.position,
-            color: glycos[3].color,
-            shape: glycos[3].shape,
-            accession: data.uniprot.uniprot_canonical_ac,
-            type: glyco.residue,
-            title: glyco.residue + "-" + glyco.position,
-            tooltipContent:
-              "<span className=marker>Glycosylation site without reported glycan at " +
-              glyco.position +
-              "," +
-              " Click to see site details. </span>"
-          });
-        }
-      }
-    } //);
+    var mutagenesisS = {
+      type: "MutagenesisS",
+      residues: [],
+      color: "purple",
+      shape: "square"
+    };
 
-    if (data.mutation) {
-      for (let mutation of data.mutation) {
+    if (data.glycosylation) {
+      for (let glyco of data.glycosylation) {
+        // $.each(data.glycosylation, function (i, glyco) {
+        if (glyco.type === "N-linked") {
+          if (glyco.glytoucan_ac) {
+            glycos[0].residues.push({
+              start: glyco.position,
+              end: glyco.position,
+              color: glycos[0].color,
+              shape: glycos[0].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.residue,
+              title: glyco.residue + "-" + glyco.position,
+              tooltipContent:
+                "<img src='https://api.glygen.org/glycan/image/" +
+                glyco.glytoucan_ac +
+                "' /><br/></br>"
+            });
+          } else {
+            glycos[1].residues.push({
+              start: glyco.position,
+              end: glyco.position,
+              color: glycos[1].color,
+              shape: glycos[1].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.residue,
+              title: glyco.residue + "-" + glyco.position,
+              tooltipContent:
+                "<span className=marker>Glycosylation site without reported glycan at " +
+                glyco.position +
+                "," +
+                " Click to see site details. </span>"
+            });
+          }
+        } else if (glyco.type === "O-linked") {
+          if (glyco.glytoucan_ac) {
+            glycos[2].residues.push({
+              start: glyco.position,
+              end: glyco.position,
+              color: glycos[2].color,
+              shape: glycos[2].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.residue,
+              title: glyco.residue + "-" + glyco.position,
+              tooltipContent:
+                "<img src='https://api.glygen.org/glycan/image/" +
+                glyco.glytoucan_ac +
+                "' /><br/><br/><span className=marker>Click marker show more</span>"
+            });
+          } else {
+            glycos[3].residues.push({
+              start: glyco.position,
+              end: glyco.position,
+              color: glycos[3].color,
+              shape: glycos[3].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.residue,
+              title: glyco.residue + "-" + glyco.position,
+              tooltipContent:
+                "<span className=marker>Glycosylation site without reported glycan at " +
+                glyco.position +
+                "," +
+                " Click to see site details. </span>"
+            });
+          }
+        }
+      } //);
+    }
+
+    if (data.snv) {
+      for (let mutation of data.snv) {
         // $.each(data.mutation, function (i, mutation) {
         mutations.residues.push({
           start: mutation.start_pos,
@@ -167,25 +176,56 @@ const ProtVista = () => {
       } //);
     }
 
-    for (let site_annotation of data.site_annotation) {
-      // $.each(data.site_annotation, function (i, site_annotation) {
-      glycos[4].residues.push({
-        start: site_annotation.start_pos,
-        end: site_annotation.end_pos,
-        color: glycos[4].color,
-        shape: glycos[4].shape,
-        accession: data.uniprot.uniprot_canonical_ac,
-        type: "N-Glycan-Sequon",
-        title: site_annotation.start_pos + "-" + site_annotation.end_pos,
-        tooltipContent:
-          "<span className=marker>" +
-          "N-Sequon at " +
-          site_annotation.start_pos +
-          "-" +
-          site_annotation.end_pos +
-          "</span>"
-      });
-    } //);
+    if (data.mutagenesis) {
+      for (let mutagenesis of data.mutagenesis) {
+        // $.each(data.mutation, function (i, mutation) {
+        mutagenesisS.residues.push({
+          start: mutagenesis.start_pos,
+          end: mutagenesis.end_pos,
+          color: mutagenesisS.color,
+          shape: mutagenesisS.shape,
+          accession: data.uniprot.uniprot_canonical_ac,
+          type:
+            "(" +
+            mutagenesis.sequence_org +
+            " → " +
+            mutagenesis.sequence_mut +
+            ")",
+          title:
+            "(" +
+            mutagenesis.sequence_org +
+            " → " +
+            mutagenesis.sequence_mut +
+            ")",
+          tooltipContent:
+            "<span className=marker> annotation " +
+            mutagenesis.annotation +
+            "</span>"
+        });
+      } //);
+    }
+
+    if (data.site_annotation) {
+      for (let site_annotation of data.site_annotation) {
+        // $.each(data.site_annotation, function (i, site_annotation) {
+        glycos[4].residues.push({
+          start: site_annotation.start_pos,
+          end: site_annotation.end_pos,
+          color: glycos[4].color,
+          shape: glycos[4].shape,
+          accession: data.uniprot.uniprot_canonical_ac,
+          type: "N-Glycan-Sequon",
+          title: site_annotation.start_pos + "-" + site_annotation.end_pos,
+          tooltipContent:
+            "<span className=marker>" +
+            "N-Sequon at " +
+            site_annotation.start_pos +
+            "-" +
+            site_annotation.end_pos +
+            "</span>"
+        });
+      } //);
+    }
 
     // tO CHECK MULTILE GLYCOSYLATION AT SAME POINT
     let glycosCombined = [];
@@ -221,7 +261,8 @@ const ProtVista = () => {
       oGlycanWithImage: glycosCombined[2],
       oGlycanWithoutImage: glycosCombined[3],
       nSequon: glycosCombined[4],
-      mutationsData: mutations
+      mutationsData: mutations,
+      mutagenesisData: mutagenesisS
     };
   }
 
@@ -234,6 +275,7 @@ const ProtVista = () => {
   const oGlycanWithoutImage = useRef(null);
   const nSequon = useRef(null);
   const mutationsData = useRef(null);
+  const mutagenesisData = useRef(null);
   const allTrack = useRef(null);
 
   const [tracksShown, setTracksShown] = useReducer(
@@ -248,54 +290,55 @@ const ProtVista = () => {
 
   const addTooltipToReference = ref => {
     let currentTooltip;
-    ref.current.addEventListener("change", event => {
-      const { eventtype, feature, coords } = event.detail;
+    ref.current &&
+      ref.current.addEventListener("change", event => {
+        const { eventtype, feature, coords } = event.detail;
 
-      if (eventtype === "click") {
-        const route =
-          routeConstants.siteview + id + "/" + event.detail.feature.start;
-        history.push(route);
-      }
-      if (eventtype === "mouseover") {
-        if (currentTooltip) {
-          document.body.removeChild(currentTooltip);
-          currentTooltip = null;
+        if (eventtype === "click") {
+          const route =
+            routeConstants.siteview + id + "/" + event.detail.feature.start;
+          history.push(route);
         }
-
-        currentTooltip = document.createElement("protvista-tooltip");
-        // set attributes
-        currentTooltip.title = feature.title;
-        currentTooltip.visible = true;
-        const [x, y] = coords;
-        currentTooltip.x = x;
-        currentTooltip.y = y;
-        currentTooltip.innerHTML = feature.tooltipContent;
-        // add the component to the document
-        document.body.appendChild(currentTooltip);
-        const closeButton = document.createElement("button");
-        closeButton.innerHTML = "X";
-        closeButton.className = "tooltip-close";
-
-        const onCloseButton = () => {
-          // remove the click listener
-          closeButton.removeEventListener("click", onCloseButton);
-
-          //cleanup tooltip
+        if (eventtype === "mouseover") {
           if (currentTooltip) {
             document.body.removeChild(currentTooltip);
             currentTooltip = null;
           }
-        };
 
-        closeButton.addEventListener("click", onCloseButton);
-        currentTooltip.appendChild(closeButton);
-      } else if (eventtype === "mouseout") {
-        if (currentTooltip) {
-          document.body.removeChild(currentTooltip);
-          currentTooltip = null;
+          currentTooltip = document.createElement("protvista-tooltip");
+          // set attributes
+          currentTooltip.title = feature.title;
+          currentTooltip.visible = true;
+          const [x, y] = coords;
+          currentTooltip.x = x;
+          currentTooltip.y = y;
+          currentTooltip.innerHTML = feature.tooltipContent;
+          // add the component to the document
+          document.body.appendChild(currentTooltip);
+          const closeButton = document.createElement("button");
+          closeButton.innerHTML = "X";
+          closeButton.className = "tooltip-close";
+
+          const onCloseButton = () => {
+            // remove the click listener
+            closeButton.removeEventListener("click", onCloseButton);
+
+            //cleanup tooltip
+            if (currentTooltip) {
+              document.body.removeChild(currentTooltip);
+              currentTooltip = null;
+            }
+          };
+
+          closeButton.addEventListener("click", onCloseButton);
+          currentTooltip.appendChild(closeButton);
+        } else if (eventtype === "mouseout") {
+          if (currentTooltip) {
+            document.body.removeChild(currentTooltip);
+            currentTooltip = null;
+          }
         }
-      }
-    });
+      });
   };
 
   useEffect(() => {
@@ -343,6 +386,13 @@ const ProtVista = () => {
             mutation: formattedData.mutationsData.residues.length > 0
           });
         }
+        if (mutagenesisData.current) {
+          mutagenesisData.current.data = formattedData.mutagenesisData.residues;
+
+          setTracksShown({
+            mutagenesisData: formattedData.mutagenesisData.residues.length > 0
+          });
+        }
 
         addTooltipToReference(allTrack);
         addTooltipToReference(nGlycanWithImage);
@@ -351,11 +401,12 @@ const ProtVista = () => {
         addTooltipToReference(oGlycanWithoutImage);
         addTooltipToReference(nSequon);
         addTooltipToReference(mutationsData);
+        addTooltipToReference(mutagenesisData);
       }
     });
 
     getData.catch(({ response }) => {
-      let message = "Protvista Detail api call";
+      let message = "ProtVista Detail api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
     // eslint-disable-next-line
@@ -523,19 +574,32 @@ const ProtVista = () => {
                   ref={nSequon}
                 />
 
-                {tracksShown.mutation && (
-                  <protvista-track
-                    class={
-                      `nav-track glycotrack` +
-                      (highlighted === "mutation" ? " highlight" : "")
-                    }
-                    length={data.sequence.length}
-                    displaystart={1}
-                    displayend={data.sequence.length}
-                    layout="non-overlapping"
-                    ref={mutationsData}
-                  />
-                )}
+                {/* {tracksShown.mutation && ( */}
+                <protvista-track
+                  class={
+                    `nav-track glycotrack` +
+                    (highlighted === "mutation" ? " highlight" : "")
+                  }
+                  length={data.sequence.length}
+                  displaystart={1}
+                  displayend={data.sequence.length}
+                  layout="non-overlapping"
+                  ref={mutationsData}
+                />
+                {/* )} */}
+
+                <protvista-track
+                  class={
+                    `nav-track glycotrack` +
+                    (highlighted === "mutegenesis" ? " highlight" : "")
+                  }
+                  length={data.sequence.length}
+                  displaystart={1}
+                  displayend={data.sequence.length}
+                  layout="non-overlapping"
+                  ref={mutagenesisData}
+                />
+                {/* )} */}
               </protvista-manager>
             )}
           </Col>
@@ -599,19 +663,31 @@ const ProtVista = () => {
                     </span>
                   </span>
                 </li>
-                {tracksShown && tracksShown.mutation && (
-                  <li>
-                    <span
-                      className="super5 hover"
-                      onMouseEnter={() => setHighlighted("mutation")}
-                    >
-                      &#9670;
-                      <span className="superx">
-                        <>Mutation</>
-                      </span>
+                {/* {tracksShown && tracksShown.snv && ( */}
+                <li>
+                  <span
+                    className="super5 hover"
+                    onMouseEnter={() => setHighlighted("mutation")}
+                  >
+                    &#9670;
+                    <span className="superx">
+                      <>Single Nucleotide Variation</>
                     </span>
-                  </li>
-                )}
+                  </span>
+                </li>
+                {/* )} */}
+
+                <li>
+                  <span
+                    className="super7 hover"
+                    onMouseEnter={() => setHighlighted("mutagenesis")}
+                  >
+                    &#9646;
+                    <span className="superx">
+                      <>Mutagenesis</>
+                    </span>
+                  </span>
+                </li>
               </ol>
             </Col>
           </Row>

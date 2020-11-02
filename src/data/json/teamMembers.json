@@ -4,7 +4,7 @@
 		"people": [
 			{
 				"name": "William York",
-				"position": "Principle Investigator",
+				"position": "Principal Investigator",
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
@@ -14,7 +14,7 @@
 			},
 			{
 				"name": "Raja Mazumder",
-				"position": "Principle Investigator",
+				"position": "Principal Investigator",
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC",
@@ -24,7 +24,7 @@
 			},
 			{
 				"name": "Michael Tiemeyer",
-				"position": "Principle Investigator",
+				"position": "Principal Investigator",
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
@@ -76,13 +76,23 @@
 				"image": "/team/Nicolle-Packer.png",
 				"imageText": "Nicolle Packer image",
 				"url": "https://researchers.mq.edu.au/en/persons/nicki-packer"
+			},
+			{
+				"name": "Michael Cherry",
+				"position": "",
+				"department": "Cherry Lab",
+				"institution": "The Stanford University",
+				"location": "Palo Alto, CA",
+				"image": "/team/Michael-Cherry.jpg",
+				"imageText": "Michael-Cherry image",
+				"url": "https://cherrylab.stanford.edu/"
 			}
 		]
 	},
 	"collaborators": {
 		"heading": "Key Collaborators / Co-Investigators",
 		"ebiIntegration": {
-			"subheading": "Integration with EBI and NCBI",
+			"subheading": "Integration with EBI, SIB and NCBI",
 			"people": [
 				{
 					"name": "Maria Martin",
@@ -123,6 +133,16 @@
 					"image": "/team/Pic-Female.png",
 					"imageText": "Femail image",
 					"url": ""
+				},
+				{
+					"name": "Frederique Lisacek",
+					"position": "",
+					"department": "",
+					"institution": "Group leader SIB Swiss Institute of Bioinformatics",
+					"location": "Geneva, Switzerland",
+					"image": "/team/Frederique-Lisacek.png",
+					"imageText": "Frederique Lisacek image",
+					"url": "https://www.linkedin.com/in/frederique-lisacek-6028275/"
 				}
 			]
 		},

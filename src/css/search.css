@@ -1,42 +1,42 @@
 .nav-tabs {
-	border: none;
-	margin: 0 auto;
+  border: none;
+  margin: 0 auto;
 }
 .nav-tabs .nav-link {
-	background-color: #eee !important;
-	color: #2f78b7 !important;
-	border: 1px solid #d0d8e3;
-	/* border: 1px solid #ddd; */
-	margin-right: 2px;
+  background-color: #eee !important;
+  color: #2f78b7 !important;
+  border: 1px solid #d0d8e3;
+  /* border: 1px solid #ddd; */
+  margin-right: 2px;
 }
 .nav-tabs .nav-link:hover {
-	color: #6e9fe2 !important;
-	border-top: 4px solid #c0d3ed;
-	border-left: 1px solid #d0d8e3;
-	border-right: 1px solid #d0d8e3;
+  color: #6e9fe2 !important;
+  border-top: 4px solid #c0d3ed;
+  border-left: 1px solid #d0d8e3;
+  border-right: 1px solid #d0d8e3;
 }
 .nav-tabs .active {
-	border-bottom: 0 !important;
-	border-top: 4px solid #2f78b7 !important;
-	position: relative;
-	color: #444444 !important;
-	background: #fff !important;
-	border-left: 1px solid #d0d8e3;
-	border-right: 1px solid #d0d8e3;
+  border-bottom: 0 !important;
+  border-top: 4px solid #2f78b7 !important;
+  position: relative;
+  color: #444444 !important;
+  background: #fff !important;
+  border-left: 1px solid #d0d8e3;
+  border-right: 1px solid #d0d8e3;
 }
 .nav-tabs .active:hover {
-	background: none !important;
-	color: #6e9fe2 !important;
+  background: none !important;
+  color: #6e9fe2 !important;
 }
 .tab-pane {
-	/* margin-top: -1px !important; */
-	background-color: #fff !important;
-	border: 1px solid #ddd !important;
-	min-width: inherit;
-	margin-bottom: 40px;
+  /* margin-top: -1px !important; */
+  background-color: #fff !important;
+  border: 1px solid #ddd !important;
+  min-width: inherit;
+  margin-bottom: 40px;
 }
 .tab-content-padding {
-	padding: 30px 40px;
+  padding: 30px 40px;
 }
 /* .tab-content-border {
 	padding: 30px;
@@ -70,89 +70,89 @@
 } */
 
 .select-menu-adv {
-	background-color: white !important;
-	padding-top: 10.5px !important;
-	padding-bottom: 10.5px !important;
+  background-color: white !important;
+  padding-top: 10.5px !important;
+  padding-bottom: 10.5px !important;
 }
 
 .auto-input-root {
-	padding-left: 0px !important;
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
+  padding-left: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 .input-auto {
-	padding-left: 14px !important;
-	padding-top: 10.5px !important;
-	padding-bottom: 10.5px !important;
+  padding-left: 14px !important;
+  padding-top: 10.5px !important;
+  padding-bottom: 10.5px !important;
 }
 
 .auto-option {
-	padding-left: 14px !important;
+  padding-left: 14px !important;
 }
 
 .categorized-auto-option {
-	padding-left: 28px !important;
+  padding-left: 28px !important;
 }
 
 .categorized-auto-label {
-	padding-left: 14px !important;
-	font-weight: bold !important;
+  padding-left: 14px !important;
+  font-weight: bold !important;
 }
 
 .select-menu {
-	background-color: white !important;
+  background-color: white !important;
 }
 
 input[type="number"] {
-	-moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 .select-lbl-inline {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .gly-rng-input {
-	width: 90px !important;
+  width: 90px !important;
 }
 
 .pro-rng-input {
-	width: 120px !important;
+  width: 125px !important;
 }
 
 .search-lbl {
-	margin-left: -27px !important;
-	font-weight: bold !important;
+  margin-left: -27px !important;
+  font-weight: bold !important;
 }
 
 .comp-search-label-header {
-	font-weight: bold !important;
-	margin: 0px !important;
-	color: #2f78b7;
+  font-weight: bold !important;
+  margin: 0px !important;
+  color: #2f78b7;
 }
 
 .comp-search-label-subtext {
-	font-size: 12px !important;
-	font-weight: bold !important;
-	font-style: italic;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  font-style: italic;
 }
 
 .card-row {
-	background-color: #fff	!important;
+  background-color: #fff !important;
 }
 
 .card-row:nth-of-type(odd) {
-	background-color: rgba(0,0,0,.05)	!important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 .card-row:hover {
-	background-color: #dbe4ec	!important;
+  background-color: #dbe4ec !important;
 }
 
 .global-search-card {
-	margin: 16px;
-	padding: 0px;
+  margin: 16px;
+  padding: 0px;
 }
 
 .qs-search-lbl {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }

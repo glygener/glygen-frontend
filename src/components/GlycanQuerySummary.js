@@ -4,8 +4,10 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import stringConstants from "../data/json/stringConstants";
+import glycanSearchData from '../data/json/glycanSearch';
 import Button from "react-bootstrap/Button";
 const glycanStrings = stringConstants.glycan.common;
+const advancedSearch = glycanSearchData.advanced_search;
 
 function getDateTime() {
   var now = new Date();
@@ -43,7 +45,7 @@ const GlycanQuerySummary = props => {
     ? getDateTime(data.execution_time)
     : "";
   const {
-    glytoucan_ac,
+    glycan_identifier,
     mass,
     mass_type,
     number_monosaccharides,
@@ -56,7 +58,8 @@ const GlycanQuerySummary = props => {
     pmid,
     term,
     term_category,
-    composition
+    composition,
+    binding_protein_id
   } = data;
 
   const formatOrganisms = organism => {
@@ -67,12 +70,9 @@ const GlycanQuerySummary = props => {
     }
   };
 
-  function formatGlycans() {
-    const glycansAc = data.glytoucan_ac;
+  function formatGlycans(glycansAc) {
     return glycansAc.split(",").join(", ");
   }
-
-  // data.glytoucan_ac = data.glytoucan_ac.split(",").join(", ");
 
   return (
     <>
@@ -113,15 +113,27 @@ const GlycanQuerySummary = props => {
                   </Col>
                 </Row>
               ))}
-            {/* glycan typeahead */}
-            {glytoucan_ac && (
+
+            {/* glycan id */}
+            {glycan_identifier && (
               <Row className="summary-table-col" sm={12}>
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
-                  {glycanStrings.glycan_id.name}:
-                  {/* {glycanStrings.glytoucan_ac.shortName}: */}
+                  {glycanStrings.glycan_identifier.name}:
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {formatGlycans(glytoucan_ac)}
+                  {formatGlycans(glycan_identifier.glycan_id)}
+                </Col>
+              </Row>
+            )}
+
+              {/* glycan id subsumption */}
+              {glycan_identifier && (
+              <Row className="summary-table-col" sm={12}>
+                <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                  {glycanStrings.glycan_id_subsumption.name}:
+                </Col>
+                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                  {advancedSearch.glycan_identifier.subsumption.filter(subsumption => subsumption.id === glycan_identifier.subsumption)[0].name}
                 </Col>
               </Row>
             )}
@@ -179,6 +191,19 @@ const GlycanQuerySummary = props => {
                 </Col>
               </Row>
             )}
+              
+            {/* Organism Annotation */}
+            {!props.question && organism && (
+              <Row className="summary-table-col" sm={12}>
+                <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                  {glycanStrings.organism_annotation.shortName}:
+                </Col>
+                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                  {advancedSearch.organism.annotation_category.filter(annotation => annotation.id === organism.annotation_category)[0].name}
+                </Col>
+              </Row>
+            )}
+
             {glycan_type && (
               <Row className="summary-table-col">
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
@@ -206,6 +231,16 @@ const GlycanQuerySummary = props => {
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
                   {protein_identifier}
+                </Col>
+              </Row>
+            )}
+            {binding_protein_id && (
+              <Row className="summary-table-col">
+                <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                  {glycanStrings.binding_protein_id.shortName}:
+                </Col>
+                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                  {binding_protein_id}
                 </Col>
               </Row>
             )}

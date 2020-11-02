@@ -6,8 +6,8 @@
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
     },
-    "species": {
-      "title": "Species",
+    "organism": {
+      "title": "Organism",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
@@ -20,6 +20,12 @@
     },
     "glycoproteins": {
       "title": "Associated Glycoproteins",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycan_binding_protein": {
+      "title": "Binding Protein",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
@@ -96,8 +102,8 @@
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
     },
-    "species": {
-      "title": "Species",
+    "names_synonyms": {
+      "title": "Names Synonyms",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
@@ -108,8 +114,26 @@
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
     },
+    "glycan_ligands": {
+      "title": "Glycan Ligands",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
     "goannotation": {
       "title": "Go Annotations",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "ptmannotation": {
+      "title": "PTM Annotations",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "mutagenesis": {
+      "title": "Mutagenesis",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
@@ -128,6 +152,12 @@
     },
     "pathway": {
       "title": " Pathway",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "synthesized_glycans": {
+      "title": " Synthesized Glycans",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"

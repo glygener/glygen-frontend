@@ -42,29 +42,32 @@
     },
     "advanced_search": {
         "tabTitle": "Advanced Search",
-        "glycan_id": {
-            "length": 2500,
-            "errorText": "Entry is too long - max length is 2500.",
+        "glycan_identifier": {
+            "length": 10000,
+            "errorText": "Entry is too long - max length is 10000.",
             "typeahedID": "glytoucan_ac",
             "placeholder": "Enter single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) Id",
             "examples": [
                 {
                     "orderID": 100,
                     "example": {
-                        "name": "GlyTouCan Accession Example",
+                        "name": "Example",
                         "id": "G17689DH"
                     },
                     "explore": {
                         "id": "GlyTouCan Accession",
                         "url": "https://glytoucan.org/Structures"
                     }
-                },
+                }
+            ],
+            "subsumption": [
                 {
-                    "orderID": 200,
-                    "example": {
-                        "name": "Cross References ID Example",
-                        "id": "G10716"
-                    }
+                    "id": "any",
+                    "name": "Related Glycans"
+                }, 
+                {
+                    "id": "none",
+                    "name": "Exact Match"
                 }
             ]
         },
@@ -78,6 +81,20 @@
                 {
                     "id": "and",
                     "name": "And"
+                }
+            ],
+            "annotation_category": [
+                {
+                    "id": "",
+                    "name": "Any"
+                }, 
+                {
+                    "id": "subsumption",
+                    "name": "Inferred"
+                },
+                {
+                    "id": "direct",
+                    "name": "Annotated"
                 }
             ]
         },
@@ -110,6 +127,25 @@
                 }
             ]
         },
+        "binding_protein_id": {
+            "length": 100,
+            "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "uniprot_canonical_ac",
+            "placeholder": "Enter the UniProtKB Accession of your protein",
+            "examples": [
+                {
+                    "orderID": 100,
+                    "example": {
+                        "name": "Example",
+                        "id": "Q15113-1"
+                    },
+                    "explore": {
+                        "id": "UniProtKB Accession",
+                        "url": "https://www.uniprot.org/help/accession_numbers"
+                    }
+                }
+            ]
+        },
         "glycan_motif": {
             "length": 1000,
             "errorText": "Entry is too long - max length is 1000.",
@@ -120,7 +156,7 @@
                     "orderID": 100,
                     "example": {
                         "name": "Example",
-                        "id": "N-Glycan complex"
+                        "id": "Lewis x"
                     },
                     "explore": {
                         "id": "Glycan Motif",
@@ -151,6 +187,7 @@
         "pmid": {
             "length": 100,
             "errorText": "Entry is too long - max length is 100.",
+            "typeahedID": "glycan_pmid",
             "placeholder": "Enter the Pubmed ID",
             "examples": [
                 {

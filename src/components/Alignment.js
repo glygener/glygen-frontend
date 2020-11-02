@@ -9,7 +9,7 @@ function findMaxSequenceLength(sequenceObject) {
   // get length of consensus
   var alignmentLength = sequenceObject.consensus.length;
   // get length of all sequences
-  var sequenceLengths = sequenceObject.sequences.map(function(aln) {
+  var sequenceLengths = sequenceObject.sequences.map(function (aln) {
     return aln.aln.length;
   });
   // sort aln length, from smallest to largest
@@ -29,7 +29,7 @@ function formatSequenceBlocks(sequenceObject, perLine) {
   for (var x = 0; x < maxSequenceLength; x += perLine) {
     var sequenceBlock = {
       // holds each aln peice for the block
-      sequences: sequenceObject.sequences.map(function(aln) {
+      sequences: sequenceObject.sequences.map(function (aln) {
         return {
           start: x,
           id: aln.id,
@@ -37,14 +37,14 @@ function formatSequenceBlocks(sequenceObject, perLine) {
           uniprot_id: aln.uniprot_id,
           // tax_name: aln.tax_name,
           name: aln.name,
-          string: aln.aln.substr(x, perLine)
+          string: aln.aln.substr(x, perLine),
         };
       }),
       // consensus data for block
       consensus: {
         start: x,
-        string: sequenceObject.consensus.substr(x, perLine)
-      }
+        string: sequenceObject.consensus.substr(x, perLine),
+      },
     };
 
     sequenceBlocks.push(sequenceBlock);
@@ -58,10 +58,10 @@ const Alignment = ({ alignmentData, perLine }) => {
 
   return (
     <div id="sequncealign">
-      {sequenceArray.map(sequenceObject => (
+      {sequenceArray.map((sequenceObject) => (
         <>
           <div className="aln-block">
-            {sequenceObject.sequences.map(aln => (
+            {sequenceObject.sequences.map((aln) => (
               <div className="aln-line row">
                 {/* <Grid item xs={12} md={1}> */}
                 <div className="aln-line-header">{aln.tax_id}</div>
@@ -79,9 +79,7 @@ const Alignment = ({ alignmentData, perLine }) => {
               <div> </div>
               <div> </div>
               <div> </div>
-              <div className="aln-line-consensus">
-                {sequenceObject.consensus.string}
-              </div>
+              <div className="aln-line-consensus">{sequenceObject.consensus.string}</div>
             </div>
           </div>
         </>

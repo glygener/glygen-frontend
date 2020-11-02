@@ -1,113 +1,118 @@
 .text-overflow {
-	display: block;
-	padding: 9.5px;
-	margin-bottom: 25px;
-	/* margin: 0 0 10px; */
-	/* font-size: 13px; */
-	line-height: 1.42857143;
-	/* color: #333; */
-	background-color: rgba(0, 0, 0, 0.05);
-	overflow: auto;
-	word-break: break-all;
-	word-wrap: break-word;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	overflow-x: "scroll";
-	white-space: pre-line;
+  display: block;
+  padding: 9.5px;
+  margin-bottom: 25px;
+  /* margin: 0 0 10px; */
+  /* font-size: 13px; */
+  line-height: 1.42857143;
+  /* color: #333; */
+  background-color: rgba(0, 0, 0, 0.05);
+  overflow: auto;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow-x: "scroll";
+  white-space: pre-line;
 }
 
 .page-item.active .page-link {
-	background-color: white;
+  background-color: white;
 }
 .badge {
-	display: inline-block;
-	padding: 0.25em 0.6em;
-	margin-left: 2px;
-	font-size: 75%;
-	color: white;
-	font-weight: 700;
-	line-height: 1;
-	background-color: #777;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: baseline;
-	border-radius: 0.45rem;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  margin-left: 2px;
+  font-size: 75%;
+  color: white;
+  font-weight: 700;
+  line-height: 1;
+  background-color: #777;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.45rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .badge-div .MuiButton-root:focus,
 .badge-div .MuiButton-root:active {
-	outline: 0 !important;
+  outline: 0 !important;
 }
 .badge-count {
-	background-color: white;
-	color: black;
-	height: 20px;
-	width: 20px;
-	line-height: 20px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
-	text-align: center;
-	font-size: 1em;
-	margin-left: 5px;
+  background-color: white;
+  color: black;
+  height: 27px;
+  width: 27px;
+  line-height: 27px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 16px;
+  margin-left: 5px;
 }
 .badge-div {
-	/* margin: 0.5em 0 0; */
-	/* margin-left: -20px; */
-	margin-top: 5px !important;
+  /* margin: 0.5em 0 0; */
+  /* margin-left: -20px; */
+  margin-top: 5px !important;
 }
 
 .badge-div + .badge-div {
-	margin: 10px 0 0 !important;
-	margin-left: 2px;
-}
-legend {
-	all: unset;
+  margin: 10px 0 0 !important;
+  margin-left: 2px;
 }
 
-.Species {
-	row-count: 3;
+.inline-evidence:nth-child(n+5) {
+  margin-top: 5px !important;
+}
+
+legend {
+  all: unset;
+}
+
+.Organism {
+  row-count: 3;
 }
 
 .img-wrapper {
-	overflow: hidden;
-	z-index: -1000;
+  overflow: hidden;
+  z-index: -1000;
 }
 .img-cartoon {
-	/* display: block; */
-	width: auto;
-	height: auto;
-	-webkit-transform: scale(0.9);
-	transform: scale(0.9);
-	-webkit-transition: 0.3s ease-in-out;
-	transition: 0.3s ease-in-out;
-	box-shadow: 10px 10px 5px #ddd;
+  /* display: block; */
+  width: auto;
+  height: auto;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  box-shadow: 10px 10px 5px #ddd;
 }
 .img-cartoon:hover,
 .img-cartoon:focus {
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: 0.3s ease-in-out;
-	transition: 0.3s ease-in-out;
-	z-index: 1000;
-	box-shadow: none !important;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  z-index: 1000;
+  box-shadow: none !important;
 }
 .no-data-msg {
-	margin-left: 15px;
+  margin-left: 15px;
 }
 .no-data-msg-publication {
-	margin: 20px 0 36px 20px;
+  margin: 20px 0 36px 20px;
 }
 .go-annotation-total {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 .badge-grid {
-	padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 @media (max-width: 480px) {
-	.img-cartoon {
-		width: 100% !important;
-		margin: 0 auto !important;
-	}
+  .img-cartoon {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
 }

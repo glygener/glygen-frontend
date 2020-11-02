@@ -15,6 +15,39 @@
         },
         "id": "glytoucan_ac"
       },
+      "glycan_identifier": {
+        "name": "Glycan ID",
+        "shortName": "Glycan ID",
+        "tooltip": {
+          "title": "Glycan ID",
+          "text": "You can search Glycan ID by single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) ID. By selecting 'Exact match' only glycans with the provided IDs will be found. When selecting 'Related Glycans' also glycans that have the same structure but more structural information and glycans with less structural information (up to compositions) will be included in the search result.",
+          "urlText": "Read more...",
+          "url": "https://glytoucan.org/Structures"
+        },
+        "id": "glycan_identifier"
+      },
+      "glycan_id_subsumption": {
+        "name": "Glycan ID Subsumption",
+        "shortName": "Glycan ID Subsumption",
+        "tooltip": {
+          "title": "Glycan ID Subsumption",
+          "text": "",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "glycan_id_subsumption"
+      },
+      "organism_annotation": {
+        "name": "Organism Annotation",
+        "shortName": "Organism Annotation",
+        "tooltip": {
+          "title": "Organism Annotation",
+          "text": "",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "organism_annotation"
+      },
       "mass": {
         "name": "Monoisotopic Mass",
         "shortName": "Monoisotopic Mass",
@@ -67,11 +100,11 @@
         "id": "number_enzymes"
       },
       "organism": {
-        "name": "Organisms",
-        "shortName": "Species",
+        "name": "Organism",
+        "shortName": "Organism",
         "tooltip": {
           "title": "Organism",
-          "text": "An individual animal, plant, or single-celled life form. Click to select one or multiple Organisms that makes your glycan(s)."
+          "text": "Search for glycan(s) that can be made by an Organism. It is possible to specify multiple organisms and combine the search results. If 'Or' is selected the search result will be a union of all glycans made in any of the organisms. If 'AND' is selected only glycans that are present in each of organisms will be included in the result set. If 'Annotated' is selected only glycans with the organism annotation coming from one of the source databases will be included. If 'Infered' is selected, in addition to the glycans with the annotation also glycans that received the annotation because they are related will be included. For example: the composition of glycan X will also receive the organism annotation from glycan X. However the composition will only be included if 'Infered' is selected."
         },
         "id": "organism"
       },
@@ -101,7 +134,6 @@
         },
         "id": "glycan_subtype"
       },
-
       "protein_identifier": {
         "name": "Glycosylated Protein",
         "shortName": "Glycosylated Protein",
@@ -112,6 +144,17 @@
           "url": "https://www.uniprot.org/"
         },
         "id": "protein_identifier"
+      },
+      "binding_protein_id": {
+        "name": "Binding Protein",
+        "shortName": "Binding Protein",
+        "tooltip": {
+          "title": "Binding Protein",
+          "text": "Search for all glycans that have been reported to bind to a protein. The UniProtKB accession is used to identify the protein.",
+          "urlText": "Read more...",
+          "url": "https://www.uniprot.org/"
+        },
+        "id": "binding_protein_id"
       },
       "glycan_motif": {
         "name": "Glycan Motif",
@@ -157,7 +200,7 @@
         },
         "id": "inchi key"
       },
-      "IUPAC": {
+      "iupac": {
         "name": "IUPAC ",
         "shortName": "IUPAC ",
         "tooltip": {
@@ -289,8 +332,8 @@
         "hexa": {
           "orderID": 700,
           "name": "Uronic acid",
-          "subtext": "UA, e.g., GlcA, GalA",
-          "shortName": "UA",
+          "subtext": "HexA, UA, e.g., GlcA, GalA",
+          "shortName": "HexA",
           "tooltip": {
             "title": "Uronic acid",
             "text1": "Add some unique text here.",
@@ -303,7 +346,7 @@
           "name": "Phosphate",
           "max": 2,
           "subtext": "PO<sub>3</sub>",
-          "shortName": "PO<sub>3</sub>",
+          "shortName": "P",
           "tooltip": {
             "title": "Phosphate",
             "text1": "Add some unique text here.",
@@ -315,7 +358,7 @@
           "orderID": 900,
           "name": "Sulfate",
           "subtext": "SO<sub>3</sub>",
-          "shortName": "SO<sub>3</sub>",
+          "shortName": "S",
           "tooltip": {
             "title": "Sulfate",
             "text1": "Add some unique text here.",
@@ -340,6 +383,32 @@
       "term_category": {
         "id": "term_category",
         "name": "Category"
+      }
+    },
+    "global_search_results": {
+      "identifiers": {
+        "name": "identifiers"
+      },
+      "subtype": {
+        "name": "subtype"
+      },
+      "enzyme": {
+        "name": "enzyme"
+      },
+      "motifs": {
+        "name": "motifs"
+      },
+      "sequences": {
+        "name": "sequences"
+      },
+      "glycoproteins": {
+        "name": "glycoproteins"
+      },
+      "type": {
+        "name": "type"
+      },
+      "species": {
+        "name": "organism"
       }
     },
     "composition_search": {
@@ -400,6 +469,28 @@
         },
         "id": "gene_name"
       },
+      "gene_names_uniprotkb": {
+        "name": "Gene Name",
+        "shortName": "gene_names_uniprotkb",
+        "tooltip": {
+          "title": "Gene Name",
+          "text": "Name/Symbol of the gene officially assigned by the Gene Nomenclature Committees (HGNC, ICSGNM, RGNC etc). Enter the Name of the Gene encoding your protein.",
+          "urlText": "Read more...",
+          "url": "https://www.ncbi.nlm.nih.gov/gene"
+        },
+        "id": "gene_names_uniprotkb"
+      },
+      "protein_names": {
+        "name": "Uniprot Name",
+        "shortName": "protein_name",
+        "tooltip": {
+          "title": "uniprot Name",
+          "text": "Name/Symbol of the gene officially assigned by the Gene Nomenclature Committees (HGNC, ICSGNM, RGNC etc). Enter the Name of the Gene encoding your protein.",
+          "urlText": "Read more...",
+          "url": "https://www.ncbi.nlm.nih.gov/gene"
+        },
+        "id": "protein_names"
+      },
       "gene_url": {
         "name": "URL",
         "shortName": "url",
@@ -410,6 +501,18 @@
           "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
         },
         "id": "gene_url"
+      },
+      "gene_name_recommended": {
+        "name": "Gene Name (Recommended)"
+      },
+      "gene_name_synonym": {
+        "name": "Gene Name (Synonyms)"
+      },
+      "protein_name_recommended": {
+        "name": "Protein Name (Recommended)"
+      },
+      "protein_name_synonym": {
+        "name": "Protein Name (Synonyms)"
       },
       "go_term": {
         "name": "GO Name",
@@ -445,7 +548,6 @@
         "tooltip": {},
         "id": "isoform_accession"
       },
-
       "glycan": {
         "name": "Glycan",
         "shortName": "Glycan",
@@ -457,6 +559,12 @@
         "shortName": "Type",
         "tooltip": {},
         "id": "gtype"
+      },
+      "subtype": {
+        "name": "Subtype",
+        "shortName": "Subtype",
+        "tooltip": {},
+        "id": "gsubtype"
       },
       "startpos": {
         "name": "Start Pos.",
@@ -483,18 +591,17 @@
         "id": "doidd"
       },
       "significantt": {
-        "name": "Significant.",
+        "name": "Significant",
         "shortName": "Significant",
         "tooltip": {},
         "id": "significant"
       },
       "expression_trend": {
-        "name": "Expression Trend.",
+        "name": "Expression Trend",
         "shortName": "Expression Trend",
         "tooltip": {},
         "id": "trend"
       },
-
       "tissue": {
         "name": "Tissue",
         "shortName": "Tissue",
@@ -556,24 +663,37 @@
         "id": "annotationsss"
       },
       "glytoucan_ac": {
-        "name": "Interacting Glycan",
+        "name": "GlyTouCan Glycan",
         "shortName": "GlyTouCan Accession",
         "tooltip": {
-          "title": "Interacting Glycan",
-          "text": "Enter the GlyTouCan Accession of a glycan that is covalently attached to or non-covalently binds to your protein(s). Select Interaction Type.",
+          "title": "GlyTouCan Glycan",
+          "text": "",
           "urlText": "Read more...",
           "url": "https://glytoucan.org/"
         },
         "id": "glytoucan_ac"
       },
-      "relation": {
-        "name": "Relation",
-        "shortName": "Relation",
+      "attached_glycan_id": {
+        "name": "Covalently Attached Glycan",
+        "shortName": "Covalently Attached Glycan",
         "tooltip": {
-          "title": "Relation",
-          "text": "Click to select Relation."
+          "title": "Covalently Attached Glycan",
+          "text": "Search for proteins that have a certain glycan covalently attached (e.g. glycosylation or glycation). The glycan has to be specified by a GlyTouCan accession number.",
+          "urlText": "Read more...",
+          "url": "https://glytoucan.org/"
         },
-        "id": "relation"
+        "id": "attached_glycan_id"
+      },
+      "binding_glycan_id": {
+        "name": "Bound Glycan",
+        "shortName": "Bound Glycan",
+        "tooltip": {
+          "title": "Bound Glycan",
+          "text": "Search for proteins that bind a certain glycan. The glycan is specified by a GlyTouCan accession number.",
+          "urlText": "Read more...",
+          "url": "https://glytoucan.org/"
+        },
+        "id": "binding_glycan_id"
       },
       "glycosylated_aa": {
         "name": "Glycosylated Amino Acid",
@@ -637,6 +757,12 @@
         "shortName": "position",
         "tooltip": {},
         "id": "position"
+      },
+      "residue": {
+        "name": "Residue",
+        "shortName": "Residue",
+        "tooltip": {},
+        "id": "residue"
       },
       "protein_name_long": {
         "name": "UniProt Name",
@@ -726,6 +852,24 @@
         },
         "id": "refseq_ac"
       },
+      "disease_name": {
+        "name": "Disease Name",
+        "shortName": "Disease Name",
+        "tooltip": {
+          "title": "Disease Name",
+          "text": "Search for protein(s) that have been associated with a disease. Specify the disease name. A proposal system will assist in choosing the right name while typing."
+        },
+        "id": "disease_name"
+      },
+      "disease_id": {
+        "name": "Disease ID",
+        "shortName": "Disease ID",
+        "tooltip": {
+          "title": "Disease ID",
+          "text": "Search for protein(s) that have been associated with a disease. Specify the disase using MONDO, DOID or MIM."
+        },
+        "id": "disease_id"
+      },
       "refSeq_summary": {
         "name": "RefSeq Summary",
         "shortName": "refSeq_summary",
@@ -741,16 +885,47 @@
       "annotation_site": {
         "name": "Annotation",
         "id": "annotation",
-        "shortName": "Annotation Name",
+        "shortName": "Annotation",
         "tooltip": " site annotation Information for selected Protein accession"
       },
-
       "term": {
         "id": "term"
       },
       "term_category": {
         "id": "term_category",
         "name": "Category"
+      },
+      "name": {
+        "id": "name",
+        "name": "Name"
+      },
+      "synonyms": {
+        "id": "synonyms",
+        "name": "Synonyms"
+      },
+      "description": {
+        "id": "description",
+        "name": "Description"
+      }
+    },
+    "global_search_results": {
+      "function": {
+        "name": "function"
+      },
+      "identifiers": {
+        "name": "identifiers"
+      },
+      "disease": {
+        "name": "disease"
+      },
+      "names": {
+        "name": "names"
+      },
+      "gene": {
+        "name": "gene"
+      },
+      "species": {
+        "name": "organism"
       }
     },
     "advanced_search": {
@@ -763,6 +938,22 @@
       "query_type": {
         "id": "query_type",
         "name": "protein_search_simple"
+      }
+    }
+  },
+  "motif": {
+    "common": {
+      "motif_id": {
+        "name": "Motif ID"
+      },
+      "motif_name": {
+        "name": "Motif Name"
+      },
+      "motif_synonym": {
+        "synonym": "Motif Synonym"
+      },
+      "glycan_count": {
+        "name": "No of Glycans"
       }
     }
   },
@@ -780,7 +971,7 @@
       "id": "question_3"
     },
     "question_4": {
-      "text": "What are the orthologs of {0} in different species?",
+      "text": "What are the orthologs of {0} in different organism?",
       "id": "question_4"
     },
     "question_5": {
@@ -958,17 +1149,21 @@
       "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
     }
   },
-
   "sidebar": {
     "general": {
       "id": "general",
       "displayname": "General",
       "tooltip": " General Information for selected accession"
     },
-    "species": {
-      "id": "species",
-      "displayname": "Species",
-      "tooltip": " Species Information for selected accession"
+    "names_synonyms": {
+      "id": "names_synonyms",
+      "displayname": "Names",
+      "tooltip": "Names Information for selected accession"
+    },
+    "organism": {
+      "id": "organism",
+      "displayname": "Organism",
+      "tooltip": " Organism Information for selected accession"
     },
     "motifs": {
       "id": "motifs",
@@ -978,7 +1173,12 @@
     "associated_glycan": {
       "id": "associated_glycan",
       "displayname": "Associated Protein",
-      "tooltip": " Associated_Protein Information for selected accession"
+      "tooltip": " Associated_glycan Information for selected accession"
+    },
+    "glycan_binding_protein": {
+      "id": "glycan_binding_protein",
+      "displayname": "Glycan Binding Protein",
+      "tooltip": ""
     },
     "bio_Enzymes": {
       "id": "Bio_Enzymes",
@@ -998,17 +1198,32 @@
     "publication": {
       "id": "publication",
       "displayname": "Publications",
-      "tooltip": " publication record for selected accession"
+      "tooltip": " Publication record for selected accession"
     },
     "function": {
       "id": "function",
       "displayname": "Function",
       "tooltip": " function Information for selected Protein accession"
     },
+    "glycan_ligands": {
+      "id": "glycan_ligands",
+      "displayname": "Glycan Ligands",
+      "tooltip": ""
+    },
     "go_annotation": {
       "id": "go_annotation",
-      "displayname": "Go Annotation",
+      "displayname": "GO Annotation",
       "tooltip": " go_annotation Information for selected Protein accession"
+    },
+    "ptm_annotation": {
+      "id": "ptm_annotation",
+      "displayname": "PTM Annotation",
+      "tooltip": " ptm_annotation Information for selected Protein accession"
+    },
+    "mutagenesis": {
+      "id": "mutagenesis",
+      "displayname": "Mutagenesis",
+      "tooltip": " mutagenesis Information for selected Protein accession"
     },
     "glycosylation": {
       "id": "glycosylation",
@@ -1024,6 +1239,11 @@
       "id": "pathway",
       "displayname": "Pathway",
       "tooltip": " pathway Information for selected Protein accession"
+    },
+    "synthesized_glycans": {
+      "id": "synthesized_glycans",
+      "displayname": "Synthesized Glycans",
+      "tooltip": " Synthesized Glycans Information for selected Protein accession"
     },
     "isoforms": {
       "id": "isoforms",
@@ -1045,6 +1265,11 @@
       "displayname": "Mutation",
       "tooltip": " Mutation Information for selected Protein accession"
     },
+    "snv": {
+      "id": "snv",
+      "displayname": "Single Nucleotide Variation",
+      "tooltip": " Mutation Information for selected Protein accession"
+    },
     "expression_Tissue": {
       "id": "expression Tissue",
       "displayname": "Expression Tissue",
@@ -1057,7 +1282,7 @@
     },
     "glycans": {
       "id": "glycans",
-      "displayname": "Glycans with this motifs",
+      "displayname": "Glycans With This Motifs",
       "tooltip": " Glycans Information for selected Motif Id"
     },
     "site_annotation": {
@@ -1065,7 +1290,6 @@
       "displayname": "Site Annotation",
       "tooltip": " site annotation Information for selected Protein accession"
     },
-
     "alignment": {
       "id": "alignment",
       "displayname": "Alignment",
@@ -1076,7 +1300,6 @@
       "displayname": "Summary",
       "tooltip": " summary Information for selected Protein accession"
     },
-
     "search_by_glycan": {
       "id": "search_by_glycan",
       "displayname": "Search By Glycan",
@@ -1087,10 +1310,10 @@
       "displayname": "Search By Protein",
       "tooltip": " ssearch_by_protein"
     },
-    "search_by_species": {
-      "id": "search_by_species",
-      "displayname": "Search By Species",
-      "tooltip": " ssearch_by_species"
+    "search_by_organism": {
+      "id": "search_by_organism",
+      "displayname": "Search By Organism",
+      "tooltip": " ssearch_by_organism"
     },
     "search_by_disease": {
       "id": "search_by_disease",
@@ -1129,15 +1352,20 @@
       "displayname": "Protein data (*.FASTA)",
       "tooltip": " protein_fastadata Information for selected accession"
     },
-    "motif_jsondata": {
-      "id": "motif_jsondata",
-      "displayname": "Glycan data (*.json)",
-      "tooltip": " motif_jsondata Information for selected accession"
-    },
     "motif_image": {
       "id": "motif_image",
       "displayname": "Motif Image (*.png)",
       "tooltip": " motif_image Information for selected accession"
+    },
+    "motif_jsondata": {
+      "id": "motif_jsondata",
+      "displayname": "Motif data (*.json)",
+      "tooltip": " motif_jsondata Information for selected accession"
+    },
+    "motif_csvdata": {
+      "id": "motif_csvdata",
+      "displayname": "Motif data (*.csv)",
+      "tooltip": "motif_csvdata Information for selected accession"
     }
   }
 }
