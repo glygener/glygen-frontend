@@ -1,0 +1,61 @@
+[
+  {
+    "concept": "site",
+    "query": {
+      "aggregator": "$and",
+      "unaggregated_list": [
+        {
+          "order": 1,
+          "path": "glycosylation.residue",
+          "operator": "$eq",
+          "string_value": "Ser"
+        }
+      ],
+      "aggregated_list": []
+    }
+  }
+][
+  {
+    "concept": "site",
+    "query": {
+      "aggregator": "$and",
+      "unaggregated_list": [
+        {
+          "order": 1,
+          "path": "site_seq",
+          "operator": "$eq",
+          "string_value": "Ser"
+        }
+      ],
+      "aggregated_list": []
+    }
+  }
+][
+  {
+    "concept": "site",
+    "query": {
+      "aggregator": "$and",
+      "aggregated_list": [],
+      "unaggregated_list": [
+        {
+          "path": "site_seq",
+          "order": 0,
+          "operator": "$gt",
+          "string_value": ""
+        },
+        {
+          "path": "site_seq",
+          "order": 1,
+          "operator": "$gt",
+          "string_value": ""
+        },
+        {
+          "path": "site_seq",
+          "order": 2,
+          "operator": "$gt",
+          "string_value": ""
+        }
+      ]
+    }
+  }
+]

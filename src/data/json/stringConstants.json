@@ -37,6 +37,17 @@
         },
         "id": "glycan_id_subsumption"
       },
+      "subsumption": {
+        "name": "Subsumption",
+        "shortName": "Subsumption",
+        "tooltip": {
+          "title": "Subsumption",
+          "text": "",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "subsumption"
+      },
       "organism_annotation": {
         "name": "Organism Annotation",
         "shortName": "Organism Annotation",
@@ -82,11 +93,11 @@
         "id": "number_monosaccharides"
       },
       "number_proteins": {
-        "name": "On How Many GlycoProteins",
-        "shortName": "GlycoProteins",
+        "name": "On How Many Glycoproteins",
+        "shortName": "No of Glycoproteins",
         "tooltip": {
-          "title": "GlycoProteins",
-          "text": "how many glycoproteins GlycoProteins"
+          "title": "Glycoproteins",
+          "text": "how many glycoproteins Glycoproteins"
         },
         "id": "number_proteins"
       },
@@ -167,6 +178,15 @@
         },
         "id": "glycan_motif"
       },
+      "glycan_name": {
+        "name": "Glycan Name",
+        "shortName": "Glycan Name",
+        "tooltip": {
+          "title": "Glycan Name",
+          "text": "Click to select Glycan Name."
+        },
+        "id": "glycan_name"
+      },
       "enzyme": {
         "name": "Biosynthetic Enzyme",
         "shortName": "Biosynthetic Enzyme",
@@ -177,6 +197,17 @@
           "url": "https://enzyme.expasy.org/"
         },
         "id": "enzyme"
+      },
+      "subsumption": {
+        "name": "Subsumption",
+        "shortName": "subsumption",
+        "tooltip": {
+          "title": "subsumption",
+          "text": "subsumption are enzymes involved in metabolism pathways that convert and modify simple compounds to complex coumpounds and macromolecules. Enter the Gene Name of an enzyme that particpates in the biosynthesis of your glycan(s).",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "subsumption"
       },
       "pmid": {
         "name": "Pubmed ID",
@@ -265,6 +296,24 @@
           "tooltip": {
             "title": "Hexose",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "Hex",
+                "imagePath": "/icons/Hexose.jpg"
+              },
+              {
+                "imageTitle": "Glc",
+                "imagePath": "/icons/Glc.jpg"
+              },
+              {
+                "imageTitle": "Gal",
+                "imagePath": "/icons/Gal.jpg"
+              },
+              {
+                "imageTitle": "Man",
+                "imagePath": "/icons/Man.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/206"
           }
@@ -277,6 +326,20 @@
           "tooltip": {
             "title": "N-Acetyl-Hexosamine",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "HexNAc",
+                "imagePath": "/icons/HexNAc.jpg"
+              },
+              {
+                "imageTitle": "GlcNAc",
+                "imagePath": "/icons/GlcNAc.jpg"
+              },
+              {
+                "imageTitle": "GalNAc",
+                "imagePath": "/icons/GalNAc.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/899"
           }
@@ -289,6 +352,16 @@
           "tooltip": {
             "title": "Hexosamine",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "HexN",
+                "imagePath": "/icons/HexN.jpg"
+              },
+              {
+                "imageTitle": "GlcN",
+                "imagePath": "/icons/GlcN.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/739"
           }
@@ -301,6 +374,16 @@
           "tooltip": {
             "title": "Deoxy-Hexose",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "dHex",
+                "imagePath": "/icons/dHex.jpg"
+              },
+              {
+                "imageTitle": "Fuc",
+                "imagePath": "/icons/Fuc.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/840"
           }
@@ -313,6 +396,12 @@
           "tooltip": {
             "title": "N-Acetyl-Neuraminic acid",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "NeuAc",
+                "imagePath": "/icons/NeuAc.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/439197"
           }
@@ -325,6 +414,12 @@
           "tooltip": {
             "title": "N-Glycolyl-Neuraminic acid",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "NeuGc",
+                "imagePath": "/icons/NeuGc.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/440001"
           }
@@ -337,6 +432,20 @@
           "tooltip": {
             "title": "Uronic acid",
             "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "HexA",
+                "imagePath": "/icons/HexA.jpg"
+              },
+              {
+                "imageTitle": "GlcA",
+                "imagePath": "/icons/GlcA.jpg"
+              },
+              {
+                "imageTitle": "GalA",
+                "imagePath": "/icons/GalA.jpg"
+              }
+            ],
             "urlText": "Read more...",
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/610"
           }
@@ -415,6 +524,13 @@
       "query_type": {
         "id": "query_type",
         "name": "search_glycan"
+      },
+      "template_select": {
+        "name": "Composition Search Template List",
+        "tooltip": {
+          "title": "Composition Search Template List",
+          "text": "Select composition template and click on load to pre-fill template composition values."
+        }
       }
     },
     "advanced_search": {
@@ -452,12 +568,45 @@
         },
         "id": "uniprot_canonical_ac"
       },
+
+      "annotation_type": {
+        "name": "Annotation Type",
+        "shortName": "Annotation Type",
+        "tooltip": {
+          "title": "Annotation Type",
+          "text": "You can search site by entering Annotation Type.",
+          "urlText": "Read more..."
+        },
+        "id": "annotation_type"
+      },
+      "site": {
+        "name": "Site",
+        "shortName": "Position",
+        "tooltip": {
+          "title": "Position",
+          "text": "You can search site by entering annotation Position.",
+          "urlText": "Read more..."
+        },
+        "id": "site"
+      },
+      "site_range": {
+        "name": "Range",
+        "shortName": "Range",
+        "tooltip": {
+          "title": "Range",
+          "text": "You can search site by entering annotation Start Position and End Position .",
+          "urlText": "Read more..."
+        },
+        "id": "site_range"
+      },
+
       "chemical_mass": {
         "name": "Chemical Mass",
         "shortName": "chemical_mass",
         "tooltip": {},
         "id": "chemical_mass"
       },
+
       "gene_name": {
         "name": "Gene Name",
         "shortName": "gene_name",
@@ -481,16 +630,26 @@
         "id": "gene_names_uniprotkb"
       },
       "protein_names": {
-        "name": "Uniprot Name",
+        "name": "UniProt Name",
         "shortName": "protein_name",
         "tooltip": {
-          "title": "uniprot Name",
+          "title": "UniProt Name",
           "text": "Name/Symbol of the gene officially assigned by the Gene Nomenclature Committees (HGNC, ICSGNM, RGNC etc). Enter the Name of the Gene encoding your protein.",
           "urlText": "Read more...",
           "url": "https://www.ncbi.nlm.nih.gov/gene"
         },
         "id": "protein_names"
       },
+      "glycosylation_type": {
+        "name": "Glycosylation Type",
+        "shortName": "Glycosylation Type",
+        "tooltip": {
+          "title": "Glycosylation Type",
+          "text": "Click to select Glycosylation Type."
+        },
+        "id": "glycosylation_type"
+      },
+
       "gene_url": {
         "name": "URL",
         "shortName": "url",
@@ -698,11 +857,22 @@
       "glycosylated_aa": {
         "name": "Glycosylated Amino Acid",
         "shortName": "Glycosylated Residue",
+        "site_form": "Amino Acid",
         "tooltip": {
           "title": "Glycosylated Amino Acid",
           "text": "Amino acids are organic compounds containing amine (-NH2) and carboxyl (-COOH) functional groups, along with a side chain (R group) specific to each amino acid. Click to highlight multiple selections for Glycosylated Amino Acid."
         },
         "id": "glycosylated_aa"
+      },
+
+      "glycosylated_aa1": {
+        "name": " Amino Acid",
+        "shortName": "Amino Residue",
+        "tooltip": {
+          "title": "Glycosylated Amino Acid",
+          "text": "Amino acids are organic compounds containing amine (-NH2) and carboxyl (-COOH) functional groups, along with a side chain (R group) specific to each amino acid. Click to highlight multiple selections for Glycosylated Amino Acid."
+        },
+        "id": "glycosylated_aa1"
       },
       "sequence": {
         "name": "Protein or Peptide Sequence",
@@ -745,6 +915,15 @@
           "text": "Click to select Glycosylation Evidence Type."
         },
         "id": "glycosylation_evidence"
+      },
+      "annotation": {
+        "name": "Annotation",
+        "shortName": "Annotation",
+        "tooltip": {
+          "title": "Annotation",
+          "text": "Click to select Annotation."
+        },
+        "id": "annotation"
       },
       "Protein_ShortName": {
         "name": "Protein Name",
@@ -950,10 +1129,63 @@
         "name": "Motif Name"
       },
       "motif_synonym": {
-        "synonym": "Motif Synonym"
+        "synonym": "Motif Synonym(s)"
       },
       "glycan_count": {
         "name": "No of Glycans"
+      },
+      "glytoucan_ac": {
+        "name": "GlyTouCan Accession"
+      },
+      "motif_keywords": {
+        "name": "Motif Group"
+      },
+      "reducing_end": {
+        "name": "Reducing End"
+      }
+    }
+  },
+  "super_search": {
+    "common": {
+      "query": "Super search query.",
+      "query_select": {
+        "name": "Super Search Sample Query List",
+        "tooltip": {
+          "title": "Super Search Sample Query List",
+          "text": "Select sample super search query and click on search to execute. This will execute sample query and prefill the results. You can click on respective node(s) to see properties used to perform search."
+        }
+      },
+      "enable_debug": {
+        "enable_name": "Enable Debug",
+        "disable_name": "Disable Debug",
+        "tooltip": {
+          "text": "Enable/Disable expert mode that allows creation of user defined JSON queries."
+        }
+      },
+      "simple_view": {
+        "simple_name": "Simple View",
+        "advanced_name": "Advanced View",
+        "tooltip": {
+          "text": "Switching between simple and advanced mode allows to show and hide edge specific search results."
+        }
+      },
+      "try_sample_query": {
+        "sample_query_name": "Try Sample Query",
+        "tooltip": {
+          "text": "Allows performing predefined queries to get you started with supersearch."
+        }
+      },
+      "reset_query": {
+        "reset_query_name": "Reset Query",
+        "tooltip": {
+          "text": "Remove all applied search filters and revert back to the initial overview."
+        }
+      },
+      "show_query": {
+        "show_query_name": "Show Query",
+        "tooltip": {
+          "text": "Show last executed query in JSON format. Can be used in combination with Debug mode or when reporting problems."
+        }
       }
     }
   },
@@ -1088,6 +1320,11 @@
       "title": "Unexpected Error",
       "message": "Input error occurred. Please provide input a term to search for."
     },
+    "no-result-found": {
+      "id": "no-result-found",
+      "title": "no-result-found",
+      "message": "Input error occurred. Please provide input a term to search for."
+    },
     "timeout": {
       "id": "timeout",
       "title": "TimeOut Error",
@@ -1133,6 +1370,11 @@
       "title": "Advanced Search Error - No Results Found",
       "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
     },
+    "siteSerarchError": {
+      "id": "siteSerarchError",
+      "title": "Site Search Error - No Results Found",
+      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+    },
     "quickSerarchError": {
       "id": "quickSerarchError",
       "title": "Quick Search Error - No Results Found",
@@ -1142,6 +1384,16 @@
       "id": "tryMeSerarchError",
       "title": "Try Me Search Error - No Results Found",
       "message": "Sorry, we couldn't find any data matching your input. Please try again after some time."
+    },
+    "idMappingError": {
+      "id": "idMappingError",
+      "title": "ID Mapping Error - No Results Found",
+      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+    },
+    "superSearchError": {
+      "id": "superSearchError",
+      "title": "Super Search Error - Enter Valid Input",
+      "message": "Sorry, we couldn't process search request. Please enter valid input."
     },
     "defaultTextAlert": {
       "id": "defaultTextAlert",
@@ -1154,6 +1406,11 @@
       "id": "general",
       "displayname": "General",
       "tooltip": " General Information for selected accession"
+    },
+    "history": {
+      "id": "history",
+      "displayname": "History",
+      "tooltip": " history Information for selected accession"
     },
     "names_synonyms": {
       "id": "names_synonyms",
@@ -1184,6 +1441,16 @@
       "id": "Bio_Enzymes",
       "displayname": "Biosynthetic Enzymes",
       "tooltip": " Biosynthetic Enzymes Information for selected accession"
+    },
+    "subsumption": {
+      "id": "Subsumption",
+      "displayname": "Subsumption",
+      "tooltip": " subsumption Information for selected accession"
+    },
+    "expression": {
+      "id": "expression",
+      "displayname": "Expression",
+      "tooltip": "Expression Information for selected accession"
     },
     "digital_seq": {
       "id": "digital_seq",
@@ -1219,6 +1486,11 @@
       "id": "ptm_annotation",
       "displayname": "PTM Annotation",
       "tooltip": " ptm_annotation Information for selected Protein accession"
+    },
+    "pro_annotation": {
+      "id": "pro_annotation",
+      "displayname": "Proteoform Annotation",
+      "tooltip": " pro_annotation Information for selected Protein accession"
     },
     "mutagenesis": {
       "id": "mutagenesis",
@@ -1300,24 +1572,29 @@
       "displayname": "Summary",
       "tooltip": " summary Information for selected Protein accession"
     },
+    "search_category": {
+      "id": "search_category",
+      "displayname": "Search Category",
+      "tooltip": " search_category"
+    },
     "search_by_glycan": {
       "id": "search_by_glycan",
-      "displayname": "Search By Glycan",
+      "displayname": "Glycan",
       "tooltip": " ssearch_by_glycan"
     },
     "search_by_protein": {
       "id": "search_by_protein",
-      "displayname": "Search By Protein",
+      "displayname": "Protein",
       "tooltip": " ssearch_by_protein"
     },
     "search_by_organism": {
       "id": "search_by_organism",
-      "displayname": "Search By Organism",
+      "displayname": "Organism",
       "tooltip": " ssearch_by_organism"
     },
     "search_by_disease": {
       "id": "search_by_disease",
-      "displayname": "Search By Disease",
+      "displayname": "Disease",
       "tooltip": " ssearch_by_disease"
     }
   },
@@ -1342,6 +1619,11 @@
       "displayname": "Protein data (*.json)",
       "tooltip": " protein_jsondata Information for selected accession"
     },
+    "proteinsite_jsondata": {
+      "id": "proteinsite_jsondata",
+      "displayname": "Site data (*.json)",
+      "tooltip": " proteinsite_jsondata Information for selected accession"
+    },
     "protein_csvdata": {
       "id": "protein_csvdata",
       "displayname": "Protein data (*.csv)",
@@ -1351,6 +1633,36 @@
       "id": "protein_fastadata",
       "displayname": "Protein data (*.FASTA)",
       "tooltip": " protein_fastadata Information for selected accession"
+    },
+    "ortholog_jsondata": {
+      "id": "ortholog_jsondata",
+      "displayname": "Ortholog data (*.json)",
+      "tooltip": " ortholog_jsondata Information for selected accession"
+    },
+    "ortholog_csvdata": {
+      "id": "ortholog_csvdata",
+      "displayname": "Ortholog data (*.csv)",
+      "tooltip": " ortholog_csvdata Information for selected accession"
+    },
+    "ortholog_fastadata": {
+      "id": "ortholog_fastadata",
+      "displayname": "Ortholog data (*.FASTA)",
+      "tooltip": " ortholog_fastadata Information for selected accession"
+    },
+    "locus_jsondata": {
+      "id": "locus_jsondata",
+      "displayname": "Locus data (*.json)",
+      "tooltip": " locus_jsondata Information for selected accession"
+    },
+    "locus_csvdata": {
+      "id": "locus_csvdata",
+      "displayname": "Locus data (*.csv)",
+      "tooltip": " locus_csvdata Information for selected accession"
+    },
+    "locus_fastadata": {
+      "id": "locus_fastadata",
+      "displayname": "Locus data (*.FASTA)",
+      "tooltip": " locus_fastadata Information for selected accession"
     },
     "motif_image": {
       "id": "motif_image",
@@ -1364,8 +1676,86 @@
     },
     "motif_csvdata": {
       "id": "motif_csvdata",
-      "displayname": "Motif data (*.csv)",
+      "displayname": "Glycan list (*.csv)",
       "tooltip": "motif_csvdata Information for selected accession"
+    },
+    "idmapping_mapped_csvdata": {
+      "id": "mapped_csvdata",
+      "displayname": "Mapped data (*.csv)",
+      "tooltip": "mapped_csvdata ID mapping information for mapped ID"
+    },
+    "idmapping_unmapped_csvdata": {
+      "id": "unmapped_csvdata",
+      "displayname": "Unmapped data (*.csv)",
+      "tooltip": "unmapped_csvdata ID mapping information for unmapped ID"
+    },
+    "idmapping_list_all_csvdata": {
+      "id": "list_all_csvdata",
+      "displayname": "Two tables data (*.csv)",
+      "tooltip": "list_all_csvdata ID mapping information for both mapped and unmapped IDs"
+    }
+  },
+  "id_mapping": {
+    "common": {
+      "recordtype": {
+        "name": "Molecule *",
+        "tooltip": {
+          "title": "Molecule",
+          "text": "If Glycan is selected then whole id mapping will be related to glycan. Same for protein/glycoprotein."
+        },
+        "id": "recordtype"
+      },
+      "input_namespace": {
+        "name": "From ID Type *",
+        "tooltip": {
+          "title": "From ID Type",
+          "text": "From ID field gives a list of resources that can be ID mapped."
+        },
+        "id": "input_namespace"
+      },
+      "output_namespace": {
+        "name": "To ID Type *",
+        "tooltip": {
+          "title": "To ID Type",
+          "text": "To ID field gives a list of resources that can be ID mapped."
+        },
+        "id": "output_namespace"
+      },
+      "input_idlist": {
+        "name": "Enter IDs *",
+        "tooltip": {
+          "title": "Enter IDs",
+          "text": "Takes the input or text file (csv, txt, etc.) and the dropdowns information and performs the mapping."
+        },
+        "id": "input_idlist"
+      },
+      "userfile": {
+        "id": "userfile"
+      },
+      "mapped": {
+        "from": {
+          "shortName": "from",
+          "name": "From ID:"
+        },
+        "anchor": {
+          "shortName": "anchor",
+          "name": "Internal ID:"
+        },
+        "to": {
+          "shortName": "to",
+          "name": "To ID:"
+        }
+      },
+      "unmapped": {
+        "input_id": {
+          "shortName": "input_id",
+          "name": "Input ID"
+        },
+        "reason": {
+          "shortName": "reason",
+          "name": "Reason Not Mapped"
+        }
+      }
     }
   }
 }

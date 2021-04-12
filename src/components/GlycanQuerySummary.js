@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import stringConstants from "../data/json/stringConstants";
-import glycanSearchData from '../data/json/glycanSearch';
+import glycanSearchData from "../data/json/glycanSearch";
 import Button from "react-bootstrap/Button";
 const glycanStrings = stringConstants.glycan.common;
 const advancedSearch = glycanSearchData.advanced_search;
+const superSearchStrings = stringConstants.super_search.common;
 
 function getDateTime() {
   var now = new Date();
@@ -32,18 +33,15 @@ function getDateTime() {
   if (second.toString().length == 1) {
     second = "0" + second;
   }
-  var dateTime =
-    year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+  var dateTime = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
   return dateTime;
 }
-const GlycanQuerySummary = props => {
+const GlycanQuerySummary = (props) => {
   const title = "Glycan Search Summary";
 
-  const { data, onModifySearch } = props;
+  const { data, onModifySearch, timestamp, searchId } = props;
 
-  const executionTime = data.execution_time
-    ? getDateTime(data.execution_time)
-    : "";
+  const executionTime = timestamp ? getDateTime(timestamp) : "";
   const {
     glycan_identifier,
     mass,
@@ -51,6 +49,7 @@ const GlycanQuerySummary = props => {
     number_monosaccharides,
     organism,
     glycan_type,
+    glycan_name,
     glycan_subtype,
     protein_identifier,
     glycan_motif,
@@ -59,12 +58,14 @@ const GlycanQuerySummary = props => {
     term,
     term_category,
     composition,
-    binding_protein_id
+    binding_protein_id,
   } = data;
 
-  const formatOrganisms = organism => {
+  const [glycanIdentifierShowMore, setGlycanIdentifierShowMore] = useState(true);
+
+  const formatOrganisms = (organism) => {
     if (organism.organism_list) {
-      const organismNames = organism.organism_list.map(item => item.name);
+      const organismNames = organism.organism_list.map((item) => item.name);
       const OrganiOperation = organism.operation.toUpperCase();
       return organismNames.join(` ${OrganiOperation} `);
     }
@@ -83,7 +84,7 @@ const GlycanQuerySummary = props => {
         <Card.Body>
           <Card.Title>
             <p>
-              <strong>Performed on: {executionTime} (EST)</strong>
+              <strong>Performed on: {executionTime}</strong>
             </p>
           </Card.Title>
           <Card.Text>
@@ -102,6 +103,9 @@ const GlycanQuerySummary = props => {
                 {props.question.text.split("{0}")[1]}
               </>
             )}
+
+            {searchId && searchId === "sups" && <>{superSearchStrings.query}</>}
+
             {composition &&
               composition.map((compItem, index) => (
                 <Row className="summary-table-col" key={index}>
@@ -116,24 +120,54 @@ const GlycanQuerySummary = props => {
 
             {/* glycan id */}
             {glycan_identifier && (
+              <>
               <Row className="summary-table-col" sm={12}>
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
                   {glycanStrings.glycan_identifier.name}:
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {formatGlycans(glycan_identifier.glycan_id)}
+                  {formatGlycans(glycanIdentifierShowMore && glycan_identifier.glycan_id_short === "" ? glycan_identifier.glycan_id : 
+                  (glycanIdentifierShowMore ? glycan_identifier.glycan_id_short : glycan_identifier.glycan_id))}
                 </Col>
               </Row>
+              <Row>
+                <Col align="right" xs={12} sm={12} md={12} lg={12}>
+                  {glycan_identifier.glycan_id_short && glycan_identifier.glycan_id_short !== "" && (
+                      <Button
+                        style={{
+                          marginLeft: "20px",
+                          marginTop: "5px"
+                        }}
+                        className={"lnk-btn"}
+                        variant="link"
+                        onClick={() => {
+                          setGlycanIdentifierShowMore(
+                            !glycanIdentifierShowMore
+                          );
+                        }}
+                      >
+                        {glycanIdentifierShowMore
+                          ? "Show More..."
+                          : "Show Less..."}
+                      </Button>
+                    )}
+                </Col>
+              </Row>
+              </>
             )}
 
-              {/* glycan id subsumption */}
-              {glycan_identifier && (
+            {/* glycan id subsumption */}
+            {glycan_identifier && (
               <Row className="summary-table-col" sm={12}>
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
                   {glycanStrings.glycan_id_subsumption.name}:
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {advancedSearch.glycan_identifier.subsumption.filter(subsumption => subsumption.id === glycan_identifier.subsumption)[0].name}
+                  {
+                    advancedSearch.glycan_identifier.subsumption.filter(
+                      (subsumption) => subsumption.id === glycan_identifier.subsumption
+                    )[0].name
+                  }
                 </Col>
               </Row>
             )}
@@ -156,6 +190,7 @@ const GlycanQuerySummary = props => {
                 </Col>
               </Row>
             )}
+
             {/* glycan mass */}
             {mass && mass.min && (
               <Row className="summary-table-col">
@@ -175,7 +210,7 @@ const GlycanQuerySummary = props => {
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
                   {number_monosaccharides.min}&#8209;
-                  {number_monosaccharides.max}&nbsp;Da&nbsp;
+                  {number_monosaccharides.max}
                 </Col>
               </Row>
             )}
@@ -191,7 +226,7 @@ const GlycanQuerySummary = props => {
                 </Col>
               </Row>
             )}
-              
+
             {/* Organism Annotation */}
             {!props.question && organism && (
               <Row className="summary-table-col" sm={12}>
@@ -199,7 +234,11 @@ const GlycanQuerySummary = props => {
                   {glycanStrings.organism_annotation.shortName}:
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {advancedSearch.organism.annotation_category.filter(annotation => annotation.id === organism.annotation_category)[0].name}
+                  {
+                    advancedSearch.organism.annotation_category.filter(
+                      (annotation) => annotation.id === organism.annotation_category
+                    )[0].name
+                  }
                 </Col>
               </Row>
             )}
@@ -221,6 +260,17 @@ const GlycanQuerySummary = props => {
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
                   {glycan_subtype}
+                </Col>
+              </Row>
+            )}
+
+            {glycan_name && (
+              <Row className="summary-table-col">
+                <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                  {glycanStrings.glycan_name.shortName}:
+                </Col>
+                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                  {glycan_name}
                 </Col>
               </Row>
             )}
@@ -285,17 +335,13 @@ const GlycanQuerySummary = props => {
             >
               Update Results
             </Button>
-            <Button
-              type="button"
-              className="gg-btn-blue"
-              onClick={onModifySearch}
-            >
+            <Button type="button" className="gg-btn-blue" onClick={onModifySearch}>
               Modify Search
             </Button>
           </div>
           <Card.Text>
-            ** To perform the same search again using the current version of the
-            database, click <strong>“Update Results”</strong>.
+            ** To perform the same search again using the current version of the database, click{" "}
+            <strong>“Update Results”</strong>.
           </Card.Text>
         </Card.Body>
       </Card>

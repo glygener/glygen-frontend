@@ -23,6 +23,7 @@ import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import relatedGlycansIcon from "../images/icons/related-glycans-icon.svg";
+import sandBox from "../images/icons/sand-box.svg";
 import DetailTooltips from "../data/json/detailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import LineTooltip from "../components/tooltip/LineTooltip";
@@ -36,6 +37,10 @@ import { axiosError } from "../data/axiosError";
 import Button from "react-bootstrap/Button";
 import stringConstants from "../data/json/stringConstants";
 import { Link } from "react-router-dom";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { Tab, Tabs, Container } from "react-bootstrap";
+import CollapsableReference from "../components/CollapsableReference";
+// import { ReactComponent as SearchIcon } from "../images/icons/search.svg";
 
 const glycanStrings = stringConstants.glycan.common;
 const proteinStrings = stringConstants.protein.common;
@@ -44,34 +49,49 @@ const motifStrings = stringConstants.motif.common;
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
   { label: stringConstants.sidebar.organism.displayname, id: "Organism" },
+
+  {
+    label: stringConstants.sidebar.names_synonyms.displayname,
+    id: "Names",
+  },
   { label: stringConstants.sidebar.motifs.displayname, id: "Motifs" },
   {
     label: stringConstants.sidebar.associated_glycan.displayname,
-    id: "Associated-Protein"
+    id: "Associated-Protein",
   },
   {
     label: stringConstants.sidebar.glycan_binding_protein.displayname,
-    id: "Glycan-Binding-Protein"
+    id: "Glycan-Binding-Protein",
   },
   {
     label: stringConstants.sidebar.bio_Enzymes.displayname,
-    id: "Biosynthetic-Enzymes"
+    id: "Biosynthetic-Enzymes",
+  },
+  {
+    label: stringConstants.sidebar.subsumption.displayname,
+    id: "Subsumption",
+  },
+  {
+    label: stringConstants.sidebar.expression.displayname,
+    id: "Expression",
   },
   {
     label: stringConstants.sidebar.digital_seq.displayname,
-    id: "Digital-Sequence"
+    id: "Digital-Sequence",
   },
   {
     label: stringConstants.sidebar.cross_ref.displayname,
-    id: "Cross-References"
+    id: "Cross-References",
   },
-  { label: stringConstants.sidebar.publication.displayname, id: "Publications" }
+  { label: stringConstants.sidebar.history.displayname, id: "History" },
+
+  { label: stringConstants.sidebar.publication.displayname, id: "Publications" },
 ];
 
-const CompositionDisplay = props => {
+const CompositionDisplay = (props) => {
   return (
     <>
-      {props.composition.map(item => (
+      {props.composition.map((item) => (
         <>
           {item.url ? (
             <>
@@ -94,6 +114,9 @@ const CompositionDisplay = props => {
   );
 };
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function addCommas(nStr) {
   nStr += "";
   var x = nStr.split(".");
@@ -107,7 +130,7 @@ function addCommas(nStr) {
   return x1 + x2;
 }
 
-const getItemsCrossRef = data => {
+const getItemsCrossRef = (data) => {
   let itemscrossRef = [];
 
   //check data.
@@ -119,7 +142,7 @@ const getItemsCrossRef = data => {
           found = true;
           databaseitem.links.push({
             url: crossrefitem.url,
-            id: crossrefitem.id
+            id: crossrefitem.id,
           });
         }
       }
@@ -129,9 +152,9 @@ const getItemsCrossRef = data => {
           links: [
             {
               url: crossrefitem.url,
-              id: crossrefitem.id
-            }
-          ]
+              id: crossrefitem.id,
+            },
+          ],
         });
       }
     }
@@ -139,16 +162,24 @@ const getItemsCrossRef = data => {
   return itemscrossRef;
 };
 
-const GlycanDetail = props => {
+const GlycanDetail = (props) => {
   let { id } = useParams();
 
   const [detailData, setDetailData] = useState({});
+  const [nonExistent, setNonExistent] = useState(null);
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+
+  const [expressionTabSelected, setExpressionTabSelected] = useState("");
+  const [expressionWithtissue, setExpressionWithtissue] = useState([]);
+  const [expressionWithcell, setExpressionWithcell] = useState([]);
+
+  // let history;
+
   useEffect(() => {
     setPageLoading(true);
     logActivity("user", id);
@@ -160,61 +191,89 @@ const GlycanDetail = props => {
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
       } else {
-        setItemsCrossRef(getItemsCrossRef(data));
+        let detailDataTemp = data;
 
-        setDetailData(data);
+        if (detailDataTemp.expression) {
+          const WithTissue = detailDataTemp.expression.filter((item) => item.tissue !== undefined);
+          const WithCellline = detailDataTemp.expression.filter(
+            (item) => item.cell_line !== undefined
+          );
+          setExpressionWithtissue(WithTissue);
+          setExpressionWithcell(WithCellline);
+          setExpressionTabSelected(WithTissue.length > 0 ? "with_tissue" : "with_cellline");
+        }
+        if (detailDataTemp.mass) {
+          detailDataTemp.mass = addCommas(detailDataTemp.mass);
+        }
+        if (detailDataTemp.mass_pme) {
+          detailDataTemp.mass_pme = addCommas(detailDataTemp.mass_pme);
+        }
+        if (detailDataTemp.glycoct) {
+          detailDataTemp.glycoct = detailDataTemp.glycoct.replace(/ /g, "\r\n");
+        }
+
+        if (detailDataTemp.composition) {
+          detailDataTemp.composition = detailDataTemp.composition
+            .map((res, ind, arr) => {
+              if (glycanStrings.composition[res.residue.toLowerCase()]) {
+                res.name = glycanStrings.composition[res.residue.toLowerCase()].shortName;
+                res.orderID = glycanStrings.composition[res.residue.toLowerCase()].orderID;
+                return res;
+              } else {
+                let message = "New residue in Composition: " + res.residue;
+                logActivity("error", id, message);
+                res.name = res.residue;
+                res.orderID =
+                  parseInt(glycanStrings.composition["other"].orderID) -
+                  (parseInt(arr.length) - parseInt(ind));
+                return res;
+              }
+            })
+            .sort(function (res1, res2) {
+              return parseInt(res1.orderID) - parseInt(res2.orderID);
+            });
+        }
+
+        if (detailDataTemp.publication) {
+          detailDataTemp.publication = detailDataTemp.publication.sort(
+            (a, b) => parseInt(b.date) - parseInt(a.date)
+          );
+        }
+        setItemsCrossRef(getItemsCrossRef(detailDataTemp));
+        setDetailData(detailDataTemp);
         setPageLoading(false);
       }
 
       setTimeout(() => {
         const anchorElement = props.history.location.hash;
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
-          document
-            .getElementById(anchorElement.substr(1))
-            .scrollIntoView({ behavior: "auto" });
+          document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
         }
       }, 500);
     });
     getGlycanDetailData.catch(({ response }) => {
-      let message = "Glycan Detail api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      if (
+        response.data &&
+        response.data.error_list &&
+        response.data.error_list.length &&
+        response.data.error_list[0].error_code &&
+        response.data.error_list[0].error_code === "non-existent-record"
+      ) {
+        // history = response.data.history;
+        setNonExistent({
+          error_code: response.data.error_list[0].error_code,
+          //reason: response.data.reason
+          //history: response.data.history
+        });
+        setPageLoading(false);
+      } else {
+        let message = "Glycan Detail api call";
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      }
     });
     // eslint-disable-next-line
   }, []);
 
-  if (detailData.mass) {
-    detailData.mass = addCommas(detailData.mass);
-  }
-  if (detailData.mass_pme) {
-    detailData.mass_pme = addCommas(detailData.mass_pme);
-  }
-  if (detailData.glycoct) {
-    detailData.glycoct = detailData.glycoct.replace(/ /g, "\r\n");
-  }
-
-  if (detailData.composition) {
-    detailData.composition = detailData.composition
-      .map((res, ind, arr) => {
-        if (glycanStrings.composition[res.residue.toLowerCase()]) {
-          res.name =
-            glycanStrings.composition[res.residue.toLowerCase()].shortName;
-          res.orderID =
-            glycanStrings.composition[res.residue.toLowerCase()].orderID;
-          return res;
-        } else {
-          let message = "New residue in Composition: " + res.residue;
-          logActivity("error", id, message);
-          res.name = res.residue;
-          res.orderID =
-            parseInt(glycanStrings.composition["other"].orderID) -
-            (parseInt(arr.length) - parseInt(ind));
-          return res;
-        }
-      })
-      .sort(function(res1, res2) {
-        return parseInt(res1.orderID) - parseInt(res2.orderID);
-      });
-  }
   const {
     mass,
     glytoucan,
@@ -233,8 +292,12 @@ const GlycanDetail = props => {
     publication,
     wurcs,
     enzyme,
+    subsumption,
+    expression,
     mass_pme,
-    tool_support
+    names,
+    tool_support,
+    history,
   } = detailData;
 
   const organismEvidence = groupOrganismEvidences(species);
@@ -254,7 +317,7 @@ const GlycanDetail = props => {
             evidences={groupEvidences(cell)}
           />
         );
-      }
+      },
     },
     {
       dataField: "protein_name",
@@ -262,7 +325,7 @@ const GlycanDetail = props => {
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
-      }
+      },
     },
     {
       dataField: "uniprot_canonical_ac",
@@ -279,23 +342,32 @@ const GlycanDetail = props => {
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
-      )
+      ),
     },
 
     {
-      dataField: "position residue",
+      dataField: "start_pos",
       text: proteinStrings.position.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
       },
-      formatter: (value, row) => (
-        <>
-          {row.residue}
-          {row.position}
-        </>
-      )
-    }
+      formatter: (value, row) =>
+        value ? (
+          <LineTooltip text="View siteview details">
+            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+              {row.residue} {row.start_pos}
+              {row.start_pos !== row.end_pos && (
+                <>
+                  to {row.residue} {row.end_pos}
+                </>
+              )}
+            </Link>
+          </LineTooltip>
+        ) : (
+          "Not Reported"
+        ),
+    },
   ];
   const glycanBindingProteinColumns = [
     {
@@ -306,13 +378,8 @@ const GlycanDetail = props => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },
       formatter: (cell, row) => {
-        return (
-          <EvidenceList
-            key={row.interactor_id}
-            evidences={groupEvidences(cell)}
-          />
-        );
-      }
+        return <EvidenceList key={row.interactor_id} evidences={groupEvidences(cell)} />;
+      },
     },
     {
       dataField: "interactor_name",
@@ -320,7 +387,7 @@ const GlycanDetail = props => {
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
-      }
+      },
     },
     {
       dataField: "interactor_id",
@@ -333,14 +400,22 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <LineTooltip text="View protein details">
-          <Link to={routeConstants.proteinDetail + row.interactor_id}>
-            {row.interactor_id}
-          </Link>
+          <Link to={routeConstants.proteinDetail + row.interactor_id}>{row.interactor_id}</Link>
         </LineTooltip>
-      )
-    }
+      ),
+    },
   ];
   const bioEnzymeColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList key={row.uniprot_canonical_ac} evidences={groupEvidences(cell)} />;
+      },
+    },
     {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_canonical_ac.name,
@@ -355,7 +430,7 @@ const GlycanDetail = props => {
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
-      )
+      ),
     },
     {
       dataField: "gene",
@@ -372,7 +447,7 @@ const GlycanDetail = props => {
             {value}
           </a>
         </LineTooltip>
-      )
+      ),
     },
 
     {
@@ -381,7 +456,7 @@ const GlycanDetail = props => {
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
-      }
+      },
     },
 
     {
@@ -397,8 +472,213 @@ const GlycanDetail = props => {
           <span className="text-capitalize">{row.tax_common_name}</span>
           {")"}
         </>
-      )
-    }
+      ),
+    },
+  ];
+  const subsumptionColumns = [
+    {
+      dataField: "id",
+      text: glycanStrings.glycan_id.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View details">
+          <Link to={routeConstants.glycanDetail + row.id}>{row.id}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "id",
+      text: glycanStrings.glycan_image.name,
+      sort: false,
+      selected: true,
+      formatter: (value, row) => (
+        <div className="img-wrapper">
+          <img className="img-cartoon" src={getGlycanImageUrl(row.id)} alt="Glycan img" />
+        </div>
+      ),
+      headerStyle: (colum, colIndex) => {
+        return {
+          textAlign: "left",
+          backgroundColor: "#4B85B6",
+          color: "white",
+          whiteSpace: "nowrap",
+        };
+      },
+    },
+    // {
+    //   dataField: "type",
+    //   text: "Type",
+    //   sort: true,
+    //   headerStyle: (colum, colIndex) => {
+    //     return { backgroundColor: "#4B85B6", color: "white" };
+    //   }
+    // },
+    {
+      dataField: "relationship",
+      text: "Relationship",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+  ];
+  const expressionCellColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.uniprot_canonical_ac}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      },
+    },
+
+    {
+      dataField: "uniprot_canonical_ac",
+      text: proteinStrings.uniprot_canonical_ac.name,
+      defaultSortField: "uniprot_canonical_ac",
+      sort: true,
+
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View protein details">
+          <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
+            {row.uniprot_canonical_ac}
+          </Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "start_pos",
+      text: "Site",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      // formatter: (value, row) => <>{row.start}</>
+    },
+    {
+      dataField: "residue",
+      text: "Amino Acid",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      // formatter: (value, row) => <>{row.residue}</>
+    },
+
+    {
+      dataField: "cell_line.name",
+      text: "Cell Line Name",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+    },
+    {
+      dataField: "cell_line.cellosaurus_id",
+      text: "Cellosaurus ID",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View Cell Line details ">
+          <a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">
+            {value}
+          </a>
+        </LineTooltip>
+      ),
+    },
+  ];
+  const expressionTissueColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.uniprot_canonical_ac}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      },
+    },
+
+    {
+      dataField: "uniprot_canonical_ac",
+      text: proteinStrings.uniprot_canonical_ac.name,
+      defaultSortField: "uniprot_canonical_ac",
+      sort: true,
+
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View protein details">
+          <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
+            {row.uniprot_canonical_ac}
+          </Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "start_pos",
+      text: "Site",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      // formatter: (value, row) => <>{row.start_pos}</>
+    },
+    {
+      dataField: "residue",
+      text: "Amino Acid",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      // formatter: (value, row) => <>{row.residue}</>
+    },
+    {
+      dataField: "tissue.name",
+      text: "Tissue Name",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+    },
+    {
+      dataField: "tissue.uberon_id",
+      text: "Uberon ID",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View Tissue details">
+          <a href={row.tissue.url} target="_blank" rel="noopener noreferrer">
+            {value}
+          </a>
+        </LineTooltip>
+      ),
+    },
   ];
   const motifColumns = [
     {
@@ -408,11 +688,7 @@ const GlycanDetail = props => {
       selected: true,
       formatter: (value, row) => (
         <div className="img-wrapper">
-          <img
-            className="img-cartoon"
-            src={getGlycanImageUrl(row.id)}
-            alt="Glycan img"
-          />
+          <img className="img-cartoon" src={getGlycanImageUrl(row.id)} alt="Glycan img" />
         </div>
       ),
       headerStyle: (colum, colIndex) => {
@@ -420,9 +696,9 @@ const GlycanDetail = props => {
           textAlign: "left",
           backgroundColor: "#4B85B6",
           color: "white",
-          whiteSpace: "nowrap"
+          whiteSpace: "nowrap",
         };
-      }
+      },
     },
     {
       dataField: "id",
@@ -436,7 +712,7 @@ const GlycanDetail = props => {
         <LineTooltip text="View details">
           <Link to={routeConstants.motifDetail + row.id}>{row.id}</Link>
         </LineTooltip>
-      )
+      ),
     },
     {
       dataField: "name",
@@ -450,34 +726,39 @@ const GlycanDetail = props => {
         <LineTooltip text="View details">
           <Link to={routeConstants.motifDetail + row.id}>{row.name}</Link>
         </LineTooltip>
-      )
-    }
+      ),
+    },
   ];
   // ==================================== //
   /**
    * Adding toggle collapse arrow icon to card header individualy.
    * @param {object} glytoucan_ac- glytoucan accession ID.
    **/
-  const [collapsed, setCollapsed] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      general: true,
-      organism: true,
-      motif: true,
-      glycoprotein: true,
-      glycanBindingProtein: true,
-      bioEnzyme: true,
-      digitalSeq: true,
-      crossref: true,
-      publication: true
-    }
-  );
-
+  const [collapsed, setCollapsed] = useReducer((state, newState) => ({ ...state, ...newState }), {
+    general: true,
+    organism: true,
+    motif: true,
+    glycoprotein: true,
+    glycanBindingProtein: true,
+    bioEnzyme: true,
+    subsumption: true,
+    expression: true,
+    digitalSeq: true,
+    crossref: true,
+    publication: true,
+    history: true,
+    names: true,
+  });
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
   const expandIcon = <ExpandMoreIcon fontSize="large" />;
   const closeIcon = <ExpandLessIcon fontSize="large" />;
+
+  // const ToggleIcon = ({open}) => open ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />
   // ===================================== //
 
   /**
@@ -487,13 +768,49 @@ const GlycanDetail = props => {
   function handleOpenSubsumptionBrowse(glytoucan_ac) {
     var url =
       //"https://raw.githack.com/glygen-glycan-data/GNOme/GlyGen_DEV/restrictions/GNOme_GlyGen.browser.html?focus=" +
-      "http://gnome.glyomics.org/restrictions/GlyGen.StructureBrowser.html?focus=" +
-      glytoucan_ac;
+      "http://gnome.glyomics.org/restrictions/GlyGen.StructureBrowser.html?focus=" + glytoucan_ac;
     window.open(url);
+  }
+
+  /**
+   * Redirect and opens glytoucan_ac in a sand box
+   * @param {object} glytoucan_ac- glytoucan accession ID.
+   **/
+  function handleOpenSandbox(glytoucan_ac) {
+    var url = "https://glygen.ccrc.uga.edu/sandbox/explore.html?" + glytoucan_ac;
+    window.open(url);
+  }
+
+  if (nonExistent) {
+    return (
+      <Container className="tab-content-border2">
+        <Alert className="erroralert" severity="error">
+          {nonExistent.history && nonExistent.history.length ? (
+            <>
+              <AlertTitle> {id} is no longer valid Id</AlertTitle>
+              <ul>
+                {nonExistent.history.map((item) => (
+                  <span className="recordInfo">
+                    <li>{capitalizeFirstLetter(nonExistent.reason[0].description)}</li>
+                  </span>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <>
+              <AlertTitle>
+                This Glycan <b>{id} </b> Record is not valid
+              </AlertTitle>
+            </>
+          )}
+        </Alert>
+      </Container>
+    );
   }
 
   return (
     <>
+      {}
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
           <Sidebar items={items} />
@@ -511,9 +828,7 @@ const GlycanDetail = props => {
                       <span>
                         Details for Glycan
                         <strong>
-                          {glytoucan && glytoucan.glytoucan_ac && (
-                            <> {glytoucan.glytoucan_ac}</>
-                          )}
+                          {glytoucan && glytoucan.glytoucan_ac && <> {glytoucan.glytoucan_ac}</>}
                         </strong>
                       </span>
                     </h2>
@@ -521,32 +836,42 @@ const GlycanDetail = props => {
                 </Grid>
               </Row>
             </div>
+            {props.history && props.history.length > 1 && (
+              <div className="text-right gg-download-btn-width pb-3">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={() => {
+                    props.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </div>
+            )}
             <div className="gg-download-btn-width">
               <DownloadButton
                 types={[
                   {
                     display: stringConstants.download.glycan_image.displayname,
                     type: "png",
-                    data: "glycan_image"
+                    data: "glycan_image",
                   },
                   {
-                    display:
-                      stringConstants.download.glycan_jsondata.displayname,
+                    display: stringConstants.download.glycan_jsondata.displayname,
                     type: "json",
-                    data: "glycan_detail"
-                  }
+                    data: "glycan_detail",
+                  },
                 ]}
                 dataType="glycan_detail"
                 dataId={id}
               />
             </div>
+
             <React.Fragment>
               <Helmet>
                 {getTitle("glycanDetail", {
-                  glytoucan_ac:
-                    glytoucan && glytoucan.glytoucan_ac
-                      ? glytoucan.glytoucan_ac
-                      : ""
+                  glytoucan_ac: glytoucan && glytoucan.glytoucan_ac ? glytoucan.glytoucan_ac : "",
                 })}
                 {getMeta("glycanDetail")}
               </Helmet>
@@ -554,10 +879,12 @@ const GlycanDetail = props => {
               <PageLoader pageLoading={pageLoading} />
               <DialogAlert
                 alertInput={alertDialogInput}
-                setOpen={input => {
+                setOpen={(input) => {
                   setAlertDialogInput({ show: input });
                 }}
               />
+
+              {/*  Function */}
               {/* general */}
               <Accordion
                 id="General"
@@ -584,15 +911,27 @@ const GlycanDetail = props => {
                         <Button
                           type="button"
                           className="gg-btn-blue"
-                          disabled={
-                            tool_support && tool_support.gnome === "yes"
-                              ? false
-                              : true
-                          }
+                          disabled={tool_support && tool_support.sandbox === "yes" ? false : true}
                           onClick={() => {
-                            handleOpenSubsumptionBrowse(
-                              glytoucan && glytoucan.glytoucan_ac
-                            );
+                            handleOpenSandbox(glytoucan && glytoucan.glytoucan_ac);
+                          }}
+                        >
+                          <span>
+                            <Image className="pr-2" src={sandBox} alt="Sand Box" />
+                          </span>
+                          Sand Box
+                        </Button>
+                      </span>
+                      <span>
+                        <Button
+                          type="button"
+                          className="gg-btn-blue"
+                          style={{
+                            marginLeft: "10px",
+                          }}
+                          disabled={tool_support && tool_support.gnome === "yes" ? false : true}
+                          onClick={() => {
+                            handleOpenSubsumptionBrowse(glytoucan && glytoucan.glytoucan_ac);
                           }}
                         >
                           <span>
@@ -624,14 +963,10 @@ const GlycanDetail = props => {
 											</span> */}
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("general", collapsed.general)
-                        }
+                        onClick={() => toggleCollapse("general", collapsed.general)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.general ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.general ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -648,9 +983,7 @@ const GlycanDetail = props => {
                               />
                             </p>
                             <div>
-                              <strong>
-                                {proteinStrings.glytoucan_ac.shortName}:{" "}
-                              </strong>
+                              <strong>{proteinStrings.glytoucan_ac.shortName}: </strong>
                               <a
                                 href={glytoucan.glytoucan_url}
                                 target="_blank"
@@ -663,27 +996,31 @@ const GlycanDetail = props => {
                             <div>
                               {mass ? (
                                 <>
-                                  <strong>
-                                    {" "}
-                                    {glycanStrings.mass.shortName}:{" "}
-                                  </strong>
+                                  <strong> {glycanStrings.mass.shortName}: </strong>
                                   {mass} Da{" "}
+                                  {/* <LineTooltip text="Find all glycans with the same Mass">
+                                    <Link>
+                                      <SearchIcon className="ml-3 custom-icon-blue" />
+                                    </Link>
+                                  </LineTooltip> */}
                                 </>
                               ) : (
-                                <p> </p>
+                                <> </>
                               )}
                             </div>
                             <div>
                               {mass_pme ? (
                                 <>
-                                  <strong>
-                                    {" "}
-                                    {glycanStrings.mass_pme.shortName}:{" "}
-                                  </strong>
+                                  <strong> {glycanStrings.mass_pme.shortName}: </strong>
                                   {mass_pme} Da{" "}
+                                  {/* <LineTooltip text="Find all glycans with the same Mass-pMe">
+                                    <Link>
+                                      <SearchIcon className="ml-3 custom-icon-blue" />
+                                    </Link>
+                                  </LineTooltip> */}
                                 </>
                               ) : (
-                                <p> </p>
+                                <> </>
                               )}
                             </div>
                           </>
@@ -691,47 +1028,76 @@ const GlycanDetail = props => {
                         {composition && (
                           <div>
                             <strong>Composition</strong>:{" "}
-                            <CompositionDisplay composition={composition} />
+                            <CompositionDisplay composition={composition} />{" "}
+                            {/* <LineTooltip text="Find all glycans with the same Composition">
+                              <Link>
+                                <SearchIcon className="ml-3 custom-icon-blue" />
+                              </Link>
+                            </LineTooltip> */}
                           </div>
                         )}
 
                         {classification && classification.length && (
                           <div>
-                            <strong>
-                              {glycanStrings.glycan_type.name} /{" "}
-                              {glycanStrings.glycan_subtype.name}:{" "}
-                            </strong>
-
-                            {classification.map(Formatclassification => (
-                              <>
-                                <a
-                                  href={Formatclassification.type.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {Formatclassification.type.name}
-                                </a>
-                                &nbsp; <b>/</b> &nbsp;
-                                <a
-                                  href={Formatclassification.subtype.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {Formatclassification.subtype.name}
-                                </a>
-                              </>
-                            ))}
+                            <Row>
+                              <Col md="auto" className="pr-0">
+                                <strong>
+                                  {glycanStrings.glycan_type.name} /{" "}
+                                  {glycanStrings.glycan_subtype.name}:{" "}
+                                </strong>
+                              </Col>
+                              <Col className="pl-0">
+                                {classification.map((Formatclassification) => (
+                                  <>
+                                    <span>
+                                      {Formatclassification.type.url && (
+                                        <a
+                                          href={Formatclassification.type.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          &nbsp;{Formatclassification.type.name}
+                                        </a>
+                                      )}
+                                      {!Formatclassification.type.url && (
+                                        <>&nbsp;{Formatclassification.type.name}</>
+                                      )}
+                                      {Formatclassification.subtype &&
+                                        Formatclassification.subtype.name !== "Other" && (
+                                          <>
+                                            &nbsp; <b>/</b> &nbsp;
+                                            {Formatclassification.subtype.url && (
+                                              <a
+                                                href={Formatclassification.subtype.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                              >
+                                                {Formatclassification.subtype.name}
+                                              </a>
+                                            )}
+                                            {!Formatclassification.subtype.url && (
+                                              <>{Formatclassification.subtype.name}</>
+                                            )}
+                                          </>
+                                        )}
+                                    </span>
+                                    {<br />}
+                                  </>
+                                ))}{" "}
+                              </Col>
+                              {/* <LineTooltip text="Find all glycans with the same Type/Subtype">
+                                <Link>
+                                  <SearchIcon className="ml-3 custom-icon-blue" />
+                                </Link>
+                              </LineTooltip> */}
+                            </Row>
                           </div>
                         )}
                         {inchi_key && inchi_key.key && (
                           <>
                             <div>
                               <strong>{glycanStrings.inchi_key.name}: </strong>
-                              <a
-                                href={inchi_key.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
+                              <a href={inchi_key.url} target="_blank" rel="noopener noreferrer">
                                 {inchi_key.key}
                               </a>
                             </div>
@@ -766,14 +1132,10 @@ const GlycanDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("organism", collapsed.organism)
-                        }
+                        onClick={() => toggleCollapse("organism", collapsed.organism)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.organism ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.organism ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -782,7 +1144,7 @@ const GlycanDetail = props => {
                       <Row>
                         {organismEvidence &&
                           // For every organism object
-                          Object.keys(organismEvidence).map(orgEvi => (
+                          Object.keys(organismEvidence).map((orgEvi) => (
                             // For every database for current organism object
                             <Col
                               xs={12}
@@ -807,17 +1169,67 @@ const GlycanDetail = props => {
                                     {organismEvidence[orgEvi].taxid}
                                   </a>
                                 </LineTooltip>
-                                {"]"}
-                                <EvidenceList
-                                  evidences={organismEvidence[orgEvi].evidence}
-                                />
+                                {"]"}{" "}
+                                {/* <LineTooltip text="Find all glycans with the same Organism">
+                                  <Link>
+                                    <SearchIcon className="ml-3 custom-icon-blue" />
+                                  </Link>
+                                </LineTooltip> */}
+                                <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
                               </>
                             </Col>
                           ))}
-                        {!species && (
-                          <p className="no-data-msg">No data available.</p>
-                        )}
+                        {!species && <p className="no-data-msg">No data available.</p>}
                       </Row>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/*  Names */}
+              <Accordion
+                id="Names"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.names_synonyms.title}
+                        text={DetailTooltips.protein.names_synonyms.text}
+                        urlText={DetailTooltips.protein.names_synonyms.urlText}
+                        url={DetailTooltips.protein.names_synonyms.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.names_synonyms.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("names_synonyms", collapsed.names_synonyms)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.names_synonyms ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {names && names.length ? (
+                        <ul className="list-style-none">
+                          {names.map((nameObject) => (
+                            <li>
+                              <b>{nameObject.domain}</b>: {nameObject.name}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No data available.</p>
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -892,14 +1304,10 @@ const GlycanDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("glycoprotein", collapsed.glycoprotein)
-                        }
+                        onClick={() => toggleCollapse("glycoprotein", collapsed.glycoprotein)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.glycoprotein ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.glycoprotein ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -929,39 +1337,25 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={
-                          DetailTooltips.glycan.glycan_binding_protein.title
-                        }
+                        title={DetailTooltips.glycan.glycan_binding_protein.title}
                         text={DetailTooltips.glycan.glycan_binding_protein.text}
-                        urlText={
-                          DetailTooltips.glycan.glycan_binding_protein.urlText
-                        }
+                        urlText={DetailTooltips.glycan.glycan_binding_protein.urlText}
                         url={DetailTooltips.glycan.glycan_binding_protein.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
                     <h4 className="gg-green d-inline">
-                      {
-                        stringConstants.sidebar.glycan_binding_protein
-                          .displayname
-                      }
+                      {stringConstants.sidebar.glycan_binding_protein.displayname}
                     </h4>
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
                         onClick={() =>
-                          toggleCollapse(
-                            "glycanBindingProtein",
-                            collapsed.glycanBindingProtein
-                          )
+                          toggleCollapse("glycanBindingProtein", collapsed.glycanBindingProtein)
                         }
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.glycanBindingProtein
-                            ? closeIcon
-                            : expandIcon}
-                        </span>
+                        <span>{collapsed.glycanBindingProtein ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -980,6 +1374,7 @@ const GlycanDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
               {/* Biosynthetic Enzymes */}
               <Accordion
                 id="Biosynthetic-Enzymes"
@@ -993,9 +1388,7 @@ const GlycanDetail = props => {
                       <HelpTooltip
                         title={DetailTooltips.glycan.biosyntheticEnzyme.title}
                         text={DetailTooltips.glycan.biosyntheticEnzyme.text}
-                        urlText={
-                          DetailTooltips.glycan.biosyntheticEnzyme.urlText
-                        }
+                        urlText={DetailTooltips.glycan.biosyntheticEnzyme.urlText}
                         url={DetailTooltips.glycan.biosyntheticEnzyme.url}
                         helpIcon="gg-helpicon-detail"
                       />
@@ -1006,14 +1399,10 @@ const GlycanDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("bioEnzyme", collapsed.bioEnzyme)
-                        }
+                        onClick={() => toggleCollapse("bioEnzyme", collapsed.bioEnzyme)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.bioEnzyme ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.bioEnzyme ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -1032,6 +1421,152 @@ const GlycanDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/* Subsumption*/}
+              <Accordion
+                id="Subsumption"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.subsumption.title}
+                        text={DetailTooltips.glycan.subsumption.text}
+                        urlText={DetailTooltips.glycan.subsumption.urlText}
+                        url={DetailTooltips.glycan.subsumption.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.subsumption.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("subsumption", collapsed.subsumption)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.subsumption ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {subsumption && subsumption.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={subsumption}
+                          columns={subsumptionColumns}
+                          defaultSortField={"id"}
+                          onClickTarget={"#subsumption"}
+                        />
+                      )}
+                      {!subsumption && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* Expression */}
+              <Accordion
+                id="Expression"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.expression.title}
+                        text={DetailTooltips.glycan.expression.text}
+                        urlText={DetailTooltips.glycan.expression.urlText}
+                        url={DetailTooltips.glycan.expression.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.expression.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("expression", collapsed.expression)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.expression ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {expression && expression.length !== 0 && (
+                        <Tabs
+                          defaultActiveKey={
+                            expressionWithtissue && expressionWithtissue.length > 0
+                              ? "with_tissue"
+                              : "with_cellline"
+                          }
+                          transition={false}
+                          mountOnEnter={true}
+                          unmountOnExit={true}
+                        >
+                          <Tab
+                            eventKey="with_tissue"
+                            className="tab-content-padding"
+                            title="Tissue Expression"
+                            //disabled={(!mutataionWithdisease || (mutataionWithdisease.length === 0))}
+                          >
+                            <Container
+                              style={{
+                                paddingTop: "20px",
+                                paddingBottom: "30px",
+                              }}
+                            >
+                              {expressionWithtissue && expressionWithtissue.length > 0 && (
+                                <ClientPaginatedTable
+                                  data={expressionWithtissue}
+                                  columns={expressionTissueColumns}
+                                  onClickTarget={"#expression"}
+                                  defaultSortField="start_pos"
+                                />
+                              )}
+                              {!expressionWithtissue.length && <p>No data available.</p>}
+                            </Container>
+                          </Tab>
+                          <Tab
+                            eventKey="with_cellline"
+                            className="tab-content-padding"
+                            title="Cell Line Expression "
+                          >
+                            <Container
+                              style={{
+                                paddingTop: "20px",
+                                paddingBottom: "30px",
+                              }}
+                            >
+                              {expressionWithcell && expressionWithcell.length > 0 && (
+                                <ClientPaginatedTable
+                                  data={expressionWithcell}
+                                  columns={expressionCellColumns}
+                                  onClickTarget={"#expression"}
+                                  defaultSortField="position"
+                                />
+                              )}
+                              {!expressionWithcell.length && <p>No data available.</p>}
+                            </Container>
+                          </Tab>
+                        </Tabs>
+                      )}
+
+                      {!expression && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/* Digital Sequence */}
               <Accordion
                 id="Digital-Sequence"
@@ -1056,14 +1591,10 @@ const GlycanDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("digitalSeq", collapsed.digitalSeq)
-                        }
+                        onClick={() => toggleCollapse("digitalSeq", collapsed.digitalSeq)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.digitalSeq ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.digitalSeq ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -1127,9 +1658,7 @@ const GlycanDetail = props => {
                           <>
                             <Row>
                               <Col xs={6} sm={6}>
-                                <strong>
-                                  {glycanStrings.inchi_key.shortName}
-                                </strong>
+                                <strong>{glycanStrings.inchi_key.shortName}</strong>
                               </Col>
                               <Col xs={6} sm={6} style={{ textAlign: "right" }}>
                                 <ReactCopyClipboard value={inchi} />
@@ -1145,9 +1674,7 @@ const GlycanDetail = props => {
                           <>
                             <Row>
                               <Col xs={6} sm={6}>
-                                <strong>
-                                  {glycanStrings.GLYCAM_IUPAC.shortName}
-                                </strong>
+                                <strong>{glycanStrings.GLYCAM_IUPAC.shortName}</strong>
                               </Col>
                               <Col xs={6} sm={6} style={{ textAlign: "right" }}>
                                 <ReactCopyClipboard value={glycam} />
@@ -1163,9 +1690,7 @@ const GlycanDetail = props => {
                           <>
                             <Row>
                               <Col xs={6} sm={6}>
-                                <strong>
-                                  {glycanStrings.Isomeric_SMILES.shortName}
-                                </strong>
+                                <strong>{glycanStrings.Isomeric_SMILES.shortName}</strong>
                               </Col>
                               <Col xs={6} sm={6} style={{ textAlign: "right" }}>
                                 <ReactCopyClipboard value={smiles_isomeric} />
@@ -1205,14 +1730,10 @@ const GlycanDetail = props => {
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("crossref", collapsed.crossref)
-                        }
+                        onClick={() => toggleCollapse("crossref", collapsed.crossref)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.crossref ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.crossref ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -1222,33 +1743,65 @@ const GlycanDetail = props => {
                         <p>
                           <ul className="list-style-none">
                             {/* <Row> */}
-                            {itemsCrossRef.map(crossRef => (
+                            {itemsCrossRef.map((crossRef) => (
                               <li>
-                                {/* <Col> */}
-                                <strong>{crossRef.database}:</strong>
-                                <ul>
-                                  <Row>
-                                    {crossRef.links.map(link => (
-                                      <Col xs={12} sm={4}>
-                                        <li>
-                                          <a
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {link.id}
-                                          </a>
-                                        </li>
-                                      </Col>
-                                    ))}
-                                  </Row>
-                                </ul>
+                                <CollapsableReference
+                                  database={crossRef.database}
+                                  links={crossRef.links}
+                                />
                               </li>
                             ))}
                           </ul>
                         </p>
                       ) : (
                         <p>No data available.</p>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* history */}
+              <Accordion
+                id="History"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.history.title}
+                        text={DetailTooltips.glycan.history.text}
+                        urlText={DetailTooltips.glycan.history.urlText}
+                        url={DetailTooltips.glycan.history.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.history.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        // as={Card.Header}
+                        eventKey="0"
+                        onClick={() => toggleCollapse("history", collapsed.history)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.history ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0" out={!collapsed.history}>
+                    <Card.Body>
+                      {history && history.length && (
+                        <>
+                          {history.map((historyItem) => (
+                            <ul className="pl-3">
+                              <li>{capitalizeFirstLetter(historyItem.description)} </li>
+                            </ul>
+                          ))}
+                        </>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -1279,14 +1832,10 @@ const GlycanDetail = props => {
                       <Accordion.Toggle
                         // as={Card.Header}
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("publication", collapsed.publication)
-                        }
+                        onClick={() => toggleCollapse("publication", collapsed.publication)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.publication ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.publication ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
@@ -1301,21 +1850,19 @@ const GlycanDetail = props => {
                                   <p>
                                     <div>
                                       <h5 style={{ marginBottom: "3px" }}>
-                                        <strong>{pub.title}</strong>
+                                        <strong>{pub.title}</strong>{" "}
                                       </h5>
                                     </div>
                                     <div>{pub.authors}</div>
                                     <div>
-                                      {pub.journal} <span>&nbsp;</span>(
-                                      {pub.date})
+                                      {pub.journal} <span>&nbsp;</span>({pub.date})
                                     </div>
                                     <div>
-                                      {pub.reference.map(ref => (
+                                      {pub.reference.map((ref) => (
                                         <>
                                           <FiBookOpen />
                                           <span style={{ paddingLeft: "15px" }}>
                                             {glycanStrings.pmid.shortName}:
-                                            {/* {glycanStrings.referenceType[ref.type].shortName}: */}
                                           </span>{" "}
                                           <a
                                             href={ref.url}
@@ -1323,7 +1870,12 @@ const GlycanDetail = props => {
                                             rel="noopener noreferrer"
                                           >
                                             <>{ref.id}</>
-                                          </a>
+                                          </a>{" "}
+                                          {/* <LineTooltip text="Find all glycans with the same PMID">
+                                            <Link>
+                                              <SearchIcon className="ml-3 custom-icon-blue" />
+                                            </Link>
+                                          </LineTooltip> */}
                                         </>
                                       ))}
                                     </div>
@@ -1338,9 +1890,7 @@ const GlycanDetail = props => {
                           </tbody>
                         )}
                         {!publication && (
-                          <p className="no-data-msg-publication">
-                            No data available.
-                          </p>
+                          <p className="no-data-msg-publication">No data available.</p>
                         )}
                       </Table>
                     </Card.Body>

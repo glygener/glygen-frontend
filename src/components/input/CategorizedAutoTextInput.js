@@ -6,17 +6,29 @@ import PropTypes from 'prop-types';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import '../../css/Search.css';
 
+/**
+ * Text input component with categorized typeahead.
+ **/
 export default function AutoTextInput(props) {
     const [options, setOptions] = React.useState([]);
     const inputValueRef = React.useRef(props.inputValue);
     inputValueRef.current = props.inputValue;
 
+	/**
+	 * Function to handle change event for input text.
+	 * @param {object} event event object.
+	 * @param {string} value input value.
+	 * @param {string} reason event reason.
+	 **/
 	const handleChange = (event, value, reason) => {
 		if (!(event === null && value === "" && reason === "reset")){
 			  props.setInputValue(value);
 		}
 	};
 
+	/**
+	 * useEffect to get typeahead data from api.
+	 **/
 	React.useEffect(() => {
 		if (props.inputValue.trim().length < 5) {
 			setOptions([]);

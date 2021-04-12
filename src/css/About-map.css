@@ -12,7 +12,7 @@ ul#continents {
 
 ul#continents li {
   /*Remove border*/
-  /*  border: 1px solid #000; */
+  /* border: 1px solid #000; */
   position: absolute;
 }
 
@@ -29,13 +29,19 @@ ul#continents li a {
   left: 38px;
 }
 
-#europe {
-  width: 23px;
-  height: 23px;
-  top: 45px;
-  left: 232px;
+#europe-uk {
+  width: 18px;
+  height: 19px;
+  top: 46px;
+  left: 236px;
 }
 
+#europe-swiss {
+  width: 14px;
+  height: 15px;
+  top: 60px;
+  left: 252px;
+}
 #asia {
   width: 25px;
   height: 35px;
@@ -60,7 +66,7 @@ ul#continents li a:hover span {
   width: 130px;
   background: #222;
   position: relative;
-  top: 70%;
+  top: 85%;
   font: 14px Arial, Helvetica, sans-serif;
   opacity: 0.75;
   filter: alpha(opacity=75);

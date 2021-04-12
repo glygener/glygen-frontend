@@ -49,7 +49,7 @@ const AlignmentDropdown = props => {
           menu={[
             { id: "unselected", name: "Select" },
             ...types.map(typeItem => {
-              return { id: typeItem.type, name: typeItem.display };
+              return { id: typeItem.name, name: typeItem.label };
             })
           ]}
           setInputValue={value => {

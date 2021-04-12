@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import LineTooltip from "../tooltip/LineTooltip";
 import "../../css/Search.css";
 
+/**
+ * Component to display links like on global search result page.
+ **/
 export default function RouteLink(props) {
   return (
     <>

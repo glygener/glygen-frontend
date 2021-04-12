@@ -115,6 +115,16 @@
 					"url": "https://www.ebi.ac.uk/about/people/preethi-vasudev"
 				},
 				{
+					"name": "Gareth Owen",
+					"position": "Technical Expert",
+					"department": "Protein Function Development",
+					"institution": "EMBL-EBI",
+					"location": "Hinxton, Cambridgeshire, UK",
+					"image": "/team/Gareth-Owen.jpg",
+					"imageText": "Gareth Owen image",
+					"url": "https://www.ebi.ac.uk/about/people/gareth-owen"
+				},
+				{
 					"name": "Evan Bolton",
 					"position": "",
 					"department": "",
@@ -339,16 +349,6 @@
 				"image": "/team/Rahi-Navelkar.png",
 				"imageText": "Rahi Navelkar image",
 				"url": "https://www.linkedin.com/in/rahi-navelkar-b24b08131/"
-			},
-			{
-				"name": "Xiying Ding",
-				"position": "",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC",
-				"image": "/team/Xiying-Ding.jpg",
-				"imageText": "Xiying Ding image",
-				"url": "https://www.linkedin.com/in/xiying-ding-4735751a9/"
 			}
 		]
 	},
@@ -381,7 +381,7 @@
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Sujeet-Kulkarni.jpeg",
+				"image": "/team/Sujeet-Kulkarni.png",
 				"imageText": "Sujeet Kulkarni image",
 				"url": "https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/"
 			},
@@ -404,6 +404,31 @@
 				"image": "/team/Pic-Male.png",
 				"imageText": "Sandeep Nakarakommula image",
 				"url": "https://www.linkedin.com/in/nakaras/"
+			}
+		]
+	},
+	"otherMembers": {
+		"heading": "Other Members",
+		"people": [
+			{
+				"name": "Xiying Ding",
+				"position": "Student",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Xiying-Ding.jpg",
+				"imageText": "Xiying Ding image",
+				"url": "https://www.linkedin.com/in/xiying-ding-4735751a9/"
+			},
+			{
+				"name": "Tianyi Wang",
+				"position": "Student",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Tianyi-Wang.png",
+				"imageText": "Tianyi Wang image",
+				"url": "https://www.linkedin.com/in/tianyi-wang-3432429a/"
 			}
 		]
 	},

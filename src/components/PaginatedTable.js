@@ -1,6 +1,6 @@
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-
+import { makeStyles } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import paginationFactory, {
@@ -13,6 +13,7 @@ import paginationFactory, {
 const PaginatedTable = ({
   data,
   idField = "id",
+
   page,
   columns,
   sizePerPage,
@@ -22,6 +23,9 @@ const PaginatedTable = ({
   defaultSortField = "",
   defaultSortOrder = "asc",
   onClickTarget,
+  noDataIndication,
+  rowStyle,
+  wrapperClasses = "table-responsive",
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
@@ -71,6 +75,14 @@ const PaginatedTable = ({
     // }
     onTableChange(type, values);
   };
+  const useStyles = makeStyles((theme) => ({
+    tableHeader: {
+      backgroundColor: "#4B85B6",
+      color: theme.palette.common.white,
+      height: "50px",
+    },
+  }));
+  const classes = useStyles();
 
   return (
     <div>
@@ -81,7 +93,7 @@ const PaginatedTable = ({
           page,
           sizePerPage,
           totalSize, //,
-          // defaultSorted
+          // defaultSort
         })}
       >
         {({ paginationProps, paginationTableProps }) => (
@@ -102,7 +114,7 @@ const PaginatedTable = ({
               scrollTop={"Bottom"}
               striped
               hover
-              wrapperClasses="table-responsive table-height"
+              wrapperClasses={wrapperClasses}
               remote
               keyField={idField}
               defaultSorted={[
@@ -115,6 +127,9 @@ const PaginatedTable = ({
               columns={columns}
               onTableChange={handleTableChange}
               {...paginationTableProps}
+              noDataIndication={noDataIndication}
+              rowStyle={rowStyle}
+              headerClasses={classes.tableHeader}
             />
             <div>
               <PaginationTotalStandalone {...paginationProps} />

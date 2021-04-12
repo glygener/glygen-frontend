@@ -6,7 +6,8 @@
   --gg-dark-blue: #1c4e78 !important;
   --gg-light-blue: #afd9fd !important;
   --gg-dark-hover: #57affa !important;
-  --gg-green: #1d9901 !important;
+  --gg-green: #60BA4B !important;
+   /* --gg-green: #1d9901 !important; */
   /* --gg-green: #60ba4b; */
   /* --dark-blue-1: #215b9e; */
   /* --dark-blue-2: #175385; */
@@ -40,8 +41,16 @@
 .color-white {
   color: #ffffff !important;
 }
+.gg-new-feature {
+  color: #ff0000;
+  /* color: #fff;
+  background-color: #FF0000;
+  padding: 5px 10px;
+  border-radius: 30%; */
+}
 .gg-container {
   margin-bottom: 40px;
+  max-width: 97% !important;
 }
 .gg-baseline {
   width: 98%;
@@ -54,6 +63,13 @@
 /* ========================================
         Main Attributes & Typography
 ==========================================*/
+.gg-link {
+  color: #2f78b7 !important;
+  font-weight: 600 !important;
+}
+.gg-link:hover {
+  color: #57affa !important;
+}
 a {
   text-decoration: none !important;
   color: var(--gg-blue) !important;
@@ -333,7 +349,17 @@ p {
 .badge-button {
   text-transform: none !important;
 }
-
+.custom-icon-blue {
+  font-size: 42px !important;
+  margin: 0;
+  -webkit-transition: all 400ms linear;
+  transition: all 400ms linear;
+  /* SVG color converter https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(37%) sepia(87%) saturate(410%) hue-rotate(163deg) brightness(93%) contrast(98%);
+}
+.custom-icon-blue:hover {
+  filter: invert(60%) sepia(85%) saturate(1641%) hue-rotate(182deg) brightness(102%) contrast(96%);
+}
 /* ========================================
              Cards
 ==========================================*/
@@ -462,6 +488,11 @@ hr {
   align-items: center;
   flex-wrap: wrap;
 }
+.gg-align-middle-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 .nowrap {
   white-space: nowrap !important;
 }
@@ -472,6 +503,10 @@ hr {
   float: right;
   padding-right: 5%;
   padding-left: 5%;
+  color: #2e78b7;
+}
+.id-mapping-go-to-top {
+  float: right;
   color: #2e78b7;
 }
 
@@ -640,6 +675,19 @@ ul.office-details {
 }
 .tutorial-text-middle p {
   width: 60%;
+}
+/* =========================================
+                General
+============================================ */
+.wrapword {
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    white-space: pre-wrap;       /* css-3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+    word-break: break-all;
+    white-space: normal;
 }
 /* .App {
   text-align: center;
@@ -817,8 +865,8 @@ sub {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .page-loader-image {
-  width: 75px;
-  height: 75px;
+  width: 150px;
+  height: 150px;
 }
 
 /* =========================================
@@ -841,6 +889,13 @@ sub {
   text-align: left;
   margin: 0px !important;
 }
+.sups-dialog-title {
+  color: #fff !important;
+  background-color: var(--gg-blue) !important;
+  padding: 20px !important;
+  text-align: center;
+  margin: 0px !important;
+}
 .alert-dialog-content {
   padding: 15px !important;
 }
@@ -855,6 +910,8 @@ sub {
 }
 .alert-banner-icon {
   font-size: 40px !important;
+  margin-right: 20px !important;
+  color:#2e78b7 !important;
 }
 .alert-banner-message a {
   font-weight: 700 !important;
@@ -877,6 +934,16 @@ sub {
 .alert-banner-darkgrey a:hover {
   color: #bf0101 !important;
   /* font-weight: 200 !important; */
+}
+.event-alerts-border {
+  /* margin-bottom: 35px !important; */
+  border-top: 5px solid #2e78b7 !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-bottom: none !important;
+}
+.event-alerts-mb {
+  margin-bottom: 35px !important;
 }
 .banner-bg {
   background-color: #555 !important;
@@ -935,10 +1002,10 @@ sub {
 } */
 
 .univ-logo {
-  padding: 10px 20px;
-  max-width: 150px;
-  margin: 0 auto;
-  line-height: 100px;
+  padding: 5px 20px;
+  max-width: 230px;
+  max-height: 100px;
+  margin: 10px auto;
 }
 .univ-logo image {
   display: inline-block !important;
@@ -1067,6 +1134,27 @@ sub {
 .table-height {
   max-height: 600px;
   margin-bottom: 20px;
+}
+.table-height-resources {
+  max-height: 900px;
+  margin-bottom: 20px;
+}
+.mapping-reason-tbl {
+  max-width: 60%;
+  margin: 0 auto;
+}
+/* =========================================
+                ID Mapping 
+============================================ */
+.id-mapping-content {
+  background-color: #fff;
+  border: 1px solid #ddd !important;
+  /* min-width: inherit; */
+  margin-bottom: 40px;
+  padding: 40px 140px !important;
+}
+.select-type {
+  justify-content: space-between;
 }
 
 /*! does not work on Firefox */

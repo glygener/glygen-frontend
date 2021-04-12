@@ -15,7 +15,9 @@
   overflow-x: "scroll";
   white-space: pre-line;
 }
-
+.tab-content-border2 {
+  padding-top: 50px;
+}
 .page-item.active .page-link {
   background-color: white;
 }
@@ -56,13 +58,20 @@
   /* margin-left: -20px; */
   margin-top: 5px !important;
 }
-
+.recordInfo {
+  color: black;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.evidencetype {
+  text-transform: capitalize;
+}
 .badge-div + .badge-div {
   margin: 10px 0 0 !important;
   margin-left: 2px;
 }
 
-.inline-evidence:nth-child(n+5) {
+.inline-evidence:nth-child(n + 5) {
   margin-top: 5px !important;
 }
 

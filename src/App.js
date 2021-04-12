@@ -53,6 +53,9 @@ const theme = createMuiTheme({
   },
 });
 
+/**
+ * Glygen App component.
+ */
 function App() {
   initializeReactGA();
   pageProofer(document, "script");

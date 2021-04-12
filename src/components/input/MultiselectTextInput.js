@@ -4,7 +4,17 @@ import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "../../css/Search.css";
 
+/**
+ * Multiselect text input component.
+ **/
 export default function MultiselectTextInput(props) {
+  
+  /**
+	 * Function to handle change event for input text.
+	 * @param {object} event event object.
+	 * @param {string} value input value.
+	 * @param {string} reason event reason.
+	 **/
   const handleChange = (event, value, reason) => {
     props.setInputValue(value);
   };

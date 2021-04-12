@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import logo from "../../images/glygen_logos/glygen-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
 import { NavDropdown, Navbar, Nav, Row, Col } from "react-bootstrap";
 import PersonIcon from "@material-ui/icons/Person";
-import { makeStyles } from "@material-ui/core/styles";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import PinterestIcon from "@material-ui/icons/Pinterest";
 import Container from "@material-ui/core/Container";
 import DeveloperBoardIcon from "@material-ui/icons/DeveloperBoard";
 import GlobalSearchControl from "../search/GlobalSearchControl";
@@ -20,29 +20,16 @@ import {
   GLYGEN_BETA,
   GLYGEN_DATA,
   GLYGEN_SPARQL,
+  GNOME_BROWSER,
+  GLYCOMOTIF_WIKI,
+  GLYGEN_SANDBOX,
   GLYGEN_ENV,
+  GLYCAN_SEQ_LOOKUP,
 } from "../../envVariables";
 import routeConstants from "../../data/json/routeConstants.json";
 import betaWatermarkImg from "../../images/icons/beta-watermark.svg";
 
-const useStyles = makeStyles((theme) => ({
-  navbarText: {
-    color: "#2f78b7 !important",
-    fontWeight: "600",
-    "&:hover": {
-      color: "#57affa !important",
-    },
-  },
-  // betaWatermark: {
-  // 	position: "absolute",
-  // 	backgroundSize: "top",
-  // 	backgroundPosition: "center",
-  // 	backgroundRepeat: "space",
-  // },
-}));
-
 export default function Header(props) {
-  const classes = useStyles();
   const location = useLocation();
 
   return (
@@ -63,31 +50,19 @@ export default function Header(props) {
             : {}
         }
       >
-        {/* {GLYGEN_ENV === "beta" && (
-					<img src={betaWatermarkImg} alt="beta watermark img" />
-				)} */}
         <Container maxWidth="xl">
           <Row className="justify-content-end">
             <div className="mr-4">
-              {/* <Navbar.Text
-								as={Link} */}
-              <Link to={routeConstants.privacySettings} className={classes.navbarText}>
+              <Link to={routeConstants.privacySettings} className="gg-link">
                 <span>
                   <PersonIcon />
                 </span>{" "}
                 MY GLYGEN
               </Link>
-              {/* </Navbar.Text> */}
             </div>
             {GLYGEN_ENV !== "beta" && (
               <div className="mr-4">
-                {/* <Navbar.Text> */}
-                <a
-                  href={GLYGEN_BETA}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={classes.navbarText}
-                >
+                <a href={GLYGEN_BETA} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <span>
                     <DeveloperBoardIcon />
                   </span>{" "}
@@ -100,7 +75,7 @@ export default function Header(props) {
                 href="https://twitter.com/gly_gen"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={classes.navbarText}
+                className="gg-link"
               >
                 <TwitterIcon className="mr-3" />
               </a>
@@ -108,7 +83,7 @@ export default function Header(props) {
                 href="https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={classes.navbarText}
+                className="gg-link"
               >
                 <YouTubeIcon className="mr-3" />
               </a>
@@ -116,7 +91,7 @@ export default function Header(props) {
                 href="https://github.com/glygener"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={classes.navbarText}
+                className="gg-link"
               >
                 <GitHubIcon className="mr-3" />
               </a>
@@ -127,6 +102,14 @@ export default function Header(props) {
                 className="media-wiki-icon"
               >
                 <MediaWikiIcon className="mr-3" />
+              </a>
+              <a
+                href="https://www.pinterest.com/myGlyGen/glygen-portal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gg-link"
+              >
+                <PinterestIcon className="mr-3" />
               </a>
             </div>
           </Row>
@@ -139,15 +122,17 @@ export default function Header(props) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
         <Navbar.Collapse className="gg-blue" id="basic-navbar-nav">
-          <Col xs={12} sm={12} md={12} xl={8}>
+          <Col xs={12} sm={12} md={12} lg={12} xl={8} className="mr-3">
             <Nav>
               <Nav.Link className="gg-nav-link" as={NavLink} to={routeConstants.home}>
                 HOME
               </Nav.Link>
               <NavDropdown
                 className={
-                  location.pathname === routeConstants.glycanSearch ||
-                  location.pathname === routeConstants.proteinSearch ||
+                  location.pathname.includes(routeConstants.glycanSearch) ||
+                  location.pathname.includes(routeConstants.proteinSearch) ||
+                  location.pathname.includes(routeConstants.siteSearch) ||
+                  location.pathname.includes(routeConstants.superSearch) ||
                   location.pathname === routeConstants.motifList
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
@@ -160,6 +145,18 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.proteinSearch}>
                   Protein Search
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.siteSearch}>
+                  Site Search{" "}
+                  <span className="gg-new-feature ml-1">
+                    <strong>NEW</strong>
+                  </span>
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.superSearch}>
+                  Super Search{" "}
+                  <span className="gg-new-feature ml-1">
+                    <strong>NEW</strong>
+                  </span>
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.motifList}>
                   List of Motifs
@@ -180,6 +177,41 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SPARQL} target="_blank" rel="noopener noreferrer">
                   SPARQL
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown
+                className={
+                  location.pathname === routeConstants.idMapping
+                    ? "gg-dropdown-navbar gg-dropdown-navbar-active"
+                    : "gg-dropdown-navbar"
+                }
+                title="TOOLS"
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item
+                  href={GLYCAN_SEQ_LOOKUP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Glycan Sequence Lookup
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
+                  GlycoMotif Wiki
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
+                  GlyGen Mapper
+                  <span className="gg-new-feature ml-2">
+                    <strong>NEW</strong>
+                  </span>
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
+                  GlyGen Sand Box{" "}
+                  <span className="gg-new-feature ml-1">
+                    <strong>NEW</strong>
+                  </span>
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
+                  Structure Browser
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
@@ -230,7 +262,7 @@ export default function Header(props) {
               </NavDropdown>
             </Nav>
           </Col>
-          <Col xs={12} sm={12} md={12} xl={4}>
+          <Col xs={12} sm={12} md={12} lg={12} xl={4}>
             <GlobalSearchControl />
           </Col>
         </Navbar.Collapse>

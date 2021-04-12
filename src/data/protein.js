@@ -16,15 +16,15 @@ export const getProteinList = (
   protienListId,
   offset = 1,
   limit = 20,
-  sort = undefined,
-  order = "asc"
+  sort = "hit_score",
+  order = "desc"
 ) => {
   const queryParams = {
     id: protienListId,
     offset: offset,
-    // sort: sort,
     limit: limit,
-    order: order
+    order: order,
+    sort: sort
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/protein/list?query=${queryParamString}`;
@@ -32,13 +32,16 @@ export const getProteinList = (
 };
 
 export const getProteinsiteDetail = (protienId, position) => {
-  const queryParamString = JSON.stringify({
-    uniprot_canonical_ac: protienId,
-    start_pos: parseInt(position),
-    end_pos: parseInt(position)
-  });
-  const url = `/proteinsite/detail?query=${queryParamString}`;
+  // const queryParamString = JSON.stringify({
+  //   uniprot_canonical_ac: protienId,
+  //   start_pos: parseInt(position),
+  //   end_pos: parseInt(position)
+  // });
+
+  const url = `/site/detail/${protienId}.${position}.${position}`;
   return getJson(url);
+  // const url = `/proteinsite/detail?query=${queryParamString}`;
+  // return getJson(url);
 };
 
 export const getProteinDetail = accessionId => {
@@ -46,6 +49,20 @@ export const getProteinDetail = accessionId => {
   return getJson(url);
 };
 export const getProteinDownload = (id, format, compressed, type, headers) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, type, format, compressed };
+  const url = `/data/download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
+
+export const getProteinSiteDownload = (
+  id,
+  format,
+  compressed,
+  type,
+  headers
+) => {
   let message = "downloaded successfully ";
   logActivity("user", id, format, compressed, "No results. " + message);
   const query = { id, type, format, compressed };
@@ -89,6 +106,14 @@ export const PROTEIN_COLUMNS = [
     }
   },
   {
+    dataField: "hit_score",
+    text: "Hit Score",
+    sort: true,
+    headerStyle: (colum, colIndex) => {
+      return { backgroundColor: "#4B85B6", color: "white" };
+    }
+  },
+  {
     dataField: proteinStrings.mass.shortName,
     text: proteinStrings.mass.name + " (Da)",
     sort: true,
@@ -122,18 +147,29 @@ export const PROTEIN_COLUMNS = [
   }
 ];
 
+/**
+ * Gets JSON for protein search.
+ * @param {object} formObject - protein search JSON query object.
+ */
 export const getProteinSearch = formObject => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/protein/search?" + json;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for protein simple search.
+ * @param {object} formObject - protein simple search JSON query object.
+ */
 export const getProteinSimpleSearch = formObject => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/protein/search_simple?" + json;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for protein search init.
+ */
 export const getProteinInit = () => {
   const url = `/protein/search_init`;
   return getJson(url);
@@ -156,3 +192,4 @@ export const getHomoAlignment = (protienId, alignment) => {
   const url = `/protein/alignment?query=${queryParamString}`;
   return getJson(url);
 };
+

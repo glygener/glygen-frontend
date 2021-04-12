@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="24px" viewBox="0 0 21 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>arrow-up-icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-116.000000, -5.000000)">
+            <g id="arrow-up-icon" transform="translate(114.000000, 5.000000)">
+                <rect id="ViewBox" x="0" y="0" width="24" height="24"></rect>
+                <polygon id="Path" fill="#000000" fill-rule="nonzero" points="14 24 11 24 11 6 5 12 2 10.5 12.5 0 23 10.5 20 12 14 6"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

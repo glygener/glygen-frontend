@@ -11,9 +11,13 @@ import { Row } from 'react-bootstrap';
 import ReactHtmlParser from "react-html-parser";
 import HelpTooltip from "../tooltip/HelpTooltip";
 import SelectControl from '../select/SelectControl';
+import CompositionSearchTemplate from './CompositionSearchTemplate';
 import glycanSearchData from '../../data/json/glycanSearch';
 import '../../css/Search.css';
 
+/**
+ * Composition search control for glycan search.
+ */
 export default function CompositionSearchControl(props) {
 	let compositionSearch = glycanSearchData.composition_search;
 
@@ -22,8 +26,12 @@ export default function CompositionSearchControl(props) {
 	const [undoVal, setUndoVal] = useState({});
 	const [redoDisabled, setRedoDisabled] = useState(true);
 	const [undoDisabled, setUndoDisabled] = useState(true);
-	const [searchDisabled, setSearchDisabled] = useState(true);
+	const [compositionSearchTemplateSelect, setCompositionSearchTemplateSelect] = useState("");
+	const [compositionSearchTemplate, setCompositionSearchTemplate] = useState(false);
 
+	/**
+	 * Function to handle min input change event.
+	 */
 	const minInputChange = (event) => {
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
 		let comp = {
@@ -34,6 +42,9 @@ export default function CompositionSearchControl(props) {
 		props.setInputValue({ [event.target.name]: comp });
 	};
 
+	/**
+	 * Function to handle max input change event.
+	 */
 	const maxInputChange = (event) => {
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
 		let comp = {
@@ -50,7 +61,7 @@ export default function CompositionSearchControl(props) {
 	 * @param {object} min_val - min value control.
 	 * @param {object} max_val - max value control.
 	 * @param {string} residue - residue id.
-	 * */
+	 **/
 	function onSelControlChange(sel_control_value, min_val, max_val, residue) {
 		compSearchRedoReset();
 		saveResidueStateToUndoList(
@@ -95,10 +106,11 @@ export default function CompositionSearchControl(props) {
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
 		compositionData[residue] = comp;
 		if (allNoTrue(compositionData)) {
-			setSearchDisabled(true);
+			props.setCompSearchDisabled(true);
 		} else {
-			setSearchDisabled(false);
+			props.setCompSearchDisabled(false);
 		}
+		resetTemplateSelection();
 	}
 
 	/**
@@ -107,7 +119,7 @@ export default function CompositionSearchControl(props) {
 	 * @param {object} inputMax - max value.
 	 * @param {object} selOption - select option.
 	 * @param {string} residue - residue.
-	 * */
+	 **/
 	function onResidueMinMoveOut(
 		inputMin,
 		inputMax,
@@ -171,11 +183,15 @@ export default function CompositionSearchControl(props) {
 		props.setInputValue({ [residue]: comp });
 
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
+
+		if (parseInt(undoVal.min) !== parseInt(comp.min)){
+			resetTemplateSelection();
+		}
 		compositionData[residue] = comp;
 		if (allNoTrue(compositionData)) {
-			setSearchDisabled(true);
+			props.setCompSearchDisabled(true);
 		} else {
-			setSearchDisabled(false);
+			props.setCompSearchDisabled(false);
 		}
 	}
 
@@ -185,7 +201,7 @@ export default function CompositionSearchControl(props) {
 	 * @param {string} inputMin - min value.
 	 * @param {string} selOption - select value.
 	 * @param {string} residue - residue.
-	 * */
+	 **/
 	function onResidueMaxMoveOut(
 		inputMax,
 		inputMin,
@@ -253,20 +269,25 @@ export default function CompositionSearchControl(props) {
 		props.setInputValue({ [residue]: comp });
 
 		let compositionData = JSON.parse(JSON.stringify(props.inputValue));
+		
+		if (parseInt(undoVal.max) !== parseInt(comp.max)){
+			resetTemplateSelection();
+		}
 		compositionData[residue] = comp;
 		if (allNoTrue(compositionData)) {
-			setSearchDisabled(true);
+			props.setCompSearchDisabled(true);
 		} else {
-			setSearchDisabled(false);
+			props.setCompSearchDisabled(false);
 		}
 	}
 
 	/**
 	 * saveResidueStateToUndoList saves residue state to undo list.
 	 * @param {string} residue - residue id.
+	 * @param {string} selOption - select option.
 	 * @param {int} min - min value.
 	 * @param {int} max - max value.
-	 * */
+	 **/
 	function saveResidueStateToUndoList(residue, selOption, min, max) {
 		var sel_residue = props.compositionInitMap.filter(function (res) {
 			return residue === res.residue;
@@ -295,7 +316,7 @@ export default function CompositionSearchControl(props) {
 	/**
 	 * saveCurrentResidueStatesToUndoList saves current residue states to undo list.
 	 *  * @param {array} updated_res_list - residue list.
-	 */
+	 **/
 	function saveCurrentResidueStatesToUndoList(updated_res_list) {
 		let compositionStateData = JSON.parse(JSON.stringify(props.inputValue));
 		let undoResStack = undoStack;
@@ -312,7 +333,7 @@ export default function CompositionSearchControl(props) {
 	 * @param {object} minVal - min value.
 	 * @param {object} maxVal - max value.
 	 * @param {string} residue - residue id.
-	 * */
+	 **/
 	function onMinMaxFocus(selOption, minVal, maxVal, residue) {
 		let undoResidue = {
 			residue: residue,
@@ -326,7 +347,7 @@ export default function CompositionSearchControl(props) {
 	/**
 	 * compSearchUndoRedo undo or redo button handler.
 	 * @param {string} option specifies "undo" or "redo" option.
-	 */
+	 **/
 	function compSearchUndoRedo(option) {
 		var pre_state = undefined;
 		var cur_state = undefined;
@@ -366,15 +387,16 @@ export default function CompositionSearchControl(props) {
 		}
 
 		if (allNoTrue(compositionData)) {
-			setSearchDisabled(true);
+			props.setCompSearchDisabled(true);
 		} else {
-			setSearchDisabled(false);
+			props.setCompSearchDisabled(false);
 		}
+		resetTemplateSelection();
 	}
 
 	/**
 	 * compSearchRedoReset resets redo list.
-	 */
+	 **/
 	function compSearchRedoReset() {
 		while (redoStack.length > 0) {
 			redoStack.pop();
@@ -387,8 +409,9 @@ export default function CompositionSearchControl(props) {
 
 	/**
 	 * compSearchStateChanged checks if current residue states are changed compared to values in residue list.
-	 * @param {array} residue_state_list - residue list.
-	 * */
+	 * @param {array} compositionData - new residue list.
+	 * @param {array} inputCompStateData - current residue list.
+	 **/
 	function compSearchStateChanged(compositionData, inputCompStateData) {
 		var stateChanged = false;
 
@@ -419,6 +442,9 @@ export default function CompositionSearchControl(props) {
 		return stateChanged;
 	}
 
+	/**
+	 * Sets all options to yes.
+	 **/
 	const allYes = () => {
 		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
 
@@ -431,11 +457,15 @@ export default function CompositionSearchControl(props) {
 		if (compSearchStateChanged(compositionData)) {
 			compSearchRedoReset();
 			saveCurrentResidueStatesToUndoList(compositionData);
+			resetTemplateSelection();
 		}
 		props.setInputValue(compositionData);
-		setSearchDisabled(false);
+		props.setCompSearchDisabled(false);
 	};
 
+	/**
+	 * Sets all options to no.
+	 **/
 	const allNo = () => {
 		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
 
@@ -448,11 +478,15 @@ export default function CompositionSearchControl(props) {
 		if (compSearchStateChanged(compositionData)) {
 			compSearchRedoReset();
 			saveCurrentResidueStatesToUndoList(compositionData);
+			resetTemplateSelection();
 		}
 		props.setInputValue(compositionData);
-		setSearchDisabled(true);
+		props.setCompSearchDisabled(true);
 	};
 
+	/**
+	 * Returns true if all options are no.
+	 **/
 	const allNoTrue = (inputCompStateData) => {
 		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
 
@@ -468,6 +502,9 @@ export default function CompositionSearchControl(props) {
 		return true;
 	};
 
+	/**
+	 * Sets all options to maybe.
+	 **/
 	const allMaybe = () => {
 		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
 
@@ -483,13 +520,70 @@ export default function CompositionSearchControl(props) {
 		if (compSearchStateChanged(compositionData)) {
 			compSearchRedoReset();
 			saveCurrentResidueStatesToUndoList(compositionData);
+			resetTemplateSelection();
 		}
 		props.setInputValue(compositionData);
-		setSearchDisabled(false);
+		props.setCompSearchDisabled(false);
 	};
+	
+	/**
+	 * Loads template composition data.
+	 **/
+	const loadCompositionSearchData = (compositionTemplateData) => {
+		var compositionData = JSON.parse(JSON.stringify(props.inputValue));
+
+		for (var x = 0; x < props.compositionInitMap.length; x++) {
+			compositionData[props.compositionInitMap[x].residue].min =
+				compositionTemplateData[props.compositionInitMap[x].residue] ? 
+				compositionTemplateData[props.compositionInitMap[x].residue].min : 0;
+			compositionData[props.compositionInitMap[x].residue].selectValue =
+				compositionTemplateData[props.compositionInitMap[x].residue] ?
+				compositionTemplateData[props.compositionInitMap[x].residue].selectValue : "no";
+			compositionData[props.compositionInitMap[x].residue].max =
+				compositionTemplateData[props.compositionInitMap[x].residue] ? 
+				compositionTemplateData[props.compositionInitMap[x].residue].max : 0;
+		}
+
+		if (compSearchStateChanged(compositionData)) {
+			compSearchRedoReset();
+			saveCurrentResidueStatesToUndoList(compositionData);
+		}
+		props.setInputValue(compositionData);
+		props.setCompSearchDisabled(false);
+	};
+
+	/**
+	 * Resets template selection.
+	 **/
+	const resetTemplateSelection = () => {
+		setCompositionSearchTemplateSelect("");
+	}
 
 	return (
 		<div>
+			<CompositionSearchTemplate
+				show={compositionSearchTemplate}
+				loadCompositionSearchData={loadCompositionSearchData}
+				setCompositionSearchTemplateSelect={setCompositionSearchTemplateSelect}
+				compositionSearchTemplateSelect={compositionSearchTemplateSelect}
+				title={compositionSearch.templateDialog.title}
+				setOpen={(input) => {
+					setCompositionSearchTemplate(input)
+				}}
+			/>
+			<Row className='gg-align-center ml-1 pt-3 pb-4'>
+					<Typography
+						className={'search-lbl pt-1'}
+						gutterBottom
+						align='center'>
+						{compositionSearch.templateDialogLabel.title}
+					</Typography>
+				<Button className='gg-btn-outline ml-4' 
+					onClick={() => setCompositionSearchTemplate(true)}
+				>
+					Load Template
+				</Button>
+			</Row>
 			<Grid
 				container
 				style={{ margin: 0 }}
@@ -540,6 +634,7 @@ export default function CompositionSearchControl(props) {
 									text = {key.tooltip.text}
 									urlText = {key.tooltip.urlText}
 									url = {key.tooltip.url}
+									imageArray = {key.tooltip.imageArray}
 								/>
 								<strong>{key.name}</strong>
 							</Typography>
@@ -639,6 +734,11 @@ export default function CompositionSearchControl(props) {
 				))}
 
 			<Row className='gg-align-center pt-5'>
+				<Button className='gg-btn-outline mr-4 mb-3' 
+					onClick={() => setCompositionSearchTemplate(true)}
+				>
+					Load Template
+				</Button>
 				<Button className='gg-btn-outline mr-4 mb-3' onClick={allYes}>
 					All Yes
 				</Button>
@@ -662,7 +762,7 @@ export default function CompositionSearchControl(props) {
 				</Button>
 				<Button
 					className='gg-btn-blue mb-3'
-					disabled={searchDisabled}
+					disabled={props.compSearchDisabled}
 					onClick={props.searchGlycanCompClick}>
 					Search Glycan
 				</Button>

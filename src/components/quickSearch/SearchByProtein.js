@@ -13,6 +13,9 @@ import Button from "react-bootstrap/Button";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
 
+/**
+ * Quick search control for protein usecases.
+ */
 const SearchByProtein = props => {
   let quickSearch = stringConstants.quick_search;
   let searchByProtein = quickSearchData.searchByProtein;
@@ -28,6 +31,8 @@ const SearchByProtein = props => {
             <ExpansionPanel
               id={quickSearch.question_4.id}
               defaultExpanded={props.questionId === quickSearch.question_4.id}
+              expanded={props.panelExpanded.question_4}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_4.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
@@ -95,6 +100,8 @@ const SearchByProtein = props => {
             <ExpansionPanel
               id={quickSearch.question_5.id}
               defaultExpanded={props.questionId === quickSearch.question_5.id}
+              expanded={props.panelExpanded.question_5}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_5.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
@@ -162,6 +169,8 @@ const SearchByProtein = props => {
             <ExpansionPanel
               id={quickSearch.question_6.id}
               defaultExpanded={props.questionId === quickSearch.question_6.id}
+              expanded={props.panelExpanded.question_6}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_6.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
@@ -229,6 +238,8 @@ const SearchByProtein = props => {
             <ExpansionPanel
               id={quickSearch.question_7.id}
               defaultExpanded={props.questionId === quickSearch.question_7.id}
+              expanded={props.panelExpanded.question_7}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_7.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}

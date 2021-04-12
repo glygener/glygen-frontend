@@ -3,8 +3,14 @@ import PropTypes from "prop-types";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import stringConstants from '../../data/json/stringConstants';
 
+/**
+ * Text alert component to show error messages.
+ */
 export default function TextAlert(props) {
 
+  /**
+	 * getValue returns error id to display.
+	 **/
   const getValue = (input) => {
     let errorID = props.alertInput.id;
     if (errorID === undefined || errorID === null || errorID === "") {

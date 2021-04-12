@@ -13,6 +13,9 @@ import TextAlert from "../alert/TextAlert";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
 
+/**
+ * Quick search control for glycan usecases.
+ */
 const SearchByGlycan = props => {
   let quickSearch = stringConstants.quick_search;
   let searchByGlycan = quickSearchData.searchByGlycan;
@@ -28,6 +31,8 @@ const SearchByGlycan = props => {
             <ExpansionPanel
               id={quickSearch.question_1.id}
               defaultExpanded={props.questionId === quickSearch.question_1.id}
+              expanded={props.panelExpanded.question_1}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_1.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
@@ -95,6 +100,8 @@ const SearchByGlycan = props => {
             <ExpansionPanel
               id={quickSearch.question_2.id}
               defaultExpanded={props.questionId === quickSearch.question_2.id}
+              expanded={props.panelExpanded.question_2}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_2.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
@@ -162,6 +169,8 @@ const SearchByGlycan = props => {
             <ExpansionPanel
               id={quickSearch.question_3.id}
               defaultExpanded={props.questionId === quickSearch.question_3.id}
+              expanded={props.panelExpanded.question_3}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_3.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}

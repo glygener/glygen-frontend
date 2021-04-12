@@ -4,7 +4,16 @@ import { Col, Row } from "react-bootstrap";
 import LineTooltip from "../tooltip/LineTooltip";
 import Button from "react-bootstrap/Button";
 
+/**
+ * Component to show example and explore link under input component like glycan id.
+ **/
 const ExampleExploreControl = (props) => {
+	
+	/**
+	 * Function to sort examples.
+	 * @param {object} ex1 example 1.
+	 * @param {object} ex2 example 2.
+	 **/
 	function sortExamples(ex1, ex2) {
 		return parseInt(ex1.orderID) - parseInt(ex2.orderID);
 	}

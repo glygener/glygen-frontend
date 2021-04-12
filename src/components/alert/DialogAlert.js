@@ -7,8 +7,14 @@ import routeConstants from '../../data/json/routeConstants';
 import Button from 'react-bootstrap/Button';
 import { Dialog } from "@material-ui/core";
 
+/**
+ * Dialog alert component to show error messages.
+ */
 export default function DialogAlert(props) {
 
+    /**
+	 * getID returns error id to display.
+	 **/
     const getID = () => {
         let errorID = props.alertInput.id;
         if (errorID === undefined || errorID === null || errorID === "") {

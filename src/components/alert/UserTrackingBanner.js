@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import { logID, logActivity } from "../../data/logging";
 
+/**
+ * User tracking banner component.
+ */
 export default function UserTrackingBanner(props) {
 	const [pageLoaded, setPageLoaded] = useState(false);
 
@@ -25,6 +28,9 @@ export default function UserTrackingBanner(props) {
 		setPageLoaded(true);
 	};
 
+	/**
+	 * useEffect for displaying message based on user response, assign log id to user based on api call.
+	 */
 	useEffect(() => {
 		/**
 		 * This is called when the user selects to be logged.
@@ -78,12 +84,18 @@ export default function UserTrackingBanner(props) {
 		}
 	}, [props, props.userTrackingBannerState]);
 
+	/**
+	 * useEffect to check browser support, display message.
+	 */
 	useEffect(() => {
 		if (!pageLoaded) {
 			tracking();
 		}
 	});
 
+	/**
+	 * Function to close tracking banner message display.
+	 */
 	const close = function () {
 		props.setUserTrackingBannerState("none");
 	};

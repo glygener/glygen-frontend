@@ -1,0 +1,103 @@
+{
+    "concept_query_list": [
+        {
+            "concept": "species",
+            "query": {}
+        },
+        {
+            "concept": "gene",
+            "query": {}
+        },
+        {
+            "concept": "disease",
+            "query": {}
+        },
+        {
+            "concept": "protein",
+            "query": {}
+        },
+        {
+            "concept": "glycan",
+            "query": {}
+        },
+        {
+            "concept": "motif",
+            "query": {}
+        },
+        {
+            "concept": "site",
+            "query": {}
+        },
+        {
+            "concept": "enzyme",
+            "query": {}
+        }
+    ],
+    "ignored_edges": [
+        {
+            "source": "species",
+            "target": "glycan",
+            "direction": "both"
+        },
+        {
+            "source": "species",
+            "target": "protein",
+            "direction": "both"
+        },
+        {
+            "source": "species",
+            "target": "gene",
+            "direction": "both"
+        },
+        {
+            "source": "gene",
+            "target": "disease",
+            "direction": "both"
+        },
+        {
+            "source": "gene",
+            "target": "protein",
+            "direction": "both"
+        },
+        {
+            "source": "disease",
+            "target": "protein",
+            "direction": "both"
+        },
+        {
+            "source": "disease",
+            "target": "site",
+            "direction": "both"
+        },
+        {
+            "source": "protein",
+            "target": "glycan",
+            "direction": "both"
+        },
+        {
+            "source": "glycan",
+            "target": "motif",
+            "direction": "both"
+        },
+        {
+            "source": "protein",
+            "target": "enzyme",
+            "direction": "both"
+        },
+        {
+            "source": "protein",
+            "target": "site",
+            "direction": "both"
+        },
+        {
+            "source": "site",
+            "target": "glycan",
+            "direction": "both"
+        },
+        {
+            "source": "enzyme",
+            "target": "glycan",
+            "direction": "both"
+        }
+    ]
+}

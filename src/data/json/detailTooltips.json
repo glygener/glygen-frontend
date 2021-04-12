@@ -18,6 +18,12 @@
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
     },
+    "history": {
+      "title": "History",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
     "glycoproteins": {
       "title": "Associated Glycoproteins",
       "text": "Add some unique text here.",
@@ -32,6 +38,18 @@
     },
     "biosyntheticEnzyme": {
       "title": "Biosynthetic Enzyme",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "subsumption": {
+      "title": "Subsumption",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "expression": {
+      "title": "Expression",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"
@@ -128,6 +146,12 @@
     },
     "ptmannotation": {
       "title": "PTM Annotations",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "proannotation": {
+      "title": "Proteoform-Annotation",
       "text": "Add some unique text here.",
       "urlText": "Read more...",
       "url": "https://wiki.glygen.org/index.php/Main_Page"

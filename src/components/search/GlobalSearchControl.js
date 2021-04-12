@@ -10,19 +10,34 @@ import {logActivity} from '../../data/logging';
 import routeConstants from '../../data/json/routeConstants';
 import '../../css/globalSearch.css';
 
+/**
+ * Global search control.
+ **/
 export default function GlobalSearchControl(props) {
    
     let history = useHistory();
     const [globalSearchTerm, setGlobalSearchTerm] = useState('');
 
+    /**
+	 * Function to set global search term.
+	 * @param {string} searchTerm - global search term.
+	 **/
     function globalSearchTermChange(searchTerm) {
         setGlobalSearchTerm(searchTerm);
     }
 
+    /**
+	 * Function to handle global search term onchange event.
+	 * @param {object} event - event object.
+	 **/
     const globalSearchTermOnChange = (event) => {
         setGlobalSearchTerm(event.target.value);
     }
 
+    /**
+	 * Function to handle global search event.
+	 * @param {object} event - event object.
+	 **/
 	const globalSearchStart = (event) => {
         event.preventDefault(); 
         logActivity("user", globalSearchTerm, "Performing Global Search");

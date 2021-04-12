@@ -2,9 +2,11 @@
   "glycanListEdit": "/glycan-list-edit/",
   "glycanList": "/glycan-list/",
   "proteinList": "/protein-list/",
+  "siteList": "/site-list/",
   "glycanSearch": "/glycan-search/",
   "compositionSearch": "/glycan-search#Composition-Search",
   "proteinSearch": "/protein-search/",
+  "siteSearch": "/site-search/",
   "enzymeSearch": "/enzyme-search/",
   "glycanDetail": "/glycan/",
   "proteinDetail": "/protein/",
@@ -29,6 +31,9 @@
   "siteview": "/Siteview/",
   "motifList": "/list-of-motifs/",
   "motifDetail": "/motif/",
+  "idMapping": "/mapper/",
+  "idMappingResult": "/mapper-result/",
+  "superSearch": "/super-search/",
   "home": "/home/",
   "default": "/"
 }

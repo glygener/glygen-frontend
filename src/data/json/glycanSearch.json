@@ -1,227 +1,835 @@
 {
-    "pageTitle": "Glycan Search",
-    "simple_search": {
-        "tabTitle": "Simple Search",
-        "length": 100,
-        "errorText":"Entry is too long - max length is 100.",
-        "categories": {
-            "enzyme": {
-                "examples": [
-                    "B4GALT1"
-                ],
-                "placeholder": "Enter the enzyme"
-            },
-            "glycan": {
-                "examples": [
-                    "G17689DH"
-                ],
-                "placeholder": "Enter the GlyTouCan Accession"
-            },
-            "organism": {
-                "examples": [
-                    "Homo sapiens"
-                ],
-                "placeholder": "Enter the organism"
-            },
-            "protein": {
-                "examples": [
-                    "P14210"
-                ],
-                "placeholder": "Enter the UniProtKB Accession"
-            },
-            "any": {
-                "examples": [
-                    "G17689DH",
-                    "P14210",
-                    "B4GALT1",
-                    "Homo sapiens"
-                ],
-                "placeholder": "Enter the search term"
-            }
-        }
-    },
-    "advanced_search": {
-        "tabTitle": "Advanced Search",
-        "glycan_identifier": {
-            "length": 10000,
-            "errorText": "Entry is too long - max length is 10000.",
-            "typeahedID": "glytoucan_ac",
-            "placeholder": "Enter single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) Id",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "G17689DH"
-                    },
-                    "explore": {
-                        "id": "GlyTouCan Accession",
-                        "url": "https://glytoucan.org/Structures"
-                    }
-                }
-            ],
-            "subsumption": [
-                {
-                    "id": "any",
-                    "name": "Related Glycans"
-                }, 
-                {
-                    "id": "none",
-                    "name": "Exact Match"
-                }
-            ]
-        },
-        "organism": {
-            "placeholder": "Click to select one or multiple Organisms",
-            "operations": [
-                {
-                    "id": "or",
-                    "name": "Or"
-                },
-                {
-                    "id": "and",
-                    "name": "And"
-                }
-            ],
-            "annotation_category": [
-                {
-                    "id": "",
-                    "name": "Any"
-                }, 
-                {
-                    "id": "subsumption",
-                    "name": "Inferred"
-                },
-                {
-                    "id": "direct",
-                    "name": "Annotated"
-                }
-            ]
-        },
-        "glycan_type": {
-            "placeholder": "Select Glycan Type",
-            "placeholderName": "",
-            "placeholderId": ""
-        },
-        "glycan_subtype": {
-            "placeholder": "Select Glycan Subtype",
-            "placeholderName": "",
-            "placeholderId": ""
-        },
-        "protein_identifier": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "uniprot_canonical_ac",
-            "placeholder": "Enter the UniProtKB Accession of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "P14210"
-                    },
-                    "explore": {
-                        "id": "UniProtKB Accession",
-                        "url": "https://www.uniprot.org/help/accession_numbers"
-                    }
-                }
-            ]
-        },
-        "binding_protein_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "uniprot_canonical_ac",
-            "placeholder": "Enter the UniProtKB Accession of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "Q15113-1"
-                    },
-                    "explore": {
-                        "id": "UniProtKB Accession",
-                        "url": "https://www.uniprot.org/help/accession_numbers"
-                    }
-                }
-            ]
-        },
-        "glycan_motif": {
-            "length": 1000,
-            "errorText": "Entry is too long - max length is 1000.",
-            "typeahedID": "motif_name",
-            "placeholder": "Enter the name of a Glycan Motif contained in your glycan",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "Lewis x"
-                    },
-                    "explore": {
-                        "id": "Glycan Motif",
-                        "url": "https://www.uniprot.org/help/carbohyd"
-                    }
-                }
-            ]
-        },
-        "enzyme": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "enzyme",
-            "placeholder": "Enter the Gene Name or UniProtKB Accession of an enzyme",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "B4GALT1"
-                    },
-                    "explore": {
-                        "id": "Biosynthetic Enzyme",
-                        "url": "https://enzyme.expasy.org/"
-                    }
-                }
-            ]
-        },
-        "pmid": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "glycan_pmid",
-            "placeholder": "Enter the Pubmed ID",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "9449027"
-                    },
-                    "explore": {
-                        "id": "Pubmed ID",
-                        "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
-                    }
-                }
-            ]
-        }
-    },
-    "composition_search": {
-        "tabTitle": "Composition Search",
-        "contains": [
-            {
-                "id": "maybe",
-                "name": "Maybe"
-            },
-            {
-                "id": "yes",
-                "name": "Yes"
-            },
-            {
-                "id": "no",
-                "name": "No"
-            }
-        ]
-    },
-    "tutorial": {
-        "tabTitle": "Tutorial"
+  "pageTitle": "Glycan Search",
+  "simple_search": {
+    "tabTitle": "Simple Search",
+    "length": 100,
+    "errorText": "Entry is too long - max length is 100.",
+    "categories": {
+      "enzyme": {
+        "examples": [
+          "B4GALT1"
+        ],
+        "placeholder": "Enter the enzyme"
+      },
+      "Glycan_name": {
+        "examples": [
+          "HexNAc(1)Hex(3)Fuc(3)"
+        ],
+        "placeholder": "Enter the Glycan_name"
+      },
+      "glycan": {
+        "examples": [
+          "G17689DH"
+        ],
+        "placeholder": "Enter the GlyTouCan Accession"
+      },
+      "organism": {
+        "examples": [
+          "Homo sapiens"
+        ],
+        "placeholder": "Enter the organism"
+      },
+      "protein": {
+        "examples": [
+          "P14210"
+        ],
+        "placeholder": "Enter the UniProtKB Accession"
+      },
+      "any": {
+        "examples": [
+          "G17689DH",
+          "P14210",
+          "B4GALT1",
+          "Homo sapiens"
+        ],
+        "placeholder": "Enter the search term"
+      }
     }
+  },
+  "advanced_search": {
+    "tabTitle": "Advanced Search",
+    "glycan_identifier": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "glytoucan_ac",
+      "placeholder": "Enter single or multiple comma-separated GlyTouCan Accession(s) or Cross Reference(s) Id",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "G17689DH"
+          },
+          "explore": {
+            "id": "GlyTouCan Accession",
+            "url": "https://glytoucan.org/Structures"
+          }
+        }
+      ],
+      "subsumption": [
+        {
+          "id": "any",
+          "name": "Related Glycans"
+        },
+        {
+          "id": "none",
+          "name": "Exact Match"
+        }
+      ]
+    },
+    "organism": {
+      "placeholder": "Click to select one or multiple Organisms",
+      "operations": [
+        {
+          "id": "or",
+          "name": "Or"
+        },
+        {
+          "id": "and",
+          "name": "And"
+        }
+      ],
+      "annotation_category": [
+        {
+          "id": "",
+          "name": "Any"
+        },
+        {
+          "id": "subsumption",
+          "name": "Inferred"
+        },
+        {
+          "id": "direct",
+          "name": "Annotated"
+        }
+      ]
+    },
+    "glycan_type": {
+      "placeholder": "Select Glycan Type",
+      "placeholderName": "",
+      "placeholderId": ""
+    },
+    "glycan_subtype": {
+      "placeholder": "Select Glycan Subtype",
+      "placeholderName": "",
+      "placeholderId": ""
+    },
+    "protein_identifier": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter the UniProtKB Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          },
+          "explore": {
+            "id": "UniProtKB Accession",
+            "url": "https://www.uniprot.org/help/accession_numbers"
+          }
+        }
+      ]
+    },
+    "binding_protein_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter the UniProtKB Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Q15113-1"
+          },
+          "explore": {
+            "id": "UniProtKB Accession",
+            "url": "https://www.uniprot.org/help/accession_numbers"
+          }
+        }
+      ]
+    },
+    "glycan_motif": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "motif_name",
+      "placeholder": "Enter the name of a Glycan Motif contained in your glycan",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Lewis x"
+          },
+          "explore": {
+            "id": "Glycan Motif",
+            "url": "https://www.uniprot.org/help/carbohyd"
+          }
+        }
+      ]
+    },
+    "enzyme": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "enzyme",
+      "placeholder": "Enter the Gene Name or UniProtKB Accession of an enzyme",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "B4GALT1"
+          },
+          "explore": {
+            "id": "Biosynthetic Enzyme",
+            "url": "https://enzyme.expasy.org/"
+          }
+        }
+      ]
+    },
+    "glycan_name": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "glycan_name",
+      "placeholder": "Enter the Glycan Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "HexNAc(1)Hex(3)Fuc(3)"
+          },
+          "explore": {
+            "id": "Glycan Name",
+            "url": "https://enzyme.expasy.org/"
+          }
+        }
+      ]
+    },
+    "pmid": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "glycan_pmid",
+      "placeholder": "Enter the Pubmed ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "9449027"
+          },
+          "explore": {
+            "id": "Pubmed ID",
+            "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
+          }
+        }
+      ]
+    }
+  },
+  "composition_search": {
+    "tabTitle": "Composition Search",
+    "contains": [
+      {
+        "id": "maybe",
+        "name": "Maybe"
+      },
+      {
+        "id": "yes",
+        "name": "Yes"
+      },
+      {
+        "id": "no",
+        "name": "No"
+      }
+    ],
+    "template_select": {
+      "placeholder": "Select composition template",
+      "placeholderName": "",
+      "placeholderId": "",
+      "template_list": [
+        {
+          "id": "template_1",
+          "name": "N-glycan high mannose (Man9)",
+          "order": 100,
+          "template": {
+            "hex": {
+              "min": 9,
+              "max": 9,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_2",
+          "name": "N-glycan trimannosyl core (Man3)",
+          "order": 200,
+          "template": {
+            "hex": {
+              "min": 3,
+              "max": 3,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_3",
+          "name": "N-glycan asialo, galactosylated, biantennary",
+          "order": 300,
+          "template": {
+            "hex": {
+              "min": 5,
+              "max": 5,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 4,
+              "max": 4,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 1,
+              "selectValue": "maybe"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_4",
+          "name": "O-glycan core 1",
+          "order": 400,
+          "template": {
+            "hex": {
+              "min": 1,
+              "max": 1,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 1,
+              "max": 1,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_5",
+          "name": "O-glycan core 2",
+          "order": 500,
+          "template": {
+            "hex": {
+              "min": 1,
+              "max": 1,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_6",
+          "name": "O-glycan core 3",
+          "order": 600,
+          "template": {
+            "hex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_7",
+          "name": "O-glycan core 4",
+          "order": 700,
+          "template": {
+            "hex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexnac": {
+              "min": 3,
+              "max": 3,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_8",
+          "name": "O-Man Core M1",
+          "order": 800,
+          "template": {
+            "hex": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 1,
+              "max": 1,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_9",
+          "name": "O-Man Core M2",
+          "order": 900,
+          "template": {
+            "hex": {
+              "min": 3,
+              "max": 3,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        },
+        {
+          "id": "template_10",
+          "name": "O-Man Core M3",
+          "order": 1000,
+          "template": {
+            "hex": {
+              "min": 1,
+              "max": 1,
+              "selectValue": "yes"
+            },
+            "hexnac": {
+              "min": 2,
+              "max": 2,
+              "selectValue": "yes"
+            },
+            "hexn": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "dhex": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neuac": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "neugc": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "p": {
+              "min": 0,
+              "max": 1,
+              "selectValue": "maybe"
+            },
+            "s": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "other": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            }
+          }
+        }
+      ]
+    },
+    "templateDialogLabel": {
+      "title": "Load starting compositions from pre-defined templates"
+    },
+    "templateDialog": {
+      "title": "Composition Search Template"
+    }
+  },
+  "tutorial": {
+    "tabTitle": "Tutorial"
+  }
 }

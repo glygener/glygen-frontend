@@ -46,6 +46,22 @@ import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import { Alert, AlertTitle } from "@material-ui/lab";
+// import { ReactComponent as SearchIcon } from "../images/icons/search.svg";
+import CollapsableReference from "../components/CollapsableReference";
+
+const SimpleHelpTooltip = props => {
+  const { data } = props;
+  return (
+    <HelpTooltip
+      title={data.title}
+      text={data.text}
+      urlText={data.urlText}
+      url={data.url}
+      helpIcon="gg-helpicon-detail"
+    />
+  );
+};
 
 const glycanStrings = stringConstants.glycan.common;
 const proteinStrings = stringConstants.protein.common;
@@ -60,26 +76,29 @@ const items = [
     label: stringConstants.sidebar.names_synonyms.displayname,
     id: "Names"
   },
-
   { label: stringConstants.sidebar.function.displayname, id: "Function" },
+  { label: stringConstants.sidebar.sequence.displayname, id: "Sequence" },
   {
-    label: stringConstants.sidebar.glycan_ligands.displayname,
-    id: "Glycan-Ligands"
+    label: stringConstants.sidebar.snv.displayname,
+    id: "Single-Nucleotide-Variation"
   },
+  { label: stringConstants.sidebar.mutagenesis.displayname, id: "Mutagenesis" },
   {
     label: stringConstants.sidebar.go_annotation.displayname,
     id: "GO-Annotation"
+  },
+  {
+    label: stringConstants.sidebar.glycan_ligands.displayname,
+    id: "Glycan-Ligands"
   },
   {
     label: stringConstants.sidebar.ptm_annotation.displayname,
     id: "PTM-Annotation"
   },
   {
-    label: stringConstants.sidebar.snv.displayname,
-    id: "Single-Nucleotide-Variation"
+    label: stringConstants.sidebar.pro_annotation.displayname,
+    id: "Proteoform-Annotation"
   },
-  { label: stringConstants.sidebar.mutagenesis.displayname, id: "Mutagenesis" },
-  { label: stringConstants.sidebar.sequence.displayname, id: "Sequence" },
   { label: stringConstants.sidebar.pathway.displayname, id: "Pathway" },
   {
     label: stringConstants.sidebar.synthesized_glycans.displayname,
@@ -88,7 +107,6 @@ const items = [
   { label: stringConstants.sidebar.isoforms.displayname, id: "Isoforms" },
   { label: stringConstants.sidebar.homologs.displayname, id: "Homologs" },
   { label: stringConstants.sidebar.disease.displayname, id: "Disease" },
-
   {
     label: stringConstants.sidebar.expression_Tissue.displayname,
     id: "Expression-Tissue"
@@ -101,6 +119,7 @@ const items = [
     label: stringConstants.sidebar.cross_ref.displayname,
     id: "Cross-References"
   },
+  { label: stringConstants.sidebar.history.displayname, id: "History" },
   { label: stringConstants.sidebar.publication.displayname, id: "Publications" }
 ];
 
@@ -128,9 +147,9 @@ function openProtvistaPage(uniprot_canonical_ac) {
   window.open(url);
 }
 const sortByPosition = function(a, b) {
-  if (a.position < b.position) {
+  if (a.start_pos < b.start_pos) {
     return -1;
-  } else if (b.position < a.position) {
+  } else if (b.start_pos < a.start_pos) {
     return 1;
   }
   return 0;
@@ -198,6 +217,7 @@ const getItemsCrossRef = data => {
         });
       }
     }
+
     itemscrossRef.sort(function(a, b) {
       if (a.database.toLowerCase() > b.database.toLowerCase()) {
         return 1;
@@ -208,6 +228,7 @@ const getItemsCrossRef = data => {
       return 0;
     });
   }
+
   return itemscrossRef;
 };
 
@@ -219,26 +240,25 @@ const ProteinDetail = props => {
 
   const [detailData, setDetailData] = useState({});
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
+  const [nonExistent, setNonExistent] = useState(null);
   const [itemsPathway, setItemsPathway] = useState([]);
   const [showIsoformSequences, setShowIsoformSequences] = useState(false);
   const [showhomologSequences, setShowhomologSequences] = useState(false);
-  const [glycosylationTabSelected, setGlycosylationTabSelected] = useState(
-    "reported_with_glycan"
-  );
+  const [diseaseData, setDiseaseData] = useState([]);
+
   const [glycosylationPredicted, setGlycosylationPredicted] = useState([]);
-  const [glycosylationNotReported, setGlycosylationNotReported] = useState([]);
   const [glycosylationMining, setGlycosylationMining] = useState([]);
   const [glycosylationWithImage, setGlycosylationWithImage] = useState([]);
   const [glycosylationWithoutImage, setGlycosylationWithoutImage] = useState(
     []
   );
-
-  const [mutataionTabSelected, setmutataionTabSelected] = useState(
-    "with_disease"
+  const [glycosylationTabSelected, setGlycosylationTabSelected] = useState(
+    "reported_with_glycan"
   );
-  const [ptmAnnotation, setPtmAnnotation] = useState([]);
   const [mutataionWithdisease, setMutataionWithdisease] = useState([]);
   const [mutataionWithoutdisease, setMutataionWithoutdisease] = useState([]);
+  const [mutataionTabSelected, setMutataionTabSelected] = useState("");
+  const [ptmAnnotation, setPtmAnnotation] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -250,21 +270,12 @@ const ProteinDetail = props => {
     n_link_glycosylation: false,
     o_link_glycosylation: false
   });
-  const [geneNames, setGeneName] = useState([]);
+  const [geneNames, setGeneNames] = useState([]);
+  const [recommendedGeneRows, setRecommendedGeneRows] = useState([]);
+  const [synonymGeneRows, setSynonymGeneRows] = useState([]);
   const [proteinNames, setProteinNames] = useState([]);
-  const [diseaseData, setDiseaseData] = useState([]);
-  const recommendedGeneRows = geneNames
-    .map(getRecommendedRows)
-    .filter(arg => arg !== null);
-  const synonymGeneRows = geneNames
-    .map(getSynonymRows)
-    .filter(arg => arg !== null);
-  const recommendedProteinRows = proteinNames
-    .map(getRecommendedRows)
-    .filter(arg => arg !== null);
-  const synonymProteinRows = proteinNames
-    .map(getSynonymRows)
-    .filter(arg => arg !== null);
+  const [recommendedProteinRows, setRecommendedProteinRows] = useState([]);
+  const [synonymProteinRows, setSynonymProteinRows] = useState([]);
 
   useEffect(() => {
     setPageLoading(true);
@@ -287,140 +298,169 @@ const ProteinDetail = props => {
         setItemsCrossRef(getItemsCrossRef(data));
         setItemsPathway(getItemsPathway(data));
         setDetailData(data);
+
+        if (data.disease) {
+          let diseaseDataTemp = diseaseDataRearrangement();
+          setDiseaseData(diseaseDataTemp);
+          function diseaseDataRearrangement() {
+            var disease = data.disease.slice();
+            for (var i = 0; i < disease.length; i++) {
+              if (disease[i].synonyms) {
+                var synTemp = [];
+                var synonyms = disease[i].synonyms.slice();
+                for (var j = 0, k = 0; j < disease[i].synonyms.length; j++) {
+                  var temp = synonyms.filter(
+                    syn => syn.name === disease[i].synonyms[j].name
+                  );
+                  if (temp && temp.length) {
+                    synTemp[k] = {
+                      name: disease[i].synonyms[j].name,
+                      resource: temp
+                    };
+                    synonyms = synonyms.filter(
+                      syn => syn.name !== synTemp[k].name
+                    );
+                    k++;
+                  }
+                }
+                disease[i].synonyms = synTemp;
+                disease[i].synShortLen =
+                  synTemp.length > 2 ? 2 : synTemp.length;
+                disease[i].synLen = synTemp.length;
+                disease[i].synBtnDisplay = synTemp.length <= 2 ? false : true;
+                disease[i].synShowMore = true;
+              }
+            }
+            return disease;
+          }
+        }
+
+        if (data.publication) {
+          data.publication = data.publication.sort(
+            (a, b) => parseInt(b.date) - parseInt(a.date)
+          );
+        }
+
+        if (data.gene_names) {
+          let geneNamesTemp = formatNamesData(data.gene_names);
+          setGeneNames(geneNamesTemp);
+          setRecommendedGeneRows(
+            geneNamesTemp.map(getRecommendedRows).filter(arg => arg !== null)
+          );
+          setSynonymGeneRows(
+            geneNamesTemp.map(getSynonymRows).filter(arg => arg !== null)
+          );
+        }
+
+        if (data.protein_names) {
+          let proteinNamesTemp = formatNamesData(data.protein_names);
+          setProteinNames(proteinNamesTemp);
+          setRecommendedProteinRows(
+            proteinNamesTemp.map(getRecommendedRows).filter(arg => arg !== null)
+          );
+          setSynonymProteinRows(
+            proteinNamesTemp.map(getSynonymRows).filter(arg => arg !== null)
+          );
+        }
+
+        if (data.glycosylation) {
+          const mapOfGlycosylationCategories = data.glycosylation.reduce(
+            (collection, item) => {
+              const category =
+                item.site_category || logActivity("No results. ");
+
+              return {
+                ...collection,
+                [category]: [...(collection[category] || []), item]
+              };
+            },
+            {}
+          );
+
+          const withImage =
+            mapOfGlycosylationCategories.reported_with_glycan || [];
+          const withoutImage = mapOfGlycosylationCategories.reported || [];
+          const predicted = mapOfGlycosylationCategories.predicted || [];
+          const mining =
+            mapOfGlycosylationCategories.automatic_literature_mining || [];
+
+          const selectTab = [
+            "reported_with_glycan",
+            "reported",
+            "predicted",
+            "automatic_literature_mining"
+          ].find(
+            category =>
+              mapOfGlycosylationCategories[category] &&
+              mapOfGlycosylationCategories[category].length > 0
+          );
+          // debugger;
+          setGlycosylationWithImage(withImage);
+          setGlycosylationWithoutImage(withoutImage);
+          setGlycosylationPredicted(predicted);
+          setGlycosylationMining(mining);
+          setGlycosylationTabSelected(selectTab);
+        }
+
+        if (data.snv) {
+          const WithDisease = data.snv.filter(item =>
+            item.keywords.includes("disease")
+          );
+          const Withoutdisease = data.snv.filter(
+            item => !item.keywords.includes("disease")
+          );
+          setMutataionWithdisease(WithDisease);
+          setMutataionWithoutdisease(Withoutdisease);
+          setMutataionTabSelected(
+            WithDisease.length > 0 ? "with_disease" : "without_disease"
+          );
+        }
+
+        if (data.ptm_annotation) {
+          const ptmEvidence = data.ptm_annotation.filter(
+            item => item.annotation
+          );
+          setPtmAnnotation(ptmEvidence);
+        }
         setPageLoading(false);
       }
 
-      const anchorElement = props.history.location.hash;
-      if (anchorElement && document.getElementById(anchorElement.substr(1))) {
-        document
-          .getElementById(anchorElement.substr(1))
-          .scrollIntoView({ behavior: "auto" });
-      }
+      // Need to call it second time due to glycosylationWithImage and glycosylationWithoutImage table loading time.
+      setTimeout(() => {
+        const anchorElement = props.history.location.hash;
+        if (anchorElement && document.getElementById(anchorElement.substr(1))) {
+          document
+            .getElementById(anchorElement.substr(1))
+            .scrollIntoView({ behavior: "auto" });
+        }
+      }, 1000);
     });
 
     getProteinDetailData.catch(({ response }) => {
       let message = "list api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
+
+    getProteinDetailData.catch(({ response }) => {
+      if (
+        response.data &&
+        response.data.error_list &&
+        response.data.error_list.length &&
+        response.data.error_list[0].error_code &&
+        response.data.error_list[0].error_code === "non-existent-record"
+      ) {
+        // history = response.data.history;
+        setNonExistent({
+          error_code: response.data.error_list[0].error_code,
+          reason: response.data.reason
+        });
+        setPageLoading(false);
+      } else {
+        let message = "Protein Detail api call";
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      }
+    });
   }, []);
-
-  useEffect(() => {
-    if (detailData.gene_names) {
-      setGeneName(formatNamesData(detailData.gene_names));
-    }
-
-    if (detailData.protein_names) {
-      setProteinNames(formatNamesData(detailData.protein_names));
-    }
-
-    if (detailData.ptm_annotation) {
-      const ptmEvidence = detailData.ptm_annotation.filter(
-        item => item.annotation
-      );
-      setPtmAnnotation(ptmEvidence);
-    }
-
-    if (detailData.glycosylation) {
-      const mapOfGlycosylationCategories = detailData.glycosylation.reduce(
-        (collection, item) => {
-          const category = item.site_category || logActivity("No results. ");
-
-          return {
-            ...collection,
-            [category]: [...(collection[category] || []), item]
-          };
-        },
-        {}
-      );
-
-      const withImage = mapOfGlycosylationCategories.reported_with_glycan || [];
-      const withoutImage = mapOfGlycosylationCategories.reported || [];
-      const predicted = mapOfGlycosylationCategories.predicted || [];
-      const mining =
-        mapOfGlycosylationCategories.automatic_literature_mining || [];
-      // const no_reported = mapOfGlycosylationCategories.no_reported || [];
-
-      const selectTab = Object.keys(mapOfGlycosylationCategories).find(
-        category => mapOfGlycosylationCategories[category].length > 0
-      );
-
-      setGlycosylationWithImage(withImage);
-      setGlycosylationWithoutImage(withoutImage);
-      setGlycosylationPredicted(predicted);
-      setGlycosylationMining(mining);
-      // setGlycosylationNotReported(no_reported);
-      setGlycosylationTabSelected(selectTab);
-    }
-
-    if (detailData.snv) {
-      const WithDisease = detailData.snv.filter(item =>
-        item.keywords.includes("disease")
-      );
-      const Withoutdisease = detailData.snv.filter(
-        item => !item.keywords.includes("disease")
-      );
-      setMutataionWithdisease(WithDisease);
-      setMutataionWithoutdisease(Withoutdisease);
-
-      setmutataionTabSelected(
-        WithDisease.length > 0 ? "with_disease" : "without_disease"
-      );
-    }
-
-    if (detailData.disease) {
-      setDiseaseData(diseaseDataRearrangement());
-
-      function diseaseDataRearrangement() {
-        var disease = detailData.disease.slice();
-        for (var i = 0; i < disease.length; i++) {
-          if (disease[i].synonyms) {
-            var synTemp = [];
-            var synonyms = disease[i].synonyms.slice();
-            for (var j = 0, k = 0; j < disease[i].synonyms.length; j++) {
-              var temp = synonyms.filter(
-                syn => syn.name === disease[i].synonyms[j].name
-              );
-              if (temp && temp.length) {
-                synTemp[k] = {
-                  name: disease[i].synonyms[j].name,
-                  resource: temp
-                };
-                synonyms = synonyms.filter(syn => syn.name !== synTemp[k].name);
-                k++;
-              }
-            }
-
-            disease[i].synonyms = synTemp;
-            disease[i].synShortLen = synTemp.length > 2 ? 2 : synTemp.length;
-            disease[i].synLen = synTemp.length;
-            disease[i].synBtnDisplay = synTemp.length <= 2 ? false : true;
-            disease[i].synShowMore = true;
-          }
-        }
-        return disease;
-      }
-    }
-  }, [detailData]);
-
-  useEffect(() => {
-    // Need to call it second time due to glycosylationWithImage and glycosylationWithoutImage table loading time.
-    setTimeout(() => {
-      const anchorElement = props.history.location.hash;
-      if (anchorElement && document.getElementById(anchorElement.substr(1))) {
-        document
-          .getElementById(anchorElement.substr(1))
-          .scrollIntoView({ behavior: "auto" });
-      }
-    }, 1000);
-  }, [
-    detailData,
-    glycosylationWithImage,
-    glycosylationMining,
-    glycosylationPredicted,
-    glycosylationNotReported,
-    glycosylationWithoutImage,
-    props.history.location.hash
-  ]);
 
   const {
     mass,
@@ -441,16 +481,23 @@ const ProteinDetail = props => {
     sequence,
     go_annotation,
     ptm_annotation,
+    pro_annotation,
     synthesized_glycans,
     site_annotation,
     protein_names,
     keywords,
-    function: functions
+    function: functions,
+    cluster_types,
+    history
   } = detailData;
 
   const uniprotNames = (protein_names || [])
     .filter(x => x.type === "recommended")
     .map(x => x.name);
+
+  const clusterType = (cluster_types || []).filter(
+    x => x.name !== "isoformset.uniprotkb"
+  );
 
   function formatNamesData(data) {
     let items = [];
@@ -528,7 +575,7 @@ const ProteinDetail = props => {
       formatter: (cell, row) => {
         return (
           <EvidenceList
-            key={row.position + row.glytoucan_ac}
+            key={row.start_pos + row.glytoucan_ac}
             evidences={groupEvidences(cell)}
           />
         );
@@ -590,7 +637,7 @@ const ProteinDetail = props => {
       }
     },
     {
-      dataField: "position",
+      dataField: "start_pos",
       text: proteinStrings.residue.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -602,8 +649,13 @@ const ProteinDetail = props => {
       formatter: (value, row) =>
         value ? (
           <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.position}`}>
-              {row.residue} {row.position}
+            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+              {row.residue} {row.start_pos}
+              {row.start_pos !== row.end_pos && (
+                <>
+                  to {row.residue} {row.end_pos}
+                </>
+              )}
             </Link>
           </LineTooltip>
         ) : (
@@ -611,8 +663,8 @@ const ProteinDetail = props => {
         )
       // formatter: (value, row) => (
       //   <LineTooltip text="View siteview details">
-      //     <Link to={`${routeConstants.siteview}${id}/${row.position}`}>
-      //       {row.residue} {row.position}
+      //     <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+      //       {row.residue} {row.start_pos}
       //     </Link>
       //   </LineTooltip>
     }
@@ -874,16 +926,23 @@ const ProteinDetail = props => {
       formatter: (value, row) => (
         <>
           {value.map(disease => (
-            <li key={disease.recommended_name.id}>
-              {disease.recommended_name.name}{" "}
-              <span className="nowrap">
-                (DOID:{" "}
-                <a href={disease.recommended_name.url}>
-                  {disease.recommended_name.id}
-                </a>
-                )
-              </span>
-            </li>
+            <ul className="pl-3">
+              <li key={disease.recommended_name.id}>
+                {disease.recommended_name.name}{" "}
+                <span className="nowrap">
+                  (
+                  <a href={disease.recommended_name.url}>
+                    {disease.recommended_name.id}
+                  </a>
+                  ){" "}
+                  {/* <LineTooltip text="Find all proteins / glycoproteins with the same SNV Disease">
+                  <Link>
+                    <SearchIcon className="ml-3 custom-icon-blue" />
+                  </Link>
+                </LineTooltip> */}
+                </span>
+              </li>
+            </ul>
           ))}
         </>
       )
@@ -904,11 +963,8 @@ const ProteinDetail = props => {
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
-
       headerStyle: (colum, colIndex) => {
         return {
-          backgroundColor: "#4B85B6",
-          color: "white",
           width: "20%"
         };
       },
@@ -926,14 +982,7 @@ const ProteinDetail = props => {
         if (order === "asc") {
           return b - a;
         }
-
         return a - b; // desc
-      },
-      headerStyle: (colum, colIndex) => {
-        return {
-          backgroundColor: "#4B85B6",
-          color: "white"
-        };
       }
       // formatter: (value, row) => (
       //   <LineTooltip text="View siteview details">
@@ -946,13 +995,7 @@ const ProteinDetail = props => {
     {
       dataField: "end_pos",
       text: proteinStrings.endpos.name,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return {
-          backgroundColor: "#4B85B6",
-          color: "white"
-        };
-      }
+      sort: true
       // formatter: (value, row) => (
       //   <LineTooltip text="View siteview details">
       //     <Link to={`${routeConstants.siteview}${id}/${row.end_pos}`}>
@@ -961,25 +1004,19 @@ const ProteinDetail = props => {
       //   </LineTooltip>
       // )
     },
-
     {
       dataField: "sequence",
       text: stringConstants.sidebar.sequence.displayname,
       sort: true,
-      headerStyle: (colum, colIndex) => {
-        return {
-          backgroundColor: "#4B85B6",
-          color: "white"
-        };
-      },
-
       formatter: (value, row) => (
         <>
-          {row.sequence_org && <>{row.sequence_org}</>}
-          {!row.sequence_org && <span>(insertion)</span>}
+          {row.sequence_org && (
+            <span className="wrapword">{row.sequence_org}</span>
+          )}
+          {!row.sequence_org && <span> (insertion)</span>}
           {row.sequence_org && row.sequence_mut && <> → </>}
           {row.sequence_mut && <>{row.sequence_mut}</>}
-          {!row.sequence_mut && <span>(deletion)</span>}
+          {!row.sequence_mut && <span> (deletion)</span>}
         </>
       )
     },
@@ -989,8 +1026,6 @@ const ProteinDetail = props => {
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
-          backgroundColor: "#4B85B6",
-          color: "white",
           width: "35%"
         };
       }
@@ -1067,10 +1102,7 @@ const ProteinDetail = props => {
       },
       formatter: (cell, row) => {
         return (
-          <EvidenceList
-            key={row.disease.doid}
-            evidences={groupEvidences(cell)}
-          />
+          <EvidenceList key={row.disease} evidences={groupEvidences(cell)} />
         );
       }
     },
@@ -1085,23 +1117,30 @@ const ProteinDetail = props => {
           width: "16%"
         };
       },
-      formatter: (value, row) => (
-        <>
-          {value.map(disease => (
-            <li key={disease.recommended_name.id}>
-              {disease.recommended_name.name}{" "}
-              <span className="nowrap">
-                (
-                <a href={disease.recommended_name.url}>
-                  {disease.recommended_name.id}
-                </a>
-                )
-              </span>
-            </li>
-          ))}
-        </>
-      )
+
+      formatter: (value, row) =>
+        value ? (
+          <>
+            {value.map(disease => (
+              <ul className="pl-3">
+                <li key={disease.recommended_name.id}>
+                  {disease.recommended_name.name}{" "}
+                  <span className="nowrap">
+                    (
+                    <a href={disease.recommended_name.url}>
+                      {disease.recommended_name.id}
+                    </a>
+                    ){" "}
+                  </span>
+                </li>
+              </ul>
+            ))}
+          </>
+        ) : (
+          "N/A"
+        )
     },
+
     {
       dataField: "trend",
       text: proteinStrings.expression_trend.name,
@@ -1156,6 +1195,47 @@ const ProteinDetail = props => {
       }
     }
   ];
+
+  const proAnnotationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "20%"
+        };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList key={row.annotation} evidences={groupEvidences(cell)} />
+        );
+      }
+    },
+    {
+      dataField: "name",
+      text: "Proteoform/Glycoform",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white"
+        };
+      }
+    },
+    {
+      dataField: "definition",
+      text: "Description",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white"
+        };
+      }
+    }
+  ];
   // ==================================== //
   /**
    * Adding toggle collapse arrow icon to card header individualy.
@@ -1171,8 +1251,10 @@ const ProteinDetail = props => {
       names_synonyms: true,
       function: true,
       glycanLigands: true,
+      mutagenesis: true,
       go_annotation: true,
       ptm_annotation: true,
+      pro_annotation: true,
       glycosylation: true,
       sequence: true,
       pathway: true,
@@ -1184,9 +1266,14 @@ const ProteinDetail = props => {
       expression_tissue: true,
       expression_disease: true,
       crossref: true,
+      history: true,
       publication: true
     }
   );
+
+  const sortedHistory = (a, b) => {
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  };
 
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
@@ -1206,11 +1293,48 @@ const ProteinDetail = props => {
     window.open(url);
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   const showAlignmentOptions = detailData.orthologs
     ? detailData.orthologs.find(orth =>
         orth.evidence.find(evid => ["MGI", "OMA"].includes(evid.database))
       )
     : false;
+
+  if (nonExistent) {
+    return (
+      <Container className="tab-content-border2">
+        <Alert className="erroralert" severity="error">
+          <AlertTitle> {id} is no longer valid Protein Id</AlertTitle>
+          {nonExistent.reason && nonExistent.reason.length && (
+            <ul>
+              {/* {nonExistent.reason.map(item => ( */}
+              <span>
+                <li>
+                  {capitalizeFirstLetter(nonExistent.reason[0].description)}
+                </li>
+                {nonExistent.reason[1].replacement_id && (
+                  <li>
+                    <Link
+                      to={
+                        routeConstants.proteinDetail +
+                        nonExistent.reason[1].replacement_id
+                      }
+                    >
+                      {" "}
+                      {capitalizeFirstLetter(nonExistent.reason[1].description)}
+                    </Link>
+                  </li>
+                )}
+              </span>
+              {/* ))} */}
+            </ul>
+          )}
+        </Alert>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -1242,6 +1366,19 @@ const ProteinDetail = props => {
                 </Grid>
               </Row>
             </div>
+            {props.history && props.history.length > 1 && (
+              <div className="text-right gg-download-btn-width pb-3">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={() => {
+                    props.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </div>
+            )}
             <div className="gg-download-btn-width">
               <DownloadButton
                 types={[
@@ -1338,28 +1475,24 @@ const ProteinDetail = props => {
                                     {genes.name}
                                   </a>
                                 </div>
-
-                                {gene.locus && (
-                                  <div>
-                                    <strong>
-                                      {proteinStrings.gene_location.name}:
-                                    </strong>{" "}
-                                    {proteinStrings.chromosome.name}: {""}
-                                    {genes.locus
-                                      ? genes.locus.chromosome
-                                      : "NA"}{" "}
-                                    {""}(
-                                    {genes.locus
-                                      ? addCommas(genes.locus.start_pos)
-                                      : "NA"}{" "}
-                                    -{" "}
-                                    {genes.locus
-                                      ? addCommas(genes.locus.end_pos)
-                                      : "NA"}
-                                    )
-                                  </div>
-                                )}
-
+                                <div>
+                                  <strong>
+                                    {proteinStrings.gene_location.name}:
+                                  </strong>{" "}
+                                  {proteinStrings.chromosome.name}: {""}
+                                  {genes.locus
+                                    ? genes.locus.chromosome
+                                    : "NA"}{" "}
+                                  {""}(
+                                  {genes.locus
+                                    ? addCommas(genes.locus.start_pos)
+                                    : "NA"}{" "}
+                                  -{" "}
+                                  {genes.locus
+                                    ? addCommas(genes.locus.end_pos)
+                                    : "NA"}
+                                  )
+                                </div>
                                 <EvidenceList
                                   evidences={groupEvidences(
                                     genes.locus ? genes.locus.evidence : []
@@ -1423,7 +1556,12 @@ const ProteinDetail = props => {
                             <strong>
                               {proteinStrings.chemical_mass.name}:{" "}
                             </strong>
-                            {addCommas(mass.chemical_mass)} Da
+                            {addCommas(mass.chemical_mass)} Da{" "}
+                            {/* <LineTooltip text="Find all proteins / glycoproteins with the same Chemical Mass">
+                              <Link>
+                                <SearchIcon className="ml-3 custom-icon-blue" />
+                              </Link>
+                            </LineTooltip> */}
                           </div>
 
                           {refseq && (
@@ -1501,13 +1639,17 @@ const ProteinDetail = props => {
                 <Card>
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
-                      <HelpTooltip
+                      <SimpleHelpTooltip
+                        data={DetailTooltips.protein.glycosylations}
+                      />
+
+                      {/* <HelpTooltip
                         title={DetailTooltips.protein.glycosylations.title}
                         text={DetailTooltips.protein.glycosylations.text}
                         urlText={DetailTooltips.protein.glycosylations.urlText}
                         url={DetailTooltips.protein.glycosylations.url}
                         helpIcon="gg-helpicon-detail"
-                      />
+                      /> */}
                     </span>
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.glycosylation.displayname}
@@ -1544,12 +1686,14 @@ const ProteinDetail = props => {
                     <Card.Body>
                       {glycosylation && glycosylation.length && (
                         <Tabs
-                          defaultActiveKey={glycosylationTabSelected}
-                          transition={false}
                           activeKey={glycosylationTabSelected}
+                          // defaultActiveKey={glycosylationTabSelected}
+                          transition={false}
                           mountOnEnter={true}
                           unmountOnExit={true}
-                          onSelect={key => setGlycosylationTabSelected(key)}
+                          onSelect={key => {
+                            setGlycosylationTabSelected(key);
+                          }}
                         >
                           <Tab
                             eventKey="reported_with_glycan"
@@ -1569,7 +1713,8 @@ const ProteinDetail = props => {
                                     data={glycosylationWithImage}
                                     columns={glycoSylationColumns}
                                     onClickTarget={"#glycosylation"}
-                                    defaultSortField="position"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!glycosylationWithImage.length && (
@@ -1594,7 +1739,8 @@ const ProteinDetail = props => {
                                         column.dataField !== "glytoucan_ac"
                                     )}
                                     onClickTarget={"#glycosylation"}
-                                    defaultSortField="position"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!glycosylationWithoutImage.length && (
@@ -1605,7 +1751,7 @@ const ProteinDetail = props => {
                           <Tab
                             eventKey="predicted"
                             className="tab-content-padding"
-                            title="Predicted Sites"
+                            title="Predicted Only"
                             //disabled={(!glycosylationWithImage || (glycosylationWithImage.length === 0))}
                           >
                             <Container
@@ -1623,7 +1769,8 @@ const ProteinDetail = props => {
                                         column.dataField !== "glytoucan_ac"
                                     )}
                                     onClickTarget={"#glycosylation"}
-                                    defaultSortField="position"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!glycosylationPredicted.length && (
@@ -1655,7 +1802,8 @@ const ProteinDetail = props => {
                                         column.dataField !== "glytoucan_ac"
                                     )}
                                     onClickTarget={"#glycosylation"}
-                                    defaultSortField="position"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!glycosylationMining.length && (
@@ -1824,231 +1972,6 @@ const ProteinDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-              {/* Glycan Ligands */}
-              <Accordion
-                id="Glycan-Ligands"
-                defaultActiveKey="0"
-                className="panel-width"
-                style={{ padding: "20px 0" }}
-              >
-                <Card>
-                  <Card.Header className="panelHeadBgr">
-                    <span className="gg-green d-inline">
-                      <HelpTooltip
-                        title={DetailTooltips.protein.glycan_ligands.title}
-                        text={DetailTooltips.protein.glycan_ligands.text}
-                        urlText={DetailTooltips.protein.glycan_ligands.urlText}
-                        url={DetailTooltips.protein.glycan_ligands.url}
-                        helpIcon="gg-helpicon-detail"
-                      />
-                    </span>
-                    <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.glycan_ligands.displayname}
-                    </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse(
-                            "glycanLigands",
-                            collapsed.glycanLigands
-                          )
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.glycanLigands ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
-                    </div>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body>
-                      {interactions && interactions.length !== 0 && (
-                        <ClientPaginatedTable
-                          data={interactions}
-                          columns={glycanLigandsColumns}
-                          defaultSortField={"interactor_id"}
-                          onClickTarget={"#glycanLigands"}
-                        />
-                      )}
-                      {!interactions && <p>No data available.</p>}
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
-              {/*  GO annotation */}
-              <Accordion
-                id="GO-Annotation"
-                defaultActiveKey="0"
-                className="panel-width"
-                style={{ padding: "20px 0" }}
-              >
-                <Card>
-                  <Card.Header className="panelHeadBgr">
-                    <span className="gg-green d-inline">
-                      <HelpTooltip
-                        title={DetailTooltips.protein.goannotation.title}
-                        text={DetailTooltips.protein.goannotation.text}
-                        urlText={DetailTooltips.protein.goannotation.urlText}
-                        url={DetailTooltips.protein.goannotation.url}
-                        helpIcon="gg-helpicon-detail"
-                      />
-                    </span>
-                    <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.go_annotation.displayname}
-                    </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse(
-                            "go_annotation",
-                            collapsed.go_annotation
-                          )
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.go_annotation ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
-                    </div>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body style={{ paddingBottom: "0" }}>
-                      <div>
-                        {go_annotation &&
-                          go_annotation.categories &&
-                          go_annotation.categories.map(category => (
-                            <>
-                              <b>
-                                <h5
-                                  style={{
-                                    fontWeight: "700",
-                                    marginBottom: "0"
-                                  }}
-                                >
-                                  {category.name}
-                                </h5>
-                              </b>
-                              {category.go_terms &&
-                                category.go_terms.map(term => (
-                                  <Row>
-                                    <Col
-                                      sm={9}
-                                      md={9}
-                                      style={{ paddingTop: "15px" }}
-                                    >
-                                      <a
-                                        href={term.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {term.name} ({term.id})
-                                      </a>
-                                    </Col>
-                                    <Col sm={3} md={3}>
-                                      <EvidenceList
-                                        evidences={groupEvidences(
-                                          term.evidence
-                                        )}
-                                      />
-                                    </Col>
-                                  </Row>
-                                ))}
-                              <strong>
-                                <p
-                                  className="go-annotation-total"
-                                  style={{
-                                    fontWeight: "600",
-                                    paddingBottom: "10px"
-                                  }}
-                                >
-                                  Total{" "}
-                                  <a
-                                    style={{ cursor: "pointer" }}
-                                    // eslint-disable-next-line
-                                    onClick={() => {
-                                      handleOpenGOTermListPage(
-                                        uniprot &&
-                                          uniprot.uniprot_canonical_ac.split(
-                                            "-"
-                                          )[0]
-                                      );
-                                    }}
-                                    // onclick="openGOTermListPage()"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {category.total} in {category.name}
-                                  </a>{" "}
-                                  category.
-                                </p>
-                              </strong>
-                            </>
-                          ))}
-                        {!go_annotation && (
-                          <p className="no-data-msg">No data available.</p>
-                        )}
-                      </div>
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
-              {/*  PTM annotation */}
-              <Accordion
-                id="PTM-Annotation"
-                defaultActiveKey="0"
-                className="panel-width"
-                style={{ padding: "20px 0" }}
-              >
-                <Card>
-                  <Card.Header className="panelHeadBgr">
-                    <span className="gg-green d-inline">
-                      <HelpTooltip
-                        title={DetailTooltips.protein.ptmannotation.title}
-                        text={DetailTooltips.protein.ptmannotation.text}
-                        urlText={DetailTooltips.protein.ptmannotation.urlText}
-                        url={DetailTooltips.protein.ptmannotation.url}
-                        helpIcon="gg-helpicon-detail"
-                      />
-                    </span>
-                    <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.ptm_annotation.displayname}
-                    </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse(
-                            "ptm_annotation",
-                            collapsed.ptm_annotation
-                          )
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.ptm_annotation ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
-                    </div>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body>
-                      {ptm_annotation && ptm_annotation.length !== 0 && (
-                        <ClientPaginatedTable
-                          data={ptmAnnotation}
-                          columns={ptmAnnotationColumns}
-                          onClickTarget={"#ptm_annotation"}
-                          // defaultSortField={"annotation"}
-                        />
-                      )}
-                      {!ptm_annotation && <p>No data available.</p>}
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
               {/*  Sequence */}
               <Accordion
                 id="Sequence"
@@ -2162,17 +2085,16 @@ const ProteinDetail = props => {
                     <Card.Body>
                       {snv && snv.length !== 0 && (
                         <Tabs
+                          // activeKey={mutataionTabSelected}
                           defaultActiveKey={
                             mutataionWithdisease &&
                             mutataionWithdisease.length > 0
-                              ? "with_disease"
-                              : "without_disease"
+                              ? "without_disease"
+                              : "with_disease"
                           }
                           transition={false}
-                          activeKey={mutataionTabSelected}
                           mountOnEnter={true}
                           unmountOnExit={true}
-                          onSelect={key => setmutataionTabSelected(key)}
                         >
                           <Tab
                             eventKey="with_disease"
@@ -2194,6 +2116,7 @@ const ProteinDetail = props => {
                                     columns={mutationColumns}
                                     onClickTarget={"#mutation"}
                                     defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!mutataionWithdisease.length && (
@@ -2217,7 +2140,8 @@ const ProteinDetail = props => {
                                       column => column.dataField !== "disease"
                                     )}
                                     onClickTarget={"#mutation"}
-                                    defaultSortField="position"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                   />
                                 )}
                               {!mutataionWithoutdisease.length && (
@@ -2288,9 +2212,293 @@ const ProteinDetail = props => {
                           columns={mutagenesisColumns}
                           onClickTarget={"#mutagenesis"}
                           defaultSortField={"start_pos"}
+                          defaultSortOrder="asc"
                         />
                       )}
                       {!mutagenesis && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/*  GO annotation */}
+              <Accordion
+                id="GO-Annotation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.goannotation.title}
+                        text={DetailTooltips.protein.goannotation.text}
+                        urlText={DetailTooltips.protein.goannotation.urlText}
+                        url={DetailTooltips.protein.goannotation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.go_annotation.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse(
+                            "go_annotation",
+                            collapsed.go_annotation
+                          )
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.go_annotation ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body style={{ paddingBottom: "0" }}>
+                      <div>
+                        {go_annotation &&
+                          go_annotation.categories &&
+                          go_annotation.categories.map(category => (
+                            <>
+                              <b>
+                                <h5
+                                  style={{
+                                    fontWeight: "700",
+                                    marginBottom: "0"
+                                  }}
+                                >
+                                  {category.name}
+                                </h5>
+                              </b>
+                              {category.go_terms &&
+                                category.go_terms.map(term => (
+                                  <Row>
+                                    <Col
+                                      sm={9}
+                                      md={9}
+                                      style={{ paddingTop: "15px" }}
+                                    >
+                                      <a
+                                        href={term.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {term.name} ({term.id})
+                                      </a>
+                                      {/* <LineTooltip text="Find all proteins / glycoproteins with the same GO Annotation">
+                                        <Link>
+                                          <SearchIcon className="ml-3 custom-icon-blue" />
+                                        </Link>
+                                      </LineTooltip> */}
+                                    </Col>
+                                    <Col sm={3} md={3}>
+                                      <EvidenceList
+                                        evidences={groupEvidences(
+                                          term.evidence
+                                        )}
+                                      />
+                                    </Col>
+                                  </Row>
+                                ))}
+                              <strong>
+                                <p
+                                  className="go-annotation-total"
+                                  style={{
+                                    fontWeight: "600",
+                                    paddingBottom: "10px"
+                                  }}
+                                >
+                                  Total{" "}
+                                  <a
+                                    style={{ cursor: "pointer" }}
+                                    // eslint-disable-next-line
+                                    onClick={() => {
+                                      handleOpenGOTermListPage(
+                                        uniprot &&
+                                          uniprot.uniprot_canonical_ac.split(
+                                            "-"
+                                          )[0]
+                                      );
+                                    }}
+                                    // onclick="openGOTermListPage()"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {category.total} in {category.name}
+                                  </a>{" "}
+                                  category.
+                                </p>
+                              </strong>
+                            </>
+                          ))}
+                        {!go_annotation && (
+                          <p className="no-data-msg">No data available.</p>
+                        )}
+                      </div>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* Glycan Ligands */}
+              <Accordion
+                id="Glycan-Ligands"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.glycan_ligands.title}
+                        text={DetailTooltips.protein.glycan_ligands.text}
+                        urlText={DetailTooltips.protein.glycan_ligands.urlText}
+                        url={DetailTooltips.protein.glycan_ligands.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.glycan_ligands.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse(
+                            "glycanLigands",
+                            collapsed.glycanLigands
+                          )
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.glycanLigands ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {interactions && interactions.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={interactions}
+                          columns={glycanLigandsColumns}
+                          defaultSortField={"interactor_id"}
+                          onClickTarget={"#glycanLigands"}
+                        />
+                      )}
+                      {!interactions && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/*  PTM annotation */}
+              <Accordion
+                id="PTM-Annotation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.ptmannotation.title}
+                        text={DetailTooltips.protein.ptmannotation.text}
+                        urlText={DetailTooltips.protein.ptmannotation.urlText}
+                        url={DetailTooltips.protein.ptmannotation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.ptm_annotation.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse(
+                            "ptm_annotation",
+                            collapsed.ptm_annotation
+                          )
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.ptm_annotation ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {ptm_annotation && ptm_annotation.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={ptmAnnotation}
+                          columns={ptmAnnotationColumns}
+                          onClickTarget={"#ptm_annotation"}
+                          // defaultSortField={"annotation"}
+                        />
+                      )}
+                      {!ptm_annotation && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/*  Proteoform-Annotation */}
+              <Accordion
+                id="Proteoform-Annotation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.proannotation.title}
+                        text={DetailTooltips.protein.proannotation.text}
+                        urlText={DetailTooltips.protein.proannotation.urlText}
+                        url={DetailTooltips.protein.proannotation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.pro_annotation.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse(
+                            "ptm_annotation",
+                            collapsed.ptm_annotation
+                          )
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.pro_annotation ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {pro_annotation && pro_annotation.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={pro_annotation}
+                          columns={proAnnotationColumns}
+                          onClickTarget={"#pro_annotation"}
+                          // defaultSortField={"annotation"}
+                        />
+                      )}
+                      {!pro_annotation && <p>No data available.</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2353,6 +2561,11 @@ const ProteinDetail = props => {
                                         >
                                           {link.id}
                                         </a>
+                                        {/* <LineTooltip text="Find all proteins / glycoproteins with the same Pathway ID">
+                                          <Link>
+                                            <SearchIcon className="ml-3 custom-icon-blue" />
+                                          </Link>
+                                        </LineTooltip> */}
                                       </li>
                                     </Col>
                                   ))}
@@ -2493,6 +2706,7 @@ const ProteinDetail = props => {
                                   <strong>
                                     {proteinStrings.isoform_acc.name}:{" "}
                                   </strong>
+
                                   <a
                                     href={isoformsS.url}
                                     target="_blank"
@@ -2598,18 +2812,7 @@ const ProteinDetail = props => {
                         <>
                           {showAlignmentOptions && (
                             <AlignmentDropdown
-                              types={[
-                                {
-                                  display: " Homolog-oma",
-                                  type: "homologset.oma",
-                                  data: "protein_detail"
-                                },
-                                {
-                                  display: " Homolog-mgi",
-                                  type: "homologset.mgi",
-                                  data: "protein_detail"
-                                }
-                              ]}
+                              types={clusterType}
                               dataType="protein_detail"
                               dataId={id}
                             />
@@ -2658,16 +2861,22 @@ const ProteinDetail = props => {
                               >
                                 <div>
                                   <strong>UniProtKB Homolog Accession: </strong>
-
-                                  <a
-                                    href={uniprot.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                  <Link
+                                    to={
+                                      routeConstants.proteinDetail +
+                                      orthologsS.uniprot_canonical_ac
+                                    }
                                   >
                                     {orthologsS.uniprot_canonical_ac}
-                                  </a>
-
-                                  {/* </Link> */}
+                                  </Link>
+                                </div>
+                                <div>
+                                  <strong>Protein Name: </strong>
+                                  {orthologsS.protein_name}
+                                </div>
+                                <div>
+                                  <strong>Gene Name: </strong>
+                                  {orthologsS.gene_name}
                                 </div>
                                 <div>
                                   <strong>
@@ -2780,6 +2989,11 @@ const ProteinDetail = props => {
                                             {thisDisease.recommended_name.id}
                                           </a>
                                           )
+                                          {/* <LineTooltip text="Find all proteins / glycoproteins with the same Disease">
+                                            <Link>
+                                              <SearchIcon className="ml-3 custom-icon-blue" />
+                                            </Link>
+                                          </LineTooltip> */}
                                           <EvidenceList
                                             inline={true}
                                             evidences={groupEvidences(
@@ -3019,7 +3233,7 @@ const ProteinDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-              {/* crossref */}
+              {/* Cross References */}
               <Accordion
                 id="Cross-References"
                 defaultActiveKey="0"
@@ -3062,25 +3276,10 @@ const ProteinDetail = props => {
                             {/* <Row> */}
                             {itemsCrossRef.map(crossRef => (
                               <li>
-                                {/* <Col> */}
-                                <strong>{crossRef.database}:</strong>
-                                <ul style={{ marginBottom: "10px" }}>
-                                  <Row>
-                                    {crossRef.links.map(link => (
-                                      <Col xs={12} sm={4}>
-                                        <li>
-                                          <a
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {link.id}
-                                          </a>
-                                        </li>
-                                      </Col>
-                                    ))}
-                                  </Row>
-                                </ul>
+                                <CollapsableReference
+                                  database={crossRef.database}
+                                  links={crossRef.links}
+                                />
                               </li>
                             ))}
                           </ul>
@@ -3092,6 +3291,61 @@ const ProteinDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/* history */}
+              <Accordion
+                id="History"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.history.title}
+                        text={DetailTooltips.glycan.history.text}
+                        urlText={DetailTooltips.glycan.history.urlText}
+                        url={DetailTooltips.glycan.history.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.history.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        // as={Card.Header}
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse("history", collapsed.history)
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.history ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0" out={!collapsed.history}>
+                    <Card.Body>
+                      {history && history.length && (
+                        <>
+                          {history.sort(sortedHistory).map(historyItem => (
+                            <ul className="pl-3">
+                              <li>
+                                {capitalizeFirstLetter(historyItem.description)}{" "}
+                              </li>
+                            </ul>
+                          ))}
+                        </>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/* publication */}
               <Accordion
                 id="Publications"
@@ -3162,6 +3416,11 @@ const ProteinDetail = props => {
                                           >
                                             <>{ref.id}</>
                                           </a>
+                                          {/* <LineTooltip text="Find all proteins / glycoproteins with the same PMID">
+                                            <Link>
+                                              <SearchIcon className="ml-3 custom-icon-blue" />
+                                            </Link>
+                                          </LineTooltip> */}
                                         </>
                                       ))}
                                     </div>

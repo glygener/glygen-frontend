@@ -190,6 +190,15 @@
 				"url": "https://creativecommons.org/licenses/by/3.0/"
 			}
 		},
+			{
+			"databases": {
+				"name": "The O-GlcNAc database",
+				"url": "https://www.oglcnac.mcw.edu/"
+			},
+			"licenseType": {
+				"name": "-"
+			}
+		},
 		{
 			"databases": {
 				"name": "UniCarbKB",

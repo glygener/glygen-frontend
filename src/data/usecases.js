@@ -1,15 +1,21 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
-import { getJson } from "./api";
+import { getJson, postToAndGetBlob } from "./api";
 import routeConstants from "./json/routeConstants";
 import stringConstants from "./json/stringConstants";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { groupEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
+import { logActivity } from "../data/logging";
 import Nav from "react-bootstrap/Nav";
 
 const proteinStrings = stringConstants.protein.common;
+
+/**
+ * Add commas to string.
+ * @param {string} nStr - string value.
+ */
 function addCommas(nStr) {
   nStr += "";
   var x = nStr.split(".");
@@ -22,23 +28,42 @@ function addCommas(nStr) {
   }
   return x1 + x2;
 }
+
+/**
+ * Gets JSON for glycan to biosynthesis enzymes usecase.
+ * @param {string} organism - organism value.
+ * @param {string} glycanId - glycan id value.
+ */
 export const getGlycanToBiosynthesisEnzymes = (organism, glycanId) => {
   const url =
     "/usecases/glycan_to_biosynthesis_enzymes/" + organism + "/" + glycanId;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for glycan to glycoproteins usecase.
+ * @param {string} organism - organism value.
+ * @param {string} glycanId - glycan id value.
+ */
 export const getGlycanToGlycoproteins = (organism, glycanId) => {
   const url = "/usecases/glycan_to_glycoproteins/" + organism + "/" + glycanId;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for glycan to enzyme gene loci usecase.
+ * @param {string} organism - organism value.
+ * @param {string} glycanId - glycan id value.
+ */
 export const getGlycanToEnzymeGeneLoci = (organism, glycanId) => {
   const url =
     "/usecases/glycan_to_enzyme_gene_loci/" + organism + "/" + glycanId;
   return getJson(url);
 };
 
+/**
+ * Locus list page columns defination.
+ */
 export const LOCUS_COLUMNS = [
   {
     dataField: proteinStrings.shortName,
@@ -78,8 +103,14 @@ export const LOCUS_COLUMNS = [
 
     formatter: (value, row) => (
       <>
-        Chr {row.chromosome}: {addCommas(row.start_pos)} -{" "}
-        {addCommas(row.end_pos)}
+        {row.chromosome ? (
+          <>
+            Chr {row.chromosome}: {addCommas(row.start_pos)} -{" "}
+            {addCommas(row.end_pos)}
+          </>
+        ) : (
+          "N/A"
+        )}
       </>
     )
   },
@@ -109,6 +140,14 @@ export const LOCUS_COLUMNS = [
   }
 ];
 
+/**
+ * Gets JSON for gene locus list.
+ * @param {string} locusListId - list id.
+ * @param {number} offset - offset value.
+ * @param {number} limit - limit value.
+ * @param {string} sort - sort field.
+ * @param {string} order - order value - asc/desc.
+ */
 export const getGeneLocusList = (
   locusListId,
   offset = 1,
@@ -128,12 +167,35 @@ export const getGeneLocusList = (
   return getJson(url);
 };
 
+/**
+ * Downloads data for gene locus list.
+ * @param {string} id - list id.
+ * @param {string} format - download format.
+ * @param {boolean} compressed - compressed - true, false.
+ * @param {string} type - download type.
+ * @param {object} headers - headers.
+ */
+export const getLocusDownload = (id, format, compressed, type, headers) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, type, format, compressed };
+  const url = `/data/download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
+
+/**
+ * Gets JSON for disease to glycosyltransferases usecase.
+ * @param {object} formObject - formObject value.
+ */
 export const getDiseaseToGlycosyltransferases = formObject => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/usecases/disease_to_glycosyltransferases?" + json;
   return getJson(url);
 };
 
+/**
+ * Orthologs list page columns defination.
+ */
 export const ORTHOLOGS_COLUMNS = [
   {
     dataField: proteinStrings.evidence.id,
@@ -198,27 +260,52 @@ export const ORTHOLOGS_COLUMNS = [
   }
 ];
 
+/**
+ * Gets JSON for protein to orthologs usecase.
+ * @param {string} proteinId - protein id value.
+ */
 export const getProteinToOrthologs = proteinId => {
   const url = "/usecases/protein_to_orthologs/" + proteinId;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for species to glycosyltransferases usecase.
+ * @param {string} organism - organism value.
+ */
 export const getOrganismToGlycosyltransferases = organism => {
   const url = "/usecases/species_to_glycosyltransferases/" + organism;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for species to glycohydrolases usecase.
+ * @param {string} organism - organism value.
+ */
 export const getOrganismToGlycohydrolases = organism => {
   const url = "/usecases/species_to_glycohydrolases/" + organism;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for species to glycoproteins usecase.
+ * @param {string} organism - organism value.
+ * @param {string} evidenceType - evidence type value.
+ */
 export const getOrganismToGlycoproteins = (organism, evidenceType) => {
   const url =
     "/usecases/species_to_glycoproteins/" + organism + "/" + evidenceType;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for orthologs list.
+ * @param {string} orthologsListId - list id.
+ * @param {number} offset - offset value.
+ * @param {number} limit - limit value.
+ * @param {string} sort - sort field.
+ * @param {string} order - order value - asc/desc.
+ */
 export const getOrthologsList = (
   orthologsListId,
   offset = 1,
@@ -238,8 +325,37 @@ export const getOrthologsList = (
   return getJson(url);
 };
 
+/**
+ * Downloads data for ortholog list.
+ * @param {string} id - list id.
+ * @param {string} format - download format.
+ * @param {boolean} compressed - compressed - true, false.
+ * @param {string} type - download type.
+ * @param {object} headers - headers.
+ */
+export const getOrthologDownload = (id, format, compressed, type, headers) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, type, format, compressed };
+  const url = `/data/download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
+
+/**
+ * Gets JSON for biosynthesis enzyme to glycans usecase.
+ * @param {string} organism - organism value.
+ * @param {string} proteinId - protein id value.
+ */
 export const getBiosynthesisEnzymeToGlycans = (organism, proteinId) => {
   const url =
     "/usecases/biosynthesis_enzyme_to_glycans/" + organism + "/" + proteinId;
+  return getJson(url);
+};
+
+/**
+ * Gets JSON for glycan search init.
+ */
+export const getUsecaseInit = () => {
+  const url = `/usecases/search_init`;
   return getJson(url);
 };

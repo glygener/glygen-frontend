@@ -26,6 +26,7 @@ const GlycanList = props => {
 
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
+  const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(GLYCAN_COLUMNS);
   const [page, setPage] = useState(1);
@@ -79,7 +80,21 @@ const GlycanList = props => {
           setPageLoading(false);
         } else {
           setData(data.results);
-          setQuery(fixResidueToShortNames(data.query));
+          if (
+            data.cache_info.query.glycan_identifier &&
+            data.cache_info.query.glycan_identifier.glycan_id
+          ) {
+            data.cache_info.query.glycan_identifier.glycan_id_short =
+              data.cache_info.query.glycan_identifier.glycan_id.split(",")
+                .length > 9
+                ? data.cache_info.query.glycan_identifier.glycan_id
+                    .split(",")
+                    .slice(0, 9)
+                    .join(",")
+                : "";
+          }
+          setQuery(fixResidueToShortNames(data.cache_info.query));
+          setTimeStamp(data.cache_info.ts);
           setPagination(data.pagination);
           const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
@@ -111,7 +126,7 @@ const GlycanList = props => {
       // place to change values before rendering
 
       setData(data.results);
-      setQuery(fixResidueToShortNames(data.query));
+      setTimeStamp(data.cache_info.ts);
       setPagination(data.pagination);
 
       //   setSizePerPage()
@@ -125,6 +140,8 @@ const GlycanList = props => {
   const handleModifySearch = () => {
     if (searchId === "gs") {
       props.history.push(routeConstants.globalSearchResult + query.term);
+    } else if (searchId === "sups") {
+      props.history.push(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
@@ -160,6 +177,8 @@ const GlycanList = props => {
           <GlycanQuerySummary
             data={query}
             question={quickSearch[searchId]}
+            searchId={searchId}
+            timestamp={timestamp}
             onModifySearch={handleModifySearch}
           />
         </section>
@@ -188,7 +207,8 @@ const GlycanList = props => {
               sizePerPage={sizePerPage}
               totalSize={totalSize}
               onTableChange={handleTableChange}
-              defaultSortField="glytoucan_ac"
+              defaultSortField="hit_score"
+              defaultSortOrder="desc"
               idField="glytoucan_ac"
             />
           )}

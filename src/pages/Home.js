@@ -15,21 +15,33 @@ import mainImg from "../images/home/main-featured-img.png";
 import feedback from "../images/home/feedback.svg";
 import resources from "../images/home/resources.svg";
 import proteinImg from "../images/home/glycoprotein-img.svg";
+import siteSearchImg from "../images/home/protein-img.svg";
 import glycanImg from "../images/home/glycan-img.svg";
 import quickSearchImg from "../images/home/quick-search-img.svg";
+import superSearchImg from "../images/home/super-search-img.svg";
 import compositionSearchImg from "../images/home/composition-img.svg";
+import listOfMotifsImg from "../images/home/list-of-motifs-img.svg";
+import idMappingImg from "../images/home/id-mapping-img.svg";
 import gnomeBrowserImg from "../images/home/gnome-browser-img.svg";
 import apiImg from "../images/home/api-img.svg";
 import dataImg from "../images/home/data-img.svg";
 import sparqlImg from "../images/home/sparql-img.svg";
+import glygenSandBoxlImg from "../images/home/GlyGen-SandBox-img.svg";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { getSystemData } from "../data";
-import { GLYGEN_API, GLYGEN_DATA, GLYGEN_SPARQL, GNOME_BROWSER } from "../envVariables";
+import {
+  GLYGEN_API,
+  GLYGEN_DATA,
+  GLYGEN_SPARQL,
+  GNOME_BROWSER,
+  GLYGEN_SANDBOX,
+} from "../envVariables";
 import routeConstants from "../data/json/routeConstants.json";
 import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
 // import BannerHotTopic from "../components/alert/BannerHotTopic";
+import EventAlerts from "../components/alert/EventAlerts";
 
 const mainFeaturedCard = {
   title: "GlyGen: Computational and Informatics Resources for Glycoscience",
@@ -53,11 +65,34 @@ const featuredCards = [
     to: routeConstants.proteinSearch,
   },
   {
+    title: "Site Search",
+    description: "Search for proteins based on their site and site annotations.",
+    image: siteSearchImg,
+    imageText: "Site Search",
+    to: routeConstants.siteSearch,
+  },
+  {
     title: "Quick Search",
     description: "Quick Search provides multi-domain queries that are based on user requests.",
     image: quickSearchImg,
     imageText: "Quick Search",
     to: routeConstants.quickSearch,
+  },
+  {
+    title: "Super Search",
+    description:
+      "Super search is a graphical interface to build queries across all GlyGen datasets.",
+    image: superSearchImg,
+    imageText: "Super Search",
+    to: routeConstants.superSearch,
+  },
+  {
+    title: "GlyGen Mapper",
+    description:
+      "ID mapping related to glycan, protein / glycoprotein and based on the user input.",
+    image: idMappingImg,
+    imageText: "GlyGen Mapper",
+    to: routeConstants.idMapping,
   },
   {
     title: "Composition Search",
@@ -73,6 +108,13 @@ const featuredCards = [
     imageText: "GNOme Browser",
     href: GNOME_BROWSER,
     target: "_blank",
+  },
+  {
+    title: "List of Motifs",
+    description: "List of motifs includes detailed information and it's associated metadata.",
+    image: listOfMotifsImg,
+    imageText: "List of Motifs",
+    to: routeConstants.motifList,
   },
   {
     title: "Data",
@@ -101,6 +143,15 @@ const featuredCards = [
     href: GLYGEN_SPARQL,
     target: "_blank",
   },
+  {
+    title: "GlyGen Sand Box",
+    description:
+      "The GlyGen Sandbox allows detailed exploration of glycan structure and biosynthesis.",
+    image: glygenSandBoxlImg,
+    imageText: "GlyGen Sand Box",
+    href: GLYGEN_SANDBOX,
+    target: "_blank",
+  },
 ];
 const feedbackCard = {
   title: "Your Opinion Matters",
@@ -121,7 +172,7 @@ const resourcesCard = {
 };
 
 export default function Home() {
-  const [homeData, setHomeData] = useState({ statistics: [], version: [] });
+  const [homeData, setHomeData] = useState({ statistics: [], version: [], events: [] });
   const [pageLoading, setPageLoading] = React.useState(true);
 
   useEffect(() => {
@@ -146,13 +197,9 @@ export default function Home() {
       </Helmet>
 
       <CssBaseline />
-      {/* <BannerHotTopic /> */}
       <MainFeaturedCard post={mainFeaturedCard} />
-      {/* <Container maxWidth="xl">
-				<BannerHotTopic />
-			</Container> */}
       <Container maxWidth="xl" className="gg-container" style={{ width: "97%" }}>
-        {/* <BannerHotTopic /> */}
+        <EventAlerts data={homeData.events} pageLoading={pageLoading} />
         <Row className="show-grid">
           <Grid container spacing={4}>
             <Grid item xs={12} md={8} lg={9}>

@@ -1,0 +1,179 @@
+{
+  "pageTitle": "Site Search",
+
+  "site_search": {
+    "tabTitle": "Site Search",
+    "uniprot_canonical_ac": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter single or multiple comma-separated UniProtKB Accession(s)",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          },
+          "explore": {
+            "id": "UniProtKB",
+            "url": "https://www.uniprot.org/help/accession_numbers"
+          }
+        }
+      ]
+    },
+    "site": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "site",
+      "placeholder": "Enter the RefSeq Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "294"
+          },
+          "explore": {
+            "id": "Site",
+            "url": " "
+          }
+        }
+      ]
+    },
+    "amino_type": {
+      "placeholder": "Select Residue Type",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": [
+        {
+          "id": "Ala",
+          "name": "Alanine (Ale)"
+        },
+        {
+          "id": "Arg",
+          "name": "arginine (Arg)"
+        },
+        {
+          "id": "Asn",
+          "name": "asparagine (Asn)"
+        },
+        {
+          "id": "Asp",
+          "name": "aspartic (Asp)"
+        },
+        {
+          "id": "Cys",
+          "name": "cysteine (Cys)"
+        },
+        {
+          "id": "Gln",
+          "name": "glutamine (Gln)"
+        },
+        {
+          "id": "Glu",
+          "name": "glutamic (Glu)"
+        },
+        {
+          "id": "Gly",
+          "name": "glycine (Gly)"
+        },
+        {
+          "id": "His",
+          "name": "histidine (His)"
+        },
+        {
+          "id": "Ile",
+          "name": "isoleucine (Ile)"
+        },
+        {
+          "id": "Leu",
+          "name": "leucine (Leu)"
+        },
+        {
+          "id": "Lys",
+          "name": "lysine (Lys)"
+        },
+        {
+          "id": "Met",
+          "name": "methionine (Met)"
+        },
+        {
+          "id": "Phe",
+          "name": "phenylalanine (Phe)"
+        },
+        {
+          "id": "Pro",
+          "name": "proline (Pro)"
+        },
+        {
+          "id": "Ser",
+          "name": "serine (Ser)"
+        },
+        {
+          "id": "His",
+          "name": "histidine (His)"
+        },
+        {
+          "id": "Thr",
+          "name": "threonine (Thr)"
+        },
+        {
+          "id": "Trp",
+          "name": "tryptophan (Trp)"
+        },
+        {
+          "id": "Tyr",
+          "name": "tyrosine (Tyr)"
+        },
+        {
+          "id": "Val",
+          "name": "valine (Val)"
+        }
+      ]
+    },
+
+    "annotation": {
+      "placeholder": "Select Annotation Type",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": [
+        {
+          "id": "glycosylation",
+          "name": "Glycosylation"
+        },
+        {
+          "id": "snv",
+          "name": "SNV"
+        },
+        {
+          "id": "phosporylation",
+          "name": "Phosporylation"
+        },
+        {
+          "id": "mutagenesis",
+          "name": "Mutagenesis"
+        }
+      ]
+    },
+    "operator_list": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": [
+        {
+          "id": "or",
+          "name": "Or"
+        },
+        {
+          "id": "and",
+          "name": "And"
+        }
+      ]
+    }
+  },
+
+  "tutorial": {
+    "tabTitle": "Tutorial"
+  }
+}

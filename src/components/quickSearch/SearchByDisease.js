@@ -13,6 +13,9 @@ import TextAlert from "../alert/TextAlert";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
 
+/**
+ * Quick search control for disease usecases.
+ */
 const SearchByGlycan = props => {
   let quickSearch = stringConstants.quick_search;
   let searchByDisease = quickSearchData.searchByDisease;
@@ -28,6 +31,8 @@ const SearchByGlycan = props => {
             <ExpansionPanel
               id={quickSearch.question_11.id}
               defaultExpanded={props.questionId === quickSearch.question_11.id}
+              expanded={props.panelExpanded.question_11}
+              onChange={()=> props.togglePanelExpansion(quickSearch.question_11.id)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}

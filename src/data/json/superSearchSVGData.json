@@ -1,0 +1,248 @@
+{
+	"nodes": [
+        {
+			"id": "species",
+			"name": "Organism",
+			"xCord": 50,
+			"yCord": 50
+        },
+        {
+			"id": "gene",
+			"name": "Gene",
+			"xCord": 50,
+			"yCord": 250
+        },
+        {	
+			"id": "glycan",
+			"name": "Glycan",
+			"xCord": 430,
+			"yCord": 250
+        },
+        {
+			"id": "protein",
+			"name": "Protein",
+			"xCord": 430,
+			"yCord": 450
+        },
+        {
+			"id": "disease",
+			"name": "Disease",
+			"xCord": 50,
+			"yCord": 450
+		},
+		{
+			"id": "motif",
+			"name": "Motif",
+			"xCord": 430,
+			"yCord": 50
+		},
+		{
+			"id": "enzyme",
+			"name": "Enzyme",
+			"xCord": 810,
+			"yCord": 450
+		},
+		{
+			"id": "site",
+			"name": "Site",
+			"xCord": 810,
+			"yCord": 250
+		}
+	],
+	"links": [{
+			"source": "species",
+			"target": "gene",
+            "linkName": "has",
+            "xCord": 90,
+            "yCord": 144,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 90,
+            "source_yCord": 95,
+            "target_xCord": 90,
+            "target_yCord": 210
+        },
+        {
+			"source": "gene",
+			"target": "disease",
+            "linkName": "related",
+            "xCord": 90,
+            "yCord": 344,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 90,
+            "source_yCord": 295,
+            "target_xCord": 90,
+            "target_yCord": 410
+        },
+        {
+			"source": "protein",
+			"target": "glycan",
+            "linkName": "binding",
+            "xCord": 470,
+            "yCord": 325,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord":  530,
+            "source_yCord": 410,
+            "target_xCord": 470,
+            "target_yCord": 295
+		},
+        {
+			"source": "species",
+			"target": "protein",
+            "linkName": "has",
+            "xCord": 325,
+            "yCord": 240,
+            "rotate": 45,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 200,
+            "source_yCord": 115,
+            "target_xCord": 480,
+            "target_yCord": 410
+        },
+        {
+			"source": "species",
+			"target": "glycan",
+            "linkName": "has",
+            "xCord": 345,
+            "yCord": 152,
+            "rotate": 25,
+            "dasharray": 0,
+            "sourceOffset": -10,
+            "targetOffset": 10,
+            "source_xCord": 225,
+            "source_yCord": 95,
+            "target_xCord": 430,
+            "target_yCord": 205
+        },
+        {
+			"source": "disease",
+			"target": "protein",
+            "linkName": "related",
+            "xCord": 320,
+            "yCord": 435,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 260,
+            "source_yCord": 440,
+            "target_xCord": 390,
+            "target_yCord": 440
+        },
+        {
+			"source": "disease",
+			"target": "site",
+            "linkName": "related",
+            "xCord": 545,
+            "yCord": 325,
+            "rotate": -10,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 260,
+            "source_yCord": 405,
+            "target_xCord": 750,
+            "target_yCord": 275
+        },
+        {
+			"source": "gene",
+			"target": "protein",
+            "linkName": "encodes",
+            "xCord": 315,
+            "yCord": 334,
+            "rotate": 30,
+            "dasharray": 0,
+            "sourceOffset": -10,
+            "targetOffset": 10,
+            "source_xCord": 230,
+            "source_yCord": 295,
+            "target_xCord": 435,
+            "target_yCord": 410
+        },
+		{
+			"source": "glycan",
+			"target": "motif",
+            "linkName": "has",
+            "xCord": 470,
+            "yCord": 144,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 530,
+            "source_yCord": 210,
+            "target_xCord": 470,
+            "target_yCord": 95
+		},
+		{
+			"source": "glycan",
+			"target": "site",
+            "linkName": "may-have",
+            "xCord": 700,
+            "yCord": 235,
+            "rotate": 0,
+            "dasharray": 10,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 640,
+            "source_yCord": 240,
+            "target_xCord": 765,
+            "target_yCord": 240
+		},
+		{
+            "source": "enzyme",
+			"target": "glycan",
+            "linkName": "synthesizes",
+            "xCord": 760,
+            "yCord": 370,
+            "rotate": 28,
+            "dasharray": 0,
+            "sourceOffset": 10,
+            "targetOffset": -10,
+            "source_xCord": 820,
+            "source_yCord": 410,
+            "target_xCord": 610,
+            "target_yCord": 295
+        },
+        {
+			"source": "protein",
+			"target": "enzyme",
+            "linkName": "is-a",
+            "xCord": 700,
+            "yCord": 435,
+            "rotate": 0,
+            "dasharray": 0,
+            "sourceOffset": 0,
+            "targetOffset": 0,
+            "source_xCord": 640,
+            "source_yCord": 440,
+            "target_xCord": 770,
+            "target_yCord": 440
+		},
+		{
+            "source": "protein",
+			"target": "site",
+            "linkName": "has",
+            "xCord": 635,
+            "yCord": 365,
+            "rotate": -28,
+            "dasharray": 0,
+            "sourceOffset": 5,
+            "targetOffset": -5,
+            "source_xCord": 590,
+            "source_yCord": 395,
+            "target_xCord": 730,
+            "target_yCord": 315
+        }
+    ]
+  }

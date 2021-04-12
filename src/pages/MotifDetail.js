@@ -32,6 +32,7 @@ import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
+import Button from "react-bootstrap/Button";
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
@@ -72,6 +73,8 @@ const MotifDetail = (props) => {
   const [motifName, setMotifName] = useState([]);
   const [motifSynonym, setMotifSynonym] = useState([]);
   const [classification, setClassification] = useState([]);
+  const [motifKeywords, setMotifKeywords] = useState([]);
+  const [reducingEnd, setReducingEnd] = useState([]);
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(MOTIF_COLUMNS);
   const [page, setPage] = useState(1);
@@ -124,6 +127,8 @@ const MotifDetail = (props) => {
         setMotif(data.motif);
         setMotifName(data.name);
         setMotifSynonym(data.synonym);
+        setMotifKeywords(data.keywords);
+        setReducingEnd(data.reducing_end);
         // setClassification(
         //   data.classification.filter(
         //     classif =>
@@ -186,6 +191,19 @@ const MotifDetail = (props) => {
                 </Grid>
               </Row>
             </div>
+            {props.history && props.history.length > 1 && (
+              <div className="text-right gg-download-btn-width pb-3">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={() => {
+                    props.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </div>
+            )}
             <div className="gg-download-btn-width">
               <DownloadButton
                 types={[
@@ -197,6 +215,11 @@ const MotifDetail = (props) => {
                   {
                     display: stringConstants.download.motif_jsondata.displayname,
                     type: "json",
+                    data: "motif_detail",
+                  },
+                  {
+                    display: stringConstants.download.motif_csvdata.displayname,
+                    type: "csv",
                     data: "motif_detail",
                   },
                 ]}
@@ -222,7 +245,7 @@ const MotifDetail = (props) => {
               />
               {/* General */}
               <Accordion
-                id="general"
+                id="General"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -278,14 +301,38 @@ const MotifDetail = (props) => {
                             <div>
                               {motifSynonym && motifSynonym.length > 0 ? (
                                 <>
-                                  <strong>{motifStrings.motif_synonym.synonym}: </strong>
-                                  <a href={motif.url} target="_blank" rel="noopener noreferrer">
-                                    {motifSynonym}
-                                  </a>
+                                  <Row>
+                                    <Col Col md="auto" className="pr-0">
+                                      <strong>{motifStrings.motif_synonym.synonym}: </strong>
+                                    </Col>
+                                    <Col className="nowrap d-inline5 pl-1">
+                                      {motifSynonym.map((synonym) => (
+                                        // <Col className="nowrap5 d-inline5 pl-0">
+                                        <>
+                                          <span>
+                                            <a
+                                              href={motif.url}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                            >
+                                              {synonym}
+                                            </a>
+                                          </span>
+                                          {<br />}
+                                        </>
+                                      ))}
+                                    </Col>
+                                  </Row>
                                 </>
                               ) : (
-                                <>{""}</>
+                                <></>
                               )}
+                            </div>
+                            <div>
+                              <strong>{motifStrings.glytoucan_ac.name}: </strong>
+                              <a href={motif.url} target="_blank" rel="noopener noreferrer">
+                                {motif.glytoucan_ac}
+                              </a>
                             </div>
                             <div>
                               <strong>{glycanStrings.mass.shortName}: </strong>
@@ -323,6 +370,47 @@ const MotifDetail = (props) => {
                               ))}
                             </div>
                           )}
+                        <div>
+                          {motifKeywords && motifKeywords.length > 0 ? (
+                            <>
+                              <Row>
+                                <Col Col md="auto" className="pr-0">
+                                  <strong>{motifStrings.motif_keywords.name}: </strong>
+                                </Col>
+                                <Col className="nowrap d-inline5 pl-1">
+                                  {motifKeywords.map((keywords) => (
+                                    <>
+                                      <span>
+                                        <a
+                                          href={keywords.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {keywords.label}
+                                        </a>
+                                      </span>
+                                      {<br />}
+                                    </>
+                                  ))}
+                                </Col>
+                              </Row>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div>
+                          {reducingEnd && reducingEnd.length > 0 ? (
+                            <>
+                              <strong>{motifStrings.reducing_end.name}: </strong>
+                              {/* <a href={motif.url} target="_blank" rel="noopener noreferrer"> */}
+                              {reducingEnd}
+                              {/* </a> */}
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       </p>
                     </Card.Body>
                   </Accordion.Collapse>

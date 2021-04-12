@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useReducer } from "react";
 import { getProteinsiteDetail } from "../data/protein";
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -12,7 +13,9 @@ import { getTitle, getMeta } from "../utils/head";
 import { Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
-
+import { Alert, AlertTitle } from "@material-ui/lab";
+import DownloadButton from "../components/DownloadButton";
+import { Tab, Tabs, Container } from "react-bootstrap";
 import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import "../css/detail.css";
@@ -61,9 +64,9 @@ const items = [
 ];
 
 const sortByPosition = function(a, b) {
-  if (a.position < b.position) {
+  if (parseInt(a.position) < parseInt(b.position)) {
     return -1;
-  } else if (b.position < a.position) {
+  } else if (parseInt(b.position) < parseInt(a.position)) {
     return 1;
   }
   return 0;
@@ -96,7 +99,7 @@ const SequenceLocationViewer = ({
 
   const getHighlightClassname = (reducedAnnotations, position) => {
     const match = reducedAnnotations.find(
-      annotation => annotation.position === position
+      annotation => parseInt(annotation.position) === parseInt(position)
     );
 
     if (match) {
@@ -104,11 +107,7 @@ const SequenceLocationViewer = ({
         return "highlightN";
       } else if (match.type === "O") {
         return "highlightO";
-      }
-      //  else if (match.type === "L") {
-      //   return "highlightMutagenesis";
-      // }
-      else if (match.type === "M") {
+      } else if (match.type === "M") {
         return "highlightMutate";
       } else if (match.type === "G") {
         return "highlightGlycation";
@@ -123,7 +122,10 @@ const SequenceLocationViewer = ({
       const atPosition = all.find(x => x.position === current.position);
 
       if (!atPosition) {
-        result.push(current);
+        const item = { ...current, allTypes: [current.typeAnnotate] };
+        result.push(item);
+      } else if (!atPosition.allTypes.includes(current.typeAnnotate)) {
+        atPosition.allTypes.push(current.typeAnnotate);
       }
 
       return result;
@@ -132,7 +134,8 @@ const SequenceLocationViewer = ({
     setFilteredAnnotations(reducedAnnotations);
 
     const current = reducedAnnotations.find(
-      x => x.position === parseInt(position, 10)
+      x => parseInt(x.position, 10) === parseInt(position, 10)
+      //x => x.position === parseInt(position, 10)
     );
 
     setCurrentAnnotationIndex(reducedAnnotations.indexOf(current));
@@ -206,9 +209,9 @@ const SequenceLocationViewer = ({
             value={position}
             onChange={event => onSelectPosition(event.target.value)}
           >
-            {filteredAnnotations.map(annotation => (
+            {filteredAnnotations.sort(sortByPosition).map(annotation => (
               <option key={annotation.key} value={annotation.position}>
-                {annotation.key}: {annotation.typeAnnotate}....
+                {annotation.key}: {annotation.allTypes.join(", ")}
               </option>
             ))}
           </select>
@@ -263,6 +266,7 @@ const Siteview = ({ position }) => {
   const [sequence, setSequence] = useState([]);
   const [selectedPosition, setSelectedPosition] = useState(position);
   const [positionData, setPositionData] = useState([]);
+  const [nonExistent, setNonExistent] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -275,14 +279,29 @@ const Siteview = ({ position }) => {
       if (data.code) {
         let message = "Detail api call";
         logActivity("user", id, "No results. " + message);
+        setPageLoading(false);
       } else {
         setDetailData(data);
+        setPageLoading(false);
       }
     });
 
     getProteinsiteDetailData.catch(({ response }) => {
-      let message = "siteview api call";
-      axiosError(response, id, message);
+      if (
+        response.data &&
+        response.data.error_list &&
+        response.data.error_list.length &&
+        response.data.error_list[0].error_code &&
+        response.data.error_list[0].error_code === "non-existent-record"
+      ) {
+        setNonExistent({
+          error_code: response.data.error_list[0].error_code,
+          history: response.data.history
+        });
+      } else {
+        let message = "Site Detail api call";
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      }
     });
   }, [selectedPosition]);
 
@@ -295,13 +314,13 @@ const Siteview = ({ position }) => {
     if (detailData.glycosylation) {
       dataAnnotations = [
         ...dataAnnotations,
-        ...detailData.glycosylation.sort(sortByPosition).map(glycosylation => ({
-          position: glycosylation.position,
+        ...detailData.glycosylation.sort(sortByStartPos).map(glycosylation => ({
+          position: detailData.start_pos,
           type: glycosylation.type.split("-")[0],
           label: glycosylation.residue + "Glycosylation",
           glytoucan_ac: glycosylation.glytoucan_ac,
-
           evidence: glycosylation.evidence,
+          residue: glycosylation.residue,
           typeAnnotate: glycosylation.type.split("-")[0] + "-" + "Glycosylation"
         }))
       ];
@@ -317,9 +336,10 @@ const Siteview = ({ position }) => {
         ...detailData.site_annotation
           .sort(sortByStartPos)
           .map(site_annotation => ({
-            position: site_annotation.start_pos,
+            position: detailData.start_pos,
             type: site_annotation.annotation.split("-")[0].toUpperCase(),
-            typeAnnotate: "Sequon"
+            typeAnnotate: "Sequon",
+            residue: site_annotation.residue
           }))
       ];
     }
@@ -332,25 +352,26 @@ const Siteview = ({ position }) => {
       dataAnnotations = [
         ...dataAnnotations,
         ...detailData.snv.sort(sortByStartPos).map(snv => ({
-          position: snv.start_pos,
-          label: "Mutation",
+          position: detailData.start_pos,
+          label: "SNV",
           evidence: snv.evidence,
+          residue: snv.residue,
           typeAnnotate: "SNV"
         }))
       ];
     }
 
-    // if (detailData.mutagenesis) {
-    //   dataAnnotations = [
-    //     ...dataAnnotations,
-    //     ...detailData.mutagenesis.sort(sortByStartPos).map(mutagenesis => ({
-    //       position: mutagenesis.start_pos,
-    //       label: "Mutagenesis",
-    //       evidence: mutagenesis.evidence,
-    //       typeAnnotate: "Mutagenesis"
-    //     }))
-    //   ];
-    // }
+    if (detailData.mutagenesis) {
+      dataAnnotations = [
+        ...dataAnnotations,
+        ...detailData.mutagenesis.sort(sortByStartPos).map(mutagenesis => ({
+          position: mutagenesis.start_pos,
+          label: "Mutagenesis",
+          evidence: mutagenesis.evidence,
+          typeAnnotate: "Mutagenesis"
+        }))
+      ];
+    }
 
     const allDataAnnotations = dataAnnotations.map((annotation, index) => ({
       ...annotation,
@@ -377,21 +398,20 @@ const Siteview = ({ position }) => {
       const getSequenceCharacter = position =>
         detailData.sequence.sequence[position - 1];
 
-      const uniquePositions = detailData.all_sites
-        .filter(
-          siteType =>
-            !["mutagenesis", "site_annotation"].includes(siteType.type)
-        )
-        .map(siteType =>
-          siteType.site_list.map(site => ({
-            position: site.start_pos,
-            type: pickLabel(siteType.type),
-            typeAnnotate: siteType.type,
-            key: `${getSequenceCharacter(site.start_pos)}-${site.start_pos}`,
-            character: getSequenceCharacter(site.start_pos)
-          }))
-        )
-        .flat();
+      const filteredSites = detailData.all_sites.filter(
+        siteType => !["mutagenesis", "site_annotation"].includes(siteType.type)
+      );
+      const mappedFilterSites = filteredSites.map(siteType =>
+        siteType.site_list.map(site => ({
+          position: site.start_pos,
+          type: pickLabel(siteType.type),
+          typeAnnotate: siteType.type,
+
+          key: `${getSequenceCharacter(site.start_pos)}-${site.start_pos}`,
+          character: getSequenceCharacter(site.start_pos)
+        }))
+      );
+      const uniquePositions = mappedFilterSites.flat();
 
       setAnnotations(uniquePositions);
 
@@ -473,7 +493,18 @@ const Siteview = ({ position }) => {
           color: "white",
           width: "12%"
         };
-      }
+      },
+      formatter: (value, row) =>
+        value ? (
+          <LineTooltip text="View siteview details">
+            <Link to={`${routeConstants.siteview}${id}/${row.position}`}>
+              {row.residue}
+              {row.position}
+            </Link>
+          </LineTooltip>
+        ) : (
+          "Not Reported"
+        )
     },
     {
       dataField: "evidence",
@@ -556,19 +587,38 @@ const Siteview = ({ position }) => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-
-  const sortByPosition = function(a, b) {
-    if (a.position < b.position) {
-      return -1;
-    } else if (b.position < a.position) {
-      return 1;
-    }
-    return 0;
-  };
   const expandIcon = <ExpandMoreIcon fontSize="large" />;
   const closeIcon = <ExpandLessIcon fontSize="large" />;
   // ===================================== //
 
+  if (nonExistent) {
+    return (
+      <Container className="tab-content-border2">
+        <Alert className="erroralert" severity="error">
+          {nonExistent.history && nonExistent.history.length ? (
+            <>
+              <AlertTitle>
+                This Protein <b>{id} </b>Record is Nonexistent
+              </AlertTitle>
+              <ul>
+                {nonExistent.history.map(item => (
+                  <span className="recordInfo">
+                    <li>{item.description}</li>
+                  </span>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <>
+              <AlertTitle>
+                This Protein <b>{id} </b> Record is not valid
+              </AlertTitle>
+            </>
+          )}
+        </Alert>
+      </Container>
+    );
+  }
   return (
     <>
       <Row className="gg-baseline">
@@ -598,6 +648,34 @@ const Siteview = ({ position }) => {
                 </Grid>
               </Row>
             </div>
+            {position.history && position.history.length > 1 && (
+              <div className="text-right gg-download-btn-width pb-3">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={() => {
+                    position.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </div>
+            )}
+            <div className="gg-download-btn-width">
+              <DownloadButton
+                types={[
+                  {
+                    display:
+                      stringConstants.download.proteinsite_jsondata.displayname,
+                    type: "json",
+                    data: "site_detail"
+                  }
+                ]}
+                dataType="site_detail"
+                dataId={`${id}.${position}.${position}`}
+              />
+            </div>
+
             <React.Fragment>
               <Helmet>
                 {getTitle("siteView", {

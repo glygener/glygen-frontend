@@ -1,2 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+Sitemap: https://www.glygen.org/protein-human-site-map.txt
+Sitemap: https://www.glygen.org/protein-mouse-site-map.txt
+Sitemap: https://www.glygen.org/protein-rat-site-map.txt
+Sitemap: https://www.glygen.org/protein-other.txt
+Sitemap: https://www.glygen.org/glycan-site-map.txt
+Sitemap: https://www.glygen.org/motif-site-map.txt

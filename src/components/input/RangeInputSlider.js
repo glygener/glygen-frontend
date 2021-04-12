@@ -7,27 +7,50 @@ import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import '../../css/Search.css';
 
+/**
+ * Range slider input component.
+ **/
 export default function RangeInputSlider(props) {
 	
+	/**
+	 * Function to display value text.
+	 * @param {string} value input value.
+	 **/
 	function valueText(value) {
 		return `${value}`;
 	}
 
+	/**
+	 * Function to handle slider change event.	   
+	 * @param {object} event event object.
+	 * @param {string} newValue input value.
+	 **/
 	const sliderChange = (event, newValue) => {
 		props.setSliderInputValue(newValue);
 	    props.setInputValue([newValue[0].toLocaleString('en-US'), newValue[1].toLocaleString('en-US')]);
 	};
 
+	/**
+	 * Function to handle min input change event.
+	 * @param {object} event event object.
+	 **/
 	const minInputChange = (event) => {
 		var val = [event.target.value, props.inputValue[1]];
 		props.setInputValue(val);
 	};
 
+	/**
+	 * Function to handle max input change event.
+	 * @param {object} event event object.
+	 **/
 	const maxInputChange = (event) => {
 		var val = [props.inputValue[0], event.target.value];
 		props.setInputValue(val);
 	};
 
+	/**
+	 * Function to handle min input move out event.
+	 **/
 	const onMinMoveOut = () => {
 		let val = [Math.floor(props.inputValue[0].replace(/[^0-9.]/g, "")), Math.ceil(props.inputValue[1].replace(/[^0-9.]/g, ""))];
 		if (Number(val[0]) < Number(props.min)) val[0] = props.min;
@@ -40,6 +63,9 @@ export default function RangeInputSlider(props) {
 		props.setSliderInputValue(val);
 	};
 
+	/**
+	 * Function to handle max input move out event.
+	 **/
 	const onMaxMoveOut = () => {
 		let val = [Math.floor(props.inputValue[0].replace(/[^0-9.]/g, "")), Math.ceil(props.inputValue[1].replace(/[^0-9.]/g, ""))];
 		if (Number(val[1]) > Number(props.max)) val[1] = props.max;

@@ -6,6 +6,9 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import {GLYGEN_BASENAME} from "./envVariables";
 
+/**
+ * Entry path to Glygen. Renders Glygen App.
+ */
 ReactDOM.render(<Router basename={GLYGEN_BASENAME} forceRefresh={true}><App /></Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

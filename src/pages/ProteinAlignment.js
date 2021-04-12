@@ -86,6 +86,19 @@ const ProteinAlignment = () => {
   const closeIcon = <ExpandLessIcon fontSize="large" />;
   // ===================================== //
 
+  let newData = {};
+  if (data && data.sequences) {
+    newData = {
+      ...data,
+      sequences: data.sequences.map(seq => ({
+        ...seq,
+        clickThruUrl: isIsoform
+          ? `${routeConstants.proteinDetail}${id}#Isoforms`
+          : `${routeConstants.proteinDetail}${seq.id}`
+      }))
+    };
+  }
+
   return (
     <>
       <Row className="gg-baseline">
@@ -175,8 +188,8 @@ const ProteinAlignment = () => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={!collapsed.alignment}>
                     <Card.Body className="card-padding-zero">
-                      {data && data.sequences && (
-                        <Alignment alignmentData={data} perLine={perLine} />
+                      {newData && newData.sequences && (
+                        <Alignment alignmentData={newData} perLine={perLine} />
                       )}
                     </Card.Body>
                   </Accordion.Collapse>

@@ -35,11 +35,10 @@ const StoryAboutUs = (props) => {
     h2textBottom: "Our",
     h2textBottomStrongAfter: "Story",
   };
-  const horHeadOurGoal = {
-    h5VerticalText: "find out goal",
+  const shorHeadOurGoal = {
+    h5VerticalText: "discover",
     h2textTop: "Our",
-    h2textBottom: "Amazing",
-    h2textBottomStrongAfter: "Goal",
+    h2textTopStrongAfter: "Goals",
   };
   const vertHeadEffort = {
     h5VerticalText: "who we are",
@@ -47,7 +46,7 @@ const StoryAboutUs = (props) => {
     h2textBottom: "Global",
     h2textBottomStrongAfter: "Effort",
   };
-  const horHeadResource = {
+  const shorHeadResource = {
     h5VerticalText: "what we do",
     h2textTop: "GlyGen as",
     h2textBottom: "the",
@@ -119,7 +118,7 @@ const StoryAboutUs = (props) => {
       {/* Our Goal */}
       <section className="content-box-md about-section-bg">
         <Container maxWidth="lg" className="gg-container">
-          <HorizontalHeading post={horHeadOurGoal} />
+          <HorizontalHeading post={shorHeadOurGoal} />
           <Row>
             <Col xs={12} lg={4}>
               {/* Goal item 01 */}
@@ -163,7 +162,7 @@ const StoryAboutUs = (props) => {
                 An open, standardized environment for independent development and integration of
                 additional research tools by other investigators.
               </p>
-              <p>More than 15 investigators in four countries play key roles in the project.</p>
+              <p>More than 15 investigators in five countries play key roles in the project.</p>
               <p>
                 Two years of organized discussion and planning involving nearly 100 investigators.
               </p>
@@ -179,7 +178,7 @@ const StoryAboutUs = (props) => {
       {/* Resource */}
       <section className="content-box-md about-section-bg">
         <Container maxWidth="lg" className="gg-container">
-          <HorizontalHeading post={horHeadResource} />
+          <HorizontalHeading post={shorHeadResource} />
           <Row>
             <Col sm={6}>
               {/* Resource item 01 */}
@@ -252,7 +251,7 @@ const StoryAboutUs = (props) => {
                 </a>{" "}
                 under the grant{" "}
                 <a
-                  href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9391499&icde=0"
+                  href="https://reporter.nih.gov/project-details/9391499"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

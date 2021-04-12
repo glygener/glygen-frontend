@@ -237,23 +237,18 @@ const Resources = () => {
 
       <CssBaseline />
       <div id="top-heading"></div>
-      {/* <MainFeaturedCard post={mainFeaturedCard} /> */}
-      {/* <Container
-				maxWidth='lg'
-				className='gg-container'
-				style={{ backgroundColor: '#fff' }}> */}
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
-          <Sidebar items={items} offset={125} />
+          <Sidebar items={items} />
         </Col>
-        <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page sidebar-page-mb">
+        <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page sidebar-page-mb-40">
           <div id="Data">
             <VerticalHeading post={verticalHeadingData} />
             <BootstrapTable
               bootstrap4
               striped
               hover
-              wrapperClasses="table-responsive"
+              wrapperClasses="table-responsive table-height-resources"
               headerClasses={classes.tableHeader}
               keyField="id"
               data={resourcesData.dataResourcesData}
@@ -281,7 +276,7 @@ const Resources = () => {
               bootstrap4
               striped
               hover
-              wrapperClasses="table-responsive"
+              wrapperClasses="table-responsive table-height-resources"
               headerClasses={classes.tableHeader}
               keyField="id"
               data={resourcesData.toolsResourcesData}

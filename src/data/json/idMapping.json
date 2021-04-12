@@ -1,0 +1,47 @@
+{
+  "pageSubtitle": "Our Tool",
+  "pageTitle": "GlyGen",
+	"pageTitleBold": "Mapper",
+	"pageTitleIdMapResult": "ID Mapping",
+	"pageTitleIdMapResultBold": "Result",
+	"pageTitleIdMapReason": "Reason why certain entries could not be mapped",
+  "recordtype":{
+    "placeholder": "Select Molecule",
+    "placeholderName": "Any",
+		"placeholderId": "any",
+		"required": "This field is required."
+  },
+  "input_namespace": {
+    "placeholder": "Select From ID Type",
+    "placeholderName": "Any",
+		"placeholderId": "any",
+		"required": "This field is required."
+  },
+  "output_namespace": {
+    "placeholder": "Select To ID Type",
+    "placeholderName": "Any",
+		"placeholderId": "any",
+		"required": "This field is required."
+  },
+  "input_idlist": {
+    "placeholder": "Enter one or multiple IDs, separate IDs using space bar, comma or return key example: \n P14210 \n Q08048 \n P17945 \n P14210,Q08048,P17945 \n P14210 Q08048 P17945",
+    "examples": [
+      {
+        "orderID": 100,
+        "example": {
+          "name": "Example",
+          "id": "91859018, 91845230, 91845682, 439177, 1234567, 9876543"
+        }
+      }
+    ],
+    "length": 100000,
+		"errorText": "Entry is too long - max length is 100,000.",
+		"required": "This field is required."
+  },
+   "file_upload":{
+    "required": "This field is required.",
+    "upload_text": "Upload your own text file (one ID per line)",
+    "errorFileUpload": "Please select accepted file type (.txt)",
+    "acceptedFileTypeText": "Accepted File Type: .txt"
+  }
+}

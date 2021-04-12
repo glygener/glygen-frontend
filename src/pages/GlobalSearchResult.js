@@ -20,6 +20,9 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import { getGlobalSearch} from '../data/commonApi';
 import stringConstants from "../data/json/stringConstants";
 
+/**
+ * GlobalSearchResult component for showing global search result.
+ */
 const GlobalSearchResult = (props) => {
 	let { id } = useParams("");
 	let glycanGlobalSearch = stringConstants.glycan.global_search_results;
@@ -32,6 +35,9 @@ const GlobalSearchResult = (props) => {
 	);
 	const [globalSearchData, setGlobalSearchData] = useState({});
 
+	/**
+	 * useEffect for retriving data from api and showing page loading effects.
+	 */
     useEffect(() => {
 		setPageLoading(true);
 		logActivity();

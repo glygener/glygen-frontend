@@ -14,8 +14,8 @@ export const getGlycanList = (
   glycanListId,
   offset = 1,
   limit = 20,
-  sort = undefined,
-  order = "asc"
+  sort = "hit_score",
+  order = "desc"
 ) => {
   const queryParams = {
     id: glycanListId,
@@ -89,7 +89,14 @@ export const GLYCAN_COLUMNS = [
       };
     }
   },
-
+  {
+    dataField: "hit_score",
+    text: "Hit Score",
+    sort: true,
+    headerStyle: (colum, colIndex) => {
+      return { backgroundColor: "#4B85B6", color: "white" };
+    }
+  },
   {
     dataField: glycanStrings.mass.id,
     text: glycanStrings.mass.shortName,
@@ -99,33 +106,7 @@ export const GLYCAN_COLUMNS = [
     },
     selected: true
   },
-  // {
-  //   dataField: "iupac",
-  //   text: "IUPAC",
-  //   sort: true,
-  //   headerStyle: (colum, colIndex) => {
-  //     return { backgroundColor: "#4B85B6", color: "white" };
-  //   }
-  // },
-  // {
-  //   dataField: "glycoct",
-  //   text: "Glycoct",
-  //   sort: true,
-  //   headerStyle: (colum, colIndex) => {
-  //     return { backgroundColor: "#4B85B6", color: "white" };
-  //   },
-  //   formatter: (value, row, rowIdx) => {
-  //     const txt = value.replace(/\\n/g, "\n");
-  //     return (
-  //       <CustomPopover
-  //         id={rowIdx}
-  //         key={rowIdx}
-  //         displayText={txt.substring(0, 10) + " ..."}
-  //         popOverText={txt}
-  //       ></CustomPopover>
-  //     );
-  //   }
-  // },
+
   {
     dataField: "mass_pme",
     text: glycanStrings.mass_pme.shortName,
@@ -194,18 +175,29 @@ export const setUserSelectedColumns = arr => {
   localStorage.setItem(glycanColumnsStorageKey, arr);
 };
 
+/**
+ * Gets JSON for glycan search.
+ * @param {object} formObject - glycan search JSON query object.
+ */
 export const getGlycanSearch = formObject => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/glycan/search?" + json;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for glycan simple search.
+ * @param {object} formObject - glycan simple search JSON query object.
+ */
 export const getGlycanSimpleSearch = formObject => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/glycan/search_simple?" + json;
   return getJson(url);
 };
 
+/**
+ * Gets JSON for glycan search init.
+ */
 export const getGlycanInit = () => {
   const url = `/glycan/search_init`;
   return getJson(url);

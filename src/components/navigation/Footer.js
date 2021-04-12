@@ -12,6 +12,7 @@ import routeConstants from "../../data/json/routeConstants.json";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import PinterestIcon from "@material-ui/icons/Pinterest";
 import { ReactComponent as MediaWikiIcon } from "../../images/icons/mediaWikiIcon.svg";
 import {
   GLYGEN_API,
@@ -19,6 +20,9 @@ import {
   GLYGEN_DATA,
   GLYGEN_SPARQL,
   GNOME_BROWSER,
+  GLYCOMOTIF_WIKI,
+  GLYGEN_SANDBOX,
+  GLYCAN_SEQ_LOOKUP,
 } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,16 +41,9 @@ const useStyles = makeStyles((theme) => ({
   footerUnivLogo: {
     padding: "20px 10px 0 10px",
   },
-  icons: {
-    color: "#2f78b7 !important",
-    fontWeight: "600",
-    "&:hover": {
-      color: "#57affa !important",
-    },
-  },
 }));
 
-export default function Header() {
+export default function Footer() {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -64,12 +61,6 @@ export default function Header() {
               <div>
                 <Link to={routeConstants.compositionSearch}>Composition&nbsp;Search</Link>
               </div>
-
-              <div>
-                <a href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
-                  GNOme&nbsp;Browser
-                </a>
-              </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-left sitemap-item">
               <h6 className="text-uppercase">Explore</h6>
@@ -78,6 +69,12 @@ export default function Header() {
               </div>
               <div>
                 <Link to={routeConstants.proteinSearch}>Protein&nbsp;Search</Link>
+              </div>
+              <div>
+                <Link to={routeConstants.siteSearch}>Site&nbsp;Search</Link>
+              </div>
+              <div>
+                <Link to={routeConstants.superSearch}>Super&nbsp;Search</Link>
               </div>
               <div>
                 <Link to={routeConstants.motifList}>List&nbsp;of&nbsp;Motifs</Link>
@@ -98,6 +95,32 @@ export default function Header() {
               <div>
                 <a href={GLYGEN_SPARQL} target="_blank" rel="noopener noreferrer">
                   SPARQL
+                </a>
+              </div>
+            </Col>
+            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+              <h6 className="text-uppercase">Tools</h6>
+              <div>
+                <a href={GLYCAN_SEQ_LOOKUP} target="_blank" rel="noopener noreferrer">
+                  Glycan Sequence Lookup
+                </a>
+              </div>
+              <div>
+                <a href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
+                  GlycoMotif&nbsp;Wiki
+                </a>
+              </div>
+              <div>
+                <Link to={routeConstants.idMapping}>GlyGen&nbsp;Mapper</Link>
+              </div>
+              <div>
+                <a href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
+                  GlyGen&nbsp;Sand Box
+                </a>
+              </div>
+              <div>
+                <a href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
+                  Structure&nbsp;Browser
                 </a>
               </div>
             </Col>
@@ -154,7 +177,7 @@ export default function Header() {
                   href="https://twitter.com/gly_gen"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={classes.icons}
+                  className="gg-link"
                 >
                   <TwitterIcon className="mr-2" />
                 </a>
@@ -162,7 +185,7 @@ export default function Header() {
                   href="https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={classes.icons}
+                  className="gg-link"
                 >
                   <YouTubeIcon className="mr-2" />
                 </a>
@@ -170,7 +193,7 @@ export default function Header() {
                   href="https://github.com/glygener"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={classes.icons}
+                  className="gg-link"
                 >
                   <GitHubIcon className="mr-2" size="14px" />
                 </a>
@@ -180,7 +203,15 @@ export default function Header() {
                   rel="noopener noreferrer"
                   className="media-wiki-icon"
                 >
-                  <MediaWikiIcon />
+                  <MediaWikiIcon className="mr-2" />
+                </a>
+                <a
+                  href="https://www.pinterest.com/myGlyGen/glygen-portal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gg-link"
+                >
+                  <PinterestIcon />
                 </a>
               </div>
 
@@ -223,7 +254,7 @@ export default function Header() {
                   </a>
                   under the grant #{" "}
                   <a
-                    href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9391499&icde=0"
+                    href="https://reporter.nih.gov/project-details/9391499"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classes.link}

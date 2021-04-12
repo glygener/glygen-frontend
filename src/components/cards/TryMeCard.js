@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+/**
+ * Try me card component.
+ */
 export default function TryMeCard(props) {
 	let quickSearch = stringConstants.quick_search;
 
@@ -61,6 +64,9 @@ export default function TryMeCard(props) {
 		}
 	);
 
+	/**
+	 * Try me question 1 function for glycan to biosynthesis enzymes usecase.
+	 */
 	const searchQuestion1 = () => {
 		setPageLoading(true);
 		logActivity("user", "", "Performing Try Me Search");
@@ -93,6 +99,9 @@ export default function TryMeCard(props) {
 			});
 	};
 
+	/**
+	 * Try me question 2 function for glycan to glycoproteins usecase.
+	 */
 	const searchQuestion2 = () => {
 		setPageLoading(true);
 		logActivity("user", "", "Performing Try Me Search");
@@ -125,6 +134,9 @@ export default function TryMeCard(props) {
 			});
 	};
 
+	/**
+	 * Try me question 3 function for biosynthesis enzyme to glycans usecase.
+	 */
 	const searchQuestion3 = () => {
 		setPageLoading(true);
 		logActivity("user", "", "Performing Try Me Search");
@@ -156,7 +168,10 @@ export default function TryMeCard(props) {
 				axiosError(error, "", message, setPageLoading, setAlertDialogInput);
 			});
 	};
-
+	
+	/**
+	 * useEffect for setting alert text.
+	 */
 	useEffect(() => {
 		document.addEventListener("click", () => {
 			setAlertText({ question: "", input: { show: false, id: "" } });

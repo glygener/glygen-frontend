@@ -1,342 +1,435 @@
 {
-    "pageTitle": "Protein Search",
-    "simple_search": {
-        "tabTitle": "Simple Search",
-        "length": 100,
-        "errorText":"Entry is too long - max length is 100.",
-        "categories": {
-            "disease": {
-                "examples": [
-                    "Deafness"
-                ],
-                "placeholder": "Enter the disease"
-            },
-            "pathway": {
-                "examples": [
-                    "hsa:3082"
-                ],
-                "placeholder": "Enter the pathway"
-            },
-            "glycan": {
-                "examples": [
-                    "G17689DH"
-                ],
-                "placeholder": "Enter the GlyTouCan Accession"
-            },
-            "organism": {
-                "examples": [
-                    "Homo sapiens"
-                ],
-                "placeholder": "Enter the organism"
-            },
-            "protein": {
-                "examples": [
-                    "P14210"
-                ],
-                "placeholder": "Enter the UniProtKB Accession"
-            },
-            "any": {
-                "examples": [
-                    "P14210",
-                    "G17689DH",
-                    "hsa:3082",
-                    "Homo sapiens",
-                    "Deafness"
-                ],
-                "placeholder": "Enter the search term"
-            }
-        }
-    },
-    "advanced_search": {
-        "tabTitle": "Advanced Search",
-        "uniprot_canonical_ac": {
-            "length": 10000,
-            "errorText": "Entry is too long - max length is 10000.",
-            "typeahedID": "uniprot_canonical_ac",
-            "placeholder": "Enter single or multiple comma-separated UniProtKB Accession(s)",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "P14210"
-                    },
-                    "explore": {
-                        "id": "UniProtKB",
-                        "url": "https://www.uniprot.org/help/accession_numbers"
-                    }
-                }
-            ]
-        },
-        "refseq_ac": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "refseq_ac",
-            "placeholder": "Enter the RefSeq Accession of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "NP_000592.3"
-                    },
-                    "explore": {
-                        "id": "RefSeq",
-                        "url": "https://www.ncbi.nlm.nih.gov/refseq/"
-                    }
-                }
-            ]
-        },
-        "organism": {
-            "placeholder": "Select Organism",
-            "placeholderName": "All",
-            "placeholderId": "0"
-        },
-        "protein_name": {
-            "length": 1000,
-            "errorText": "Entry is too long - max length is 1000.",
-            "typeahedID": "protein_name",
-            "placeholder": "Enter the Protein Name",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "Hepatocyte growth factor"
-                    },
-                    "explore": {
-                        "id": "Protein Name",
-                        "url": "https://www.uniprot.org/help/protein_names"
-                    }
-                }
-            ]
-        },
-        "gene_name": {
-            "length": 1000,
-            "errorText": "Entry is too long - max length is 1000.",
-            "typeahedID": "gene_name",
-            "placeholder": "Enter the Gene Name",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "HGF"
-                    },
-                    "explore": {
-                        "id": "Gene Name",
-                        "url": "https://www.ncbi.nlm.nih.gov/gene"
-                    }
-                }
-            ]
-        },
-        "go_term": {
-            "length": 1000,
-            "errorText": "Entry is too long - max length is 1000.",
-            "typeahedID": "go_term",
-            "placeholder": "Enter the GO Name of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "mitochondrion"
-                    },
-                    "explore": {
-                        "id": "GO Name",
-                        "url": "http://geneontology.org/docs/ontology/"
-                    }
-                }
-            ]
-        },
-        "go_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "go_id",
-            "placeholder": "Enter the GO ID of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "GO:0005739"
-                    },
-                    "explore": {
-                        "id": "GO ID",
-                        "url": "http://geneontology.org/docs/ontology/"
-                    }
-                }
-            ]
-        },
-        "attached_glycan_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "glytoucan_ac",
-            "placeholder": "Enter the GlyTouCan Accession",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "G17689DH"
-                    },
-                    "explore": {
-                        "id": "GlyTouCan Accession",
-                        "url": "https://glytoucan.org/Structures"
-                    }
-                }
-            ]
-        },
-        "binding_glycan_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "glytoucan_ac",
-            "placeholder": "Enter the GlyTouCan Accession",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "G19059PI"
-                    },
-                    "explore": {
-                        "id": "GlyTouCan Accession",
-                        "url": "https://glytoucan.org/Structures"
-                    }
-                }
-            ]
-        },
-        "aa_list": {
-            "placeholder": "Click to select one or multiple Amino Acids",
-            "operations": [
-                {
-                    "id": "or",
-                    "name": "Or"
-                },
-                {
-                    "id": "and",
-                    "name": "And"
-                }
-            ]
-        },
-        "sequence": {
-            "length": 2500,
-            "errorText": "Entry is too long - max length is 2500.",
-            "placeholder": "Enter a Protein or Peptide Sequence",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "MWVTKLLPA"
-                    },
-                    "explore": {
-                        "id": "Peptide Sequence",
-                        "url": "https://www.uniprot.org/help/sequences"
-                    }
-                }
-            ]
-        },
-        "pathway_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "pathway_id",
-            "placeholder": "Enter a KEGG Pathway or Reactome ID",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "hsa:3082"
-                    },
-                    "explore": {
-                        "id": "KEGG Pathway",
-                        "url": "https://www.genome.jp/kegg/pathway.html"
-                    }
-                },
-                {
-                    "orderID": 200,
-                    "example": {
-                        "name": "Example",
-                        "id": "R-HSA-114608"
-                    },
-                    "explore": {
-                        "id": "Reactome",
-                        "url": "https://reactome.org/"
-                    }
-                }
-            ]
-        },
-        "pmid": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "protein_pmid",
-            "placeholder": "Enter the Pubmed ID",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "30964610"
-                    },
-                    "explore": {
-                        "id": "Pubmed ID",
-                        "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
-                    }
-                }
-            ]
-        },
-        "glycosylation_evidence": {
-            "placeholder": "Select Glycosylation Evidence Type",
-            "placeholderId": "",
-            "placeholderName": "",
-            "menu": [
-                {
-                    "id": "both",
-                    "name": "Both"
-                },
-                {
-                    "id": "reported",
-                    "name": "Reported"
-                },
-                {
-                    "id": "predicted",
-                    "name": "Predicted"
-                }
-            ]
-        },
-        "disease_name": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "disease_name",
-            "placeholder": "Enter the Disease Name of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "Deafness"
-                    }
-                }
-            ]
-        },
-        "disease_id": {
-            "length": 100,
-            "errorText": "Entry is too long - max length is 100.",
-            "typeahedID": "disease_id",
-            "placeholder": "Enter the Disease ID of your protein",
-            "examples": [
-                {
-                    "orderID": 100,
-                    "example": {
-                        "name": "Example",
-                        "id": "DOID:1324"
-                    }
-                }
-            ]
-        }
-    },
-    "tutorial": {
-        "tabTitle": "Tutorial"
+  "pageTitle": "Protein Search",
+  "simple_search": {
+    "tabTitle": "Simple Search",
+    "length": 100,
+    "errorText": "Entry is too long - max length is 100.",
+    "categories": {
+      "disease": {
+        "examples": ["Deafness"],
+        "placeholder": "Enter the disease"
+      },
+      "gene": {
+        "examples": ["HGF"],
+        "placeholder": "Enter the gene"
+      },
+      "pathway": {
+        "examples": ["hsa:3082"],
+        "placeholder": "Enter the pathway"
+      },
+      "glycan": {
+        "examples": ["G17689DH"],
+        "placeholder": "Enter the GlyTouCan Accession"
+      },
+      "organism": {
+        "examples": ["Homo sapiens"],
+        "placeholder": "Enter the organism"
+      },
+      "protein": {
+        "examples": ["P14210"],
+        "placeholder": "Enter the UniProtKB Accession"
+      },
+      "any": {
+        "examples": [
+          "P14210",
+          "G17689DH",
+          "hsa:3082",
+          "Homo sapiens",
+          "Deafness",
+          "HGF"
+        ],
+        "placeholder": "Enter the search term"
+      }
     }
+  },
+  "site_search": {
+    "tabTitle": "Advanced Search",
+    "uniprot_canonical_ac": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter single or multiple comma-separated UniProtKB Accession(s)",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          },
+          "explore": {
+            "id": "UniProtKB",
+            "url": "https://www.uniprot.org/help/accession_numbers"
+          }
+        }
+      ]
+    },
+    "site": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "site",
+      "placeholder": "Enter the RefSeq Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "294"
+          },
+          "explore": {
+            "id": "Site",
+            "url": " "
+          }
+        }
+      ]
+    },
+    "annotation": {
+      "placeholder": "Select Annotation Type",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": [
+        {
+          "id": "glycosylation",
+          "name": "Glycosylation"
+        },
+        {
+          "id": "snv",
+          "name": "SNV"
+        },
+        {
+          "id": "phosporylation",
+          "name": "Phosporylation"
+        }
+      ]
+    },
+    "operator_list": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "or",
+          "name": "Or"
+        },
+        {
+          "id": "and",
+          "name": "And"
+        }
+      ]
+    }
+  },
+  "advanced_search": {
+    "tabTitle": "Advanced Search",
+    "cluster_type": {
+      "placeholder": " Select"
+    },
+
+    "uniprot_canonical_ac": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter single or multiple comma-separated UniProtKB Accession(s)",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          },
+          "explore": {
+            "id": "UniProtKB",
+            "url": "https://www.uniprot.org/help/accession_numbers"
+          }
+        }
+      ]
+    },
+    "refseq_ac": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "refseq_ac",
+      "placeholder": "Enter the RefSeq Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "NP_000592.3"
+          },
+          "explore": {
+            "id": "RefSeq",
+            "url": "https://www.ncbi.nlm.nih.gov/refseq/"
+          }
+        }
+      ]
+    },
+    "organism": {
+      "placeholder": "Select Organism",
+      "placeholderName": "All",
+      "placeholderId": "0"
+    },
+    "protein_name": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "protein_name",
+      "placeholder": "Enter the Protein Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Hepatocyte growth factor"
+          },
+          "explore": {
+            "id": "Protein Name",
+            "url": "https://www.uniprot.org/help/protein_names"
+          }
+        }
+      ]
+    },
+    "gene_name": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "gene_name",
+      "placeholder": "Enter the Gene Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "HGF"
+          },
+          "explore": {
+            "id": "Gene Name",
+            "url": "https://www.ncbi.nlm.nih.gov/gene"
+          }
+        }
+      ]
+    },
+    "go_term": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "go_term",
+      "placeholder": "Enter the GO Name of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "mitochondrion"
+          },
+          "explore": {
+            "id": "GO Name",
+            "url": "http://geneontology.org/docs/ontology/"
+          }
+        }
+      ]
+    },
+    "go_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "go_id",
+      "placeholder": "Enter the GO ID of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "GO:0005739"
+          },
+          "explore": {
+            "id": "GO ID",
+            "url": "http://geneontology.org/docs/ontology/"
+          }
+        }
+      ]
+    },
+    "attached_glycan_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "glytoucan_ac",
+      "placeholder": "Enter the GlyTouCan Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "G17689DH"
+          },
+          "explore": {
+            "id": "GlyTouCan Accession",
+            "url": "https://glytoucan.org/Structures"
+          }
+        }
+      ]
+    },
+    "binding_glycan_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "glytoucan_ac",
+      "placeholder": "Enter the GlyTouCan Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "G19059PI"
+          },
+          "explore": {
+            "id": "GlyTouCan Accession",
+            "url": "https://glytoucan.org/Structures"
+          }
+        }
+      ]
+    },
+    "aa_list": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "or",
+          "name": "Or"
+        },
+        {
+          "id": "and",
+          "name": "And"
+        }
+      ]
+    },
+
+    "aa_listforsite": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "$or",
+          "name": "Or"
+        },
+        {
+          "id": "$and",
+          "name": "And"
+        }
+      ]
+    },
+
+    "sequence": {
+      "length": 2500,
+      "errorText": "Entry is too long - max length is 2500.",
+      "placeholder": "Enter a Protein or Peptide Sequence",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "MWVTKLLPA"
+          },
+          "explore": {
+            "id": "Peptide Sequence",
+            "url": "https://www.uniprot.org/help/sequences"
+          }
+        }
+      ]
+    },
+    "pathway_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "pathway_id",
+      "placeholder": "Enter a KEGG Pathway or Reactome ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "hsa:3082"
+          },
+          "explore": {
+            "id": "KEGG Pathway",
+            "url": "https://www.genome.jp/kegg/pathway.html"
+          }
+        },
+        {
+          "orderID": 200,
+          "example": {
+            "name": "Example",
+            "id": "R-HSA-114608"
+          },
+          "explore": {
+            "id": "Reactome",
+            "url": "https://reactome.org/"
+          }
+        }
+      ]
+    },
+    "pmid": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "protein_pmid",
+      "placeholder": "Enter the Pubmed ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "30964610"
+          },
+          "explore": {
+            "id": "Pubmed ID",
+            "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
+          }
+        }
+      ]
+    },
+    "glycosylation_evidence": {
+      "placeholder": "Select Glycosylation Evidence Type",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": [
+        {
+          "id": "both",
+          "name": "Both"
+        },
+        {
+          "id": "reported",
+          "name": "Reported"
+        },
+        {
+          "id": "predicted",
+          "name": "Predicted"
+        }
+      ]
+    },
+    "glycosylation_type": {
+      "placeholder": "Select Glycosylation Type",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": []
+    },
+    "disease_name": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "disease_name",
+      "placeholder": "Enter the Disease Name of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Deafness"
+          }
+        }
+      ]
+    },
+    "disease_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "disease_id",
+      "placeholder": "Enter the Disease ID of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "DOID:1324"
+          }
+        }
+      ]
+    }
+  },
+  "tutorial": {
+    "tabTitle": "Tutorial"
+  }
 }

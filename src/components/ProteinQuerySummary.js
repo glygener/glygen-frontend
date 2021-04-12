@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { getProteinInit } from "../data/protein";
+import "../css/detail.css";
 
 function getDateTime() {
   var now = new Date();
@@ -40,14 +41,16 @@ const ProteinQuerySummary = props => {
   const title = "Protein Search Summary";
   let quickSearch = stringConstants.quick_search;
 
-  const { data, onModifySearch } = props;
+  const { data, onModifySearch, timestamp, searchId } = props;
   const proteinStrings = stringConstants.protein.common;
+  const superSearchStrings = stringConstants.super_search.common;
+
   const {
     uniprot_canonical_ac,
+    uniprot_canonical_ac_short,
     refseq_ac,
     go_id,
     mass,
-    mass_type,
     go_term,
     organism,
     gene_name,
@@ -56,25 +59,26 @@ const ProteinQuerySummary = props => {
     sequence,
     glycosylated_aa,
     glycosylation_evidence,
+    glycosylation_type,
     pmid,
     term,
     term_category,
     disease_name,
     disease_id,
     attached_glycan_id,
-    binding_glycan_id,
+    binding_glycan_id
   } = data;
 
-  const executionTime = data.execution_time
-    ? getDateTime(data.execution_time)
-    : "";
+  const executionTime = timestamp ? getDateTime(timestamp) : "";
 
-  function formatProtein() {
-    const ProteinAc = data.uniprot_canonical_ac;
-    return ProteinAc.split(",").join(", ");
+  function formatProtein(proteinAc) {
+    return proteinAc.split(",").join(", ");
   }
 
   const [aminoAcidLookup, setAminoAcidLookup] = useState({});
+  const [uniprotCanonicalACShowMore, setUniprotCanonicalACShowMore] = useState(
+    true
+  );
 
   useEffect(() => {
     getProteinInit().then(data => {
@@ -109,7 +113,7 @@ const ProteinQuerySummary = props => {
         <Card.Body>
           <Card.Title>
             <p>
-              <strong>Performed on: {executionTime} (EST)</strong>
+              <strong>Performed on: {executionTime}</strong>
             </p>
           </Card.Title>
           <Card.Text>
@@ -147,15 +151,50 @@ const ProteinQuerySummary = props => {
 
             {/*  Protein typeahead */}
             {!props.question && uniprot_canonical_ac && (
-              <Row className="summary-table-col" sm={12}>
-                <Col align="right" xs={6} sm={6} md={6} lg={6}>
-                  {proteinStrings.uniprot_canonical_ac.name}:
-                </Col>
-                <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {formatProtein(uniprot_canonical_ac)}
-                </Col>
-              </Row>
+              <>
+                <Row className="summary-table-col" sm={12}>
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {proteinStrings.uniprot_canonical_ac.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {formatProtein(
+                      uniprotCanonicalACShowMore &&
+                        uniprot_canonical_ac_short === ""
+                        ? uniprot_canonical_ac
+                        : uniprotCanonicalACShowMore
+                        ? uniprot_canonical_ac_short
+                        : uniprot_canonical_ac
+                    )}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col align="right" xs={12} sm={12} md={12} lg={12}>
+                    {uniprot_canonical_ac_short &&
+                      uniprot_canonical_ac_short !== "" && (
+                        <Button
+                          style={{
+                            marginLeft: "20px",
+                            marginTop: "5px"
+                          }}
+                          className={"lnk-btn"}
+                          variant="link"
+                          onClick={() => {
+                            setUniprotCanonicalACShowMore(
+                              !uniprotCanonicalACShowMore
+                            );
+                          }}
+                        >
+                          {uniprotCanonicalACShowMore
+                            ? "Show More..."
+                            : "Show Less..."}
+                        </Button>
+                      )}
+                  </Col>
+                </Row>
+              </>
             )}
+
+            {searchId && searchId === "sups" && <>{superSearchStrings.query}</>}
 
             {mass && mass.min && (
               <Row className="summary-table-col">
@@ -163,7 +202,7 @@ const ProteinQuerySummary = props => {
                   {proteinStrings.mass.name}:
                 </Col>
                 <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                  {mass.min}&#8209;{mass.max}&nbsp;Da&nbsp;({mass_type})
+                  {mass.min}&#8209;{mass.max}&nbsp;Da&nbsp;
                 </Col>
               </Row>
             )}
@@ -194,8 +233,25 @@ const ProteinQuerySummary = props => {
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
                   {proteinStrings.glycosylation_evidence.name}:
                 </Col>
-                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                <Col
+                  xs={6}
+                  sm={6}
+                  md={6}
+                  lg={6}
+                  className="evidencetype"
+                  align="left"
+                >
                   {glycosylation_evidence}
+                </Col>
+              </Row>
+            )}
+            {glycosylation_type && (
+              <Row className="summary-table-col">
+                <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                  {proteinStrings.glycosylation_type.name}:
+                </Col>
+                <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                  {glycosylation_type}
                 </Col>
               </Row>
             )}
@@ -275,7 +331,7 @@ const ProteinQuerySummary = props => {
                 </Col>
               </Row>
             )}
-            
+
             {go_id && (
               <Row className="summary-table-col">
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
@@ -319,7 +375,7 @@ const ProteinQuerySummary = props => {
                 </Col>
               </Row>
             )}
-             {disease_name && (
+            {disease_name && (
               <Row className="summary-table-col">
                 <Col align="right" xs={6} sm={6} md={6} lg={6}>
                   {proteinStrings.disease_name.name}:

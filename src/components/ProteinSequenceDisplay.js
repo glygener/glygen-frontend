@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
-
 import SequenceDisplay from "./SequenceDisplay";
-
 import "../css/proteinsequence.css";
 
 /**
@@ -34,6 +32,7 @@ function getMutationHighlightData(mutationData) {
  */
 function getSequonHighlightData(sequonData) {
   var result = [];
+
   var positions = {};
 
   for (var x = 0; x < sequonData.length; x++) {
@@ -136,7 +135,7 @@ const ProteinSequenceDisplay = ({
   glycosylation,
   mutation,
   siteAnnotation,
-  selectedHighlights, 
+  selectedHighlights,
   setSelectedHighlights
 }) => {
   const [nLinkGlycan, setNLinkGlycan] = useState([]);
@@ -145,30 +144,40 @@ const ProteinSequenceDisplay = ({
   const [siteAnnotationHighlights, setSiteAnnotationHighlights] = useState([]);
   const [sequenceData, setSequenceData] = useState([]);
 
+  //const hasStartPos = item => typeof item.start_pos === "undefined";
+  //const hasStartPos = item => item.start_pos === "undefined";
+
   useEffect(() => {
     if (glycosylation) {
+      const tempGlycosylation = glycosylation.filter(
+        item => item.start_pos !== undefined
+      );
+
       //distinct
       const distinctGlycanPositions = (value, index, self) => {
         const findPosition = self.find(
-          item => item.position === value.position
+          item => item.start_pos === value.start_pos
         );
         return self.indexOf(findPosition) === index;
       };
-      const nLink = glycosylation
+      const nLink = tempGlycosylation
         .filter(item => item.type === "N-linked")
+        //.filter(hasStartPos)
         .filter(distinctGlycanPositions)
         .map(item => ({
-          start: item.position,
+          start: item.start_pos,
           length: 1
         }));
-      const oLink = glycosylation
+      const oLink = tempGlycosylation
         .filter(item => item.type === "O-linked")
+        //.filter(hasStartPos)
         .filter(distinctGlycanPositions)
         .map(item => ({
-          start: item.position,
+          start: item.start_pos,
           length: 1
         }));
 
+      // debugger;
       setNLinkGlycan(nLink);
       setOLinkGlycan(oLink);
     }
@@ -273,7 +282,7 @@ const ProteinSequenceDisplay = ({
               count={mutationHighlights.length}
               selectedHighlights={selectedHighlights}
               type="mutation"
-              label="Mutations"
+              label="Variation from mutation"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
             />

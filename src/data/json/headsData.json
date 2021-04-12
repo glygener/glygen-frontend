@@ -1,432 +1,498 @@
 {
-	"home": {
-		"title": "GlyGen Home | Informatics Resources for Glycoscience | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "GlyGen is a database and dissemination project for carbohydrate and glycoconjugate related data."
-			},
-			{
-				"name": "keywords",
-				"content": "glycan search, glycoprotein, glycosyltransferase, glycan, glycosylation, data integration, carbohydrate, database, glycoinformatics, glycobiology, glycan draw, glycan mass, glycan structure, glycoconjugate, data standardization, database integration."
-			}
-		]
-	},
-	"resources": {
-		"title": "Resources | Glycoinformatics | Glycomics | Glycoproteomics | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "List of glycoinformatics, glycomics, and glycoproteomics resources useful for researchers. Resources include data resources, carbohydrate tools, organizations."
-			},
-			{
-				"name": "keywords",
-				"content": "data resources, tools, organizations, learn glycobiology, database, knowledgebase, repository, glycobiology 101, glycobiology 501, tool collection, video, e-book, glycomics, glycoproteomics."
-			}
-		]
-	},
-	"howToCite": {
-		"title": "How To Cite | Publications and Citations | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "How to cite GlyGen paper. MLA GlyGen Website Citation. GlyGen papers. Glycobiology journal."
-			},
-			{
-				"name": "keywords",
-				"content": "publications, citations, how to cite, GlyGen citation, GlyGen paper citation, MLA GlyGen citation, author, glycobiology, journal."
-			}
-		]
-	},
-	"about": {
-		"title": "About GlyGen | Mission | Vision | Team | Resource | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "GlyGen is an international project funded by the NIH to facilitate glycoscience research by retrieving, integrating and harmonizing diverse kinds of information."
-			},
-			{
-				"name": "keywords",
-				"content": "Mission, people, story, goal, effort, resource, funding, team, principal investigators, advocates, key collaborators, co-investigators, development, data integration, array database partners, data management team, web developers."
-			}
-		]
-	},
-	"contactUs": {
-		"title": "Contact Us | Get In Touch | Send Message | Share Data | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "We always welcome questions, comments, and suggestions regarding our website and the information we provide in general."
-			},
-			{
-				"name": "keywords",
-				"content": "Email, address, location, map, get in touch, send message, UGA Athens Georgia, GW Washington DC, university, technical issue, need help, request, new quick search."
-			}
-		]
-	},
-	"disclaimer": {
-		"title": "Disclaimer | No Warranties | Limitations of Liability | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "GlyGen disclaimer provides a set of statements that specify or delimit the scope of rights and obligations."
-			},
-			{
-				"name": "keywords",
-				"content": "Disclaimer, warranty, limitations of liability, external links, reasonableness, agreement."
-			}
-		]
-	},
-	"feedback": {
-		"title": "Feedback | Your Opinion Matters | Leave Us Your Feedback | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Leave feedback and help us improve our website. We are committed to providing world-class service to you and your frank feedback is a very important part of it."
-			},
-			{
-				"name": "keywords",
-				"content": "Feedback, critique, satisfaction, service, questions, answers."
-			}
-		]
-	},
-	"frameworks": {
-		"title": "Frameworks | Programming Libraries and Frameworks | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Programming libraries and frameworks used to develop GlyGen. React.js, HTML5, CSS3, Axios, Bootstrap, Python, ProtVista, d3.js, JavaScript, React.js, Mustache."
-			},
-			{
-				"name": "keywords",
-				"content": "Programming languages, Web Design, Web Development, Responsive website, libraries, frameworks."
-			}
-		]
-	},
-	"globalSearchResult": {
-		"title": "Global Search | Glycans | Proteins | Glycoproteins | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Search the entire GlyGen database for the specified term."
-			},
-			{
-				"name": "keywords",
-				"content": "Database, global search, glycans, proteins, glycoproteins."
-			}
-		]
-	},
-	"license": {
-		"title": "License | Creative Commons | GNU General Public License | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Creative Commons license to all our database sets. The source code of the project is released under GNU General Public License v3."
-			},
-			{
-				"name": "keywords",
-				"content": "Databases, license, license type, Creative Commons, General Public License, free to copy, GlyGen GitHub repository, source code, data, accessibility."
-			}
-		]
-	},
-	"media": {
-		"title": "GlyGen Media | Presentations | Brochures | Posters | Logo | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "GlyGen media include presentations, posters, brochures, power points presentations, one-page brochures, tri-fold brochures, letter templates, and logos."
-			},
-			{
-				"name": "keywords",
-				"content": "Power points, presentations, posters, brochures, logos, one page brochure, tri-fold, template, letter template."
-			}
-		]
-	},
-	"privacyPolicy": {
-		"title": "Privacy Policy | Discloses | Data Privacy Statement | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "This privacy notice discloses the privacy practices for GlyGen data and websites. Information collection, use, and sharing, user activities logging, and links."
-			},
-			{
-				"name": "keywords",
-				"content": "Privacy policy, discloses, data privacy statement, privacy practices, information collection, data use, data sharing, user activities, logging, links."
-			}
-		]
-	},
-	"privacySettings": {
-		"title": "GlyGen Privacy Settings | User Settings | Manage Settings | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Privacy settings allow you to improve your searches by allowing GlyGen to monitor your interaction with our system."
-			},
-			{
-				"name": "keywords",
-				"content": "Manage settings, customization, privacy settings, user settings, GlyGen settings, monitor, enable, disable, allow, improve."
-			}
-		]
-	},
+  "home": {
+    "title": "GlyGen Home | Informatics Resources for Glycoscience | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "GlyGen is a database and dissemination project for carbohydrate and glycoconjugate related data."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan search, glycoprotein, glycosyltransferase, glycan, glycosylation, data integration, carbohydrate, database, glycoinformatics, glycobiology, glycan draw, glycan mass, glycan structure, glycoconjugate, data standardization, database integration."
+      }
+    ]
+  },
+  "resources": {
+    "title": "Resources | Glycoinformatics | Glycomics | Glycoproteomics | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "List of glycoinformatics, glycomics, and glycoproteomics resources useful for researchers. Resources include data resources, carbohydrate tools, organizations."
+      },
+      {
+        "name": "keywords",
+        "content": "data resources, tools, organizations, learn glycobiology, database, knowledgebase, repository, glycobiology 101, glycobiology 501, tool collection, video, e-book, glycomics, glycoproteomics."
+      }
+    ]
+  },
+  "howToCite": {
+    "title": "How To Cite | Publications and Citations | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "How to cite GlyGen paper. MLA GlyGen Website Citation. GlyGen papers. Glycobiology journal."
+      },
+      {
+        "name": "keywords",
+        "content": "publications, citations, how to cite, GlyGen citation, GlyGen paper citation, MLA GlyGen citation, author, glycobiology, journal."
+      }
+    ]
+  },
+  "about": {
+    "title": "About GlyGen | Mission | Vision | Team | Resource | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "GlyGen is an international project funded by the NIH to facilitate glycoscience research by retrieving, integrating and harmonizing diverse kinds of information."
+      },
+      {
+        "name": "keywords",
+        "content": "Mission, people, story, goal, effort, resource, funding, team, principal investigators, advocates, key collaborators, co-investigators, development, data integration, array database partners, data management team, web developers."
+      }
+    ]
+  },
+  "contactUs": {
+    "title": "Contact Us | Get In Touch | Send Message | Share Data | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "We always welcome questions, comments, and suggestions regarding our website and the information we provide in general."
+      },
+      {
+        "name": "keywords",
+        "content": "Email, address, location, map, get in touch, send message, UGA Athens Georgia, GW Washington DC, university, technical issue, need help, request, new quick search."
+      }
+    ]
+  },
+  "disclaimer": {
+    "title": "Disclaimer | No Warranties | Limitations of Liability | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "GlyGen disclaimer provides a set of statements that specify or delimit the scope of rights and obligations."
+      },
+      {
+        "name": "keywords",
+        "content": "Disclaimer, warranty, limitations of liability, external links, reasonableness, agreement."
+      }
+    ]
+  },
+  "feedback": {
+    "title": "Feedback | Your Opinion Matters | Leave Us Your Feedback | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Leave feedback and help us improve our website. We are committed to providing world-class service to you and your frank feedback is a very important part of it."
+      },
+      {
+        "name": "keywords",
+        "content": "Feedback, critique, satisfaction, service, questions, answers."
+      }
+    ]
+  },
+  "frameworks": {
+    "title": "Frameworks | Programming Libraries and Frameworks | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Programming libraries and frameworks used to develop GlyGen. React.js, HTML5, CSS3, Axios, Bootstrap, Python, ProtVista, d3.js, JavaScript, React.js, Mustache."
+      },
+      {
+        "name": "keywords",
+        "content": "Programming languages, Web Design, Web Development, Responsive website, libraries, frameworks."
+      }
+    ]
+  },
+  "globalSearchResult": {
+    "title": "Global Search | Glycans | Proteins | Glycoproteins | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search the entire GlyGen database for the specified term."
+      },
+      {
+        "name": "keywords",
+        "content": "Database, global search, glycans, proteins, glycoproteins."
+      }
+    ]
+  },
+  "license": {
+    "title": "License | Creative Commons | GNU General Public License | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Creative Commons license to all our database sets. The source code of the project is released under GNU General Public License v3."
+      },
+      {
+        "name": "keywords",
+        "content": "Databases, license, license type, Creative Commons, General Public License, free to copy, GlyGen GitHub repository, source code, data, accessibility."
+      }
+    ]
+  },
+  "media": {
+    "title": "GlyGen Media | Presentations | Brochures | Posters | Logo | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "GlyGen media include presentations, posters, brochures, power points presentations, one-page brochures, tri-fold brochures, letter templates, and logos."
+      },
+      {
+        "name": "keywords",
+        "content": "Power points, presentations, posters, brochures, logos, one page brochure, tri-fold, template, letter template."
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy | Discloses | Data Privacy Statement | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "This privacy notice discloses the privacy practices for GlyGen data and websites. Information collection, use, and sharing, user activities logging, and links."
+      },
+      {
+        "name": "keywords",
+        "content": "Privacy policy, discloses, data privacy statement, privacy practices, information collection, data use, data sharing, user activities, logging, links."
+      }
+    ]
+  },
+  "privacySettings": {
+    "title": "GlyGen Privacy Settings | User Settings | Manage Settings | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Privacy settings allow you to improve your searches by allowing GlyGen to monitor your interaction with our system."
+      },
+      {
+        "name": "keywords",
+        "content": "Manage settings, customization, privacy settings, user settings, GlyGen settings, monitor, enable, disable, allow, improve."
+      }
+    ]
+  },
 
-	"glycanList": {
-		"title": "Glycan List | Summary of Your Glycan Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Results of a glycan structure search - a list of glycans conforming to the query parameters. Select the GlyTouCan Accession from the list."
-			},
-			{
-				"name": "keywords",
-				"content": "glycan, structure, collection, GlyTouCan Accession, Image of Glycan Structure, Monoisotopic Mass (Da), Monoisotopic Mass-pMe (Da), Number of Sugars, How Many Glycoproteins, How Many Enzymes."
-			}
-		]
-	},
-	"glycanSearch": {
-		"title": "Glycan Search | Search for Glycan Structures | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Search for glycan structures based on their GlyTouCan accession, monoisotopic mass, sugars, organism, glycan type, glycosylated protein, motif, or enzyme."
-			},
-			{
-				"name": "keywords",
-				"content": "glycan, glycan search, monoisotopic mass, GlyTouCan accession, number of sugars, organism, glycan type, glycosylated protein, glycan motif, biosynthetic enzyme."
-			}
-		]
-	},
-	"glycanDetail": {
-		"title": "Glycan Details | Details for #glytoucan_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Detailed information about selected glycan and its associated metadata."
-			},
-			{
-				"name": "keywords",
-				"content": "glycan, structure, meta data, general, organism, motif, found glycoproteins, cross references, biosynthetic enzymes, digital sequence, publications, homo sapiens, mus musculus, rattus norvegicus."
-			}
-		]
-	},
-	"motifList": {
-		"title": "Motif List | List of Motifs | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "List of motifs available in GlyGen. Each motif includes detailed information and it's associated metadata."
-			},
-			{
-				"name": "keywords",
-				"content": "glycan, motif ID, motif accession, Image of Glycan Structure, motif name, Number of Glycans, GlyTouCan accession, motif synonyms, pmid list."
-			}
-		]
-	},
-	"motifDetail": {
-		"title": "Motif Details | Details for #glytoucan_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Motif detailed information about selected glycan and it associated metadata. List of glycans containing this motif."
-			},
-			{
-				"name": "keywords",
-				"content": "Glycan, structure, metadata, image, GlyTouCan accession, motif."
-			}
-		]
-	},
-	"proteinSearch": {
-		"title": "Protein Search | Search for Protein Structures | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Search for protein structures based on their UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein."
-			},
-			{
-				"name": "keywords",
-				"content": "protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID."
-			}
-		]
-	},
-	"proteinList": {
-		"title": "Protein List | Summary of Your Protein Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Results of a protein structure search - a list of proteins conforming to the query parameters. Select the UniProtKB Accession from the list."
-			},
-			{
-				"name": "keywords",
-				"content": "Protein, UniProtKB Accession, Gene Name, UniProtKB Name, Chemical Mass (Da), Organism, RefSeq Name, RefSeq Accession."
-			}
-		]
-	},
-	"proteinAlignment": {
-		"title": "Protein Alignment | Alignment for protein #uniprot_canonical_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Alignment information about selected protein and its associated metadata."
-			},
-			{
-				"name": "keywords",
-				"content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
-			}
-		]
-	},
-	"proteinDetail": {
-		"title": "Protein Details | Details for #uniprot_canonical_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Detailed information about selected protein and its associated metadata."
-			},
-			{
-				"name": "keywords",
-				"content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
-			}
-		]
-	},
-	"quickSearch": {
-		"title": "Quick Search | by Glycan | by Protein | by Organism | by Disease",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
-			},
-			{
-				"name": "keywords",
-				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
-			}
-		]
-	},
-	"quickProteinList": {
-		"title": "Quick Protein List | Results of Your Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
-			},
-			{
-				"name": "keywords",
-				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, human, Homo sapiens, Mus musculus, Rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, predicted N-glycosylation site, synthesized, enzyme, orthologs."
-			}
-		]
-	},
-	"quickGlycanList": {
-		"title": "Quick Glycan List | Results of Your Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Results of a glycan structure search - a list of glycans conforming to the query parameters. Select the GlyTouCan Accession from the list."
-			},
-			{
-				"name": "keywords",
-				"content": "Glycan, structure, collection, GlyTouCan Accession, Image of Glycan Structure, Monoisotopic Mass (Da), Monoisotopic Mass-pMe (Da), Number of Sugars, How Many Glycoproteins, How Many Enzymes."
-			}
-		]
-	},
-	"orthologsList": {
-		"title": "Orthologs List | Results of an Orthologs Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "A list of orthologs conforming to the query parameters. What are the orthologs of UniProt canonical accession in different organism?"
-			},
-			{
-				"name": "keywords",
-				"content": "Orthologs, uniprot canonical accession, query."
-			}
-		]
-	},
-	"locusList": {
-		"title": "Locus List | Results of a Gene Search | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "What are the gene locations of the enzymes involved in the biosynthesis of your GlyTouCan accession in humans?"
-			},
-			{
-				"name": "keywords",
-				"content": "Gene, locus, locations, enzymes, involved, biosynthesis, glytoucan accession, human, gene mapping, UniProtKB Accession, human, gene mapping, UniProtKB Accession, Gene Name, Gene location, Protein Name, Organism, Tax Id."
-			}
-		]
-	},
-	"siteView": {
-		"title": "Site View | Siteview for protein #uniprot_canonical_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "A site view of your protein includes general information, sequence view, and site annotation."
-			},
-			{
-				"name": "keywords",
-				"content": "Site view, sequence view, site annotation, general information."
-			}
-		]
-	},
-	"protvista": {
-		"title": "GlyGen ProtVista | ProtVista view for protein #uniprot_canonical_ac | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "ProtVista/Nightingale is a library of re-usable data visualization web."
-			},
-			{
-				"name": "keywords",
-				"content": "Mutation, sequon, O-Glycosite, N-Glycosite, protein."
-			}
-		]
-	},
-	"homologAlignment": {
-		"title": "Homolog Alignment | Summary | Similar Position| Algorithm | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "The homolog alignment summary includes the date, algorithm, similar position, cluster-ID, identity, and identity position."
-			},
-			{
-				"name": "keywords",
-				"content": "Homolog, homolog alignment, summary, date, algorithm, similar position, cluster ID, identity, identity position."
-			}
-		]
-	},
-	"isoformAlignment": {
-		"title": "Isoform Alignment | Summary | Similar Position| Algorithm | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "The Isoform alignment summary includes the date, algorithm, similar position, cluster ID, identity, and identity position."
-			},
-			{
-				"name": "keywords",
-				"content": "Isoform, isoform alignment, summary, date, algorithm, similar position, cluster ID, identity, identity position."
-			}
-		]
-	},
-	"tryMe": {
-		"title": "Try Me | Perform searches using prepared queries | glygen.org",
-		"meta": [
-			{
-				"name": "description",
-				"content": "Perform searches using prepared queries to provide answers to complex biological questions with minimal user input."
-			},
-			{
-				"name": "keywords",
-				"content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
-			}
-		]
-	},
-	"newPage": {
-		"title": "",
-		"meta": [
-			{
-				"name": "description",
-				"content": ""
-			},
-			{
-				"name": "keywords",
-				"content": ""
-			}
-		]
-	}
+  "glycanList": {
+    "title": "Glycan List | Summary of Your Glycan Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a glycan structure search - a list of glycans conforming to the query parameters. Select the GlyTouCan Accession from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan, structure, collection, GlyTouCan Accession, Image of Glycan Structure, Monoisotopic Mass (Da), Monoisotopic Mass-pMe (Da), Number of Sugars, How Many Glycoproteins, How Many Enzymes."
+      }
+    ]
+  },
+  "glycanSearch": {
+    "title": "Glycan Search | Search for Glycan Structures | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for glycan structures based on their GlyTouCan accession, monoisotopic mass, sugars, organism, glycan type, glycosylated protein, motif, or enzyme."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan, glycan search, monoisotopic mass, GlyTouCan accession, number of sugars, organism, glycan type, glycosylated protein, glycan motif, biosynthetic enzyme."
+      }
+    ]
+  },
+  "glycanDetail": {
+    "title": "Glycan Details | Details for #glytoucan_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Detailed information about selected glycan and its associated metadata."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan, structure, meta data, general, organism, motif, found glycoproteins, cross references, biosynthetic enzymes, digital sequence, publications, homo sapiens, mus musculus, rattus norvegicus."
+      }
+    ]
+  },
+  "motifList": {
+    "title": "Motif List | List of Motifs | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "List of motifs available in GlyGen. Each motif includes detailed information and it's associated metadata."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan, motif ID, motif accession, Image of Glycan Structure, motif name, Number of Glycans, GlyTouCan accession, motif synonyms, pmid list."
+      }
+    ]
+  },
+  "motifDetail": {
+    "title": "Motif Details | Details for #glytoucan_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Motif detailed information about selected glycan and it associated metadata. List of glycans containing this motif."
+      },
+      {
+        "name": "keywords",
+        "content": "Glycan, structure, metadata, image, GlyTouCan accession, motif."
+      }
+    ]
+  },
+  "proteinSearch": {
+    "title": "Protein Search | Search for Protein Structures | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for protein structures based on their UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein."
+      },
+      {
+        "name": "keywords",
+        "content": "protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID."
+      }
+    ]
+  },
+  "proteinList": {
+    "title": "Protein List | Summary of Your Protein Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a protein structure search - a list of proteins conforming to the query parameters. Select the UniProtKB Accession from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "Protein, UniProtKB Accession, Gene Name, UniProtKB Name, Chemical Mass (Da), Organism, RefSeq Name, RefSeq Accession."
+      }
+    ]
+  },
+
+  "siteList": {
+    "title": "Site List | Summary of Your Site Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a protein structure search - a list of proteins conforming to the query parameters. Select the UniProtKB Accession from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "Protein, UniProtKB Accession, Gene Name, UniProtKB Name, Chemical Mass (Da), Organism, RefSeq Name, RefSeq Accession."
+      }
+    ]
+  },
+  "proteinAlignment": {
+    "title": "Protein Alignment | Alignment for protein #uniprot_canonical_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Alignment information about selected protein and its associated metadata."
+      },
+      {
+        "name": "keywords",
+        "content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
+      }
+    ]
+  },
+  "proteinDetail": {
+    "title": "Protein Details | Details for #uniprot_canonical_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Detailed information about selected protein and its associated metadata."
+      },
+      {
+        "name": "keywords",
+        "content": "Protein, general, Organism, Function, GO Annotation, Glycosylation, Sequence, Cross References, Pathway, Isoforms, Orthologs, Disease, Mutation, Expression Tissue, Expression Disease, Publications, Homo sapiens, Mus musculus, Rattus norvegicus."
+      }
+    ]
+  },
+  "quickSearch": {
+    "title": "Quick Search | by Glycan | by Protein | by Organism | by Disease",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
+      },
+      {
+        "name": "keywords",
+        "content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
+      }
+    ]
+  },
+  "quickProteinList": {
+    "title": "Quick Protein List | Results of Your Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for glycans, proteins, organism or disease using queries prepared to provide answers to complex biological questions with minimal user input."
+      },
+      {
+        "name": "keywords",
+        "content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, human, Homo sapiens, Mus musculus, Rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, predicted N-glycosylation site, synthesized, enzyme, orthologs."
+      }
+    ]
+  },
+  "quickGlycanList": {
+    "title": "Quick Glycan List | Results of Your Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a glycan structure search - a list of glycans conforming to the query parameters. Select the GlyTouCan Accession from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "Glycan, structure, collection, GlyTouCan Accession, Image of Glycan Structure, Monoisotopic Mass (Da), Monoisotopic Mass-pMe (Da), Number of Sugars, How Many Glycoproteins, How Many Enzymes."
+      }
+    ]
+  },
+  "orthologsList": {
+    "title": "Orthologs List | Results of an Orthologs Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "A list of orthologs conforming to the query parameters. What are the orthologs of UniProt canonical accession in different organism?"
+      },
+      {
+        "name": "keywords",
+        "content": "Orthologs, uniprot canonical accession, query."
+      }
+    ]
+  },
+  "locusList": {
+    "title": "Locus List | Results of a Gene Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "What are the gene locations of the enzymes involved in the biosynthesis of your GlyTouCan accession in humans?"
+      },
+      {
+        "name": "keywords",
+        "content": "Gene, locus, locations, enzymes, involved, biosynthesis, glytoucan accession, human, gene mapping, UniProtKB Accession, human, gene mapping, UniProtKB Accession, Gene Name, Gene location, Protein Name, Organism, Tax Id."
+      }
+    ]
+  },
+  "proteinSiteSearch": {
+    "title": "Protein Site Search | Search for Protein Site | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for Protein Site Search based on their UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein."
+      },
+      {
+        "name": "keywords",
+        "content": "protein, Protein Site Search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID."
+      }
+    ]
+  },
+  "siteView": {
+    "title": "Site View | Siteview for protein #uniprot_canonical_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "A site view of your protein includes general information, sequence view, and site annotation."
+      },
+      {
+        "name": "keywords",
+        "content": "Site view, sequence view, site annotation, general information."
+      }
+    ]
+  },
+  "protvista": {
+    "title": "GlyGen ProtVista | ProtVista view for protein #uniprot_canonical_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "ProtVista/Nightingale is a library of re-usable data visualization web."
+      },
+      {
+        "name": "keywords",
+        "content": "Mutation, sequon, O-Glycosite, N-Glycosite, protein."
+      }
+    ]
+  },
+  "homologAlignment": {
+    "title": "Homolog Alignment | Summary | Similar Position| Algorithm | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "The homolog alignment summary includes the date, algorithm, similar position, cluster-ID, identity, and identity position."
+      },
+      {
+        "name": "keywords",
+        "content": "Homolog, homolog alignment, summary, date, algorithm, similar position, cluster ID, identity, identity position."
+      }
+    ]
+  },
+  "isoformAlignment": {
+    "title": "Isoform Alignment | Summary | Similar Position| Algorithm | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "The Isoform alignment summary includes the date, algorithm, similar position, cluster ID, identity, and identity position."
+      },
+      {
+        "name": "keywords",
+        "content": "Isoform, isoform alignment, summary, date, algorithm, similar position, cluster ID, identity, identity position."
+      }
+    ]
+  },
+  "tryMe": {
+    "title": "Try Me | Perform searches using prepared queries | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Perform searches using prepared queries to provide answers to complex biological questions with minimal user input."
+      },
+      {
+        "name": "keywords",
+        "content": "Search by glycan, by protein, by organism, by disease, glycosylhydrolases, glycosyltransferases, glycoprotein search, homo sapiens, mus musculus, rattus norvegicus, reported, predicted, glycosylated proteins, N-glycosylation, sequons, synthesized, enzyme, orthologs."
+      }
+    ]
+  },
+  "idMapping": {
+    "title": "ID Mapping | Mapping IDs by Glycan or Protein/Glycoprotein | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Mapping by Glycan or Protein/Glycoprotein. Users select the step wise option. If Glycan is selected then whole id mapping will be related to glycan. Same for protein/glycoprotein."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan search, glycoprotein, glycosyltransferase, glycan, glycosylation, data integration, carbohydrate, database, glycoinformatics, glycobiology, glycan draw, glycan mass, glycan structure, glycoconjugate, data standardization, database integration."
+      }
+    ]
+  },
+  "idMappingResult": {
+    "title": "Result of ID Mapping | Mapping IDs by Glycan or Protein/Glycoprotein | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Result of Glycan or Protein/Glycoprotein Mapping. Users select the step wise option. If Glycan is selected then whole id mapping will be related to glycan. Same for protein/glycoprotein."
+      },
+      {
+        "name": "keywords",
+        "content": "glycan search, glycoprotein, glycosyltransferase, glycan, glycosylation, data integration, carbohydrate, database, glycoinformatics, glycobiology, glycan draw, glycan mass, glycan structure, glycoconjugate, data standardization, database integration."
+      }
+    ]
+  },
+  "superSearch": {
+    "title": "Super Search | Search for Glycan, Protein Structures | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for protein and glycan structures based on their UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein, GlyTouCan accession, monoisotopic mass, sugars, organism, glycan type, glycosylated protein, motif, or enzyme."
+      },
+      {
+        "name": "keywords",
+        "content": "super search, protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID, glycan, glycan search, monoisotopic mass, GlyTouCan accession, number of sugars, organism, glycan type, glycosylated protein, glycan motif, biosynthetic enzyme."
+      }
+    ]
+  },
+  "newPage": {
+    "title": "",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  }
 }

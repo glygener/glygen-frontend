@@ -156,3 +156,134 @@ input[type="number"] {
 .qs-search-lbl {
   font-weight: bold !important;
 }
+
+.svg-node {
+  fill: #2F78B7;
+  stroke: #afd9fd;
+  stroke-width: 0px;
+  cursor: pointer  !important;
+}
+
+.svg-node-text {
+  fill: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  text-anchor: middle;
+  cursor: pointer  !important;
+}
+
+.svg-link {
+  stroke: black;
+  stroke-width: 1.5;
+}
+
+.svg-link-text {
+  font-size: 13px;
+  font-weight: 200;
+  fill: #000;
+  text-anchor: middle;
+  stroke-width: 0.8;
+}
+
+.svg-link-text-number {
+  font-size: 10px;
+  font-weight: 200;
+  fill: #000;
+  stroke: #2F78B7;
+  text-anchor: middle;
+  cursor: pointer  !important;
+  stroke-width: 0.8;
+}
+
+.svg-link-text-number-nl {
+  font-size: 10px;
+  font-weight: 200;
+  fill: #000;
+  stroke: gray;
+  text-anchor: middle;
+  cursor: default  !important;
+  stroke-width: 0.8;
+}
+
+.svg-link-text-number-disabled {
+  display: none;
+}
+
+.svg-numnode {
+  fill: #ffff99;
+  stroke: #2F78B7;
+  stroke-width: 1.5px;
+  cursor: pointer  !important;
+}
+
+.svg-numnode-nl {
+  fill:#DCDCDC;
+  stroke: #2F78B7;
+  stroke-width: 1.5px;
+  cursor: no-drop  !important;
+}
+
+.svg-numnode-text {
+  fill: #000;
+  stroke: #000;
+  stroke-width: 0.8px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  text-anchor: middle;
+  cursor: pointer  !important;
+}
+
+.svg-numnode-text-nl {
+  fill: #000;
+  stroke: #000;
+  stroke-width: 0.8px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  text-anchor: middle;
+  cursor: no-drop  !important;
+}
+
+.svg-input-container {
+  box-sizing: border-box;
+  padding-bottom: 10px;
+}
+
+.svg-input-item {
+  padding-right: 16px;
+}
+
+.svg-input {
+  background-color: white !important;
+}
+
+.svg-tooltip-text {
+  padding: 5px;
+  font-weight: 500;
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 16px !important;
+  border: 1px solid #eee !important;
+  -webkit-box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.svg-tooltip {
+  width: fit-content;
+  z-index: 500 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.svg-arrow-up {
+  width: 0; 
+  height: 0; 
+  margin-left: 10px;
+  margin-top: -2px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #4a4a4a;
+}
+

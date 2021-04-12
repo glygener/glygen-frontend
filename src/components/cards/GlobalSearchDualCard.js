@@ -10,6 +10,9 @@ import RouteLink from '../Link/RouteLink.js'
 import {sortDropdown} from '../../utils/common';
 import "../../css/Search.css";
 
+/**
+ * Global search card component to show two types of search results on the card.
+ */
 export default function GlobalSearchDualCard(props) {
 
 	return (
@@ -34,7 +37,7 @@ export default function GlobalSearchDualCard(props) {
                                         link={props.route + props.allListId2 + "/" + props.routeTerm}
                                     />
                                     </strong></h4>
-                                <h5><strong>{'match for'}{' '}{props.term}</strong></h5>
+                                <h5><strong>{'match for'}{' "'}{props.term}{'"'}</strong></h5>
                             </TableCell>
                         </TableRow>
                         <TableRow hover className="card-row">

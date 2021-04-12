@@ -17,9 +17,6 @@
   .gg-footer {
     padding: 15px 0;
   }
-  .img-responsive {
-    width: 100% !important;
-  }
 }
 
 /* Small Devices (Portrait Tablets & Small Desktops) */
@@ -35,9 +32,6 @@
   .gg-footer {
     padding: 15px 0;
   }
-  .img-responsive {
-    width: 100% !important;
-  }
   .gg-protvista-container {
     width: 92% !important;
     margin: 0 auto !important;
@@ -52,6 +46,9 @@
   }
   .inline-evidence:nth-child(n + 4) {
     margin-top: 5px !important;
+  }
+  .id-mapping-content {
+    padding: 40px 60px 40px 80px !important;
   }
 }
 
@@ -106,9 +103,6 @@
     padding: 55px 30px;
     margin-bottom: 35px;
   }
-  .img-responsive {
-    width: 100% !important;
-  }
   .framework,
   .framework .icon,
   .framework .icon-svg {
@@ -143,6 +137,9 @@
   }
   .inline-evidence:nth-child(n + 2) {
     margin-top: 5px !important;
+  }
+  .id-mapping-content {
+    padding: 40px 60px 40px 80px !important;
   }
 }
 
@@ -182,6 +179,9 @@
   }
   .inline-evidence:nth-child(n + 2) {
     margin-top: 5px !important;
+  }
+  .id-mapping-content {
+    padding: 40px 40px 40px 50px !important;
   }
 }
 @media (min-width: 600px) {
