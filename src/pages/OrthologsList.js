@@ -34,7 +34,7 @@ const OrthologsList = props => {
   const [selectedColumns, setSelectedColumns] = useState(ORTHOLOGS_COLUMNS);
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(20);
-  const [totalSize, setTotalSize] = useState();
+  const [totalSize, setTotalSize] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),

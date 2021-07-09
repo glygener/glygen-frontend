@@ -70,11 +70,12 @@ function databasecolor(name) {
       return "#7e8a97";
     case "pro":
       return "#7e4f10";
+    default:
   }
   return "#9033ff";
 }
 // 9d65c9
-const GlygenBadge = props => {
+const GlygenBadge = (props) => {
   const [showExpandList, setShowExpandList] = useState(false);
 
   const { text } = props;
@@ -85,14 +86,12 @@ const GlygenBadge = props => {
         className="badge-button"
         style={{
           backgroundColor: databasecolor(text),
-          color: "white"
+          color: "white",
         }}
         onClick={() => setShowExpandList(!showExpandList)}
       >
         {text}
-        &nbsp;<span className="badge-count">
-          {props.expandList.length}
-        </span>{" "}
+        &nbsp;<span className="badge-count">{props.expandList.length}</span>{" "}
         {/* <Badge variant="light">{props.expandList.length}</Badge> */}
         {/* <Badge color="primary" badgeContent={props.expandList.length}></Badge> */}
       </Button>
@@ -114,7 +113,7 @@ const GlygenBadge = props => {
 GlygenBadge.propTypes = {
   text: PropTypes.string,
   expandList: PropTypes.array,
-  color: PropTypes.array
+  color: PropTypes.array,
 };
 
 export default GlygenBadge;

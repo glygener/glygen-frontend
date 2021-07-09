@@ -11,6 +11,7 @@ import nihImg from "../../images/about/logo-NIH.svg";
 import glycosciImg from "../../images/about/logo-Glycoscience.svg";
 import WorldMapImg from "../about/WorldMapImg";
 import Hidden from "@material-ui/core/Hidden";
+import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV } from "../../envVariables";
 
 const ourMissionImd = {
   title: "Our Mission",
@@ -70,12 +71,12 @@ const StoryAboutUs = (props) => {
             </Col>
             <Col md={"auto"} className="gg-align-middle gg-align-center">
               <Col>
-                <a href="https://www.ccrc.uga.edu/" target="_blank" rel="noopener noreferrer">
+                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={ugaLogo} alt="uga logo" />
                 </a>
               </Col>
               <Col>
-                <a href="https://smhs.gwu.edu/" target="_blank" rel="noopener noreferrer">
+                <a href={SMHS_GWU} target="_blank" rel="noopener noreferrer">
                   <Image src={gwuLogo} alt="gw logo" />
                 </a>
               </Col>
@@ -230,11 +231,7 @@ const StoryAboutUs = (props) => {
             <Col md={"auto"} xl={6}>
               <p>
                 GlyGen is supported and funded by the{" "}
-                <a
-                  href="https://commonfund.nih.gov/glycoscience"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={GLYCOSCIENCE} target="_blank" rel="noopener noreferrer">
                   NIH Glycoscience Common Fund Program
                 </a>{" "}
                 managed by the{" "}
@@ -246,34 +243,21 @@ const StoryAboutUs = (props) => {
                   Office of Strategic Coordination
                 </a>{" "}
                 at{" "}
-                <a href="https://www.nih.gov/" target="_blank" rel="noopener noreferrer">
+                <a href={NIH_GOV} target="_blank" rel="noopener noreferrer">
                   National Institute of Health (NIH)
                 </a>{" "}
                 under the grant{" "}
-                <a
-                  href="https://reporter.nih.gov/project-details/9391499"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={GRANT_DETAILS} target="_blank" rel="noopener noreferrer">
                   1U01GM125267-01
                 </a>
                 .
               </p>
             </Col>
             <Col className="gg-align-middle gg-align-center">
-              <a
-                href="https://www.nih.gov/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mr-4"
-              >
+              <a href={NIH_GOV} target="_blank" rel="noopener noreferrer" className="mr-4">
                 <Image src={nihImg} />
               </a>
-              <a
-                href="https://commonfund.nih.gov/glycoscience"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={GLYCOSCIENCE} target="_blank" rel="noopener noreferrer">
                 <Image src={glycosciImg} />
               </a>
             </Col>

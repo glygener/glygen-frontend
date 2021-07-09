@@ -168,7 +168,6 @@
       }
     ]
   },
-
   "glycanList": {
     "title": "Glycan List | Summary of Your Glycan Search | glygen.org",
     "meta": [
@@ -243,7 +242,7 @@
       },
       {
         "name": "keywords",
-        "content": "protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID."
+        "content": "protein, protein search, pten syndrome, pten protein, pten breast cancer, pten stands for, pten cancer, pten function, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID."
       }
     ]
   },
@@ -479,6 +478,19 @@
       {
         "name": "keywords",
         "content": "super search, protein, protein search, UniProtKB accession, RefSeq accession, Chemical Mass, Organism, Protein Name, Gene Name, GO Name, Protein Sequence, Peptide Sequence, Pathway ID, glycan, glycan search, monoisotopic mass, GlyTouCan accession, number of sugars, organism, glycan type, glycosylated protein, glycan motif, biosynthetic enzyme."
+      }
+    ]
+  },
+  "publicationDetail": {
+    "title": "Publication | Specific Details for #id | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Publication Specific Detail that include title, authors, journal, publication date, pmid, and other information."
+      },
+      {
+        "name": "keywords",
+        "content": "title, authors, journal, publication date, pmid, gleneral, Glycosylation, Cell Line / Tissue, Abundance, Referenced Proteins, Referenced Glycans."
       }
     ]
   },

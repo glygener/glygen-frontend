@@ -89,6 +89,20 @@
   cursor: pointer;
   line-height: 20px !important;
 }
+/* circle */
+.super8 {
+  color: #8480F3;
+  font-size: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+/* circle */
+.super9 {
+  color: #42C2C2;
+  font-size: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+}
 
 #glycotrack,
 #glycotrack1 {

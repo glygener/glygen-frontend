@@ -121,10 +121,16 @@ const ProteinSearch = props => {
         setInitData(initData);
         const anchorElement = props.history.location.hash;
         if (anchorElement) {
-          setProActTabKey(anchorElement.substr(1));
+          var hash = anchorElement.substr(1);
+          if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Tutorial") {
+            setProActTabKey(hash);	
+          } else {
+            setProActTabKey("Simple-Search");
+          }
         } else {
           setProActTabKey("Simple-Search");
         }
+      
         if (id === undefined) setPageLoading(false);
 
         id &&

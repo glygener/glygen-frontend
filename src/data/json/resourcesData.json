@@ -26,7 +26,7 @@
 			"category": "Database",
 			"website": {
 				"name": "DAGR",
-				"url": "https://ccr2.cancer.gov/resources/Cbl/Tools/Antibody/Default.aspx"
+				"url": "https://dagr.ccr.cancer.gov/"
 			},
 			"description": "Database of Anti-Glycan Reagents (DAGR) is a publicly available, comprehensive resource for anticarbohydrate antibodies, their applications, availability, and quality. DAGR allows to search and identify antibodies and reagent lectins to various carbohydrates as well as to obtain information about those antibodies. In addition, users can add new antibodies/lectins to the database or information about them.",
 			"contains_publ": "Yes",
@@ -42,6 +42,17 @@
 			"description": "GlycoStore is a curated chromatographic, electrophoretic and mass-spectrometry composition database of N-, O-, glycosphingolipid (GSL) glycans and free oligosaccharides associated with a range of glycoproteins, glycolipids and biotherapeutics. This database associates glycan structures with standardized retention times (UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS).",
 			"contains_publ": "Yes",
 			"experimental_data": "UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS",
+			"curated": ""
+		},
+		{
+			"category": "Database",
+			"website": {
+				"name": "GPTWiki",
+				"url": "https://gptwiki.glyomics.org/"
+			},
+			"description": "The GPTWiki glycopeptide transition resource provides direct site-specific experimental evidence of glycans attached to proteins. The glycopeptide fragmentation spectra are used in the design of targeted LC-MS quantitation assays and in DIA/SWATH transition libraries for large-scale glycopeptide quantitation.",
+			"contains_publ": "",
+			"experimental_data": "MS/MS",
 			"curated": ""
 		},
 		{
@@ -135,7 +146,7 @@
 			"category": "Tool collection",
 			"website": {
 				"name": "ISOGlyP",
-				"url": "http://isoglyp.utep.edu/index.php"
+				"url": "https://isoglyp.utep.edu/"
 			},
 			"description": "ISOGlyP is an Isoform Specific O-Glycosylation Prediction. This tool allows you to analyze the sequence either by uploading a file with the sequences in FASTA format or by copy and paste the sequence(s) inside the text area.",
 			"experimental_data": "",

@@ -17,7 +17,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import { GLYGEN_BASENAME } from "../envVariables";
 
-const proteinStrings = stringConstants.protein.common;
+// const proteinStrings = stringConstants.protein.common;
 
 /**
  * Locus list page component for showing list table.
@@ -34,7 +34,7 @@ const LocusList = props => {
   const [selectedColumns, setSelectedColumns] = useState(LOCUS_COLUMNS);
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(20);
-  const [totalSize, setTotalSize] = useState();
+  const [totalSize, setTotalSize] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -68,7 +68,7 @@ const LocusList = props => {
         let message = "list api call";
         axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
-  }, []);
+  }, [id, sizePerPage]);
 
   /**
    * Function to handle table change event. Retrives data from api to reflect new state of table.
@@ -181,6 +181,7 @@ const LocusList = props => {
               data={data}
               columns={selectedColumns}
               page={page}
+              pagination={pagination}
               sizePerPage={sizePerPage}
               totalSize={totalSize}
               onTableChange={handleTableChange}

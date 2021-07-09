@@ -15,6 +15,7 @@
         },
         "id": "glytoucan_ac"
       },
+
       "glycan_identifier": {
         "name": "Glycan ID",
         "shortName": "Glycan ID",
@@ -36,17 +37,6 @@
           "url": ""
         },
         "id": "glycan_id_subsumption"
-      },
-      "subsumption": {
-        "name": "Subsumption",
-        "shortName": "Subsumption",
-        "tooltip": {
-          "title": "Subsumption",
-          "text": "",
-          "urlText": "Read more...",
-          "url": ""
-        },
-        "id": "subsumption"
       },
       "organism_annotation": {
         "name": "Organism Annotation",
@@ -270,6 +260,17 @@
         "tooltip": {
           "title": "GLYCAM IUPAC ",
           "text": "A GLYCAM IUPAC  is the unique identifier number used in GLYCAM IUPAC Key for each article. ",
+          "urlText": "Read more...",
+          "url": "https://"
+        },
+        "id": "GLYCAM IUPAC"
+      },
+      "byonic": {
+        "name": "Byonic™",
+        "shortName": "Byonic™",
+        "tooltip": {
+          "title": "Byonic™",
+          "text": "A Byonic™ is the unique identifier number used in Byonic™ Key for each article. ",
           "urlText": "Read more...",
           "url": "https://"
         },
@@ -544,6 +545,26 @@
         "id": "query_type",
         "name": "glycan_search_simple"
       }
+    },
+    "direct_search": {
+      "mass": {
+        "text": "Find all glycans with the same mass."
+      },
+      "mass_pme": {
+        "text": "Find all glycans with the same permethylated mass."
+      },
+      "composition": {
+        "text": "Find all glycans with the same composition."
+      },
+      "glycan_type": {
+        "text": "Find all glycans with the same type/subtype."
+      },
+      "organism": {
+        "text": "Find all glycans with the same organism."
+      },
+      "pmid": {
+        "text": "Find all glycans with the same PMID."
+      }
     }
   },
   "protein": {
@@ -630,7 +651,7 @@
         "id": "gene_names_uniprotkb"
       },
       "protein_names": {
-        "name": "UniProt Name",
+        "name": "UniProtKB Name",
         "shortName": "protein_name",
         "tooltip": {
           "title": "UniProt Name",
@@ -639,6 +660,11 @@
           "url": "https://www.ncbi.nlm.nih.gov/gene"
         },
         "id": "protein_names"
+      },
+      "hit_score": {
+        "name": "Hit Score",
+        "shortName": "Hit Score",
+        "id": "hit_score"
       },
       "glycosylation_type": {
         "name": "Glycosylation Type",
@@ -736,6 +762,24 @@
         "shortName": "End_pos",
         "tooltip": {},
         "id": "endposition"
+      },
+      "kinase_protein": {
+        "name": "Kinase Protein",
+        "shortName": "",
+        "tooltip": {},
+        "id": "kinase_uniprot_canonical_ac"
+      },
+      "kinase_gene_name": {
+        "name": "Kinase Gene",
+        "shortName": "",
+        "tooltip": {},
+        "id": "kinase_gene_name"
+      },
+      "relation": {
+        "name": "Relation",
+        "shortName": "",
+        "tooltip": {},
+        "id": "relation"
       },
       "uberonN": {
         "name": "UBERON.",
@@ -1117,6 +1161,23 @@
       "query_type": {
         "id": "query_type",
         "name": "protein_search_simple"
+      }
+    },
+    "direct_search": {
+      "chemical_mass": {
+        "text": "Find all proteins / glycoproteins with the same chemical mass."
+      },
+      "go_id": {
+        "text": "Find all proteins / glycoproteins with the same GO annotation."
+      },
+      "pathway_id": {
+        "text": "Find all proteins / glycoproteins with the same pathway."
+      },
+      "disease_id": {
+        "text": "Find all proteins / glycoproteins with the same disease."
+      },
+      "pmid": {
+        "text": "Find all proteins / glycoproteins with the same PMID."
       }
     }
   },
@@ -1502,6 +1563,16 @@
       "displayname": "Glycosylation",
       "tooltip": " glycosylation Information for selected Protein accession"
     },
+    "phosphorylation": {
+      "id": "phosphorylation",
+      "displayname": "Phosphorylation",
+      "tooltip": "Phosphorylation information"
+    },
+    "glycation": {
+      "id": "glycation",
+      "displayname": "Glycation",
+      "tooltip": "Glycation information"
+    },
     "sequence": {
       "id": "sequence",
       "displayname": "Sequence",
@@ -1596,6 +1667,21 @@
       "id": "search_by_disease",
       "displayname": "Disease",
       "tooltip": " ssearch_by_disease"
+    },
+    "referenced_proteins": {
+      "id": "referenced_proteins",
+      "displayname": "Referenced Proteins",
+      "tooltip": "Referenced Proteins information"
+    },
+    "referenced_glycans": {
+      "id": "referenced_glycans",
+      "displayname": "Referenced Glycans",
+      "tooltip": "Referenced Glycans information"
+    },
+    "cell_line": {
+      "id": "cell_lLine",
+      "displayname": "Cell Line",
+      "tooltip": "Cell Line information"
     }
   },
   "download": {
@@ -1603,6 +1689,11 @@
       "id": "glycan_image",
       "displayname": "Glycan Image (*.png)",
       "tooltip": " glycan_image Information for selected accession"
+    },
+    "proteinsite_csvdata": {
+      "id": "proteinsite_jsondata",
+      "displayname": "Site data (*.csv)",
+      "tooltip": " proteinsite_jsondata Information for selected accession"
     },
     "glycan_jsondata": {
       "id": "glycan_jsondata",
@@ -1693,6 +1784,16 @@
       "id": "list_all_csvdata",
       "displayname": "Two tables data (*.csv)",
       "tooltip": "list_all_csvdata ID mapping information for both mapped and unmapped IDs"
+    },
+    "publication_csvdata": {
+      "id": "publication_csvdata",
+      "displayname": "Publication data (*.csv)",
+      "tooltip": "publication_csvdata Information for publication specific detail"
+    },
+    "publication_jsondata": {
+      "id": "publication_jsondata",
+      "displayname": "Publication data (*.json)",
+      "tooltip": "publication_jsondata Information for publication specific detail"
     }
   },
   "id_mapping": {

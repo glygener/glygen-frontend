@@ -7,13 +7,13 @@ import BootstrapTable from "react-bootstrap-table-next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import resourcesData from "../data/json/resourcesData";
-import { Link } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import "../css/Responsive.css";
 import Sidebar from "../components/navigation/Sidebar";
 import { Row, Col } from "react-bootstrap";
 import { logActivity } from "../data/logging";
+import routeConstants from "../data/json/routeConstants.json";
 
 const useStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -75,9 +75,9 @@ const Resources = () => {
         return { width: "13%" };
       },
       formatter: (cell) => (
-        <Link href={cell.url} target="_blank" rel="noopener noreferrer">
+        <a href={cell.url} target="_blank" rel="noopener noreferrer">
           {cell.name}
-        </Link>
+        </a>
       ),
     },
     {
@@ -115,9 +115,9 @@ const Resources = () => {
       text: "Website",
       // sort: true,
       formatter: (cell) => (
-        <Link href={cell.url} target="_blank" rel="noopener noreferrer">
+        <a href={cell.url} target="_blank" rel="noopener noreferrer">
           {cell.name}
-        </Link>
+        </a>
       ),
     },
     {
@@ -153,9 +153,9 @@ const Resources = () => {
       text: "Website",
       // sort: true,
       formatter: (cell) => (
-        <Link href={cell.url} target="_blank" rel="noopener noreferrer">
+        <a href={cell.url} target="_blank" rel="noopener noreferrer">
           {cell.name}
-        </Link>
+        </a>
       ),
     },
     {
@@ -186,9 +186,9 @@ const Resources = () => {
         return { width: "10%" };
       },
       formatter: (cell) => (
-        <Link href={cell.url} target="_blank" rel="noopener noreferrer">
+        <a href={cell.url} target="_blank" rel="noopener noreferrer">
           {cell.name}
-        </Link>
+        </a>
       ),
     },
     {
@@ -236,7 +236,6 @@ const Resources = () => {
       </Helmet>
 
       <CssBaseline />
-      <div id="top-heading"></div>
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
           <Sidebar items={items} />
@@ -260,14 +259,6 @@ const Resources = () => {
                 },
               ]}
             />
-            <div className="goToTop">
-              <a href="#top-heading">
-                to Top
-                <span>
-                  <ArrowUpwardIcon />
-                </span>
-              </a>
-            </div>
           </div>
 
           <div id="Tools">
@@ -288,14 +279,6 @@ const Resources = () => {
                 },
               ]}
             />
-            <div className="goToTop">
-              <a href="#top-heading">
-                to Top
-                <span>
-                  <ArrowUpwardIcon />
-                </span>
-              </a>
-            </div>
           </div>
 
           <div id="Organizations">
@@ -316,19 +299,11 @@ const Resources = () => {
                 },
               ]}
             />
-            <div className="goToTop">
-              <a href="#top-heading">
-                to Top
-                <span>
-                  <ArrowUpwardIcon />
-                </span>
-              </a>
-            </div>
-            <p>
-              *** If you want to see your tools and/or data resources on our website, please contact
-              us <a href="/contact_us"> here</a>.***
-            </p>
           </div>
+          <p>
+            *** If you want to see your tools and/or data resources on our website, please{" "}
+            <Link to={routeConstants.contactUs}>contact us</Link>.***
+          </p>
 
           <div id="Learn">
             <VerticalHeading post={verticalHeadingLearn} />
@@ -348,19 +323,11 @@ const Resources = () => {
                 },
               ]}
             />
-            <div className="goToTop">
-              <a href="#top-heading">
-                to Top
-                <span>
-                  <ArrowUpwardIcon />
-                </span>
-              </a>
-            </div>
-            <p>
-              *** If you want to see your tools and/or data resources on our website, please contact
-              us <a href="/contact_us"> here</a>.***
-            </p>
           </div>
+          <p>
+            *** If you want to see your tools and/or data resources on our website, please{" "}
+            <Link to={routeConstants.contactUs}>contact us</Link>.***
+          </p>
         </Col>
       </Row>
       {/* </Container> */}

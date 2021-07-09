@@ -52,7 +52,11 @@
   /* transform: translateY(-10px); */
 }
 .zoom-sequence span.highlightGlycation {
-  color: olive;
+  color: orange;
+  /* transform: translateY(-10px); */
+}
+.zoom-sequence span.highlightPhosphorylation {
+  color: #84a142;
   /* transform: translateY(-10px); */
 }
 

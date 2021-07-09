@@ -93,7 +93,12 @@ const constructSiteSearchObject = queryObject => {
     });
   }
 
-  if (min || max || (aminoType && aminoType.length) || (annotations && annotations.length)) {
+  if (
+    min ||
+    max ||
+    (aminoType && aminoType.length) ||
+    (annotations && annotations.length)
+  ) {
     const siteQuery = {
       concept: "site",
       query: {
@@ -113,7 +118,6 @@ const constructSiteSearchObject = queryObject => {
       });
       order++;
     }
-
 
     if (min || max) {
       siteQuery.query.unaggregated_list.push({
@@ -185,138 +189,114 @@ export const getSiteSearch = async queryObject => {
   return getSuperSearch(formObject);
 };
 
-const yesNoFormater = (value, row) => {
-  return value && value.length ? "YES" : "NO";
-};
+// export const createSiteQuerySummary = (query) => {
+//   let result = {};
+//   let start;
+//   let end;
 
-export const SITE_COLUMNS = [
-  {
-    dataField: proteinStrings.shortName,
-    text: proteinStrings.uniprot_accession.name,
-    sort: true,
-    selected: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
+//   if (query.concept_query_list) {
+//     for (let querySection of query.concept_query_list) {
+//       if (querySection && querySection.query.unaggregated_list) {
+//         for (let listItem of querySection.query.unaggregated_list) {
+//           if (listItem.path === "uniprot_ac") {
+//             if (!result.proteinId) {
+//               result.proteinId = [];
+//             }
+//             result.proteinId.push(listItem.string_value);
+//           } else if (listItem.path === "site_seq") {
+//             result.aminoType = listItem.string_value;
+//           } else if (
+//             ["glycosylation_flag", "snv_flag", "mutagenesis_flag"].includes(listItem.path)
+//           ) {
+//             if (!result.annotations) {
+//               result.annotations = [];
+//             }
+//             result.annotations.push(listItem.path);
 
-    formatter: (value, row) => (
-      <LineTooltip text="View details">
-        <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
-          {row.uniprot_canonical_ac}
-        </Link>
-      </LineTooltip>
-    )
-  },
-  {
-    dataField: "hit_score",
-    text: "Hit Score",
-    sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
-  },
-  {
-    dataField: "start_pos",
-    text: "Start Pos",
-    sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
-  },
-  {
-    dataField: "end_pos",
-    text: "End Pos",
-    sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
-  },
-  {
-    dataField: "snv",
-    text: "SNV",
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
-    formatter: yesNoFormater
-  },
-  {
-    dataField: "glycosylation",
-    text: "Glycosylation",
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
-    formatter: yesNoFormater
-  },
-  {
-    dataField: "mutagenesis",
-    text: "Mutagenesis",
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
-    formatter: yesNoFormater
-  },
-  {
-    dataField: "glycation",
-    text: "Glycation",
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
-    formatter: yesNoFormater
-  },
-  {
-    dataField: "phosphorylation",
-    text: "Phosphorylation",
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
-    formatter: yesNoFormater
-  }
-];
+//             result.annotationOperation = querySection.query.aggregator;
+//           } else if (listItem.path === "start_pos") {
+//             start = listItem.numeric_value;
+//           } else if (listItem.path === "end_pos") {
+//             end = listItem.numeric_value;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   if (start && end) {
+//     // if (start === end) {
+//     //   result.position = start;
+//     // }
+
+//     result.min = start;
+//     result.max = end;
+//   }
+
+//   return result;
+// };
 
 export const createSiteQuerySummary = query => {
   let result = {};
-  let start;
-  let end;
+
+  const processList = (result, listItem) => {
+    if (listItem.path === "uniprot_ac") {
+      if (!result.proteinId) {
+        result.proteinId = [];
+      }
+      result.proteinId.push(listItem.string_value);
+    } else if (listItem.path === "site_seq") {
+      result.aminoType = listItem.string_value;
+    } else if (
+      ["glycosylation_flag", "snv_flag", "mutagenesis_flag"].includes(
+        listItem.path
+      )
+    ) {
+      if (!result.annotations) {
+        result.annotations = [];
+      }
+      result.annotations.push(listItem.path);
+    } else if (listItem.path === "start_pos") {
+      result.min = listItem.numeric_value;
+    } else if (listItem.path === "end_pos") {
+      result.max = listItem.numeric_value;
+    }
+  };
 
   if (query.concept_query_list) {
     for (let querySection of query.concept_query_list) {
-      if (querySection && querySection.query.unaggregated_list) {
+      if (
+        querySection &&
+        querySection.query.unaggregated_list &&
+        querySection.query.unaggregated_list.length
+      ) {
         for (let listItem of querySection.query.unaggregated_list) {
-          if (listItem.path === "uniprot_ac") {
-            if (!result.proteinId) {
-              result.proteinId = [];
-            }
-            result.proteinId.push(listItem.string_value);
-          } else if (listItem.path === "site_seq") {
-            result.aminoType = listItem.string_value;
-          } else if (
-            ["glycosylation_flag", "snv_flag", "mutagenesis_flag"].includes(
-              listItem.path
-            )
-          ) {
-            if (!result.annotations) {
-              result.annotations = [];
-            }
-            result.annotations.push(listItem.path);
+          // result = { ...result, ...processList(listItem) };
+          processList(result, listItem);
+        }
 
-            result.annotationOperation = querySection.query.aggregator;
-          } else if (listItem.path === "start_pos") {
-            start = listItem.numeric_value;
-          } else if (listItem.path === "end_pos") {
-            end = listItem.numeric_value;
+        if (result.annotations && result.annotations.length) {
+          result.annotationOperation = querySection.query.aggregator;
+        }
+      }
+
+      if (
+        querySection &&
+        querySection.query.aggregated_list &&
+        querySection.query.aggregated_list.length
+      ) {
+        for (let aggregatedItem of querySection.query.aggregated_list) {
+          for (let aggregatedItemUnaggregatedList of aggregatedItem.unaggregated_list) {
+            processList(result, aggregatedItemUnaggregatedList);
           }
+        }
+
+        if (result.annotations && result.annotations.length) {
+          result.annotationOperation =
+            querySection.query.aggregated_list[0].aggregator;
         }
       }
     }
-  }
-
-  if (start && end) {
-    // if (start === end) {
-    //   result.position = start;
-    // }
-
-    result.min = start;
-    result.max = end;
   }
 
   return result;

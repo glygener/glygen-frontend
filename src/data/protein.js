@@ -8,7 +8,7 @@ import routeConstants from "./json/routeConstants";
 import stringConstants from "./json/stringConstants";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { logActivity } from "../data/logging";
-import { positions } from "@material-ui/system";
+// import { positions } from "@material-ui/system";
 
 const proteinStrings = stringConstants.protein.common;
 
@@ -17,14 +17,16 @@ export const getProteinList = (
   offset = 1,
   limit = 20,
   sort = "hit_score",
-  order = "desc"
+  order = "desc",
+  filters = []
 ) => {
   const queryParams = {
     id: protienListId,
     offset: offset,
     limit: limit,
     order: order,
-    sort: sort
+    sort: sort,
+    filters: filters
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/protein/list?query=${queryParamString}`;
@@ -70,15 +72,17 @@ export const getProteinSiteDownload = (
   return postToAndGetBlob(url, headers);
 };
 
+function HeaderwithsameStyle(colum, colIndex) {
+  return { backgroundColor: "#4B85B6", color: "white" };
+}
+
 export const PROTEIN_COLUMNS = [
   {
     dataField: proteinStrings.shortName,
     text: proteinStrings.uniprot_accession.name,
     sort: true,
     selected: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    },
+    headerStyle: HeaderwithsameStyle,
 
     formatter: (value, row) => (
       <LineTooltip text="View details">
@@ -92,58 +96,44 @@ export const PROTEIN_COLUMNS = [
     dataField: proteinStrings.gene_name.shortName,
     text: proteinStrings.gene_name.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
 
   {
     dataField: proteinStrings.protein_names.shortName,
     text: proteinStrings.protein_names.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
   {
-    dataField: "hit_score",
-    text: "Hit Score",
+    dataField: proteinStrings.hit_score.id,
+    text: proteinStrings.hit_score.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
   {
     dataField: proteinStrings.mass.shortName,
     text: proteinStrings.mass.name + " (Da)",
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
   {
     dataField: proteinStrings.organism.shortName,
     text: proteinStrings.organism.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
   {
     dataField: proteinStrings.refSeq_name.shortName,
     text: proteinStrings.refSeq_name.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   },
   {
     dataField: proteinStrings.refseq_ac.shortName,
     text: proteinStrings.refseq_ac.name,
     sort: true,
-    headerStyle: (colum, colIndex) => {
-      return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    headerStyle: HeaderwithsameStyle
   }
 ];
 
@@ -192,4 +182,3 @@ export const getHomoAlignment = (protienId, alignment) => {
   const url = `/protein/alignment?query=${queryParamString}`;
   return getJson(url);
 };
-

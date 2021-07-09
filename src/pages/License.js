@@ -14,7 +14,7 @@ import gplLicenseIcon from "../images/license/GPLv3_Logo.png";
 import creativecommonsLicenseIcon from "../images/license/CreativeCommons_logo_trademark.svg";
 import SidebarPages from "../components/sidebar/SidebarPages";
 import { logActivity } from "../data/logging";
-
+import { CCRC_UGA, GITHUB } from "../envVariables";
 const License = () => {
   const vertHeadDisclaimer = {
     h5VerticalText: "to know",
@@ -96,10 +96,10 @@ const License = () => {
                 <VerticalHeading post={vertHeadDisclaimer} />
               </Col>
               <Col className="content-box-md" style={{ display: "flex", verticalAlign: "middle" }}>
-                <a href="https://www.ccrc.uga.edu/" target="_blank" rel="noopener noreferrer">
+                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={gplLicenseIcon} className={classes.licenseIcons} />
                 </a>
-                <a href="https://www.ccrc.uga.edu/" target="_blank" rel="noopener noreferrer">
+                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={creativecommonsLicenseIcon} className={classes.licenseIcons} />
                 </a>
               </Col>
@@ -129,7 +129,7 @@ const License = () => {
                 GNU General Public License v3
               </a>{" "}
               and is available in our{" "}
-              <a href="https://github.com/glygener" target="_blank" rel="noopener noreferrer">
+              <a href={GITHUB} target="_blank" rel="noopener noreferrer">
                 GlyGen GitHub{" "}
               </a>
               repository.

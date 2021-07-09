@@ -4,7 +4,6 @@ import { getGlycanImageUrl } from "../data/glycan";
 import { useParams } from "react-router-dom";
 import { getMotifDetail } from "../data/motif";
 import PaginatedTable from "../components/PaginatedTable";
-import { MOTIF_COLUMNS } from "../data/motif";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
@@ -33,7 +32,9 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
 import Button from "react-bootstrap/Button";
-
+import { Link } from "react-router-dom";
+import LineTooltip from "../components/tooltip/LineTooltip";
+import routeConstants from "../data/json/routeConstants";
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
 
@@ -76,7 +77,7 @@ const MotifDetail = (props) => {
   const [motifKeywords, setMotifKeywords] = useState([]);
   const [reducingEnd, setReducingEnd] = useState([]);
   const [pagination, setPagination] = useState([]);
-  const [selectedColumns, setSelectedColumns] = useState(MOTIF_COLUMNS);
+  // const [selectedColumns, setSelectedColumns] = useState(MOTIF_COLUMNS);
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState();
@@ -109,7 +110,7 @@ const MotifDetail = (props) => {
       let message = "motif api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
-  }, []);
+  }, [id, sizePerPage]);
 
   const handleTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     setPage(page);
@@ -129,6 +130,7 @@ const MotifDetail = (props) => {
         setMotifSynonym(data.synonym);
         setMotifKeywords(data.keywords);
         setReducingEnd(data.reducing_end);
+        setClassification(data.classification);
         // setClassification(
         //   data.classification.filter(
         //     classif =>
@@ -165,6 +167,40 @@ const MotifDetail = (props) => {
   const expandIcon = <ExpandMoreIcon fontSize="large" />;
   const closeIcon = <ExpandLessIcon fontSize="large" />;
   // ===================================== //
+
+  const selectedColumns = [
+    {
+      dataField: glycanStrings.glycan_id.id,
+      text: glycanStrings.glycan_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View glycan details">
+          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      text: glycanStrings.glycan_image.name,
+      sort: false,
+      selected: true,
+      formatter: (value, row) => (
+        <div className="img-wrapper">
+          <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
+        </div>
+      ),
+      headerStyle: (colum, colIndex) => {
+        return {
+          textAlign: "left",
+          backgroundColor: "#4B85B6",
+          color: "white",
+          whiteSpace: "nowrap",
+        };
+      },
+    },
+  ];
 
   return (
     <>
@@ -455,6 +491,7 @@ const MotifDetail = (props) => {
                           data={data}
                           columns={selectedColumns}
                           page={page}
+                          pagination={pagination}
                           sizePerPage={sizePerPage}
                           totalSize={totalSize}
                           onTableChange={handleTableChange}
@@ -521,16 +558,21 @@ const MotifDetail = (props) => {
                                         <>
                                           <FiBookOpen />
                                           <span style={{ paddingLeft: "15px" }}>
-                                            {glycanStrings.pmid.shortName}:
-                                            {/* {glycanStrings.referenceType[ref.type].shortName}: */}
+                                            {/* {glycanStrings.pmid.shortName}: */}
+                                            {ref.type}:
                                           </span>{" "}
-                                          <a
+                                          <Link
+                                            to={`${routeConstants.publicationDetail}${ref.id}/${ref.type}`}
+                                          >
+                                            <>{ref.id}</>
+                                          </Link>{" "}
+                                          {/* <a
                                             href={ref.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                           >
                                             <>{ref.id}</>
-                                          </a>
+                                          </a> */}
                                         </>
                                       ))}
                                     </div>

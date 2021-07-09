@@ -32,7 +32,7 @@ const RowHighlight = ({ rowData, type, selectedHighlights }) => {
 
   return (
     <span className="highlight-highlight" data-type={type}>
-      {rowData.map(row => {
+      {rowData.map((row) => {
         if (row[type]) {
           return <span className="highlight-highlight-area">&nbsp;</span>;
         } else {
@@ -52,9 +52,7 @@ const RowHighlight = ({ rowData, type, selectedHighlights }) => {
 const SequenceRow = ({ rowData, start, selectedHighlights }) => {
   return (
     <div className="highlight-row">
-      <span className="highlight-line-number">
-        {("     " + (start + 1)).slice(-5) + " "}
-      </span>
+      <span className="highlight-line-number">{("     " + (start + 1)).slice(-5) + " "}</span>
       <span className="highlight-section">
         <span
           className="highlight-text"
@@ -81,6 +79,16 @@ const SequenceRow = ({ rowData, start, selectedHighlights }) => {
             <RowHighlight
               rowData={rowData}
               type="o_link_glycosylation"
+              selectedHighlights={selectedHighlights}
+            />
+            <RowHighlight
+              rowData={rowData}
+              type="phosphorylation"
+              selectedHighlights={selectedHighlights}
+            />
+            <RowHighlight
+              rowData={rowData}
+              type="glycation"
               selectedHighlights={selectedHighlights}
             />
           </>
@@ -113,8 +121,8 @@ const SequenceDisplay = ({ sequenceData, selectedHighlights }) => {
   useEffect(() => {
     if (sequenceData && sequenceData.length) {
       const rows = sliceBy(sequenceData, perLine);
-      const byChunks = rows.map(row => sliceBy(row, SEQUENCE_ROW_RUN_LENGTH));
-      const reducedToRows = byChunks.map(row =>
+      const byChunks = rows.map((row) => sliceBy(row, SEQUENCE_ROW_RUN_LENGTH));
+      const reducedToRows = byChunks.map((row) =>
         row.reduce(
           (all, chunk) => [
             ...all,
@@ -124,13 +132,14 @@ const SequenceDisplay = ({ sequenceData, selectedHighlights }) => {
               n_link_glycosylation: false,
               o_link_glycosylation: false,
               mutation: false,
-              site_annotation: false
-            }
+              site_annotation: false,
+              phosphorylation: false,
+              glycation: false,
+            },
           ],
           []
         )
       );
-
       setRows(reducedToRows);
     }
   }, [sequenceData, perLine]);

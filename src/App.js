@@ -7,6 +7,7 @@ import Footer from "./components/navigation/Footer";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import ReactGA from "react-ga";
 import { GLYGEN_ENV } from "./envVariables.js";
+import ScrollToTopBtn from "./components/ScrollToTop";
 
 function initializeReactGA() {
   if (GLYGEN_ENV === "prod" || GLYGEN_ENV === "beta") {
@@ -68,6 +69,7 @@ function App() {
           userTrackingBannerState={userTrackingBannerState}
           setUserTrackingBannerState={setUserTrackingBannerState}
         />
+        <ScrollToTopBtn />
         <Routes
           userTrackingBannerState={userTrackingBannerState}
           setUserTrackingBannerState={setUserTrackingBannerState}

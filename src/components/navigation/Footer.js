@@ -23,6 +23,15 @@ import {
   GLYCOMOTIF_WIKI,
   GLYGEN_SANDBOX,
   GLYCAN_SEQ_LOOKUP,
+  GRANT_DETAILS,
+  GLYCOSCIENCE,
+  CCRC_UGA,
+  SMHS_GWU,
+  TWITTER,
+  YOUTUBE,
+  GITHUB,
+  WIKI,
+  PINTEREST,
 } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
@@ -171,55 +180,35 @@ export default function Footer() {
                 </a>
               </div>
             </Col>
-            <Col xs={12} md={"auto"} className="sitemap-item">
+            <Col xs={6} md={"auto"} className="text-left sitemap-item">
               <div>
-                <a
-                  href="https://twitter.com/gly_gen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gg-link"
-                >
+                <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <TwitterIcon className="mr-2" />
                 </a>
-                <a
-                  href="https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gg-link"
-                >
+                <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="mr-2" />
                 </a>
-                <a
-                  href="https://github.com/glygener"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gg-link"
-                >
+                <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <GitHubIcon className="mr-2" size="14px" />
                 </a>
                 <a
-                  href="https://wiki.glygen.org/index.php/Main_Page"
+                  href={WIKI}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="media-wiki-icon"
                 >
                   <MediaWikiIcon className="mr-2" />
                 </a>
-                <a
-                  href="https://www.pinterest.com/myGlyGen/glygen-portal/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gg-link"
-                >
+                <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <PinterestIcon />
                 </a>
               </div>
 
-              <div className="text-center">
-                <a href="https://www.ccrc.uga.edu/" target="_blank" rel="noopener noreferrer">
+              <div className="text-center5">
+                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={ugaLogo} className={classes.footerUnivLogo} />
                 </a>
-                <a href="https://smhs.gwu.edu/" target="_blank" rel="noopener noreferrer">
+                <a href={SMHS_GWU} target="_blank" rel="noopener noreferrer">
                   <Image src={gwuLogo} className={classes.footerUnivLogo} />
                 </a>
               </div>
@@ -245,7 +234,7 @@ export default function Footer() {
                 <Navbar.Text className={classes.navbarText}>
                   GlyGen is supported and funded by the{" "}
                   <a
-                    href="https://commonfund.nih.gov/glycoscience"
+                    href={GLYCOSCIENCE}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classes.link}
@@ -254,7 +243,7 @@ export default function Footer() {
                   </a>
                   under the grant #{" "}
                   <a
-                    href="https://reporter.nih.gov/project-details/9391499"
+                    href={GRANT_DETAILS}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classes.link}

@@ -7,13 +7,12 @@ import paginationFactory, {
   PaginationProvider,
   PaginationListStandalone,
   PaginationTotalStandalone,
-  SizePerPageDropdownStandalone,
+  SizePerPageDropdownStandalone
 } from "react-bootstrap-table2-paginator";
 
 const PaginatedTable = ({
   data,
   idField = "id",
-
   page,
   columns,
   sizePerPage,
@@ -25,7 +24,7 @@ const PaginatedTable = ({
   onClickTarget,
   noDataIndication,
   rowStyle,
-  wrapperClasses = "table-responsive",
+  wrapperClasses = "table-responsive"
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
@@ -43,25 +42,25 @@ const PaginatedTable = ({
     sizePerPageList: [
       {
         text: "20",
-        value: 20,
+        value: 20
       },
       {
         text: "50",
-        value: 50,
+        value: 50
       },
       {
         text: "100",
-        value: 100,
+        value: 100
       },
       {
         text: "150",
-        value: 150,
+        value: 150
       },
       {
         text: "200",
-        value: 200,
-      },
-    ], // A numeric array is also available. the purpose of above example is custom the text
+        value: 200
+      }
+    ] // A numeric array is also available. the purpose of above example is custom the text
   };
 
   // const scrollToElement = elementSelector => {
@@ -75,12 +74,12 @@ const PaginatedTable = ({
     // }
     onTableChange(type, values);
   };
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(theme => ({
     tableHeader: {
       backgroundColor: "#4B85B6",
       color: theme.palette.common.white,
-      height: "50px",
-    },
+      height: "50px"
+    }
   }));
   const classes = useStyles();
 
@@ -92,7 +91,7 @@ const PaginatedTable = ({
           custom: true,
           page,
           sizePerPage,
-          totalSize, //,
+          totalSize //,
           // defaultSort
         })}
       >
@@ -120,8 +119,8 @@ const PaginatedTable = ({
               defaultSorted={[
                 {
                   dataField: defaultSortField,
-                  order: defaultSortOrder,
-                },
+                  order: defaultSortOrder
+                }
               ]}
               data={data}
               columns={columns}

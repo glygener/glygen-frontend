@@ -8,7 +8,6 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import { groupEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import { logActivity } from "../data/logging";
-import Nav from "react-bootstrap/Nav";
 
 const proteinStrings = stringConstants.protein.common;
 
@@ -35,8 +34,7 @@ function addCommas(nStr) {
  * @param {string} glycanId - glycan id value.
  */
 export const getGlycanToBiosynthesisEnzymes = (organism, glycanId) => {
-  const url =
-    "/usecases/glycan_to_biosynthesis_enzymes/" + organism + "/" + glycanId;
+  const url = "/usecases/glycan_to_biosynthesis_enzymes/" + organism + "/" + glycanId;
   return getJson(url);
 };
 
@@ -56,8 +54,7 @@ export const getGlycanToGlycoproteins = (organism, glycanId) => {
  * @param {string} glycanId - glycan id value.
  */
 export const getGlycanToEnzymeGeneLoci = (organism, glycanId) => {
-  const url =
-    "/usecases/glycan_to_enzyme_gene_loci/" + organism + "/" + glycanId;
+  const url = "/usecases/glycan_to_enzyme_gene_loci/" + organism + "/" + glycanId;
   return getJson(url);
 };
 
@@ -76,14 +73,11 @@ export const LOCUS_COLUMNS = [
 
     formatter: (value, row) => (
       <LineTooltip text="View details">
-        <Navbar.Text
-          as={NavLink}
-          to={routeConstants.proteinDetail + row.uniprot_canonical_ac}
-        >
+        <Navbar.Text as={NavLink} to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
           {row.uniprot_canonical_ac}
         </Navbar.Text>
       </LineTooltip>
-    )
+    ),
   },
   {
     dataField: proteinStrings.gene_name.id,
@@ -91,7 +85,7 @@ export const LOCUS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
   },
   {
     dataField: proteinStrings.chromosome.id,
@@ -105,14 +99,13 @@ export const LOCUS_COLUMNS = [
       <>
         {row.chromosome ? (
           <>
-            Chr {row.chromosome}: {addCommas(row.start_pos)} -{" "}
-            {addCommas(row.end_pos)}
+            Chr {row.chromosome}: {addCommas(row.start_pos)} - {addCommas(row.end_pos)}
           </>
         ) : (
           "N/A"
         )}
       </>
-    )
+    ),
   },
   {
     dataField: proteinStrings.protein_name.id,
@@ -120,7 +113,7 @@ export const LOCUS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
   },
   {
     dataField: proteinStrings.organism.id,
@@ -128,7 +121,7 @@ export const LOCUS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
   },
   {
     dataField: proteinStrings.tax_id.id,
@@ -136,8 +129,8 @@ export const LOCUS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
-  }
+    },
+  },
 ];
 
 /**
@@ -160,7 +153,7 @@ export const getGeneLocusList = (
     offset: offset,
     sort: sort,
     limit: limit,
-    order: order
+    order: order,
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/usecases/genelocus_list?query=${queryParamString}`;
@@ -187,7 +180,7 @@ export const getLocusDownload = (id, format, compressed, type, headers) => {
  * Gets JSON for disease to glycosyltransferases usecase.
  * @param {object} formObject - formObject value.
  */
-export const getDiseaseToGlycosyltransferases = formObject => {
+export const getDiseaseToGlycosyltransferases = (formObject) => {
   var json = "query=" + JSON.stringify(formObject);
   const url = "/usecases/disease_to_glycosyltransferases?" + json;
   return getJson(url);
@@ -212,7 +205,7 @@ export const ORTHOLOGS_COLUMNS = [
           evidences={groupEvidences(cell)}
         />
       );
-    }
+    },
   },
   {
     dataField: proteinStrings.uniprot_canonical_ac.id,
@@ -225,14 +218,11 @@ export const ORTHOLOGS_COLUMNS = [
 
     formatter: (value, row) => (
       <LineTooltip text="View details">
-        <Navbar.Text
-          as={NavLink}
-          to={routeConstants.proteinDetail + row.uniprot_canonical_ac}
-        >
+        <Navbar.Text as={NavLink} to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
           {row.uniprot_canonical_ac}
         </Navbar.Text>
       </LineTooltip>
-    )
+    ),
   },
   {
     dataField: proteinStrings.protein_name.id,
@@ -240,7 +230,7 @@ export const ORTHOLOGS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
   },
   {
     dataField: proteinStrings.organism.id,
@@ -248,7 +238,7 @@ export const ORTHOLOGS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
   },
   {
     dataField: proteinStrings.tax_id.id,
@@ -256,15 +246,15 @@ export const ORTHOLOGS_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
-  }
+    },
+  },
 ];
 
 /**
  * Gets JSON for protein to orthologs usecase.
  * @param {string} proteinId - protein id value.
  */
-export const getProteinToOrthologs = proteinId => {
+export const getProteinToOrthologs = (proteinId) => {
   const url = "/usecases/protein_to_orthologs/" + proteinId;
   return getJson(url);
 };
@@ -273,7 +263,7 @@ export const getProteinToOrthologs = proteinId => {
  * Gets JSON for species to glycosyltransferases usecase.
  * @param {string} organism - organism value.
  */
-export const getOrganismToGlycosyltransferases = organism => {
+export const getOrganismToGlycosyltransferases = (organism) => {
   const url = "/usecases/species_to_glycosyltransferases/" + organism;
   return getJson(url);
 };
@@ -282,7 +272,7 @@ export const getOrganismToGlycosyltransferases = organism => {
  * Gets JSON for species to glycohydrolases usecase.
  * @param {string} organism - organism value.
  */
-export const getOrganismToGlycohydrolases = organism => {
+export const getOrganismToGlycohydrolases = (organism) => {
   const url = "/usecases/species_to_glycohydrolases/" + organism;
   return getJson(url);
 };
@@ -293,8 +283,7 @@ export const getOrganismToGlycohydrolases = organism => {
  * @param {string} evidenceType - evidence type value.
  */
 export const getOrganismToGlycoproteins = (organism, evidenceType) => {
-  const url =
-    "/usecases/species_to_glycoproteins/" + organism + "/" + evidenceType;
+  const url = "/usecases/species_to_glycoproteins/" + organism + "/" + evidenceType;
   return getJson(url);
 };
 
@@ -318,7 +307,7 @@ export const getOrthologsList = (
     offset: offset,
     sort: sort,
     limit: limit,
-    order: order
+    order: order,
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/usecases/ortholog_list?query=${queryParamString}`;
@@ -347,8 +336,7 @@ export const getOrthologDownload = (id, format, compressed, type, headers) => {
  * @param {string} proteinId - protein id value.
  */
 export const getBiosynthesisEnzymeToGlycans = (organism, proteinId) => {
-  const url =
-    "/usecases/biosynthesis_enzyme_to_glycans/" + organism + "/" + proteinId;
+  const url = "/usecases/biosynthesis_enzyme_to_glycans/" + organism + "/" + proteinId;
   return getJson(url);
 };
 

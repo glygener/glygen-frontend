@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="30px" viewBox="0 0 20 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <!-- <title>arrowLeftIcon</title> -->
+    <!-- <desc>Created with Sketch.</desc> -->
+    <g id="arrowLeftIcon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Triangle" fill="#5F5F5F" transform="translate(9.000000, 14.500000) scale(-1, -1) rotate(90.000000) translate(-9.000000, -14.500000) " points="9 9 18 20 0 20"></polygon>
+    </g>
+</svg>

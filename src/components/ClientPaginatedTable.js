@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 
 import PaginatedTable from "./PaginatedTable";
 
-const ClientPaginatedTable = (props) => {
+const createSorter = (sortField, sortOrder) => (a, b) => {
+  if (a[sortField] > b[sortField]) {
+    return sortOrder === "asc" ? 1 : -1;
+  } else if (a[sortField] < b[sortField]) {
+    return sortOrder === "asc" ? -1 : 1;
+  }
+  return 0;
+};
+
+const ClientPaginatedTable = props => {
   const {
     data,
     columns,
@@ -10,7 +19,7 @@ const ClientPaginatedTable = (props) => {
     defaultSortField = "",
     defaultSortOrder = "desc",
     onClickTarget,
-    idField,
+    idField
   } = props;
 
   const [page, setPage] = useState(1);
@@ -26,20 +35,21 @@ const ClientPaginatedTable = (props) => {
     setPageContents(pageData);
   }, [data, page, currentSort, currentSortOrder, sizePerPage]);
 
-  const handleTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
-    data.sort((a, b) => {
-      if (a[sortField] > b[sortField]) {
-        return sortOrder === "asc" ? 1 : -1;
-      } else if (a[sortField] < b[sortField]) {
-        return sortOrder === "asc" ? -1 : 1;
-      }
-      return 0;
-    });
+  const handleTableChange = (
+    type,
+    { page, sizePerPage, sortField, sortOrder }
+  ) => {
+    data.sort(createSorter(sortField, sortOrder));
+
     setPage(page);
     setCurrentSort(sortField);
     setCurrentSortOrder(sortOrder);
     setSizePerPage(sizePerPage);
   };
+
+  // if (defaultSortField) {
+  //   data.sort(createSorter(defaultSortField, defaultSortOrder));
+  // }
 
   return (
     <PaginatedTable

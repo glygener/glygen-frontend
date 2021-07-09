@@ -7,6 +7,7 @@
 
 .highlight-line-number {
 	white-space: pre;
+	text-align: right
 }
 
 .highlight-section {
@@ -17,20 +18,18 @@
 	top: 0;
 	left: 0;
 	position: absolute;
+	padding-left: 0.25em;
 }
 
 .highlight-highlight[data-type="mutation"] .highlight-highlight-area {
-	/* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
-
-	background: rgb(131, 235, 131);
+	/* background: rgb(131, 235, 131); */
+	background: #02E402;
 }
 
 .highlight-highlight[data-type="o_link_glycosylation"]
 	.highlight-highlight-area {
-	/* background-image: linear-gradient(rgba(100, 236, 100, 1), transparent);   */
 	border-bottom: 3px solid blue;
 }
-/*     */
 
 .highlight-highlight[data-type="n_link_glycosylation"]
 	.highlight-highlight-area {
@@ -40,9 +39,24 @@
 .highlight-highlight[data-type="site_annotation"] .highlight-highlight-area {
 	/* background-image: linear-gradient(transparent, rgb(211, 113, 211)); */
 	background: 3px orange;
-	/* border-top: 3px orange; */
 	padding-top: 1px;
 }
+
+.highlight-highlight[data-type="phosphorylation"]
+	.highlight-highlight-area {
+	background: #FFA9A9;
+}
+
+.highlight-highlight[data-type="glycation"]
+	.highlight-highlight-area {
+	background: rgb(214, 166, 255);
+}
+
+.highlight-highlight[data-type="text_search"]
+	.highlight-highlight-area {
+	background: #33FFE0;
+}
+
 .sequnce_highlight {
 	display: block;
 	display: inline-table;
@@ -91,8 +105,33 @@
 /*Sequon*/
 .sequnce4 {
 	background: rgb(244, 151, 37);
+	background: #F5B464;
 	/* font-family: monospace; */
 	/* font-size: 14px; */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+.sequnce5 {
+	/* background: #FFA9A9; */
+	background: #FEB9B9;
+	/* background: rgb(255, 135, 135); */
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+.sequnce6 {
+	background: rgb(214, 166, 255);
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	margin: 0 5px;
+}
+.sequnce7 {
+	background: #fff;
+	border-width: 1px;
 	font-size: 16px;
 	font-weight: 500;
 	letter-spacing: 1px;
@@ -108,12 +147,21 @@
 .sequence-panel {
 	margin-left: 5%;
 }
+
+.content-box {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	overflow: auto;
+}
+
 @media (max-width: 1345px) {
 	/* @media (max-width: 757px) { */
 	.content-box {
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: row;
+		overflow: auto;
 	}
 	.content-active {
 		order: -1;

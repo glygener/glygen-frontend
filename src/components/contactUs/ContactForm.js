@@ -24,7 +24,7 @@ import { logActivity } from "../../data/logging";
 // 	})
 // );
 
-const ContactForm = props => {
+const ContactForm = (props) => {
   // const classes = useStyles();
 
   // const [contactUsData, setContactUsData] = useReducer(
@@ -68,18 +68,18 @@ const ContactForm = props => {
   const [messageCharsLeft, setMessageCharsLeft] = useState(messageMaxLen);
 
   // const inputLabel = useRef(null);
-  const handleChange = event => {
+  const handleChange = (event) => {
     setContactUsResponseMessage();
     setSubject(event.target.value);
   };
 
-  const handleWordCount = e => {
+  const handleWordCount = (e) => {
     const charCount = e.target.value.length;
     const charLength = messageMaxLen - charCount;
     setMessageCharsLeft(charLength);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {
@@ -87,19 +87,19 @@ const ContactForm = props => {
       lname: lname,
       email: email,
       subject: subject,
-      message: message
+      message: message,
     };
     const url = `/auth/contact?query=${JSON.stringify(formData)}`;
     // const url = `/auth/contact?query=${JSON.stringify(contactUsData)}`;
-		const myHeaders = {
-			"Content-Type": "application/x-www-form-urlencoded",
-		  };
+    const myHeaders = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
     postTo(url, myHeaders)
-      .then(response => {
+      .then((response) => {
         logActivity("user", "", "Message sent from contact us page.");
         setContactUsResponseMessage(decodeURIComponent(response.data.message)); //decodeURIComponent()
       })
-      .catch(error => {
+      .catch((error) => {
         setContactUsErrorMessage(
           "Oops, something went wrong! We did not receive your message. Please try again later."
         );
@@ -122,7 +122,7 @@ const ContactForm = props => {
   };
 
   // Allows to type in only text and "-".
-  const onlyText = e => {
+  const onlyText = (e) => {
     e.target.value = e.target.value.replace(/[^a-zA-Z-]/g, "");
   };
 
@@ -146,24 +146,22 @@ const ContactForm = props => {
               value={fname}
               placeholder="Please enter your first name."
               error={(formValidated || fNameValidated) && fname === ""}
-              onChange={e => {
+              onChange={(e) => {
                 setFName(e.target.value);
                 setContactUsResponseMessage();
                 setContactUsErrorMessage();
               }}
               onBlur={() => setFNameValidated(true)}
               helperText={
-                (formValidated || fNameValidated) &&
-                fname === "" &&
-                "First name is required."
+                (formValidated || fNameValidated) && fname === "" && "First name is required."
               }
-              onInput={e => onlyText(e)}
+              onInput={(e) => onlyText(e)}
               style={{ margin: "5px 0 15px 0" }}
               fullWidth
               margin="dense"
               variant="outlined"
               inputProps={{
-                maxLength: 64
+                maxLength: 64,
               }}
             />
           </Col>
@@ -179,24 +177,22 @@ const ContactForm = props => {
               value={lname}
               placeholder="Please enter your last name."
               error={(formValidated || lNameValidated) && lname === ""}
-              onChange={e => {
+              onChange={(e) => {
                 setLName(e.target.value);
                 setContactUsResponseMessage();
                 setContactUsErrorMessage();
               }}
               onBlur={() => setLNameValidated(true)}
               helperText={
-                (formValidated || lNameValidated) &&
-                lname === "" &&
-                "Last name is required."
+                (formValidated || lNameValidated) && lname === "" && "Last name is required."
               }
-              onInput={e => onlyText(e)}
+              onInput={(e) => onlyText(e)}
               style={{ margin: "5px 0 15px 0" }}
               fullWidth
               margin="dense"
               variant="outlined"
               inputProps={{
-                maxLength: 64
+                maxLength: 64,
               }}
             />
           </Col>
@@ -217,9 +213,7 @@ const ContactForm = props => {
                 <MenuItem value={"general"}>General comment</MenuItem>
                 <MenuItem value={"technical"}>Technical issue</MenuItem>
                 <MenuItem value={"help"}>Need help</MenuItem>
-                <MenuItem value={"requestQuick"}>
-                  Request new quick search
-                </MenuItem>
+                <MenuItem value={"requestQuick"}>Request new quick search</MenuItem>
                 <MenuItem value={"shareData"}>Share my data</MenuItem>
                 <MenuItem value={"dataIssue"}>Report data issue</MenuItem>
                 <MenuItem value={"other"}>Other</MenuItem>
@@ -240,7 +234,7 @@ const ContactForm = props => {
               style={{ margin: "5px 0 15px 0" }}
               placeholder="example@domain.com"
               error={(formValidated || emailValidated) && !validEmail}
-              onChange={e => {
+              onChange={(e) => {
                 var emailVal = e.target.value;
                 setValidEmail(validateEmail(emailVal));
                 setEmail(emailVal); //setContactUsData({email: emailVal})
@@ -249,9 +243,7 @@ const ContactForm = props => {
               }}
               onBlur={() => setEmailValidated(true)}
               helperText={
-                (formValidated || emailValidated) &&
-                !validEmail &&
-                "Please enter a valid email."
+                (formValidated || emailValidated) && !validEmail && "Please enter a valid email."
               }
               fullWidth
               margin="dense"
@@ -261,7 +253,7 @@ const ContactForm = props => {
               // }}
               variant="outlined"
               inputProps={{
-                maxLength: 128
+                maxLength: 128,
               }}
             />
           </Col>
@@ -280,11 +272,9 @@ const ContactForm = props => {
               placeholder="Please tell us how we can help you."
               error={
                 (formValidated || messageValidated) &&
-                (message === "" ||
-                  message.length < 5 ||
-                  message.length > messageMaxLen)
+                (message === "" || message.length < 5 || message.length > messageMaxLen)
               }
-              onChange={e => {
+              onChange={(e) => {
                 setMessage(e.target.value);
                 setContactUsResponseMessage();
                 setContactUsErrorMessage();
@@ -307,22 +297,17 @@ const ContactForm = props => {
               // }}
               variant="outlined"
               inputProps={{
-                minlength: 5,
-                maxlength: messageMaxLen
+                minLength: 5,
+                maxLength: messageMaxLen,
               }}
             />
-            <div
-              className={"text-right text-muted"}
-              style={{ marginTop: "-5px" }}
-            >
+            <div className={"text-right text-muted"} style={{ marginTop: "-5px" }}>
               {messageCharsLeft}/{messageMaxLen}
             </div>
           </Col>
         </Row>
 
-        <div
-          className={`alert-success ${contactUsResponseMessage ? "alert" : ""}`}
-        >
+        <div className={`alert-success ${contactUsResponseMessage ? "alert" : ""}`}>
           <strong>{contactUsResponseMessage}</strong>
         </div>
         <div className={`alert-danger ${contactUsErrorMessage ? "alert" : ""}`}>

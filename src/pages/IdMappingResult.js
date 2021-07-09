@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ID_MAP_REASON, getMappingList } from "../data/mapping";
+import { getMappingList } from "../data/mapping";
 import PaginatedTable from "../components/PaginatedTable";
 import Container from "@material-ui/core/Container";
 import DownloadButton from "../components/DownloadButton";
@@ -17,11 +17,12 @@ import routeConstants from "../data/json/routeConstants";
 import idMappingData from "../data/json/idMapping";
 import stringConstants from "../data/json/stringConstants";
 import IdMappingQuerySummary from "../components/IdMappingQuerySummary";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import DownloadAllButton from "../components/DownloadAllButton";
 import { Link } from "react-router-dom";
 import LineTooltip from "../components/tooltip/LineTooltip";
+
 const mappedStrings = stringConstants.id_mapping.common.mapped;
+const unmappedStrings = stringConstants.id_mapping.common.unmapped;
 
 const IdMappingResult = (props) => {
   let { id } = useParams();
@@ -30,7 +31,7 @@ const IdMappingResult = (props) => {
   const [legends, setLegends] = useState([]);
   const [pagination, setPagination] = useState([]);
   const [paginationUnmap, setPaginationUnmap] = useState([]);
-  const [idMapUnmap, setIdMapUnmap] = useState(ID_MAP_REASON);
+  // const [idMapUnmap, setIdMapUnmap] = useState(ID_MAP_REASON);
   const [query, setQuery] = useState([]);
   const [timestamp, setTimeStamp] = useState();
   const [page, setPage] = useState(1);
@@ -55,8 +56,15 @@ const IdMappingResult = (props) => {
           logActivity("user", id, "No results. " + message);
           setPageLoading(false);
         } else {
-          setData(data.results.map((row) =>  { row.link = data.cache_info.query.recordtype === "glycan" ? routeConstants.glycanDetail : routeConstants.proteinDetail
-                                              return row; }));
+          setData(
+            data.results.map((row) => {
+              row.link =
+                data.cache_info.query.recordtype === "glycan"
+                  ? routeConstants.glycanDetail
+                  : routeConstants.proteinDetail;
+              return row;
+            })
+          );
           setLegends(data.cache_info.legends);
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
@@ -110,8 +118,15 @@ const IdMappingResult = (props) => {
       // place to change values before rendering
       // if (!data.error_code) {
       setLegends(data.cache_info.legends);
-      setData(data.results.map((row) =>  { row.link = data.cache_info.query.recordtype === "glycan" ? routeConstants.glycanDetail : routeConstants.proteinDetail
-                                          return row; }));
+      setData(
+        data.results.map((row) => {
+          row.link =
+            data.cache_info.query.recordtype === "glycan"
+              ? routeConstants.glycanDetail
+              : routeConstants.proteinDetail;
+          return row;
+        })
+      );
       setTimeStamp(data.cache_info.ts);
       setPagination(data.pagination);
       setTotalSize(data.pagination.total_length);
@@ -181,13 +196,7 @@ const IdMappingResult = (props) => {
       formatter: (value, row) =>
         value ? (
           <LineTooltip text="View details">
-            <Link
-              to={
-                  row.link + row.anchor
-              }
-            >
-              {row.anchor}
-            </Link>
+            <Link to={row.link + row.anchor}>{row.anchor}</Link>
           </LineTooltip>
         ) : (
           ""
@@ -210,7 +219,19 @@ const IdMappingResult = (props) => {
       },
     },
   ];
-
+  const idMapUnmapColumns = [
+    {
+      dataField: unmappedStrings.input_id.shortName,
+      text: unmappedStrings.input_id.name,
+      sort: true,
+      selected: true,
+    },
+    {
+      dataField: unmappedStrings.reason.shortName,
+      text: unmappedStrings.reason.name,
+      sort: true,
+    },
+  ];
   return (
     <>
       <Helmet>
@@ -288,15 +309,6 @@ const IdMappingResult = (props) => {
               Modify Request
             </Button>
           </div>
-          <br />
-          <div className="id-mapping-go-to-top">
-            <a href="#To-Top">
-              to Top
-              <span>
-                <ArrowUpwardIcon />
-              </span>
-            </a>
-          </div>
         </section>
         <div id="Unmapped-Table"></div>
         <div className="content-box-sm">
@@ -317,10 +329,10 @@ const IdMappingResult = (props) => {
         </section>
         <section>
           {/* Unmapped Table */}
-          {idMapUnmap && idMapUnmap.length !== 0 && (
+          {idMapUnmapColumns && idMapUnmapColumns.length !== 0 && (
             <PaginatedTable
               data={dataUnmap}
-              columns={idMapUnmap}
+              columns={idMapUnmapColumns}
               page={pageUnmap}
               sizePerPage={sizePerPageUnmap}
               totalSize={totalSizeUnmap}
@@ -338,15 +350,6 @@ const IdMappingResult = (props) => {
             </Button>
           </div>
         </section>
-        <br />
-        <div className="id-mapping-go-to-top">
-          <a href="#To-Top">
-            to Top
-            <span>
-              <ArrowUpwardIcon />
-            </span>
-          </a>
-        </div>
       </Container>
     </>
   );

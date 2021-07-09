@@ -1,11 +1,8 @@
 import { postTo, postFormDataTo, postToAndGetBlob } from "./api";
-import React from "react";
+// import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import stringConstants from "./json/stringConstants";
 import { logActivity } from "../data/logging";
-
-const unmappedStrings = stringConstants.id_mapping.common.unmapped;
 
 // Performs dropdown selections: Molecules, From ID Type, To ID Type
 export const getMappingInit = () => {
@@ -63,17 +60,3 @@ export const getIdMappingDownloadAll = (id, format, compressed, type, headers) =
   const url = `/data/download?query=${JSON.stringify(query)}`;
   return postToAndGetBlob(url, headers);
 };
-
-export const ID_MAP_REASON = [
-  {
-    dataField: unmappedStrings.input_id.shortName,
-    text: unmappedStrings.input_id.name,
-    sort: true,
-    selected: true,
-  },
-  {
-    dataField: unmappedStrings.reason.shortName,
-    text: unmappedStrings.reason.name,
-    sort: true,
-  },
-];

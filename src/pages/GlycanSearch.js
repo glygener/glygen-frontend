@@ -202,10 +202,17 @@ const GlycanSearch = (props) => {
 			setInitData(initData);
 			const anchorElement = props.history.location.hash;
 			if (anchorElement) {
-				setGlyActTabKey(anchorElement.substr(1));	
+				var hash = anchorElement.substr(1);
+				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Composition-Search"
+				    ||  hash ===  "Tutorial") {
+					setGlyActTabKey(hash);	
+				} else {
+					setGlyActTabKey("Simple-Search");
+				}
 			} else {
 				setGlyActTabKey("Simple-Search");
 			}
+
 			if (id === undefined) setPageLoading(false);
 
 			id &&

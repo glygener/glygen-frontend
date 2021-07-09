@@ -17,11 +17,10 @@ function getMutationHighlightData(mutationData) {
       positions[mutationData[x].start_pos] = true;
       result.push({
         start: mutationData[x].start_pos,
-        length: mutationData[x].end_pos - mutationData[x].start_pos + 1
+        length: mutationData[x].end_pos - mutationData[x].start_pos + 1,
       });
     }
   }
-
   return result;
 }
 
@@ -32,7 +31,6 @@ function getMutationHighlightData(mutationData) {
  */
 function getSequonHighlightData(sequonData) {
   var result = [];
-
   var positions = {};
 
   for (var x = 0; x < sequonData.length; x++) {
@@ -40,13 +38,55 @@ function getSequonHighlightData(sequonData) {
       positions[sequonData[x].start_pos] = true;
       result.push({
         start: sequonData[x].start_pos,
-        length: sequonData[x].end_pos - sequonData[x].start_pos + 1
+        length: sequonData[x].end_pos - sequonData[x].start_pos + 1,
       });
     }
   }
-
   return result;
 }
+
+/**
+ * Getting phosphorylation data
+ * @param {array} phosphorylationData
+ * @return an array of highlight info.
+ */
+function getPhosphorylationHighlightData(phosphorylationData) {
+  var result = [];
+  var positions = {};
+
+  for (var x = 0; x < phosphorylationData.length; x++) {
+    if (!positions[phosphorylationData[x].start_pos]) {
+      positions[phosphorylationData[x].start_pos] = true;
+      result.push({
+        start: phosphorylationData[x].start_pos,
+        length: phosphorylationData[x].end_pos - phosphorylationData[x].start_pos + 1,
+      });
+    }
+  }
+  return result;
+}
+
+/**
+ * Getting glycation data
+ * @param {array} glycationData
+ * @return an array of highlight info.
+ */
+function getGlycationHighlightData(glycationData) {
+  var result = [];
+  var positions = {};
+
+  for (var x = 0; x < glycationData.length; x++) {
+    if (!positions[glycationData[x].start_pos]) {
+      positions[glycationData[x].start_pos] = true;
+      result.push({
+        start: glycationData[x].start_pos,
+        length: glycationData[x].end_pos - glycationData[x].start_pos + 1,
+      });
+    }
+  }
+  return result;
+}
+
 /**
  * checking is highlighted or not
  * @param {number} position
@@ -83,16 +123,12 @@ function buildHighlightData(sequence, highlightData) {
       var position = x + 1;
       result.push({
         character: sequence[x],
-        n_link_glycosylation: isHighlighted(
-          position,
-          highlightData.n_link_glycosylation
-        ),
-        o_link_glycosylation: isHighlighted(
-          position,
-          highlightData.o_link_glycosylation
-        ),
+        n_link_glycosylation: isHighlighted(position, highlightData.n_link_glycosylation),
+        o_link_glycosylation: isHighlighted(position, highlightData.o_link_glycosylation),
         mutation: isHighlighted(position, highlightData.mutation),
-        site_annotation: isHighlighted(position, highlightData.site_annotation)
+        site_annotation: isHighlighted(position, highlightData.site_annotation),
+        phosphorylation: isHighlighted(position, highlightData.phosphorylation),
+        glycation: isHighlighted(position, highlightData.glycation),
       });
     }
     return result;
@@ -106,14 +142,7 @@ function buildHighlightData(sequence, highlightData) {
 //  * @return {string}
 //  */
 
-const HiglightSelecter = ({
-  count = 0,
-  selectedHighlights,
-  type,
-  label,
-  onSelect,
-  className
-}) => {
+const HiglightSelecter = ({ count = 0, selectedHighlights, type, label, onSelect, className }) => {
   return (
     <label>
       <input
@@ -135,13 +164,18 @@ const ProteinSequenceDisplay = ({
   glycosylation,
   mutation,
   siteAnnotation,
+  phosphorylationObj,
+  glycationObj,
   selectedHighlights,
-  setSelectedHighlights
+  setSelectedHighlights,
 }) => {
   const [nLinkGlycan, setNLinkGlycan] = useState([]);
   const [oLinkGlycan, setOLinkGlycan] = useState([]);
   const [mutationHighlights, setMutationHighlights] = useState([]);
   const [siteAnnotationHighlights, setSiteAnnotationHighlights] = useState([]);
+  const [phosphorylationHighlights, setPhosphorylationHighlights] = useState([]);
+  const [glycationHighlights, setGlycationHighlights] = useState([]);
+
   const [sequenceData, setSequenceData] = useState([]);
 
   //const hasStartPos = item => typeof item.start_pos === "undefined";
@@ -149,32 +183,28 @@ const ProteinSequenceDisplay = ({
 
   useEffect(() => {
     if (glycosylation) {
-      const tempGlycosylation = glycosylation.filter(
-        item => item.start_pos !== undefined
-      );
+      const tempGlycosylation = glycosylation.filter((item) => item.start_pos !== undefined);
 
       //distinct
       const distinctGlycanPositions = (value, index, self) => {
-        const findPosition = self.find(
-          item => item.start_pos === value.start_pos
-        );
+        const findPosition = self.find((item) => item.start_pos === value.start_pos);
         return self.indexOf(findPosition) === index;
       };
       const nLink = tempGlycosylation
-        .filter(item => item.type === "N-linked")
+        .filter((item) => item.type === "N-linked")
         //.filter(hasStartPos)
         .filter(distinctGlycanPositions)
-        .map(item => ({
+        .map((item) => ({
           start: item.start_pos,
-          length: 1
+          length: 1,
         }));
       const oLink = tempGlycosylation
-        .filter(item => item.type === "O-linked")
+        .filter((item) => item.type === "O-linked")
         //.filter(hasStartPos)
         .filter(distinctGlycanPositions)
-        .map(item => ({
+        .map((item) => ({
           start: item.start_pos,
-          length: 1
+          length: 1,
         }));
 
       // debugger;
@@ -198,13 +228,27 @@ const ProteinSequenceDisplay = ({
   }, [mutation]);
 
   useEffect(() => {
+    if (phosphorylationObj) {
+      setPhosphorylationHighlights(getPhosphorylationHighlightData(phosphorylationObj));
+    }
+  }, [phosphorylationObj]);
+
+  useEffect(() => {
+    if (glycationObj) {
+      setGlycationHighlights(getGlycationHighlightData(glycationObj));
+    }
+  }, [glycationObj]);
+
+  useEffect(() => {
     if (sequenceObject && sequenceObject.sequence) {
       setSequenceData(
         buildHighlightData(sequenceObject.sequence, {
           mutation: mutationHighlights,
           site_annotation: siteAnnotationHighlights,
           n_link_glycosylation: nLinkGlycan,
-          o_link_glycosylation: oLinkGlycan
+          o_link_glycosylation: oLinkGlycan,
+          phosphorylation: phosphorylationHighlights,
+          glycation: glycationHighlights,
         })
       );
     }
@@ -213,13 +257,15 @@ const ProteinSequenceDisplay = ({
     mutationHighlights,
     siteAnnotationHighlights,
     nLinkGlycan,
-    oLinkGlycan
+    oLinkGlycan,
+    phosphorylationHighlights,
+    glycationHighlights,
   ]);
 
-  const handleSelectHighlight = type => {
+  const handleSelectHighlight = (type) => {
     setSelectedHighlights({
       ...selectedHighlights,
-      [type]: !selectedHighlights[type]
+      [type]: !selectedHighlights[type],
     });
   };
 
@@ -232,10 +278,7 @@ const ProteinSequenceDisplay = ({
       <Grid item className="sequnce_highlight">
         <div>
           {sequenceObject && (
-            <SequenceDisplay
-              sequenceData={sequenceData}
-              selectedHighlights={selectedHighlights}
-            />
+            <SequenceDisplay sequenceData={sequenceData} selectedHighlights={selectedHighlights} />
           )}
         </div>
       </Grid>
@@ -294,6 +337,26 @@ const ProteinSequenceDisplay = ({
               type="site_annotation"
               label="Sequon"
               className={"sequnce4"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li>
+            <HiglightSelecter
+              count={phosphorylationHighlights.length}
+              selectedHighlights={selectedHighlights}
+              type="phosphorylation"
+              label="Phosphorylation"
+              className={"sequnce5"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li>
+            <HiglightSelecter
+              count={glycationHighlights.length}
+              selectedHighlights={selectedHighlights}
+              type="glycation"
+              label="Glycation"
+              className={"sequnce6"}
               onSelect={handleSelectHighlight}
             />
           </li>

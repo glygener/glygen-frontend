@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 
-const CollapsableReference = props => {
+const CollapsableReference = (props) => {
   const { database, links, maxItems = 9 } = props;
   const [open, setOpen] = useState(links.length <= maxItems);
   const displayedItems = open ? links : links.slice(0, maxItems);
@@ -12,7 +12,7 @@ const CollapsableReference = props => {
       <strong>{database}:</strong>
       <ul style={{ marginBottom: "10px" }}>
         <Row>
-          {displayedItems.map(link => (
+          {displayedItems.map((link) => (
             <Col xs={12} sm={4} key={link.id}>
               <li>
                 <a href={link.url} target="_blank" rel="noopener noreferrer">
@@ -26,27 +26,11 @@ const CollapsableReference = props => {
         {links.length > maxItems && (
           <>
             {open ? (
-              <Button
-                style={{
-                  marginLeft: "20px",
-                  marginTop: "5px"
-                }}
-                className={"lnk-btn"}
-                variant="link"
-                onClick={() => setOpen(false)}
-              >
+              <Button className={"lnk-btn"} variant="link" onClick={() => setOpen(false)}>
                 Show Less...
               </Button>
             ) : (
-              <Button
-                style={{
-                  marginLeft: "20px",
-                  marginTop: "5px"
-                }}
-                className={"lnk-btn"}
-                variant="link"
-                onClick={() => setOpen(true)}
-              >
+              <Button className={"lnk-btn"} variant="link" onClick={() => setOpen(true)}>
                 Show More...
               </Button>
             )}

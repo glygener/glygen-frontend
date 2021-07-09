@@ -20,9 +20,7 @@ const ProtvistaSidebar = ({ data, handleExpand, expanded, tracksShown }) => {
           <li className="nav-itemss nav-track nav-combinetrack legendlist">
             <a class="nav-links " href="#" onClick={handleExpand}>
               Glycosylation &nbsp;&nbsp;{" "}
-              <span class="sizefor">
-                {expanded ? <FaAngleDown /> : <FaAngleRight />}
-              </span>
+              <span class="sizefor">{expanded ? <FaAngleDown /> : <FaAngleRight />}</span>
             </a>
           </li>
           <li
@@ -103,6 +101,16 @@ const ProtvistaSidebar = ({ data, handleExpand, expanded, tracksShown }) => {
               title="Consensus sequence for N-glycosylation"
             >
               N-Glycan-Sequon
+            </a>
+          </li>
+          <li class="nav-item1 nav-nav  legendlist glycotrack">
+            <a class="nav-links" href="#">
+              Phosphorylation
+            </a>
+          </li>
+          <li class="nav-item1 nav-nav  legendlist glycotrack">
+            <a class="nav-links" href="#">
+              Glycation
             </a>
           </li>
           {/* {tracksShown && tracksShown.mutation && ( */}

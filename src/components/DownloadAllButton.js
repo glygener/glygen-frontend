@@ -3,12 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "react-bootstrap";
 import { downloadFromServer } from "../utils/download";
 import FormControl from "@material-ui/core/FormControl";
-// import InputLabel from '@material-ui/core/InputLabel';
-import { withStyles } from "@material-ui/core/styles";
 import Button from "react-bootstrap/Button";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Link } from "@material-ui/core";
-import InputBase from "@material-ui/core/InputBase";
 import CloseIcon from "@material-ui/icons/Close";
 import SelectControl from "./select/SelectControl";
 import { getGlycanDownload } from "../data/glycan";
@@ -24,7 +21,6 @@ const DownloadAllButton = (props) => {
         return getGlycanDownload;
       case "idMappingAll":
         return getIdMappingDownloadAll;
-
       default:
     }
     return null;
@@ -32,7 +28,6 @@ const DownloadAllButton = (props) => {
 
   const [show, setShow] = useState(false);
   const [format, setFormat] = useState(props.format || props.types[0].type);
-  // const [displayformat, setDisplayFormat] = useState(display);
   const [compressed, setCompressed] = useState(props.compressed || false);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -106,12 +101,7 @@ const DownloadAllButton = (props) => {
                         <strong>Format:</strong>
                       </Col>
 
-                      <Col
-                        xs={9}
-                        sm={9}
-                        // align="right !important"
-                        className="text-right"
-                      >
+                      <Col xs={9} sm={9} className="text-right">
                         <SelectControl
                           fullWidth
                           inputValue={format}
@@ -131,12 +121,8 @@ const DownloadAllButton = (props) => {
                 <Col>
                   <strong style={{ whiteSpace: "nowrap" }}>Compress file (*.gzip):</strong>
                 </Col>
-                <Col
-                  // xs={ 5 } sm={ 5 }
-                  align="right"
-                >
+                <Col align="right">
                   <input
-                    // style={{ fontSize: 'xx-large' }}
                     type="checkbox"
                     id="download_compression"
                     checked={compressed}

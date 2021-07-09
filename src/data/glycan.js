@@ -14,15 +14,17 @@ export const getGlycanList = (
   glycanListId,
   offset = 1,
   limit = 20,
-  sort = "hit_score",
-  order = "desc"
+  sort = decodeURI("hit_score"),
+  order = "desc",
+  filters = []
 ) => {
   const queryParams = {
     id: glycanListId,
     offset: offset,
     sort: sort,
     limit: limit,
-    order: order
+    order: order,
+    filters: filters
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/glycan/list?query=${queryParamString}`;
@@ -42,8 +44,9 @@ export const getGlycanDetail = accessionId => {
   return getJson(url);
 };
 
-const headerSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>
-  sortOrder === "asc" ? "demo-sorting-asc" : "demo-sorting-desc";
+// const headerSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>
+//   sortOrder === "asc" ? "demo-sorting-asc" : "demo-sorting-desc";
+
 export const GLYCAN_COLUMNS = [
   {
     dataField: glycanStrings.glycan_id.id,

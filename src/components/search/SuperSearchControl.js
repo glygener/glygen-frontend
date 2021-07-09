@@ -257,15 +257,15 @@ const SuperSearchControl = (props) => {
             return;
         }
         
-        for (var i = 0; i < tempArray1.length; i++){
-            if (i === 0){
+        for (var i = tempArray1.length - 1; i >= 0; i--){
+            if (i === tempArray1.length - 1){
                 searchQuery.query = {
                     aggregator: "",
                     aggregated_list: [],
                     unaggregated_list: []
                 };
                 currentQuery = searchQuery.query;
-                currentQuery.aggregator = tempArray1.length > 1 ? tempArray1[i+1].aggregator : tempArray1[i].aggregator;
+                currentQuery.aggregator = tempArray1[i].aggregator;
 
                 let temp = {
                     path: tempArray1[i].field,
@@ -275,7 +275,7 @@ const SuperSearchControl = (props) => {
                 }
                 currentQuery.unaggregated_list.push(temp);
             } else {
-                if (currentQuery.aggregator === tempArray1[i].aggregator) {
+                if (currentQuery.aggregator === tempArray1[i].aggregator || i === 0) {
 
                     let temp = {
                         path: tempArray1[i].field,

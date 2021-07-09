@@ -9,22 +9,22 @@ import { Tab, Tabs, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import "../css/Search.css";
 import {
-  getSuperSearch,
+  // getSuperSearch,
   getSuperSearchList,
-  createSiteQuerySummary
+  createSiteQuerySummary,
 } from "../data/supersearch";
 import siteData from "../data/json/siteData";
 import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
 import FeedbackWidget from "../components/FeedbackWidget";
-import ProteinTutorial from "../components/tutorial/ProteinTutorial";
+// import ProteinTutorial from "../components/tutorial/ProteinTutorial";
 
 /**
  * Protein search component for showing protein search tabs.
  */
-const SiteSearch = props => {
+const SiteSearch = (props) => {
   let { id } = useParams("");
-  const [proActTabKey, setProActTabKey] = useState("Site-Search");
+  const [siteActTabKey, setSiteActTabKey] = useState("Site-Search");
   const [pageLoading, setPageLoading] = useState(false);
   const [queryData, setQueryData] = useState([]);
   const [alertTextInput, setAlertTextInput] = useReducer(
@@ -37,6 +37,18 @@ const SiteSearch = props => {
   );
 
   useEffect(() => {
+    const anchorElement = props.history.location.hash;
+    if (anchorElement) {
+      var hash = anchorElement.substr(1);
+      if (hash ===  "Site-Search" || hash ===  "Tutorial") {
+        setSiteActTabKey(hash);	
+      } else {
+        setSiteActTabKey("Site-Search");
+      }
+    } else {
+      setSiteActTabKey("Site-Search");
+    }
+
     if (id === undefined) setPageLoading(false);
     else if (id) {
       // console.log("SuperSearch");
@@ -47,7 +59,7 @@ const SiteSearch = props => {
           setQueryData(data.cache_info.query);
           setPageLoading(false);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           let message = "list api call";
           axiosError(error, "", message, setPageLoading, setAlertDialogInput);
         });
@@ -68,7 +80,7 @@ const SiteSearch = props => {
           <PageLoader pageLoading={pageLoading} />
           <DialogAlert
             alertInput={alertDialogInput}
-            setOpen={input => {
+            setOpen={(input) => {
               setAlertDialogInput({ show: input });
             }}
           />
@@ -79,10 +91,10 @@ const SiteSearch = props => {
           <Tabs
             defaultActiveKey="Site-Search"
             transition={false}
-            activeKey={proActTabKey}
+            activeKey={siteActTabKey}
             mountOnEnter={true}
             unmountOnExit={true}
-            onSelect={key => setProActTabKey(key)}
+            onSelect={(key) => setSiteActTabKey(key)}
           >
             <Tab
               key="search"

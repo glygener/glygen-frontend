@@ -36,6 +36,12 @@
 	margin-bottom: 7px !important;
 	padding: 1.5px !important;
 }
+.materials-tabs .PrivateTabIndicator-colorPrimary-106,
+.materials-tabs .jss106 {
+	background-color: #60ba4b !important;
+	margin-bottom: 7px !important;
+	padding: 1.5px !important;
+}
 /* .materials-tabs .MuiTabs-flexContainer {
 	display: flex;
 } */
