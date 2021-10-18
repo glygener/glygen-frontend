@@ -431,7 +431,10 @@ const Siteview = ({ position, history }) => {
       const filteredSites = detailData.all_sites.filter(
         siteType => !["site_annotation"].includes(siteType.type)
       );
-      const mappedFilterSites = filteredSites.map(siteType =>
+      const filteredRangeSites = filteredSites.map(
+        siteType => {return {"type" : siteType.type, "site_list" : siteType.site_list.filter(site => site.start_pos === site.end_pos)}}
+      );
+      const mappedFilterSites = filteredRangeSites.map(siteType =>
         siteType.site_list.map(site => ({
           position: site.start_pos,
           type: pickLabel(siteType.type),
@@ -526,12 +529,10 @@ const Siteview = ({ position, history }) => {
       },
       formatter: (value, row) =>
         value ? (
-          <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.position}`}>
+          <span>
               {row.residue}
               {row.position}
-            </Link>
-          </LineTooltip>
+          </span>
         ) : (
           "Not Reported"
         )

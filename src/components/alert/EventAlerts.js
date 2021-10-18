@@ -45,13 +45,18 @@ export default function EventAlerts(props) {
                       <h5 className={"gg-blue-color"}>{obj.title}</h5>
                     </AlertTitle>
                     <div>
-                      {obj.start_date} {obj.end_date ? `-  ${obj.end_date}` : ""}
+                      {obj.description}
                     </div>
-                    {obj.description}{" "}
-                    <a href={obj.url} target="_blank" rel="noopener noreferrer">
-                      <span className="gg-link">{obj.url_name}</span>{" "}
-                    </a>{" "}
-                    {obj.venue}
+                    {obj.url && obj.url_name &&
+                    <div>
+                      <a href={obj.url} target="_blank" rel="noopener noreferrer">
+                        <span className="gg-link">{obj.url_name}</span>
+                      </a>
+                    </div>}
+                    {obj.venue &&
+                    <div>
+                      Location: {obj.venue}
+                    </div>}
                   </>
                 </Col>
                 {/* ))} */}

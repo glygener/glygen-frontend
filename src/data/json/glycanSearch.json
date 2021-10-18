@@ -11,15 +11,10 @@
         ],
         "placeholder": "Enter the enzyme"
       },
-      "Glycan_name": {
-        "examples": [
-          "HexNAc(1)Hex(3)Fuc(3)"
-        ],
-        "placeholder": "Enter the Glycan_name"
-      },
       "glycan": {
         "examples": [
-          "G17689DH"
+          "G17689DH",
+          "Hex(5)HexNAc(4)dHex(1)"
         ],
         "placeholder": "Enter the GlyTouCan Accession"
       },
@@ -38,6 +33,7 @@
       "any": {
         "examples": [
           "G17689DH",
+          "Hex(5)HexNAc(4)dHex(1)",
           "P14210",
           "B4GALT1",
           "Homo sapiens"
@@ -103,6 +99,11 @@
           "name": "Annotated"
         }
       ]
+    },
+    "id_namespace": {
+      "placeholder": "Select Glycan ID Namespace",
+      "placeholderName": "",
+      "placeholderId": ""
     },
     "glycan_type": {
       "placeholder": "Select Glycan Type",
@@ -831,5 +832,59 @@
   },
   "tutorial": {
     "tabTitle": "Tutorial"
+  },
+  "query_search": {
+    "queryProps":["mass","masstype","tolerance","comp","acc","subsumption"],
+    "massType":
+    {
+      "native": {
+        "id": "Native"
+      },
+      "permethylated": {
+        "id": "Permethylated"
+      }
+    },
+    "subsumption":
+    {
+      "none": {
+        "id": "none"
+      },
+      "any": {
+        "id": "any"
+      }
+    },
+    "composition":
+    {
+      "hex": {
+        "id": "hex"
+      },
+      "hexnac": {
+        "id": "hexnac"
+      },
+      "hexn": {
+        "id": "hexn"
+      },
+      "dhex": {
+        "id": "dhex"
+      },
+      "neuac": {
+        "id": "neuac"
+      },
+      "neugc": {
+        "id": "neugc"
+      },
+      "hexa": {
+        "id": "hexa"
+      },
+      "p": {
+        "id": "p"
+      },
+      "s": {
+        "id": "s"
+      },
+      "o": {
+        "id": "other"
+      }
+    }
   }
 }

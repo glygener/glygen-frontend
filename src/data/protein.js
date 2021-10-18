@@ -7,6 +7,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import routeConstants from "./json/routeConstants";
 import stringConstants from "./json/stringConstants";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import { logActivity } from "../data/logging";
 // import { positions } from "@material-ui/system";
 
@@ -34,16 +35,8 @@ export const getProteinList = (
 };
 
 export const getProteinsiteDetail = (protienId, position) => {
-  // const queryParamString = JSON.stringify({
-  //   uniprot_canonical_ac: protienId,
-  //   start_pos: parseInt(position),
-  //   end_pos: parseInt(position)
-  // });
-
   const url = `/site/detail/${protienId}.${position}.${position}`;
   return getJson(url);
-  // const url = `/proteinsite/detail?query=${queryParamString}`;
-  // return getJson(url);
 };
 
 export const getProteinDetail = accessionId => {
@@ -109,7 +102,26 @@ export const PROTEIN_COLUMNS = [
     dataField: proteinStrings.hit_score.id,
     text: proteinStrings.hit_score.name,
     sort: true,
-    headerStyle: HeaderwithsameStyle
+    headerStyle: HeaderwithsameStyle,
+    formatter: (value, row) => (
+      <>
+        <HitScoreTooltip
+          title={"Hit Score"}
+          text={"Hit Score Formula"}
+          formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
+          contributions={row.score_info.contributions.map(item => {
+            return {
+              c: proteinStrings.contributions[item.c]
+                ? proteinStrings.contributions[item.c].name
+                : item.c,
+              w: item.w,
+              f: item.f
+            };
+          })}
+        />
+        {row.hit_score}
+      </>
+    )
   },
   {
     dataField: proteinStrings.mass.shortName,

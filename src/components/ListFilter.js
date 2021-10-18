@@ -37,6 +37,7 @@ const ListFilterOptionGroup = props => {
     setOptionState(newOptionState);
   };
 
+  // Updates the UI when the filters change from the server side
   useEffect(() => {
     if (!(annotationOperation && optionState)) {
       return;
@@ -97,6 +98,9 @@ const ListFilterOptionGroup = props => {
   );
 };
 
+// Master Component that controls each group of filters
+// Tracks current selection state vs options to trigger
+// server side update
 const ListFilter = ({
   availableOptions = [],
   selectedOptions = [],

@@ -240,16 +240,6 @@
 					"url": "https://www.ccrc.uga.edu/personnel/index.php?uid=32&personnel=Tenure-Track%20Faculty"
 				},
 				{
-					"name": "Wenjin Zhang",
-					"position": "",
-					"department": "",
-					"institution": "The Georgetown University",
-					"location": "Washington, DC",
-					"image": "/team/Wenjin-Zhang.png",
-					"imageText": "Wenjin Zhang image",
-					"url": "https://www.linkedin.com/in/wenjinzhang/"
-				},
-				{
 					"name": "Vijay Shanker",
 					"position": "",
 					"department": "",
@@ -339,16 +329,6 @@
 				"image": "/team/Jeet-Vora.png",
 				"imageText": "Jeet Vora image",
 				"url": "https://www.linkedin.com/in/jeet-vora/"
-			},
-			{
-				"name": "Rahi Navelkar",
-				"position": "",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC",
-				"image": "/team/Rahi-Navelkar.png",
-				"imageText": "Rahi Navelkar image",
-				"url": "https://www.linkedin.com/in/rahi-navelkar-b24b08131/"
 			}
 		]
 	},
@@ -364,16 +344,6 @@
 				"image": "/team/Tatiana-Williamson.png",
 				"imageText": "Tatiana Williamson image",
 				"url": "https://www.linkedin.com/in/tatiana-williamson/"
-			},
-			{
-				"name": "Rupali Mahadik",
-				"position": "UI Developer ",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Rupali-Mahadik.png",
-				"imageText": "Rupali Mahadik image",
-				"url": "https://www.linkedin.com/in/rupalimahadik/"
 			},
 			{
 				"name": "Sujeet Kulkarni",
@@ -410,16 +380,6 @@
 	"otherMembers": {
 		"heading": "Other Members",
 		"people": [
-			{
-				"name": "Xiying Ding",
-				"position": "Student",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC",
-				"image": "/team/Xiying-Ding.jpg",
-				"imageText": "Xiying Ding image",
-				"url": "https://www.linkedin.com/in/xiying-ding-4735751a9/"
-			},
 			{
 				"name": "Tianyi Wang",
 				"position": "Student",
@@ -533,6 +493,50 @@
 				"imageText": "Judith Blake image",
 				"url": "https://www.jax.org/research-and-faculty/faculty/judith-blake",
 				"dateLeft": "Left project June 2020"
+			},
+			{
+				"name": "Xiying Ding",
+				"position": "Student",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Xiying-Ding.jpg",
+				"imageText": "Xiying Ding image",
+				"url": "https://www.linkedin.com/in/xiying-ding-4735751a9/",
+				"dateLeft": "Left project July 2021"
+			},
+			{
+				"name": "Rupali Mahadik",
+				"position": "UI Developer ",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"image": "/team/Rupali-Mahadik.png",
+				"imageText": "Rupali Mahadik image",
+				"url": "https://www.linkedin.com/in/rupalimahadik/",
+				"dateLeft": "Left project August 2021"
+			},
+			{
+				"name": "Rahi Navelkar",
+				"position": "",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Rahi-Navelkar.png",
+				"imageText": "Rahi Navelkar image",
+				"url": "https://www.linkedin.com/in/rahi-navelkar-b24b08131/",
+				"dateLeft": "Left project August 2021"
+			},
+			{
+				"name": "Wenjin Zhang",
+				"position": "",
+				"department": "",
+				"institution": "The Georgetown University",
+				"location": "Washington, DC",
+				"image": "/team/Wenjin-Zhang.png",
+				"imageText": "Wenjin Zhang image",
+				"url": "https://www.linkedin.com/in/wenjinzhang/",
+				"dateLeft": "Left project August 2021"
 			}
 		]
 	},

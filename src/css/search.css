@@ -36,8 +36,8 @@
   margin-bottom: 40px;
 }
 .tab-content-padding {
-  padding-top: 20px;
-  padding-bottom: 30px;
+  padding-top: 20px !important;
+  padding-bottom: 30px !important;
 }
 /* .tab-content-border {
 	padding: 30px;

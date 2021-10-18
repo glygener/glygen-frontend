@@ -41,6 +41,25 @@
 .badge-div .MuiButton-root:active {
   outline: 0 !important;
 }
+.pubselect {
+  margin-right: 5px;
+  color: black;
+}
+.Glycosummary {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important ;
+  padding-left: 15px;
+}
+/* .Tabcss {
+  padding-top: 20px;
+}
+.singleTabcss {
+  padding-bottom: 20px;
+} */
+.Sorted {
+  margin-right: 5px;
+  color: black;
+}
 .badge-count {
   background-color: white;
   color: black;

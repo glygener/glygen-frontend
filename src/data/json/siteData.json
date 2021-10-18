@@ -44,117 +44,12 @@
     "amino_type": {
       "placeholder": "Select Residue Type",
       "placeholderId": "",
-      "placeholderName": "",
-      "menu": [
-        {
-          "id": "Ala",
-          "name": "Alanine (Ale)"
-        },
-        {
-          "id": "Arg",
-          "name": "arginine (Arg)"
-        },
-        {
-          "id": "Asn",
-          "name": "asparagine (Asn)"
-        },
-        {
-          "id": "Asp",
-          "name": "aspartic (Asp)"
-        },
-        {
-          "id": "Cys",
-          "name": "cysteine (Cys)"
-        },
-        {
-          "id": "Gln",
-          "name": "glutamine (Gln)"
-        },
-        {
-          "id": "Glu",
-          "name": "glutamic (Glu)"
-        },
-        {
-          "id": "Gly",
-          "name": "glycine (Gly)"
-        },
-        {
-          "id": "His",
-          "name": "histidine (His)"
-        },
-        {
-          "id": "Ile",
-          "name": "isoleucine (Ile)"
-        },
-        {
-          "id": "Leu",
-          "name": "leucine (Leu)"
-        },
-        {
-          "id": "Lys",
-          "name": "lysine (Lys)"
-        },
-        {
-          "id": "Met",
-          "name": "methionine (Met)"
-        },
-        {
-          "id": "Phe",
-          "name": "phenylalanine (Phe)"
-        },
-        {
-          "id": "Pro",
-          "name": "proline (Pro)"
-        },
-        {
-          "id": "Ser",
-          "name": "serine (Ser)"
-        },
-        {
-          "id": "His",
-          "name": "histidine (His)"
-        },
-        {
-          "id": "Thr",
-          "name": "threonine (Thr)"
-        },
-        {
-          "id": "Trp",
-          "name": "tryptophan (Trp)"
-        },
-        {
-          "id": "Tyr",
-          "name": "tyrosine (Tyr)"
-        },
-        {
-          "id": "Val",
-          "name": "valine (Val)"
-        }
-      ]
+      "placeholderName": ""
     },
-
     "annotation": {
       "placeholder": "Select Annotation Type",
       "placeholderId": "",
-      "placeholderName": "",
-      "menu": [
-        {
-          "id": "glycosylation",
-          "name": "Glycosylation"
-        },
-        {
-          "id": "snv",
-          "name": "SNV"
-        },
-        {
-          "id": "phosporylation",
-          "name": "Phosporylation"
-        },
-        {
-          "id": "mutagenesis",
-          "name": "Mutagenesis"
-        }
-      ]
+      "placeholderName": ""
     },
     "operator_list": {
       "placeholder": "Click to select one or multiple Amino Acids",
@@ -170,9 +65,72 @@
           "name": "And"
         }
       ]
+    },
+    "aa_listforsite": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "$or",
+          "name": "Or"
+        },
+        {
+          "id": "$and",
+          "name": "And"
+        }
+      ]
+    },
+    "operatorforsite": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "$gte",
+          "name": ">="
+        },
+        {
+          "id": "$eq",
+          "name": "="
+        },
+        {
+          "id": "$lte",
+          "name": "<="
+        }
+      ]
+    },
+    "updownstreamforsite": {
+      "placeholder": "Click to select one or multiple Amino Acids",
+      "operations": [
+        {
+          "id": "down_seq",
+          "name": "C-terminal (Downstream)",
+          "shortName": "C-terminal"
+        },
+        {
+          "id": "up_seq",
+          "name": "N-terminal (Upstream)",
+          "shortName": "N-terminal"
+        }
+      ]
+    },
+    "neighborDistance":{
+      "min": 1,
+      "max": 20,
+      "errorText": "Specify both options - Annotation Type and Distance.",
+      "placeholder": "Specify distance"
+    },
+    "patternPosition":{
+      "min": 1,
+      "max": 12,
+      "placeholder": "Specify position"
+    },
+    "patternPeptide":{
+      "length": 8,
+      "errorText": "Invalid Peptide Sequence entry.",
+      "errorText1": "Peptide Sequence entry is too long - max length is 8.",
+      "errorText2": "Specify both options - Position and Peptide Sequence.",
+      "errorText3": "For N-terminal (Upstream) option Peptide Sequence length can not be greater or equal to Position.",
+      "placeholder": "Peptide (eg : NPT)"
     }
   },
-
   "tutorial": {
     "tabTitle": "Tutorial"
   }

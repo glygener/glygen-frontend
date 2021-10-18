@@ -268,6 +268,14 @@ const GlycanAdvancedSearch = props => {
   }
 
   /**
+   * Function to set glycan ID namespace value.
+   * @param {string} value - input glycan ID namespace value.
+   **/
+   const glyIDNamespaceOnChange = value => {
+    props.setGlyAdvSearchData({ glyIDNamespace: value });
+  };
+
+  /**
    * Function to clear input field values.
    **/
   const clearGlycan = () => {
@@ -317,6 +325,7 @@ const GlycanAdvancedSearch = props => {
       glyGlyName: "",
       glyPubId: "",
       glyBindingProteinId: "",
+      glyIDNamespace: "",
       glyAdvSearchValError: [false, false, false, false, false, false, false]
     });
   };
@@ -392,6 +401,30 @@ const GlycanAdvancedSearch = props => {
             </Grid>
           </FormControl>
         </Grid>
+
+        {/* Glycan ID Namespace */}
+        <Grid item xs={12} sm={10}>
+          <FormControl fullWidth variant="outlined">
+            <Typography className={"search-lbl"} gutterBottom>
+              <HelpTooltip
+                title={commonGlycanData.id_namespace.tooltip.title}
+                text={commonGlycanData.id_namespace.tooltip.text}
+              />
+              {commonGlycanData.id_namespace.name}
+            </Typography>
+            <SelectControl
+              inputValue={props.inputValue.glyIDNamespace}
+              placeholder={advancedSearch.id_namespace.placeholder}
+              placeholderId={advancedSearch.id_namespace.placeholderId}
+              placeholderName={advancedSearch.id_namespace.placeholderName}
+              menu={props.initData.id_namespace.map(type => {
+                return { id: type, name: type };
+              })}
+              setInputValue={glyIDNamespaceOnChange}
+            />
+          </FormControl>
+        </Grid>
+
         {/* Monoisotopic Mass */}
         <Grid item xs={12} sm={10}>
           <FormControl fullWidth>

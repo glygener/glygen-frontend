@@ -36,7 +36,6 @@ const HowToCite = (props) => {
         {getMeta("howToCite")}
       </Helmet>
       <CssBaseline />
-      <div id="top-heading"></div>
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
           <Sidebar items={items} />
@@ -44,7 +43,7 @@ const HowToCite = (props) => {
         <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
           <div className="sidebar-page-mb">
             <VerticalHeadingLogo post={vertHeadHowToCite} />
-            <PanelHowToCite id="How-to-Cite" data={howToCiteData.howToCite} />
+            <PanelHowToCite id="How-To-Cite" data={howToCiteData.howToCite} />
             <PanelHowToCite id="Our-Papers" data={howToCiteData.ourPapers} />
             <PanelHowToCite id="Related-Papers" data={howToCiteData.relatedPapers} />
             <PanelHowToCite id="Website-Citation" data={howToCiteData.websiteCitation} />

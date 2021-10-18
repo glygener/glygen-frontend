@@ -508,35 +508,6 @@ const ProteinAdvancedSearch = (props) => {
 						/>
 					</FormControl>
 				</Grid>
-				{/* Covalently Attached Glycan */}
-				<Grid item xs={12} sm={10}>
-					<FormControl fullWidth variant='outlined'>
-						<Typography
-							className={'search-lbl'}
-							gutterBottom
-						>
-							<HelpTooltip
-                                title={commonProteinData.attached_glycan_id.tooltip.title}
-                                text={commonProteinData.attached_glycan_id.tooltip.text}
-                                urlText={commonProteinData.attached_glycan_id.tooltip.urlText}
-                                url={commonProteinData.attached_glycan_id.tooltip.url}
-                            />
-                            {commonProteinData.attached_glycan_id.name}
-						</Typography>
-						<AutoTextInput
-							inputValue={props.inputValue.proAttachedGlycanId}
-                            setInputValue={proAttachedGlycanIdChange}
-                            placeholder={advancedSearch.attached_glycan_id.placeholder}
-							typeahedID={advancedSearch.attached_glycan_id.typeahedID}
-							length={advancedSearch.attached_glycan_id.length}
-							errorText={advancedSearch.attached_glycan_id.errorText}
-						/>
-                        <ExampleExploreControl
-							setInputValue={proAttachedGlycanIdChange}
-							inputValue={advancedSearch.attached_glycan_id.examples}
-						/>
-					</FormControl>
-				</Grid>
 				{/* Bound Glycan */}
 				<Grid item xs={12} sm={10}>
 					<FormControl fullWidth variant='outlined'>
@@ -563,6 +534,60 @@ const ProteinAdvancedSearch = (props) => {
                         <ExampleExploreControl
 							setInputValue={proBindingGlycanIdChange}
 							inputValue={advancedSearch.binding_glycan_id.examples}
+						/>
+					</FormControl>
+				</Grid>
+				{/* Glycosylation  Type */}
+				<Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.glycosylation_type.tooltip.title}
+                                text={commonProteinData.glycosylation_type.tooltip.text}
+                            />
+                            {commonProteinData.glycosylation_type.name}
+						</Typography>
+						{/* {advancedSearch.glycosylation_type && ( */}
+							<SelectControl
+								inputValue={props.inputValue.proGlycosylationType}
+								placeholder={advancedSearch.glycosylation_type.placeholder}
+								placeholderId={advancedSearch.glycosylation_type.placeholderId}
+								placeholderName={advancedSearch.glycosylation_type.placeholderName}
+								menu={props.initData.glycosylation_types.map(a => ({name:a, id:a}))}
+								setInputValue={proGlycosylationTypeOnChange}
+							/>
+						{/* )} */}
+					</FormControl>
+				</Grid>
+				{/* Covalently Attached Glycan */}
+				<Grid item xs={12} sm={10}>
+					<FormControl fullWidth variant='outlined'>
+						<Typography
+							className={'search-lbl'}
+							gutterBottom
+						>
+							<HelpTooltip
+                                title={commonProteinData.attached_glycan_id.tooltip.title}
+                                text={commonProteinData.attached_glycan_id.tooltip.text}
+                                urlText={commonProteinData.attached_glycan_id.tooltip.urlText}
+                                url={commonProteinData.attached_glycan_id.tooltip.url}
+                            />
+                            {commonProteinData.attached_glycan_id.name}
+						</Typography>
+						<AutoTextInput
+							inputValue={props.inputValue.proAttachedGlycanId}
+                            setInputValue={proAttachedGlycanIdChange}
+                            placeholder={advancedSearch.attached_glycan_id.placeholder}
+							typeahedID={advancedSearch.attached_glycan_id.typeahedID}
+							length={advancedSearch.attached_glycan_id.length}
+							errorText={advancedSearch.attached_glycan_id.errorText}
+						/>
+                        <ExampleExploreControl
+							setInputValue={proAttachedGlycanIdChange}
+							inputValue={advancedSearch.attached_glycan_id.examples}
 						/>
 					</FormControl>
 				</Grid>
@@ -604,6 +629,29 @@ const ProteinAdvancedSearch = (props) => {
 								</FormControl>
 							</Grid>
 						</Grid>
+					</FormControl>
+				</Grid>
+				{/* Glycosylation Evidence Type */}
+				<Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.glycosylation_evidence.tooltip.title}
+                                text={commonProteinData.glycosylation_evidence.tooltip.text}
+                            />
+                            {commonProteinData.glycosylation_evidence.name}
+						</Typography>
+						<SelectControl
+							inputValue={props.inputValue.proGlyEvidence}
+							placeholder={advancedSearch.glycosylation_evidence.placeholder}
+							placeholderId={advancedSearch.glycosylation_evidence.placeholderId}
+							placeholderName={advancedSearch.glycosylation_evidence.placeholderName}
+							menu={advancedSearch.glycosylation_evidence.menu}
+							setInputValue={proGlyEvidenceOnChange}
+						/>
 					</FormControl>
 				</Grid>
 				{/* Protein or Peptide Sequence */}
@@ -754,54 +802,6 @@ const ProteinAdvancedSearch = (props) => {
                         <ExampleExploreControl
 							setInputValue={proPubIdChange}
 							inputValue={advancedSearch.pmid.examples}
-						/>
-					</FormControl>
-				</Grid>
-				{/* Glycosylation  Type */}
-				<Grid item xs={12} sm={10}>
-					<FormControl
-						fullWidth
-						variant='outlined'
-					>
-						<Typography className={'search-lbl'} gutterBottom>
-							<HelpTooltip
-                                title={commonProteinData.glycosylation_type.tooltip.title}
-                                text={commonProteinData.glycosylation_type.tooltip.text}
-                            />
-                            {commonProteinData.glycosylation_type.name}
-						</Typography>
-						{/* {advancedSearch.glycosylation_type && ( */}
-							<SelectControl
-								inputValue={props.inputValue.proGlycosylationType}
-								placeholder={advancedSearch.glycosylation_type.placeholder}
-								placeholderId={advancedSearch.glycosylation_type.placeholderId}
-								placeholderName={advancedSearch.glycosylation_type.placeholderName}
-								menu={props.initData.glycosylation_types.map(a => ({name:a, id:a}))}
-								setInputValue={proGlycosylationTypeOnChange}
-							/>
-						{/* )} */}
-					</FormControl>
-				</Grid>
-				{/* Glycosylation Evidence Type */}
-				<Grid item xs={12} sm={10}>
-					<FormControl
-						fullWidth
-						variant='outlined'
-					>
-						<Typography className={'search-lbl'} gutterBottom>
-							<HelpTooltip
-                                title={commonProteinData.glycosylation_evidence.tooltip.title}
-                                text={commonProteinData.glycosylation_evidence.tooltip.text}
-                            />
-                            {commonProteinData.glycosylation_evidence.name}
-						</Typography>
-						<SelectControl
-							inputValue={props.inputValue.proGlyEvidence}
-							placeholder={advancedSearch.glycosylation_evidence.placeholder}
-							placeholderId={advancedSearch.glycosylation_evidence.placeholderId}
-							placeholderName={advancedSearch.glycosylation_evidence.placeholderName}
-							menu={advancedSearch.glycosylation_evidence.menu}
-							setInputValue={proGlyEvidenceOnChange}
 						/>
 					</FormControl>
 				</Grid>

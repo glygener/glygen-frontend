@@ -23,7 +23,7 @@ export default function TextAlert(props) {
     if (input === "title")
         return stringConstants.errors[errorID].title;
     else if (input === "message")
-        return stringConstants.errors[errorID].message;    
+        return props.alertInput.message || stringConstants.errors[errorID].message;    
   };
 
   return (
@@ -31,7 +31,9 @@ export default function TextAlert(props) {
     {props.alertInput.show && <div>
       <Alert severity="error">
          <AlertTitle>{getValue("title")}</AlertTitle>
-            {getValue("message")}
+            <span className="alert-text">
+              {getValue("message")}
+            </span>            
         </Alert>
     </div>}
     </>

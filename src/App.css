@@ -759,6 +759,18 @@ ul.office-details {
   border-radius: 4px;
   margin: 5px !important;
 }
+.gg-tooltip-hitscore {
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 16px !important;
+  border: 1px solid #eee !important;
+  -webkit-box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 5px !important;
+  padding: 15px !important;
+  max-width: 700px !important;
+}
 .gg-helpicon {
   margin-right: 8px !important;
   font-size: large !important;
@@ -1194,6 +1206,13 @@ sub {
 }
 .select-type {
   justify-content: space-between;
+}
+
+.alert-text {
+  overflow: auto;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 /*! does not work on Firefox */

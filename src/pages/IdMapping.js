@@ -83,8 +83,6 @@ const IdMapping = (props) => {
     setFromIdTypeValidated(false);
     setIdMapSearchData({ outputNamespace: "any" });
     setToIdTypeValidated(false);
-    setIdMapSearchData({ inputIdlist: "" });
-    setInputIdListValidated(false);
     if (value && value !== "any") {
       setMoleculeValidated(true);
     } else {
@@ -100,8 +98,6 @@ const IdMapping = (props) => {
     setIdMapSearchData({ inputNamespace: value });
     setIdMapSearchData({ outputNamespace: "any" });
     setToIdTypeValidated(false);
-    setIdMapSearchData({ inputIdlist: "" });
-    setInputIdListValidated(false);
     if (value && value !== "any") {
       setFromIdTypeValidated(true);
     } else {

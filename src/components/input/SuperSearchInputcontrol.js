@@ -83,7 +83,7 @@ const SuperSearchInputcontrol = (props) => {
 									props.supSearchUpdateQuery(props.query.order, "field", input);
 									let curfield = props.data.fields.filter((value)=> value.id === input)[0];
 									props.supSearchUpdateQuery(props.query.order, "fieldType", curfield.type);
-									props.supSearchUpdateQuery(props.query.order, "value", "");
+									props.supSearchUpdateQuery(props.query.order, "value", curfield.default_value ? curfield.default_value : "");
 									props.supSearchUpdateQuery(props.query.order, "typeaheadID", curfield.typeahead);
 									props.supSearchUpdateQuery(props.query.order, "error", false);
 									props.supSearchUpdateQuery(props.query.order, "operationEnum", (curfield.enum && curfield.enum.length > 0 ? curfield.oplist.filter(val => val !== "$regex") : curfield.oplist));

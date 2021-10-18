@@ -18,8 +18,11 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import DownloadButton from "../components/DownloadButton";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import { Link } from "react-router-dom";
 const proteinStrings = stringConstants.protein.common;
+const siteStrings = stringConstants.site.common;
+
 
 // import { GLYGEN_BASENAME } from "../envVariables";
 
@@ -64,6 +67,7 @@ const SiteList = props => {
         setTimeStamp(data.cache_info.ts);
         setPagination(data.pagination);
         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
+
         setPage(currentPage);
         setTotalSize(data.pagination.total_length);
         setConfigData(initData);
@@ -163,7 +167,18 @@ const SiteList = props => {
     {
       dataField: "hit_score",
       text: "Hit Score",
-      sort: true
+      sort: true,
+      formatter: (value, row) => (
+        <>
+          <HitScoreTooltip
+            title={"Hit Score"}
+            text={"Hit Score Formula"}
+            formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
+            contributions={row.score_info.contributions.map((item) => {return {c:siteStrings.contributions[item.c] ? siteStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
+          />
+          {row.hit_score}
+        </>
+      )
     },
     {
       dataField: "start_pos",
@@ -206,28 +221,33 @@ const SiteList = props => {
     {
       dataField: "snv",
       text: "SNV",
+      sort: true,
       formatter: yesNoFormater
     },
     {
       dataField: "glycosylation",
       text: "Glycosylation",
+      sort: true,
       formatter: yesNoFormater
     },
     {
       dataField: "mutagenesis",
       text: "Mutagenesis",
+      sort: true,
+      formatter: yesNoFormater
+    },
+    {
+      dataField: "glycation",
+      text: "Glycation",
+      sort: true,
+      formatter: yesNoFormater
+    },
+    {
+      dataField: "phosphorylation",
+      text: "Phosphorylation",
+      sort: true,
       formatter: yesNoFormater
     }
-    // {
-    //   dataField: "glycation",
-    //   text: "Glycation",
-    //   formatter: yesNoFormater
-    // },
-    // {
-    //   dataField: "phosphorylation",
-    //   text: "Phosphorylation",
-    //   formatter: yesNoFormater
-    // }
   ];
 
   return (
@@ -276,8 +296,7 @@ const SiteList = props => {
             dataId={id}
             itemType="site"
           />
-
-          {/* {siteColumns && siteColumns.length !== 0 && ( */}
+          {/* {data && data.length !== 0 && ( */}
           {!!(data && data.length) && (
             <PaginatedTable
               trStyle={rowStyleFormat}
@@ -292,7 +311,6 @@ const SiteList = props => {
               defaultSortOrder="desc"
             />
           )}
-          {/* )} */}
         </section>
       </Container>
     </>

@@ -34,6 +34,8 @@ const GlobalSearchResult = (props) => {
 		{show: false, id: ""}
 	);
 	const [globalSearchData, setGlobalSearchData] = useState({});
+	const [proteinKeyList, setProteinKeyList] = useState([]);
+
 
 	/**
 	 * useEffect for retriving data from api and showing page loading effects.
@@ -44,6 +46,15 @@ const GlobalSearchResult = (props) => {
 		getGlobalSearch(id).then(({ data }) => {
 		logActivity("user", (id || ""), "Global search term=" + id);
 		setGlobalSearchData(data);
+										
+		let proteinKeys = Object.keys(data.other_matches.protein);	
+		let glycoproteinKeys = Object.keys(data.other_matches.glycoprotein);	
+		for (let item of glycoproteinKeys){
+			if (!proteinKeys.includes(item)) {
+				proteinKeys.push(item);
+			}
+		}
+		setProteinKeyList(proteinKeys);
 		setPageLoading(false);
 	})
 	.catch(function (error) {
@@ -109,7 +120,7 @@ const GlobalSearchResult = (props) => {
 								/>}
 							</Grid>
 							<Grid item md={6}>
-								{globalSearchData.other_matches && <GlobalSearchDualCard
+								{globalSearchData.other_matches && proteinKeyList.length > 0 && <GlobalSearchDualCard
 									cardTitle1="Protein(s)"
 									cardTitle2="Glycoprotein(s)"
 									route={routeConstants.proteinList}
@@ -122,9 +133,10 @@ const GlobalSearchResult = (props) => {
 									colHeading1={"Database"}
 									colHeading2={"Protein"}
 									colHeading3={"Glycoprotein"}
-									searchItems={Object.keys(globalSearchData.other_matches.protein)
-										.map((searchItem)  => {return {name: proteinGlobalSearch[searchItem] ? proteinGlobalSearch[searchItem].name : searchItem, count1: globalSearchData.other_matches.protein[searchItem].count, list_id1 : globalSearchData.other_matches.protein[searchItem].list_id,
-																count2: globalSearchData.other_matches.glycoprotein[searchItem].count, list_id2 : globalSearchData.other_matches.glycoprotein[searchItem].list_id}})}
+									searchItems={
+										proteinKeyList
+										.map((searchItem)  => {return {name: proteinGlobalSearch[searchItem] ? proteinGlobalSearch[searchItem].name : searchItem, count1: globalSearchData.other_matches.protein[searchItem] ? globalSearchData.other_matches.protein[searchItem].count : 0, list_id1 : globalSearchData.other_matches.protein[searchItem] ? globalSearchData.other_matches.protein[searchItem].list_id : "",
+																count2: globalSearchData.other_matches.glycoprotein[searchItem] ? globalSearchData.other_matches.glycoprotein[searchItem].count : 0, list_id2 : globalSearchData.other_matches.glycoprotein[searchItem] ? globalSearchData.other_matches.glycoprotein[searchItem].list_id : ""}})}
 								/>}
 							</Grid>
 						</Grid>

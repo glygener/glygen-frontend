@@ -5,6 +5,7 @@ import stringConstants from "../data/json/stringConstants";
 import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import LineTooltip from "../components/tooltip/LineTooltip";
 import { getProteinInit } from "../data/protein";
 import "../css/detail.css";
 
@@ -40,7 +41,7 @@ const ProteinQuerySummary = (props) => {
   const title = "Protein Search Summary";
   // let quickSearch = stringConstants.quick_search;
 
-  const { data, onModifySearch, timestamp, searchId } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap } = props;
   const proteinStrings = stringConstants.protein.common;
   const superSearchStrings = stringConstants.super_search.common;
 
@@ -405,6 +406,13 @@ const ProteinQuerySummary = (props) => {
             ** To perform the same search again using the current version of the database, click{" "}
             <strong>“Update Results”</strong>.
           </Card.Text>
+          {dataUnmap && dataUnmap.length > 0 && (<Card.Text>
+            ** {dataUnmap.length} ID(s) could not be found. To see the reason please,{" "}
+            <LineTooltip text="Unmapped ID Table">
+              <a href="#Unmapped-Table">click here</a>
+            </LineTooltip>
+            .
+          </Card.Text>)}
         </Card.Body>
       </Card>
     </>

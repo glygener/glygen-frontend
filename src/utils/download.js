@@ -24,6 +24,12 @@ const getFormatDetails = (format, type, compressed = false) => {
   } else if (format === "tsv") {
     mimeType = "text/tsv";
     ext = ".tsv";
+  } else if (format === "byonic") {
+    mimeType = "text/plain";
+    ext = ".byonic";
+  } else if (format === "grits") {
+    mimeType = "application/xml";
+    ext = ".grits";
   }
 
   if (compressed) {

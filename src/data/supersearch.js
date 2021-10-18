@@ -69,7 +69,12 @@ const constructSiteSearchObject = queryObject => {
     annotations,
     position,
     minRange,
-    maxRange
+    maxRange,
+    singleannotations,
+    distance,
+    operator,
+    updownoperator,
+    combinedPattern
   } = queryObject;
 
   let min = minRange || position || maxRange;
@@ -97,14 +102,17 @@ const constructSiteSearchObject = queryObject => {
     min ||
     max ||
     (aminoType && aminoType.length) ||
-    (annotations && annotations.length)
+    (annotations && annotations.length) ||
+    singleannotations ||
+    distance ||
+    combinedPattern
   ) {
     const siteQuery = {
       concept: "site",
       query: {
         aggregator: "$and",
-        aggregated_list: [],
-        unaggregated_list: []
+        unaggregated_list: [],
+        aggregated_list: []
       }
     };
     let order = 0;
@@ -139,6 +147,35 @@ const constructSiteSearchObject = queryObject => {
       order++;
     }
 
+    if (parseInt(distance) && operator && singleannotations && singleannotations.length){
+      siteQuery.query.unaggregated_list.push({
+        path: "neighbors.categories",
+        order,
+        operator: "$eq",
+        string_value: singleannotations
+      });
+      order++;
+    
+      siteQuery.query.unaggregated_list.push({
+        path: "neighbors.distance",
+        order,
+        operator: operator,
+        numeric_value: parseInt(distance)
+      });
+      order++;
+  }
+
+    if (combinedPattern && combinedPattern.length && updownoperator) {
+      siteQuery.query.unaggregated_list.push({
+        path: updownoperator,
+        order,
+        operator: "$regex",
+        string_value: combinedPattern
+      });
+      order++;
+    }
+
+    // Added in the bottom of site concept to handle or conditions.
     if (annotations && annotations.length) {
       let targetList = siteQuery.query.unaggregated_list;
       if (annotationOperation === "$or" && annotations.length > 1) {
@@ -189,53 +226,6 @@ export const getSiteSearch = async queryObject => {
   return getSuperSearch(formObject);
 };
 
-// export const createSiteQuerySummary = (query) => {
-//   let result = {};
-//   let start;
-//   let end;
-
-//   if (query.concept_query_list) {
-//     for (let querySection of query.concept_query_list) {
-//       if (querySection && querySection.query.unaggregated_list) {
-//         for (let listItem of querySection.query.unaggregated_list) {
-//           if (listItem.path === "uniprot_ac") {
-//             if (!result.proteinId) {
-//               result.proteinId = [];
-//             }
-//             result.proteinId.push(listItem.string_value);
-//           } else if (listItem.path === "site_seq") {
-//             result.aminoType = listItem.string_value;
-//           } else if (
-//             ["glycosylation_flag", "snv_flag", "mutagenesis_flag"].includes(listItem.path)
-//           ) {
-//             if (!result.annotations) {
-//               result.annotations = [];
-//             }
-//             result.annotations.push(listItem.path);
-
-//             result.annotationOperation = querySection.query.aggregator;
-//           } else if (listItem.path === "start_pos") {
-//             start = listItem.numeric_value;
-//           } else if (listItem.path === "end_pos") {
-//             end = listItem.numeric_value;
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   if (start && end) {
-//     // if (start === end) {
-//     //   result.position = start;
-//     // }
-
-//     result.min = start;
-//     result.max = end;
-//   }
-
-//   return result;
-// };
-
 export const createSiteQuerySummary = query => {
   let result = {};
 
@@ -248,9 +238,13 @@ export const createSiteQuerySummary = query => {
     } else if (listItem.path === "site_seq") {
       result.aminoType = listItem.string_value;
     } else if (
-      ["glycosylation_flag", "snv_flag", "mutagenesis_flag"].includes(
-        listItem.path
-      )
+      [
+        "glycosylation_flag",
+        "snv_flag",
+        "mutagenesis_flag",
+        "phosphorylation_flag",
+        "glycation_flag"
+      ].includes(listItem.path)
     ) {
       if (!result.annotations) {
         result.annotations = [];
@@ -260,6 +254,15 @@ export const createSiteQuerySummary = query => {
       result.min = listItem.numeric_value;
     } else if (listItem.path === "end_pos") {
       result.max = listItem.numeric_value;
+    } else if (listItem.path === "neighbors.categories") {
+      result.neighborsCat = listItem.string_value;
+    } else if (listItem.path === "neighbors.distance") {
+      result.neighborsDist = listItem.numeric_value;
+      result.neighborsDistOper = listItem.operator;
+    } else if (listItem.path === "down_seq" || listItem.path === "up_seq") {
+      result.patternTerminal = listItem.path;
+      result.patternPosition = listItem.string_value.split("|")[0];
+      result.patternPeptide = listItem.string_value.split("|")[1];
     }
   };
 

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import routeConstants from "./json/routeConstants";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import stringConstants from "./json/stringConstants";
 import { logActivity } from "../data/logging";
 import { Link } from "react-router-dom";
@@ -98,7 +99,18 @@ export const GLYCAN_COLUMNS = [
     sort: true,
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
-    }
+    },
+    formatter: (value, row) => (
+      <>
+        <HitScoreTooltip
+          title={"Hit Score"}
+          text={"Hit Score Formula"}
+          formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
+          contributions={row.score_info.contributions.map((item) => {return {c:glycanStrings.contributions[item.c] ? glycanStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
+        />
+        {row.hit_score}
+      </>
+    )
   },
   {
     dataField: glycanStrings.mass.id,

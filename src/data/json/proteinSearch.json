@@ -63,25 +63,6 @@
         }
       ]
     },
-    "site": {
-      "length": 100,
-      "errorText": "Entry is too long - max length is 100.",
-      "typeahedID": "site",
-      "placeholder": "Enter the RefSeq Accession of your protein",
-      "examples": [
-        {
-          "orderID": 100,
-          "example": {
-            "name": "Example",
-            "id": "294"
-          },
-          "explore": {
-            "id": "Site",
-            "url": " "
-          }
-        }
-      ]
-    },
     "annotation": {
       "placeholder": "Select Annotation Type",
       "placeholderId": "",
@@ -291,21 +272,6 @@
         }
       ]
     },
-
-    "aa_listforsite": {
-      "placeholder": "Click to select one or multiple Amino Acids",
-      "operations": [
-        {
-          "id": "$or",
-          "name": "Or"
-        },
-        {
-          "id": "$and",
-          "name": "And"
-        }
-      ]
-    },
-
     "sequence": {
       "length": 2500,
       "errorText": "Entry is too long - max length is 2500.",
@@ -431,5 +397,8 @@
   },
   "tutorial": {
     "tabTitle": "Tutorial"
+  },
+  "query_search": {
+    "queryProps": ["mass", "tolerance", "acc"]
   }
 }

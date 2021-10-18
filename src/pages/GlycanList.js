@@ -4,7 +4,6 @@ import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
 import { useParams } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getGlycanList } from "../data";
 import { GLYCAN_COLUMNS } from "../data/glycan";
@@ -23,12 +22,13 @@ import { GLYGEN_BASENAME } from "../envVariables";
 import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
-
+import ClientPaginatedTable from "../components/ClientPaginatedTable";
 const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState(null);
+  const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
@@ -43,6 +43,8 @@ const GlycanList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+
+  const unmappedStrings = stringConstants.glycan.common.unmapped;
 
   const fixResidueToShortNames = query => {
     const residueMap = stringConstants.glycan.common.composition;
@@ -82,6 +84,11 @@ const GlycanList = props => {
           setPageLoading(false);
         } else {
           setData(data.results);
+          setDataUnmap(
+            data.cache_info.batch_info && data.cache_info.batch_info.unmapped
+              ? data.cache_info.batch_info.unmapped
+              : []
+          );
           if (
             data.cache_info.query.glycan_identifier &&
             data.cache_info.query.glycan_identifier.glycan_id
@@ -146,17 +153,7 @@ const GlycanList = props => {
     });
   };
 
-  // useEffect(() => {
-  //   if (data && data.length === 0) {
-  //     setAlertDialogInput({
-  //       show: true,
-  //       id: "no-result-found"
-  //     });
-  //   }
-  // }, [data]);
-
   const handleFilterChange = newFilter => {
-    // debugger;
     console.log(newFilter);
 
     const existingFilter = appliedFilters.find(
@@ -189,7 +186,7 @@ const GlycanList = props => {
   }
   const handleModifySearch = () => {
     if (searchId === "gs") {
-      props.history.push(routeConstants.globalSearchResult + query.term);
+      window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId === "sups") {
       props.history.push(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
@@ -208,6 +205,20 @@ const GlycanList = props => {
   };
 
   const [sidebar, setSidebar] = useState(true);
+
+  const unmapIDColumns = [
+    {
+      dataField: unmappedStrings.input_id.shortName,
+      text: unmappedStrings.input_id.name,
+      sort: true,
+      selected: true
+    },
+    {
+      dataField: unmappedStrings.reason.shortName,
+      text: unmappedStrings.reason.name,
+      sort: true
+    }
+  ];
 
   return (
     <>
@@ -275,6 +286,7 @@ const GlycanList = props => {
                 question={quickSearch[searchId]}
                 searchId={searchId}
                 timestamp={timestamp}
+                dataUnmap={dataUnmap}
                 onModifySearch={handleModifySearch}
               />
             </section>
@@ -293,7 +305,19 @@ const GlycanList = props => {
                       stringConstants.download.glycan_jsondata.displayname,
                     type: "json",
                     data: "glycan_list"
+                  },
+                  {
+                    display:
+                      stringConstants.download.glycan_byonicdata.displayname,
+                    type: "byonic",
+                    data: "glycan_list"
                   }
+                  // {
+                  //   display:
+                  //     stringConstants.download.glycan_gritsdata.displayname,
+                  //   type: "grits",
+                  //   data: "glycan_list"
+                  // }
                 ]}
                 dataId={id}
               />
@@ -314,6 +338,26 @@ const GlycanList = props => {
               )}
               {/* {data && data.length === 0 && <p>No data.</p>} */}
             </section>
+            {dataUnmap && dataUnmap.length > 0 && (
+              <>
+                <div id="Unmapped-Table"></div>
+                <div className="content-box-sm">
+                  <h1 className="page-heading">{unmappedStrings.title}</h1>
+                </div>
+                <section>
+                  {/* Unmapped Table */}
+                  {unmapIDColumns && unmapIDColumns.length !== 0 && (
+                    <ClientPaginatedTable
+                      data={dataUnmap}
+                      columns={unmapIDColumns}
+                      defaultSortField={"input_id"}
+                      defaultSortOrder="asc"
+                      onClickTarget={"#Unmapped-Table"}
+                    />
+                  )}
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>

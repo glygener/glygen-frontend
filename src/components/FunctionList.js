@@ -4,7 +4,38 @@ import EvidenceList from "./EvidenceList";
 import Table from "react-bootstrap/Table";
 
 const formatFunctions = (functions) => {
-  const formattedEvidences = functions.map((func) => {
+   let functionArray = [];
+   for (let i = 0; i < functions.length; i++){
+        let existingFunction = functionArray.find((existing) => existing.annotation === functions[i].annotation);
+
+        // if notexists, create new function object
+        if (!existingFunction) {
+          // create new function entry
+          functionArray.push(functions[i]);
+        } else {
+          functionArray = functionArray.filter((existing) => existing.annotation !== functions[i].annotation);
+          let temp = [].concat(existingFunction.evidence, functions[i].evidence);
+          existingFunction.evidence = temp.reduce((results, evidence) => {
+            let existingEvidence = results.find((existing) => existing.id === evidence.id);
+
+            // if notexists, create new evidence
+            if (!existingEvidence) {
+              let eved = {
+                id: evidence.id,
+                url: evidence.url,
+                database: evidence.database
+              };
+      
+              results.push(eved);
+            }
+          
+            return results;
+          }, []);
+          functionArray.push(existingFunction);
+        }
+   }
+
+  const formattedEvidences = functionArray.map((func) => {
     return {
       ...func,
       evidence: groupEvidences(func.evidence),
@@ -13,26 +44,33 @@ const formatFunctions = (functions) => {
 
   const groupedFunctions = formattedEvidences.reduce((results, { evidence, url, annotation }) => {
     // find if a given db already exists
-    const [database] = Object.keys(evidence);
-    let existingEvidence = results.find((existing) => existing.evidence[database]);
+    const databaseArr = Object.keys(evidence);
 
-    // if notexists, create new functions
-    if (!existingEvidence) {
-      // create new function entry
-      existingEvidence = {
-        functions: [],
-        evidence,
-      };
+    for (let i = 0; i < databaseArr.length; i++){
+      let database = databaseArr[i];
+      //alert(database)
+      let existingEvidence = results.find((existing) => existing.evidence[database]);
 
-      results.push(existingEvidence);
+      // if notexists, create new functions
+      if (!existingEvidence) {
+        // create new function entry
+        existingEvidence = {
+          functions: [],
+          evidence: {[database]:[]},
+        };
+
+        results.push(existingEvidence);
+      }
+      let tempExEvidence = existingEvidence.evidence[database].map(eve => eve.id);
+      let tempEvidence = evidence[database].filter((existing) => !tempExEvidence.includes(existing.id));
+      
+      existingEvidence.evidence[database].push(...tempEvidence);
+      // add function to list
+      existingEvidence.functions.push({
+        url,
+        annotation,
+      });
     }
-
-    // add function to list
-    existingEvidence.functions.push({
-      url,
-      annotation,
-    });
-
     return results;
   }, []);
 

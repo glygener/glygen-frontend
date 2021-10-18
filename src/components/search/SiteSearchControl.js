@@ -21,7 +21,6 @@ import stringConstants from "../../data/json/stringConstants";
 import { InputLabel, Radio } from "@material-ui/core";
 import { grid, positions } from "@material-ui/system";
 import { getSiteSearch, getSiteSearchInit } from "../../data/supersearch";
-import proteinSearchData from "../../data/json/proteinSearch";
 import * as routeConstants from "../../data/json/routeConstants";
 import { logActivity } from "../../data/logging";
 import { axiosError } from "../../data/axiosError";
@@ -29,10 +28,8 @@ import { getTitle, getMeta } from "../../utils/head";
 import PageLoader from "../load/PageLoader";
 import FeedbackWidget from "../FeedbackWidget";
 import TextAlert from "../alert/TextAlert";
-const commonProteinData = stringConstants.protein.common;
+const siteStrings = stringConstants.site.common;
 const sitesData = siteData.site_search;
-let advancedSearch = proteinSearchData.advanced_search;
-let siteListRoute = routeConstants.siteList;
 /**
  * Protein advanced search control.
  */
@@ -40,13 +37,21 @@ const SiteSearchControl = props => {
   const { defaults } = props;
   const [initData, setInitData] = useState(null);
   const [position, setPosition] = useState("");
-  const [minRange, setMinRange] = useState("");
-  const [maxRange, setMaxRange] = useState("");
+  // const [minRange, setMinRange] = useState("");
+  // const [maxRange, setMaxRange] = useState("");
   const [proteinId, setproteinId] = useState("");
   const [aminoType, setAminoType] = useState("");
+  const [pattern, setPattern] = useState("");
+  const [distance, setDistance] = useState("");
   const [annotationOperation, setAnnotationOperation] = useState("$and");
+  const [operator, setOperator] = useState("$lte");
+  const [updownoperator, setUpDownOperator] = useState("down_seq");
   const [annotations, setAnnotations] = useState([]);
-  const [queryObject, setQueryObject] = useState({});
+  const [singleannotations, setSingleAnnotations] = useState("");
+  const [siteError, setSiteError] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { neighbors: false, pattern: false, peptideInvalid: false, peptideLength: false, upstreamPosition: false }
+  );
   const [pageLoading, setPageLoading] = useState(true);
   const [alertTextInput, setAlertTextInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -56,16 +61,19 @@ const SiteSearchControl = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
-  const proteinStrings = stringConstants.protein.common;
-
+  const amAcidPattern = /[^rhkdestnqcugpavilmfywxRHKDESTNQCUGPAVILMFYWX]/g;
+  
   useEffect(() => {
     setPageLoading(true);
-    document.addEventListener('click', () => {
-			setAlertTextInput({"show": false})
-		});
+    document.addEventListener("click", () => {
+      setAlertTextInput({ show: false });
+    });
     logActivity();
     setAlertTextInput({ show: false });
     getSiteSearchInit().then(response => {
+      if (response.data && response.data.annotation_type_list){
+        response.data.annotation_type_list = response.data.annotation_type_list.map((item) => {return {id: item.id, name: item.label}});
+      }
       setInitData(response.data);
       setPageLoading(false);
     });
@@ -79,56 +87,42 @@ const SiteSearchControl = props => {
       const anno = initData.annotation_type_list.filter(annotation => {
         return defaults.annotations.includes(annotation.id);
       });
+      setAnnotations(anno);
+    }
 
-      setAnnotations(
-        anno.map(x => ({
-          ...x,
-          name: x.label
-        }))
-      );
+    if (defaults.neighborsCat) {
+      setSingleAnnotations(defaults.neighborsCat);
     }
     if (defaults.aminoType) {
       setAminoType(defaults.aminoType);
     }
-    if (defaults.min) {
-      setMinRange(defaults.min);
-    }
-    if (defaults.max) {
-      setMaxRange(defaults.max);
-    }
-    if (defaults.position) {
-      setPosition(defaults.position);
+    // if (defaults.min) {
+    //   setMinRange(defaults.min);
+    // }
+    // if (defaults.max) {
+    //   setMaxRange(defaults.max);
+    // }
+    if (defaults.patternPosition) {
+      setPosition(defaults.patternPosition);
     }
     if (defaults.annotationOperation) {
       setAnnotationOperation(defaults.annotationOperation);
     }
-    console.log("defaults", defaults);
+    if (defaults.neighborsDistOper) {
+      setOperator(defaults.neighborsDistOper);
+    }
+    if (defaults.patternTerminal) {
+      setUpDownOperator(defaults.patternTerminal);
+    }
+    if (defaults.neighborsDist) {
+      setDistance(defaults.neighborsDist);
+    }
+    if (defaults.patternPeptide) {
+      setPattern(defaults.patternPeptide);
+    }
+
   }, [initData, defaults]);
 
-  // const validateMinRange = (minRange) => true;
-
-  // const minRangeError = validateMinRange(minRange)
-
-  useEffect(() => {
-    setPageLoading(false);
-    setQueryObject({
-      proteinId,
-      aminoType,
-      annotations,
-      annotationOperation,
-      position,
-      minRange,
-      maxRange
-    });
-  }, [
-    proteinId,
-    aminoType,
-    annotations,
-    annotationOperation,
-    position,
-    minRange,
-    maxRange
-  ]);
 
   /**
    * Function to clear input field values.
@@ -136,50 +130,90 @@ const SiteSearchControl = props => {
   const clearSite = () => {
     setAlertTextInput({ show: false });
     setproteinId("");
-    setMinRange("");
+    // setMinRange("");
+    setSingleAnnotations("");
+    setOperator("$lte");
     setPosition("");
-    setMaxRange("");
+    setPattern("");
+    setDistance("");
+    // setMaxRange("");
     setAnnotations([]);
     setAminoType("");
     setAnnotationOperation("$and");
+    setUpDownOperator("down_seq");
+    let errorTemp = {};
+    let errorKeys = Object.keys(siteError);
+    for(let i = 0; i < errorKeys.length; i++){
+      errorTemp[errorKeys[i]] = false;
+    }
+    setSiteError(errorTemp);
   };
 
-  const handlePositionChange = event => {
-    setPosition(event.target.value);
-    setMinRange("");
-    setMaxRange("");
-  };
-
-  const handleMinRangeChange = event => {
-    setMinRange(event.target.value);
-    setPosition("");
-  };
-
-  const handleMaxRangeChange = event => {
-    setMaxRange(event.target.value);
-    setPosition("");
-  };
+  // const handlePositionChange = event => {
+  //   setPosition(event.target.value);
+  //   setMinRange("");
+  //   setMaxRange("");
+  // };
 
   const handleSearch = () => {
-    setPageLoading(true);
-    logActivity("user", "Performing Site Search");
-    let message = "Site Search query=" + JSON.stringify(queryObject);
-    console.log(message);
 
-    getSiteSearch({
-      ...queryObject,
-      proteinId: queryObject.proteinId.split(",").filter(x => x !== ""),
-      aminoType: queryObject.aminoType,
-      annotations: queryObject.annotations.map(x => x.id.toLowerCase())
-    })
-      .then((response) => {
+    let errorTemp = siteError;
+    let error = false;
+    if ((position !== "" || pattern !== "") && !(pattern !== "" && position !== "")){
+        errorTemp.pattern = true;
+        error = true;
+    }
+
+    if (updownoperator === "up_seq" && pattern !== "" && position !== ""){
+      errorTemp.upstreamPosition = pattern.length > position;
+      error = pattern.length > position;
+    }
+
+    if ((distance !== "" || singleannotations !== "") && !(singleannotations !== "" && distance !== "")){
+        errorTemp.neighbors = true;
+        error = true;
+    }
+
+    if (error){
+      setSiteError(errorTemp);
+      return;
+    }
+
+    let queryObject = {
+      proteinId : proteinId.split(",").filter(x => x !== ""),
+      aminoType,
+      annotations : annotations.map(x => x.id.toLowerCase()),
+      annotationOperation,
+      singleannotations,
+      operator,
+      updownoperator,
+      distance,
+      // minRange,
+      // maxRange,
+      combinedPattern: position === "" || pattern === "" ?  "" : `${parseInt(position)}|${pattern.toUpperCase()}`
+    };
+
+    setPageLoading(true);
+    logActivity("user", props.searchId, "Performing Site Search");
+    let message = "Site Search query=" + JSON.stringify(queryObject);
+
+    getSiteSearch(queryObject)
+      .then(response => {
         let listId = undefined;
-        
-        if (response.data && response.data.results_summary && response.data.results_summary.site && response.data.results_summary.site.list_id)
+
+        if (
+          response.data &&
+          response.data.results_summary &&
+          response.data.results_summary.site &&
+          response.data.results_summary.site.list_id
+        )
           listId = response.data.results_summary.site.list_id;
 
         if (listId) {
-          window.location = siteListRoute + listId;
+          logActivity("user", (props.searchId || "") + ">" + listId, message)
+					.finally(() => {	
+            window.location = routeConstants.siteList + listId;
+					});
         } else {
           logActivity("user", "", "No results. ");
           setPageLoading(false);
@@ -205,14 +239,14 @@ const SiteSearchControl = props => {
       >
         <PageLoader pageLoading={pageLoading} />
         <DialogAlert
-						alertInput={alertDialogInput}
-						setOpen={(input) => {
-							setAlertDialogInput({"show": input})
-						}}
-					/>					
+          alertInput={alertDialogInput}
+          setOpen={input => {
+            setAlertDialogInput({ show: input });
+          }}
+        />
 
         <Grid item xs={12} sm={10}>
-          <TextAlert alertInput={alertTextInput} /> 
+          <TextAlert alertInput={alertTextInput} />
         </Grid>
 
         {initData && (
@@ -223,56 +257,27 @@ const SiteSearchControl = props => {
                 <Button className="gg-btn-outline mr-4" onClick={clearSite}>
                   Clear Fields
                 </Button>
-                <Button
-                  className="gg-btn-blue"
+                <Button 
+                  className="gg-btn-blue" 
                   onClick={handleSearch}
-                  // disabled={!SiteSearchValError.every(err => err === false)}
+                  disabled={!Object.keys(siteError).every(
+                    err => siteError[err] === false)
+                  }
                 >
                   Search Protein Site
                 </Button>
               </Row>
             </Grid>
-            {/* <Grid item>
-          <pre>{JSON.stringify(defaults)}</pre>
-        </Grid> */}
 
-            {/* <Grid item xs={12} sm={10}>
-              <FormControl fullWidth variant="outlined">
-                <Typography className={"search-lbl"} gutterBottom>
-                  <HelpTooltip
-                    title={commonProteinData.uniprot_canonical_ac.tooltip.title}
-                    text={commonProteinData.uniprot_canonical_ac.tooltip.text}
-                    urlText={
-                      commonProteinData.uniprot_canonical_ac.tooltip.urlText
-                    }
-                    url={commonProteinData.uniprot_canonical_ac.tooltip.url}
-                  />
-                  {commonProteinData.uniprot_canonical_ac.name}
-                </Typography>
-                <MultilineAutoTextInput
-                  fullWidth
-                  inputValue={proteinId}
-                  setInputValue={setproteinId}
-                  placeholder={sitesData.uniprot_canonical_ac.placeholder}
-                  typeahedID={sitesData.uniprot_canonical_ac.typeahedID}
-                  length={sitesData.uniprot_canonical_ac.length}
-                  errorText={sitesData.uniprot_canonical_ac.errorText}
-                />
-                <ExampleExploreControl
-                  setInputValue={setproteinId}
-                  inputValue={advancedSearch.uniprot_canonical_ac.examples}
-                />
-              </FormControl>
-            </Grid> */}
             {/* Amino Acid */}
             <Grid item xs={12} sm={10}>
               <FormControl fullWidth variant="outlined">
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
-                    title={commonProteinData.glycosylated_aa.tooltip.title}
-                    text={commonProteinData.glycosylated_aa.tooltip.text}
+                    title={siteStrings.glycosylated_aa.tooltip.title}
+                    text={siteStrings.glycosylated_aa.tooltip.text}
                   />
-                  {proteinStrings.glycosylated_aa.site_form}
+                  {siteStrings.glycosylated_aa.name}
                 </Typography>
                 <SelectControl
                   inputValue={aminoType}
@@ -300,23 +305,17 @@ const SiteSearchControl = props => {
                   <Grid item xs={9} sm={9}>
                     <Typography className={"search-lbl"} gutterBottom>
                       <HelpTooltip
-                        title={commonProteinData.annotation.tooltip.title}
-                        text={commonProteinData.annotation.tooltip.text}
+                        title={siteStrings.annotation.tooltip.title}
+                        text={siteStrings.annotation.tooltip.text}
                       />
-                      {proteinStrings.annotation_type.name}
+                      {siteStrings.annotation_type.name}
                     </Typography>
                     <MultiselectTextInput
                       inputValue={annotations}
                       placeholder={sitesData.annotation.placeholder}
                       placeholderId={sitesData.annotation.placeholderId}
                       placeholderName={sitesData.annotation.placeholderName}
-                      options={initData.annotation_type_list
-                        .map(a => ({
-                          ...a,
-                          name: a.label
-                        }))
-
-                        .sort(sortDropdown)}
+                      options={initData.annotation_type_list.sort(sortDropdown)}
                       setInputValue={setAnnotations}
                     ></MultiselectTextInput>
                   </Grid>
@@ -327,7 +326,7 @@ const SiteSearchControl = props => {
                     <FormControl fullWidth variant="outlined">
                       <SelectControl
                         inputValue={annotationOperation}
-                        menu={advancedSearch.aa_listforsite.operations}
+                        menu={sitesData.aa_listforsite.operations}
                         setInputValue={setAnnotationOperation}
                       />
                     </FormControl>
@@ -336,62 +335,216 @@ const SiteSearchControl = props => {
               </FormControl>
             </Grid>
 
-            {/* Position */}
+            {/* Neighbors */}
             <Grid item xs={12} sm={10}>
-              <FormControl fullWidth>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={6} sm={6}>
+              {/* <FormControl fullWidth> */}
+                <Grid container spacing={2} style={{paddingBottom:"0px"}} alignItems="center">
+                  <Grid item xs={6} sm={6} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       <HelpTooltip
-                        title={commonProteinData.site_range.tooltip.title}
-                        text={commonProteinData.site_range.tooltip.text}
+                        title={siteStrings.neighbors.tooltip.title}
+                        text={siteStrings.neighbors.tooltip.text}
                       />
-                      {commonProteinData.site_range.tooltip.title}
+                      {siteStrings.neighbors.tooltip.title}
                     </Typography>
 
                     <FormControl fullWidth variant="outlined">
-                      <InputLabel className={"select-lbl-inline"}>
-                        Min
-                      </InputLabel>
-                      <OutlinedInput
-                        className={props.inputClass}
-                        value={minRange}
-                        margin="dense"
-                        onChange={handleMinRangeChange}
-                        labelWidth={40}
-                        inputProps={{
-                          min: props.min,
-                          max: props.max
+                      <SelectControl
+                        inputValue={singleannotations}
+                        placeholder={sitesData.annotation.placeholder}
+                        placeholderId={sitesData.annotation.placeholderId}
+                        placeholderName={sitesData.annotation.placeholderName}
+                        menu={initData.annotation_type_list.sort(sortDropdown)}
+                        setInputValue={(input) => {
+                          if (siteError.neighbors && ((input !== "" && distance !== "") || (input === "" && distance === ""))){
+                            let errorTemp = siteError;
+                            errorTemp.neighbors = false;
+                            setSiteError(errorTemp);
+                          }
+                          setSingleAnnotations(input);
                         }}
+                        error={siteError.neighbors}
                       />
                     </FormControl>
                   </Grid>
+                  <Grid item xs={3} sm={3} style={{paddingBottom:"0px"}}>
+                    <Typography className={"search-lbl"} gutterBottom>
+                      &nbsp;
+                    </Typography>
 
-                  <Grid item xs={6} sm={6}>
+                    <FormControl fullWidth variant="outlined">
+                      <OutlinedInput
+                        fullWidth
+                        margin='dense'
+                        placeholder={sitesData.neighborDistance.placeholder}
+                        value={distance}
+                        onChange={(event) => {
+                          if (siteError.neighbors && ((event.target.value !== "" && singleannotations !== "") || (event.target.value === "" && singleannotations === ""))){
+                            let errorTemp = siteError;
+                            errorTemp.neighbors = false;
+                            setSiteError(errorTemp);
+                          }
+                          setDistance(event.target.value)}}
+                        onBlur={() =>{
+                          let currentDistance = distance;
+                          if (currentDistance !== ""){
+                            currentDistance = Math.min(currentDistance, sitesData.neighborDistance.max);
+                            currentDistance = Math.max(currentDistance, sitesData.neighborDistance.min);
+                            setDistance(currentDistance);
+                          }
+                        }}
+                        inputProps={{
+                          step: 1,
+                          min: sitesData.neighborDistance.min,
+                          max: sitesData.neighborDistance.max,
+                          type: "number",
+                        }}
+                        error={siteError.neighbors}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3} sm={3} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
                     <FormControl fullWidth variant="outlined">
-                      <InputLabel className={"select-lbl-inline"}>
-                        Max
-                      </InputLabel>
-                      <OutlinedInput
-                        className={props.inputClass}
-                        value={maxRange}
-                        margin="dense"
-                        onChange={handleMaxRangeChange}
-                        labelWidth={40}
-                        inputProps={{
-                          min: props.min,
-                          max: props.max
-                        }}
-                        // disabled={positionOrRange !== "range"}
+                      <SelectControl
+                        inputValue={operator}
+                        menu={sitesData.operatorforsite.operations}
+                        setInputValue={setOperator}
                       />
                     </FormControl>
                   </Grid>
+                  <Grid item style={{paddingTop:"0px"}}>
+                     {(siteError.neighbors) && (
+                        <FormHelperText className={"error-text"} error>
+                          {sitesData.neighborDistance.errorText}
+                        </FormHelperText>
+                      )}
+                  </Grid>
                 </Grid>
-              </FormControl>
+              {/* </FormControl> */}
             </Grid>
+
+            {/* Pattern */}
+            <Grid item xs={12} sm={10}>
+              {/* <FormControl fullWidth> */}
+                <Grid container spacing={2} style={{paddingBottom:"0px"}} alignItems="center">
+                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                    <Typography className={"search-lbl"} gutterBottom>
+                      <HelpTooltip
+                        title={siteStrings.pattern.tooltip.title}
+                        text={siteStrings.pattern.tooltip.text}
+                      />
+                      {siteStrings.pattern.tooltip.title}
+                    </Typography>
+                    <FormControl fullWidth variant="outlined">
+                      <SelectControl
+                        inputValue={updownoperator}
+                        menu={sitesData.updownstreamforsite.operations}
+                        setInputValue={(input) => {
+                          let errorTemp = siteError;
+                          errorTemp.upstreamPosition = false;
+                          setSiteError(errorTemp);
+                          setUpDownOperator(input);
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                    <Typography className={"search-lbl"} gutterBottom>
+                      &nbsp;
+                    </Typography>
+                    {/* <FormControl fullWidth variant="outlined"> */}
+                      <OutlinedInput
+                        fullWidth
+                        margin='dense'
+                        placeholder={sitesData.patternPosition.placeholder}
+                        value={position}
+                        onChange={(event) => {
+                          let errorTemp = siteError;
+                          if (siteError.pattern && ((event.target.value !== "" && pattern !== "") || (event.target.value === "" && pattern === ""))){
+                              errorTemp.pattern = false;
+                          }
+
+                          if (siteError.upstreamPosition && ((event.target.value === "" || pattern === "") || (event.target.value > pattern.length))){
+                            errorTemp.upstreamPosition = false;
+                          }
+                          setSiteError(errorTemp);
+                          setPosition(event.target.value)
+                        }}
+                        onBlur={() =>{
+                          let currentPosition = position;
+                          if (currentPosition !== ""){
+                            currentPosition = Math.min(currentPosition, sitesData.patternPosition.max);
+                            currentPosition = Math.max(currentPosition, sitesData.patternPosition.min);
+                            setPosition(currentPosition);
+                          }
+                        }}
+                        inputProps={{
+                          step: 1,
+                          min: sitesData.patternPosition.min,
+                          max: sitesData.patternPosition.max,
+                          type: "number",
+                        }}
+                        error={siteError.pattern || siteError.upstreamPosition}
+                      />
+                    {/* </FormControl> */}
+                  </Grid>
+                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                    <Typography className={"search-lbl"} gutterBottom>
+                      &nbsp;
+                    </Typography>
+                    <FormControl fullWidth variant="outlined">
+                      <OutlinedInput
+                        fullWidth
+                        required
+                        margin='dense'
+                        placeholder={sitesData.patternPeptide.placeholder}
+                        value={pattern}
+                        onChange={(event) => {
+                          let errorTemp = siteError;
+                          if (siteError.pattern && ((event.target.value !== "" && position !== "") || (event.target.value === "" && position === ""))){
+                            errorTemp.pattern = false;
+                          }
+
+                          if (siteError.upstreamPosition && ((event.target.value === "" || position === "") || (position > event.target.value.length))){
+                            errorTemp.upstreamPosition = false;
+                          }
+                          errorTemp.peptideInvalid = (event.target.value.search(amAcidPattern, "") + 1) > 0;
+                          errorTemp.peptideLength = event.target.value.length > sitesData.patternPeptide.length;
+                          setSiteError(errorTemp);
+                          setPattern(event.target.value)}
+                        }
+                        error={siteError.peptideInvalid || siteError.peptideLength || siteError.pattern || siteError.upstreamPosition}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item style={{paddingTop:"0px"}}>
+                    {(siteError.peptideInvalid) && (
+                        <FormHelperText className={"error-text"} error>
+                          {sitesData.patternPeptide.errorText}
+                        </FormHelperText>
+                    )}
+                    {(siteError.peptideLength) && (
+                        <FormHelperText className={"error-text"} error>
+                          {sitesData.patternPeptide.errorText1}
+                        </FormHelperText>
+                    )}
+                     {(siteError.pattern) && (
+                        <FormHelperText className={"error-text"} error>
+                          {sitesData.patternPeptide.errorText2}
+                        </FormHelperText>
+                    )}
+                    {(siteError.upstreamPosition) && (
+                        <FormHelperText className={"error-text"} error>
+                          {sitesData.patternPeptide.errorText3}
+                        </FormHelperText>
+                    )}
+                  </Grid>
+                </Grid>
+              {/* </FormControl> */}
+             </Grid>
 
             {/* Buttons Buttom */}
             <Grid item xs={12} sm={10}>
@@ -399,7 +552,15 @@ const SiteSearchControl = props => {
                 <Button className="gg-btn-outline mr-4" onClick={clearSite}>
                   Clear Fields
                 </Button>
-                <Button className="gg-btn-blue" onClick={handleSearch}>
+                <Button 
+                  className="gg-btn-blue" 
+                  onClick={handleSearch}
+                  disabled={
+                    !Object.keys(siteError).every(
+                      err => siteError[err] === false
+                    )
+                  }
+                >
                   Search Protein Site
                 </Button>
               </Row>
@@ -413,6 +574,4 @@ const SiteSearchControl = props => {
 
 export default SiteSearchControl;
 
-SiteSearchControl.propTypes = {
-  // initData: PropTypes.object
-};
+SiteSearchControl.propTypes = {};

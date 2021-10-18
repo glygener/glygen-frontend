@@ -16,8 +16,11 @@ import poster3Img from "../../images/media/portfolio/posters/poster-3.png";
 import sfgGlycoTree20posterPdf from "../../images/media/portfolio/posters/SFG-GlyGen-GlycoTree-Nov-2020.pdf";
 import poster4GlycoTreeImg from "../../images/media/portfolio/posters/poster-4-GlycoTree.png";
 import sfgNCBI20posterPdf from "../../images/media/portfolio/posters/SFG-GlyGen-NCBI-Nov-2020.pdf";
+import textMining21posterPdf from "../../images/media/portfolio/posters/Text_Mining_Jeet_Catherine_GlyGenISB.pdf";
 import poster5NCBIImg from "../../images/media/portfolio/posters/poster-5-NCBI.png";
+import poster6ISBImg from "../../images/media/portfolio/posters/poster-6-ISB.png";
 import logos from "../../images/media/portfolio/logo/Logos.png";
+import logosPDF from "../../images/media/portfolio/logo/GlyGen-Logos.pdf";
 import onePageBrochure2Pdf from "../../images/media/portfolio/brochures/glygen-one-page-brochure-2.pdf";
 import onePageBrochureImg from "../../images/media/portfolio/brochures/one-page-brochure-2.png";
 import stickersLogoPdf from "../../images/media/portfolio/stickers/stikers-oval-logo-blue-white.pdf";
@@ -167,7 +170,7 @@ const Portfolio = (props) => {
                   className="btn btn-link"
                   role="button"
                   href={bioCurationPdf}
-                  download="GlyGen BioCuration poster.pdf"
+                  download="GlyGen BioCuration poster April 2019.pdf"
                 >
                   DOWNLOAD
                 </a>
@@ -223,13 +226,13 @@ const Portfolio = (props) => {
                   className="btn btn-link"
                   role="button"
                   href={sfgData19posterPdf}
-                  download="GlyGen SFG Data poster 2019.pdf"
+                  download="GlyGen SFG Data poster November 2019.pdf"
                 >
                   DOWNLOAD
                 </a>
               </div>
               <div className="portfolio-item">
-                <a href={poster2Img} title="GlyGen SFG-Data November 2019">
+                <a href={poster2Img} title="GlyGen SFG Data November 2019">
                   <Image src={poster2Img} className="img-fluid" alt="Poster SFG Data" />
                   <div className="portfolio-item-overlay">
                     <div className="portfolio-item-details text-center">
@@ -251,10 +254,10 @@ const Portfolio = (props) => {
                 <a
                   className="btn btn-link"
                   role="button"
-                  href="https://github.com/glygener/glygen-frontend/tree/master/src/GlyGen-logos"
+                  href={logosPDF}
                   target="_blank"
                   rel="noopener noreferrer"
-                  download="https://github.com/glygener/glygen-frontend/tree/master/src/GlyGen-logos"
+                  download={"GlyGen logos"}
                 >
                   DOWNLOAD
                 </a>
@@ -282,14 +285,14 @@ const Portfolio = (props) => {
                   className="btn btn-link"
                   role="button"
                   href={sfgWeb19posterPdf}
-                  download="GlyGen SFG Website poster 2019.pdf"
+                  download="GlyGen SFG Website poster November 2019.pdf"
                 >
                   DOWNLOAD
                 </a>
               </div>
               <div className="portfolio-item">
-                <a href={poster3Img} title="GlyGen SFG-Data November 2019">
-                  <Image src={poster3Img} className="img-fluid" alt="Poster SFG Data" />
+                <a href={poster3Img} title="GlyGen SFG Website November 2019">
+                  <Image src={poster3Img} className="img-fluid" alt="Poster SFG Website" />
                   <div className="portfolio-item-overlay">
                     <div className="portfolio-item-details text-center">
                       {/* Item Header  */}
@@ -338,7 +341,7 @@ const Portfolio = (props) => {
                   className="btn btn-link"
                   role="button"
                   href={sfgGlycoTree20posterPdf}
-                  download="GlyGen SFG Data poster 2019.pdf"
+                  download="GlyGen SFG GlycoTree poster November 2020.pdf"
                 >
                   DOWNLOAD
                 </a>
@@ -398,7 +401,7 @@ const Portfolio = (props) => {
                   className="btn btn-link"
                   role="button"
                   href={sfgNCBI20posterPdf}
-                  download="GlyGen SFG Data poster 2019.pdf"
+                  download="GlyGen SFG NCBI poster November 2020.pdf"
                 >
                   DOWNLOAD
                 </a>
@@ -414,6 +417,34 @@ const Portfolio = (props) => {
                       <span></span>
                       {/* Item Description  */}
                       <p>SFG GlyGen NCBI</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </Col>
+             {/* Portfolio Item 11 Poster GlyGen BioCuration Text Mining poster October 2021 Jeet */}
+             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
+              <div className="text-right">
+                <a
+                  className="btn btn-link"
+                  role="button"
+                  href={textMining21posterPdf}
+                  download="GlyGen BioCuration Text Mining poster October 2021.pdf"
+                >
+                  DOWNLOAD
+                </a>
+              </div>
+              <div className="portfolio-item">
+                <a href={poster6ISBImg} title="GlyGen BioCuration Text Mining October 2021">
+                  <Image src={poster6ISBImg} className="img-fluid" alt="Poster GlyGen BioCuration Text Mining" />
+                  <div className="portfolio-item-overlay">
+                    <div className="portfolio-item-details text-center">
+                      {/* Item Header  */}
+                      <h3>Poster</h3>
+                      {/* Item Strips  */}
+                      <span></span>
+                      {/* Item Description  */}
+                      <p>BioCuration Text Mining</p>
                     </div>
                   </div>
                 </a>

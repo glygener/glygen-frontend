@@ -20,6 +20,7 @@ import { GLYGEN_BASENAME } from "../envVariables";
 import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
+import ClientPaginatedTable from "../components/ClientPaginatedTable";
 
 const ProteinList = props => {
   let { id } = useParams();
@@ -27,6 +28,7 @@ const ProteinList = props => {
   let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
+  const [dataUnmap, setDataUnmap] = useState([]);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(PROTEIN_COLUMNS);
@@ -40,6 +42,8 @@ const ProteinList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+
+  const unmappedStrings = stringConstants.protein.common.unmapped;
 
   useEffect(() => {
     setPageLoading(true);
@@ -60,6 +64,7 @@ const ProteinList = props => {
           setPageLoading(false);
         } else {
           setData(data.results);
+          setDataUnmap(data.cache_info.batch_info && data.cache_info.batch_info.unmapped ? data.cache_info.batch_info.unmapped : []);
           if (data.cache_info.query.uniprot_canonical_ac) {
             data.cache_info.query.uniprot_canonical_ac_short =
               data.cache_info.query.uniprot_canonical_ac.split(",").length > 9
@@ -159,7 +164,7 @@ const ProteinList = props => {
 
   const handleModifySearch = () => {
     if (searchId === "gs") {
-      props.history.push(routeConstants.globalSearchResult + query.term);
+      window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId === "sups") {
       props.history.push(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
@@ -181,6 +186,20 @@ const ProteinList = props => {
     return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
   }
   const [sidebar, setSidebar] = useState(true);
+
+  const unmapIDColumns = [
+    {
+      dataField: unmappedStrings.input_id.shortName,
+      text: unmappedStrings.input_id.name,
+      sort: true,
+      selected: true,
+    },
+    {
+      dataField: unmappedStrings.reason.shortName,
+      text: unmappedStrings.reason.name,
+      sort: true,
+    },
+  ];
 
   return (
     <>
@@ -246,6 +265,7 @@ const ProteinList = props => {
                   question={quickSearch[searchId]}
                   searchId={searchId}
                   timestamp={timestamp}
+                  dataUnmap={dataUnmap}
                   onModifySearch={handleModifySearch}
                 />
               )}
@@ -291,6 +311,24 @@ const ProteinList = props => {
                 />
               )}
             </section>
+            {dataUnmap && dataUnmap.length > 0 && (<>
+              <div id="Unmapped-Table"></div>
+                <div className="content-box-sm">
+                  <h1 className="page-heading">{unmappedStrings.title}</h1>
+                </div>
+              <section>
+                {/* Unmapped Table */}
+                {unmapIDColumns && unmapIDColumns.length !== 0 && (
+                  <ClientPaginatedTable
+                    data={dataUnmap}
+                    columns={unmapIDColumns}
+                    defaultSortField={"input_id"}
+                    defaultSortOrder="asc"
+                    onClickTarget={"#Unmapped-Table"}
+                />
+                )}
+              </section>
+            </>)}
           </div>
         </div>
       </div>

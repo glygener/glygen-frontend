@@ -105,6 +105,14 @@ const MotifDetail = (props) => {
         setTotalSize(data.pagination.total_length);
         setPageLoading(false);
       }
+      setTimeout(() => {
+        const anchorElement = props.history.location.hash;
+        if (anchorElement && document.getElementById(anchorElement.substr(1))) {
+          document
+            .getElementById(anchorElement.substr(1))
+            .scrollIntoView({ behavior: "auto" });
+        }
+      }, 1000);
     });
     getMotifDetaildata.catch(({ response }) => {
       let message = "motif api call";

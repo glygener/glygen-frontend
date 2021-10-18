@@ -38,6 +38,15 @@
         },
         "id": "glycan_id_subsumption"
       },
+      "id_namespace": {
+        "name": "Glycan ID Namespace",
+        "shortName": "Glycan ID Namespace",
+        "tooltip": {
+          "title": "Glycan ID Namespace",
+          "text": "Click to select a Glycan ID Namespace."
+        },
+        "id": "id_namespace"
+      },
       "organism_annotation": {
         "name": "Organism Annotation",
         "shortName": "Organism Annotation",
@@ -493,6 +502,43 @@
       "term_category": {
         "id": "term_category",
         "name": "Category"
+      },
+      "unmapped": {
+        "input_id": {
+          "shortName": "input_id",
+          "name": "Input ID"
+        },
+        "reason": {
+          "shortName": "reason",
+          "name": "Reason"
+        },
+        "title": "Reason why certain entries could not be found"
+      },
+      "contributions": {
+        "glycan_has_enzyme": {
+          "id": "glycan_has_enzyme",
+          "name": "Enzyme annotations"
+        },
+        "glycan_has_species": {
+          "id": "glycan_has_species",
+          "name": "Species annotations"
+        },
+        "glycan_fully_determined": {
+          "id": "glycan_fully_determined",
+          "name": "Is a fully defined glycan"
+        },
+        "glycan_has_publication": {
+          "id": "glycan_has_publication",
+          "name": "Papers"
+        },
+        "glycan_exact_match": {
+          "id": "glycan_exact_match",
+          "name": "Matching names/IDs"
+        },
+        "glycan_has_glycoprotein": {
+          "id": "glycan_has_glycoprotein",
+          "name": "Protein annotations"
+        }
       }
     },
     "global_search_results": {
@@ -504,6 +550,9 @@
       },
       "enzyme": {
         "name": "enzyme"
+      },
+      "publications": {
+        "name": "publications"
       },
       "motifs": {
         "name": "motifs"
@@ -589,17 +638,6 @@
         },
         "id": "uniprot_canonical_ac"
       },
-
-      "annotation_type": {
-        "name": "Annotation Type",
-        "shortName": "Annotation Type",
-        "tooltip": {
-          "title": "Annotation Type",
-          "text": "You can search site by entering Annotation Type.",
-          "urlText": "Read more..."
-        },
-        "id": "annotation_type"
-      },
       "site": {
         "name": "Site",
         "shortName": "Position",
@@ -610,24 +648,12 @@
         },
         "id": "site"
       },
-      "site_range": {
-        "name": "Range",
-        "shortName": "Range",
-        "tooltip": {
-          "title": "Range",
-          "text": "You can search site by entering annotation Start Position and End Position .",
-          "urlText": "Read more..."
-        },
-        "id": "site_range"
-      },
-
       "chemical_mass": {
         "name": "Chemical Mass",
         "shortName": "chemical_mass",
         "tooltip": {},
         "id": "chemical_mass"
       },
-
       "gene_name": {
         "name": "Gene Name",
         "shortName": "gene_name",
@@ -675,7 +701,6 @@
         },
         "id": "glycosylation_type"
       },
-
       "gene_url": {
         "name": "URL",
         "shortName": "url",
@@ -782,7 +807,7 @@
         "id": "relation"
       },
       "uberonN": {
-        "name": "UBERON.",
+        "name": "UBERON",
         "shortName": "UBERON",
         "tooltip": {},
         "id": "uberon"
@@ -859,12 +884,6 @@
         "tooltip": {},
         "id": " identity"
       },
-      "annotationn": {
-        "name": "Annotation Name",
-        "shortName": "Annotation Name",
-        "tooltip": {},
-        "id": "annotationsss"
-      },
       "glytoucan_ac": {
         "name": "GlyTouCan Glycan",
         "shortName": "GlyTouCan Accession",
@@ -908,16 +927,6 @@
         },
         "id": "glycosylated_aa"
       },
-
-      "glycosylated_aa1": {
-        "name": " Amino Acid",
-        "shortName": "Amino Residue",
-        "tooltip": {
-          "title": "Glycosylated Amino Acid",
-          "text": "Amino acids are organic compounds containing amine (-NH2) and carboxyl (-COOH) functional groups, along with a side chain (R group) specific to each amino acid. Click to highlight multiple selections for Glycosylated Amino Acid."
-        },
-        "id": "glycosylated_aa1"
-      },
       "sequence": {
         "name": "Protein or Peptide Sequence",
         "shortName": "Protein or Peptide Sequence",
@@ -959,15 +968,6 @@
           "text": "Click to select Glycosylation Evidence Type."
         },
         "id": "glycosylation_evidence"
-      },
-      "annotation": {
-        "name": "Annotation",
-        "shortName": "Annotation",
-        "tooltip": {
-          "title": "Annotation",
-          "text": "Click to select Annotation."
-        },
-        "id": "annotation"
       },
       "Protein_ShortName": {
         "name": "Protein Name",
@@ -1129,17 +1129,67 @@
       "description": {
         "id": "description",
         "name": "Description"
+      },
+      "unmapped": {
+        "input_id": {
+          "shortName": "input_id",
+          "name": "Input ID"
+        },
+        "reason": {
+          "shortName": "reason",
+          "name": "Reason"
+        },
+        "title": "Reason why certain entries could not be found"
+      },
+      "contributions": {
+        "protein_reported_n_glycosites": {
+          "id": "protein_reported_n_glycosites",
+          "name": "N-Glycosylation sites"
+        },
+        "protein_reported_o_glycosites": {
+          "id": "protein_reported_o_glycosites",
+          "name": "O-Glycosylation sites"
+        },
+        "protein_reported_o_glycosites_with_glycan": {
+          "id": "protein_reported_o_glycosites_with_glycan",
+          "name": "O-Glycosylation sites (with glycan structure)"
+        },
+        "protein_exact_match": {
+          "id": "protein_exact_match",
+          "name": "Matching names/IDs"
+        },
+        "protein_predicted_glycosites": {
+          "id": "protein_predicted_glycosites",
+          "name": "Predicted glycosylation sites"
+        },
+        "protein_publication_count": {
+          "id": "protein_publication_count",
+          "name": "Papers"
+        },
+        "protein_reported_n_glycosites_with_glycan": {
+          "id": "protein_reported_n_glycosites_with_glycan",
+          "name": "N-Glycosylation sites (with glycan structure)"
+        }
       }
     },
     "global_search_results": {
       "function": {
         "name": "function"
       },
+      "glycosylation": {
+        "name": "glycosylation"
+      },
+      "interactions": {
+        "name": "Glycan Ligands"
+      },
       "identifiers": {
         "name": "identifiers"
       },
       "disease": {
         "name": "disease"
+      },
+      "publications": {
+        "name": "publications"
       },
       "names": {
         "name": "names"
@@ -1178,6 +1228,115 @@
       },
       "pmid": {
         "text": "Find all proteins / glycoproteins with the same PMID."
+      }
+    }
+  },
+  "site": {
+    "common": {
+      "annotation_type": {
+        "name": "Annotation Type",
+        "shortName": "Annotation Type",
+        "tooltip": {
+          "title": "Annotation Type",
+          "text": "Click to select Annotation Type."
+        },
+        "id": "annotation_type"
+      },
+      "annotation": {
+        "name": "Annotation",
+        "shortName": "Annotation",
+        "tooltip": {
+          "title": "Annotation",
+          "text": "Click to select Annotation."
+        },
+        "id": "annotation"
+      },
+      "site": {
+        "name": "Site",
+        "shortName": "Position",
+        "tooltip": {
+          "title": "Position",
+          "text": "You can search site by entering annotation Position.",
+          "urlText": "Read more..."
+        },
+        "id": "site"
+      },
+      "site_range": {
+        "name": "Range",
+        "shortName": "Range",
+        "tooltip": {
+          "title": "Range",
+          "text": "You can search site by entering annotation Start Position and End Position.",
+          "urlText": "Read more..."
+        },
+        "id": "site_range"
+      },
+      "position_site": {
+        "name": "Position",
+        "shortName": "Position",
+        "tooltip": {
+          "title": "Position",
+          "text": "You can  enter site position to get more annotation information.",
+          "urlText": "Read more..."
+        },
+        "id": "position_site"
+      },
+      "pattern": {
+        "name": "Pattern",
+        "shortName": "Pattern",
+        "tooltip": {
+          "title": "Pattern",
+          "text": "You can  enter site pattern to get more annotation information.",
+          "urlText": "Read more..."
+        },
+        "id": "pattern"
+      },
+      "neighbors": {
+        "name": "Neighbors",
+        "shortName": "Neighbor Annotation",
+        "tooltip": {
+          "title": "Neighbors",
+          "text": "You can search neighboring site by entering annotation information.",
+          "urlText": "Read more..."
+        },
+        "id": "neighbors"
+      },
+      "hit_score": {
+        "name": "Hit Score",
+        "shortName": "Hit Score",
+        "id": "hit_score"
+      },
+      "glycosylated_aa": {
+        "name": "Amino Acid",
+        "shortName": "Glycosylated Residue",
+        "site_form": "Amino Acid",
+        "tooltip": {
+          "title": "Glycosylated Amino Acid",
+          "text": "Amino acids are organic compounds containing amine (-NH2) and carboxyl (-COOH) functional groups, along with a side chain (R group) specific to each amino acid. Click to highlight multiple selections for Glycosylated Amino Acid."
+        },
+        "id": "glycosylated_aa"
+      },
+      "contributions": {
+        "site_has_phosphorylation": {
+          "id": "site_has_phosphorylation",
+          "name": "Phosphorylation annotations"
+        },
+        "site_has_mutagenesis": {
+          "id": "site_has_mutagenesis",
+          "name": "Metagenesis annotations"
+        },
+        "site_has_glycosylation": {
+          "id": "site_has_glycosylation",
+          "name": "Glycosylation annotations"
+        },
+        "site_has_snv": {
+          "id": "site_has_snv",
+          "name": "SVN annotations"
+        },
+        "site_has_glycation": {
+          "id": "site_has_glycation",
+          "name": "Glycation annotations"
+        }
       }
     }
   },
@@ -1456,6 +1615,16 @@
       "title": "Super Search Error - Enter Valid Input",
       "message": "Sorry, we couldn't process search request. Please enter valid input."
     },
+    "querySerarchError": {
+      "id": "querySerarchError",
+      "title": "Query Search Error - Invalid Query Parameters",
+      "message": "Please provide valid query parameters. "
+    },
+    "querySerarcApiError": {
+      "id": "querySerarcApiError",
+      "title": "Query Search Error - No Results Found",
+      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+    },
     "defaultTextAlert": {
       "id": "defaultTextAlert",
       "title": "Search Error - No Results Found",
@@ -1681,7 +1850,8 @@
     "cell_line": {
       "id": "cell_lLine",
       "displayname": "Cell Line",
-      "tooltip": "Cell Line information"
+      "tooltip": "Cell Line information",
+      "name": "Cell Line Name"
     }
   },
   "download": {
@@ -1704,6 +1874,16 @@
       "id": "glycan_csvdata",
       "displayname": "Glycan data (*.csv)",
       "tooltip": " glycan_csvdata Information for selected accession"
+    },
+    "glycan_byonicdata": {
+      "id": "glycan_byonicata",
+      "displayname": "Glycan data (*.byonic)",
+      "tooltip": " glycan_byonicdata Information for selected accession"
+    },
+    "glycan_gritsdata": {
+      "id": "glycan_gritsdata",
+      "displayname": "Glycan data (*.grits)",
+      "tooltip": " glycan_gritsdata Information for selected accession"
     },
     "protein_jsondata": {
       "id": "protein_jsondata",

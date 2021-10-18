@@ -31,7 +31,7 @@ const MotifList = props => {
   const [pagination, setPagination] = useState([]);
   // const [motifListColumns, setMotifListColumns] = useState(MOTIF_LIST_COLUMNS);
   const [page, setPage] = useState(1);
-  const [sizePerPage, setSizePerPage] = useState(20);
+  const [sizePerPage, setSizePerPage] = useState(150);
   const [totalSize, setTotalSize] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(

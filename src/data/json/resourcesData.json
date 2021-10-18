@@ -43,7 +43,7 @@
 			"contains_publ": "Yes",
 			"experimental_data": "UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS",
 			"curated": ""
-		},
+		},	
 		{
 			"category": "Database",
 			"website": {
@@ -151,7 +151,17 @@
 			"description": "ISOGlyP is an Isoform Specific O-Glycosylation Prediction. This tool allows you to analyze the sequence either by uploading a file with the sequences in FASTA format or by copy and paste the sequence(s) inside the text area.",
 			"experimental_data": "",
 			"availability": "Free"
-		}
+		},
+		{
+		"category": "Library",
+		"website": {
+			"name": "Glycowork",
+			"url": "https://bojarlab.github.io/glycowork/"
+		},
+		"description": "Glycowork is a Python package for glycan-focused data science and machine learning. This platform allows users to engage in an array of accessible as well as advanced analyses, both on stored datasets as well as user-provided data, to discover trends or associations in glycan-related data.",
+		"experimental_data": "",
+		"availability": "Free"
+	}
 	],
 	"organizResourcesData": [
 		{

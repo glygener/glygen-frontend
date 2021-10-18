@@ -66,6 +66,7 @@ const GlycanSearch = (props) => {
 			glyPubId: '',
 			glyBindingProteinId: '',
 			glyGlyName: '',
+			glyIDNamespace: '',
 			glyAdvSearchValError: [false, false, false, false, false, false, false],
 		}
 	);
@@ -75,6 +76,7 @@ const GlycanSearch = (props) => {
 	);
 	const [glyActTabKey, setGlyActTabKey] = useState('Simple-Search');
 	const [pageLoading, setPageLoading] = useState(true);
+	const [searchStarted, setSearchStarted] = useState(false);
 	const [alertTextInput, setAlertTextInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
 		{show: false, id: ""}
@@ -87,9 +89,11 @@ const GlycanSearch = (props) => {
 
 	let simpleSearch = glycanSearchData.simple_search;
 	let advancedSearch = glycanSearchData.advanced_search;
+	let querySearch = glycanSearchData.query_search;
 	let compositionSearch = glycanSearchData.composition_search;
 	let glycanData = stringConstants.glycan;
 	let commonGlycanData = glycanData.common;
+	const queryString = require('query-string');
 
 	/**
 	 * Sets composition data.
@@ -121,14 +125,272 @@ const GlycanSearch = (props) => {
 	}
 
 	/**
+	 * parseComposition returns composition value.
+	 * @param {object} composition - composition value.
+	 **/
+	function parseComposition(composition, unknownComp){
+		if (composition === undefined || composition === null || composition === "") return [];
+
+		let compArr = composition.split(')');
+		let compTemplate = Object.keys(querySearch.composition);
+		let addComp = compTemplate;
+		let compObj = [];
+
+		for (let i = 0; i < compArr.length; i++){
+			let com = compArr[i];
+			if (com === "") continue;
+
+			let comp1 = com.split('(');
+			let isCompPresent = compTemplate.includes(comp1[0].toLowerCase());
+
+			if (!isCompPresent) {
+				unknownComp.push(comp1[0]);
+				continue;
+			} 
+			addComp = addComp.filter(compTemp => compTemp !== comp1[0].toLowerCase());
+
+			let comp = {
+				"residue" : querySearch.composition[comp1[0].toLowerCase()].id,
+				"min" : isNaN(parseInt(comp1[1])) ? 0: parseInt(comp1[1]),
+				"max" : isNaN(parseInt(comp1[1])) ? 0: parseInt(comp1[1])
+			}
+			compObj.push(comp)
+		}
+
+		if (compObj.length > 1) {
+			for (let i = 0; i < addComp.length; i++){
+				let com = addComp[i];
+				let val = 0;
+
+					let comp = {
+						"residue" : querySearch.composition[com.toLowerCase()].id,
+						"min" : 0,
+						"max" : 0
+					}
+				compObj.push(comp)
+			}
+		}
+
+		return compObj;
+	}
+
+	/**
+	 * executeQuery executes query passed by user as parameters.
+	 * @param {object} queryObject - queryObject value.
+	 * @param {object} qryObjOut - qryObjOut value.
+	 **/
+	function executeQuery(queryObject, qryObjOut) {
+		let queryProps = Object.keys(queryObject);
+		let queryPropArr = querySearch.queryProps;
+		let unkProps = [];
+		let nullValueProps = [];
+		let queryArr = [];
+		let isError = false;
+		qryObjOut.selectedTab = "Advanced-Search";
+		let mass = undefined;
+		let tolerance = undefined;
+		let massType = undefined;
+		let acc = [];
+		let subsumption = undefined;
+		let comp = undefined;
+		for (let i = 0; i < queryProps.length; i++){
+			let isPropPresent = queryPropArr.includes(queryProps[i].toLowerCase());
+			if (!isPropPresent){
+				unkProps.push(queryProps[i]);
+				continue;
+			}
+			if (queryObject[queryProps[i]] === null || queryObject[queryProps[i]] === ""){
+				nullValueProps.push(queryProps[i]);
+			}
+			var value = undefined;
+			if (queryProps[i].toLowerCase() === "acc"){
+				acc.push(queryObject[queryProps[i]]);
+			} else {
+				if (queryObject[queryProps[i]] === null || queryObject[queryProps[i]] === "" || typeof(queryObject[queryProps[i]]) === "string") {
+					value = queryObject[queryProps[i]];
+				} else {
+					value = queryObject[queryProps[i]][0];
+				}
+			}
+
+			if (queryProps[i].toLowerCase() === "mass"){
+				mass = value;
+			}
+			if (queryProps[i].toLowerCase() === "tolerance"){
+				tolerance = value;
+			}
+			if (queryProps[i].toLowerCase() === "masstype"){
+				massType = value;
+			}
+			if (queryProps[i].toLowerCase() === "subsumption"){
+				subsumption = value;
+			}
+			if (queryProps[i].toLowerCase() === "comp"){
+				comp = value;
+			}
+			queryArr.push(queryProps[i]);
+		}
+		if (unkProps.length > 0){
+			qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+			qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Unknown parameter(s): " + unkProps.join(', ') + "."
+			isError = true;
+		}
+
+		if (nullValueProps.length > 0){
+			qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+			if (qryObjOut.alertMessage === "")
+				qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Null or empty value parameter(s): " + nullValueProps.join(', ') + "."
+			else
+				qryObjOut.alertMessage += "\n Null or empty value parameter(s): " + nullValueProps.join(', ') + "."
+
+			isError = true;
+		}
+
+		var composition = undefined;
+		let unknownComp = [];
+		if (comp || comp === "" || comp === null){
+			qryObjOut.selectedTab = "Composition-Search";
+			composition = parseComposition(comp, unknownComp);
+			if (queryArr.length > 1 || unkProps.length > 0){
+				qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+				if (qryObjOut.alertMessage === "")
+					qryObjOut.alertMessage = "'comp' can not be combined with other query parameter(s)."
+				else
+					qryObjOut.alertMessage += "\n 'comp' can not be combined with other query parameter(s)."
+
+				isError = true;
+			}
+			if (unknownComp.length > 0){
+				qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+				if (unknownComp.length === 1 && composition.length === 0){
+					if (qryObjOut.alertMessage === "")
+						qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Composition string needs to be in proper format."
+					else
+						qryObjOut.alertMessage += "\n Composition string needs to be in proper format."
+				} else {
+					if (qryObjOut.alertMessage === "")
+						qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Unknown composition(s): " + unknownComp.join(', ') + "."
+					else
+						qryObjOut.alertMessage += "\n Unknown composition(s): " + unknownComp.join(', ') + "."
+				}
+				
+				isError = true;
+			}
+			if (composition.length === 0 && unknownComp.length === 0){
+				qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+				if (qryObjOut.alertMessage === "")
+					qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Composition string needs to be in proper format."
+				else 
+					qryObjOut.alertMessage += "\n Composition string needs to be in proper format."
+
+				isError = true;
+			}
+		}
+
+		if (massType && querySearch.massType[massType.toLowerCase()] === undefined){
+			qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+			if (qryObjOut.alertMessage === "")
+				qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Unknown massType value: " + massType  + ".";
+			else
+				qryObjOut.alertMessage += "\n Unknown massType value: " + massType + ".";
+
+			isError = true;
+		}
+
+		if (subsumption && querySearch.subsumption[subsumption.toLowerCase()] === undefined){
+			qryObjOut.logMessage = "Query parameter error. Query Search query parameters=" + JSON.stringify(queryObject);
+			if(qryObjOut.alertMessage === "")
+				qryObjOut.alertMessage = stringConstants.errors.querySerarchError.message + "Unknown subsumption value: " + subsumption  + ".";
+			else
+				qryObjOut.alertMessage +=  "\n Unknown subsumption value: " + subsumption + ".";
+
+			isError = true;
+		}
+
+		if (searchStarted) {
+			qryObjOut.logMessage = "";
+			qryObjOut.alertMessage = "";
+			qryObjOut.selectedTab = "";
+			return false;
+		}
+
+		if (isError) return isError;
+
+		var glycan_identifier = undefined;
+		var glycan_id = undefined;
+		if (acc.length > 0) {
+			glycan_id = acc.join(',');
+			glycan_id = glycan_id.trim();
+			glycan_id = glycan_id.replace(/\u200B/g, '');
+			glycan_id = glycan_id.replace(/\u2011/g, '-');
+			glycan_id = glycan_id.replace(/\s+/g, ',');
+			glycan_id = glycan_id.replace(/,+/g, ',');
+			var index = glycan_id.lastIndexOf(',');
+			if (index > -1 && index + 1 === glycan_id.length) {
+				glycan_id = glycan_id.substr(0, index);
+			}
+			glycan_identifier = {
+				glycan_id: glycan_id,
+				subsumption: subsumption ? querySearch.subsumption[subsumption.toLowerCase()].id : "none"
+			}
+		}
+
+		var tol = tolerance ? parseInt(tolerance) : 1;
+		var formjson = {
+			[commonGlycanData.operation.id]: 'AND',
+			[glycanData.advanced_search.query_type.id]: glycanData.advanced_search.query_type.name,
+			[commonGlycanData.mass_type.id]: mass ? massType ? querySearch.massType[massType.toLowerCase()].id: "Native" : undefined,
+			[commonGlycanData.mass.id]: mass ? {
+				min: parseInt(mass) - tol,
+				max: parseInt(mass) + tol,
+			} : undefined,
+			[commonGlycanData.glycan_identifier.id]: glycan_identifier,
+			[commonGlycanData.composition.id]: composition,
+		};
+
+		logActivity("user", id, "Performing Glycan Query Search");
+		let message = "Query Search query=" + JSON.stringify(formjson);
+		getGlycanSearch(formjson)
+			.then((response) => {
+				if (response.data['list_id'] !== '') {
+					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
+					.finally(() => {	
+						props.history.push(routeConstants.glycanList + response.data['list_id']);
+					});;
+				} else {
+					let message = "No results. Query Search query=" + JSON.stringify(formjson);
+					let altMessage = stringConstants.errors.querySerarcApiError.message;
+					logActivity("user", "", message);
+					setAlertTextInput({"show": true, "id": stringConstants.errors.querySerarchError.id, "message": altMessage});
+					window.scrollTo(0, 0);
+					setPageLoading(false);
+				}
+			})
+			.catch(function (error) {
+				axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+			});
+
+		return isError;
+	}
+
+	/**
 	 * useEffect for retriving data from api and showing page loading effects.
 	 */
 	useEffect(() => {
 		setPageLoading(true);
 		logActivity();
 		document.addEventListener('click', () => {
-			setAlertTextInput({"show": false})
+			setAlertTextInput({"show": false, message: ""})
 		});
+		var qryObjOut = {
+			logMessage : "",
+			alertMessage : "",
+			selectedTab : ""
+		};
+		var queryError = false;
+		if (props.location.search){
+			queryError = executeQuery(queryString.parse(props.location.search), qryObjOut);
+		}
 		getGlycanInit().then((response) => {
 			let initData = response.data;
 			setGlyAdvSearchData({
@@ -210,10 +472,20 @@ const GlycanSearch = (props) => {
 					setGlyActTabKey("Simple-Search");
 				}
 			} else {
-				setGlyActTabKey("Simple-Search");
+				if (qryObjOut.selectedTab !== ""){
+					setGlyActTabKey(qryObjOut.selectedTab);
+				} else {
+					setGlyActTabKey("Simple-Search");
+				}
 			}
 
-			if (id === undefined) setPageLoading(false);
+			if (queryError && qryObjOut.logMessage !== ""){
+				logActivity("user", "", qryObjOut.logMessage);
+				setAlertTextInput({"show": true, "id": stringConstants.errors.querySerarchError.id, "message": qryObjOut.alertMessage})
+				window.scrollTo(0, 0);
+			}
+
+			if ((id === undefined && (props.location.search === undefined || props.location.search === "")) || (props.location.search && queryError)) setPageLoading(false);
 
 			id &&
 				getGlycanList(id, 1).then(({ data }) => {
@@ -328,7 +600,13 @@ const GlycanSearch = (props) => {
 							glyOrganisms:
 								data.cache_info.query.organism === undefined
 									? []
-									: data.cache_info.query.organism.organism_list,
+									: data.cache_info.query.organism.organism_list.map(
+										org => {
+											return initData.organism.find(initOrg => {
+												return initOrg.id === org.id;
+											});
+										}
+									),
 							glyType:
 								data.cache_info.query.glycan_type === undefined
 									? advancedSearch.glycan_type.placeholderId
@@ -358,6 +636,10 @@ const GlycanSearch = (props) => {
 								data.cache_info.query.glycan_name === undefined
 									? ''
 									: data.cache_info.query.glycan_name,
+							glyIDNamespace:
+								data.cache_info.query.id_namespace === undefined
+									? advancedSearch.id_namespace.placeholderId
+									: data.cache_info.query.id_namespace,
 							glyAdvSearchValError: [false, false, false, false, false, false, false],
 						});
 
@@ -396,6 +678,7 @@ const GlycanSearch = (props) => {
 	 * @param {string} input_motif - input_motif value.
 	 * @param {string} input_pmid - input_pmid value.
 	 * @param {string} input_binding_protein_id - input_binding_protein_id value.
+	 * @param {string} input_id_namespace - input_id_namespace value.
 	 * @param {object} input_residue_comp - input_residue_comp value.
 	 **/
 	function searchjson(
@@ -418,6 +701,7 @@ const GlycanSearch = (props) => {
 		input_motif,
 		input_pmid,
 		input_binding_protein_id,
+		input_id_namespace,
 		input_residue_comp
 	) {
 		var enzymes = undefined;
@@ -512,6 +796,7 @@ const GlycanSearch = (props) => {
 			[commonGlycanData.glycan_motif.id]: input_motif !== "" ? input_motif : undefined,
 			[commonGlycanData.pmid.id]: input_pmid !== "" ? input_pmid : undefined,
 			[commonGlycanData.binding_protein_id.id]: input_binding_protein_id !== "" ? input_binding_protein_id : undefined,
+			[commonGlycanData.id_namespace.id]: input_id_namespace !== "" ? input_id_namespace : undefined,
 			[commonGlycanData.composition.id]: input_residue_comp,
 		};
 		return formjson;
@@ -574,6 +859,7 @@ const GlycanSearch = (props) => {
 			glyAdvSearchData.glyMotif,
 			glyAdvSearchData.glyPubId,
 			glyAdvSearchData.glyBindingProteinId,
+			glyAdvSearchData.glyIDNamespace,
 			undefined
 		);
 		logActivity("user", id, "Performing Advanced Search");
@@ -633,6 +919,7 @@ const GlycanSearch = (props) => {
 			undefined,
 			undefined,
 			undefined,
+			undefined,
 			compSearchData
 		);
 
@@ -662,6 +949,7 @@ const GlycanSearch = (props) => {
 	 * Function to handle click event for glycan advanced search.
 	 **/
 	const searchGlycanAdvClick = () => {
+		setSearchStarted(true);
 		setPageLoading(true);
 		glycanAdvSearch();
 	};
@@ -670,6 +958,7 @@ const GlycanSearch = (props) => {
 	 * Function to handle click event for glycan composition search.
 	 **/
 	const searchGlycanCompClick = () => {
+		setSearchStarted(true);
 		setPageLoading(true);
 		glycanCompSearch();
 	};
@@ -678,6 +967,7 @@ const GlycanSearch = (props) => {
 	 * Function to handle click event for glycan simple search.
 	 **/
 	const searchGlycanSimpleClick = () => {
+		setSearchStarted(true);
 		setPageLoading(true);
 		glycanSimpleSearch();
 	};

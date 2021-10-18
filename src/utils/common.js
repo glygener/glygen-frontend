@@ -85,7 +85,7 @@ export function sortByOrder(a, b) {
 }
 
 /**
- * Function to to add "index" to each row in the array.
+ * Function to add "index" to each row in the array.
  * @param {Array} data input value.
  * @param {string} key input value.
  **/
@@ -94,4 +94,14 @@ export function addIndex(data, key = "index") {
     row[key] = index + 1;
     return row;
   });
+}
+
+/**
+ * Function to replace special characters.
+ * @param {string} input input value.
+ **/
+ export function replaceSpecialCharacters(input) {
+  input = input.replace(/\\/g, "\\\\");
+  input = input.replace(/"/g, "\\\"");
+  return input;
 }

@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 // import { getJson } from '../data/api';
 import { postTo } from "../../data/api";
-import { validateEmail } from "../../utils/common";
+import { validateEmail, replaceSpecialCharacters } from "../../utils/common";
 import { Typography } from "@material-ui/core";
 import { axiosError } from "../../data/axiosError";
 import { logActivity } from "../../data/logging";
@@ -69,8 +69,9 @@ const ContactForm = (props) => {
 
   // const inputLabel = useRef(null);
   const handleChange = (event) => {
-    setContactUsResponseMessage();
     setSubject(event.target.value);
+    setContactUsResponseMessage();
+    setContactUsErrorMessage();
   };
 
   const handleWordCount = (e) => {
@@ -81,13 +82,15 @@ const ContactForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setContactUsResponseMessage();
+    setContactUsErrorMessage();
 
     const formData = {
       fname: fname,
       lname: lname,
       email: email,
       subject: subject,
-      message: message,
+      message: escape(replaceSpecialCharacters(message)),
     };
     const url = `/auth/contact?query=${JSON.stringify(formData)}`;
     // const url = `/auth/contact?query=${JSON.stringify(contactUsData)}`;
@@ -97,7 +100,20 @@ const ContactForm = (props) => {
     postTo(url, myHeaders)
       .then((response) => {
         logActivity("user", "", "Message sent from contact us page.");
-        setContactUsResponseMessage(decodeURIComponent(response.data.message)); //decodeURIComponent()
+        setContactUsResponseMessage("We have received your message and will make every effort to respond to you within a reasonable amount of time."); //decodeURIComponent()
+        //setContactUsData({fname: '', lname: ''})
+        setFName("");
+        setLName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+        setMessageCharsLeft(`${messageMaxLen}`);
+        setFormValidated(false);
+        setFNameValidated(false);
+        setLNameValidated(false);
+        setEmailValidated(false);
+        setMessageValidated(false);
+        setSubject("general");
       })
       .catch((error) => {
         setContactUsErrorMessage(
@@ -106,19 +122,6 @@ const ContactForm = (props) => {
         axiosError(error, "", "Contact us api call.");
       });
 
-    //setContactUsData({fname: '', lname: ''})
-    setFName("");
-    setLName("");
-    setEmail("");
-    setSubject("");
-    setMessage("");
-    setMessageCharsLeft(`${messageMaxLen}`);
-    setFormValidated(false);
-    setFNameValidated(false);
-    setLNameValidated(false);
-    setEmailValidated(false);
-    setMessageValidated(false);
-    setSubject("general");
   };
 
   // Allows to type in only text and "-".
