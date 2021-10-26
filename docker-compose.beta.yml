@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  frontend:
+    container_name: glygen-frontend-beta
+    image: glygen-frontend-beta:latest
+    build:
+      args:
+        - REACT_APP_ENV=beta
+        - REACT_APP_API=https://beta-api.glygen.org
+        - REACT_APP_DOMAIN=https://beta.glygen.org
+        # - REACT_APP_DOMAIN=http://localhost:5050
+        - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
+        - REACT_APP_DATA=https://beta-data.glygen.org
+        - REACT_APP_SPARQL=https://beta-sparql.glygen.org
+        - REACT_APP_BASENAME=/
+        - GENERATE_SOURCEMAP_FILES=true
+        - PORT=5050
+    ports:
+      - '5050:80'
+networks:
+  default:
+    external:
+      name: glygen-network-beta

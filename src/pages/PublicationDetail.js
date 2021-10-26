@@ -39,6 +39,14 @@ const items = [
 
   { label: stringConstants.sidebar.organism.displayname, id: "Organism" },
   {
+    label: stringConstants.sidebar.referenced_proteins.displayname,
+    id: "Referenced-Proteins",
+  },
+  {
+    label: stringConstants.sidebar.referenced_glycans.displayname,
+    id: "Referenced-Glycans",
+  },
+  {
     label: stringConstants.sidebar.glycosylation.displayname,
     id: "Glycosylation",
   },
@@ -58,14 +66,6 @@ const items = [
   {
     label: stringConstants.sidebar.expression.displayname,
     id: "Expression",
-  },
-  {
-    label: stringConstants.sidebar.referenced_proteins.displayname,
-    id: "Referenced-Proteins",
-  },
-  {
-    label: stringConstants.sidebar.referenced_glycans.displayname,
-    id: "Referenced-Glycans",
   },
 ];
 const PublicationDetail = (props) => {
@@ -1277,6 +1277,144 @@ const PublicationDetail = (props) => {
                 </Accordion.Collapse>
               </Card>
             </Accordion>
+             {/* Referenced-Proteins */}
+             <Accordion
+              id="Referenced-Proteins"
+              defaultActiveKey="0"
+              className="panel-width"
+              style={{ padding: "20px 0" }}
+            >
+              <Card>
+                <Card.Header className="panelHeadBgr">
+                  <span className="gg-green d-inline">
+                    <HelpTooltip
+                      title={DetailTooltips.publication.referenced_proteins.title}
+                      text={DetailTooltips.publication.referenced_proteins.text}
+                      urlText={DetailTooltips.publication.referenced_proteins.urlText}
+                      url={DetailTooltips.publication.referenced_proteins.url}
+                      helpIcon="gg-helpicon-detail"
+                    />
+                  </span>
+                  <h4 className="gg-green d-inline">
+                    {stringConstants.sidebar.referenced_proteins.displayname}
+                  </h4>
+                  <div className="float-right">
+                    <Accordion.Toggle
+                      eventKey="0"
+                      onClick={() =>
+                        toggleCollapse("referenced_proteins", collapsed.referenced_proteins)
+                      }
+                      className="gg-green arrow-btn"
+                    >
+                      <span>{collapsed.referenced_proteins ? closeIcon : expandIcon}</span>
+                    </Accordion.Toggle>
+                  </div>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    {displayedItems && (
+                      <>
+                        <div>
+                          <ul className="list-style-none">
+                            <Row>
+                              {displayedItems.sort(sortIgnoreCase).map((refProt) => (
+                                <Col key={refProt} className="nowrap" xs={6} sm={4} lg={3} xl={2}>
+                                  <LineTooltip text="View protein details">
+                                    <Link to={`${routeConstants.proteinDetail}${refProt}`}>
+                                      <li>{refProt}</li>
+                                    </Link>
+                                  </LineTooltip>
+                                </Col>
+                              ))}
+                            </Row>
+                            {allItems.length > maxItems && (
+                              <>
+                                {open ? (
+                                  <Button
+                                    style={{
+                                      marginTop: "5px",
+                                    }}
+                                    className={"lnk-btn"}
+                                    variant="link"
+                                    onClick={() => setOpen(false)}
+                                  >
+                                    Show Less...
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    style={{
+                                      marginTop: "5px",
+                                    }}
+                                    className={"lnk-btn"}
+                                    variant="link"
+                                    onClick={() => setOpen(true)}
+                                  >
+                                    Show More...
+                                  </Button>
+                                )}
+                              </>
+                            )}
+                          </ul>
+                        </div>
+                      </>
+                    )}
+                    {!referenced_proteins && <span>No data available.</span>}
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+            {/* Referenced-Glycans */}
+            <Accordion
+              id="Referenced-Glycans"
+              defaultActiveKey="0"
+              className="panel-width"
+              style={{ padding: "20px 0" }}
+            >
+              <Card>
+                <Card.Header className="panelHeadBgr">
+                  <span className="gg-green d-inline">
+                    <HelpTooltip
+                      title={DetailTooltips.publication.referenced_glycans.title}
+                      text={DetailTooltips.publication.referenced_glycans.text}
+                      urlText={DetailTooltips.publication.referenced_glycans.urlText}
+                      url={DetailTooltips.publication.referenced_glycans.url}
+                      helpIcon="gg-helpicon-detail"
+                    />
+                  </span>
+                  <h4 className="gg-green d-inline">
+                    {stringConstants.sidebar.referenced_glycans.displayname}
+                  </h4>
+                  <div className="float-right">
+                    <Accordion.Toggle
+                      eventKey="0"
+                      onClick={() =>
+                        toggleCollapse("referenced_glycans", collapsed.referenced_glycans)
+                      }
+                      className="gg-green arrow-btn"
+                    >
+                      <span>{collapsed.referenced_glycans ? closeIcon : expandIcon}</span>
+                    </Accordion.Toggle>
+                  </div>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    {referenced_glycans && (
+                      <ClientPaginatedTable
+                        data={referenced_glycans
+                          .sort(sortIgnoreCase)
+                          .map((refGlyc) => ({ refGlyc }))}
+                        columns={refGlycansColumns}
+                        onClickTarget={"#referenced-glycans"}
+                        defaultSortField="refGlyc"
+                        defaultSortOrder="asc"
+                        idField={"refGlyc"}
+                      />
+                    )}
+                    {!referenced_glycans && <span>No data available.</span>}
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
             {/* glycosylation */}
             <Accordion
               id="Glycosylation"
@@ -1750,145 +1888,6 @@ const PublicationDetail = (props) => {
                     )}
 
                     {!glycan_expression && <p>No data available.</p>}
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-
-            {/* Referenced-Proteins */}
-            <Accordion
-              id="Referenced-Proteins"
-              defaultActiveKey="0"
-              className="panel-width"
-              style={{ padding: "20px 0" }}
-            >
-              <Card>
-                <Card.Header className="panelHeadBgr">
-                  <span className="gg-green d-inline">
-                    <HelpTooltip
-                      title={DetailTooltips.publication.referenced_proteins.title}
-                      text={DetailTooltips.publication.referenced_proteins.text}
-                      urlText={DetailTooltips.publication.referenced_proteins.urlText}
-                      url={DetailTooltips.publication.referenced_proteins.url}
-                      helpIcon="gg-helpicon-detail"
-                    />
-                  </span>
-                  <h4 className="gg-green d-inline">
-                    {stringConstants.sidebar.referenced_proteins.displayname}
-                  </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() =>
-                        toggleCollapse("referenced_proteins", collapsed.referenced_proteins)
-                      }
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.referenced_proteins ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
-                  </div>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    {displayedItems && (
-                      <>
-                        <div>
-                          <ul className="list-style-none">
-                            <Row>
-                              {displayedItems.sort(sortIgnoreCase).map((refProt) => (
-                                <Col key={refProt} className="nowrap" xs={6} sm={4} lg={3} xl={2}>
-                                  <LineTooltip text="View protein details">
-                                    <Link to={`${routeConstants.proteinDetail}${refProt}`}>
-                                      <li>{refProt}</li>
-                                    </Link>
-                                  </LineTooltip>
-                                </Col>
-                              ))}
-                            </Row>
-                            {allItems.length > maxItems && (
-                              <>
-                                {open ? (
-                                  <Button
-                                    style={{
-                                      marginTop: "5px",
-                                    }}
-                                    className={"lnk-btn"}
-                                    variant="link"
-                                    onClick={() => setOpen(false)}
-                                  >
-                                    Show Less...
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    style={{
-                                      marginTop: "5px",
-                                    }}
-                                    className={"lnk-btn"}
-                                    variant="link"
-                                    onClick={() => setOpen(true)}
-                                  >
-                                    Show More...
-                                  </Button>
-                                )}
-                              </>
-                            )}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                    {!referenced_proteins && <span>No data available.</span>}
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-            {/* Referenced-Glycans */}
-            <Accordion
-              id="Referenced-Glycans"
-              defaultActiveKey="0"
-              className="panel-width"
-              style={{ padding: "20px 0" }}
-            >
-              <Card>
-                <Card.Header className="panelHeadBgr">
-                  <span className="gg-green d-inline">
-                    <HelpTooltip
-                      title={DetailTooltips.publication.referenced_glycans.title}
-                      text={DetailTooltips.publication.referenced_glycans.text}
-                      urlText={DetailTooltips.publication.referenced_glycans.urlText}
-                      url={DetailTooltips.publication.referenced_glycans.url}
-                      helpIcon="gg-helpicon-detail"
-                    />
-                  </span>
-                  <h4 className="gg-green d-inline">
-                    {stringConstants.sidebar.referenced_glycans.displayname}
-                  </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() =>
-                        toggleCollapse("referenced_glycans", collapsed.referenced_glycans)
-                      }
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.referenced_glycans ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
-                  </div>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    {referenced_glycans && (
-                      <ClientPaginatedTable
-                        data={referenced_glycans
-                          .sort(sortIgnoreCase)
-                          .map((refGlyc) => ({ refGlyc }))}
-                        columns={refGlycansColumns}
-                        onClickTarget={"#referenced-glycans"}
-                        defaultSortField="refGlyc"
-                        defaultSortOrder="asc"
-                        idField={"refGlyc"}
-                      />
-                    )}
-                    {!referenced_glycans && <span>No data available.</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>

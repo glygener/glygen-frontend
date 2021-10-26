@@ -37,6 +37,8 @@ import routeConstants from "../data/json/routeConstants";
 import stringConstants from "../data/json/stringConstants";
 import { getGlycanImageUrl } from "../data/glycan";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import CollapsibleText from "../components/CollapsibleText";
+import FormControl from "@material-ui/core/FormControl";
 
 function addCommas(nStr) {
   nStr += "";
@@ -58,9 +60,25 @@ const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
   { label: stringConstants.sidebar.sequence.displayname, id: "Sequence" },
   {
-    label: stringConstants.sidebar.site_annotation.displayname,
-    id: "Site-Annotation"
-  }
+    label: stringConstants.sidebar.glycosylation.displayname,
+    id: "Glycosylation",
+  },
+  {
+    label: stringConstants.sidebar.phosphorylation.displayname,
+    id: "Phosphorylation",
+  },
+  {
+    label: stringConstants.sidebar.glycation.displayname,
+    id: "Glycation",
+  },
+  {
+    label: stringConstants.sidebar.snv.displayname,
+    id: "Single-Nucleotide-Variation",
+  },
+  { 
+    label: stringConstants.sidebar.mutagenesis.displayname, 
+    id: "Mutagenesis" 
+  },
 ];
 
 const sortByPosition = function(a, b) {
@@ -206,19 +224,20 @@ const SequenceLocationViewer = ({
 
   return (
     <>
-      <Row>
-        <Grid item xs={8} sm={4}></Grid>
-        <Grid item xs={6} sm={4}>
-          <select
-            value={position}
-            onChange={event => onSelectPosition(event.target.value)}
-          >
-            {filteredAnnotations.sort(sortByPosition).map(annotation => (
-              <option key={annotation.key} value={annotation.position}>
-                {annotation.key}: {annotation.allTypes.join(", ")}
-              </option>
-            ))}
-          </select>
+      <Row className="sequenceDisplay">
+        <Grid item xs={6} sm={6}>
+          <FormControl fullWidth>
+            <select
+              value={position}
+              onChange={event => onSelectPosition(event.target.value)}
+            >
+              {filteredAnnotations.sort(sortByPosition).map(annotation => (
+                <option key={annotation.key} value={annotation.position}>
+                  {annotation.key}: {annotation.allTypes.join(", ")}
+                </option>
+              ))}
+            </select>
+          </FormControl>
         </Grid>
       </Row>
       <Row className="sequenceDisplay">
@@ -227,8 +246,6 @@ const SequenceLocationViewer = ({
         </Grid>
         <Grid item xs={10} sm={10} className="sequence-scroll">
           <>
-            {/* <pre>{JSON.stringify(reducedAnnotations, null, 2)}</pre> */}
-
             <Grid className="zoom">
               <div className="zoom-sequence">
                 {styledSequence.map(item => (
@@ -249,8 +266,6 @@ const SequenceLocationViewer = ({
                 ))}
               </div>
             </Grid>
-
-            {/* <pre>{JSON.stringify(styledSequence, null, 2)}</pre> */}
           </>
         </Grid>
         <Grid item>
@@ -266,12 +281,11 @@ const Siteview = ({ position, history }) => {
 
   const [detailData, setDetailData] = useState({});
   const [annotations, setAnnotations] = useState([]);
-  const [allAnnotations, setAllAnnotations] = useState([]);
   const [sequence, setSequence] = useState([]);
   const [selectedPosition, setSelectedPosition] = useState(position);
-  const [positionData, setPositionData] = useState([]);
   const [nonExistent, setNonExistent] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  const [sideBarData, setSidebarData] = useState(items);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -287,6 +301,29 @@ const Siteview = ({ position, history }) => {
       } else {
         setDetailData(data);
         setPageLoading(false);
+        let newSidebarData = items;
+        if (!data.uniprot_canonical_ac || data.uniprot_canonical_ac.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "General", true);
+        }
+        if (!data.sequence || data.sequence.sequence.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Sequence", true);
+        }
+        if (!data.glycosylation || data.glycosylation.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Glycosylation", true);
+        }
+        if (!data.phosphorylation || data.phosphorylation.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Phosphorylation", true);
+        }
+        if (!data.glycation || data.glycation.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Glycation", true);
+        }
+        if (!data.snv || data.snv.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Single-Nucleotide-Variation", true);
+        }
+        if (!data.mutagenesis || data.mutagenesis.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Mutagenesis", true);
+        }
+        setSidebarData(newSidebarData);
       }
     });
 
@@ -310,102 +347,40 @@ const Siteview = ({ position, history }) => {
   }, [id, selectedPosition]);
 
   useEffect(() => {
-    let dataAnnotations = [];
-    /**
-     *  The map() method calls the provided function once for each element in a glycosylation array, in order.
-     *  and sorting with respect to position
-     */
     if (detailData.glycosylation) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.glycosylation.sort(sortByStartPos).map(glycosylation => ({
+      detailData.glycosylation = detailData.glycosylation.map(glycosylation => ({
+          ...glycosylation,
           position: detailData.start_pos,
-          type: glycosylation.type.split("-")[0],
-          label: glycosylation.residue + "Glycosylation",
-          glytoucan_ac: glycosylation.glytoucan_ac,
-          evidence: glycosylation.evidence,
-          residue: glycosylation.residue,
-          typeAnnotate: glycosylation.type.split("-")[0] + "-" + "Glycosylation"
         }))
-      ];
     }
 
-    /**
-     *  The map() method calls the provided function once for each element in a detailData.site_annotation array, in order.
-     *  and sorting with respect to start_pos
-     */
-    if (detailData.site_annotation) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.site_annotation
-          .sort(sortByStartPos)
-          .map(site_annotation => ({
-            position: detailData.start_pos,
-            type: site_annotation.annotation.split("-")[0].toUpperCase(),
-            typeAnnotate: "Sequon",
-            residue: site_annotation.residue
-          }))
-      ];
-    }
-
-    /**
-     *  The map() method calls the provided function once for each element in a detailData.mutation array, in order.
-     *  and sorting with respect to start_pos
-     */
     if (detailData.snv) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.snv.sort(sortByStartPos).map(snv => ({
+      detailData.snv = detailData.snv.map(snv => ({
+          ...snv,
           position: detailData.start_pos,
-          label: "SNV",
-          evidence: snv.evidence,
-          residue: snv.residue,
-          typeAnnotate: "SNV"
         }))
-      ];
     }
 
     if (detailData.mutagenesis) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.mutagenesis.sort(sortByStartPos).map(mutagenesis => ({
+      detailData.mutagenesis = detailData.mutagenesis.map(mutagenesis => ({
+          ...mutagenesis,
           position: detailData.start_pos,
-          label: "Mutagenesis",
-          evidence: mutagenesis.evidence,
-          typeAnnotate: "Mutagenesis"
         }))
-      ];
     }
 
     if (detailData.phosphorylation) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.phosphorylation
-          .sort(sortByStartPos)
-          .map(phosphorylation => ({
-            position: detailData.start_pos,
-            label: "Phosphorylation",
-            evidence: phosphorylation.evidence,
-            typeAnnotate: "Phosphorylation"
-          }))
-      ];
-    }
-    if (detailData.glycation) {
-      dataAnnotations = [
-        ...dataAnnotations,
-        ...detailData.glycation.sort(sortByStartPos).map(glycation => ({
+      detailData.phosphorylation = detailData.phosphorylation.map(phosphorylation => ({
+          ...phosphorylation,
           position: detailData.start_pos,
-          label: "Glycation",
-          evidence: glycation.evidence,
-          typeAnnotate: "Glycation"
         }))
-      ];
     }
-    const allDataAnnotations = dataAnnotations.map((annotation, index) => ({
-      ...annotation,
-      key: `${annotation.type}-${annotation.position}`,
-      id: `${annotation.type}-${annotation.position}-${index}`
-    }));
+
+    if (detailData.glycation) {
+      detailData.glycation = detailData.glycation.map(glycation => ({
+          ...glycation,
+          position: detailData.start_pos,
+        }))
+    }
 
     const pickLabel = type => {
       switch (type) {
@@ -453,21 +428,11 @@ const Siteview = ({ position, history }) => {
       }
     }
 
-    setAllAnnotations(allDataAnnotations);
-
     if (detailData.sequence) {
       var originalSequence = detailData.sequence.sequence;
       setSequence(originalSequence.split(""));
     }
   }, [selectedPosition, detailData]);
-
-  const updateTableData = (annotations, position) => {
-    setPositionData(
-      annotations.filter(
-        annotation => annotation.position === parseInt(position, 10)
-      )
-    );
-  };
 
   const selectPosition = position => {
     setSelectedPosition(position);
@@ -479,52 +444,80 @@ const Siteview = ({ position, history }) => {
     // window.location = `/Siteview/${id}/${position}`;
   };
 
-  useEffect(() => {
-    updateTableData(allAnnotations, selectedPosition);
-  }, [allAnnotations, selectedPosition]);
+  const glycoSylationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
 
-  const annotationColumns = [
-    {
-      dataField: "typeAnnotate",
-      text: proteinStrings.annotation_site.name,
-      sort: true,
-      style: { whiteSpace: "nowrap" },
       headerStyle: (colum, colIndex) => {
         return {
           backgroundColor: "#4B85B6",
-          color: "white"
-        };
-      }
-    },
-    {
-      dataField: "glytoucan_ac",
-      text: glycanStrings.glycan_id.name,
-      sort: true,
-      style: { whiteSpace: "nowrap" },
-      headerStyle: (colum, colIndex) => {
-        return {
-          backgroundColor: "#4B85B6",
-          color: "white"
+          color: "white",
+          width: "25%",
         };
       },
-
-      formatter: (value, row) => (
-        <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>
-            {row.glytoucan_ac}
-          </Link>
-        </LineTooltip>
-      )
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList key={row.start_pos + row.glytoucan_ac} evidences={groupEvidences(cell)} />
+        );
+      },
     },
     {
-      dataField: "position",
-      text: proteinStrings.position.name,
+      dataField: "type",
+      text: proteinStrings.type.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
           backgroundColor: "#4B85B6",
           color: "white",
-          width: "12%"
+        };
+      },
+    },
+    {
+      dataField: "glytoucan_ac",
+      text: proteinStrings.glytoucan_ac.shortName,
+      defaultSortField: "glytoucan_ac",
+      sort: true,
+      headerStyle: (column, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "15%",
+        };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View glycan details">
+          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+        </LineTooltip>
+      ),
+      //testing
+    },
+    {
+      dataField: "image",
+      text: glycanStrings.glycan_image.name,
+      sort: false,
+      formatter: (value, row) => row.glytoucan_ac ? (
+        <div className="img-wrapper">
+          <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
+        </div>) : ( <></>
+        ),
+      headerStyle: (colum, colIndex) => {
+        return {
+          textAlign: "left",
+          backgroundColor: "#4B85B6",
+          color: "white",
+          whiteSpace: "nowrap",
+        };
+      },
+    },
+    {
+      dataField: "position",
+      text: proteinStrings.residue.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
         };
       },
       formatter: (value, row) =>
@@ -535,8 +528,135 @@ const Siteview = ({ position, history }) => {
           </span>
         ) : (
           "Not Reported"
-        )
+        ),
     },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
+  ];
+
+  const phosphorylationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "kinase_uniprot_canonical_ac",
+      text: proteinStrings.kinase_protein.name,
+      sort: true,
+      formatter: (value, row) =>
+        value ? (
+          <LineTooltip text="View protein details">
+            <Link to={routeConstants.proteinDetail + row.kinase_uniprot_canonical_ac}>
+              {row.kinase_uniprot_canonical_ac}
+            </Link>
+          </LineTooltip>
+        ) : (
+          "No data available"
+        ),
+    },
+    {
+      dataField: "kinase_gene_name",
+      text: proteinStrings.kinase_gene_name.name,
+      sort: true,
+      formatter: (value, row) => (value ? <>{row.kinase_gene_name}</> : "No data available"),
+    },
+    {
+      dataField: "position",
+      text: proteinStrings.residue.name,
+      sort: true,
+      formatter: (value, row) =>
+        value ? (
+          <span>
+              {row.residue}
+              {row.position}
+          </span>
+        ) : (
+          "Not Reported"
+        ),
+    },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
+  ];
+
+  const glycationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "type",
+      text: proteinStrings.type.name,
+      sort: true,
+      formatter: (value, row) => (value ? <>{row.type}</> : "No data available"),
+    },
+    {
+      dataField: "relation",
+      text: proteinStrings.relation.name,
+      sort: true,
+      formatter: (value, row) => (value ? <>{row.relation}</> : "No data available"),
+    },
+    {
+      dataField: "position",
+      text: proteinStrings.residue.name,
+      sort: true,
+      formatter: (value, row) =>
+        value ? (
+          <span>
+              {row.residue}
+              {row.position}
+          </span>
+        ) : (
+          "Not Reported"
+        ),
+    },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
+  ];
+
+  const mutationColumns = [
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
@@ -545,43 +665,169 @@ const Siteview = ({ position, history }) => {
         return {
           backgroundColor: "#4B85B6",
           color: "white",
-          width: "23%"
+          width: "20%",
         };
       },
       formatter: (cell, row) => {
         return (
-          <EvidenceList
-            key={row.position + row.glytoucan_ac}
-            evidences={groupEvidences(cell)}
-          />
+          <EvidenceList key={`ev_${row.ref_nt}_${row.chr_pos}`} evidences={groupEvidences(cell)} />
         );
-      }
+      },
     },
     {
-      dataField: "image",
-      text: "Additional Information",
-      sort: false,
-      selected: true,
-      formatter: (value, row) => (
-        <div className="img-wrapper">
-          {row.glytoucan_ac && (
-            <img
-              className="img-cartoon"
-              src={getGlycanImageUrl(row.glytoucan_ac)}
-              alt="Glycan img"
-            />
-          )}
-        </div>
-      ),
+      dataField: "comment",
+      text: "Filter Annotations",
+      sort: true,
       headerStyle: (colum, colIndex) => {
         return {
-          width: "30%",
-          textAlign: "left",
-          backgroundColor: "#4B85B6",
-          color: "white"
+          width: "20%",
         };
-      }
-    }
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
+
+    {
+      dataField: "chr_id",
+      text: "Genomic Locus",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => (
+        <>
+          Chr{row.chr_id}:{row.chr_pos}
+        </>
+      ),
+    },
+    {
+      dataField: "position",
+      text: proteinStrings.position.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+      formatter: (value, row) =>
+      value ? (
+        <span>
+            {row.position}
+        </span>
+      ) : (
+        "Not Reported"
+      ),
+    },
+    {
+      dataField: "sequence",
+      text: stringConstants.sidebar.sequence.displayname,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.sequence_org} → {row.sequence_mut}
+        </>
+      ),
+    },
+    {
+      dataField: "disease",
+      text: stringConstants.sidebar.disease.displayname,
+      style: { whiteSpace: "nowrap" },
+      headerStyle: (column, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "25%",
+        };
+      },
+      formatter: (value, row) => (
+        <>
+          {value && value.map((disease, index) => (
+            <ul key={index} className="pl-3">
+              <li key={disease.recommended_name.id}>
+                {disease.recommended_name.name}{" "}
+                <span className="nowrap">
+                  (<a href={disease.recommended_name.url}>{disease.recommended_name.id}</a>){" "}
+                </span>
+              </li>
+            </ul>
+          ))}
+        </>
+      ),
+    },
+    {
+      dataField: "minor_allelic_frequency",
+      text: "MAF",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+    },
+  ];
+
+  const mutagenesisColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "position",
+      text: proteinStrings.position.name,
+      sort: true,
+      formatter: (value, row) =>
+      value ? (
+        <span>
+            {row.position}
+        </span>
+      ) : (
+        "Not Reported"
+      ),
+    },
+    {
+      dataField: "sequence",
+      text: stringConstants.sidebar.sequence.displayname,
+      sort: true,
+      formatter: (value, row) => (
+        <>
+          {row.sequence_org && <span className="wrapword">{row.sequence_org}</span>}
+          {!row.sequence_org && <span> (insertion)</span>}
+          {row.sequence_org && row.sequence_mut && <> → </>}
+          {row.sequence_mut && <>{row.sequence_mut}</>}
+          {!row.sequence_mut && <span> (deletion)</span>}
+        </>
+      ),
+    },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "35%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
   ];
 
   const {
@@ -591,8 +837,23 @@ const Siteview = ({ position, history }) => {
     gene,
     gene_name,
     species,
-    protein_names
+    protein_names,
+    glycosylation,
+    snv,
+    mutagenesis,
+    phosphorylation,
+    glycation
   } = detailData;
+
+  const setSidebarItemState = (items, itemId, disabledState) => {
+    return items.map((item) => {
+      return {
+        ...item,
+        disabled: item.id === itemId ? disabledState : item.disabled,
+      };
+    });
+  };
+
   const uniprotNames = (protein_names || [])
     .filter(x => x.type === "recommended")
     .map(x => x.name);
@@ -654,7 +915,7 @@ const Siteview = ({ position, history }) => {
     <>
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
-          <Sidebar items={items} />
+          <Sidebar items={sideBarData} />
         </Col>
 
         <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
@@ -988,7 +1249,6 @@ const Siteview = ({ position, history }) => {
                               position={selectedPosition}
                               onSelectPosition={selectPosition}
                             />
-                            {/* <pre>{JSON.stringify(positionData, null, 2)}</pre> */}
                           </Col>
                         </Row>
                       )}
@@ -997,9 +1257,55 @@ const Siteview = ({ position, history }) => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-              {/* Site-Annotation */}
+                {/*  Glycosylation */}
+                <Accordion
+                id="Glycosylation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+
+                      <HelpTooltip
+                        title={DetailTooltips.protein.glycosylation.title}
+                        text={DetailTooltips.protein.glycosylation.text}
+                        urlText={DetailTooltips.protein.glycosylation.urlText}
+                        url={DetailTooltips.protein.glycosylation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.glycosylation.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("glycosylation", collapsed.glycosylation)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.glycosylation ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {glycosylation && glycosylation.length > 0 && (
+                          <ClientPaginatedTable
+                            data={glycosylation}
+                            columns={glycoSylationColumns}
+                          />
+                      )}
+
+                      {(glycosylation && glycosylation.length === 0) && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* Phosphorylation */}
               <Accordion
-                id="Site-Annotation"
+                id="Phosphorylation"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
@@ -1008,39 +1314,169 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.annotation.title}
-                        text={DetailTooltips.protein.annotation.text}
-                        urlText={DetailTooltips.protein.annotation.urlText}
-                        url={DetailTooltips.protein.annotation.url}
+                        title={DetailTooltips.protein.phosphorylation.title}
+                        text={DetailTooltips.protein.phosphorylation.text}
+                        urlText={DetailTooltips.protein.phosphorylation.urlText}
+                        url={DetailTooltips.protein.phosphorylation.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
                     <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.site_annotation.displayname}
+                      {stringConstants.sidebar.phosphorylation.displayname}
                     </h4>
                     <div className="float-right">
                       <Accordion.Toggle
                         eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("annotation", collapsed.annotation)
-                        }
+                        onClick={() => toggleCollapse("phosphorylation", collapsed.phosphorylation)}
                         className="gg-green arrow-btn"
                       >
-                        <span>
-                          {collapsed.annotation ? closeIcon : expandIcon}
-                        </span>
+                        <span>{collapsed.phosphorylation ? closeIcon : expandIcon}</span>
                       </Accordion.Toggle>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {positionData && positionData.length !== 0 && (
+                      {phosphorylation && phosphorylation.length !== 0 && (
                         <ClientPaginatedTable
-                          data={positionData}
-                          columns={annotationColumns}
+                          data={phosphorylation}
+                          columns={phosphorylationColumns}
                         />
                       )}
-                      {!positionData.length && <p>No data available.</p>}
+                      {(phosphorylation && phosphorylation.length === 0) && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* Glycation */}
+              <Accordion
+                id="Glycation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.glycation.title}
+                        text={DetailTooltips.protein.glycation.text}
+                        urlText={DetailTooltips.protein.glycation.urlText}
+                        url={DetailTooltips.protein.glycation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.glycation.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("glycation", collapsed.glycation)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.glycation ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {glycation && glycation.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={glycation}
+                          columns={glycationColumns}
+                        />
+                      )}
+                      {(glycation && glycation.length === 0) && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+               {/*  SNV (Single-Nucleotide-Variation)*/}
+               <Accordion
+                id="Single-Nucleotide-Variation"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.snv.title}
+                        text={DetailTooltips.protein.snv.text}
+                        urlText={DetailTooltips.protein.snv.urlText}
+                        url={DetailTooltips.protein.snv.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
+
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("mutation", collapsed.mutation)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.mutation ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {snv && snv.length !== 0 && (
+                          <ClientPaginatedTable
+                              data={snv}
+                              columns={mutationColumns}
+                            />
+                      )}
+
+                      {(snv && snv.length === 0) && <p>No data available.</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/*  Mutagenesis */}
+              <Accordion
+                id="Mutagenesis"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.mutagenesis.title}
+                        text={DetailTooltips.protein.mutagenesis.text}
+                        urlText={DetailTooltips.protein.mutagenesis.urlText}
+                        url={DetailTooltips.protein.mutagenesis.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {" "}
+                      {stringConstants.sidebar.mutagenesis.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() => toggleCollapse("mutagenesis", collapsed.mutagenesis)}
+                        className="gg-green arrow-btn"
+                      >
+                        <span>{collapsed.mutagenesis ? closeIcon : expandIcon}</span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {mutagenesis && mutagenesis.length !== 0 && (
+                        <ClientPaginatedTable
+                          data={mutagenesis}
+                          columns={mutagenesisColumns}
+                        />
+                      )}
+                      {(mutagenesis && mutagenesis.length === 0) && <p>No data available.</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

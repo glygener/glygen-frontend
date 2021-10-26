@@ -1,0 +1,17 @@
+version: '3.4'
+services:
+  frontend:
+    build:
+      args:
+        - REACT_APP_ENV=prod
+        - REACT_APP_API=https://api.glygen.org
+        - REACT_APP_DOMAIN=https://glygen.org
+        # - REACT_APP_DOMAIN=http://localhost:6060
+        - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
+        - REACT_APP_DATA=https://data.glygen.org
+        - REACT_APP_SPARQL=https://sparql.glygen.org
+        - REACT_APP_BASENAME=/
+        - GENERATE_SOURCEMAP_FILES=true
+        - PORT=6060
+    ports:
+      - '6060:80'

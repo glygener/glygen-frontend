@@ -1,0 +1,43 @@
+# Glygen deployment MakeFile
+
+.PHONY: prod beta test dev clean
+GLYGEN_NETWORK = glygen-network
+GLYGEN_NETWORK_BETA = glygen-network-beta
+GLYGEN_NETWORK_DEV = glygen-network-dev
+GLYGEN_NETWORK_TEST = glygen-network-test
+
+network:
+	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK};
+
+network-beta:
+	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_BETA}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_BETA};
+
+network-dev:
+	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_DEV}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_DEV};
+
+network-test:
+	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_TEST}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_TEST};
+
+prod: network
+	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend rm --force
+	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend up --no-start --build
+	@docker image prune --force
+
+beta: network-beta
+	@docker-compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta rm --force
+	@docker-compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta up --no-start --build
+	@docker image prune --force
+
+test: network-test
+	@docker-compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test rm --force
+	@docker-compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test up --no-start --build
+	@docker image prune --force
+
+dev: network-dev
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev stop
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev rm --force
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev up -d --build
+	@docker image prune --force
+
+clean:
+	@docker system prune --force
