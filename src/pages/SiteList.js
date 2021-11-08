@@ -20,15 +20,19 @@ import DownloadButton from "../components/DownloadButton";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import { Link } from "react-router-dom";
+import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
+import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
+import ListFilter from "../components/ListFilter";
+import Button from "react-bootstrap/Button";
+
 const proteinStrings = stringConstants.protein.common;
 const siteStrings = stringConstants.site.common;
-
 
 // import { GLYGEN_BASENAME } from "../envVariables";
 
 // const proteinStrings = stringConstants.protein.common;
 
-const SiteList = props => {
+const SiteList = (props) => {
   let { id } = useParams();
   let { searchId } = useParams();
   const [data, setData] = useState([]);
@@ -40,6 +44,10 @@ const SiteList = props => {
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
+  const [appliedFilters, setAppliedFilters] = useState([]);
+  const [availableFilters, setAvailableFilters] = useState([]);
+  const [sidebar, setSidebar] = useState(true);
+
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -54,7 +62,13 @@ const SiteList = props => {
 
     const dataPromise = Promise.all([
       getSiteSearchInit(),
-      getSuperSearchList(id)
+      getSuperSearchList(id,
+        (page - 1) * sizePerPage + 1,
+          sizePerPage,
+          "hit_score",
+          "desc",
+          appliedFilters
+        )
     ]);
 
     dataPromise.then(([{ data: initData }, { data }]) => {
@@ -66,6 +80,7 @@ const SiteList = props => {
         setQuery(data.cache_info.query);
         setTimeStamp(data.cache_info.ts);
         setPagination(data.pagination);
+        setAvailableFilters(data.filters.available);
         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
 
         setPage(currentPage);
@@ -74,7 +89,7 @@ const SiteList = props => {
       }
     });
 
-    dataPromise.catch(function(error) {
+    dataPromise.catch(function (error) {
       let message = "list api call";
       axiosError(error, id, message, setPageLoading, setAlertDialogInput);
     });
@@ -82,8 +97,7 @@ const SiteList = props => {
     dataPromise.finally(() => {
       setPageLoading(false);
     });
-  }, [id, sizePerPage]);
-
+  }, [appliedFilters]);
   // useEffect(() => {
   //   setPageLoading(true);
   //   logActivity("user", id);
@@ -112,7 +126,7 @@ const SiteList = props => {
 
   const handleTableChange = (
     type,
-    { page, sizePerPage, sortField, sortOrder }
+    { page, sizePerPage, sortField, sortOrder}
   ) => {
     setPage(page);
     setSizePerPage(sizePerPage);
@@ -122,16 +136,50 @@ const SiteList = props => {
       (page - 1) * sizePerPage + 1,
       sizePerPage,
       sortField,
-      sortOrder
+      sortOrder,
+      appliedFilters
     ).then(({ data }) => {
       setPageLoading(false);
       if (!data.error_code) {
         setData(data.results);
         setTimeStamp(data.cache_info.ts);
         setPagination(data.pagination);
+        setAvailableFilters(data.filters.available);
         setTotalSize(data.pagination.total_length);
       }
     });
+  };
+
+  const handleFilterChange = newFilter => {
+    console.log(newFilter);
+
+    // find if a filter exists for this type
+    const existingFilter = appliedFilters.find(
+      filter => filter.id === newFilter.id
+    );
+    // if no filter exists
+    if (
+      existingFilter &&
+      existingFilter.selected &&
+      newFilter &&
+      newFilter.selected &&
+      (newFilter.selected.length || existingFilter.selected.length)
+    ) {
+      // list of all the other filters
+      // add a new filter of this type
+      const otherFilters = appliedFilters.filter(
+        filter => filter.id !== newFilter.id
+      );
+
+      if (newFilter.selected.length) {
+        // for this existing filter, make sure we remove this option if it existed
+        setAppliedFilters([...otherFilters, newFilter]);
+      } else {
+        setAppliedFilters(otherFilters);
+      }
+    } else if (newFilter.selected.length) {
+      setAppliedFilters([...appliedFilters, newFilter]);
+    }
   };
 
   const handleModifySearch = () => {
@@ -162,7 +210,7 @@ const SiteList = props => {
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
-      )
+      ),
     },
     {
       dataField: "hit_score",
@@ -174,11 +222,19 @@ const SiteList = props => {
             title={"Hit Score"}
             text={"Hit Score Formula"}
             formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-            contributions={row.score_info.contributions.map((item) => {return {c:siteStrings.contributions[item.c] ? siteStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
+            contributions={row.score_info.contributions.map((item) => {
+              return {
+                c: siteStrings.contributions[item.c]
+                  ? siteStrings.contributions[item.c].name
+                  : item.c,
+                w: item.w,
+                f: item.f,
+              };
+            })}
           />
           {row.hit_score}
         </>
-      )
+      ),
     },
     {
       dataField: "start_pos",
@@ -197,7 +253,7 @@ const SiteList = props => {
           </LineTooltip>
         ) : (
           value
-        )
+        ),
     },
     {
       dataField: "end_pos",
@@ -216,38 +272,38 @@ const SiteList = props => {
           </LineTooltip>
         ) : (
           value
-        )
+        ),
     },
     {
       dataField: "snv",
       text: "SNV",
       sort: true,
-      formatter: yesNoFormater
+      formatter: yesNoFormater,
     },
     {
       dataField: "glycosylation",
       text: "Glycosylation",
       sort: true,
-      formatter: yesNoFormater
+      formatter: yesNoFormater,
     },
     {
       dataField: "mutagenesis",
       text: "Mutagenesis",
       sort: true,
-      formatter: yesNoFormater
+      formatter: yesNoFormater,
     },
     {
       dataField: "glycation",
       text: "Glycation",
       sort: true,
-      formatter: yesNoFormater
+      formatter: yesNoFormater,
     },
     {
       dataField: "phosphorylation",
       text: "Phosphorylation",
       sort: true,
-      formatter: yesNoFormater
-    }
+      formatter: yesNoFormater,
+    },
   ];
 
   return (
@@ -258,61 +314,104 @@ const SiteList = props => {
       </Helmet>
 
       <FeedbackWidget />
-      <Container maxWidth="xl" className="gg-container">
-        <PageLoader pageLoading={pageLoading} />
-        <DialogAlert
-          alertInput={alertDialogInput}
-          setOpen={input => {
-            setAlertDialogInput({ show: input });
-          }}
-        />
-        <section className="content-box-md">
-          {query && (
-            <SitequerySummary
-              data={query}
-              timestamp={timestamp}
-              searchId={searchId}
-              onModifySearch={handleModifySearch}
-              initData={configData}
+      <div className="gg-baseline list-page-container">
+        {availableFilters && availableFilters.length !== 0 && (
+          <div className="list-sidebar-container">
+            <div className={"list-sidebar" + (sidebar ? "" : " closed")}>
+              <div className="reset-filter-btn-container">
+                <Button
+                  type="button"
+                  className="gg-btn-blue reset-filter-btn"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
+                  Reset Filters
+                </Button>
+              </div>
+              <ListFilter
+                availableOptions={availableFilters}
+                selectedOptions={appliedFilters}
+                onFilterChange={handleFilterChange}
+              />
+              <div className="reset-filter-btn-container ">
+                <Button
+                  type="button"
+                  className="gg-btn-blue reset-filter-btn"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
+                  Reset Filters
+                </Button>
+              </div>
+            </div>
+            <div
+              className="list-sidebar-opener sidebar-arrow-center"
+              onClick={() => setSidebar(!sidebar)}
+            >
+              {sidebar ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+            </div>
+          </div>
+        )}
+        <div className="sidebar-page">
+          <div class="list-mainpage-container list-mainpage-container">
+            <PageLoader pageLoading={pageLoading} />
+            <DialogAlert
+              alertInput={alertDialogInput}
+              setOpen={(input) => {
+                setAlertDialogInput({ show: input });
+              }}
             />
-          )}
-        </section>
-        <section>
-          <DownloadButton
-            types={[
-              {
-                display:
-                  stringConstants.download.proteinsite_csvdata.displayname,
-                type: "csv",
-                data: "site_list"
-              },
-              {
-                display:
-                  stringConstants.download.proteinsite_jsondata.displayname,
-                type: "json",
-                data: "site_list"
-              }
-            ]}
-            dataId={id}
-            itemType="site"
-          />
-          {/* {data && data.length !== 0 && ( */}
-          {!!(data && data.length) && (
-            <PaginatedTable
-              trStyle={rowStyleFormat}
-              data={data}
-              columns={siteColumns}
-              page={page}
-              pagination={pagination}
-              sizePerPage={sizePerPage}
-              totalSize={totalSize}
-              onTableChange={handleTableChange}
-              defaultSortField="hit_score"
-              defaultSortOrder="desc"
-            />
-          )}
-        </section>
-      </Container>
+            <section className="content-box-md">
+              {query && (
+                <SitequerySummary
+                  data={query}
+                  timestamp={timestamp}
+                  searchId={searchId}
+                  onModifySearch={handleModifySearch}
+                  initData={configData}
+                />
+              )}
+            </section>
+            <section>
+              <DownloadButton
+                types={[
+                  {
+                    display:
+                      stringConstants.download.proteinsite_csvdata.displayname,
+                    type: "csv",
+                    data: "site_list",
+                  },
+                  {
+                    display:
+                      stringConstants.download.proteinsite_jsondata.displayname,
+                    type: "json",
+                    data: "site_list",
+                  },
+                ]}
+                dataId={id}
+                itemType="site"
+              />
+              {/* {data && data.length !== 0 && ( */}
+              {!!(data && data.length) && (
+                <PaginatedTable
+                  trStyle={rowStyleFormat}
+                  data={data}
+                  columns={siteColumns}
+                  page={page}
+                  pagination={pagination}
+                  sizePerPage={sizePerPage}
+                  totalSize={totalSize}
+                  onTableChange={handleTableChange}
+                  defaultSortField="hit_score"
+                  defaultSortOrder="desc"
+                />
+              )}
+            </section>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

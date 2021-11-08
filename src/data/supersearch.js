@@ -21,14 +21,17 @@ export const getSuperSearchList = (
   offset = 1,
   limit = 20,
   sort = "hit_score",
-  order = "desc"
+  order = "desc",
+  filters = []
+
 ) => {
   const queryParams = {
     id: superSearchListId,
     offset: offset,
     sort: sort,
     limit: limit,
-    order: order
+    order: order,
+    filters: filters
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/supersearch/list?query=${queryParamString}`;
