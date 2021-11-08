@@ -7,6 +7,7 @@ import FeaturedCard from "../components/cards/FeaturedCard";
 // import QuickSearchCard from '../components/cards/QuickSearchCard';
 import TryMeCard from "../components/cards/TryMeCard";
 import InfoCard from "../components/cards/InfoCard";
+import VideoCard from "../components/cards/VideoCard";
 import VersionCard from "../components/cards/VersionCard";
 import StatDBCard from "../components/cards/StatDBCard";
 import TwitterCard from "../components/cards/TwitterCard";
@@ -170,9 +171,13 @@ const resourcesCard = {
   button: "EXPLORE",
   to: routeConstants.resources,
 };
+const videoCard = {
+  title: "Featured Video",
+  button: "WATCH VIDEOS",
+};
 
 export default function Home() {
-  const [homeData, setHomeData] = useState({ statistics: [], version: [], events: [] });
+  const [homeData, setHomeData] = useState({ statistics: [], version: [], events: [], video:{} });
   const [pageLoading, setPageLoading] = React.useState(true);
 
   useEffect(() => {
@@ -215,6 +220,7 @@ export default function Home() {
             <Grid item xs={12} md={4} lg={3}>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
                 <VersionCard data={homeData.version} pageLoading={pageLoading} />
+                <VideoCard post={videoCard} data={homeData.video}/>
                 <InfoCard post={resourcesCard} />
                 <StatDBCard data={homeData.statistics} pageLoading={pageLoading} />
                 <InfoCard post={feedbackCard} />
