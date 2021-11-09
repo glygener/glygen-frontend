@@ -701,6 +701,15 @@
         },
         "id": "glycosylation_type"
       },
+      "glycosylation_subtype": {
+        "name": "Glycosylation Subtype",
+        "shortName": "Glycosylation Subtype",
+        "tooltip": {
+          "title": "Glycosylation Subtype",
+          "text": "Click to select Glycosylation Subtype."
+        },
+        "id": "glycosylation_subtype"
+      },
       "gene_url": {
         "name": "URL",
         "shortName": "url",
@@ -1362,6 +1371,9 @@
       },
       "reducing_end": {
         "name": "Reducing End"
+      },
+      "protein_count": {
+        "name": "No of Proteins"
       }
     }
   },

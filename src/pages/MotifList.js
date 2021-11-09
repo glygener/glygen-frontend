@@ -181,6 +181,11 @@ const MotifList = props => {
           </Link>
         </LineTooltip>
       )
+    },
+    {
+      dataField: "protein_count",
+      text: motifStrings.protein_count.name,
+      sort: true,
     }
   ];
 
