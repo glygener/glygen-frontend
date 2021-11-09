@@ -8,7 +8,7 @@ import triFold1Img from "../../images/media/portfolio/brochures/Tri-fold-1.png";
 import bioCurationPdf from "../../images/media/portfolio/posters/BioCuration-GlyGen-2019.04.pdf";
 import poster1Img from "../../images/media/portfolio/posters/poster-1.png";
 import onePageBrochurePdf from "../../images/media/portfolio/brochures/glygen-one-page-brochure.pdf";
-import onePageBrochurImg from "../../images/media/portfolio/brochures/one-page-brochure-1.png";
+import onePageBrochurImg from "../../images/media/portfolio/brochures/One-page-brochure-1.png";
 import sfgData19posterPdf from "../../images/media/portfolio/posters/SFG-Data-GlyGen-Nov-2019.pdf";
 import poster2Img from "../../images/media/portfolio/posters/poster-2.png";
 import sfgWeb19posterPdf from "../../images/media/portfolio/posters/SFG-Web-GlyGen-Nov-2019.pdf";
