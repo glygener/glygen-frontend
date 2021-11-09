@@ -27,6 +27,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import SequenceViewer from "../components/sequence/SequenceViewer";
 import "../css/proteinsequence.css";
+import { GLYGEN_BASENAME } from "../envVariables";
 
 const proteinStrings = stringConstants.protein.common;
 
@@ -95,6 +96,7 @@ const ProteinAlignment = () => {
   const expandIcon = <ExpandMoreIcon fontSize="large" />;
   const closeIcon = <ExpandLessIcon fontSize="large" />;
   // ===================================== //
+  const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
 
   let newData = {};
   if (data && data.sequences) {
@@ -103,8 +105,8 @@ const ProteinAlignment = () => {
       sequences: data.sequences.map((seq) => ({
         ...seq,
         clickThruUrl: isIsoform
-          ? `${routeConstants.proteinDetail}${id}#Isoforms`
-          : `${routeConstants.proteinDetail}${seq.id}`,
+          ? `${basename}${routeConstants.proteinDetail}${id}#Isoforms`
+          : `${basename}${routeConstants.proteinDetail}${seq.id}`,
       })),
     };
   }
