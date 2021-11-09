@@ -58,6 +58,7 @@ const ProteinSearch = props => {
       proAttachedGlycanId: "",
       proBindingGlycanId: "",
       proGlycosylationType: "",
+      proGlycosylationSubType: "",
       proAdvSearchValError: [
         false,
         false,
@@ -397,6 +398,10 @@ const ProteinSearch = props => {
                     data.cache_info.query.glycosylation_type === undefined
                       ? advancedSearch.glycosylation_type.placeholderId
                       : data.cache_info.query.glycosylation_type,
+                  proGlycosylationSubType:
+                      data.cache_info.query.glycosylation_subtype === undefined
+                        ? advancedSearch.glycosylation_subtype.placeholderId
+                        : data.cache_info.query.glycosylation_subtype,
                   proDiseaseName:
                     data.cache_info.query.disease_name === undefined
                       ? ""
@@ -520,6 +525,7 @@ const ProteinSearch = props => {
     input_pmid,
     input_glycosylation_evidence,
     input_glycosylation_type,
+    input_glycosylation_subtype,
     input_disease_name,
     input_disease_id,
     input_attached_glycan_id,
@@ -607,7 +613,9 @@ const ProteinSearch = props => {
       [commonProteinData.glycosylation_type.id]: input_glycosylation_type
         ? input_glycosylation_type
         : undefined,
-
+        [commonProteinData.glycosylation_subtype.id]: input_glycosylation_subtype
+        ? input_glycosylation_subtype
+        : undefined,
       [commonProteinData.disease_name.id]: input_disease_name
         ? input_disease_name
         : undefined,
@@ -648,6 +656,7 @@ const ProteinSearch = props => {
       proAdvSearchData.proPubId,
       proAdvSearchData.proGlyEvidence,
       proAdvSearchData.proGlycosylationType,
+      proAdvSearchData.proGlycosylationSubType,
       proAdvSearchData.proDiseaseName,
       proAdvSearchData.proDiseaseId,
       proAdvSearchData.proAttachedGlycanId,

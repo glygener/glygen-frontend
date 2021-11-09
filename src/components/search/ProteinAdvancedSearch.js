@@ -179,12 +179,22 @@ const ProteinAdvancedSearch = (props) => {
 	}
 
 	/**
-	 * Function to set glycosylation  type value.
+	 * Function to set glycosylation type value.
 	 * @param {string} value - input glycosylation evidence type value.
 	 **/
 	const proGlycosylationTypeOnChange = (value) => {
 		props.setProAdvSearchData({ proGlycosylationType: value });
+		props.setProAdvSearchData({ proGlycosylationSubType: "" });
 	}
+
+	/**
+	 * Function to set glycosylation sub type value.
+	 * @param {string} value - input glycosylation evidence sub type value.
+	 **/
+	const proGlycosylationSubTypeOnChange = (value) => {
+		props.setProAdvSearchData({ proGlycosylationSubType: value });
+	}
+
 	/**
 	 * Function to set disease name value.
 	 * @param {string} inputProDiseaseName - input disease name value.
@@ -256,6 +266,7 @@ const ProteinAdvancedSearch = (props) => {
 			proPubId: '',
 			proGlyEvidence: advancedSearch.glycosylation_evidence.placeholderId,
 			proGlycosylationType: advancedSearch.glycosylation_type.placeholderId,
+			proGlycosylationSubType: advancedSearch.glycosylation_subtype.placeholderId,
 			proDiseaseName: '',
 			proDiseaseId: '',
 			proAttachedGlycanId: '',
@@ -556,12 +567,37 @@ const ProteinAdvancedSearch = (props) => {
 								placeholder={advancedSearch.glycosylation_type.placeholder}
 								placeholderId={advancedSearch.glycosylation_type.placeholderId}
 								placeholderName={advancedSearch.glycosylation_type.placeholderName}
-								menu={props.initData.glycosylation_types.map(a => ({name:a, id:a}))}
+								menu={Object.keys(props.initData.glycosylation_types).map(a => ({name:a, id:a}))}
 								setInputValue={proGlycosylationTypeOnChange}
 							/>
 						{/* )} */}
 					</FormControl>
 				</Grid>
+				{/* Glycosylation  Subtype */}
+				{props.inputValue.proGlycosylationType !== advancedSearch.glycosylation_type.placeholderId 
+				 && props.initData.glycosylation_types[props.inputValue.proGlycosylationType].length > 0
+				 && <Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.glycosylation_subtype.tooltip.title}
+                                text={commonProteinData.glycosylation_subtype.tooltip.text}
+                            />
+                            {commonProteinData.glycosylation_subtype.name}
+						</Typography>
+							<SelectControl
+								inputValue={props.inputValue.proGlycosylationSubType}
+								placeholder={advancedSearch.glycosylation_subtype.placeholder}
+								placeholderId={advancedSearch.glycosylation_subtype.placeholderId}
+								placeholderName={advancedSearch.glycosylation_subtype.placeholderName}
+								menu={props.initData.glycosylation_types[props.inputValue.proGlycosylationType].map(a => ({name:a, id:a}))}
+								setInputValue={proGlycosylationSubTypeOnChange}
+							/>
+					</FormControl>
+				</Grid>}
 				{/* Covalently Attached Glycan */}
 				<Grid item xs={12} sm={10}>
 					<FormControl fullWidth variant='outlined'>

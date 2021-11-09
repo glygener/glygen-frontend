@@ -364,6 +364,12 @@
       "placeholderName": "",
       "menu": []
     },
+    "glycosylation_subtype": {
+      "placeholder": "Select Glycosylation Subtype",
+      "placeholderId": "",
+      "placeholderName": "",
+      "menu": []
+    },
     "disease_name": {
       "length": 100,
       "errorText": "Entry is too long - max length is 100.",
