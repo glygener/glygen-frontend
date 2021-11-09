@@ -213,6 +213,16 @@ const SiteList = (props) => {
       ),
     },
     {
+      dataField: proteinStrings.protein_names.shortName,
+      text: proteinStrings.protein_names.name,
+      sort: true,
+    },
+    {
+      dataField: proteinStrings.organism.shortName,
+      text: proteinStrings.organism.name,
+      sort: true,
+    },
+    {
       dataField: "hit_score",
       text: "Hit Score",
       sort: true,
