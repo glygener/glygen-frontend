@@ -100,6 +100,17 @@
 			"curated": "Yes"
 		},
 		{
+			"category": "Knowledgebase",
+			"website": {
+				"name": "Glycan Biosynthetic Pathways",
+				"url": "http://glycoenzymes.ccrc.uga.edu/Glycomics3/"
+			},
+			"description": "This webpage provides a collection of manual curated glycan biosynthetic pathways. It includes biosynthesis of N-glycan, O-glycans, proteoglycans, glycolipids, GPI anchor and sugar-nucleotides. All pathways are displayed as interactive images that show the reactions and display a list of related genes when clicking on the reactions.",
+			"contains_publ": "No",
+			"experimental_data": "",
+			"curated": "Yes"
+		},
+		{
 			"category": "Repository",
 			"website": {
 				"name": "GlyTouCan",
