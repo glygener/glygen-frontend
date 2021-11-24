@@ -1126,7 +1126,19 @@ const ProteinDetail = (props) => {
 
     {
       dataField: "present",
-      text: "Present",
+      text: "Expression Relative",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "15%",
+        };
+      },
+    },
+    {
+      dataField: "score",
+      text: "Expression Score",
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
