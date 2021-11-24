@@ -94,11 +94,11 @@ const Routes = (props) => (
     <Route path={`${routeConstants.superSearch}:id`} component={SuperSearch} />
     <Route path={routeConstants.superSearch} component={SuperSearch} />
     <Route
-      path={`${routeConstants.publicationDetail}:id/:doi/:publType`}
+      path={`${routeConstants.publicationDetail}:publType/:id/:doi`}
       component={PublicationDetail}
     />
     <Route
-      path={`${routeConstants.publicationDetail}:id/:publType`}
+      path={`${routeConstants.publicationDetail}:publType/:id`}
       component={PublicationDetail}
     />
     <Route path={`${routeConstants.publicationDetail}:id`} component={PublicationDetail} />

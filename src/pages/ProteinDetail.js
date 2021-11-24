@@ -3550,7 +3550,7 @@ const ProteinDetail = (props) => {
                                             {ref.type}:{" "}
                                           </span>{" "}
                                           <Link
-                                            to={`${routeConstants.publicationDetail}${ref.id}/${ref.type}`}
+                                            to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
                                           >
                                             <>{ref.id}</>
                                           </Link>
