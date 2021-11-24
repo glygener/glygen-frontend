@@ -17,7 +17,11 @@ export const axiosError = (error, id, msg, setPageLoading, setAlertDialogInput) 
     let message = msg || "";
     let pageId = id || "";
     if (!error || !error.response) {
-        logActivity("error", pageId, "Network error. " + message);
+        let agent = "";
+        if (navigator && navigator.userAgent) {
+            agent = navigator.userAgent;
+        }
+        logActivity("error", pageId, "Network error. " + message + ". " + agent);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": stringConstants.errors.networkError.id}));
     } else if (error.response && !error.response.data) {
