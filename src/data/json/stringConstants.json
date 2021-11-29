@@ -1178,6 +1178,10 @@
         "protein_reported_n_glycosites_with_glycan": {
           "id": "protein_reported_n_glycosites_with_glycan",
           "name": "N-Glycosylation sites (with glycan structure)"
+        },
+        "reported_fully_resolved_glyucans": {
+          "id": "reported_fully_resolved_glyucans",
+          "name": "Fully defined Glycans"
         }
       }
     },
