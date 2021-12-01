@@ -575,7 +575,7 @@ const ProteinAdvancedSearch = (props) => {
 				</Grid>
 				{/* Glycosylation  Subtype */}
 				{props.inputValue.proGlycosylationType !== advancedSearch.glycosylation_type.placeholderId 
-				 && props.initData.glycosylation_types[props.inputValue.proGlycosylationType].length > 0
+				 && props.initData.glycosylation_types[props.inputValue.proGlycosylationType].length > 1
 				 && <Grid item xs={12} sm={10}>
 					<FormControl
 						fullWidth
