@@ -194,6 +194,20 @@ const GlycanDetail = props => {
     logActivity("user", id);
     const getGlycanDetailData = getGlycanDetail(id);
 
+    const getCategory = (relationship) => {
+      if (relationship === "composition" || relationship === "basecomposition" || relationship === "topology"){
+        return "ancestor";
+      }
+      if (relationship === "leaf"){
+        return "descendant";
+      }
+      if (relationship !== null){
+        return "ignore";
+      } 
+
+      return null;
+    }
+
     getGlycanDetailData.then(({ data }) => {
       if (data.code) {
         let message = "Glycan Detail api call";
@@ -202,9 +216,9 @@ const GlycanDetail = props => {
       } else {
         let detailDataTemp = data;
         if (data.subsumption) {
-          const mapOfSubsumptionCategories = data.subsumption.reduce(
+          const mapOfSubsumptionCategories = data.subsumption.filter((val)=> val.related_accession !== id).reduce(
             (collection, item) => {
-              const category = item.relationship || logActivity("No results. ");
+              const category = getCategory(item.relationship) || logActivity("No results. ");
               return {
                 ...collection,
                 [category]: [...(collection[category] || []), item]
@@ -675,7 +689,7 @@ const GlycanDetail = props => {
   ];
   const subsumptionColumns = [
     {
-      dataField: "id",
+      dataField: "related_accession",
       text: glycanStrings.glycan_id.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -683,7 +697,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <LineTooltip text="View details">
-          <Link to={routeConstants.glycanDetail + row.id}>{row.id}</Link>
+          <Link to={routeConstants.glycanDetail + row.related_accession}>{row.related_accession}</Link>
         </LineTooltip>
       )
     },
@@ -696,7 +710,7 @@ const GlycanDetail = props => {
         <div className="img-wrapper">
           <img
             className="img-cartoon"
-            src={getGlycanImageUrl(row.id)}
+            src={getGlycanImageUrl(row.related_accession)}
             alt="Glycan img"
           />
         </div>
@@ -711,7 +725,7 @@ const GlycanDetail = props => {
       }
     },
     {
-      dataField: "type",
+      dataField: "relationship",
       text: "Type",
       sort: true,
       headerStyle: (colum, colIndex) => {
