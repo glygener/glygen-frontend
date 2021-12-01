@@ -24,7 +24,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import relatedGlycansIcon from "../images/icons/related-glycans-icon.svg";
 import sandBox from "../images/icons/sand-box.svg";
-import DetailTooltips from "../data/json/detailTooltips.json";
+import DetailTooltips from "../data/json/glycanDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -1591,10 +1591,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.names_synonyms.title}
-                        text={DetailTooltips.protein.names_synonyms.text}
-                        urlText={DetailTooltips.protein.names_synonyms.urlText}
-                        url={DetailTooltips.protein.names_synonyms.url}
+                        title={DetailTooltips.glycan.names_synonyms.title}
+                        text={DetailTooltips.glycan.names_synonyms.text}
+                        urlText={DetailTooltips.glycan.names_synonyms.urlText}
+                        url={DetailTooltips.glycan.names_synonyms.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1646,10 +1646,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.motif.title}
-                        text={DetailTooltips.glycan.motif.text}
-                        urlText={DetailTooltips.glycan.motif.urlText}
-                        url={DetailTooltips.glycan.motif.url}
+                        title={DetailTooltips.glycan.motifs.title}
+                        text={DetailTooltips.glycan.motifs.text}
+                        urlText={DetailTooltips.glycan.motifs.urlText}
+                        url={DetailTooltips.glycan.motifs.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1693,10 +1693,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.glycoproteins.title}
-                        text={DetailTooltips.glycan.glycoproteins.text}
-                        urlText={DetailTooltips.glycan.glycoproteins.urlText}
-                        url={DetailTooltips.glycan.glycoproteins.url}
+                        title={DetailTooltips.glycan.associated_protein.title}
+                        text={DetailTooltips.glycan.associated_protein.text}
+                        urlText={DetailTooltips.glycan.associated_protein.urlText}
+                        url={DetailTooltips.glycan.associated_protein.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1806,12 +1806,12 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.biosyntheticEnzyme.title}
-                        text={DetailTooltips.glycan.biosyntheticEnzyme.text}
+                        title={DetailTooltips.glycan.biosynthetic_enzymes.title}
+                        text={DetailTooltips.glycan.biosynthetic_enzymes.text}
                         urlText={
-                          DetailTooltips.glycan.biosyntheticEnzyme.urlText
+                          DetailTooltips.glycan.biosynthetic_enzymes.urlText
                         }
-                        url={DetailTooltips.glycan.biosyntheticEnzyme.url}
+                        url={DetailTooltips.glycan.biosynthetic_enzymes.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -2044,10 +2044,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.digitalSequence.title}
-                        text={DetailTooltips.glycan.digitalSequence.text}
-                        urlText={DetailTooltips.glycan.digitalSequence.urlText}
-                        url={DetailTooltips.glycan.digitalSequence.url}
+                        title={DetailTooltips.glycan.digital_sequence.title}
+                        text={DetailTooltips.glycan.digital_sequence.text}
+                        urlText={DetailTooltips.glycan.digital_sequence.urlText}
+                        url={DetailTooltips.glycan.digital_sequence.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -2194,10 +2194,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.crossReferences.title}
-                        text={DetailTooltips.glycan.crossReferences.text}
-                        urlText={DetailTooltips.glycan.crossReferences.urlText}
-                        url={DetailTooltips.glycan.crossReferences.url}
+                        title={DetailTooltips.glycan.cross_references.title}
+                        text={DetailTooltips.glycan.cross_references.text}
+                        urlText={DetailTooltips.glycan.cross_references.urlText}
+                        url={DetailTooltips.glycan.cross_references.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -2309,10 +2309,10 @@ const GlycanDetail = props => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.motif.publications.title}
-                        text={DetailTooltips.motif.publications.text}
-                        urlText={DetailTooltips.motif.publications.urlText}
-                        url={DetailTooltips.motif.publications.url}
+                        title={DetailTooltips.glycan.publications.title}
+                        text={DetailTooltips.glycan.publications.text}
+                        urlText={DetailTooltips.glycan.publications.urlText}
+                        url={DetailTooltips.glycan.publications.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>

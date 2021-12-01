@@ -23,7 +23,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import DetailTooltips from "../data/json/detailTooltips.json";
+import DetailTooltips from "../data/json/motifDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
 import { logActivity } from "../data/logging";

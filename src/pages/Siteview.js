@@ -30,7 +30,7 @@ import { logActivity } from "../data/logging";
 // import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
-import DetailTooltips from "../data/json/detailTooltips.json";
+import DetailTooltips from "../data/json/siteDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
 import routeConstants from "../data/json/routeConstants";
@@ -1003,10 +1003,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.general.title}
-                        text={DetailTooltips.protein.general.text}
-                        urlText={DetailTooltips.protein.general.urlText}
-                        url={DetailTooltips.protein.general.url}
+                        title={DetailTooltips.site.general.title}
+                        text={DetailTooltips.site.general.text}
+                        urlText={DetailTooltips.site.general.urlText}
+                        url={DetailTooltips.site.general.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1214,10 +1214,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.sequence.title}
-                        text={DetailTooltips.protein.sequence.text}
-                        urlText={DetailTooltips.protein.sequence.urlText}
-                        url={DetailTooltips.protein.sequence.url}
+                        title={DetailTooltips.site.sequence.title}
+                        text={DetailTooltips.site.sequence.text}
+                        urlText={DetailTooltips.site.sequence.urlText}
+                        url={DetailTooltips.site.sequence.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1269,10 +1269,10 @@ const Siteview = ({ position, history }) => {
                     <span className="gg-green d-inline">
 
                       <HelpTooltip
-                        title={DetailTooltips.protein.glycosylation.title}
-                        text={DetailTooltips.protein.glycosylation.text}
-                        urlText={DetailTooltips.protein.glycosylation.urlText}
-                        url={DetailTooltips.protein.glycosylation.url}
+                        title={DetailTooltips.site.glycosylation.title}
+                        text={DetailTooltips.site.glycosylation.text}
+                        urlText={DetailTooltips.site.glycosylation.urlText}
+                        url={DetailTooltips.site.glycosylation.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1314,10 +1314,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.phosphorylation.title}
-                        text={DetailTooltips.protein.phosphorylation.text}
-                        urlText={DetailTooltips.protein.phosphorylation.urlText}
-                        url={DetailTooltips.protein.phosphorylation.url}
+                        title={DetailTooltips.site.phosphorylation.title}
+                        text={DetailTooltips.site.phosphorylation.text}
+                        urlText={DetailTooltips.site.phosphorylation.urlText}
+                        url={DetailTooltips.site.phosphorylation.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1358,10 +1358,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.glycation.title}
-                        text={DetailTooltips.protein.glycation.text}
-                        urlText={DetailTooltips.protein.glycation.urlText}
-                        url={DetailTooltips.protein.glycation.url}
+                        title={DetailTooltips.site.glycation.title}
+                        text={DetailTooltips.site.glycation.text}
+                        urlText={DetailTooltips.site.glycation.urlText}
+                        url={DetailTooltips.site.glycation.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1402,10 +1402,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.snv.title}
-                        text={DetailTooltips.protein.snv.text}
-                        urlText={DetailTooltips.protein.snv.urlText}
-                        url={DetailTooltips.protein.snv.url}
+                        title={DetailTooltips.site.snv.title}
+                        text={DetailTooltips.site.snv.text}
+                        urlText={DetailTooltips.site.snv.urlText}
+                        url={DetailTooltips.site.snv.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -1447,10 +1447,10 @@ const Siteview = ({ position, history }) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.mutagenesis.title}
-                        text={DetailTooltips.protein.mutagenesis.text}
-                        urlText={DetailTooltips.protein.mutagenesis.urlText}
-                        url={DetailTooltips.protein.mutagenesis.url}
+                        title={DetailTooltips.site.mutagenesis.title}
+                        text={DetailTooltips.site.mutagenesis.text}
+                        urlText={DetailTooltips.site.mutagenesis.urlText}
+                        url={DetailTooltips.site.mutagenesis.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>

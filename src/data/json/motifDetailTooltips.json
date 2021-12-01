@@ -1,0 +1,22 @@
+{
+  "motif": {
+    "general": {
+      "title": "General",
+      "text": "General information about your selected motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycans": {
+      "title": "Glycans With This Motifs",
+      "text": "Glycans containing this motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "publications": {
+      "title": "Publications",
+      "text": "Publications related to your selected motif.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  }
+}

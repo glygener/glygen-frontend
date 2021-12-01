@@ -137,9 +137,9 @@ p {
 /* -----------------------------------------------
 /* ! Important 
 /* Remove this in ver 1.7 to start showing help icon and tooltips  */
-.panelHeadBgr span.d-inline {
-  display: none !important;
-}
+/* .panelHeadBgr span.d-inline {
+  display: visible !important;
+} */
 
 /* ----------------------------------------------- */
 .gg-top-header {

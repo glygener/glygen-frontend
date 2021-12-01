@@ -1,0 +1,82 @@
+{
+  "glycan": {
+    "general": {
+      "title": "General",
+      "text": "General information about your selected glycan.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "organism": {
+      "title": "Organism",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "names_synonyms": {
+      "title": "Names",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "motifs": {
+      "title": "Motifs",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "history": {
+      "title": "History",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "associated_protein": {
+      "title": "Associated Protein",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "glycan_binding_protein": {
+      "title": "Glycan Binding Protein",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "biosynthetic_enzymes": {
+      "title": "Biosynthetic Enzymes",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "subsumption": {
+      "title": "Subsumption",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "expression": {
+      "title": "Expression",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "digital_sequence": {
+      "title": "Digital Sequence",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "cross_references": {
+      "title": "Cross References",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "publications": {
+      "title": "Publications",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  }
+}

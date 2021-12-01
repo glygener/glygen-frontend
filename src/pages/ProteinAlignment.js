@@ -13,7 +13,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import DetailTooltips from "../data/json/detailTooltips.json";
+import DetailTooltips from "../data/json/algnDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
 import SequenceDashboard from "../components/sequence/SequenceDashboard";
@@ -181,10 +181,10 @@ const ProteinAlignment = () => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.alignment.Isoalignment.title}
-                        text={DetailTooltips.alignment.Isoalignment.text}
-                        urlText={DetailTooltips.alignment.Isoalignment.urlText}
-                        url={DetailTooltips.alignment.Isoalignment.url}
+                        title={isIsoform ? DetailTooltips.alignment.isoalignment.title : DetailTooltips.alignment.homoalignment.title}
+                        text={isIsoform ? DetailTooltips.alignment.isoalignment.text : DetailTooltips.alignment.homoalignment.text}
+                        urlText={isIsoform ? DetailTooltips.alignment.isoalignment.urlText : DetailTooltips.alignment.homoalignment.urlText}
+                        url={isIsoform ? DetailTooltips.alignment.isoalignment.url : DetailTooltips.alignment.homoalignment.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>

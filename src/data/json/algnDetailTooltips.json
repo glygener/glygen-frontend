@@ -1,0 +1,22 @@
+{
+  "alignment": {
+    "isoalignment": {
+      "title": "Alignment",
+      "text": "Isoform alignment information about your selected protein.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "homoalignment": {
+      "title": "Alignment",
+      "text": "Homolog alignment information about your selected protein.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    },
+    "summary": {
+      "title": "Summary",
+      "text": "Add some unique text here.",
+      "urlText": "Read more...",
+      "url": "https://wiki.glygen.org/index.php/Main_Page"
+    }
+  }
+}

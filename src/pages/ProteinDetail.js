@@ -26,7 +26,7 @@ import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 // import PublicationsMenu from '../components/PublicationsMenu';
-import DetailTooltips from "../data/json/detailTooltips.json";
+import DetailTooltips from "../data/json/proteinDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
 import { Tab, Tabs, Container } from "react-bootstrap";
@@ -1819,8 +1819,6 @@ const ProteinDetail = (props) => {
                 <Card>
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
-                      <SimpleHelpTooltip data={DetailTooltips.protein.glycosylation} />
-
                       <HelpTooltip
                         title={DetailTooltips.protein.glycosylation.title}
                         text={DetailTooltips.protein.glycosylation.text}
@@ -3391,10 +3389,10 @@ const ProteinDetail = (props) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.protein.crossReferences.title}
-                        text={DetailTooltips.protein.crossReferences.text}
-                        urlText={DetailTooltips.protein.crossReferences.urlText}
-                        url={DetailTooltips.protein.crossReferences.url}
+                        title={DetailTooltips.protein.cross_references.title}
+                        text={DetailTooltips.protein.cross_references.text}
+                        urlText={DetailTooltips.protein.cross_references.urlText}
+                        url={DetailTooltips.protein.cross_references.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -3446,10 +3444,10 @@ const ProteinDetail = (props) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.glycan.history.title}
-                        text={DetailTooltips.glycan.history.text}
-                        urlText={DetailTooltips.glycan.history.urlText}
-                        url={DetailTooltips.glycan.history.url}
+                        title={DetailTooltips.protein.history.title}
+                        text={DetailTooltips.protein.history.text}
+                        urlText={DetailTooltips.protein.history.urlText}
+                        url={DetailTooltips.protein.history.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
@@ -3494,10 +3492,10 @@ const ProteinDetail = (props) => {
                   <Card.Header className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={DetailTooltips.motif.publications.title}
-                        text={DetailTooltips.motif.publications.text}
-                        urlText={DetailTooltips.motif.publications.urlText}
-                        url={DetailTooltips.motif.publications.url}
+                        title={DetailTooltips.protein.publications.title}
+                        text={DetailTooltips.protein.publications.text}
+                        urlText={DetailTooltips.protein.publications.urlText}
+                        url={DetailTooltips.protein.publications.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
