@@ -1,22 +1,22 @@
 {
   "motif": {
-    "general": {
-      "title": "General",
-      "text": "General information about your selected motif.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "glycans": {
-      "title": "Glycans With This Motifs",
-      "text": "Glycans containing this motif.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "publications": {
-      "title": "Publications",
-      "text": "Publications related to your selected motif.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    }
+      "general": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "General",
+          "url": "https://wiki.glygen.org/index.php/Motif_details/General"
+      },
+      "glycans": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Glycans With This Motifs",
+          "url": "https://wiki.glygen.org/index.php/Motif_details/Glycans"
+      },
+      "publications": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Publications",
+          "url": "https://wiki.glygen.org/index.php/Motif_details/Publications"
+      }
   }
 }

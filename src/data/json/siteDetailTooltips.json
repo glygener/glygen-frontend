@@ -1,46 +1,46 @@
 {
   "site": {
-    "general": {
-      "title": "General",
-      "text": "General information about your selected protein.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "sequence": {
-      "title": " Sequence",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "glycosylation": {
-      "title": "Glycosylation",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "phosphorylation": {
-      "title": "Phosphorylation",
-      "text": "Phosphorylation description text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "glycation": {
-      "title": "Glycation",
-      "text": "Glycation description text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "snv": {
-      "title": "Single Nucleotide Variation",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "mutagenesis": {
-      "title": "Mutagenesis",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    }
+      "glycation": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Glycation",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Glycation"
+      },
+      "general": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "General",
+          "url": "https://wiki.glygen.org/index.php/Site_details/General"
+      },
+      "sequence": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Sequence",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Sequence"
+      },
+      "glycosylation": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Glycosylation",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
+      },
+      "snv": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Single Nucleotide Variation",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Single_nucleotide_variation"
+      },
+      "phosphorylation": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Phosphorylation",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Phosphorylation"
+      },
+      "mutagenesis": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Mutagenesis",
+          "url": "https://wiki.glygen.org/index.php/Site_details/Mutagenesis"
+      }
   }
 }

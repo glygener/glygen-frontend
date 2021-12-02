@@ -1,82 +1,82 @@
 {
   "glycan": {
-    "general": {
-      "title": "General",
-      "text": "General information about your selected glycan.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "organism": {
-      "title": "Organism",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "names_synonyms": {
-      "title": "Names",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "motifs": {
-      "title": "Motifs",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "history": {
-      "title": "History",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "associated_protein": {
-      "title": "Associated Protein",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "glycan_binding_protein": {
-      "title": "Glycan Binding Protein",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "biosynthetic_enzymes": {
-      "title": "Biosynthetic Enzymes",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "subsumption": {
-      "title": "Subsumption",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "expression": {
-      "title": "Expression",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "digital_sequence": {
-      "title": "Digital Sequence",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "cross_references": {
-      "title": "Cross References",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    },
-    "publications": {
-      "title": "Publications",
-      "text": "Add some unique text here.",
-      "urlText": "Read more...",
-      "url": "https://wiki.glygen.org/index.php/Main_Page"
-    }
+      "associated_protein": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Associated Protein",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Associated_protein"
+      },
+      "biosynthetic_enzymes": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Biosynthetic Enzymes",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Biosynthetic_enzymes"
+      },
+      "expression": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Expression",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Expression"
+      },
+      "digital_sequence": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Digital Sequence",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Digital_sequences"
+      },
+      "organism": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Organism",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Organism"
+      },
+      "glycan_binding_protein": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Glycan Binding Protein",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Glycan_binding_protein"
+      },
+      "history": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "History",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/History"
+      },
+      "general": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "General",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/General"
+      },
+      "motifs": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Motifs",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Motifs"
+      },
+      "subsumption": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Subsumption",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Subsumption"
+      },
+      "cross_references": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Cross References",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Cross_references"
+      },
+      "names_synonyms": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Names",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Names"
+      },
+      "publications": {
+          "urlText": "Read more...",
+          "text": "",
+          "title": "Publications",
+          "url": "https://wiki.glygen.org/index.php/Glycan_details/Publications"
+      }
   }
 }
