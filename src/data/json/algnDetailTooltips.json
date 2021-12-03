@@ -8,13 +8,13 @@
       },
       "homoalignment": {
           "urlText": "Read more...",
-          "text": "Homolog alignment",
+          "text": "",
           "title": "Alignment",
           "url": "https://wiki.glygen.org/index.php/Protein_alignment/Homologs"
       },
       "isoalignment": {
           "urlText": "Read more...",
-          "text": "Isoform alignment",
+          "text": "",
           "title": "Alignment",
           "url": "https://wiki.glygen.org/index.php/Protein_alignment/Isoforms"
       }
