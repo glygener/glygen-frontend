@@ -149,8 +149,17 @@ const GlycanAdvancedSearch = props => {
    * @param {string} value - input glycan type value.
    **/
   const glyTypeOnChange = value => {
-    if (value === "") props.setGlyAdvSearchData({ glySubTypeIsHidden: true });
-    else props.setGlyAdvSearchData({ glySubTypeIsHidden: false });
+    if (value === ""){
+      props.setGlyAdvSearchData({ glySubTypeIsHidden: true });
+    } else {
+      var length = props.initData.glycan_type.find(type => {
+        return type.name === value; }).subtype.length;
+      if (length > 1) {
+        props.setGlyAdvSearchData({ glySubTypeIsHidden: false });
+      } else {
+        props.setGlyAdvSearchData({ glySubTypeIsHidden: true });
+      }
+    }
 
     props.setGlyAdvSearchData({ glySubType: "" });
     props.setGlyAdvSearchData({ glyType: value });
