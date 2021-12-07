@@ -27,7 +27,7 @@ const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
   const [timestamp, setTimeStamp] = useState();

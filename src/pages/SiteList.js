@@ -81,10 +81,10 @@ const SiteList = (props) => {
         setTimeStamp(data.cache_info.ts);
         setPagination(data.pagination);
         setAvailableFilters(data.filters.available);
-        const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
+        const currentPage = ((data.pagination && data.pagination.offset > 0 ? data.pagination.offset : 1) - 1) / sizePerPage + 1;
 
         setPage(currentPage);
-        setTotalSize(data.pagination.total_length);
+        setTotalSize((data.pagination && data.pagination.total_length > 0 ? data.pagination.total_length : 0));
         setConfigData(initData);
       }
     });
@@ -139,7 +139,6 @@ const SiteList = (props) => {
       sortOrder,
       appliedFilters
     ).then(({ data }) => {
-      setPageLoading(false);
       if (!data.error_code) {
         setData(data.results);
         setTimeStamp(data.cache_info.ts);
@@ -147,6 +146,7 @@ const SiteList = (props) => {
         setAvailableFilters(data.filters.available);
         setTotalSize(data.pagination.total_length);
       }
+      setPageLoading(false);
     });
   };
 
@@ -404,7 +404,7 @@ const SiteList = (props) => {
                 itemType="site"
               />
               {/* {data && data.length !== 0 && ( */}
-              {!!(data && data.length) && (
+              {data  && (
                 <PaginatedTable
                   trStyle={rowStyleFormat}
                   data={data}
@@ -416,6 +416,7 @@ const SiteList = (props) => {
                   onTableChange={handleTableChange}
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
+                  noDataIndication={"No data available, Please select filters."}
                 />
               )}
             </section>
