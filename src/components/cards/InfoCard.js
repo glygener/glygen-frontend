@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	cardAction: {
-		display: "inline-flex",
 		cursor: "pointer !important",
 	},
 	cardTitle: {

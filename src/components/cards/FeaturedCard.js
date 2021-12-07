@@ -12,7 +12,6 @@ import { GLYGEN_BASENAME } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
   cardAction: {
-    display: "inline-flex",
     cursor: "pointer !important",
   },
   cardDetails: {
