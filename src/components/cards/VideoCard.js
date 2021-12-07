@@ -42,7 +42,7 @@ export default function VideoCard(props) {
 							className="text-center"
 							style={{ fontWeight: "bold", color: "#2f78b7" }}>
 							<a
-								href="https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg"
+								href="https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/videos"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
