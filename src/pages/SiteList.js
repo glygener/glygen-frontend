@@ -416,7 +416,7 @@ const SiteList = (props) => {
                   onTableChange={handleTableChange}
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
-                  noDataIndication={"No data available, Please select filters."}
+                  noDataIndication={"No data available, please select filters."}
                 />
               )}
             </section>

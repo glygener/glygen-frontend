@@ -333,7 +333,7 @@ const GlycanList = props => {
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
                   idField="glytoucan_ac"
-                  noDataIndication={"No data available, Please select filters."}
+                  noDataIndication={"No data available, please select filters."}
                 />
               )}
               {/* {data && data.length === 0 && <p>No data.</p>} */}
