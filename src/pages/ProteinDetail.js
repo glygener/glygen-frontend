@@ -1104,9 +1104,8 @@ const ProteinDetail = (props) => {
     },
 
     {
-      dataField: "tissue",
+      dataField: "tissueName",
       text: proteinStrings.tissue.name,
-      defaultSortField: "tissue",
       sort: true,
       headerStyle: (column, colIndex) => {
         return {
@@ -1116,16 +1115,16 @@ const ProteinDetail = (props) => {
       },
       formatter: (value, row) => (
         <>
-          {value.name}{" "}
-          <span className="nowrap">
-            ({proteinStrings.uberonN.name}: <a href={value.url}>{value.uberon}</a>)
-          </span>
+          {value}{" "}
+          {row.tissue && (<span className="nowrap">
+            ({proteinStrings.uberonN.name}: <a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.uberon}</a>)
+          </span>)}
         </>
       ),
     },
 
     {
-      dataField: "present",
+      dataField: "scorePresent",
       text: "Expression Relative",
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -1134,6 +1133,9 @@ const ProteinDetail = (props) => {
           color: "white",
           width: "15%",
         };
+      },
+      formatter: (cell, row) => {
+        return <span>{row.present}</span>;
       },
     },
     {
@@ -1185,7 +1187,7 @@ const ProteinDetail = (props) => {
                 <li key={disease.recommended_name.id}>
                   {disease.recommended_name.name}{" "}
                   <span className="nowrap">
-                    (<a href={disease.recommended_name.url}>{disease.recommended_name.id}</a>){" "}
+                    (<a href={disease.recommended_name.url} target="_blank" rel="noopener noreferrer">{disease.recommended_name.id}</a>){" "}
                   </span>
                 </li>
               </ul>
@@ -3318,7 +3320,7 @@ const ProteinDetail = (props) => {
                     <Card.Body>
                       {expression_tissue && expression_tissue.length !== 0 && (
                         <ClientPaginatedTable
-                          data={expression_tissue}
+                          data={expression_tissue.map(data => {return {...data, scorePresent: data.score, tissueName: (data.tissue ? data.tissue.name : "")}})}
                           columns={expressionTissueColumns}
                           onClickTarget={"#expression_tissue"}
                           defaultSortField={"tissue"}
