@@ -1,64 +1,64 @@
 {
-  "publication": {
+    "publication": {
       "glycation": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Glycation",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Glycation"
+        "urlText": "Read more...",
+        "text": "The Glycation sections provides a list of list of sites with non-enzymatic, covalently linked glycans specified in the publication.",
+        "title": "Glycation",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Glycation"
       },
       "general": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "General",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/General"
+        "urlText": "Read more...",
+        "text": "The General section contains citation information and abstract of the publication.",
+        "title": "General",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/General"
       },
       "referenced_proteins": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Referenced Proteins",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Referenced_proteins"
+        "urlText": "Read more...",
+        "text": "The Referenced Proteins sections provides a list of proteins specified in the publication.",
+        "title": "Referenced Proteins",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Referenced_proteins"
       },
       "expression": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Expression",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Expression"
+        "urlText": "Read more...",
+        "text": "The Expression section contains information on the expression of the glycan (attached to proteins) within tissues and cell line.",
+        "title": "Expression",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Expression"
       },
       "organism": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Organism",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Organism"
+        "urlText": "Read more...",
+        "text": "The Organism section contains the list of organism(s) discussed in the publication.",
+        "title": "Organism",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Organism"
       },
       "glycosylation": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Glycosylation",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Glycosylation"
+        "urlText": "Read more...",
+        "text": "The Glycosylation section provides a detailed list of protein glycosylation sites, reported glycans attached to the protein(s), predicted glycosylation sites and glycosylation sites text mined from publications.",
+        "title": "Glycosylation",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Glycosylation"
       },
       "snv": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Single Nucleotide Variation",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Single_nucleotide_variation"
+        "urlText": "Read more...",
+        "text": "The Single Nucleotide Variation (SNV) sections provides a list of mutation sites specified in the publication.",
+        "title": "Single Nucleotide Variation",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Single_nucleotide_variation"
       },
       "phosphorylation": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Phosphorylation",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Phosphorylation"
+        "urlText": "Read more...",
+        "text": "The Phosphorylation sections provides a list of phosphorylation sites specified in the publication.",
+        "title": "Phosphorylation",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Phosphorylation"
       },
       "mutagenesis": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Mutagenesis",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Mutagenesis"
+        "urlText": "Read more...",
+        "text": "The Mutagenesis section describes the experimental change(s) in amino acid and position specified in the publication.",
+        "title": "Mutagenesis",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Mutagenesis"
       },
       "referenced_glycans": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Referenced Glycans",
-          "url": "https://wiki.glygen.org/index.php/Publication_details/Referenced_glycans"
+        "urlText": "Read more...",
+        "text": "The Referenced Glycans sections provides a list of glycans specified in the publication.",
+        "title": "Referenced Glycans",
+        "url": "https://wiki.glygen.org/index.php/Publication_details/Referenced_glycans"
       }
-  }
+    }
 }

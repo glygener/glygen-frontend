@@ -1,142 +1,142 @@
 {
     "protein": {
-        "expression_tissue": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Expression Tissue",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Expression_tissue"
-        },
-        "disease": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Disease",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Disease"
-        },
-        "synthesized_glycans": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Synthesized Glycans",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Synthesized_glycans"
-        },
-        "goannotation": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "GO Annotations",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/GO_annotations"
-        },
-        "homologs": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Homologs",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Homologs"
-        },
-        "glycosylation": {
-            "urlText": "Read more...",
-            "text": "Glycosylation is presented in GlyGen portal in tables in four different tabs of the Glycosylation section. The first tab \"Reported Sites with Glycan\" shows a list of glycosylation sites with glycan structures. These glycans can either be defined glycan structures, structures with missing information or compositions. The second tab \"Reported Sites\" list all glycosylation sites that have been extracted from other databases. These sites have been reported to be glycosylated but the glycan structure has not been identified or reported. The third tab \"Predicted Only\" shows the sites that have been predicted using different tools. These sites as well do not have glycan structures. The last tab \"Text Mining\" shows data derived from text mining by automatically extracting site information from PubMed abstracts.",
-            "title": "Glycosylation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Glycosylation"
-        },
-        "isoforms": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Isoforms",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Isoforms"
-        },
-        "history": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "History",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/History"
-        },
-        "mutagenesis": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Mutagenesis",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Mutagenesis"
-        },
-        "expression_disease": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Expression Disease",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Expression_disease"
-        },
-        "glycation": {
-            "urlText": "Read more...",
-            "text": "The Glycation section of the Protein Details page in GlyGen provides a detailed list of sites with non-enzymatic, covalently linked glucose residues. This section contains information about the type of attachment and the site of glycation. Annotations for experimentally determined glycation sites are retrieved from UniProtKB.",
-            "title": "Glycation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Glycation"
-        },
-        "general": {
-            "urlText": "Read more...",
-            "text": "The General section of the Protein Details page contains identifying information about the protein from reference databases and sources. The Gene Name and Gene Location describe the gene that encodes the protein and the location with a link to the chromosome visualizer in Ensembl Gene. Additional fields retrieved from UniProtKB and NCBI RefSeq include UniProtKB ID, UniProtKB Accession, Protein Length, UniProtKB Entry Name, Chemical Mass, RefSeq Accession, RefSeq Name and Organism.",
-            "title": "General",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/General"
-        },
-        "sequence": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Sequence",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Sequence"
-        },
-        "function": {
-            "urlText": "Read more...",
-            "text": "The Function section of the Protein Details page in GlyGen lists information about the biological function of the protein. This information is retrieved from the UniProtKB database and from the Gene Summary and GeneRIF sections of the NCBI RefSeq database.",
-            "title": "Function",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Function"
-        },
-        "ptmannotation": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "PTM Annotation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/PTM_annotation"
-        },
-        "pathway": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Pathway",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Pathway"
-        },
-        "snv": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Single Nucleotide Variation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Single_nucleotide_variation"
-        },
-        "proannotation": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Proteoform Annotation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Proteoform_annotation"
-        },
-        "cross_references": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Cross References",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Cross_references"
-        },
-        "phosphorylation": {
-            "urlText": "Read more...",
-            "text": "The Phosphorylation section of the Protein Details page provides a list of phosphorylation sites that have been extracted from other databases. The Kinase Protein and Kinase Gene columns list the enzymes responsible for phosphorylation, if available. Annotations for experimentally determined phosphorylation sites are retrieved from UniProtKB.",
-            "title": "Phosphorylation",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Phosphorylation"
-        },
-        "names_synonyms": {
-            "urlText": "Read more...",
-            "text": "The Names section of the Protein Details page in GlyGen lists the recommended full name of the gene and protein from the UniProtKB database. All other names that are used to represent the gene or protein are listed as synonyms.",
-            "title": "Names",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Names"
-        },
-        "glycan_ligands": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Glycan Ligands",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Glycan_ligands"
-        },
-        "publications": {
-            "urlText": "Read more...",
-            "text": "",
-            "title": "Publications",
-            "url": "https://wiki.glygen.org/index.php/Protein_details/Publications"
-        }
+      "expression_tissue": {
+        "urlText": "Read more...",
+        "text": "The Expression Tissue section provides information on the expression of a gene in tissues.",
+        "title": "Expression Tissue",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Expression_tissue"
+      },
+      "disease": {
+        "urlText": "Read more...",
+        "text": "The Disease section provides the information on the disease that the protein is associated with.",
+        "title": "Disease",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Disease"
+      },
+      "synthesized_glycans": {
+        "urlText": "Read more...",
+        "text": "The Synthesized Glycans section provides a list of glycans that are biosynthesized by the protein. Biosynthetic enzymes are involved in metabolism pathways that convert and modify simple compounds to complex compounds and macromolecules.",
+        "title": "Synthesized Glycans",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Synthesized_glycans"
+      },
+      "goannotation": {
+        "urlText": "Read more...",
+        "text": "The GO Annotation section provides Gene Ontology (GO) terms associated with the protein that fall into three categories: Molecular Function, Cellular Component, and Biological Processes.",
+        "title": "GO Annotations",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/GO_annotations"
+      },
+      "homologs": {
+        "urlText": "Read more...",
+        "text": "The Homologs section contains homologs of the protein/gene in other organisms. The Show Sequence and Alignment buttons display the protein sequence and alignment of the homologous proteins.",
+        "title": "Homologs",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Homologs"
+      },
+      "glycosylation": {
+        "urlText": "Read more...",
+        "text": "The Glycosylation section provides a detailed list of glycosylation sites, reported glycans attached to the protein, predicted sites and sites text mined from publications.",
+        "title": "Glycosylation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Glycosylation"
+      },
+      "isoforms": {
+        "urlText": "Read more...",
+        "text": "The Isoforms section contains a list of isoforms of the protein. The Show Sequences button displays the protein sequence of the isoform.",
+        "title": "Isoforms",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Isoforms."
+      },
+      "history": {
+        "urlText": "Read more...",
+        "text": "The History section provides information about the release in which the accession was introduced, whether it was mapped from other accessions, and any other information regarding the existence of the protein in GlyGen.",
+        "title": "History",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/History"
+      },
+      "mutagenesis": {
+        "urlText": "Read more...",
+        "text": "The Mutagenesis section describes the experimental change in amino acid and position and the effect(s) of the mutation on the biological function of the protein, cell or complete organism.",
+        "title": "Mutagenesis",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Mutagenesis"
+      },
+      "expression_disease": {
+        "urlText": "Read more...",
+        "text": "The Expression Disease section provides information on the differential expression of a gene for a given disease.",
+        "title": "Expression Disease",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Expression_disease"
+      },
+      "glycation": {
+        "urlText": "Read more...",
+        "text": "The Glycation section provides a detailed list of sites with non-enzymatic, covalently linked glycans, including the type of attachment and the location on the amino acid sequence.",
+        "title": "Glycation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Glycation"
+      },
+      "general": {
+        "urlText": "Read more...",
+        "text": "The General section provides identifying information about the protein from reference databases and sources.",
+        "title": "General",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/General"
+      },
+      "sequence": {
+        "urlText": "Read more...",
+        "text": "The Sequence section displays the canonical protein sequence and offers highlighting of certain annotations such as N-linked sites, sequon, phosphorylation, etc. when the annotation is selected.",
+        "title": "Sequence",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Sequence"
+      },
+      "function": {
+        "urlText": "Read more...",
+        "text": "The Function section lists information about the biological function of the protein.",
+        "title": "Function",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Function"
+      },
+      "ptmannotation": {
+        "urlText": "Read more...",
+        "text": "The PTM section describes post-translational modifications (PTMs) and provides more context and description about the PTMs occurring on the protein.",
+        "title": "PTM Annotation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/PTM_annotation"
+      },
+      "pathway": {
+        "urlText": "Read more...",
+        "text": "The Pathway section contains pathway information for the protein.",
+        "title": "Pathway",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Pathway"
+      },
+      "snv": {
+        "urlText": "Read more...",
+        "text": "The Single Nucleotide Variation (SNV) section provides information on disease and non-disease associated mutations. These are most commonly nonsynonymous mutations which cause a different amino acid to be produced at a given position.",
+        "title": "Single Nucleotide Variation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Single_nucleotide_variation"
+      },
+      "proannotation": {
+        "urlText": "Read more...",
+        "text": "The Proteoform Annotation section contains the description of the proteoform(s)/glycoform(s) of the given protein.",
+        "title": "Proteoform Annotation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Proteoform_annotation"
+      },
+      "cross_references": {
+        "urlText": "Read more...",
+        "text": "The Cross References section provides a list of database entries and links for the protein in other databases.",
+        "title": "Cross References",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Cross_references"
+      },
+      "phosphorylation": {
+        "urlText": "Read more...",
+        "text": "The Phosphorylation section provides a detailed list of phosphorylation sites and kinase proteins responsible for phosphorylation.",
+        "title": "Phosphorylation",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Phosphorylation"
+      },
+      "names_synonyms": {
+        "urlText": "Read more...",
+        "text": "The Names section provides information about the protein and gene name(s) and synonym(s).",
+        "title": "Names",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Names"
+      },
+      "glycan_ligands": {
+        "urlText": "Read more...",
+        "text": "The Glycan Ligands section provides a list of glycans that are recognized and bound by the protein and involved in glycan\u2013protein interactions.",
+        "title": "Glycan Ligands",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Glycan_ligands"
+      },
+      "publications": {
+        "urlText": "Read more...",
+        "text": "The Publications section contains publications where the given protein was mentioned. The publication information comes from multiple data sources that annotate the protein.",
+        "title": "Publications",
+        "url": "https://wiki.glygen.org/index.php/Protein_details/Publications"
+      }
     }
 }
