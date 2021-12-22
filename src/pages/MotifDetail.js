@@ -40,7 +40,7 @@ const motifStrings = stringConstants.motif.common;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
-  { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motifs" },
+  { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motif" },
   {
     label: stringConstants.sidebar.publication.displayname,
     id: "Publications",
@@ -462,7 +462,7 @@ const MotifDetail = (props) => {
               </Accordion>
               {/* Glycans Containing This Motif */}
               <Accordion
-                id="Glycans-With-This-Motifs"
+                id="Glycans-With-This-Motif"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}

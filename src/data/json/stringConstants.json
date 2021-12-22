@@ -1818,7 +1818,7 @@
     },
     "glycans": {
       "id": "glycans",
-      "displayname": "Glycans With This Motifs",
+      "displayname": "Glycans With This Motif",
       "tooltip": " Glycans Information for selected Motif Id"
     },
     "site_annotation": {
