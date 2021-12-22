@@ -75,6 +75,7 @@ const MotifDetail = (props) => {
   const [motifSynonym, setMotifSynonym] = useState([]);
   const [classification, setClassification] = useState([]);
   const [motifKeywords, setMotifKeywords] = useState([]);
+  const [motifDictionary, setMotifDictionary] = useState();
   const [reducingEnd, setReducingEnd] = useState([]);
   const [pagination, setPagination] = useState([]);
   // const [selectedColumns, setSelectedColumns] = useState(MOTIF_COLUMNS);
@@ -139,6 +140,21 @@ const MotifDetail = (props) => {
         setMotifKeywords(data.keywords);
         setReducingEnd(data.reducing_end);
         setClassification(data.classification);
+
+        let dictionary = null;
+        if (data.dictionary && data.dictionary.term){
+          let temp = {term : null, url : null};
+          temp.term = data.dictionary.term;
+          if (data.dictionary.evidence && data.dictionary.evidence.length > 0) {
+            let evidence = data.dictionary.evidence.find((item => item.database === "Glycan Dictionary"));
+            if (evidence){
+              temp.url = evidence.url;
+            }
+          }
+          dictionary = temp;
+        }
+        setMotifDictionary(dictionary);
+
         // setClassification(
         //   data.classification.filter(
         //     classif =>
@@ -450,6 +466,18 @@ const MotifDetail = (props) => {
                               {/* <a href={motif.url} target="_blank" rel="noopener noreferrer"> */}
                               {reducingEnd}
                               {/* </a> */}
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div>
+                          {motifDictionary && motifDictionary.term ? (
+                            <>
+                              <strong>{motifStrings.glycan_structure_dictionary.name}: </strong>
+                              {motifDictionary.url ? (<a href={motifDictionary.url} target="_blank" rel="noopener noreferrer">
+                              {motifDictionary.term}
+                              </a>) : (<>{motifDictionary.term}</>)}
                             </>
                           ) : (
                             <></>

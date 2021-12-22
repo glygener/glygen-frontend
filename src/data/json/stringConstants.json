@@ -1384,6 +1384,9 @@
       "reducing_end": {
         "name": "Reducing End"
       },
+      "glycan_structure_dictionary": {
+        "name": "Glycan Structure Dictionary"
+      },
       "protein_count": {
         "name": "No of Proteins"
       }
