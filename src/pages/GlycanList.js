@@ -27,7 +27,7 @@ const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
   const [timestamp, setTimeStamp] = useState();
@@ -333,7 +333,7 @@ const GlycanList = props => {
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
                   idField="glytoucan_ac"
-                  noDataIndication={"No data available, Please select filters."}
+                  noDataIndication={"No data available, please select filters."}
                 />
               )}
               {/* {data && data.length === 0 && <p>No data.</p>} */}

@@ -329,6 +329,16 @@
 				"image": "/team/Jeet-Vora.png",
 				"imageText": "Jeet Vora image",
 				"url": "https://www.linkedin.com/in/jeet-vora/"
+			},
+			{
+				"name": "Karina Martinez",
+				"position": "Senior Research Assistant",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Karina-Martinez.jpg",
+				"imageText": "Karina Martinez image",
+				"url": "https://www.linkedin.com/in/karinamartinez2/"
 			}
 		]
 	},

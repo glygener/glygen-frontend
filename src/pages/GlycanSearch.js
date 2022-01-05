@@ -616,7 +616,10 @@ const GlycanSearch = (props) => {
 									? advancedSearch.glycan_subtype.placeholderId
 									: data.cache_info.query.glycan_subtype,
 							glySubTypeIsHidden:
-								data.cache_info.query.glycan_type === undefined ? true : false,
+								data.cache_info.query.glycan_type === undefined ? true 
+								: initData.glycan_type.find(type => {
+									return type.name === data.cache_info.query.glycan_type; }).subtype.length > 1 ? false 
+								: true,
 							glyProt:
 								data.cache_info.query.protein_identifier === undefined
 									? ''

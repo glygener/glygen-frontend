@@ -525,7 +525,7 @@
         },
         "glycan_definition_score": {
           "id": "glycan_definition_score",
-          "name": "Is a fully defined glycan"
+          "name": "Defined structural information"
         },
         "glycan_has_publication": {
           "id": "glycan_has_publication",
@@ -1181,6 +1181,10 @@
         },
         "protein_top_glycan_definition_score": {
           "id": "protein_top_glycan_definition_score",
+          "name": "Defined glycan structural information (top)"
+        },
+        "protein_reported_fully_resolved_glycans": {
+          "id": "protein_reported_fully_resolved_glycans",
           "name": "Fully defined Glycans"
         }
       }
@@ -1352,7 +1356,7 @@
         },
         "site_top_glycan_definition_score": {
           "id": "site_top_glycan_definition_score",
-          "name": "Fully defined Glycans"
+          "name": "Defined glycan structural information (top)"
         }
       }
     }
@@ -1379,6 +1383,9 @@
       },
       "reducing_end": {
         "name": "Reducing End"
+      },
+      "glycan_structure_dictionary": {
+        "name": "Glycan Structure Dictionary"
       },
       "protein_count": {
         "name": "No of Proteins"
@@ -1814,7 +1821,7 @@
     },
     "glycans": {
       "id": "glycans",
-      "displayname": "Glycans With This Motifs",
+      "displayname": "Glycans With This Motif",
       "tooltip": " Glycans Information for selected Motif Id"
     },
     "site_annotation": {

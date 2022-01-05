@@ -1,22 +1,22 @@
 {
   "alignment": {
-      "summary": {
-          "urlText": "Read more...",
-          "text": "",
-          "title": "Summary",
-          "url": "https://wiki.glygen.org/index.php/Main_Page"
-      },
-      "homoalignment": {
-          "urlText": "Read more...",
-          "text": "Homolog alignment",
-          "title": "Alignment",
-          "url": "https://wiki.glygen.org/index.php/Main_Page"
-      },
-      "isoalignment": {
-          "urlText": "Read more...",
-          "text": "Isoform alignment",
-          "title": "Alignment",
-          "url": "https://wiki.glygen.org/index.php/Main_Page"
-      }
+    "summary": {
+      "urlText": "Read more...",
+      "text": "The Summary section provides information about the alignment query configuration and results summary.",
+      "title": "Summary",
+      "url": "https://wiki.glygen.org/index.php/Protein_alignment/Summary"
+    },
+    "homoalignment": {
+      "urlText": "Read more...",
+      "text": "The Homolog Alignment section provides multiple sequence alignment between homolog proteins. The \"Sites\" control can be used to highlight different sites on the aligned sequences.",
+      "title": "Alignment",
+      "url": "https://wiki.glygen.org/index.php/Protein_alignment/Homologs"
+    },
+    "isoalignment": {
+      "urlText": "Read more...",
+      "text": "The Isoform Alignment section provides multiple sequence alignment between isoforms. The \"Sites\" control can be used to highlight different sites on the aligned sequences.",
+      "title": "Alignment",
+      "url": "https://wiki.glygen.org/index.php/Protein_alignment/Isoforms"
+    }
   }
 }
