@@ -35,6 +35,8 @@
   "idMappingResult": "/mapper-result/",
   "superSearch": "/super-search/",
   "publicationDetail": "/publication/",
+  "blastSearch": "/blast/",
+  "blastResult": "/blast-result/",
   "home": "/home/",
   "default": "/"
 }

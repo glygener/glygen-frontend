@@ -35,6 +35,8 @@ import Siteview from "./pages/Siteview";
 import IdMapping from "./pages/IdMapping";
 import idMappingResult from "./pages/IdMappingResult";
 import SuperSearch from "./pages/SuperSearch";
+import BlastSearch from "./pages/BlastSearch";
+import BlastResult from "./pages/BlastResult"
 import PublicationDetail from "./pages/PublicationDetail";
 
 /**
@@ -103,6 +105,10 @@ const Routes = (props) => (
     />
     <Route path={`${routeConstants.publicationDetail}:id`} component={PublicationDetail} />
     <Route path={routeConstants.publicationDetail} component={PublicationDetail} />
+    <Route path={`${routeConstants.blastSearch}:id`} component={BlastSearch} />
+    <Route path={routeConstants.blastSearch} component={BlastSearch} />
+    <Route path={`${routeConstants.blastResult}:jobId`} component={BlastResult} />
+    <Route path={routeConstants.blastResult} component={BlastResult} />
     {/* Keep path='/' at the bottom */}
     <Route path={routeConstants.home} component={Home} />
     <Route path={routeConstants.default} component={Home} />

@@ -78,14 +78,16 @@ function buildHighlightData(sequences, consensus) {
         var oLinkGlycan = oLinkGlycanMapHighlights[uniprot_ac];
         var searchTextArr = searchTextHighlights[uniprot_ac];
 
+        var offset = sequences[y].offset ? sequences[y].offset : 0;
+        //alert(offset);
         var count = 0;
         for (var x = 0; x < sequence.length; x++) {
           if (sequence[x] === '-'){
             count--;
           }
-          var position = x + count + 1;
+          var position = offset + x + count + 1;
           result1.push({
-            character: sequence[x],
+            character: sequence[x] === " " ? "&nbsp;" : sequence[x],
             n_link_glycosylation: isHighlighted(position, nLinkGlycan, sequence[x]),
             o_link_glycosylation: isHighlighted(position, oLinkGlycan, sequence[x]),
             mutation: isHighlighted(position, mutation, sequence[x]),
@@ -95,7 +97,7 @@ function buildHighlightData(sequences, consensus) {
             text_search: isHighlighted(x, searchTextArr, sequence[x]),
           });
         }
-        result.push({consensus : false, uniprot_ac : uniprot_ac, clickThruUrl : clickThruUrl, uniprot_id : uniprot_id, tax_name : tax_name, seq: result1});
+        result.push({consensus : false, uniprot_ac : uniprot_ac, clickThruUrl : clickThruUrl, uniprot_id : uniprot_id, tax_name : tax_name, seq: result1, offset : offset});
       }
 
       if (consensus && consensus !== "") {
@@ -178,8 +180,13 @@ function buildHighlightData(sequences, consensus) {
       
       for (let y = 0; y < sequenceObject.length; y++){
         var result = [];
-        var sequence = sequenceObject[y].aln;
         var uniprot_ac = sequenceObject[y].uniprot_ac;
+
+        if (searchText === "") {
+          searchMap[uniprot_ac] = result;
+          continue;
+        }
+        var sequence = sequenceObject[y].aln;
         var seqModArr = [];
         var dashCount = 0;
         for (let x = 0; x < sequence.length; x++) {
@@ -211,7 +218,8 @@ function buildHighlightData(sequences, consensus) {
       setSearchTextHighlights(searchMap);
     }
   }, [sequenceObject,
-    sequenceSearchText
+    sequenceSearchText,
+    selectedHighlights
   ]);
 
   if (!sequenceObject) {

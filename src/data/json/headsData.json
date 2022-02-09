@@ -494,8 +494,21 @@
       }
     ]
   },
-  "newPage": {
-    "title": "",
+  "blastSearch": {
+    "title": "GlyGen Blast",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  },
+  "blastResult": {
+    "title": "GlyGen Blast Result",
     "meta": [
       {
         "name": "description",

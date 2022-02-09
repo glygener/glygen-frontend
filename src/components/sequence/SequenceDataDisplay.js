@@ -51,7 +51,7 @@ const RowHighlight = ({ rowData, type, selectedHighlights }) => {
  * creating row
  * @param {object} input props
  */
-const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, selectedHighlights, multiSequence, tax_name, consensus, header }) => {
+const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, selectedHighlights, multiSequence, tax_name, consensus, header, offset }) => {
   
   const space = "           ";
   const space1 = "       ";
@@ -70,7 +70,7 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
         {start === 0 && <>
           <span></span>
           <span><pre className="sequencePreClass">
-          {space}+10{space1} +20{space1} +30{space1} +40 {space1}+50
+          {space}+10{space1} +20{space1} +30{space1} +40 {space1}+50{space1}
           </pre></span> </>}
 
           {start === 1 && <>
@@ -88,10 +88,10 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
       
       {!header && <>
         {multiSequence && <span className="aln-line-header">
-          <a href={clickThruUrl ? clickThruUrl : "#"}>{uniprot_ac}</a>
+          {clickThruUrl ? (<a href={clickThruUrl ? clickThruUrl : "#"}>{uniprot_ac}</a>): <>{uniprot_ac}</> }
         </span>}
         {multiSequence && <span className="aln-line-header">{uniprot_id}</span>}
-        <span className="highlight-line-number aln-line-header">{(start === -1 ? ("  ") : (start + 1))}</span>
+        <span className="highlight-line-number aln-line-header">{(start === -1 ? ("  ") : (start + 1 + offset))}</span>
 
         <span className="highlight-section">
           <span
@@ -139,7 +139,7 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
             </>
           )}
         </span>
-        {multiSequence && <span className="highlight-line-number aln-line-header">{(start === -1 ? ('\xa0') : (start + 60))}</span>}
+        {multiSequence && <span className="highlight-line-number aln-line-header">{(start === -1 ? ('\xa0') : (start + 60 + offset))}</span>}
       </>}
     </div>
   );
@@ -178,7 +178,7 @@ const sliceRowBlock = (sequences, size) => {
       } else {
         result.push({consensus : sequences[y].consensus, uniprot_id : sequences[y].uniprot_id, 
           uniprot_ac: sequences[y].uniprot_ac, clickThruUrl : sequences[y].clickThruUrl, index : x, tax_name : sequences[y].tax_name,
-          seq : sequences[y].seq.slice(x, x + size)});
+          seq : sequences[y].seq.slice(x, x + size), offset: sequences[y].offset ? sequences[y].offset : 0});
       }
     }
 
@@ -226,7 +226,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
       const rows = sliceRowBlock(sequenceData, perLine);
       const byChunks = rows.map((row) => {return {uniprot_id : row.uniprot_id, uniprot_ac : row.uniprot_ac, 
         index: row.index, seq: sliceBy(row.seq, SEQUENCE_ROW_RUN_LENGTH),
-        tax_name: row.tax_name, consensus : row.consensus, clickThruUrl: row.clickThruUrl}});
+        tax_name: row.tax_name, consensus : row.consensus, clickThruUrl: row.clickThruUrl, offset : row.offset}});
       const reducedToRows = byChunks.map((row) =>
        {return {
         index : row.index, 
@@ -235,6 +235,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
         tax_name : row.tax_name,
         consensus : row.consensus,
         clickThruUrl : row.clickThruUrl,
+        offset : row.offset,
         seq: row.seq.reduce(
           (all, chunk) => [
             ...all,
@@ -279,6 +280,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           uniprot_id={row.uniprot_id}
           uniprot_ac={row.uniprot_ac}
           clickThruUrl={row.clickThruUrl}
+          offset={row.offset}
           tax_name={row.tax_name}
           rowData={row.seq}
           start={row.index}

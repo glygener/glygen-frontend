@@ -73,3 +73,12 @@ export const downloadFromServer = async (
 
   download(serverData.data, filename, mimeType);
 };
+
+export const downloadFile = (
+  data,
+  fileName,
+  mimeType,
+) => {
+
+  download(data, fileName, mimeType);
+};

@@ -44,6 +44,28 @@ export const postFormDataTo = (url, formData = {}, headers = {}) => {
   return axios(options);
 };
 
+export const postFormDataTo1 = (url, formData = {}, headers = {}) => {
+  // const formDataElement = new FormData();
+
+  // Object.keys(formData).forEach(key => {
+  //   formDataElement.append(key, formData[key]);
+  // });
+
+  // const myHeaders = {
+  //   "Content-Type": "multipart/form-data",
+  //   ...headers
+  // };
+
+  const options = {
+    method: "POST",
+    headers: headers,
+    data: formData,
+    url: GLYGEN_API + url
+  };
+
+  return axios(options);
+};
+
 export const postToAndGetBlob = (url, headers = {}) => {
   const options = {
     method: "POST",
