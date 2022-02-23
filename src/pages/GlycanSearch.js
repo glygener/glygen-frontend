@@ -8,6 +8,8 @@ import GlycanAdvancedSearch from '../components/search/GlycanAdvancedSearch';
 import CompositionSearchControl from '../components/search/CompositionSearchControl';
 import SimpleSearchControl from '../components/search/SimpleSearchControl';
 import GlycanTutorial from '../components/tutorial/GlycanTutorial';
+import StructureSearchControl from '../components/search/StructureSearchControl';
+import SubstructureSearchControl from '../components/search/SubstructureSearchControl';
 import { Tab, Tabs, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import '../css/Search.css';
@@ -1054,6 +1056,50 @@ const GlycanSearch = (props) => {
 							<Container className='tab-content-border'>
 								{initData.composition && (
 									<CompositionSearchControl
+										compositionInitMap={initData.composition}
+										inputValue={glyCompData}
+										setInputValue={glyCompChange}
+										searchGlycanCompClick={searchGlycanCompClick}
+										getSelectionValue={getSelectionValue}
+										setCompSearchDisabled={setCompSearchDisabled}
+										compSearchDisabled={compSearchDisabled}
+										step={1}
+									/>
+								)}
+							</Container>
+						</Tab>
+						<Tab
+							eventKey='Structure-Search'
+							title={"Structure Search"}
+							className='tab-content-padding'>
+							<TextAlert
+								alertInput={alertTextInput}
+							/>
+							<Container className='tab-content-border'>
+								{initData.composition && (
+									<StructureSearchControl
+										compositionInitMap={initData.composition}
+										inputValue={glyCompData}
+										setInputValue={glyCompChange}
+										searchGlycanCompClick={searchGlycanCompClick}
+										getSelectionValue={getSelectionValue}
+										setCompSearchDisabled={setCompSearchDisabled}
+										compSearchDisabled={compSearchDisabled}
+										step={1}
+									/>
+								)}
+							</Container>
+						</Tab>
+						<Tab
+							eventKey='Substructure-Search'
+							title={"Substructure Search"}
+							className='tab-content-padding'>
+							<TextAlert
+								alertInput={alertTextInput}
+							/>
+							<Container className='tab-content-border'>
+								{initData.composition && (
+									<SubstructureSearchControl
 										compositionInitMap={initData.composition}
 										inputValue={glyCompData}
 										setInputValue={glyCompChange}
