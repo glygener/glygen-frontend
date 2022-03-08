@@ -1436,6 +1436,78 @@
       }
     }
   },
+  "blast_search": {
+    "common": {
+      "query": "Blast search query.",
+      "jobtype":{
+        "id": "jobtype"
+      },
+      "uniprot_canonical_ac": {
+        "name": "UniProtKB Accession",
+        "shortName": "UniProtKB Accession",
+        "tooltip": {
+          "title": "UniProtKB Accession",
+          "text": "Enter a Protein UniProtKB Accession.",
+          "urlText": "Read more...",
+          "url": "https://www.uniprot.org/"
+        },
+        "id": "uniprot_canonical_ac"
+      },
+      "uniprot_name": {
+        "name": "UniProtKB Name",
+        "shortName": "UniProtKB Name",
+        "id": "uniprot_name"
+      },
+      "score": {
+        "name": "Score",
+        "shortName": "Score",
+        "id": "score"
+      },
+      "uniprot_id": {
+        "name": "UniProtKB ID",
+        "shortName": "UniProtKB ID",
+        "id": "uniprot_id"
+      },
+      "seq": {
+        "name": "Sequence",
+        "shortName": "Sequence",
+        "tooltip": {
+          "title": "Sequence",
+          "text": "The sequence of the amino acids of the protein. Enter a Protein Sequence.",
+          "urlText": "Read more...",
+          "url": "https://www.uniprot.org/help/sequences"
+        },
+        "id": "seq"
+      },
+      "targetdb": {
+        "name": "Target DB",
+        "shortName": "Target DB",
+        "tooltip": {
+          "title": "Target DB",
+          "text": ""
+        },
+        "id": "targetdb"
+      },
+      "evalue": {
+        "name": "E-value",
+        "shortName": "E-value",
+        "tooltip": {
+          "title": "E-value",
+          "text": ""
+        },
+        "id": "evalue"
+      },
+      "max_target_seqs": {
+        "name": "Max Number of Hits",
+        "shortName": "Max Number of Hits",
+        "tooltip": {
+          "title": "Max Number of Hits",
+          "text": ""
+        },
+        "id": "max_target_seqs"
+      }
+    }
+  },
   "quick_search": {
     "question_1": {
       "text": "What are the glycosyltransferases used to add the residues contained in {0} in human?",
@@ -1646,6 +1718,11 @@
       "id": "blastSearchError",
       "title": "Blast Search Error - Enter Valid Input",
       "message": "Sorry, we couldn't process blast request. Please enter valid input."
+    },
+    "blastSearchUniProtAccError": {
+      "id": "blastSearchUniProtAccError",
+      "title": "Blast Search Error - Enter Valid UniProtKB Accession",
+      "message": "Sorry, we couldn't process retrive sequence request. Please enter valid UniProtKB Accession."
     },
     "querySerarchError": {
       "id": "querySerarchError",

@@ -16,28 +16,33 @@ import TextAlert from "../components/alert/TextAlert";
 import "../css/Search.css";
 import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
-import idMappingData from "../data/json/idMapping";
+import blastSearchData from "../data/json/blastSearch";
 import stringConstants from "../data/json/stringConstants";
 import routeConstants from "../data/json/routeConstants";
 import { getJobInit, postNewJob, getJobStatus, getJobDetails } from "../data/job";
+import { getPageData } from "../data/api";
 import ExampleExploreControl from "../components/example/ExampleExploreControl";
-
+import ExampleControl2 from "../components/example/ExampleControl2";
 import proteinSearchData from '../data/json/proteinSearch';
-import { thresholdFreedmanDiaconis } from "d3";
+import {
+  UNIPROT_BASENAME,
+} from "../envVariables";
 
+/**
+ * Glycan blast search control.
+ **/
 const BlastSearch = (props) => {
   let { id } = useParams("");
   const [initData, setInitData] = useState([]);
-  let advancedSearch = proteinSearchData.advanced_search;
-  let commonProteinData = stringConstants.protein.common;
 
   const [inputValue, setInputValue] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       targetDatabase: "canonicalsequences_all",
-      eValue: "10",
+      eValue: "0.001",
       maxHits: "250",
       proSequence: "",
+      proUniprotAcc: "",
     }
   );
 
@@ -60,36 +65,53 @@ const BlastSearch = (props) => {
     { show: false, id: "" }
   );
 
-  // let idMapData = stringConstants.id_mapping;
-  let commonIdMappingData = stringConstants.id_mapping.common;
+  let commonBlastSearchData = stringConstants.blast_search.common;
+  let blastJSONData = blastSearchData.blast_search;
 
   /**
-   * Function to set recordtype (molecule) name value.
-   * @param {string} value - input recordtype (molecule) name value.
+   * Function to set target database name value.
+   * @param {string} value - input target database name value.
    **/
   const targetDatabaseOnChange = (value) => {
     setInputValue({ targetDatabase: value });
   };
+
   /**
-   * Function to set inputNamespace (From ID Type) name value.
-   * @param {string} value - input inputNamespace (From ID Type) name value.
-   **/
+	 * Function to handle onchange event for eValue.
+	 * @param {object} event - event object.
+	 **/
   const eValueOnChange = (event) => {
     setInputValue({ eValue: event.target.value });
   };
 
   /**
-   * Function to set outputNamespace (To ID Type) name value.
-   * @param {string} value - input outputNamespace (To ID Type) name value.
-   **/
+	 * Function to handle onchange event for UniprotAcc.
+	 * @param {object} event - event object.
+	 **/
+   const proUniprotAccOnChange = (event) => {
+    setInputValue({ proUniprotAcc: event.target.value });
+  };
+
+  /**
+	 * Function to set inputProUniprotAcc value.
+	 * @param {string} inputProDiseaseName - input inputProUniprotAcc value.
+	 **/
+	function proUniprotAccChange(inputProUniprotAcc) {
+    setInputValue({ proUniprotAcc: inputProUniprotAcc });
+	}
+
+  /**
+	 * Function to handle onchange event for maxHits.
+	 * @param {object} event - event object.
+	 **/
   const maxHitsOnChange = (event) => {
     setInputValue({ maxHits: event.target.value });
 
   };
 
   /**
-	 * Function to set protein or peptide sequence value.
-	 * @param {string} inputProSequence - input protein or peptide sequence value.
+	 * Function to set protein sequence value.
+	 * @param {string} inputProSequence - input protein sequence value.
 	 **/
 	function proSequenceChange(inputProSequence) {
     setInputValue({ proSequence: inputProSequence });
@@ -98,31 +120,77 @@ const BlastSearch = (props) => {
 	}
 
 	/**
-	 * Function to handle onchange event for protein or peptide sequence.
+	 * Function to handle onchange event for protein sequence.
 	 * @param {object} event - event object.
 	 **/
 	const SequenceChange = (event) => {
-		let proSequenceError = event.target.value.length < 20;
+		let proSequenceError = event.target.value.length < blastJSONData.seq.length;
     if (event.target.value.length === 0) {
       setInputValue({ proSequence: event.target.value });
       setBlastError({ proSequenceInput: false });
       setBlastError({ proSeqSearchDisabled: true });
     } else {
       setInputValue({ proSequence: event.target.value });
-      setBlastError({ proSequenceInput: proSequenceError });
+      if (!proSequenceError) {
+        setBlastError({ proSequenceInput: proSequenceError });
+      }
       setBlastError({ proSeqSearchDisabled: proSequenceError });
     }
 	}
 
+	/**
+	 * Function to handle onblur event for protein sequence.
+	 * @param {object} event - event object.
+	 **/
+  const OnBlurSequenceChange = (event) => {
+		let proSequenceError = event.target.value.length < blastJSONData.seq.length;
+    if (event.target.value.length < blastJSONData.seq.length && event.target.value.length !== 0) {
+      setBlastError({ proSequenceInput: proSequenceError });
+    }
+	}
+
+  /**
+	 * Function to clear all field values.
+	 **/
   const clearMapFields = () => {
     setInputValue({
       targetDatabase: "canonicalsequences_all",
-      eValue: "10",
+      eValue: "0.001",
       maxHits: "250",
       proSequence: "",
+      proUniprotAcc: ""
     });
 
     setBlastError({ proSequenceInput: false, proSeqSearchDisabled: true });
+
+  };
+
+  /**
+	 * Function to retrive protein sequence.
+	 **/
+  const retriveSequence = () => {
+    let url = UNIPROT_BASENAME + "uniprot/" + inputValue.proUniprotAcc + ".fasta";
+    getPageData(url)
+    .then((response) => {
+      const blob    = new Blob([response.data], {type: "text/plain"});
+      const reader = new FileReader();
+      reader.readAsText(blob);
+      reader.onload = (event) => {
+        const text = reader.result;
+        let seqArr = text.split("\n");
+        seqArr.splice(0,1);
+        let seqData = seqArr.join("");
+
+        proSequenceChange(seqData);
+      };
+    })
+    .catch(function (error) {
+      let message = " - Failed to retrieve valid Protein Sequence.";
+      logActivity("user", "", "No results. " + inputValue.proUniprotAcc + message);
+      setPageLoading(false);
+      setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchUniProtAccError.id})
+      window.scrollTo(0, 0);
+    });
 
   };
 
@@ -143,7 +211,7 @@ const BlastSearch = (props) => {
         id &&
         getJobDetails(id)
             .then(({ data }) => {
-              logActivity("user", id, "IdMapping modification initiated");
+              logActivity("user", id, "Blast search modification initiated");
               setInputValue({
                 proSequence:
                   data.parameters.seq === undefined
@@ -155,7 +223,7 @@ const BlastSearch = (props) => {
                     : data.parameters.targetdb,
                 eValue:
                 data.parameters.evalue === undefined
-                    ? 10
+                    ? 0.001
                     : data.parameters.evalue,
                 maxHits:
                 data.parameters.max_target_seqs === undefined
@@ -166,36 +234,46 @@ const BlastSearch = (props) => {
               setPageLoading(false);
             })
             .catch(function (error) {
-              let message = "list api call";
+              let message = "job details call";
               axiosError(error, "", message, setPageLoading, setAlertDialogInput);
             });
       })
       .catch(function (error) {
-        let message = "search_init api call";
+        let message = "job init api call";
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   }, [id]);
 
+  /**
+	 * Function to return JSON query.
+   * @param {string} input_proSequence - protein sequence.
+	 * @param {string} input_targetDatabase - target database.
+	 * @param {string} input_eValue - E-value.
+	 * @param {string} input_maxHits - Max number of hits.
+	 **/
   function searchJson(
     input_proSequence,
     input_targetDatabase,
     input_eValue,
     input_maxHits
   ) {
-
+    
       var formJson = {
-          "jobtype": "blastp",
+          [commonBlastSearchData.jobtype.id]: "blastp",
           "parameters": {
-            "seq": input_proSequence,
-            "targetdb": input_targetDatabase,
-            "evalue": parseFloat(input_eValue),
-            "max_target_seqs": parseInt(input_maxHits),
+            [commonBlastSearchData.seq.id]: input_proSequence,
+            [commonBlastSearchData.targetdb.id]: input_targetDatabase,
+            [commonBlastSearchData.evalue.id]: parseFloat(input_eValue),
+            [commonBlastSearchData.max_target_seqs.id]: parseInt(input_maxHits),
           }
     };
 
     return formJson;
   }
 
+  /**
+	 * Function to handle blast search submit.
+	 **/
   const blastSearchSubmit = () => {
 
     let formObject = searchJson(
@@ -241,9 +319,12 @@ const BlastSearch = (props) => {
       });
   };
 
-  const blastSearchJobStatus = (jobID) => {
 
-    logActivity("user", id, "Performing Blast Search");
+  /**
+	 * Function to handle blast search job status.
+   * @param {string} jobID - job id.
+	 **/
+  const blastSearchJobStatus = (jobID) => {
     let message = "Blast Search query=" + JSON.stringify(jobID);
     getJobStatus(jobID)
       .then((response) => {
@@ -294,10 +375,9 @@ const BlastSearch = (props) => {
       </Helmet>
       <div className="content-box-md">
         <div className="horizontal-heading text-center">
-          <h5>{idMappingData.pageSubtitle}</h5>
+          <h5>{blastSearchData.pageSubtitle}</h5>
           <h2>
-            {/* {idMappingData.pageTitle} <strong>{idMappingData.pageTitleBold}</strong> */}
-            {idMappingData.pageTitle} <strong>{"Blast"}</strong>
+            {blastSearchData.pageTitle} <strong>{blastSearchData.pageTitleBold}</strong>
           </h2>
         </div>
       </div>
@@ -310,8 +390,47 @@ const BlastSearch = (props) => {
           }}
         />
         <TextAlert alertInput={alertTextInput} />
-
-        {/* 1. Protein or Peptide Sequence */}
+        {/* 3 Threshold */}
+        <Grid container className="select-type">
+          {/* input_namespace From ID Type */}
+          <Grid item xs={12} sm={12} md={9} className="pt-3">
+            <FormControl
+              fullWidth
+              variant="outlined"
+            >
+              <Typography className={"search-lbl"} gutterBottom>
+                <HelpTooltip
+                  title={commonBlastSearchData.uniprot_canonical_ac.tooltip.title}
+                  text={commonBlastSearchData.uniprot_canonical_ac.tooltip.text}
+                />
+                {commonBlastSearchData.uniprot_canonical_ac.name}
+              </Typography>
+              <OutlinedInput
+                fullWidth
+                margin='dense'
+                value={inputValue.proUniprotAcc}
+                placeholder={blastJSONData.uniprot_canonical_ac.placeholder}
+                onChange={(event) => { proUniprotAccOnChange(event) }}
+                />
+              <ExampleExploreControl
+                setInputValue={proUniprotAccChange}
+                inputValue={blastJSONData.uniprot_canonical_ac.examples}
+						  />
+            </FormControl>
+          </Grid>
+          {/* output_namespace To ID Type */}
+          <Grid item xs={12} sm={12} md={3} className="pt-3">
+            <Typography className={"search-lbl"} gutterBottom>
+              &nbsp;
+            </Typography>
+            <Row className="gg-align-right">
+              <Button className="gg-btn-blue ml-3 mr-3" onClick={retriveSequence} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
+                Retrive Sequence
+              </Button>
+            </Row>
+          </Grid>
+        </Grid>
+        {/* 1. Protein Sequence */}
 				<Grid item  xs={12} sm={12} md={12}>
 					<FormControl
 						fullWidth
@@ -319,47 +438,37 @@ const BlastSearch = (props) => {
 					>
 						<Typography className={'search-lbl'} gutterBottom>
 							<HelpTooltip
-                title={initData && initData.length > 0 && initData.find((a) => a.id === "seq").label}
-                text={commonProteinData.sequence.tooltip.text}
-                urlText={commonProteinData.sequence.tooltip.urlText}
-                url={commonProteinData.sequence.tooltip.url}
+                title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label}
+                text={commonBlastSearchData.seq.tooltip.text}
+                urlText={commonBlastSearchData.seq.tooltip.urlText}
+                url={commonBlastSearchData.seq.tooltip.url}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === "seq").label + " *"}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label + " *"}
 						</Typography>
 						<OutlinedInput
-              placeholder={advancedSearch.sequence.placeholder}
+              placeholder={blastJSONData.seq.placeholder}
 							margin='dense"'
 							multiline
 							rows={5}
               value={inputValue.proSequence}
               onChange={SequenceChange}
+              onBlur={OnBlurSequenceChange}
               error={blastError.proSequenceInput}
 						/>
 						{blastError.proSequenceInput && (
 							<FormHelperText className={"error-text"} error>
-								{"Entry is too short - min length is 20."}
+								{blastJSONData.seq.errorText}
 							</FormHelperText>
 						)}
-            <ExampleExploreControl
+            <ExampleControl2
 							setInputValue={proSequenceChange}
-							inputValue={[
-                {
-                  "orderID": 100,
-                  "example": {
-                    "name": "Example",
-                    "id": "MSIQENISSLQLRSWVSKSQ"
-                  },
-                  "explore": {
-                    "id": "Peptide Sequence",
-                    "url": "https://www.uniprot.org/help/sequences"
-                  }
-                }
-              ]}
+              type={blastJSONData.seq.exampleType}
+							exampleMap={blastJSONData.seq.examples}
 						/>
 					</FormControl>
 				</Grid>
 
-        {/* 2 Threshold */}
+        {/* targetdb */}
         <Grid item xs={12} sm={12} md={12}>
           <FormControl
             fullWidth
@@ -367,23 +476,20 @@ const BlastSearch = (props) => {
           >
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
-                // title={commonIdMappingData.recordtype.tooltip.title}
-                title={initData && initData.length > 0 && initData.find((a) => a.id === "targetdb").label}
-                text={commonIdMappingData.recordtype.tooltip.text}
+                title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label}
+                text={commonBlastSearchData.targetdb.tooltip.text}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === "targetdb").label}
-              {/* {commonIdMappingData.recordtype.name} */}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label + " *"}
             </Typography>
             <SelectControl
               inputValue={inputValue.targetDatabase}
               setInputValue={targetDatabaseOnChange}
-              menu={initData && initData.length > 0 && initData.find((a) => a.id === "targetdb").optlist.map(item => {return {name : item.label, id : item.value}})
-            }
+              menu={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).optlist.map(item => {return {name : item.label, id : item.value}})}
               required={true}
             />
           </FormControl>
         </Grid>
-        {/* 3 Threshold */}
+        {/* evalue */}
         <Grid container className="select-type">
           {/* input_namespace From ID Type */}
           <Grid item xs={12} sm={12} md={5} className="pt-3">
@@ -393,12 +499,10 @@ const BlastSearch = (props) => {
             >
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
-                  title={initData && initData.length > 0 && initData.find((a) => a.id === "evalue").label}
-                  // title={commonIdMappingData.input_namespace.tooltip.title}
-                  text={commonIdMappingData.input_namespace.tooltip.text}
+                  title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label}
+                  text={commonBlastSearchData.evalue.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === "evalue").label}
-                {/* {commonIdMappingData.input_namespace.name} */}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label + " *"}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -418,25 +522,21 @@ const BlastSearch = (props) => {
                   }
                 }}
                 inputProps={{
-                  step: 0.0001,
-                  // min: sitesData.patternPosition.min,
-                  // max: sitesData.patternPosition.max,
-                  min: 0.0001,
+                  step: blastJSONData.evalue.step,
+                  min: blastJSONData.evalue.min,
                   type: "number",
                 }}
                 />
             </FormControl>
           </Grid>
-          {/* output_namespace To ID Type */}
+          {/* max_target_seqs */}
           <Grid item xs={12} sm={12} md={5} className="pt-3">
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
-                    title={initData && initData.length > 0 && initData.find((a) => a.id === "max_target_seqs").label}
-                  // title={commonIdMappingData.output_namespace.tooltip.title}
-                  text={commonIdMappingData.output_namespace.tooltip.text}
+                  title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.max_target_seqs.id).label}
+                  text={commonBlastSearchData.max_target_seqs.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === "max_target_seqs").label}
-                {/* {commonIdMappingData.output_namespace.name} */}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.max_target_seqs.id).label + " *"}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -447,19 +547,17 @@ const BlastSearch = (props) => {
                   let maxHits = inputValue.maxHits;
                   if (maxHits !== ""){
                     maxHits = parseInt(maxHits);
-                    maxHits = Math.min(maxHits, 500);
-                    maxHits = Math.max(maxHits, 1);
+                    maxHits = Math.min(maxHits, blastJSONData.max_target_seqs.max);
+                    maxHits = Math.max(maxHits, blastJSONData.max_target_seqs.min);
                     setInputValue({ maxHits: maxHits });
                   } else {
-                    setInputValue({ maxHits: 1 });
+                    setInputValue({ maxHits: blastJSONData.max_target_seqs.min });
                   }
                 }}
                 inputProps={{
-                  step: 1,
-                  // min: sitesData.patternPosition.min,
-                  // max: sitesData.patternPosition.max,
-                  min: 1,
-                  max: 500,
+                  step: blastJSONData.max_target_seqs.step,
+                  min: blastJSONData.max_target_seqs.min,
+                  max: blastJSONData.max_target_seqs.max,
                   type: "number",
                 }}
                 />

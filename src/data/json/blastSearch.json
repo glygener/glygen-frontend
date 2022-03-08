@@ -1,0 +1,49 @@
+{
+  "pageSubtitle": "Our Tool",
+  "pageTitle": "GlyGen",
+	"pageTitleBold": "Blast",
+  "blast_search": {
+    "uniprot_canonical_ac": {
+      "placeholder": "Enter a UniProtKB Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          }
+        }
+      ],
+      "id": "uniprot_canonical_ac"
+    },
+    "seq": {
+      "placeholder": "MSIQENISSLQLRSWVSKSQRDLAKSILIGAPGGPAGYLRRASVAQLTQELGTAFFQQQQLPAAMADTFLEHLCLLDIDSEPVAARSTSIIATIGPASRSVERLKEMIKAGMNIARLNFSQHAIAREAEAAVYHRQLFEELRRAAPLSRDPTEVTAIGAVEAAFKCCAAAIIVLTTTGRS",
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleType": "proteinSequence",
+      "examples": {
+        "proteinSequence": {
+          "examples": [
+            "MSIQENISSLQLRSWVSKSQRDLAKSILIGAPGGPAGYLRRASVAQLTQELGTAFFQQQQLPAAMADTFLEHLCLLDIDSEPVAARSTSIIATIGPASRSVERLKEMIKAGMNIARLNFSQHAIAREAEAAVYHRQLFEELRRAAPLSRDPTEVTAIGAVEAAFKCCAAAIIVLTTTGRS"
+          ],
+          "name": "Protein Sequence Example"
+        }
+      },
+      "id": "seq"
+    },
+    "evalue": {
+      "step": 0.0001,
+      "min": 0.0001,
+      "id": "evalue"
+    },
+    "targetdb": {
+      "id": "targetdb"
+    },
+    "max_target_seqs": {
+      "min": 1,
+      "step": 1,
+      "max": 500,
+      "id": "max_target_seqs"
+    }
+  }
+}

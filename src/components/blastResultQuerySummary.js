@@ -38,7 +38,7 @@ function getDateTime() {
 
 const BlastResultQuerySummary = (props) => {
   const title = "GlyGen Blast Summary";
-  const { onModifySearch, jobtype, parameters, timestamp, totalSize, totalSizeUnmap, data } = props;
+  const { onModifySearch, jobtype, parameters, timestamp, data } = props;
 
   const executionTime = timestamp ? getDateTime(timestamp) : "";
 

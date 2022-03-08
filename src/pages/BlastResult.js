@@ -3,11 +3,9 @@ import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getMappingList } from "../data/mapping";
 import { getJobResultList } from "../data/job.js"
 import PaginatedTable from "../components/PaginatedTable";
 import Container from "@material-ui/core/Container";
-import DownloadButton from "../components/DownloadButton";
 import FeedbackWidget from "../components/FeedbackWidget";
 import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
@@ -15,19 +13,15 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import Button from "react-bootstrap/Button";
 import routeConstants from "../data/json/routeConstants";
-import idMappingData from "../data/json/idMapping";
 import stringConstants from "../data/json/stringConstants";
-import BlastResultQuerySummary from "../components/blastResultQuerySummary";
-import DownloadAllButton from "../components/DownloadAllButton";
+import BlastResultQuerySummary from "../components/BlastResultQuerySummary";
 import { Link } from "react-router-dom";
 import { Tab, Tabs } from 'react-bootstrap';
 import LineTooltip from "../components/tooltip/LineTooltip";
-import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import MultiProteinAlignment from "../components/sequence/MultiProteinAlignment";
 import doubleArraowIcon from "../images/icons/doubleArrowIcon.svg";
 import Image from "react-bootstrap/Image";
 import GetAppIcon from "@material-ui/icons/GetApp";
-
 import { downloadFile } from "../utils/download.js"
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
@@ -39,17 +33,15 @@ const createSorter = (sortField, sortOrder) => (a, b) => {
   return 0;
 };
 
+const blastSearch = stringConstants.blast_search.common;
+
 
 const BlastResult = (props) => {
   let { jobId } = useParams();
   const [subjectData, setSubjectData] = useState({});
-  const [legends, setLegends] = useState([]);
-  const [pagination, setPagination] = useState([]);
   const [query, setQuery] = useState({});
   const [text, setText] = useState({});
   const [timestamp, setTimeStamp] = useState();
-  const [totalSize, setTotalSize] = useState();
-  const [totalSizeUnmap, setTotalSizeUnmap] = useState();
   const [proteinID, setProteinID] = useState("");
   const [blstActTabKey, setBlstActTabKey] = useState('Description');
 
@@ -96,7 +88,7 @@ const BlastResult = (props) => {
               return data.by_subject[protID].hsp_list.map((obj) => {
                 let seqObj = obj.sequences.find((seq)=> seq.id === protID);
               return {
-                "evalue": obj.evalue,
+                "evalue": parseFloat(obj.evalue),
                 "score": obj.score,
                 "gaps": obj.gaps,
                 "positives": obj.positives,
@@ -104,8 +96,11 @@ const BlastResult = (props) => {
                 "method": obj.method,
                 "uniprot_ac": seqObj.uniprot_ac,
                 "uniprot_id": seqObj.uniprot_id,
+                "protein_name": data.by_subject[protID].details.protein_name,
                 "tax_name": seqObj.tax_name,
                 "tax_id": seqObj.tax_id,
+                "start_pos": seqObj.start_pos,
+                "end_pos": seqObj.end_pos,
               }
             })
           });
@@ -149,23 +144,12 @@ const BlastResult = (props) => {
       setProteinID(value);
     };
 
-  const idMapResultColumns = [
+  const blastResultColumns = [
     {
       dataField: "uniprot_ac",
-      text: "UniProtKB Accession",
+      text: blastSearch.uniprot_canonical_ac.name,
       sort: true,
       selected: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.from}
-            {sortElement}
-          </div>
-        );
-      },
       formatter: (value, row) => (
         <>
         <LineTooltip text="View details">
@@ -185,132 +169,60 @@ const BlastResult = (props) => {
       )
     },
     {
-      dataField: "uniprot_id",
-      text: "UniProtKB ID",
+      dataField: "start_pos",
+      text: "Position (Start - End)",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.anchor}
-            {sortElement}
-          </div>
-        );
-      },
+      selected: true,
+      formatter: (value, row) => (
+        <>
+          {row.start_pos + "-" + row.end_pos}
+        </>
+      )
+    },
+    {
+      dataField: "uniprot_id",
+      text: blastSearch.uniprot_id.name,
+      sort: true,
+    },
+    {
+      dataField: "protein_name",
+      text: blastSearch.uniprot_name.name,
+      sort: true,
     },
     {
       dataField: "tax_name",
       text: "Organism",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "positives",
       text: "Positives",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "identities",
       text: "Identities",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "method",
       text: "Method",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "evalue",
-      text: "E-value",
+      text: blastSearch.evalue.name,
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "score",
-      text: "Score",
+      text: blastSearch.score.name,
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
     {
       dataField: "gaps",
       text: "Gaps",
       sort: true,
-      // headerStyle: (colum, colIndex) => {
-      //   return { width: "33%" };
-      // },
-      headerFormatter: (column, colIndex, { sortElement }) => {
-        return (
-          <div>
-            {column.text} {legends.to}
-            {sortElement}
-          </div>
-        );
-      },
     },
   ];
 
@@ -335,8 +247,6 @@ const BlastResult = (props) => {
           {query && (
             <BlastResultQuerySummary
               data={query}
-              totalSize={totalSize}
-              totalSizeUnmap={totalSizeUnmap}
               timestamp={timestamp}
               onModifySearch={handleModifySearch}
             />
@@ -344,81 +254,55 @@ const BlastResult = (props) => {
         </section>
 
         <Tabs
-						defaultActiveKey='Description'
-						transition={false}
-						activeKey={blstActTabKey}
-						mountOnEnter={true}
-						unmountOnExit={true}
-						onSelect={(key) => setBlstActTabKey(key)}
-            >
+          defaultActiveKey='Description'
+          transition={false}
+          activeKey={blstActTabKey}
+          mountOnEnter={true}
+          unmountOnExit={true}
+          onSelect={(key) => setBlstActTabKey(key)}
+          >
 						<Tab
 							eventKey='Description'
 							className='tab-content-padding'
               title={"Description"}
 							// title={simpleSearch.tabTitle}
             >
-
-        <div id="Mapped-Table"></div>
-        {/* <DownloadButton
-          types={[
-            {
-              display: stringConstants.download.idmapping_mapped_csvdata.displayname,
-              type: "csv",
-              data: "idmapping_list_mapped",
-            },
-          ]}
-          dataId={jobId}
-          itemType="idMappingMapped"
-        /> */}
-
-        <section>
-          {/* Mapped Table */}
-          {idMapResultColumns && idMapResultColumns.length !== 0 && (
-            <div style={{padding:20, content:'center'}}
-            >
-            <PaginatedTable
-                data={pageContents}
-                columns={idMapResultColumns}
-                page={page}
-                sizePerPage={sizePerPage}
-                totalSize={data.length}
-                onTableChange={handleTableChange}
-                defaultSortField={currentSort}
-                defaultSortOrder={currentSortOrder}
-                wrapperClasses="table-responsive table-height"
-                noDataIndication={"No data available."}
-              />
-              {/* <ClientPaginatedTable
-                data={data}
-                columns={idMapResultColumns}
-                defaultSortField={"uniprot_ac"}
-                defaultSortOrder="asc"
-                noDataIndication={"No data available."}
-              /> */}
-            </div>
-          )}
-        </section>
-
-        </Tab>
-						<Tab
-							eventKey='Alignments'
-							title={"Alignments"}
-							className='tab-content-padding'>
-
-          {subjectData && <MultiProteinAlignment 
-                  algnData={subjectData} 
-                  proteinID={proteinID}
-                  proteinIDChange={proteinIDChange}
-                  ></MultiProteinAlignment>}
-
+            <section>
+              {blastResultColumns && blastResultColumns.length !== 0 && (
+                <div style={{padding:20, content:'center'}}>
+                  <PaginatedTable
+                      data={pageContents}
+                      columns={blastResultColumns}
+                      page={page}
+                      sizePerPage={sizePerPage}
+                      totalSize={data.length}
+                      onTableChange={handleTableChange}
+                      defaultSortField={currentSort}
+                      defaultSortOrder={currentSortOrder}
+                      wrapperClasses="table-responsive table-height"
+                      noDataIndication={"No data available."}
+                    />
+                </div>
+              )}
+            </section>
           </Tab>
-				<Tab
-            eventKey='Text-View'
-            title={"Text View"}
+        <Tab
+            eventKey='Alignments'
+            title={"Alignments"}
             className='tab-content-padding'>
+          {subjectData && <MultiProteinAlignment 
+            algnData={subjectData} 
+            proteinID={proteinID}
+            proteinIDChange={proteinIDChange}
+            />}
+        </Tab>
+				<Tab
+          eventKey='Text-View'
+          title={"Text View"}
+          className='tab-content-padding'>
             <div id="contents" class = "gf-content-div">
               <div style={{padding:20, content:'center'}}>
-                {/* <div style={{paddingLeft:20, paddingRight:80, float: 'right'}}>
+                <div style={{paddingLeft:20, paddingRight:80, float: 'right'}}>
                   <Button
                     className={"lnk-btn"}
                     variant="link"
@@ -431,11 +315,10 @@ const BlastResult = (props) => {
                       <GetAppIcon /> Download
                     </div>
                   </Button>
-                </div> */}
-                  <div 
-                      style={{overflow: 'scroll', paddingRight:40, content:'center', maxHeight: '600px' }}
-                  >
-                      <div><pre>{text}</pre></div>
+                </div>
+                <div 
+                  style={{overflow: 'scroll', paddingRight:40, content:'center', maxHeight: '600px' }}>
+                    <div><pre>{text}</pre></div>
                   </div>
               </div>
             </div>

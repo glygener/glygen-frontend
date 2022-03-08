@@ -77,4 +77,11 @@ export const postToAndGetBlob = (url, headers = {}) => {
   return axios(options);
 };
 
+export const getPageData = (url, headers = {}) => {
+  return axios.get(url, {
+    responseType: 'blob',
+    headers
+  });
+};
+
 export const glycanImageUrl = GLYGEN_API + "/glycan/image/";

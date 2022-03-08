@@ -51,7 +51,7 @@ const RowHighlight = ({ rowData, type, selectedHighlights }) => {
  * creating row
  * @param {object} input props
  */
-const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, selectedHighlights, multiSequence, tax_name, consensus, header, offset }) => {
+const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, selectedHighlights, multiSequence, tax_name, consensus, header, end }) => {
   
   const space = "           ";
   const space1 = "       ";
@@ -67,13 +67,13 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
           <span></span>
         </>}
       
-        {start === 0 && <>
+        {!multiSequence && start === 0 && <>
           <span></span>
           <span><pre className="sequencePreClass">
           {space}+10{space1} +20{space1} +30{space1} +40 {space1}+50{space1}
           </pre></span> </>}
 
-          {start === 1 && <>
+          {!multiSequence && start === 1 && <>
           <span></span>
           <span>
           <pre className="sequencePreClass">
@@ -91,7 +91,7 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
           {clickThruUrl ? (<a href={clickThruUrl ? clickThruUrl : "#"}>{uniprot_ac}</a>): <>{uniprot_ac}</> }
         </span>}
         {multiSequence && <span className="aln-line-header">{uniprot_id}</span>}
-        <span className="highlight-line-number aln-line-header">{(start === -1 ? ("  ") : (start + 1 + offset))}</span>
+        <span className="highlight-line-number aln-line-header">{(start === -1 ? ("  ") : (start))}</span>
 
         <span className="highlight-section">
           <span
@@ -139,7 +139,7 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
             </>
           )}
         </span>
-        {multiSequence && <span className="highlight-line-number aln-line-header">{(start === -1 ? ('\xa0') : (start + 60 + offset))}</span>}
+        {multiSequence && <span className="highlight-line-number aln-line-header">{(start === -1 ? ('\xa0') : (end))}</span>}
       </>}
     </div>
   );
@@ -170,20 +170,27 @@ const sliceBy = (array, size) => {
 const sliceRowBlock = (sequences, size) => {
   var maxSequenceLength = findMaxSequenceLength(sequences);
   const result = [];
+  let endCount = [];
   for (let x = 0; x < maxSequenceLength; x += size) {
     for (let y = 0; y < sequences.length; y++) {
-
       if (sequences[y].consensus) {
-        result.push({consensus : sequences[y].consensus, clickThruUrl : "", uniprot_id : "", uniprot_ac: "", index : -1, seq : sequences[y].seq.slice(x, x + size)});
+        result.push({consensus : sequences[y].consensus, clickThruUrl : "", uniprot_id : "", uniprot_ac: "", start : -1, seq : sequences[y].seq.slice(x, x + size)});
       } else {
+        let seq = sequences[y].seq.slice(x, x + size);
+        let count = seq.filter(val => val.character === "-").length;
+        let offset = sequences[y].offset ? sequences[y].offset : 0;
+        endCount[y] = endCount[y] !== undefined ? endCount[y] : offset;
+        let start = endCount[y] + (seq.length - count === 0 ? 0 : 1);
+        let end = start + seq.length - count + (seq.length - count === 0 ? 0 : -1);
+        endCount[y] = end;
         result.push({consensus : sequences[y].consensus, uniprot_id : sequences[y].uniprot_id, 
-          uniprot_ac: sequences[y].uniprot_ac, clickThruUrl : sequences[y].clickThruUrl, index : x, tax_name : sequences[y].tax_name,
-          seq : sequences[y].seq.slice(x, x + size), offset: sequences[y].offset ? sequences[y].offset : 0});
+          uniprot_ac: sequences[y].uniprot_ac, clickThruUrl : sequences[y].clickThruUrl, start : start, tax_name : sequences[y].tax_name,
+          seq : sequences[y].seq.slice(x, x + size), end: end});
       }
     }
 
     if (sequences.length > 1)
-      result.push({consensus : false, uniprot_id : "", uniprot_ac: "", index : -1, seq : []});
+      result.push({consensus : false, uniprot_id : "", uniprot_ac: "", start : -1, seq : []});
   }
   return result;
 };
@@ -225,17 +232,17 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
     if (sequenceData ) {
       const rows = sliceRowBlock(sequenceData, perLine);
       const byChunks = rows.map((row) => {return {uniprot_id : row.uniprot_id, uniprot_ac : row.uniprot_ac, 
-        index: row.index, seq: sliceBy(row.seq, SEQUENCE_ROW_RUN_LENGTH),
-        tax_name: row.tax_name, consensus : row.consensus, clickThruUrl: row.clickThruUrl, offset : row.offset}});
+        start: row.start, seq: sliceBy(row.seq, SEQUENCE_ROW_RUN_LENGTH),
+        tax_name: row.tax_name, consensus : row.consensus, clickThruUrl: row.clickThruUrl, end : row.end}});
       const reducedToRows = byChunks.map((row) =>
        {return {
-        index : row.index, 
+        start : row.start, 
         uniprot_id : row.uniprot_id,
         uniprot_ac : row.uniprot_ac,
         tax_name : row.tax_name,
         consensus : row.consensus,
         clickThruUrl : row.clickThruUrl,
-        offset : row.offset,
+        end : row.end,
         seq: row.seq.reduce(
           (all, chunk) => [
             ...all,
@@ -280,10 +287,10 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           uniprot_id={row.uniprot_id}
           uniprot_ac={row.uniprot_ac}
           clickThruUrl={row.clickThruUrl}
-          offset={row.offset}
+          end={row.end}
           tax_name={row.tax_name}
           rowData={row.seq}
-          start={row.index}
+          start={row.start}
           selectedHighlights={selectedHighlights}
         />
     </>

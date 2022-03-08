@@ -79,7 +79,6 @@ function buildHighlightData(sequences, consensus) {
         var searchTextArr = searchTextHighlights[uniprot_ac];
 
         var offset = sequences[y].offset ? sequences[y].offset : 0;
-        //alert(offset);
         var count = 0;
         for (var x = 0; x < sequence.length; x++) {
           if (sequence[x] === '-'){
