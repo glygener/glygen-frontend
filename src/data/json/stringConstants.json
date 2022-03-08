@@ -1453,10 +1453,10 @@
         },
         "id": "uniprot_canonical_ac"
       },
-      "uniprot_name": {
-        "name": "UniProtKB Name",
-        "shortName": "UniProtKB Name",
-        "id": "uniprot_name"
+      "protein_name": {
+        "name": "Protein Name",
+        "shortName": "Protein Name",
+        "id": "protein_name"
       },
       "score": {
         "name": "Score",

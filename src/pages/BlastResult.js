@@ -186,7 +186,7 @@ const BlastResult = (props) => {
     },
     {
       dataField: "protein_name",
-      text: blastSearch.uniprot_name.name,
+      text: blastSearch.protein_name.name,
       sort: true,
     },
     {

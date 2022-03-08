@@ -37,10 +37,11 @@ function getDateTime() {
 }
 
 const BlastResultQuerySummary = (props) => {
-  const title = "GlyGen Blast Summary";
+  const title = "GlyGen BLAST Summary";
   const { onModifySearch, jobtype, parameters, timestamp, data } = props;
 
-  const executionTime = timestamp ? getDateTime(timestamp) : "";
+  // const executionTime = timestamp ? getDateTime(timestamp) : "";
+  const executionTime = getDateTime(timestamp);
 
   return (
     <>
@@ -49,9 +50,9 @@ const BlastResultQuerySummary = (props) => {
           {title}
         </Card.Header>
         <Card.Body>
-          {/* <Card.Text>
+          <Card.Text>
             <strong>Performed on: {executionTime}</strong>
-          </Card.Text> */}
+          </Card.Text>
           {data && (<><Row className="summary-table-col">
             <Col align="right" xs={6} sm={6} md={6} lg={6}>
               Job Type:

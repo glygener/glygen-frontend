@@ -181,7 +181,7 @@ export default function Header(props) {
                   GlyGen Mapper
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.blastSearch}>
-                  Glygen Blast 
+                  GlyGen BLAST 
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box

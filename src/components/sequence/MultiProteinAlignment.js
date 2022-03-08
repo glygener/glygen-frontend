@@ -149,7 +149,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
               </LineTooltip>} {"(" + multiSeque.start_pos + " : " + multiSeque.end_pos +")"}
             </div>
             <div>
-              <strong>{blastSearch.uniprot_name.name}: </strong>{" "}
+              <strong>{blastSearch.protein_name.name}: </strong>{" "}
               {multiSeque.protein_name}
             </div>
             <div>

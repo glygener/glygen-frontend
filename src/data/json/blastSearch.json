@@ -1,7 +1,7 @@
 {
   "pageSubtitle": "Our Tool",
   "pageTitle": "GlyGen",
-	"pageTitleBold": "Blast",
+	"pageTitleBold": "BLAST",
   "blast_search": {
     "uniprot_canonical_ac": {
       "placeholder": "Enter a UniProtKB Accession",
