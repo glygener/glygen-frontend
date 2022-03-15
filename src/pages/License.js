@@ -96,10 +96,10 @@ const License = () => {
                 <VerticalHeading post={vertHeadDisclaimer} />
               </Col>
               <Col className="content-box-md" style={{ display: "flex", verticalAlign: "middle" }}>
-                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
+                <a href={"https://www.gnu.org/licenses/gpl-3.0.en.html"} target="_blank" rel="noopener noreferrer">
                   <Image src={gplLicenseIcon} className={classes.licenseIcons} />
                 </a>
-                <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
+                <a href={"https://creativecommons.org/licenses/by/4.0/"} target="_blank" rel="noopener noreferrer">
                   <Image src={creativecommonsLicenseIcon} className={classes.licenseIcons} />
                 </a>
               </Col>
