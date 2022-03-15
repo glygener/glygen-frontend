@@ -99,7 +99,7 @@ const StructureSearchControl = (props) => {
     props.setInputValue({
       seqType: "GlycoCT",
       glySequence: "",
-      restrictTo: "none"
+      restrictTo: "substructure"
     });
 
     setStructError({ glySequenceInput: false, glySeqSearchDisabled: true });
