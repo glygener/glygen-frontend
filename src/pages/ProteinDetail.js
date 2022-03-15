@@ -592,7 +592,7 @@ const ProteinDetail = (props) => {
 
   const uniprotNames = (protein_names || [])
     .filter((x) => x.type === "recommended")
-    .map((x) => x.name);
+    .map((x) => x.name).join(", ");
 
   const clusterType = (cluster_types || []).filter((x) => x.name !== "isoformset.uniprotkb");
 
