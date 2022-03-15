@@ -11,6 +11,7 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 const glycanStrings = stringConstants.glycan.common;
 const advancedSearch = glycanSearchData.advanced_search;
 const superSearchStrings = stringConstants.super_search.common;
+const subStructureSearch = glycanSearchData.substructure_search;
 
 function getDateTime() {
   var now = new Date();
@@ -41,7 +42,7 @@ function getDateTime() {
 const GlycanQuerySummary = (props) => {
   const title = "Glycan Search Summary";
 
-  const { data, onModifySearch, timestamp, searchId, dataUnmap } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap, parameters } = props;
 
   const executionTime = timestamp ? getDateTime(timestamp) : "";
   const {
@@ -119,6 +120,44 @@ const GlycanQuerySummary = (props) => {
                     </Col>
                   </Row>
                 ))}
+                
+              {/* JOB  */}
+              {parameters && parameters.align && (
+                <Row className="summary-table-col" sm={12}>
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {glycanStrings.jobtype.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {parameters.align === "wholeglycan" ? "Structure Search" : "Substructure Search" }
+                  </Col>
+                </Row>
+              )}
+
+              {/* Glycan sequence */}
+              {parameters && parameters.seq && (
+                <Row className="summary-table-col" sm={12}>
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {glycanStrings.seq.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {parameters === undefined ? "" : data.parameters.seq.length > 200 ? 
+                      parameters.seq.substring(0, 200) + "..." : data.parameters.seq
+                    }
+                  </Col>
+                </Row>
+              )}
+
+              {/* Glycan sequence align */}
+              {parameters && parameters.align && parameters.align !== "wholeglycan" && (
+                <Row className="summary-table-col" sm={12}>
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {glycanStrings.align.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {subStructureSearch.align[parameters.align] ? subStructureSearch.align[parameters.align].name : parameters.align}
+                  </Col>
+                </Row>
+              )}
 
               {/* glycan id */}
               {glycan_identifier && (

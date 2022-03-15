@@ -30,6 +30,7 @@ const GlycanList = props => {
   const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
+  const [parameters, setParameters] = useState(undefined);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
   const [appliedFilters, setAppliedFilters] = useState([]);
@@ -103,6 +104,7 @@ const GlycanList = props => {
                 : "";
           }
           setQuery(fixResidueToShortNames(data.cache_info.query));
+          setParameters(data.cache_info.query.parameters);
           setTimeStamp(data.cache_info.ts);
           setPagination(data.pagination);
           setAvailableFilters(data.filters.available);
@@ -283,6 +285,7 @@ const GlycanList = props => {
             <section className="content-box-md">
               <GlycanQuerySummary
                 data={query}
+                parameters={parameters}
                 question={quickSearch[searchId]}
                 searchId={searchId}
                 timestamp={timestamp}

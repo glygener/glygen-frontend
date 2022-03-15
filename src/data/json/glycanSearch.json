@@ -886,5 +886,70 @@
         "id": "other"
       }
     }
+  },
+  "structure_search": {
+    "tabTitle": "Structure Search",
+    "seq_type": {
+      "menu": [{"name" : "GlycoCT", "id" : "GlycoCT"}, {"name" : "WURCS", "id" : "WURCS"}]
+    },
+    "seq": {
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleMap":  {
+        "GlycoCT": {
+          "examples": [
+            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n d2:1o(3+1)3d"
+          ],
+          "name": "GlycoCT Example",
+          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n d2:1o(3+1)3d"
+        },
+        "WURCS": { 
+          "examples": [
+            "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
+          ],
+          "name": "WURCS Example",
+          "placeholder": "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
+        }}
+    }
+  },
+  "substructure_search": {
+    "tabTitle": "Substructure Search",
+    "seq_type": {
+      "menu": [{"name" : "GlycoCT", "id" : "GlycoCT"}, {"name" : "WURCS", "id" : "WURCS"}]
+    },
+    "seq": {
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleMap":  {
+        "GlycoCT": {
+          "examples": [
+            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n d2:1o(3+1)3d"
+          ],
+          "name": "GlycoCT Example",
+          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n d2:1o(3+1)3d"
+        },
+        "WURCS": { 
+          "examples": [
+            "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
+          ],
+          "name": "WURCS Example",
+          "placeholder": "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
+        }
+      }
+    },
+    "align": {
+      "substructure": {
+        "id": "substructure",
+        "name": "None"
+      },
+      "core": {
+        "id": "core",
+        "name": "Reducing End"
+      },
+      "nonreducingend": {
+        "id": "nonreducingend",
+        "name": "Terminal"
+      }
+    }
   }
 }

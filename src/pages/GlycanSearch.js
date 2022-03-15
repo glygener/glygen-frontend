@@ -20,6 +20,7 @@ import {logActivity} from '../data/logging';
 import {axiosError} from '../data/axiosError';
 import { getGlycanSearch, getGlycanSimpleSearch,  getGlycanList, getGlycanInit} from '../data/glycan';
 import FeedbackWidget from "../components/FeedbackWidget";
+import { getJobInit, postNewJob, getJobStatus, getJobDetails, getJobResultList } from "../data/job";
 
 /**
  * Glycan search component for showing glycan search tabs.
@@ -88,6 +89,23 @@ const GlycanSearch = (props) => {
 		{show: false, id: ""}
 	);
 	const [compSearchDisabled, setCompSearchDisabled] = useState(true);
+
+	const [structSearchData, setStructSearchData] = useReducer(
+		(state, newState) => ({ ...state, ...newState }),
+		{
+		  seqType: "GlycoCT",
+		  glySequence: "",
+		}
+	  );
+
+	const [subStructSearchData, setSubStructSearchData] = useReducer(
+		(state, newState) => ({ ...state, ...newState }),
+		{
+		  seqType: "GlycoCT",
+		  glySequence: "",
+		  restrictTo: "substructure",
+		}
+	  );
 
 	let simpleSearch = glycanSearchData.simple_search;
 	let advancedSearch = glycanSearchData.advanced_search;
@@ -512,6 +530,22 @@ const GlycanSearch = (props) => {
 						setGlyCompData(queryCompData);
 						setCompSearchDisabled(false);
 						setGlyActTabKey("Composition-Search");
+						setPageLoading(false);
+					} else if (data.cache_info.search_type === glycanData.structure_search.query_type.name) {
+						if (data.cache_info.query.parameters && data.cache_info.query.parameters.align === "wholeglycan") {
+							setStructSearchData({
+								seqType: data.cache_info.query.parameters.seq && data.cache_info.query.parameters.seq.startsWith("WURCS") ? "WURCS" : "GlycoCT",
+								glySequence: data.cache_info.query.parameters.seq ? data.cache_info.query.parameters.seq : ''
+							});
+							setGlyActTabKey("Structure-Search");
+						} else if (data.cache_info.query.parameters) {
+							setSubStructSearchData({
+								seqType: data.cache_info.query.parameters.seq && data.cache_info.query.parameters.seq.startsWith("WURCS") ? "WURCS" : "GlycoCT",
+								glySequence: data.cache_info.query.parameters.seq ? data.cache_info.query.parameters.seq : '',
+								restrictTo: data.cache_info.query.parameters.align ? data.cache_info.query.parameters.align : 'substructure',
+							});
+							setGlyActTabKey("Substructure-Search");
+						}
 						setPageLoading(false);
 					} else if (data.cache_info.query.query_type === glycanData.simple_search.query_type.name) {
 						setGlySimpleSearchCategory(
@@ -950,6 +984,171 @@ const GlycanSearch = (props) => {
 			});
 		};
 
+
+/**
+	 * Function to return JSON query.
+   * @param {string} input_proSequence - protein sequence.
+	 * @param {string} input_targetDatabase - target database.
+	 * @param {string} input_eValue - E-value.
+	 * @param {string} input_maxHits - Max number of hits.
+	 **/
+  function searchJson(
+    input_glSequence,
+    input_align = "wholeglycan",
+  ) {
+    
+      var formJson = {
+          [commonGlycanData.jobtype.id]: "structure_search",
+          "parameters": {
+            [commonGlycanData.seq.id]: input_glSequence,
+            [commonGlycanData.align.id]: input_align
+          }
+    };
+
+    return formJson;
+  }
+
+    /**
+	 * Function to handle structure search submit.
+	**/
+  const structSearchSubmit = (type) => {
+
+	let formObject = {};
+	let message = "";
+	if (type === "structure") {
+		formObject = searchJson(
+			structSearchData.glySequence,
+		  );
+		message = "Structure Search query=" + JSON.stringify(formObject);
+		logActivity("user", id, message);
+	} else if (type === "substructure"){
+		formObject = searchJson(
+			subStructSearchData.glySequence,
+			subStructSearchData.restrictTo,
+		  );
+		message = "Substructure Search query=" + JSON.stringify(formObject);
+		logActivity("user", id, message);
+	}
+
+      postNewJob(formObject)
+      .then((response) => {
+        if (response.data["status"] && response.data["status"] !== {}) {
+		  let status = response.data["status"];
+          let josStatus = status.status;
+          let jobid = response.data["jobid"];
+          if (josStatus === "finished") {
+			setPageLoading(false);
+            if (status["result_count"] && status["result_count"] > 0) {
+				getJobResultList(jobid)
+					.then((response) => {
+						if (response.data['list_id'] !== '') {
+							logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+								props.history.push(routeConstants.glycanList + response.data['list_id']);
+							  });
+							setPageLoading(false);
+						} else {
+							logActivity("user", "", "No results. " + message);
+							setPageLoading(false);
+							setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+							window.scrollTo(0, 0);
+						}
+					})
+					.catch(function (error) {
+						axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+					});
+            } else {
+              logActivity("user", "", "No results. " + message);
+              setPageLoading(false);
+              setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+              window.scrollTo(0, 0);
+            }
+          } else {
+            setTimeout((jobID) => {
+				searchJobStatus(jobID);
+          }, 2000, jobid);
+          }
+        }  else {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+          window.scrollTo(0, 0);
+        }
+      })
+      .catch(function (error) {
+        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+      });
+  };
+
+
+  /**
+	 * Function to handle structure search job status.
+   * @param {string} jobID - job id.
+	 **/
+  const searchJobStatus = (jobID) => {
+    let message = "Structure/Substructure Search query=" + JSON.stringify(jobID);
+    getJobStatus(jobID)
+      .then((response) => {
+        if (response.data["status"] && response.data["status"] !== {}) {
+          let josStatus = response.data["status"];
+          if (josStatus === "finished") {
+            setPageLoading(false);
+            if (response.data["result_count"] && response.data["result_count"] > 0) {
+				getJobResultList(jobID)
+					.then((response) => {
+						if (response.data['list_id'] !== '') {
+							logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+								props.history.push(routeConstants.glycanList + response.data['list_id']);
+							  });
+							setPageLoading(false);
+						} else {
+							logActivity("user", "", "No results. " + message);
+							setPageLoading(false);
+							setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+							window.scrollTo(0, 0);
+						}
+					})
+					.catch(function (error) {
+						axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+					});
+            } else {
+              logActivity("user", "", "No results. " + message);
+              setPageLoading(false);
+              setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+              window.scrollTo(0, 0);
+            }
+        } else {
+            setTimeout((jobID) => {
+				searchJobStatus(jobID);
+          }, 2000, jobID);
+          } 
+        }  else {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+          window.scrollTo(0, 0);
+        }
+      })
+      .catch(function (error) {
+        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+      });
+  };
+
+  /**
+   * Function to handle click event for structure search.
+   **/
+  const searchStructClick = () => {
+    setPageLoading(true);
+    structSearchSubmit("structure");
+  };
+
+	/**
+   * Function to handle click event for substructure search.
+   **/
+  const searchSubStructClick = () => {
+    setPageLoading(true);
+    structSearchSubmit("substructure");
+  };
+
 	/**
 	 * Function to handle click event for glycan advanced search.
 	 **/
@@ -1070,7 +1269,7 @@ const GlycanSearch = (props) => {
 						</Tab>
 						<Tab
 							eventKey='Structure-Search'
-							title={"Structure Search"}
+							title={glycanSearchData.structure_search.tabTitle}
 							className='tab-content-padding'>
 							<TextAlert
 								alertInput={alertTextInput}
@@ -1078,21 +1277,16 @@ const GlycanSearch = (props) => {
 							<Container className='tab-content-border'>
 								{initData.composition && (
 									<StructureSearchControl
-										compositionInitMap={initData.composition}
-										inputValue={glyCompData}
-										setInputValue={glyCompChange}
-										searchGlycanCompClick={searchGlycanCompClick}
-										getSelectionValue={getSelectionValue}
-										setCompSearchDisabled={setCompSearchDisabled}
-										compSearchDisabled={compSearchDisabled}
-										step={1}
+										searchStructClick={searchStructClick}
+										inputValue={structSearchData}
+										setInputValue={setStructSearchData}
 									/>
 								)}
 							</Container>
 						</Tab>
 						<Tab
 							eventKey='Substructure-Search'
-							title={"Substructure Search"}
+							title={glycanSearchData.substructure_search.tabTitle}
 							className='tab-content-padding'>
 							<TextAlert
 								alertInput={alertTextInput}
@@ -1100,14 +1294,9 @@ const GlycanSearch = (props) => {
 							<Container className='tab-content-border'>
 								{initData.composition && (
 									<SubstructureSearchControl
-										compositionInitMap={initData.composition}
-										inputValue={glyCompData}
-										setInputValue={glyCompChange}
-										searchGlycanCompClick={searchGlycanCompClick}
-										getSelectionValue={getSelectionValue}
-										setCompSearchDisabled={setCompSearchDisabled}
-										compSearchDisabled={compSearchDisabled}
-										step={1}
+										searchSubStructClick={searchSubStructClick}
+										inputValue={subStructSearchData}
+										setInputValue={setSubStructSearchData}
 									/>
 								)}
 							</Container>

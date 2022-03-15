@@ -4,6 +4,10 @@
       "operation": {
         "id": "operation"
       },
+      "jobtype": {
+        "id": "jobtype",
+        "name": "Job Type"
+      },
       "glycan_id": {
         "name": "Glycan ID",
         "shortName": "Glycan ID",
@@ -539,6 +543,33 @@
           "id": "glycan_has_glycoprotein",
           "name": "Protein annotations"
         }
+      },
+      "seq": {
+        "name": "Sequence",
+        "shortName": "Sequence",
+        "tooltip": {
+          "title": "Sequence",
+          "text": "GlycoCT/WURCS sequence of Glycan."
+        },
+        "id": "seq"
+      },
+      "align": {
+        "name": "Restrict To",
+        "shortName": "Restrict To",
+        "tooltip": {
+          "title": "Restrict To",
+          "text": ""
+        },
+        "id": "align"
+      },
+      "seq_type": {
+        "name": "Sequence Type",
+        "shortName": "Sequence Type",
+        "tooltip": {
+          "title": "Sequence Type",
+          "text": "Select GlycoCT or WURCS sequence Type."
+        },
+        "id": "seq_type"
       }
     },
     "global_search_results": {
@@ -593,6 +624,12 @@
       "query_type": {
         "id": "query_type",
         "name": "glycan_search_simple"
+      }
+    },
+    "structure_search": {
+      "query_type": {
+        "id": "query_type",
+        "name": "structure_search"
       }
     },
     "direct_search": {
@@ -1463,6 +1500,31 @@
         "shortName": "Score",
         "id": "score"
       },
+      "organism": {
+        "name": "Organism",
+        "shortName": "Organism",
+        "id": "organism"
+      },
+      "positives": {
+        "name": "Positives",
+        "shortName": "Positives",
+        "id": "positives"
+      },
+      "identities": {
+        "name": "Identities",
+        "shortName": "Identities",
+        "id": "identities"
+      },
+      "method": {
+        "name": "Method",
+        "shortName": "Method",
+        "id": "method"
+      },
+      "gaps": {
+        "name": "Gaps",
+        "shortName": "Gaps",
+        "id": "gaps"
+      },
       "uniprot_id": {
         "name": "UniProtKB ID",
         "shortName": "UniProtKB ID",
@@ -1723,6 +1785,11 @@
       "id": "blastSearchUniProtAccError",
       "title": "Blast Search Error - Enter Valid UniProtKB Accession",
       "message": "Sorry, we couldn't process retrive sequence request. Please enter valid UniProtKB Accession."
+    },
+    "structureSearchError": {
+      "id": "structureSearchError",
+      "title": "Structure Search Error - Enter Valid Input",
+      "message": "Sorry, we couldn't process structure search request. Please enter valid input."
     },
     "querySerarchError": {
       "id": "querySerarchError",
