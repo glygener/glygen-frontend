@@ -35,7 +35,9 @@ const createSorter = (sortField, sortOrder) => (a, b) => {
 
 const blastSearch = stringConstants.blast_search.common;
 
-
+/**
+ * Glycan blast result control.
+ **/
 const BlastResult = (props) => {
   let { jobId } = useParams();
   const [subjectData, setSubjectData] = useState({});
@@ -43,7 +45,7 @@ const BlastResult = (props) => {
   const [text, setText] = useState({});
   const [timestamp, setTimeStamp] = useState();
   const [proteinID, setProteinID] = useState("");
-  const [blstActTabKey, setBlstActTabKey] = useState('Description');
+  const [blstActTabKey, setBlstActTabKey] = useState('Result');
 
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
@@ -54,8 +56,8 @@ const BlastResult = (props) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageContents, setPageContents] = useState([]);
-  const [currentSort, setCurrentSort] = useState("uniprot_ac");
-  const [currentSortOrder, setCurrentSortOrder] = useState("asc");
+  const [currentSort, setCurrentSort] = useState("score_val");
+  const [currentSortOrder, setCurrentSortOrder] = useState("desc");
   const [sizePerPage, setSizePerPage] = useState(20);
 
   const handleTableChange = (
@@ -90,9 +92,12 @@ const BlastResult = (props) => {
               return {
                 "evalue": parseFloat(obj.evalue),
                 "score": obj.score,
+                "score_val": parseInt(obj.score.slice(obj.score.indexOf("(")+1, obj.score.indexOf(")"))),
                 "gaps": obj.gaps,
                 "positives": obj.positives,
+                "positives_val": parseInt(obj.positives.slice(obj.positives.indexOf("(")+1, obj.positives.indexOf("%"))),
                 "identities": obj.identities,
+                "identities_val": parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%"))),
                 "method": obj.method,
                 "uniprot_ac": seqObj.uniprot_ac,
                 "uniprot_id": seqObj.uniprot_id,
@@ -191,22 +196,7 @@ const BlastResult = (props) => {
     },
     {
       dataField: "tax_name",
-      text: "Organism",
-      sort: true,
-    },
-    {
-      dataField: "positives",
-      text: "Positives",
-      sort: true,
-    },
-    {
-      dataField: "identities",
-      text: "Identities",
-      sort: true,
-    },
-    {
-      dataField: "method",
-      text: "Method",
+      text: blastSearch.organism.name,
       sort: true,
     },
     {
@@ -215,15 +205,35 @@ const BlastResult = (props) => {
       sort: true,
     },
     {
-      dataField: "score",
+      dataField: "score_val",
       text: blastSearch.score.name,
       sort: true,
+      formatter: (value, row) => (
+        <>
+          {row.score}
+        </>
+      )
     },
     {
-      dataField: "gaps",
-      text: "Gaps",
+      dataField: "positives_val",
+      text: blastSearch.positives.name,
       sort: true,
+      formatter: (value, row) => (
+        <>
+          {row.positives}
+        </>
+      )
     },
+    {
+      dataField: "identities_val",
+      text: blastSearch.identities.name,
+      sort: true,
+      formatter: (value, row) => (
+        <>
+          {row.identities}
+        </>
+      )
+    }
   ];
 
   return (
@@ -254,7 +264,7 @@ const BlastResult = (props) => {
         </section>
 
         <Tabs
-          defaultActiveKey='Description'
+          defaultActiveKey='Result'
           transition={false}
           activeKey={blstActTabKey}
           mountOnEnter={true}
@@ -262,10 +272,9 @@ const BlastResult = (props) => {
           onSelect={(key) => setBlstActTabKey(key)}
           >
 						<Tab
-							eventKey='Description'
+							eventKey='Result'
 							className='tab-content-padding'
-              title={"Description"}
-							// title={simpleSearch.tabTitle}
+              title={"Result"}
             >
             <section>
               {blastResultColumns && blastResultColumns.length !== 0 && (

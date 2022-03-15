@@ -4,9 +4,8 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import LineTooltip from "./tooltip/LineTooltip";
 import { ReactComponent as TableArowDown } from "../images/icons/table-arrow-down.svg";
-// import { ReactComponent as TableIcon } from "../images/icons/table.svg";
+import blastSearchData from "../data/json/blastSearch";
 
 function getDateTime() {
   var now = new Date();
@@ -42,6 +41,7 @@ const BlastResultQuerySummary = (props) => {
 
   // const executionTime = timestamp ? getDateTime(timestamp) : "";
   const executionTime = getDateTime(timestamp);
+  let blastSearchJSON = blastSearchData.blast_search;
 
   return (
     <>
@@ -76,7 +76,7 @@ const BlastResultQuerySummary = (props) => {
              Target DB:
             </Col>
             <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                {data.parameters === undefined ? "" : data.parameters.targetdb}
+                {data.parameters === undefined ? "" : blastSearchJSON.targetdb.menu[data.parameters.targetdb] ? blastSearchJSON.targetdb.menu[data.parameters.targetdb].name : data.parameters.targetdb}
             </Col>
           </Row>
           <Row className="summary-table-col">

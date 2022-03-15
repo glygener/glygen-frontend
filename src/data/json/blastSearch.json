@@ -37,7 +37,41 @@
       "id": "evalue"
     },
     "targetdb": {
-      "id": "targetdb"
+      "id": "targetdb",
+      "menu": {
+        "canonicalsequences_all":{
+          "id": "canonicalsequences_all", 
+          "name": "All species"
+        }, 
+        "canonicalsequences_hcv1a":{
+          "id": "canonicalsequences_hcv1a", 
+          "name": "Hepatitis C virus (isolate H)"
+        }, 
+        "canonicalsequences_mouse":{
+          "id": "canonicalsequences_mouse", 
+          "name": "Mus musculus"
+        }, 
+        "canonicalsequences_rat":{
+          "id": "canonicalsequences_rat", 
+          "name": "Rattus norvegicus"
+        }, 
+        "canonicalsequences_sarscov1":{
+          "id": "canonicalsequences_sarscov1", 
+          "name": "Severe acute respiratory syndrome-related coronavirus"
+        }, 
+        "canonicalsequences_hcv1b":{
+          "id": "canonicalsequences_hcv1b", 
+          "name": "Hepatitis C virus (isolate Japanese)"
+        }, 
+        "canonicalsequences_sarscov2":{
+          "id": "canonicalsequences_sarscov2", 
+          "name": "Severe acute respiratory syndrome coronavirus 2"
+        }, 
+        "canonicalsequences_human":{
+          "id": "canonicalsequences_human", 
+          "name": "Homo sapiens"
+        }
+      }
     },
     "max_target_seqs": {
       "min": 1,

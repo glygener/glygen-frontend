@@ -282,8 +282,8 @@ const BlastSearch = (props) => {
       inputValue.eValue,
       inputValue.maxHits
     );
-    logActivity("user", id, "Performing Blast Search");
     let message = "Blast Search query=" + JSON.stringify(formObject);
+    logActivity("user", id, "Performing Blast Search." + message);
 
       postNewJob(formObject)
       .then((response) => {
@@ -545,13 +545,16 @@ const BlastSearch = (props) => {
                 onChange={(event) => {maxHitsOnChange(event)}}
                 onBlur={() =>{
                   let maxHits = inputValue.maxHits;
-                  if (maxHits !== ""){
+                  if (maxHits !== "") {
                     maxHits = parseInt(maxHits);
+                    maxHits = Math.max(maxHits, 0);
+                    if (maxHits === 0 || isNaN(maxHits)){
+                      maxHits = 250;
+                    }
                     maxHits = Math.min(maxHits, blastJSONData.max_target_seqs.max);
-                    maxHits = Math.max(maxHits, blastJSONData.max_target_seqs.min);
                     setInputValue({ maxHits: maxHits });
                   } else {
-                    setInputValue({ maxHits: blastJSONData.max_target_seqs.min });
+                    setInputValue({ maxHits: 250 });
                   }
                 }}
                 inputProps={{

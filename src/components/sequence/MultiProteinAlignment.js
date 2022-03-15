@@ -53,6 +53,10 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
         protein_name: proData.details.protein_name,
         evalue: proData.hsp_list[i].evalue,
         score: proData.hsp_list[i].score,
+        positives: proData.hsp_list[i].positives,
+        identities: proData.hsp_list[i].identities,
+        gaps: proData.hsp_list[i].gaps,
+        method: proData.hsp_list[i].method,
         uniprot_canonical_ac: proteinID,
         consensus: proData.hsp_list[i].sequences.find(seq => seq.id === "matches").aln
       });
@@ -132,7 +136,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
               <SelectControl
                 inputValue={proteinID}
                 setInputValue={(val) => proteinIDChange(val)}
-                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).map(item => {return {name : item + " (" + algnData[item].details.protein_name + ") ", id : item}}) : []}
+                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)) ", id : item}}) : []}
                 required={true}
               />
             </FormControl>
@@ -156,9 +160,25 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
               <strong>{blastSearch.evalue.name}: </strong>{" "}
               {multiSeque.evalue}
             </div>
-            <div className="mb-3">
+            <div>
               <strong>{blastSearch.score.name}: </strong>{" "}
               {multiSeque.score}
+            </div>
+            <div>
+              <strong>{blastSearch.positives.name}: </strong>{" "}
+              {multiSeque.positives}
+            </div>
+            <div>
+              <strong>{blastSearch.identities.name}: </strong>{" "}
+              {multiSeque.identities}
+            </div>
+            <div>
+              <strong>{blastSearch.gaps.name}: </strong>{" "}
+              {multiSeque.gaps}
+            </div>
+            <div className="mb-3">
+              <strong>{blastSearch.method.name}: </strong>{" "}
+              {multiSeque.method}
             </div>
               {algnData && (
                 <SequenceViewer
