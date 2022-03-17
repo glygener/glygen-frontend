@@ -11,6 +11,7 @@ import "../../css/Search.css";
 import ExampleControl2 from "../example/ExampleControl2";
 import glycanSearchData from "../../data/json/glycanSearch";
 import stringConstants from "../../data/json/stringConstants";
+import GlycoGlyph from "./GlycoGlyph";
 
 /**
  * Glycan structure search control.
@@ -24,6 +25,8 @@ const StructureSearchControl = (props) => {
       glySequenceInput: false,
     }
   );
+  const [supSearchShowQuery, setSupSearchShowQuery] = useState(false);
+
   let glycanStructSearchData = glycanSearchData.structure_search;
   let commonStructSearchData = stringConstants.glycan.common;
 
@@ -97,6 +100,13 @@ const StructureSearchControl = (props) => {
 
   return (
     <>
+      <GlycoGlyph
+        show={supSearchShowQuery}
+        title={"superSearchCommonData.queryDialog.title"}
+        setOpen={(input) => {
+          setSupSearchShowQuery(input)
+        }}
+      />	
       <Grid
         container
         style={{ margin: "0  auto" }}
@@ -184,6 +194,12 @@ const StructureSearchControl = (props) => {
         {/*  Buttons */}
         <Grid item xs={12} sm={10}>
           <Row  className="gg-align-right pt-3 mb-2 mr-1">
+          <Button
+              className="gg-btn-blue mr-4"
+              onClick={() => setSupSearchShowQuery(true)}	
+            >
+              Advanced
+            </Button>
             <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
               Clear Fields
             </Button>

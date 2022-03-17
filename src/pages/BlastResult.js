@@ -56,8 +56,8 @@ const BlastResult = (props) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageContents, setPageContents] = useState([]);
-  const [currentSort, setCurrentSort] = useState("score_val");
-  const [currentSortOrder, setCurrentSortOrder] = useState("desc");
+  const [currentSort, setCurrentSort] = useState("evalue");
+  const [currentSortOrder, setCurrentSortOrder] = useState("asc");
   const [sizePerPage, setSizePerPage] = useState(20);
 
   const handleTableChange = (
@@ -91,14 +91,8 @@ const BlastResult = (props) => {
                 let seqObj = obj.sequences.find((seq)=> seq.id === protID);
               return {
                 "evalue": parseFloat(obj.evalue),
-                "score": obj.score,
-                "score_val": parseInt(obj.score.slice(obj.score.indexOf("(")+1, obj.score.indexOf(")"))),
-                "gaps": obj.gaps,
-                "positives": obj.positives,
-                "positives_val": parseInt(obj.positives.slice(obj.positives.indexOf("(")+1, obj.positives.indexOf("%"))),
                 "identities": obj.identities,
                 "identities_val": parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%"))),
-                "method": obj.method,
                 "uniprot_ac": seqObj.uniprot_ac,
                 "uniprot_id": seqObj.uniprot_id,
                 "protein_name": data.by_subject[protID].details.protein_name,
@@ -203,26 +197,6 @@ const BlastResult = (props) => {
       dataField: "evalue",
       text: blastSearch.evalue.name,
       sort: true,
-    },
-    {
-      dataField: "score_val",
-      text: blastSearch.score.name,
-      sort: true,
-      formatter: (value, row) => (
-        <>
-          {row.score}
-        </>
-      )
-    },
-    {
-      dataField: "positives_val",
-      text: blastSearch.positives.name,
-      sort: true,
-      formatter: (value, row) => (
-        <>
-          {row.positives}
-        </>
-      )
     },
     {
       dataField: "identities_val",
