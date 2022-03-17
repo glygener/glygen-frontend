@@ -143,8 +143,7 @@ function autocheck() {
     alert('Please enter a name to check');
     return;
   }
-  let checkedName = glycoglyph.autoCheckName(originalName);
-
+  
   let drawPGlyco = false;
   if (glycoglyph.detectPGlyco(name)) {
     if (confirm("The input format seems to be of pGlyco. Press OK if you would like GlycoGlyph to convert input to compatible format.")) {
