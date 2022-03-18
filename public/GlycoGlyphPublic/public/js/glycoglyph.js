@@ -3254,18 +3254,22 @@
     elementText = elementText.trim();
 
     if (elementText != '') {
-      copyText(elementText); //use the copyText function below
-      alert('Copied: \n' + elementText);
+      //use the copyText function below
+      copyText(elementText).then(() => {
+        alert('Copied: \n' + elementText);
+      })
+      .catch(() => {
+        alert('Could not copy text.');
+      });
     }else {
       alert('Nothing to copy.');
     }
-    
   }
 
   //If you only want to put some Text in the Clipboard just use this function
   // and pass the string to copied as the argument.
   function copyText(text) {
-    navigator.clipboard.writeText(text);
+    return navigator.clipboard.writeText(text);
   }
 
   function cleardrawingarea() {

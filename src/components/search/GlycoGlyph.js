@@ -1,15 +1,14 @@
 import React from 'react';
 import { Dialog } from "@material-ui/core";
 import Iframe from "react-iframe";
+import Button from 'react-bootstrap/Button';
 import { GLYGEN_BASENAME, GLYGEN_DOMAIN } from "../../envVariables";
-
-// var perf =require('../../GlycoGlyphPublic/public/index_relative.html');
 
 const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
 
-// import Page from '../../GlycoGlyphPublic/public/index_relative.html';
-// var htmlDoc = {__html: Page};
-
+/**
+ * GlycoGlyph component for showing glyco glyph frame.
+ */
 const GlycoGlyph = (props) => {
 
     return (
@@ -17,30 +16,68 @@ const GlycoGlyph = (props) => {
         <Dialog
             open={props.show}
             fullScreen
-            // maxWidth={'lg'}
-            // classes= {{
-            //     paper: "alert-dialog",
-            // }}
+            maxWidth={'lg'}
+            classes= {{
+                paper: "alert-dialog",
+            }}
             style={{margin:40}}
             disableScrollLock
             onClose={() => {
-                // setSuperSearchQuerySelect(props.superSearchQuerySelect);
                 props.setOpen(false);
             }} 
         >  
-        <Iframe
-            width="100%"
-            height="100%"
-            src={ GLYGEN_DOMAIN + basename + '/GlycoGlyphPublic/public/index_relative.html'}
-            // src={ GLYGEN_DOMAIN + basename + '/GlycoGlyphPublic/public/index.html'}
-            // src={ GLYGEN_DOMAIN + basename + '/GlycoGlyphPublic/public/index-min.html'}
-            frameBorder="0"
-            scrolling="no"
-            allow="encrypted-media"
-            allowFullScreen={false}>
-        </Iframe>
+        <div style={{overflow: 'hidden'}}>
+            <h5 className= "sups-dialog-title">{props.title}</h5>
+            <div style={{paddingTop: '2px',  overflow: 'hidden' ,content:'center', height: '73vh'}}>    
+                <Iframe
+                    id="glycoGlyphFrame"
+                    width="100%"
+                    height="100%"
+                    src={ GLYGEN_DOMAIN + basename + '/GlycoGlyphPublic/public/index_relative.html'}
+                    frameBorder="0"
+                    scrolling="yes"
+                    allow="encrypted-media"
+                    allowFullScreen={false}>
+                </Iframe>
+            </div>
+            <div style={{ marginTop: "20px", marginRight: "50px" }}>
+                <Button
+                    className='gg-btn-blue mb-5'
+                    style={{ float: "right" }}
+                    onClick={() => {
 
-     {/* <div dangerouslySetInnerHTML={{__html: '<div class="ext">Hello!</div>'}}/> */}
+                        //Select the frame element
+                        let iframe = document.getElementById('glycoGlyphFrame');
+                        if (iframe)  {
+                            //Select the element
+                            let element = iframe.contentWindow.document.getElementById('glycoCT'); 
+                            if (element) {
+                            //Get the text content from the element
+                            let elementText = element.innerText; 
+                        
+                            if (element.tagName === 'INPUT' ) {
+                                elementText = element.value;
+                            }
+                            elementText = elementText.trim();
+                            if (elementText !== '') {
+                                props.glySequenceChange(elementText);
+                            }
+                        }
+                    }
+                        props.setOpen(false);
+                    }}
+                    >
+                    Copy GlycoCT To Search
+                </Button>
+                <Button
+                    className='gg-btn-outline mr-3 mb-5'
+                    style={{ float: "right" }}
+                    onClick={() => props.setOpen(false)}
+                    >
+                    Cancel
+                </Button>
+            </div>
+        </div>
      </Dialog>
 )};
 

@@ -102,7 +102,8 @@ const StructureSearchControl = (props) => {
     <>
       <GlycoGlyph
         show={supSearchShowQuery}
-        title={"superSearchCommonData.queryDialog.title"}
+        glySequenceChange={glySequenceChange}
+        title={"GlyGen GlycoGlyph"}
         setOpen={(input) => {
           setSupSearchShowQuery(input)
         }}
@@ -194,12 +195,12 @@ const StructureSearchControl = (props) => {
         {/*  Buttons */}
         <Grid item xs={12} sm={10}>
           <Row  className="gg-align-right pt-3 mb-2 mr-1">
-          <Button
+          {props.inputValue.seqType === "GlycoCT" && (<Button
               className="gg-btn-blue mr-4"
               onClick={() => setSupSearchShowQuery(true)}	
             >
-              Advanced
-            </Button>
+              Generate GlycoCT
+            </Button>)}
             <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
               Clear Fields
             </Button>
