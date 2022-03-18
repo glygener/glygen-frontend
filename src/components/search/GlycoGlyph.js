@@ -2,9 +2,7 @@ import React from 'react';
 import { Dialog } from "@material-ui/core";
 import Iframe from "react-iframe";
 import Button from 'react-bootstrap/Button';
-import { GLYGEN_BASENAME, GLYGEN_DOMAIN } from "../../envVariables";
-
-const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
+import { GLYGEN_DOMAIN } from "../../envVariables";
 
 /**
  * GlycoGlyph component for showing glyco glyph frame.
@@ -48,7 +46,7 @@ const GlycoGlyph = (props) => {
                     id="glycoGlyphFrame"
                     width="100%"
                     height="100%"
-                    src={ GLYGEN_DOMAIN + basename + '/GlycoGlyphPublic/public/index_relative.html'}
+                    src={ GLYGEN_DOMAIN + '/GlycoGlyphPublic/public/index_relative.html'}
                     frameBorder="0"
                     scrolling="yes"
                     allow="encrypted-media"
