@@ -25,6 +25,21 @@ const GlycoGlyph = (props) => {
             onClose={() => {
                 props.setOpen(false);
             }} 
+            onLoad= {() => {
+                    //Select the frame element
+                    let iframe = document.getElementById('glycoGlyphFrame');
+                    if (iframe)  {
+                        //Select the element
+                        let element = iframe.contentWindow.document.getElementById('cfg_name'); 
+                        if (element) {
+                            //Get the text content from the element
+                            if (props.inputValue.glycoGlyphName !== "") {
+                                element.value = props.inputValue.glycoGlyphName;
+                            }
+                        }
+                    }
+                }
+            }
         >  
         <div style={{overflow: 'hidden'}}>
             <h5 className= "sups-dialog-title">{props.title}</h5>
@@ -51,19 +66,31 @@ const GlycoGlyph = (props) => {
                         if (iframe)  {
                             //Select the element
                             let element = iframe.contentWindow.document.getElementById('glycoCT'); 
+
                             if (element) {
-                            //Get the text content from the element
-                            let elementText = element.innerText; 
-                        
-                            if (element.tagName === 'INPUT' ) {
-                                elementText = element.value;
+                                //Get the text content from the element
+                                let elementText = element.innerText; 
+                            
+                                if (element.tagName === 'INPUT' ) {
+                                    elementText = element.value;
+                                }
+                                elementText = elementText.trim();
+                                props.glySequenceChange(elementText, true);
                             }
-                            elementText = elementText.trim();
-                            if (elementText !== '') {
-                                props.glySequenceChange(elementText);
+
+                            let elementName = iframe.contentWindow.document.getElementById('cfg_name'); 
+                            if (elementName) {
+                                //Get the text content from the element
+                                let elementText = elementName.innerText; 
+                            
+                                if (elementName.tagName === 'INPUT' ) {
+                                    elementText = elementName.value;
+                                }
+                                elementText = elementText.trim();
+                                props.setInputValue({glycoGlyphName : elementText});
                             }
+
                         }
-                    }
                         props.setOpen(false);
                     }}
                     >

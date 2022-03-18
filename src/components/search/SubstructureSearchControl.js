@@ -13,6 +13,7 @@ import glycanSearchData from "../../data/json/glycanSearch";
 import stringConstants from "../../data/json/stringConstants";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import GlycoGlyph from "./GlycoGlyph";
 
 /**
  * Glycan substructure search control.
@@ -26,6 +27,8 @@ const StructureSearchControl = (props) => {
       glySequenceInput: false,
     }
   );
+  const [glycoGlyphDialog, setGlycoGlyphDialog] = useState(false);
+
   let glycanStructSearchData = glycanSearchData.substructure_search;
   let commonStructSearchData = stringConstants.glycan.common;
 
@@ -43,8 +46,13 @@ const StructureSearchControl = (props) => {
 	 * Function to set glycan sequence value.
 	 * @param {string} inputGlySequence - input glycan sequence value.
 	 **/
-	function glySequenceChange(inputGlySequence) {
-    props.setInputValue({ glySequence: inputGlySequence });
+	function glySequenceChange(inputGlySequence, draw = false) {
+    if (draw) {
+      props.setInputValue({ glySequence: inputGlySequence});
+    } else {
+      props.setInputValue({ glySequence: inputGlySequence, glycoGlyphName: ""});
+    }
+
     setStructError({ glySequenceInput: false });
     if (inputGlySequence.length > 0){
       setStructError({ glySeqSearchDisabled: false });
@@ -60,11 +68,11 @@ const StructureSearchControl = (props) => {
 	const SequenceChange = (event) => {
 		let glySequenceError = event.target.value.length < 20;
     if (event.target.value.length === 0) {
-      props.setInputValue({ glySequence: event.target.value });
+      props.setInputValue({ glySequence: event.target.value, glycoGlyphName: ""});
       setStructError({ glySequenceInput: false });
       setStructError({ glySeqSearchDisabled: true });
     } else {
-      props.setInputValue({ glySequence: event.target.value });
+      props.setInputValue({ glySequence: event.target.value, glycoGlyphName: ""});
       if (!glySequenceError) {
         setStructError({ glySequenceInput: glySequenceError });
       }
@@ -99,7 +107,8 @@ const StructureSearchControl = (props) => {
     props.setInputValue({
       seqType: "GlycoCT",
       glySequence: "",
-      restrictTo: "substructure"
+      restrictTo: "substructure",
+      glycoGlyphName: ""
     });
 
     setStructError({ glySequenceInput: false, glySeqSearchDisabled: true });
@@ -107,6 +116,17 @@ const StructureSearchControl = (props) => {
 
   return (
     <>
+      <GlycoGlyph
+        show={glycoGlyphDialog}
+        glySequenceChange={glySequenceChange}
+        glySequence={props.inputValue.glySequence}
+        setInputValue={props.setInputValue}
+        inputValue={props.inputValue}
+        title={"GlyGen GlycoGlyph"}
+        setOpen={(input) => {
+          setGlycoGlyphDialog(input)
+        }}
+      />
       <Grid
         container
         style={{ margin: "0  auto" }}
@@ -227,6 +247,12 @@ const StructureSearchControl = (props) => {
         {/*  Buttons */}
         <Grid item xs={12} sm={10}>
           <Row  className="gg-align-right pt-3 mb-2 mr-1">
+            {props.inputValue.seqType === "GlycoCT" && (<Button
+              className="gg-btn-blue mr-4"
+              onClick={() => setGlycoGlyphDialog(true)}	
+            >
+              Generate GlycoCT
+            </Button>)}
             <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
               Clear Fields
             </Button>

@@ -898,10 +898,10 @@
       "exampleMap":  {
         "GlycoCT": {
           "examples": [
-            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\nd2:1o(3+1)3d"
+            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
           ],
           "name": "GlycoCT Example",
-          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\nd2:1o(3+1)3d"
+          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
         },
         "WURCS": { 
           "examples": [
@@ -923,10 +923,10 @@
       "exampleMap":  {
         "GlycoCT": {
           "examples": [
-            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\nd2:1o(3+1)3d"
+            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
           ],
           "name": "GlycoCT Example",
-          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\nd2:1o(3+1)3d"
+          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
         },
         "WURCS": { 
           "examples": [

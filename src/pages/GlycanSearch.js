@@ -95,6 +95,7 @@ const GlycanSearch = (props) => {
 		{
 		  seqType: "GlycoCT",
 		  glySequence: "",
+		  glycoGlyphName: "",
 		}
 	  );
 
@@ -104,6 +105,7 @@ const GlycanSearch = (props) => {
 		  seqType: "GlycoCT",
 		  glySequence: "",
 		  restrictTo: "substructure",
+		  glycoGlyphName: "",
 		}
 	  );
 
@@ -1049,7 +1051,7 @@ const GlycanSearch = (props) => {
 						} else {
 							logActivity("user", "", "No results. " + message);
 							setPageLoading(false);
-							setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
 							window.scrollTo(0, 0);
 						}
 					})
@@ -1059,7 +1061,7 @@ const GlycanSearch = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setPageLoading(false);
-              setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+              setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
               window.scrollTo(0, 0);
             }
           } else {
@@ -1070,7 +1072,7 @@ const GlycanSearch = (props) => {
         }  else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
-          setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
           window.scrollTo(0, 0);
         }
       })
@@ -1103,7 +1105,7 @@ const GlycanSearch = (props) => {
 						} else {
 							logActivity("user", "", "No results. " + message);
 							setPageLoading(false);
-							setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
 							window.scrollTo(0, 0);
 						}
 					})
@@ -1113,7 +1115,7 @@ const GlycanSearch = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setPageLoading(false);
-              setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+              setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
               window.scrollTo(0, 0);
             }
         } else {
@@ -1124,7 +1126,7 @@ const GlycanSearch = (props) => {
         }  else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
-          setAlertTextInput({"show": true, "id": stringConstants.errors.structureSearchError.id})
+          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
           window.scrollTo(0, 0);
         }
       })

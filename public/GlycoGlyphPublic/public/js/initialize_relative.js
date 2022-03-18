@@ -134,6 +134,23 @@ $(document).ready(async () => {
   glycoglyph.appendTerminals();
 });
 
+$(window).on('load', function() {
+  setTimeout(() => {
+    setName();
+  }, 500);
+ });
+
+function setName() {
+  var name = document.getElementById(glycoglyph.domElements.nameInputID).value;
+  glycoglyph.tracknames(name);
+  //draw structure based on name
+  if (name.length > 0) {
+    document.getElementById('autoCheckName').hidden = false;
+    glycoglyph.d3glycanstructure(name);
+    glycoglyph.cfgToGlycoCT();
+  }
+}
+
 function autocheck() {
   let nameInputElement = document.getElementById(glycoglyph.domElements.nameInputID);
   let originalName = nameInputElement.value;

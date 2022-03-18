@@ -7,7 +7,7 @@ services:
       args:
         - REACT_APP_ENV=dev
         - REACT_APP_API=https://api.tst.glygen.org
-        - REACT_APP_DOMAIN=https://glygen.ccrc.uga.edu/frontend
+        - REACT_APP_DOMAIN=https://glygen.ccrc.uga.edu
         # - REACT_APP_DOMAIN=http://localhost
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
         - REACT_APP_DATA=https://data.glygen.org
