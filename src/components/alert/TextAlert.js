@@ -23,7 +23,7 @@ export default function TextAlert(props) {
     if (input === "title")
         return stringConstants.errors[errorID].title;
     else if (input === "message")
-        return props.alertInput.message || stringConstants.errors[errorID].message;    
+        return props.alertInput.message || stringConstants.errors[errorID].message + (props.alertInput.custom && props.alertInput.custom !== "" ? " " + props.alertInput.custom : "");    
   };
 
   return (

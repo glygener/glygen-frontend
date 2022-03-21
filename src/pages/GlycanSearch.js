@@ -82,7 +82,7 @@ const GlycanSearch = (props) => {
 	const [searchStarted, setSearchStarted] = useState(false);
 	const [alertTextInput, setAlertTextInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
-		{show: false, id: ""}
+		{show: false, id: "", custom: ""}
 	);
 	const [alertDialogInput, setAlertDialogInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
@@ -1064,11 +1064,17 @@ const GlycanSearch = (props) => {
               setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
               window.scrollTo(0, 0);
             }
-          } else {
+          } else if (josStatus === "running") {
             setTimeout((jobID) => {
 				searchJobStatus(jobID);
-          }, 2000, jobid);
-          }
+          	}, 2000, jobid);
+          } else {
+			let error = status.error ? status.error : "";
+			logActivity("user", "", "No results. " + message + " " + error);
+			setPageLoading(false);
+			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error});
+			window.scrollTo(0, 0);
+		  }
         }  else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
@@ -1092,38 +1098,44 @@ const GlycanSearch = (props) => {
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"];
-          if (josStatus === "finished") {
-            setPageLoading(false);
-            if (response.data["result_count"] && response.data["result_count"] > 0) {
-				getJobResultList(jobID)
-					.then((response) => {
-						if (response.data['list_id'] !== '') {
-							logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-								props.history.push(routeConstants.glycanList + response.data['list_id']);
-							  });
-							setPageLoading(false);
-						} else {
-							logActivity("user", "", "No results. " + message);
-							setPageLoading(false);
-							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
-							window.scrollTo(0, 0);
-						}
-					})
-					.catch(function (error) {
-						axiosError(error, "", message, setPageLoading, setAlertDialogInput);
-					});
-            } else {
-              logActivity("user", "", "No results. " + message);
-              setPageLoading(false);
-              setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
-              window.scrollTo(0, 0);
-            }
-        } else {
-            setTimeout((jobID) => {
-				searchJobStatus(jobID);
-          }, 2000, jobID);
-          } 
-        }  else {
+          	if (josStatus === "finished") {
+				setPageLoading(false);
+				if (response.data["result_count"] && response.data["result_count"] > 0) {
+					getJobResultList(jobID)
+						.then((response) => {
+							if (response.data['list_id'] !== '') {
+								logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+									props.history.push(routeConstants.glycanList + response.data['list_id']);
+								});
+								setPageLoading(false);
+							} else {
+								logActivity("user", "", "No results. " + message);
+								setPageLoading(false);
+								setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+								window.scrollTo(0, 0);
+							}
+						})
+						.catch(function (error) {
+							axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+						});
+				} else {
+					logActivity("user", "", "No results. " + message);
+					setPageLoading(false);
+					setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+					window.scrollTo(0, 0);
+				}
+			} else if (josStatus === "running") {
+				setTimeout((jobID) => {
+					searchJobStatus(jobID);
+				}, 2000, jobID);
+			}  else {
+				let error = response.data["error"] ? response.data["error"] : "";
+				logActivity("user", "", "No results. " + message + " " + error);
+				setPageLoading(false);
+				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error})
+				window.scrollTo(0, 0);
+			}  
+		} else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
           setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
