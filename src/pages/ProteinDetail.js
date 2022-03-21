@@ -3469,7 +3469,7 @@ const ProteinDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={collapsed.history ? "false" : "true"}>
                     <Card.Body>
-                      {history && history.length && (
+                      {history && history.length ? (
                         <>
                           {history.sort(sortedHistory).map((historyItem) => (
                             <ul className="pl-3">
@@ -3477,6 +3477,8 @@ const ProteinDetail = (props) => {
                             </ul>
                           ))}
                         </>
+                      ): (
+                        <span>No data available.</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>

@@ -2283,7 +2283,7 @@ const GlycanDetail = props => {
                     out={(collapsed.history = "false")}
                   >
                     <Card.Body>
-                      {history && history.length && (
+                      {history && history.length ? (
                         <>
                           {history.map(historyItem => (
                             <ul className="pl-3" key={historyItem.description}>
@@ -2293,6 +2293,8 @@ const GlycanDetail = props => {
                             </ul>
                           ))}
                         </>
+                      ) : (
+                        <span>No data available.</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>

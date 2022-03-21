@@ -33,6 +33,8 @@ import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import ReactCopyClipboard from "../components/ReactCopyClipboard";
+import CollapsableReference from "../components/CollapsableReference";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
 const glycanStrings = stringConstants.glycan.common;
@@ -41,6 +43,15 @@ const motifStrings = stringConstants.motif.common;
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
   { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motif" },
+  {
+    label: stringConstants.sidebar.digital_seq.displayname,
+    id: "Digital-Sequence"
+  },
+  {
+    label: stringConstants.sidebar.cross_ref.displayname,
+    id: "Cross-References"
+  },
+  { label: stringConstants.sidebar.history.displayname, id: "History" },
   {
     label: stringConstants.sidebar.publication.displayname,
     id: "Publications",
@@ -60,6 +71,39 @@ function addCommas(nStr) {
   return x1 + x2;
 }
 
+
+const getItemsCrossRef = data => {
+  let itemscrossRef = [];
+
+  //check data.
+  if (data.crossref) {
+    for (let crossrefitem of data.crossref) {
+      let found = "";
+      for (let databaseitem of itemscrossRef) {
+        if (databaseitem.database === crossrefitem.database) {
+          found = true;
+          databaseitem.links.push({
+            url: crossrefitem.url,
+            id: crossrefitem.id
+          });
+        }
+      }
+      if (!found) {
+        itemscrossRef.push({
+          database: crossrefitem.database,
+          links: [
+            {
+              url: crossrefitem.url,
+              id: crossrefitem.id
+            }
+          ]
+        });
+      }
+    }
+  }
+  return itemscrossRef;
+};
+
 const MotifDetail = (props) => {
   let { id } = useParams();
   // let { namespace } = useParams();
@@ -71,6 +115,15 @@ const MotifDetail = (props) => {
   const [glytoucan, setGlytoucan] = useState([]);
   const [motif, setMotif] = useState([]);
   const [mass, setMass] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [itemsCrossRef, setItemsCrossRef] = useState([]);
+
+  const [iupac, setIupac] = useState("");
+  const [wurcs, setWurcs] = useState("");
+  const [glycoct, setGlycoct] = useState("");
+  const [inchi, setInchi] = useState("");
+  const [glycam, setGlycam] = useState("");
+  const [smiles_isomeric, setSmiles_isomeric] = useState("");
   const [motifName, setMotifName] = useState([]);
   const [motifSynonym, setMotifSynonym] = useState([]);
   const [classification, setClassification] = useState([]);
@@ -87,6 +140,10 @@ const MotifDetail = (props) => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   useEffect(() => {
     setPageLoading(true);
@@ -140,6 +197,14 @@ const MotifDetail = (props) => {
         setMotifKeywords(data.keywords);
         setReducingEnd(data.reducing_end);
         setClassification(data.classification);
+        setHistory(data.history);
+        setItemsCrossRef(getItemsCrossRef(data));
+        setIupac(data.iupac);
+        setWurcs(data.wurcs);
+        setGlycoct(data.glycoct);
+        setInchi(data.inchi);
+        setGlycam(data.glycam);
+        setSmiles_isomeric(data.smiles_isomeric);
 
         let dictionary = null;
         if (data.dictionary && data.dictionary.term){
@@ -182,7 +247,10 @@ const MotifDetail = (props) => {
   const [collapsed, setCollapsed] = useReducer((state, newState) => ({ ...state, ...newState }), {
     general: true,
     glycans: true,
-    publication: true,
+    history: true,
+    digitalSeq: true,
+    crossref: true,
+    publication: true
   });
 
   function toggleCollapse(name, value) {
@@ -390,9 +458,9 @@ const MotifDetail = (props) => {
                             </div>
                             <div>
                               <strong>{motifStrings.glytoucan_ac.name}: </strong>
-                              <a href={motif.url} target="_blank" rel="noopener noreferrer">
+                              <Link to={routeConstants.glycanDetail + motif.glytoucan_ac}>
                                 {motif.glytoucan_ac}
-                              </a>
+                              </Link>
                             </div>
                             <div>
                               <strong>{glycanStrings.mass.shortName}: </strong>
@@ -534,6 +602,273 @@ const MotifDetail = (props) => {
                           defaultSortField="glytoucan_ac"
                           idField="glytoucan_ac"
                         />
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* Digital Sequence */}
+              <Accordion
+                id="Digital-Sequence"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.motif.digital_sequence.title}
+                        text={DetailTooltips.motif.digital_sequence.text}
+                        urlText={DetailTooltips.motif.digital_sequence.urlText}
+                        url={DetailTooltips.motif.digital_sequence.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.digital_seq.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse("digitalSeq", collapsed.digitalSeq)
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.digitalSeq ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body className="text-responsive">
+                      <div>
+                        {iupac ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                {" "}
+                                <strong>{glycanStrings.iupac.name}</strong>
+                              </Col>{" "}
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={iupac} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{iupac} </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {wurcs ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                {" "}
+                                <strong>{glycanStrings.WURCS.name}</strong>
+                              </Col>{" "}
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={wurcs} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{wurcs} </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {glycoct ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                {" "}
+                                <strong>{glycanStrings.GlycoCT.name}</strong>
+                              </Col>{" "}
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={glycoct} />
+                              </Col>
+                            </Row>
+                            <span id="text_element" className="text-overflow">
+                              {glycoct}
+                            </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {inchi ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                <strong>
+                                  {glycanStrings.inchi_key.shortName}
+                                </strong>
+                              </Col>
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={inchi} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{inchi}</span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {glycam ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                <strong>
+                                  {glycanStrings.GLYCAM_IUPAC.shortName}
+                                </strong>
+                              </Col>
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={glycam} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{glycam}</span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+                        {smiles_isomeric ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                <strong>
+                                  {glycanStrings.Isomeric_SMILES.shortName}
+                                </strong>
+                              </Col>
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={smiles_isomeric} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">
+                              {smiles_isomeric}
+                            </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+                      </div>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+               {/* Cross References */}
+               <Accordion
+                id="Cross-References"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.motif.cross_references.title}
+                        text={DetailTooltips.motif.cross_references.text}
+                        urlText={DetailTooltips.motif.cross_references.urlText}
+                        url={DetailTooltips.motif.cross_references.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.cross_ref.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse("crossref", collapsed.crossref)
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.crossref ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {itemsCrossRef && itemsCrossRef.length ? (
+                        <div>
+                          <ul className="list-style-none">
+                            {/* <Row> */}
+
+                            {itemsCrossRef.map((crossRef, index) => (
+                              <li key={`${crossRef.database}-${index}`}>
+                                <CollapsableReference
+                                  database={crossRef.database}
+                                  links={crossRef.links}
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <span>No data available.</span>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+              {/* history */}
+              <Accordion
+                id="History"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.motif.history.title}
+                        text={DetailTooltips.motif.history.text}
+                        urlText={DetailTooltips.motif.history.urlText}
+                        url={DetailTooltips.motif.history.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.history.displayname}
+                    </h4>
+                    <div className="float-right">
+                      <Accordion.Toggle
+                        // as={Card.Header}
+                        eventKey="0"
+                        onClick={() =>
+                          toggleCollapse("history", collapsed.history)
+                        }
+                        className="gg-green arrow-btn"
+                      >
+                        <span>
+                          {collapsed.history ? closeIcon : expandIcon}
+                        </span>
+                      </Accordion.Toggle>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse
+                    eventKey="0"
+                    out={(collapsed.history = "false")}
+                  >
+                    <Card.Body>
+                      {history && history.length ? (
+                        <>
+                          {history.map(historyItem => (
+                            <ul className="pl-3" key={historyItem.description}>
+                              <li>
+                                {capitalizeFirstLetter(historyItem.description)}{" "}
+                              </li>
+                            </ul>
+                          ))}
+                        </>
+                      ) : (
+                        <span>No data available.</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
