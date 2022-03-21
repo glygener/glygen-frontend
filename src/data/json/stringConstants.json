@@ -1559,14 +1559,14 @@
         },
         "id": "evalue"
       },
-      "max_target_seqs": {
-        "name": "Max Number of Hits",
-        "shortName": "Max Number of Hits",
+      "num_alignments": {
+        "name": "Number of hit sequences to show in alignment",
+        "shortName": "Number of hit sequences to show in alignment",
         "tooltip": {
-          "title": "Max Number of Hits",
+          "title": "Number of hit sequences to show in alignment",
           "text": ""
         },
-        "id": "max_target_seqs"
+        "id": "num_alignments"
       }
     }
   },

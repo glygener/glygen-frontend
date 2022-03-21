@@ -92,7 +92,7 @@ const BlastResultQuerySummary = (props) => {
              Max Number of Hits:
             </Col>
             <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                {data.parameters === undefined ? "" : data.parameters.max_target_seqs}
+                {data.parameters === undefined ? "" : data.parameters.num_alignments}
             </Col>
           </Row>
           </>)}

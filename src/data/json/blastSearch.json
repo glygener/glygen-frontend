@@ -73,11 +73,11 @@
         }
       }
     },
-    "max_target_seqs": {
+    "num_alignments": {
       "min": 1,
       "step": 1,
       "max": 500,
-      "id": "max_target_seqs"
+      "id": "num_alignments"
     }
   }
 }

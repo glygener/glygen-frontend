@@ -57,7 +57,7 @@ const BlastSearch = (props) => {
   const [pageLoading, setPageLoading] = React.useState(true);
   const [alertTextInput, setAlertTextInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
-    { show: false, id: "" }
+    { show: false, id: "", custom: "" }
   );
 
   const [alertDialogInput, setAlertDialogInput] = useReducer(
@@ -226,9 +226,9 @@ const BlastSearch = (props) => {
                     ? 0.001
                     : data.parameters.evalue,
                 maxHits:
-                data.parameters.max_target_seqs === undefined
+                data.parameters.num_alignments === undefined
                     ? 250
-                    : data.parameters.max_target_seqs,
+                    : data.parameters.num_alignments,
               });
               setBlastError({ proSequenceInput: false, proSeqSearchDisabled: false });
               setPageLoading(false);
@@ -264,7 +264,7 @@ const BlastSearch = (props) => {
             [commonBlastSearchData.seq.id]: input_proSequence,
             [commonBlastSearchData.targetdb.id]: input_targetDatabase,
             [commonBlastSearchData.evalue.id]: parseFloat(input_eValue),
-            [commonBlastSearchData.max_target_seqs.id]: parseInt(input_maxHits),
+            [commonBlastSearchData.num_alignments.id]: parseInt(input_maxHits),
           }
     };
 
@@ -302,12 +302,18 @@ const BlastSearch = (props) => {
               setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
               window.scrollTo(0, 0);
             }
+          } else if (josStatus === "running") {
+              setTimeout((jobID) => {
+                blastSearchJobStatus(jobID);
+            }, 2000, jobid);
           } else {
-            setTimeout((jobID) => {
-              blastSearchJobStatus(jobID);
-          }, 2000, jobid);
+            let error = response.data["status"].error ? response.data["status"].error : "";
+            logActivity("user", "", "No results. " + message + " " + error);
+            setPageLoading(false);
+            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
+            window.scrollTo(0, 0);
           }
-        }  else {
+        } else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
           setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
@@ -342,11 +348,17 @@ const BlastSearch = (props) => {
               setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
               window.scrollTo(0, 0);
             }
-        } else {
-            setTimeout((jobID) => {
-              blastSearchJobStatus(jobID);
-          }, 2000, jobID);
-          } 
+          } else if (josStatus === "running") {
+                setTimeout((jobID) => {
+                  blastSearchJobStatus(jobID);
+              }, 2000, jobID);
+          } else {
+            let error = response.data["error"] ? response.data["error"] : "";
+            logActivity("user", "", "No results. " + message + " " + error);
+            setPageLoading(false);
+            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
+            window.scrollTo(0, 0);
+          }
         }  else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
@@ -529,14 +541,14 @@ const BlastSearch = (props) => {
                 />
             </FormControl>
           </Grid>
-          {/* max_target_seqs */}
+          {/* num_alignments */}
           <Grid item xs={12} sm={12} md={5} className="pt-3">
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
-                  title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.max_target_seqs.id).label}
-                  text={commonBlastSearchData.max_target_seqs.tooltip.text}
+                  title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label}
+                  text={commonBlastSearchData.num_alignments.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.max_target_seqs.id).label + " *"}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label + " *"}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -551,16 +563,16 @@ const BlastSearch = (props) => {
                     if (maxHits === 0 || isNaN(maxHits)){
                       maxHits = 250;
                     }
-                    maxHits = Math.min(maxHits, blastJSONData.max_target_seqs.max);
+                    maxHits = Math.min(maxHits, blastJSONData.num_alignments.max);
                     setInputValue({ maxHits: maxHits });
                   } else {
                     setInputValue({ maxHits: 250 });
                   }
                 }}
                 inputProps={{
-                  step: blastJSONData.max_target_seqs.step,
-                  min: blastJSONData.max_target_seqs.min,
-                  max: blastJSONData.max_target_seqs.max,
+                  step: blastJSONData.num_alignments.step,
+                  min: blastJSONData.num_alignments.min,
+                  max: blastJSONData.num_alignments.max,
                   type: "number",
                 }}
                 />
