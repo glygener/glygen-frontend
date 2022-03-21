@@ -12,6 +12,24 @@
       "title": "Glycans With This Motif",
       "url": "https://wiki.glygen.org/index.php/Motif_details/Glycans"
     },
+    "history": {
+      "urlText": "Read more...",
+      "text": "The History section provides information about the release in which the accession was introduced, whether it was renamed from other accessions, or merged with another motif in GlyGen.",
+      "title": "History",
+      "url": "https://wiki.glygen.org/index.php/Motif_details/History"
+    },
+    "cross_references": {
+      "urlText": "Read more...",
+      "text": "The Cross References section provides a list of database entries and links for the motif in other databases.",
+      "title": "Cross References",
+      "url": "https://wiki.glygen.org/index.php/Motif_details/Cross_references"
+    },
+    "digital_sequence": {
+      "urlText": "Read more...",
+      "text": "The Digital Sequence section displays the sequence of the motif in various sequence formats.",
+      "title": "Digital Sequence",
+      "url": "https://wiki.glygen.org/index.php/Motif_details/Digital_sequences"
+    },
     "publications": {
       "urlText": "Read more...",
       "text": "The Publications section contains publications where the given motif was reported.",
