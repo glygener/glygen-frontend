@@ -1039,7 +1039,6 @@ const GlycanSearch = (props) => {
           let josStatus = status.status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-			setPageLoading(false);
             if (status["result_count"] && status["result_count"] > 0) {
 				getJobResultList(jobid)
 					.then((response) => {
@@ -1099,7 +1098,6 @@ const GlycanSearch = (props) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"];
           	if (josStatus === "finished") {
-				setPageLoading(false);
 				if (response.data["result_count"] && response.data["result_count"] > 0) {
 					getJobResultList(jobID)
 						.then((response) => {

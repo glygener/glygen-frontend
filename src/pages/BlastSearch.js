@@ -291,11 +291,11 @@ const BlastSearch = (props) => {
           let josStatus = response.data["status"].status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-            setPageLoading(false);
             if (response.data["status"].result_count && response.data["status"].result_count > 0) {
               logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
                 props.history.push(routeConstants.blastResult + response.data["jobid"]);
               });
+              setPageLoading(false);
             } else {
               logActivity("user", "", "No results. " + message);
               setPageLoading(false);
@@ -337,11 +337,11 @@ const BlastSearch = (props) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"];
           if (josStatus === "finished") {
-            setPageLoading(false);
             if (response.data["result_count"] && response.data["result_count"] > 0) {
               logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
                 props.history.push(routeConstants.blastResult + jobID);
               });
+              setPageLoading(false);
             } else {
               logActivity("user", "", "No results. " + message);
               setPageLoading(false);
