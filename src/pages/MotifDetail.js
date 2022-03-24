@@ -201,7 +201,9 @@ const MotifDetail = (props) => {
         setItemsCrossRef(getItemsCrossRef(data));
         setIupac(data.iupac);
         setWurcs(data.wurcs);
-        setGlycoct(data.glycoct);
+        if (data.glycoct) {
+          setGlycoct(data.glycoct.replace(/ /g, "\n"));
+        }
         setInchi(data.inchi);
         setGlycam(data.glycam);
         setSmiles_isomeric(data.smiles_isomeric);
