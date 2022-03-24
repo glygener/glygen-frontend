@@ -32,6 +32,8 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
 import { getGlycanImageUrl } from "../data/glycan";
 import { addIndex } from "../utils/common";
+import EvidenceList from "../components/EvidenceList";
+import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import CollapsibleText from "../components/CollapsibleText";
 
 const items = [
@@ -243,6 +245,8 @@ const PublicationDetail = (props) => {
     referenced_proteins,
     referenced_glycans,
   } = detailData;
+
+  const organismEvidence = groupOrganismEvidences(species);
 
   const createGlycosylationSummary = (data, glycan = false) => {
     const info = {};
@@ -590,6 +594,23 @@ const PublicationDetail = (props) => {
 
   const glycoSylationColumns = [
     {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "25%",
+        };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList key={row.start_pos + row.glytoucan_ac} evidences={groupEvidences(cell)} />
+        );
+      },
+    },
+    {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_accession.name,
       // defaultSortField: "uniprot_canonical_ac",
@@ -688,6 +709,18 @@ const PublicationDetail = (props) => {
   ];
   const phosphorylationColumns = [
     {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_accession.name,
       // defaultSortField: "uniprot_canonical_ac",
@@ -761,6 +794,23 @@ const PublicationDetail = (props) => {
     },
   ];
   const mutationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "20%",
+        };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList key={`ev_${row.ref_nt}_${row.chr_pos}`} evidences={groupEvidences(cell)} />
+        );
+      },
+    },
     {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_accession.name,
@@ -902,6 +952,18 @@ const PublicationDetail = (props) => {
   ];
   const glycationColumns = [
     {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
       dataField: "type",
       text: proteinStrings.type.name,
       sort: true,
@@ -948,6 +1010,18 @@ const PublicationDetail = (props) => {
     },
   ];
   const mutagenesisColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
     {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_accession.name,
@@ -1241,38 +1315,46 @@ const PublicationDetail = (props) => {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    {species && (
-                      <>
-                        <div>
-                          <Row>
-                            {species.map((org) => (
-                              <Col className="nowrap" xs={12} sm={6} key={org.name}>
-                                <>
-                                  <strong>{org.name}</strong>{" "}
-                                  <span>
-                                    {"("}
-                                    {org.common_name}
-                                    {")"}
-                                  </span>{" "}
-                                  {"["}
-                                  <LineTooltip text="View details on NCBI">
-                                    <a
-                                      href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${org.taxid}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      {org.taxid}
-                                    </a>
-                                  </LineTooltip>
-                                  {"]"}{" "}
-                                </>
-                              </Col>
-                            ))}
-                          </Row>
-                        </div>
-                      </>
-                    )}
-                    {!species && <span>No data available.</span>}
+                    <Row>
+                      {organismEvidence &&
+                        // For every organism object
+                        Object.keys(organismEvidence).map(orgEvi => (
+                          // For every database for current organism object
+                          <Col
+                            xs={12}
+                            sm={12}
+                            md={4}
+                            lg={4}
+                            xl={4}
+                            style={{ marginBottom: "10px" }}
+                            key={orgEvi}
+                          >
+                            <>
+                              <strong>{orgEvi}</strong> {"("}
+                              <span className="text-capitalize">
+                                {organismEvidence[orgEvi].common_name}
+                              </span>
+                              {")"} {"["}
+                              <LineTooltip text="View details on NCBI">
+                                <a
+                                  href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {organismEvidence[orgEvi].taxid}
+                                </a>
+                              </LineTooltip>
+                              {"]"}{" "}
+                              <EvidenceList
+                                evidences={organismEvidence[orgEvi].evidence}
+                              />
+                            </>
+                          </Col>
+                      ))}
+                      {!species && (
+                        <p className="no-data-msg">No data available.</p>
+                      )}
+                    </Row>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
