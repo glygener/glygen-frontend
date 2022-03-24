@@ -122,7 +122,7 @@ const StructureSearchControl = (props) => {
         glySequence={props.inputValue.glySequence}
         setInputValue={props.setInputValue}
         inputValue={props.inputValue}
-        title={"GlyGen GlycoGlyph"}
+        title={"GlycoGlyph"}
         setOpen={(input) => {
           setGlycoGlyphDialog(input)
         }}
@@ -164,7 +164,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.seq_type.tooltip.title}
                 text={commonStructSearchData.seq_type.tooltip.text}
               />
-              {commonStructSearchData.seq_type.name + " *"}
+              {commonStructSearchData.seq_type.name}{<sup> *</sup>}
             </Typography>
             <SelectControl
               inputValue={props.inputValue.seqType}
@@ -186,7 +186,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.seq.tooltip.title}
                 text={commonStructSearchData.seq.tooltip.text}
               />
-              {commonStructSearchData.seq.name  + " *"}
+              {commonStructSearchData.seq.name}{<sup> *1</sup>}
 						</Typography>
 						<OutlinedInput
               placeholder={glycanStructSearchData.seq.exampleMap[props.inputValue.seqType].placeholder}
@@ -222,7 +222,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.align.tooltip.title}
                 text={commonStructSearchData.align.tooltip.text}
               />
-              {commonStructSearchData.align.name + " *"}
+              {commonStructSearchData.align.name}{<sup> *</sup>}
 						</Typography>
               <RadioGroup
                   row
@@ -272,9 +272,16 @@ const StructureSearchControl = (props) => {
         <Grid item xs={12} sm={10}>
         <Row>
           <Col>
-            <p className="text-muted mt-2">
-              <strong>*</strong> These fields are required.
-            </p>
+            <div className="text-muted mt-2">
+              <strong><sup>*</sup></strong> These fields are required.
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="text-muted">
+              <strong><sup>1</sup></strong> Maximum number of monosaccharides supported is 10.
+            </div>
           </Col>
         </Row>
         </Grid>

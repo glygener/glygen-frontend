@@ -140,8 +140,9 @@ const GlycanQuerySummary = (props) => {
                     {glycanStrings.seq.name}:
                   </Col>
                   <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                    {parameters === undefined ? "" : data.parameters.seq.length > 200 ? 
-                      parameters.seq.substring(0, 200) + "..." : data.parameters.seq
+                    {parameters.seq.startsWith("WURCS") 
+                      ? parameters.seq.length > 100 ? parameters.seq.substring(0, 100) + "..." : parameters.seq 
+                      : parameters.seq.length > 100 ? <pre style={{color:"inherit"}} className="mb-0">{parameters.seq.substring(0, 100) + "..."}</pre> : <pre style={{color:"inherit"}} className="mb-0">{parameters.seq}</pre>
                     }
                   </Col>
                 </Row>
