@@ -374,7 +374,7 @@ const IdMapping = (props) => {
                 title={commonIdMappingData.recordtype.tooltip.title}
                 text={commonIdMappingData.recordtype.tooltip.text}
               />
-              {commonIdMappingData.recordtype.name}
+              {commonIdMappingData.recordtype.name}{<sup> *</sup>}
             </Typography>
             <SelectControl
               placeholder={idMappingData.recordtype.placeholder}
@@ -416,7 +416,7 @@ const IdMapping = (props) => {
                   title={commonIdMappingData.input_namespace.tooltip.title}
                   text={commonIdMappingData.input_namespace.tooltip.text}
                 />
-                {commonIdMappingData.input_namespace.name}
+                {commonIdMappingData.input_namespace.name}{<sup> *</sup>}
               </Typography>
               <SelectControl
                 placeholder={idMappingData.input_namespace.placeholder}
@@ -477,7 +477,7 @@ const IdMapping = (props) => {
                   title={commonIdMappingData.output_namespace.tooltip.title}
                   text={commonIdMappingData.output_namespace.tooltip.text}
                 />
-                {commonIdMappingData.output_namespace.name}
+                {commonIdMappingData.output_namespace.name}{<sup> *</sup>}
               </Typography>
               <SelectControl
                 placeholder={idMappingData.output_namespace.placeholder}
@@ -533,7 +533,7 @@ const IdMapping = (props) => {
                 title={commonIdMappingData.input_idlist.tooltip.title}
                 text={commonIdMappingData.input_idlist.tooltip.text}
               />
-              {commonIdMappingData.input_idlist.name}
+              {commonIdMappingData.input_idlist.name}{<sup> *</sup>}
             </Typography>
             <OutlinedInput
               fullWidth
@@ -646,7 +646,7 @@ const IdMapping = (props) => {
         <Row>
           <Col>
             <p className="text-muted mt-2">
-              <strong>*</strong> These fields are required.
+              <strong><sup> *</sup></strong> These fields are required.
             </p>
           </Col>
         </Row>

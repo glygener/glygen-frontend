@@ -455,7 +455,7 @@ const BlastSearch = (props) => {
                 urlText={commonBlastSearchData.seq.tooltip.urlText}
                 url={commonBlastSearchData.seq.tooltip.url}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label + " *"}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label}{<sup> *</sup>}
 						</Typography>
 						<OutlinedInput
               placeholder={blastJSONData.seq.placeholder}
@@ -491,7 +491,7 @@ const BlastSearch = (props) => {
                 title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label}
                 text={commonBlastSearchData.targetdb.tooltip.text}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label + " *"}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label}{<sup> *</sup>}
             </Typography>
             <SelectControl
               inputValue={inputValue.targetDatabase}
@@ -514,7 +514,7 @@ const BlastSearch = (props) => {
                   title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label}
                   text={commonBlastSearchData.evalue.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label + " *"}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label}{<sup> *</sup>}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -548,7 +548,7 @@ const BlastSearch = (props) => {
                   title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label}
                   text={commonBlastSearchData.num_alignments.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label + " *"}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label}{<sup> *</sup>}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -600,7 +600,7 @@ const BlastSearch = (props) => {
         <Row>
           <Col>
             <p className="text-muted mt-2">
-              <strong>*</strong> These fields are required.
+              <strong><sup>*</sup></strong> These fields are required.
             </p>
           </Col>
         </Row>

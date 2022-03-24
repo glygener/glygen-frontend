@@ -9,7 +9,7 @@ import SequenceHighlighter from "./SequenceHighlighter";
  * Sequence dashboard control for displaying sequence highlighter control.
  */
 const SequenceDashboard = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   /**
    * Function to close sequence dashboard control.

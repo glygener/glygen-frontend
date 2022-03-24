@@ -1801,6 +1801,11 @@
       "title": "Query Search Error - Invalid Query Parameters",
       "message": "Please provide valid query parameters. "
     },
+    "bad characters in protein sequence": {
+      "id": "bad characters in protein sequence",
+      "title": "Blast Search Error - Bad characters in protein sequence",
+      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+    },
     "querySerarcApiError": {
       "id": "querySerarcApiError",
       "title": "Query Search Error - No Results Found",
@@ -2160,7 +2165,7 @@
   "id_mapping": {
     "common": {
       "recordtype": {
-        "name": "Molecule *",
+        "name": "Molecule",
         "tooltip": {
           "title": "Molecule",
           "text": "If Glycan is selected then whole id mapping will be related to glycan. Same for protein/glycoprotein."
@@ -2168,7 +2173,7 @@
         "id": "recordtype"
       },
       "input_namespace": {
-        "name": "From ID Type *",
+        "name": "From ID Type",
         "tooltip": {
           "title": "From ID Type",
           "text": "From ID field gives a list of resources that can be ID mapped."
@@ -2176,7 +2181,7 @@
         "id": "input_namespace"
       },
       "output_namespace": {
-        "name": "To ID Type *",
+        "name": "To ID Type",
         "tooltip": {
           "title": "To ID Type",
           "text": "To ID field gives a list of resources that can be ID mapped."
@@ -2184,7 +2189,7 @@
         "id": "output_namespace"
       },
       "input_idlist": {
-        "name": "Enter IDs *",
+        "name": "Enter IDs",
         "tooltip": {
           "title": "Enter IDs",
           "text": "Takes the input or text file (csv, txt, etc.) and the dropdowns information and performs the mapping."
