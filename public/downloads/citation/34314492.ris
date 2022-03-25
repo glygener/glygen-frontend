@@ -1,0 +1,36 @@
+Provider: Silverchair
+Database: Oxford University Press
+Content: text/plain; charset="UTF-8"
+
+TY  - JOUR
+AU  - Navelkar, Rahi
+AU  - Owen, Gareth
+AU  - Mutherkrishnan, Venkatesh
+AU  - Thiessen, Paul
+AU  - Cheng, Tiejun
+AU  - Bolton, Evan
+AU  - Edwards, Nathan
+AU  - Tiemeyer, Michael
+AU  - Campbell, Matthew P
+AU  - Martin, Maria
+AU  - Vora, Jeet
+AU  - Kahsay, Robel
+AU  - Mazumder, Raja
+T1  - Enhancing the interoperability of glycan data flow between ChEBI, PubChem and GlyGen
+PY  - 2021
+Y1  - 2021/11/01
+DO  - 10.1093/glycob/cwab078
+JO  - Glycobiology
+JA  - Glycobiology
+VL  - 31
+IS  - 11
+SP  - 1510
+EP  - 1519
+SN  - 1460-2423
+AB  - Glycans play a vital role in health, disease, bioenergy, biomaterials and bio-therapeutics. As a result, there is keen interest to identify and increase glycan data in bioinformatics databases like ChEBI and PubChem, and connecting them to resources at the EMBL-EBI and NCBI to facilitate access to important annotations at a global level. GlyTouCan is a comprehensive archival database that contains glycans obtained primarily through batch upload from glycan repositories, glycoprotein databases and individual laboratories. In many instances, the glycan structures deposited in GlyTouCan may not be fully defined or have supporting experimental evidence and citations. Databases like ChEBI and PubChem were designed to accommodate complete atomistic structures with well-defined chemical linkages. As a result, they cannot easily accommodate the structural ambiguity inherent in glycan databases. Consequently, there is a need to improve the organization of glycan data coherently to enhance connectivity across the major NCBI, EMBL-EBI and glycoscience databases.This paper outlines a workflow developed in collaboration between GlyGen, ChEBI and PubChem to improve the visibility and connectivity of glycan data across these resources. GlyGen hosts a subset of glycans (~29,000) from the GlyTouCan database and has submitted valuable glycan annotations to the PubChem database and integrated over 10,500 (including ambiguously defined) glycans into the ChEBI database. The integrated glycans were prioritized based on links to PubChem and connectivity to glycoprotein data. The pipeline provides a blueprint for how glycan data can be harmonized between different resources. The current PubChem, ChEBI and GlyTouCan mappings can be downloaded from GlyGen (https://data.glygen.org).
+Y2  - 3/24/2022
+UR  - https://doi.org/10.1093/glycob/cwab078
+ER  - 
+
+
+

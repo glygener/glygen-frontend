@@ -112,21 +112,105 @@
 			"ris": "/downloads/citation/30715201.ris",
 			"rislabel": "RIS",
 			"period": "."
+		},
+		{
+			"heading": "Enhancing the interoperability of glycan data flow between ChEBI, PubChem and GlyGen.",
+			"authors": "Rahi Navelkar, Gareth Owen, Venkatesh Mutherkrishnan, Paul Thiessen, Tiejun Cheng, Evan Bolton, Nathan Edwards, Michael Tiemeyer, Matthew P Campbell, Maria Martin, Jeet Vora, Robel Kahsay, Raja Mazumder.",
+			"publisher": "Glycobiology. 2021 Nov 01.",
+			"pmid": "PMID",
+			"website": {
+				"name": "34314492",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/34314492"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/34314492.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/34314492.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/34314492.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
+			"heading": "The GlySpace Alliance: toward a collaborative global glycoinformatics community.",
+			"authors": "Kiyoko F Aoki-Kinoshita, Frederique Lisacek, Raja Mazumder, William S York, Nicolle H Packer.",
+			"publisher": "Glycobiology. 2020 Jan 28.",
+			"pmid": "PMID",
+			"website": {
+				"name": "31573039",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/31573039"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/31573039.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/31573039.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/31573039.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
+			"heading": "The Glycan Structure Dictionary -a  dictionary describing commonly used glycan structure terms.",
+			"authors": "Jeet Vora, Rahi Navelkar, K.Vijay-Shanker, Nathan Edwards, Xiying Ding, Tianyi Wang, Peng Su, Karen Ross, Frederique Lisacek, Catherine Hayes, Karina Martinez, Robel Kahsay, Rene Ranzinger, Michael Tiemeyer, Raja Mazumder.",
+			"pdf": "/downloads/pdf/The Glycan Structure Dictionary - a dictionary describing commonly used glycan structure terms.pdf",
+			"pdflabel": "PDF Download"
+		},
+		{
+			"heading": "Glycoinformatics Resources Integrated Through the GlySpace Alliance.",
+			"authors": "Frederique Lisacek, Kiyoko F. Aoki-Kinoshita, Jeet Kiran Vora, Raja Mazumder, Mike Tiemeyer.",
+			"publisher": "Comprehensive Glycoscience (Second Edition). 2021 Jan 01.",
+			"doi": "DOI",
+			"website": {
+				"name": "10.1016/B978-0-12-819475-1.00107-3",
+				"url": "https://doi.org/10.1016/B978-0-12-819475-1.00107-3"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/B9780128194751001073.bib",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/B9780128194751001073.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/B9780128194751001073.ris",
+			"rislabel": "RIS",
+			"period": "."
 		}
 	],
 	"relatedPapers": [
 		{
 			"title": "Related Papers",
-			"comingSoon": "Coming soon.",
-			"heading": "",
-			"authors": "",
-			"publisher": "",
-			"pmid": "",
+			"heading": "Bioinformatics tools developed to support BioCompute Objects.",
+			"authors": "Janisha A Patel, Dennis A Dean, Charles Hadley King, Nan Xiao, Soner Koc, Ekaterina Minina, Anton Golikov, Phillip Brooks, Robel Kahsay, Rahi Navelkar, Manisha Ray, Dave Roberson, Chris Armstrong, Raja Mazumder, Jonathon Keeney.",
+			"publisher": "Database (Oxford). 2021 Sept 29.",
+			"pmid": "PMID",
 			"website": {
-				"name": "",
-				"url": ""
+				"name": "33784373",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/33784373"
 			},
-			"period": ""
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/33784373.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/33784373.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/33784373.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
+			"heading": "The human O-GlcNAcome database and meta-analysis.",
+			"authors": "Eugenia Wulff-Fuentes, Rex R. Berendt, Logan Massman, Laura Danner, Florian Malard, Jeet Vora, Robel Kahsay & Stephanie Olivier-Van Stichelen.",
+			"publisher": "Scientific Data. 2021 Jan 21.",
+			"pmid": "PMID",
+			"website": {
+				"name": "33479245",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/33479245"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/33479245.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/33479245.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/33479245.ris",
+			"rislabel": "RIS",
+			"period": "."
 		}
 	],
 	"websiteCitation": [

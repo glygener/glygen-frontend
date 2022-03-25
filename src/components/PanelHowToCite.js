@@ -39,14 +39,30 @@ const PanelHowToCite = (props) => {
                           {json.citations}
                         </div>
                         {json.publisher}
-                        <div>
+                        {json.pmid && json.website && (<div>
                           {json.pmid}{" "}
                           <a href={json.website.url} target="_blank" rel="noopener noreferrer">
                             {json.website.name}
                           </a>
                           {json.period}
-                        </div>
-
+                        </div>)}
+                        {json.doi && json.website && (<div>
+                          {json.doi}{" "}
+                          <a href={json.website.url} target="_blank" rel="noopener noreferrer">
+                            {json.website.name}
+                          </a>
+                          {json.period}
+                        </div>)}
+                        {json.pdf && (<div>
+                            <Link
+                              to={json.pdf}
+                              target="_blank"
+                              download
+                              style={{ paddingRight: "20px" }}
+                            >
+                              {json.pdflabel}
+                            </Link>
+                          </div>)}
                         <div>
                           {json.citeimage && (
                             <Image src={CiteImage} style={{ paddingRight: "20px" }} />
