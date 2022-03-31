@@ -23,6 +23,48 @@
 	],
 	"ourPapers": [
 		{
+			"heading": "The Glycan Structure Dictionary -a  dictionary describing commonly used glycan structure terms.",
+			"authors": "Jeet Vora, Rahi Navelkar, K.Vijay-Shanker, Nathan Edwards, Xiying Ding, Tianyi Wang, Peng Su, Karen Ross, Frederique Lisacek, Catherine Hayes, Karina Martinez, Robel Kahsay, Rene Ranzinger, Michael Tiemeyer, Raja Mazumder.",
+			"pdf": "/downloads/pdf/The Glycan Structure Dictionary - a dictionary describing commonly used glycan structure terms.pdf",
+			"pdflabel": "PDF Download"
+		},
+		{
+			"heading": "Enhancing the interoperability of glycan data flow between ChEBI, PubChem and GlyGen.",
+			"authors": "Rahi Navelkar, Gareth Owen, Venkatesh Mutherkrishnan, Paul Thiessen, Tiejun Cheng, Evan Bolton, Nathan Edwards, Michael Tiemeyer, Matthew P Campbell, Maria Martin, Jeet Vora, Robel Kahsay, Raja Mazumder.",
+			"publisher": "Glycobiology. 2021 Nov 01.",
+			"pmid": "PMID",
+			"website": {
+				"name": "34314492",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/34314492"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/34314492.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/34314492.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/34314492.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
+			"heading": "Glycoinformatics Resources Integrated Through the GlySpace Alliance.",
+			"authors": "Frederique Lisacek, Kiyoko F. Aoki-Kinoshita, Jeet Kiran Vora, Raja Mazumder, Mike Tiemeyer.",
+			"publisher": "Comprehensive Glycoscience (Second Edition). 2021 Jan 01.",
+			"doi": "DOI",
+			"website": {
+				"name": "10.1016/B978-0-12-819475-1.00107-3",
+				"url": "https://doi.org/10.1016/B978-0-12-819475-1.00107-3"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/B9780128194751001073.bib",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/B9780128194751001073.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/B9780128194751001073.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
 			"title": "Our Papers",
 			"heading": "GlyGen data model and processing workflow.",
 			"authors": "Robel Kahsay, Jeet Vora, Rahi Navelkar, Reza Mousavi, Brian Fochtman, Xavier Holmes, Nagarajan Pattabiraman, Rene Ranzinger, Rupali Mahadik, Tatiana Williamson, Sujeet Kulkarni, Gaurav Agarwal, Maria Martin, Preethi Vasudev, Leyla Jael Garcia Castro, Nathan Edwards, Wenjin Zhang, Darren A. Natale, Karen Ross, Kiyoko F. Aoki-Kinoshita, Matthew P. Campbell, William S. York, Raja Mazumder.",
@@ -96,42 +138,6 @@
 			"period": "."
 		},
 		{
-			"heading": "GLAD: Glycan array dashboard, a visual analytics tool for glycan microarrays.",
-			"authors": "Akul Y. Mehta, Richard D. Cummings.",
-			"publisher": "Bioinformatics. 2019 Sep 15.",
-			"pmid": "PMID",
-			"website": {
-				"name": "30715201",
-				"url": "https://www.ncbi.nlm.nih.gov/pubmed/30715201"
-			},
-			"citeimage": "display",
-			"bibtex": "/downloads/citation/30715201.bib",
-			"bibtexlabel": "BibTeX",
-			"endnote": "/downloads/citation/30715201.enw",
-			"endnotelabel": "EndNote",
-			"ris": "/downloads/citation/30715201.ris",
-			"rislabel": "RIS",
-			"period": "."
-		},
-		{
-			"heading": "Enhancing the interoperability of glycan data flow between ChEBI, PubChem and GlyGen.",
-			"authors": "Rahi Navelkar, Gareth Owen, Venkatesh Mutherkrishnan, Paul Thiessen, Tiejun Cheng, Evan Bolton, Nathan Edwards, Michael Tiemeyer, Matthew P Campbell, Maria Martin, Jeet Vora, Robel Kahsay, Raja Mazumder.",
-			"publisher": "Glycobiology. 2021 Nov 01.",
-			"pmid": "PMID",
-			"website": {
-				"name": "34314492",
-				"url": "https://pubmed.ncbi.nlm.nih.gov/34314492"
-			},
-			"citeimage": "display",
-			"bibtex": "/downloads/citation/34314492.bibtex",
-			"bibtexlabel": "BibTeX",
-			"endnote": "/downloads/citation/34314492.enw",
-			"endnotelabel": "EndNote",
-			"ris": "/downloads/citation/34314492.ris",
-			"rislabel": "RIS",
-			"period": "."
-		},
-		{
 			"heading": "The GlySpace Alliance: toward a collaborative global glycoinformatics community.",
 			"authors": "Kiyoko F Aoki-Kinoshita, Frederique Lisacek, Raja Mazumder, William S York, Nicolle H Packer.",
 			"publisher": "Glycobiology. 2020 Jan 28.",
@@ -150,26 +156,20 @@
 			"period": "."
 		},
 		{
-			"heading": "The Glycan Structure Dictionary -a  dictionary describing commonly used glycan structure terms.",
-			"authors": "Jeet Vora, Rahi Navelkar, K.Vijay-Shanker, Nathan Edwards, Xiying Ding, Tianyi Wang, Peng Su, Karen Ross, Frederique Lisacek, Catherine Hayes, Karina Martinez, Robel Kahsay, Rene Ranzinger, Michael Tiemeyer, Raja Mazumder.",
-			"pdf": "/downloads/pdf/The Glycan Structure Dictionary - a dictionary describing commonly used glycan structure terms.pdf",
-			"pdflabel": "PDF Download"
-		},
-		{
-			"heading": "Glycoinformatics Resources Integrated Through the GlySpace Alliance.",
-			"authors": "Frederique Lisacek, Kiyoko F. Aoki-Kinoshita, Jeet Kiran Vora, Raja Mazumder, Mike Tiemeyer.",
-			"publisher": "Comprehensive Glycoscience (Second Edition). 2021 Jan 01.",
-			"doi": "DOI",
+			"heading": "GLAD: Glycan array dashboard, a visual analytics tool for glycan microarrays.",
+			"authors": "Akul Y. Mehta, Richard D. Cummings.",
+			"publisher": "Bioinformatics. 2019 Sep 15.",
+			"pmid": "PMID",
 			"website": {
-				"name": "10.1016/B978-0-12-819475-1.00107-3",
-				"url": "https://doi.org/10.1016/B978-0-12-819475-1.00107-3"
+				"name": "30715201",
+				"url": "https://www.ncbi.nlm.nih.gov/pubmed/30715201"
 			},
 			"citeimage": "display",
-			"bibtex": "/downloads/citation/B9780128194751001073.bib",
+			"bibtex": "/downloads/citation/30715201.bib",
 			"bibtexlabel": "BibTeX",
-			"endnote": "/downloads/citation/B9780128194751001073.enw",
+			"endnote": "/downloads/citation/30715201.enw",
 			"endnotelabel": "EndNote",
-			"ris": "/downloads/citation/B9780128194751001073.ris",
+			"ris": "/downloads/citation/30715201.ris",
 			"rislabel": "RIS",
 			"period": "."
 		}
@@ -179,7 +179,7 @@
 			"title": "Related Papers",
 			"heading": "Bioinformatics tools developed to support BioCompute Objects.",
 			"authors": "Janisha A Patel, Dennis A Dean, Charles Hadley King, Nan Xiao, Soner Koc, Ekaterina Minina, Anton Golikov, Phillip Brooks, Robel Kahsay, Rahi Navelkar, Manisha Ray, Dave Roberson, Chris Armstrong, Raja Mazumder, Jonathon Keeney.",
-			"publisher": "Database (Oxford). 2021 Sept 29.",
+			"publisher": "Database (Oxford). 2021 Sep 29.",
 			"pmid": "PMID",
 			"website": {
 				"name": "33784373",
