@@ -1104,7 +1104,7 @@ const GlycanSearch = (props) => {
    * @param {string} jobID - job id.
 	 **/
   const searchJobStatus = (jobID) => {
-    let message = "Structure/Substructure Search query=" + JSON.stringify(jobID);
+    let message = (glyActTabKey === "Structure-Search" ? "Structure" : "Substructure") + " Search query=" + JSON.stringify(jobID);
     getJobStatus(jobID)
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
