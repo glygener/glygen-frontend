@@ -1,7 +1,8 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState, useRef } from 'react';
 import Helmet from 'react-helmet';
 import { getTitle, getMeta } from '../utils/head';
 import PageLoader from '../components/load/PageLoader';
+import DialogLoader from '../components/load/DialogLoader';
 import TextAlert from '../components/alert/TextAlert';
 import DialogAlert from '../components/alert/DialogAlert';
 import GlycanAdvancedSearch from '../components/search/GlycanAdvancedSearch';
@@ -79,6 +80,9 @@ const GlycanSearch = (props) => {
 	);
 	const [glyActTabKey, setGlyActTabKey] = useState('Simple-Search');
 	const [pageLoading, setPageLoading] = useState(true);
+	const [dialogLoading, setDialogLoading] = useState(false);
+	const dialogLoadingRef = useRef(dialogLoading);
+	dialogLoadingRef.current = dialogLoading;
 	const [searchStarted, setSearchStarted] = useState(false);
 	const [alertTextInput, setAlertTextInput] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
@@ -1043,46 +1047,54 @@ const GlycanSearch = (props) => {
 				getJobResultList(jobid)
 					.then((response) => {
 						if (response.data['list_id'] !== '') {
-							logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-								props.history.push(routeConstants.glycanList + response.data['list_id']);
-							  });
-							setPageLoading(false);
+							if (dialogLoadingRef.current) {
+								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+									props.history.push(routeConstants.glycanList + response.data['list_id']);
+								});
+								setDialogLoading(false);
+							} else {
+								logActivity("user", "", "User canceled job. " + message);
+							}
 						} else {
 							logActivity("user", "", "No results. " + message);
-							setPageLoading(false);
+							setDialogLoading(false);
 							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
 							window.scrollTo(0, 0);
 						}
 					})
 					.catch(function (error) {
-						axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+						axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
 					});
             } else {
               logActivity("user", "", "No results. " + message);
-              setPageLoading(false);
+              setDialogLoading(false);
               setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
-            setTimeout((jobID) => {
-				searchJobStatus(jobID);
-          	}, 2000, jobid);
+			if (dialogLoadingRef.current) {
+				setTimeout((jobID) => {
+					searchJobStatus(jobID);
+				}, 2000, jobid);
+			} else {
+				logActivity("user", "", "User canceled job. " + message);
+			}
           } else {
 			let error = status.error ? status.error : "";
 			logActivity("user", "", "No results. " + message + " " + error);
-			setPageLoading(false);
+			setDialogLoading(false);
 			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error});
 			window.scrollTo(0, 0);
 		  }
         }  else {
           logActivity("user", "", "No results. " + message);
-          setPageLoading(false);
+          setDialogLoading(false);
           setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
           window.scrollTo(0, 0);
         }
       })
       .catch(function (error) {
-        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
       });
   };
 
@@ -1102,46 +1114,54 @@ const GlycanSearch = (props) => {
 					getJobResultList(jobID)
 						.then((response) => {
 							if (response.data['list_id'] !== '') {
-								logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-									props.history.push(routeConstants.glycanList + response.data['list_id']);
-								});
-								setPageLoading(false);
+								if (dialogLoadingRef.current) {
+									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+										props.history.push(routeConstants.glycanList + response.data['list_id']);
+									});
+									setDialogLoading(false);
+								} else {
+									logActivity("user", "", "User canceled job. " + message);
+								}
 							} else {
 								logActivity("user", "", "No results. " + message);
-								setPageLoading(false);
+								setDialogLoading(false);
 								setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
 								window.scrollTo(0, 0);
 							}
 						})
 						.catch(function (error) {
-							axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+							axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
 						});
 				} else {
 					logActivity("user", "", "No results. " + message);
-					setPageLoading(false);
+					setDialogLoading(false);
 					setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
 					window.scrollTo(0, 0);
 				}
 			} else if (josStatus === "running") {
-				setTimeout((jobID) => {
-					searchJobStatus(jobID);
-				}, 2000, jobID);
+				if (dialogLoadingRef.current) {
+					setTimeout((jobID) => {
+						searchJobStatus(jobID);
+					}, 2000, jobID);
+				} else {
+					logActivity("user", "", "User canceled job. " + message);
+				}
 			}  else {
 				let error = response.data["error"] ? response.data["error"] : "";
-				logActivity("user", "", "No results. " + message + " " + error);
-				setPageLoading(false);
+				logActivity("error", "", "No results. " + message + " " + error);
+				setDialogLoading(false);
 				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error})
 				window.scrollTo(0, 0);
 			}  
 		} else {
           logActivity("user", "", "No results. " + message);
-          setPageLoading(false);
+          setDialogLoading(false);
           setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
           window.scrollTo(0, 0);
         }
       })
       .catch(function (error) {
-        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
       });
   };
 
@@ -1149,15 +1169,15 @@ const GlycanSearch = (props) => {
    * Function to handle click event for structure search.
    **/
   const searchStructClick = () => {
-    setPageLoading(true);
+    setDialogLoading(true);
     structSearchSubmit("structure");
   };
 
-	/**
+  /**
    * Function to handle click event for substructure search.
    **/
   const searchSubStructClick = () => {
-    setPageLoading(true);
+    setDialogLoading(true);
     structSearchSubmit("substructure");
   };
 
@@ -1198,6 +1218,13 @@ const GlycanSearch = (props) => {
 			<div className='lander'>
 				<Container>
 					<PageLoader pageLoading={pageLoading} />
+					<DialogLoader 
+						show={dialogLoading}
+						title={glyActTabKey === "Structure-Search" ? "Structure Search" : "Substructure Search"}
+						setOpen={(input) => {
+							setDialogLoading(input)
+						}}
+					/>
 					<DialogAlert
 						alertInput={alertDialogInput}
 						setOpen={(input) => {

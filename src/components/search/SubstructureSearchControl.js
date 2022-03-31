@@ -164,7 +164,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.seq_type.tooltip.title}
                 text={commonStructSearchData.seq_type.tooltip.text}
               />
-              {commonStructSearchData.seq_type.name}{<sup> *</sup>}
+              {commonStructSearchData.seq_type.name + " *"}
             </Typography>
             <SelectControl
               inputValue={props.inputValue.seqType}
@@ -186,7 +186,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.seq.tooltip.title}
                 text={commonStructSearchData.seq.tooltip.text}
               />
-              {commonStructSearchData.seq.name}{<sup> *1</sup>}
+              {commonStructSearchData.seq.name + " *"}{<sup>,1</sup>}
 						</Typography>
 						<OutlinedInput
               placeholder={glycanStructSearchData.seq.exampleMap[props.inputValue.seqType].placeholder}
@@ -222,7 +222,7 @@ const StructureSearchControl = (props) => {
                 title={commonStructSearchData.align.tooltip.title}
                 text={commonStructSearchData.align.tooltip.text}
               />
-              {commonStructSearchData.align.name}{<sup> *</sup>}
+              {commonStructSearchData.align.name + " *"}
 						</Typography>
               <RadioGroup
                   row
@@ -273,7 +273,7 @@ const StructureSearchControl = (props) => {
         <Row>
           <Col>
             <div className="text-muted mt-2">
-              <strong><sup>*</sup></strong> These fields are required.
+              <strong>*</strong> These fields are required.
             </div>
           </Col>
         </Row>

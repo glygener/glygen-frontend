@@ -11,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import SelectControl from "../components/select/SelectControl";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import PageLoader from "../components/load/PageLoader";
+import DialogLoader from '../components/load/DialogLoader';
 import DialogAlert from "../components/alert/DialogAlert";
 import TextAlert from "../components/alert/TextAlert";
 import "../css/Search.css";
@@ -55,6 +56,9 @@ const BlastSearch = (props) => {
   );
 
   const [pageLoading, setPageLoading] = React.useState(true);
+  const [dialogLoading, setDialogLoading] = useState(false);
+	const dialogLoadingRef = useRef(dialogLoading);
+	dialogLoadingRef.current = dialogLoading;
   const [alertTextInput, setAlertTextInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "", custom: "" }
@@ -180,14 +184,12 @@ const BlastSearch = (props) => {
         let seqArr = text.split("\n");
         seqArr.splice(0,1);
         let seqData = seqArr.join("");
-
         proSequenceChange(seqData);
       };
     })
     .catch(function (error) {
       let message = " - Failed to retrieve valid Protein Sequence.";
       logActivity("user", "", "No results. " + inputValue.proUniprotAcc + message);
-      setPageLoading(false);
       setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchUniProtAccError.id})
       window.scrollTo(0, 0);
     });
@@ -292,13 +294,17 @@ const BlastSearch = (props) => {
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
             if (response.data["status"].result_count && response.data["status"].result_count > 0) {
-              logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
-                props.history.push(routeConstants.blastResult + response.data["jobid"]);
-              });
-              setPageLoading(false);
+              if (dialogLoadingRef.current) {
+                logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
+                  props.history.push(routeConstants.blastResult + response.data["jobid"]);
+                });
+                setDialogLoading(false);
+              } else {
+                logActivity("user", "", "User canceled job. " + message);
+              }
             } else {
               logActivity("user", "", "No results. " + message);
-              setPageLoading(false);
+              setDialogLoading(false);
               setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
               window.scrollTo(0, 0);
             }
@@ -309,19 +315,19 @@ const BlastSearch = (props) => {
           } else {
             let error = response.data["status"].error ? response.data["status"].error : "";
             logActivity("user", "", "No results. " + message + " " + error);
-            setPageLoading(false);
+            setDialogLoading(false);
             setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
             window.scrollTo(0, 0);
           }
         } else {
           logActivity("user", "", "No results. " + message);
-          setPageLoading(false);
+          setDialogLoading(false);
           setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
           window.scrollTo(0, 0);
         }
       })
       .catch(function (error) {
-        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
       });
   };
 
@@ -338,36 +344,44 @@ const BlastSearch = (props) => {
           let josStatus = response.data["status"];
           if (josStatus === "finished") {
             if (response.data["result_count"] && response.data["result_count"] > 0) {
-              logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
-                props.history.push(routeConstants.blastResult + jobID);
-              });
-              setPageLoading(false);
+              if (dialogLoadingRef.current) {
+                logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
+                  props.history.push(routeConstants.blastResult + jobID);
+                });
+                setDialogLoading(false);
+              } else {
+                logActivity("user", "", "User canceled job. " + message);
+              }
             } else {
               logActivity("user", "", "No results. " + message);
-              setPageLoading(false);
+              setDialogLoading(false);
               setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
+            if (dialogLoadingRef.current) {
                 setTimeout((jobID) => {
                   blastSearchJobStatus(jobID);
               }, 2000, jobID);
+            } else {
+              logActivity("user", "", "User canceled job. " + message);
+            }
           } else {
             let error = response.data["error"] ? response.data["error"] : "";
             logActivity("user", "", "No results. " + message + " " + error);
-            setPageLoading(false);
+            setDialogLoading(false);
             setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
             window.scrollTo(0, 0);
           }
         }  else {
           logActivity("user", "", "No results. " + message);
-          setPageLoading(false);
+          setDialogLoading(false);
           setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
           window.scrollTo(0, 0);
         }
       })
       .catch(function (error) {
-        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        axiosError(error, "", message, setDialogLoading, setAlertDialogInput);
       });
   };
 
@@ -375,7 +389,7 @@ const BlastSearch = (props) => {
    * Function to handle click event for blast search.
    **/
   const searchBlastClick = () => {
-    setPageLoading(true);
+    setDialogLoading(true);
     blastSearchSubmit();
   };
 
@@ -395,6 +409,13 @@ const BlastSearch = (props) => {
       </div>
       <Container className="id-mapping-content">
         <PageLoader pageLoading={pageLoading} />
+        <DialogLoader 
+          show={dialogLoading}
+          title={"Blast Search"}
+          setOpen={(input) => {
+            setDialogLoading(input)
+          }}
+				/>
         <DialogAlert
           alertInput={alertDialogInput}
           setOpen={(input) => {
@@ -455,7 +476,7 @@ const BlastSearch = (props) => {
                 urlText={commonBlastSearchData.seq.tooltip.urlText}
                 url={commonBlastSearchData.seq.tooltip.url}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label}{<sup> *</sup>}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label + " *"}
 						</Typography>
 						<OutlinedInput
               placeholder={blastJSONData.seq.placeholder}
@@ -491,7 +512,7 @@ const BlastSearch = (props) => {
                 title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label}
                 text={commonBlastSearchData.targetdb.tooltip.text}
               />
-              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label}{<sup> *</sup>}
+              {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.targetdb.id).label + " *"}
             </Typography>
             <SelectControl
               inputValue={inputValue.targetDatabase}
@@ -514,7 +535,7 @@ const BlastSearch = (props) => {
                   title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label}
                   text={commonBlastSearchData.evalue.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label}{<sup> *</sup>}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.evalue.id).label + " *"}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -545,10 +566,10 @@ const BlastSearch = (props) => {
           <Grid item xs={12} sm={12} md={5} className="pt-3">
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
-                  title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label}
+                  title={commonBlastSearchData.num_alignments.tooltip.title}
                   text={commonBlastSearchData.num_alignments.tooltip.text}
                 />
-                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label}{<sup> *</sup>}
+                {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.num_alignments.id).label + " *"}
               </Typography>
               <OutlinedInput
                 fullWidth
@@ -600,7 +621,7 @@ const BlastSearch = (props) => {
         <Row>
           <Col>
             <p className="text-muted mt-2">
-              <strong><sup>*</sup></strong> These fields are required.
+              <strong>*</strong> These fields are required.
             </p>
           </Col>
         </Row>
