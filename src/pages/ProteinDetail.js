@@ -317,6 +317,15 @@ const ProteinDetail = (props) => {
         setItemsCrossRef(getItemsCrossRef(data));
         setItemsPathway(getItemsPathway(data));
         setDetailData(data);
+
+        if (detailDataTemp.protein_names && detailDataTemp.protein_names.length > 1) {
+          let recommendedNames = detailDataTemp.protein_names.filter((x) => x.type === "recommended");
+          if (recommendedNames && recommendedNames.length > 1) {
+            let names = recommendedNames.map((x) => x.name).join("; ");
+            logActivity("error", id, "More than one recommended protein name. Detail api call. Recommended names : " + names);
+          }
+        }
+
         let newSidebarData = sideBarData;
         if (!detailDataTemp.uniprot || detailDataTemp.uniprot.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "General", true);
