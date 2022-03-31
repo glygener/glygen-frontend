@@ -309,9 +309,13 @@ const BlastSearch = (props) => {
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
-              setTimeout((jobID) => {
-                blastSearchJobStatus(jobID);
-            }, 2000, jobid);
+              if (dialogLoadingRef.current) {
+                  setTimeout((jobID) => {
+                    blastSearchJobStatus(jobID);
+                }, 2000, jobid);
+              } else {
+                logActivity("user", "", "User canceled job. " + message);
+              }
           } else {
             let error = response.data["status"].error ? response.data["status"].error : "";
             logActivity("user", "", "No results. " + message + " " + error);
