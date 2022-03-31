@@ -1804,7 +1804,7 @@
     "bad characters in protein sequence": {
       "id": "bad characters in protein sequence",
       "title": "Blast Search Error - Bad characters in protein sequence",
-      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+      "message": "There are non amino acid characters in the search sequence. Please change your search term and try again."
     },
     "querySerarcApiError": {
       "id": "querySerarcApiError",
