@@ -370,7 +370,7 @@ const PublicationDetail = (props) => {
         ),
     },
     {
-      dataField: "glytoucan_ac",
+      dataField: "image",
       text: glycanStrings.glycan_image.name,
       sort: false,
       headerStyle: (colum, colIndex) => {
@@ -382,7 +382,7 @@ const PublicationDetail = (props) => {
         };
       },
       formatter: (value, row) =>
-        value ? (
+       row && row.glytoucan_ac ? (
           <div className="img-wrapper">
             <>
               <img
@@ -514,7 +514,7 @@ const PublicationDetail = (props) => {
         };
       },
       formatter: (value, row) =>
-        value ? (
+        row && row.glytoucan_ac ? (
           <div className="img-wrapper">
             <>
               <img
@@ -1553,7 +1553,7 @@ const PublicationDetail = (props) => {
                               </div>
                             )}
 
-                            <Container>
+                            <Container className="tab-content-padding">
                               {glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                 <ClientPaginatedTable
                                   data={addIndex(
@@ -1582,7 +1582,7 @@ const PublicationDetail = (props) => {
                                 {createGlycosylationSummary(glycosylationWithoutImage)}
                               </div>
                             )}
-                            <Container>
+                            <Container className="tab-content-padding">
                               {glycosylationWithoutImage &&
                                 glycosylationWithoutImage.length > 0 && (
                                   <ClientPaginatedTable
@@ -1610,7 +1610,7 @@ const PublicationDetail = (props) => {
                                 {createGlycosylationSummary(glycosylationMining)}
                               </div>
                             )}
-                            <Container>
+                            <Container className="tab-content-padding">
                               {glycosylationMining && glycosylationMining.length > 0 && (
                                 <ClientPaginatedTable
                                   data={addIndex(glycosylationMining)}

@@ -524,11 +524,6 @@ const ProteinDetail = (props) => {
     });
 
     getProteinDetailData.catch(({ response }) => {
-      let message = "list api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-    });
-
-    getProteinDetailData.catch(({ response }) => {
       if (
         response.data &&
         response.data.error_list &&
@@ -1892,7 +1887,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummary(glycosylationWithImage, true)}
                                 </div>
                               )}
-                              <Container>
+                              <Container className="tab-content-padding">
                                 {glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                   <ClientPaginatedTable
                                     data={addIndex(glycosylationWithImage)}
@@ -1920,7 +1915,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummary(glycosylationWithoutImage)}
                                 </div>
                               )}
-                              <Container>
+                              <Container className="tab-content-padding">
                                 {glycosylationWithoutImage &&
                                   glycosylationWithoutImage.length > 0 && (
                                     <ClientPaginatedTable
@@ -1951,7 +1946,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummary(glycosylationPredicted)}
                                 </div>
                               )}
-                              <Container>
+                              <Container className="tab-content-padding">
                                 {glycosylationPredicted && glycosylationPredicted.length > 0 && (
                                   <ClientPaginatedTable
                                     data={glycosylationPredicted}
@@ -1984,7 +1979,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummary(glycosylationMining)}
                                 </div>
                               )}
-                              <Container>
+                              <Container className="tab-content-padding">
                                 {glycosylationMining && glycosylationMining.length > 0 && (
                                   <ClientPaginatedTable
                                     data={glycosylationMining}
