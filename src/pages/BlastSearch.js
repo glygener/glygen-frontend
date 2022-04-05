@@ -462,7 +462,7 @@ const BlastSearch = (props) => {
             </Typography>
             <Row className="gg-align-right">
               <Button className="gg-btn-blue ml-3 mr-3" onClick={retriveSequence} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
-                Retrive Sequence
+                Retrieve Sequence
               </Button>
             </Row>
           </Grid>
