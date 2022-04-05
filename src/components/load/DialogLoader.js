@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 // import LoadingImage from "../../images/page_loading.gif";
-import LoadingImage from "../../images/logo-loading-animated.svg";
+import LoadingImageBlack from "../../images/logo-loading-animated-black.svg";
 import { Row } from "react-bootstrap";
 import { Dialog } from "@material-ui/core";
 import Button from 'react-bootstrap/Button';
@@ -31,9 +31,9 @@ export default function DialogLoader(props) {
         <div className='m-3' style={{overflow: 'hidden', textAlign:'center'}}>  
             <h5>{"Waiting for job to complete."}</h5>
         </div>
-        <div className='m-3' style={{overflow: 'hidden' ,content:'center', height: '120px', width: '600px', backgroundColor:'#000000', opacity: '0.3'}}>    
+        <div className='m-3' style={{overflow: 'hidden' ,content:'center', height: '120px', width: '600px', opacity: '0.3'}}>    
           <Row className={"dialog-loader-row"}>
-            <img src={LoadingImage} alt="loadingImage" className={"dialog-loader-image"} />
+            <img src={LoadingImageBlack} alt="loadingImage" className={"dialog-loader-image"} />
           </Row>
         </div>
         <div style={{ marginTop: "20px", marginRight: "50px" }}>
