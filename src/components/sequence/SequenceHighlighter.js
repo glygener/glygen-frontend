@@ -43,6 +43,7 @@ const HiglightInput = ({ selectedHighlights, type, label, onSelect, className, i
         className={className}
         type="text"
         name="text"
+        placeholder="Custom AA sequence"
         value={input} onInput={e => onInput(e.target.value)}
       />
     </label>
