@@ -169,9 +169,11 @@ function buildHighlightData(sequences, consensus) {
       let searchMap = new Map();
       let searchText = sequenceSearchText;
       var re;
+      var rey = undefined;
       try {
         searchText = searchText.replaceAll(/x/ig, '\\w')
         re = new RegExp(searchText, 'ig');
+        rey = new RegExp(searchText, 'iy');
       } catch(e){
         searchText = "";
         re = new RegExp(searchText, 'ig');
@@ -206,9 +208,20 @@ function buildHighlightData(sequences, consensus) {
         var textMatchArr =  sequenceMod.matchAll(re);
         for (const match of textMatchArr) {
           if (match[0].length !== 0) {
+            let offset = 0;
+            if (rey !== undefined) {
+              for (let i = match.index + match[0].length - 1; i > match.index; i--) {
+                rey.lastIndex = i;
+                if (rey.test(sequenceMod)) {
+                  if (offset < rey.lastIndex - 1 - (match.index + match[0].length - 1)) {
+                    offset = rey.lastIndex - 1 - (match.index + match[0].length - 1);
+                  }
+                }
+              }
+            }
             result.push({
               start: seqModArr[match.index],
-              length: seqModArr[match.index + match[0].length - 1] + 1 - seqModArr[match.index],
+              length: seqModArr[match.index + match[0].length - 1 + offset] + 1 - seqModArr[match.index],
             });
           }
         } 
