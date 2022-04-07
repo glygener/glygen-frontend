@@ -738,19 +738,20 @@ const ProteinDetail = (props) => {
         };
       },
       formatter: (value, row) =>
-        value ? (
-          <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
-              {row.residue}
-              {row.start_pos}
-              {row.start_pos !== row.end_pos && (
-                <>
-                  to {row.residue}
-                  {row.end_pos}
-                </>
-              )}
-            </Link>
-          </LineTooltip>
+        value ? (row.start_pos !== row.end_pos ? (
+          <span>
+            {row.start_aa}
+            {row.start_pos}
+            {" to "}
+            {row.end_aa}
+            {row.end_pos}
+          </span>
+        ) : (<LineTooltip text="View siteview details">
+              <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+                {row.residue}
+                {row.start_pos}
+              </Link>
+            </LineTooltip>)
         ) : (
           "Not Reported"
         ),
