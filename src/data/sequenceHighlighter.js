@@ -110,7 +110,7 @@
    */
    export function getNLinkGlycanMapHighlights(glycosylationData) {
     if (glycosylationData) {
-      const tempGlycosylation = glycosylationData.filter((item) => item.start_pos !== undefined);    
+      const tempGlycosylation = glycosylationData.filter((item) => item.start_pos !== undefined && item.start_pos === item.end_pos);    
       const nLink = tempGlycosylation
         .filter((item) => item.type === "N-linked")
         //.filter(hasStartPos)
@@ -132,7 +132,7 @@
    */
    export function getOLinkGlycanMapHighlights(glycosylationData) {    
     if (glycosylationData){
-      const tempGlycosylation = glycosylationData.filter((item) => item.start_pos !== undefined);    
+      const tempGlycosylation = glycosylationData.filter((item) => item.start_pos !== undefined && item.start_pos === item.end_pos);    
       const oLink = tempGlycosylation
         .filter((item) => item.type === "O-linked")
         //.filter(hasStartPos)
