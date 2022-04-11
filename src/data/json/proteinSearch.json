@@ -131,7 +131,7 @@
           "orderID": 100,
           "example": {
             "name": "Example",
-            "id": "NP_000592.3"
+            "id": "NP_000592"
           },
           "explore": {
             "id": "RefSeq",
@@ -330,7 +330,7 @@
           "orderID": 100,
           "example": {
             "name": "Example",
-            "id": "31906916"
+            "id": "10731668"
           },
           "explore": {
             "id": "Pubmed ID",
