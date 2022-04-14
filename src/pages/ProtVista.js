@@ -71,6 +71,18 @@ const ProtVista = () => {
         color: "orange",
         shape: "square",
       },
+      {
+        type: "N-Linked-Range",
+        residues: [],
+        color: "red",
+        shape: "bridge",
+      },
+      {
+        type: "O-Linked-Range",
+        residues: [],
+        color: "blue",
+        shape: "bridge",
+      },
     ];
     var phosphorylationP = {
       type: "PhosphorylationP",
@@ -100,24 +112,45 @@ const ProtVista = () => {
     if (data.glycosylation) {
       for (let glyco of data.glycosylation) {
         if (glyco.start_pos === undefined) continue;
-        if (glyco.start_pos !== glyco.end_pos) continue;
+        // if (glyco.start_pos !== glyco.end_pos) continue;
         // $.each(data.glycosylation, function (i, glyco) {
         if (glyco.type === "N-linked") {
           if (glyco.glytoucan_ac) {
-            glycos[0].residues.push({
-              start: glyco.start_pos,
-              end: glyco.start_pos,
-              color: glycos[0].color,
-              shape: glycos[0].shape,
-              accession: data.uniprot.uniprot_canonical_ac,
-              type: glyco.residue,
-              title: glyco.residue + "-" + glyco.start_pos,
-              tooltipContent:
-                "<img src='https://api.glygen.org/glycan/image/" +
-                glyco.glytoucan_ac +
-                "' /><br/></br>",
-            });
+            if (glyco.start_pos === glyco.end_pos) {
+              glycos[0].residues.push({
+                start: glyco.start_pos,
+                end: glyco.start_pos,
+                color: glycos[0].color,
+                shape: glycos[0].shape,
+                accession: data.uniprot.uniprot_canonical_ac,
+                type: glyco.residue,
+                title: glyco.residue + "-" + glyco.start_pos,
+                tooltipContent:
+                  "<img src='https://api.glygen.org/glycan/image/" +
+                  glyco.glytoucan_ac +
+                  "' /><br/></br>",
+              });
           } else {
+              glycos[0].residues.push({
+                start: glyco.start_pos,
+                end: glyco.end_pos,
+                color: glycos[5].color,
+                shape: glycos[5].shape,
+                accession: data.uniprot.uniprot_canonical_ac,
+                type: glyco.start_aa,
+                click: "block",
+                title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
+                tooltipContent:
+                  "<img src='https://api.glygen.org/glycan/image/" +
+                  glyco.glytoucan_ac +
+                  "' /><br/></br>" +
+                  "<span className=marker>Glycosylation site with reported glycan from " +
+                  glyco.start_pos + " to " + glyco.end_pos +
+                  "." +
+                  "</span>",
+              });
+            }
+          } else if(glyco.start_pos === glyco.end_pos) {
             glycos[1].residues.push({
               start: glyco.start_pos,
               end: glyco.start_pos,
@@ -132,23 +165,60 @@ const ProtVista = () => {
                 "." +
                 "</br>Click on the Node to see site details. </span>",
             });
+          } else {
+            glycos[1].residues.push({
+              start: glyco.start_pos,
+              end: glyco.end_pos,
+              color: glycos[5].color,
+              shape: glycos[5].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.start_aa,
+              click: "block",
+              title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
+              tooltipContent:
+                "<span className=marker>Glycosylation site without reported glycan from " +
+                glyco.start_pos + " to " + glyco.end_pos +
+                "." +
+                "</span>",
+            });
           }
         } else if (glyco.type === "O-linked") {
           if (glyco.glytoucan_ac) {
-            glycos[2].residues.push({
-              start: glyco.start_pos,
-              end: glyco.start_pos,
-              color: glycos[2].color,
-              shape: glycos[2].shape,
-              accession: data.uniprot.uniprot_canonical_ac,
-              type: glyco.residue,
-              title: glyco.residue + "-" + glyco.start_pos,
-              tooltipContent:
-                "<img src='https://api.glygen.org/glycan/image/" +
-                glyco.glytoucan_ac +
-                "' /><br/><br/><span className=marker>Click marker show more</span>",
-            });
-          } else {
+            if (glyco.start_pos === glyco.end_pos) {
+              glycos[2].residues.push({
+                start: glyco.start_pos,
+                end: glyco.start_pos,
+                color: glycos[2].color,
+                shape: glycos[2].shape,
+                accession: data.uniprot.uniprot_canonical_ac,
+                type: glyco.residue,
+                title: glyco.residue + "-" + glyco.start_pos,
+                tooltipContent:
+                  "<img src='https://api.glygen.org/glycan/image/" +
+                  glyco.glytoucan_ac +
+                  "' /><br/><br/><span className=marker>Click marker show more</span>",
+              });
+            } else {
+              glycos[2].residues.push({
+                start: glyco.start_pos,
+                end: glyco.end_pos,
+                color: glycos[6].color,
+                shape: glycos[6].shape,
+                accession: data.uniprot.uniprot_canonical_ac,
+                type: glyco.start_aa,
+                click: "block",
+                title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
+                tooltipContent:
+                  "<img src='https://api.glygen.org/glycan/image/" +
+                  glyco.glytoucan_ac +
+                  "' /><br/></br>" +
+                  "<span className=marker>Glycosylation site with reported glycan from " +
+                  glyco.start_pos + " to " + glyco.end_pos +
+                  "." +
+                  "</span>",
+              });
+            }
+          } else if(glyco.start_pos === glyco.end_pos) {
             glycos[3].residues.push({
               start: glyco.start_pos,
               end: glyco.start_pos,
@@ -163,8 +233,24 @@ const ProtVista = () => {
                 "." +
                 "</br>Click on the Node to see site details. </span>",
             });
+          } else {
+            glycos[3].residues.push({
+              start: glyco.start_pos,
+              end: glyco.end_pos,
+              color: glycos[6].color,
+              shape: glycos[6].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: glyco.start_aa,
+              click: "block",
+              title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
+              tooltipContent:
+                "<span className=marker>Glycosylation site without reported glycan from " +
+                glyco.start_pos + " to " + glyco.end_pos +
+                "." +
+                "</span>",
+            });
           }
-        }
+        } 
       } //);
     }
 
@@ -344,8 +430,12 @@ const ProtVista = () => {
         const { eventtype, feature, coords } = event.detail;
 
         if (eventtype === "click") {
-          const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
-          history.push(route);
+          if (event.detail.feature.click !== "block") {
+            const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
+            history.push(route);
+          } else {
+            return;
+          }
         }
         if (eventtype === "mouseover") {
           if (currentTooltip) {
@@ -684,7 +774,11 @@ const ProtVista = () => {
                   >
                     &#9679;
                     <span className="superx">
-                      <>N-Glycan</>
+                      <>N-Glycan, </>
+                    </span>
+                    &#9646;
+                    <span className="superx">
+                      <>N-Glycan with Range</>
                     </span>
                   </span>
                 </li>
@@ -695,7 +789,11 @@ const ProtVista = () => {
                   >
                     &#9650;
                     <span className="superx">
-                      <>N-Glycan-Site</>
+                      <>N-Glycan-Site, </>
+                    </span>
+                    &#9646;
+                    <span className="superx">
+                      <>N-Glycan-Site with Range</>
                     </span>
                   </span>
                 </li>
@@ -706,7 +804,11 @@ const ProtVista = () => {
                   >
                     &#9679;
                     <span className="superx">
-                      <>O-Glycan</>
+                      <>O-Glycan, </>
+                    </span>
+                    &#9646;
+                    <span className="superx">
+                      <>O-Glycan with Range</>
                     </span>
                   </span>
                 </li>
@@ -717,7 +819,11 @@ const ProtVista = () => {
                   >
                     &#9650;
                     <span className="superx">
-                      <>O-Glycan-Site</>
+                      <>O-Glycan-Site, </>
+                    </span>
+                    &#9646;
+                    <span className="superx">
+                      <>O-Glycan-Site with Range</>
                     </span>
                   </span>
                 </li>
