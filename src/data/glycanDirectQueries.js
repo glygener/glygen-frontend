@@ -72,14 +72,15 @@ export default class GlycanDirectQueries {
     * @param {var} fieldValue - input field value.
     **/
     getCompositionJson(fieldValue) {
-        this.formjson[commonGlycanData.composition.id] = fieldValue.map((residue) => {
+        let formjson = {};
+        formjson[commonGlycanData.composition.id] = fieldValue.map((residue) => {
             return {
                 residue: residue.residue.toLowerCase(),
                 min: residue.count,
                 max: residue.count
             }
         });
-        return this.formjson;
+        return formjson;
     }
 
     /**

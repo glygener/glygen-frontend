@@ -944,29 +944,9 @@ const GlycanSearch = (props) => {
 			count++;
 		}
 
-		let formObject = searchjson(
-			glycanData.composition_search.query_type.name,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			compSearchData
-		);
+		let formObject = {
+			[commonGlycanData.composition.id]: compSearchData,
+		};
 
 		logActivity("user", id, "Performing Composition Search");
 		let message = "Composition Search query=" + JSON.stringify(formObject);
