@@ -750,7 +750,7 @@ const ProtVista = () => {
                 {/* )} */}
                 <protvista-track
                   class={
-                    `nav-track glycotrack` + (highlighted === "mutegenesis" ? " highlight" : "")
+                    `nav-track glycotrack` + (highlighted === "mutagenesis" ? " highlight" : "")
                   }
                   length={data.sequence.length}
                   displaystart={1}
@@ -764,117 +764,137 @@ const ProtVista = () => {
           </Col>
         </Row>
         <div className="icons-content">
-          <Row>
-            <Col sm={3} md={3}>
-              <ol className="legendlists nowrap">
-                <li>
-                  <span
-                    className="super1 hover"
-                    onMouseEnter={() => setHighlighted("Ntrack_withImage")}
-                  >
-                    &#9679;
-                    <span className="superx">
-                      <>N-Glycan, </>
-                    </span>
-                    &#9646;
-                    <span className="superx">
-                      <>N-Glycan with Range</>
-                    </span>
+          <ol className="legendlists nowrap">
+            <span
+              className="super1 hover"
+              onMouseEnter={() => setHighlighted("Ntrack_withImage")}
+            >
+              <Row> 
+                <Col sm={3} md={3}>
+                  &#9679;
+                  <span className="superx">
+                    <>N-Glycan</>
                   </span>
-                </li>
-                <li>
-                  <span
-                    className="super2 hover"
-                    onMouseEnter={() => setHighlighted("Ntrack_withoutImage")}
-                  >
-                    &#9650;
-                    <span className="superx">
-                      <>N-Glycan-Site, </>
-                    </span>
-                    &#9646;
-                    <span className="superx">
-                      <>N-Glycan-Site with Range</>
-                    </span>
+                </Col>
+                <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>N-Glycan with range</>
                   </span>
-                </li>
-                <li>
-                  <span
-                    className="super3 hover"
-                    onMouseEnter={() => setHighlighted("Otrack_withImage")}
-                  >
-                    &#9679;
-                    <span className="superx">
-                      <>O-Glycan, </>
-                    </span>
-                    &#9646;
-                    <span className="superx">
-                      <>O-Glycan with Range</>
-                    </span>
+                </Col>
+              </Row>
+            </span>
+            <span
+              className="super2 hover"
+              onMouseEnter={() => setHighlighted("Ntrack_withoutImage")}
+            >
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9650;
+                  <span className="superx">
+                    <>N-Glycan-Site</>
                   </span>
-                </li>
-                <li>
-                  <span
-                    className="super4 hover"
-                    onMouseEnter={() => setHighlighted("Otrack_withoutImage")}
-                  >
-                    &#9650;
-                    <span className="superx">
-                      <>O-Glycan-Site, </>
-                    </span>
-                    &#9646;
-                    <span className="superx">
-                      <>O-Glycan-Site with Range</>
-                    </span>
+                </Col>
+                <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>N-Glycan-Site with range</>
                   </span>
-                </li>
-                <li>
-                  <span className="super6 hover" onMouseEnter={() => setHighlighted("SEQUON")}>
-                    &#9646;
-                    <span className="superx">
-                      <>N-Glycan-Sequon</>
-                    </span>
+                </Col>
+              </Row>
+            </span>
+            <span
+                className="super3 hover"
+                onMouseEnter={() => setHighlighted("Otrack_withImage")}
+            >
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9679;
+                  <span className="superx">
+                    <>O-Glycan</>
                   </span>
-                </li>
-                <li>
-                  <span
-                    className="super8 hover"
-                    onMouseEnter={() => setHighlighted("phosphorylation")}
-                  >
-                    &#9679;
-                    <span className="superx">
-                      <>Phosphorylation</>
-                    </span>
+                  </Col>
+                  <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>O-Glycan with range</>
                   </span>
-                </li>
-                <li>
-                  <span className="super9 hover" onMouseEnter={() => setHighlighted("glycation")}>
-                    &#9679;
-                    <span className="superx">
-                      <>Glycation</>
-                    </span>
+                </Col>
+              </Row>
+            </span>
+            <span
+              className="super4 hover"
+              onMouseEnter={() => setHighlighted("Otrack_withoutImage")}
+            >
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9650;
+                  <span className="superx">
+                    <>O-Glycan-Site</>
                   </span>
-                </li>
-                {/* {tracksShown && tracksShown.snv && ( */}
-                <li>
-                  <span className="super5 hover" onMouseEnter={() => setHighlighted("mutation")}>
-                    &#9670;
-                    <span className="superx">
-                      <>Single Nucleotide Variation</>
-                    </span>
+                  </Col>
+                  <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>O-Glycan-Site with range</>
                   </span>
-                </li>
-                {/* )} */}
-                <li>
-                  <span className="super7 hover" onMouseEnter={() => setHighlighted("mutagenesis")}>
-                    &#9646;
-                    <span className="superx">
-                      <>Mutagenesis</>
-                    </span>
+                </Col>
+              </Row>
+            </span>
+            <span className="super6 hover" onMouseEnter={() => setHighlighted("SEQUON")}>
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>N-Glycan-Sequon</>
                   </span>
-                </li>
-              </ol>
-            </Col>
-          </Row>
+                </Col>
+              </Row>
+            </span>
+            <span
+                className="super8 hover"
+                onMouseEnter={() => setHighlighted("phosphorylation")}
+            >
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9679;
+                  <span className="superx">
+                    <>Phosphorylation</>
+                  </span>
+                </Col>
+              </Row>
+            </span>
+            <span className="super9 hover" onMouseEnter={() => setHighlighted("glycation")}>
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9679;
+                  <span className="superx">
+                    <>Glycation</>
+                  </span>
+                </Col>
+              </Row>
+            </span>
+            <span className="super5 hover" onMouseEnter={() => setHighlighted("mutation")}>
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9670;
+                  <span className="superx">
+                    <>Single Nucleotide Variation</>
+                  </span>
+                </Col>
+              </Row>
+            </span>
+            <span className="super7 hover" onMouseEnter={() => setHighlighted("mutagenesis")}>
+              <Row>
+                <Col sm={3} md={3}>
+                  &#9646;
+                  <span className="superx">
+                    <>Mutagenesis</>
+                  </span>
+                </Col>
+              </Row>
+            </span>
+          </ol>
         </div>
       </div>
     </>
