@@ -406,7 +406,7 @@ const PublicationDetail = (props) => {
       formatter: (value, row) =>
         value ? (
           <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+            <Link to={`${routeConstants.siteview}${row.uniprot_canonical_ac}/${row.start_pos}`}>
               {row.residue}
               {row.start_pos}
               {row.start_pos !== row.end_pos && (
@@ -538,7 +538,7 @@ const PublicationDetail = (props) => {
       formatter: (value, row) =>
         value ? (
           <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+            <Link to={`${routeConstants.siteview}${row.uniprot_canonical_ac}/${row.start_pos}`}>
               {row.residue}
               {row.start_pos}
               {row.start_pos !== row.end_pos && (
@@ -984,7 +984,7 @@ const PublicationDetail = (props) => {
       formatter: (value, row) =>
         value ? (
           <LineTooltip text="View siteview details">
-            <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+            <Link to={`${routeConstants.siteview}${row.uniprot_canonical_ac}/${row.start_pos}`}>
               {row.residue}
               {row.start_pos}
               {row.start_pos !== row.end_pos && (
