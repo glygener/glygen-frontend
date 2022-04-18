@@ -248,16 +248,6 @@
 					"image": "/team/Vijay-Shanker.jpg",
 					"imageText": "Vijay Shanker image",
 					"url": "https://www.cis.udel.edu/people/faculty-profile/?id=213"
-				},
-				{
-					"name": "Peng Su",
-					"position": "",
-					"department": "",
-					"institution": "The University of Delaware",
-					"location": "Newark, DE",
-					"image": "/team/Peng-Su.png",
-					"imageText": "Peng Su image",
-					"url": "https://www.linkedin.com/in/peng-su-5135b5154/"
 				}
 			]
 		},
@@ -547,6 +537,16 @@
 				"imageText": "Wenjin Zhang image",
 				"url": "https://www.linkedin.com/in/wenjinzhang/",
 				"dateLeft": "Left project August 2021"
+			},
+			{
+				"name": "Peng Su",
+				"position": "",
+				"department": "",
+				"institution": "The University of Delaware",
+				"location": "Newark, DE",
+				"image": "/team/Peng-Su.png",
+				"imageText": "Peng Su image",
+				"url": "https://www.linkedin.com/in/peng-su-5135b5154/"
 			}
 		]
 	},
