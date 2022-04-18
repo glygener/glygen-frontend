@@ -10,7 +10,7 @@
 				"location": "Athens, GA",
 				"image": "/team/Will-York.png",
 				"imageText": "William York image",
-				"url": "https://www.ccrc.uga.edu/personnel/index.php?uid=243"
+				"url": "https://ccrc.uga.edu/team/william-york/"
 			},
 			{
 				"name": "Raja Mazumder",
@@ -30,7 +30,7 @@
 				"location": "Athens, GA",
 				"image": "/team/Michael-Tiemeyer.jpg",
 				"imageText": "Michael Tiemeyer image",
-				"url": "https://www.ccrc.uga.edu/~mtiemeyer/index.php"
+				"url": "https://ccrc.uga.edu/team/michael-tiemeyer/"
 			}
 		]
 	},
@@ -45,7 +45,7 @@
 				"location": "Athens, GA",
 				"image": "/team/Michael-Pierce.png",
 				"imageText": "Michael Pierce image",
-				"url": "https://www.ccrc.uga.edu/personnel/index.php?uid=28&personnel=Tenure-Track%20Faculty"
+				"url": "https://ccrc.uga.edu/team/michael-pierce/"
 			},
 			{
 				"name": "Radoslav Goldman",
@@ -237,7 +237,7 @@
 					"location": "Athens, GA",
 					"image": "/team/Robert-Woods.png",
 					"imageText": "Robert Woods image",
-					"url": "https://www.ccrc.uga.edu/personnel/index.php?uid=32&personnel=Tenure-Track%20Faculty"
+					"url": "https://ccrc.uga.edu/team/robert-j-woods/"
 				},
 				{
 					"name": "Vijay Shanker",
