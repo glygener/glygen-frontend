@@ -103,5 +103,6 @@ export function addIndex(data, key = "index") {
  export function replaceSpecialCharacters(input) {
   input = input.replace(/\\/g, "\\\\");
   input = input.replace(/"/g, "\\\"");
+  input = input.replace(/\n/g, "\\n");
   return input;
 }
