@@ -251,7 +251,7 @@ const StructureSearchControl = (props) => {
               className="gg-btn-blue mr-4"
               onClick={() => setGlycoGlyphDialog(true)}	
             >
-              Generate GlycoCT
+              Draw Glycan
             </Button>)}
             <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
               Clear Fields
