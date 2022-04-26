@@ -406,7 +406,7 @@ const GlycanSearch = (props) => {
 		setPageLoading(true);
 		logActivity();
 		document.addEventListener('click', () => {
-			setAlertTextInput({"show": false, message: ""})
+			setAlertTextInput({"show": false, message: ""});
 		});
 		var qryObjOut = {
 			logMessage : "",
@@ -507,7 +507,7 @@ const GlycanSearch = (props) => {
 
 			if (queryError && qryObjOut.logMessage !== ""){
 				logActivity("user", "", qryObjOut.logMessage);
-				setAlertTextInput({"show": true, "id": stringConstants.errors.querySerarchError.id, "message": qryObjOut.alertMessage})
+				setAlertTextInput({"show": true, "id": stringConstants.errors.querySerarchError.id, "message": qryObjOut.alertMessage});
 				window.scrollTo(0, 0);
 			}
 
@@ -871,7 +871,7 @@ const GlycanSearch = (props) => {
 			} else {
 				logActivity("user", "", "No results. " + message);
 				setPageLoading(false);
-				setAlertTextInput({"show": true, "id": stringConstants.errors.simpleSerarchError.id})
+				setAlertTextInput({"show": true, "id": stringConstants.errors.simpleSerarchError.id});
 				window.scrollTo(0, 0);
 			}
 		})
@@ -920,7 +920,7 @@ const GlycanSearch = (props) => {
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);
-					setAlertTextInput({"show": true, "id": stringConstants.errors.advSerarchError.id})
+					setAlertTextInput({"show": true, "id": stringConstants.errors.advSerarchError.id});
 					window.scrollTo(0, 0);
 				}
 			})
@@ -961,7 +961,7 @@ const GlycanSearch = (props) => {
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);
-					setAlertTextInput({"show": true, "id": stringConstants.errors.compSerarchError.id})
+					setAlertTextInput({"show": true, "id": stringConstants.errors.compSerarchError.id});
 					window.scrollTo(0, 0);
 				}
 			})
@@ -1038,7 +1038,7 @@ const GlycanSearch = (props) => {
 						} else {
 							logActivity("user", "", "No results. " + message);
 							setDialogLoading(false);
-							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+							setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
 							window.scrollTo(0, 0);
 						}
 					})
@@ -1048,7 +1048,7 @@ const GlycanSearch = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setDialogLoading(false);
-              setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+              setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
@@ -1069,7 +1069,7 @@ const GlycanSearch = (props) => {
         }  else {
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
           window.scrollTo(0, 0);
         }
       })
@@ -1105,7 +1105,7 @@ const GlycanSearch = (props) => {
 							} else {
 								logActivity("user", "", "No results. " + message);
 								setDialogLoading(false);
-								setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+								setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
 								window.scrollTo(0, 0);
 							}
 						})
@@ -1115,7 +1115,7 @@ const GlycanSearch = (props) => {
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setDialogLoading(false);
-					setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+					setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
 					window.scrollTo(0, 0);
 				}
 			} else if (josStatus === "running") {
@@ -1130,13 +1130,13 @@ const GlycanSearch = (props) => {
 				let error = response.data["error"] ? response.data["error"] : "";
 				logActivity("error", "", "No results. " + message + " " + error);
 				setDialogLoading(false);
-				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error})
+				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error});
 				window.scrollTo(0, 0);
 			}  
 		} else {
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)})
+          setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id)});
           window.scrollTo(0, 0);
         }
       })

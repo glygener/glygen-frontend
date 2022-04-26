@@ -190,7 +190,7 @@ const BlastSearch = (props) => {
     .catch(function (error) {
       let message = " - Failed to retrieve valid Protein Sequence.";
       logActivity("user", "", "No results. " + inputValue.proUniprotAcc + message);
-      setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchUniProtAccError.id})
+      setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchUniProtAccError.id});
       window.scrollTo(0, 0);
     });
 
@@ -305,7 +305,7 @@ const BlastSearch = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setDialogLoading(false);
-              setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
+              setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id});
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
@@ -320,13 +320,13 @@ const BlastSearch = (props) => {
             let error = response.data["status"].error ? response.data["status"].error : "";
             logActivity("user", "", "No results. " + message + " " + error);
             setDialogLoading(false);
-            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
+            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error});
             window.scrollTo(0, 0);
           }
         } else {
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
+          setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id});
           window.scrollTo(0, 0);
         }
       })
@@ -359,7 +359,7 @@ const BlastSearch = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setDialogLoading(false);
-              setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
+              setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id});
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
@@ -374,13 +374,13 @@ const BlastSearch = (props) => {
             let error = response.data["error"] ? response.data["error"] : "";
             logActivity("user", "", "No results. " + message + " " + error);
             setDialogLoading(false);
-            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error})
+            setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id, custom : error});
             window.scrollTo(0, 0);
           }
         }  else {
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id})
+          setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchError.id});
           window.scrollTo(0, 0);
         }
       })

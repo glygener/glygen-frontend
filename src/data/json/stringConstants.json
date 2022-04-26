@@ -1778,7 +1778,7 @@
     },
     "blastSearchError": {
       "id": "blastSearchError",
-      "title": "Blast Search Error - Enter Valid Input",
+      "title": "Blast Search Error - No Results Found",
       "message": "Sorry, we couldn't process blast request. Please enter valid input."
     },
     "blastSearchUniProtAccError": {
@@ -1788,12 +1788,12 @@
     },
     "structureSearchError": {
       "id": "structureSearchError",
-      "title": "Structure Search Error - Enter Valid Input",
+      "title": "Structure Search Error - No Results Found",
       "message": "Sorry, we couldn't process structure search request. Please enter valid input."
     },
     "substructureSearchError": {
       "id": "substructureSearchError",
-      "title": "Substructure Search Error - Enter Valid Input",
+      "title": "Substructure Search Error - No Results Found",
       "message": "Sorry, we couldn't process substructure search request. Please enter valid input."
     },
     "querySerarchError": {
