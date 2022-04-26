@@ -92,7 +92,7 @@ const GlycoGlyph = (props) => {
                         props.setOpen(false);
                     }}
                     >
-                    Copy GlycoCT To Search
+                    Copy Glycan To Search
                 </Button>
                 <Button
                     className='gg-btn-outline mr-3 mb-5'
