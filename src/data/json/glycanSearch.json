@@ -55,10 +55,6 @@
           "example": {
             "name": "Example",
             "id": "G17689DH"
-          },
-          "explore": {
-            "id": "GlyTouCan Accession",
-            "url": "https://glytoucan.org/Structures"
           }
         }
       ],
@@ -126,10 +122,6 @@
           "example": {
             "name": "Example",
             "id": "P14210"
-          },
-          "explore": {
-            "id": "UniProtKB Accession",
-            "url": "https://www.uniprot.org/help/accession_numbers"
           }
         }
       ]
@@ -145,10 +137,6 @@
           "example": {
             "name": "Example",
             "id": "Q15113-1"
-          },
-          "explore": {
-            "id": "UniProtKB Accession",
-            "url": "https://www.uniprot.org/help/accession_numbers"
           }
         }
       ]
@@ -164,10 +152,6 @@
           "example": {
             "name": "Example",
             "id": "Lewis x"
-          },
-          "explore": {
-            "id": "Glycan Motif",
-            "url": "https://www.uniprot.org/help/carbohyd"
           }
         }
       ]
@@ -183,10 +167,6 @@
           "example": {
             "name": "Example",
             "id": "B4GALT1"
-          },
-          "explore": {
-            "id": "Biosynthetic Enzyme",
-            "url": "https://enzyme.expasy.org/"
           }
         }
       ]
@@ -202,10 +182,6 @@
           "example": {
             "name": "Example",
             "id": "HexNAc(1)Hex(3)Fuc(3)"
-          },
-          "explore": {
-            "id": "Glycan Name",
-            "url": "https://enzyme.expasy.org/"
           }
         }
       ]
@@ -221,10 +197,6 @@
           "example": {
             "name": "Example",
             "id": "9449027"
-          },
-          "explore": {
-            "id": "Pubmed ID",
-            "url": "https://www.ncbi.nlm.nih.gov/pmc/pmctopmid/"
           }
         }
       ]
