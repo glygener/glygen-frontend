@@ -72,8 +72,8 @@ const ContactUs = (props) => {
 									<li>
 										<strong>Complex Carbohydrate Research Center</strong>
 									</li>
-									<li>315 Riverbend Road Athens,</li>
-									<li>Georgia 30602 USA </li>
+									<li>315 Riverbend Road,</li>
+									<li>Athens, Georgia 30602 USA </li>
 								</ul>
 							</Col>
 							<Col sm={12} md={6} lg={6} className="contact-univ-address">
