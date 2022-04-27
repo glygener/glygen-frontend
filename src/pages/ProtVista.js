@@ -145,12 +145,12 @@ const ProtVista = () => {
                   glyco.glytoucan_ac +
                   "' /><br/></br>" +
                   "<span className=marker>Glycosylation site with reported glycan from " +
-                  glyco.start_pos + " to " + glyco.end_pos +
+                  glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos +
                   "." +
                   "</span>",
               });
             }
-          } else if(glyco.start_pos === glyco.end_pos) {
+          } else if (glyco.start_pos === glyco.end_pos) {
             glycos[1].residues.push({
               start: glyco.start_pos,
               end: glyco.start_pos,
@@ -177,7 +177,7 @@ const ProtVista = () => {
               title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
               tooltipContent:
                 "<span className=marker>Glycosylation site without reported glycan from " +
-                glyco.start_pos + " to " + glyco.end_pos +
+                glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos +
                 "." +
                 "</span>",
             });
@@ -213,12 +213,12 @@ const ProtVista = () => {
                   glyco.glytoucan_ac +
                   "' /><br/></br>" +
                   "<span className=marker>Glycosylation site with reported glycan from " +
-                  glyco.start_pos + " to " + glyco.end_pos +
+                  glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos +
                   "." +
                   "</span>",
               });
             }
-          } else if(glyco.start_pos === glyco.end_pos) {
+          } else if (glyco.start_pos === glyco.end_pos) {
             glycos[3].residues.push({
               start: glyco.start_pos,
               end: glyco.start_pos,
@@ -245,7 +245,7 @@ const ProtVista = () => {
               title: glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos,
               tooltipContent:
                 "<span className=marker>Glycosylation site without reported glycan from " +
-                glyco.start_pos + " to " + glyco.end_pos +
+                glyco.start_aa + "-" + glyco.start_pos + " to " + glyco.end_aa + "-" + glyco.end_pos +
                 "." +
                 "</span>",
             });
@@ -779,7 +779,7 @@ const ProtVista = () => {
                 <Col sm={3} md={3}>
                   &#9646;
                   <span className="superx">
-                    <>N-Glycan with range</>
+                    <>N-Glycan with range (peptide)</>
                   </span>
                 </Col>
               </Row>
@@ -798,7 +798,7 @@ const ProtVista = () => {
                 <Col sm={3} md={3}>
                   &#9646;
                   <span className="superx">
-                    <>N-Glycan-Site with range</>
+                    <>N-Glycan-Site with range (peptide)</>
                   </span>
                 </Col>
               </Row>
@@ -817,7 +817,7 @@ const ProtVista = () => {
                   <Col sm={3} md={3}>
                   &#9646;
                   <span className="superx">
-                    <>O-Glycan with range</>
+                    <>O-Glycan with range (peptide)</>
                   </span>
                 </Col>
               </Row>
@@ -836,7 +836,7 @@ const ProtVista = () => {
                   <Col sm={3} md={3}>
                   &#9646;
                   <span className="superx">
-                    <>O-Glycan-Site with range</>
+                    <>O-Glycan-Site with range (peptide)</>
                   </span>
                 </Col>
               </Row>
