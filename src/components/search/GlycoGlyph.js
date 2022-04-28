@@ -46,7 +46,7 @@ const GlycoGlyph = (props) => {
                     id="glycoGlyphFrame"
                     width="100%"
                     height="100%"
-                    src={ GLYGEN_DOMAIN + '/GlycoGlyphPublic/public/index_relative.html'}
+                    src={ window.location.origin + '/GlycoGlyphPublic/public/index_relative.html'}
                     frameBorder="0"
                     scrolling="yes"
                     allow="encrypted-media"
