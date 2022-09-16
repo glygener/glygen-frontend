@@ -35,4 +35,5 @@ export const SMHS_GWU = process.env.REACT_APP_SMHS_GWU || "https://smhs.gwu.edu/
 export const NIH_GOV = process.env.REACT_APP_NIH_GOV || "https://www.nih.gov/";
 
 export const GLYGEN_BASENAME = process.env.REACT_APP_BASENAME || "/";
-export const UNIPROT_BASENAME = "https://www.uniprot.org/" 
+export const UNIPROT_BASENAME = "https://www.uniprot.org/"
+export const UNIPROT_REST_BASENAME = "https://rest.uniprot.org/"

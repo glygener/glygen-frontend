@@ -26,7 +26,7 @@ import ExampleExploreControl from "../components/example/ExampleExploreControl";
 import ExampleControl2 from "../components/example/ExampleControl2";
 import proteinSearchData from '../data/json/proteinSearch';
 import {
-  UNIPROT_BASENAME,
+  UNIPROT_REST_BASENAME,
 } from "../envVariables";
 
 /**
@@ -173,7 +173,7 @@ const BlastSearch = (props) => {
 	 * Function to retrive protein sequence.
 	 **/
   const retriveSequence = () => {
-    let url = UNIPROT_BASENAME + "uniprot/" + inputValue.proUniprotAcc + ".fasta";
+    let url = UNIPROT_REST_BASENAME + "uniprotkb/" + inputValue.proUniprotAcc + ".fasta";
     getPageData(url)
     .then((response) => {
       const blob    = new Blob([response.data], {type: "text/plain"});
