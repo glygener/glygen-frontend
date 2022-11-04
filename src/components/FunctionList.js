@@ -1,6 +1,7 @@
 import React from "react";
 import { groupEvidences } from "../data/data-format";
 import EvidenceList from "./EvidenceList";
+import CollapsibleText from "../components/CollapsibleText";
 import Table from "react-bootstrap/Table";
 
 const formatFunctions = (functions) => {
@@ -102,7 +103,7 @@ const FunctionList = ({ functions }) => {
           <tr className="table-row">
             <td key={funIndex}>
               {group.functions.map((func, index) => (
-                <p key={index}>{func.annotation}</p>
+                <p key={index}><CollapsibleText text={func.annotation} lines={2}/></p>
               ))}
               <EvidenceList evidences={group.evidence} />
             </td>

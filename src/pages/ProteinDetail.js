@@ -49,6 +49,7 @@ import { axiosError } from "../data/axiosError";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import CollapsableReference from "../components/CollapsableReference";
+import CollapsibleDirectSearchReference from "../components/CollapsibleDirectSearchReference"
 import DirectSearch from "../components/search/DirectSearch.js";
 import { getProteinSearch } from "../data/protein";
 import SequenceHighlighter from "../components/sequence/SequenceHighlighter";
@@ -2257,7 +2258,18 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body className="card-padding-zero">
                       <div hover="true" fluid="true">
-                        <FunctionList functions={functions} />
+                        <Table hover fluid="true">
+                          <tbody key={"body"} className="table-body">
+                            {functions && functions.map((group, funIndex) => (
+                                <tr className="table-row">
+                                  <td key={"td" + funIndex}>
+                                    <p key={"p" + funIndex}><CollapsibleText text={group.annotation} lines={2}/></p>
+                                    <EvidenceList inline={true} key={"evidence" + funIndex} evidences={groupEvidences(group.evidence)} />
+                                  </td>
+                                </tr>
+                            ))}
+                          </tbody>
+                        </Table>
                       </div>
                       {!functions && <p className="no-data-msg-publication">No data available.</p>}
                     </Card.Body>
@@ -2812,35 +2824,14 @@ const ProteinDetail = (props) => {
                         <ul className="list-style-none">
                           {itemsPathway.map((pathway, pathIndex) => (
                             <li key={pathIndex}>
-                              <strong>
-                                {pathway.id} {pathway.resource}
-                              </strong>
-
-                              <ul style={{ marginBottom: "10px" }}>
-                                <Row>
-                                  {pathway.links.map((link, lnkIndex) => (
-                                    <Col key={lnkIndex} xs={12} sm={12}>
-                                      <li>
-                                        {link.name}{" "}
-                                        <a
-                                          href={link.url}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          {link.id}
-                                        </a>
-                                        <DirectSearch
-                                          text={proteinDirectSearch.pathway_id.text}
-                                          searchType={"protein"}
-                                          fieldType={proteinStrings.pathway_id.id}
-                                          fieldValue={link.id}
-                                          executeSearch={proteinSearch}
-                                        />
-                                      </li>
-                                    </Col>
-                                  ))}
-                                </Row>
-                              </ul>
+                              <CollapsibleDirectSearchReference
+                                resource={pathway.resource}
+                                links={pathway.links}
+                                text={proteinDirectSearch.pathway_id.text}
+                                searchType={"protein"}
+                                fieldType={proteinStrings.pathway_id.id}
+                                executeSearch={proteinSearch}
+                              />
                             </li>
                           ))}
                         </ul>
