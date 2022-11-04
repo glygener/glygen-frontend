@@ -7,6 +7,7 @@ import CategorizedAutoTextInput from '../input/CategorizedAutoTextInput';
 import MultiselectTextInput from '../input/MultiselectTextInput';
 import HelpTooltip from '../tooltip/HelpTooltip';
 import ExampleExploreControl from '../example/ExampleExploreControl';
+import ExampleControl from "../example/ExampleControl";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -719,9 +720,12 @@ const ProteinAdvancedSearch = (props) => {
 								{advancedSearch.sequence.errorText}
 							</FormHelperText>
 						)}
-                        <ExampleExploreControl
-							setInputValue={proSequenceChange}
-							inputValue={advancedSearch.sequence.examples}
+						<ExampleControl
+							exampleMap={advancedSearch.sequence.examples}
+							type={advancedSearch.sequence.examples.sequence.id}
+							setInputValue={input => {
+								proSequenceChange(input);
+							}}
 						/>
 					</FormControl>
 				</Grid>
@@ -748,9 +752,12 @@ const ProteinAdvancedSearch = (props) => {
 							length={advancedSearch.pathway_id.length}
 							errorText={advancedSearch.pathway_id.errorText}
 						/>
-                        <ExampleExploreControl
-							setInputValue={proPathwayIdChange}
-							inputValue={advancedSearch.pathway_id.examples}
+						<ExampleControl
+							exampleMap={advancedSearch.pathway_id.examples}
+							type={advancedSearch.pathway_id.examples.pathway_id.id}
+							setInputValue={input => {
+								proPathwayIdChange(input);
+							}}
 						/>
 					</FormControl>
 				</Grid>

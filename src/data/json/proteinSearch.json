@@ -240,22 +240,23 @@
       "length": 2500,
       "errorText": "Entry is too long - max length is 2500.",
       "placeholder": "Enter a Protein or Peptide Sequence",
-      "examples": [
-        {
-          "orderID": 100,
-          "example": {
-            "name": "Example",
-            "id": "MWVTKLLPA"
-          }
+      "examples": {
+        "sequence": {
+          "id": "sequence",
+          "examples": [
+            "MWVTKLLPA",
+            "NXT",
+            "N[SV]T"
+          ]
         }
-      ]
+      }
     },
     "pathway_id": {
       "length": 100,
       "errorText": "Entry is too long - max length is 100.",
       "typeahedID": "pathway_id",
       "placeholder": "Enter a KEGG Pathway or Reactome ID",
-      "examples": [
+      "examples1": [
         {
           "orderID": 100,
           "example": {
@@ -270,7 +271,16 @@
             "id": "R-HSA-114608"
           }
         }
-      ]
+      ],
+      "examples": {
+        "pathway_id": {
+          "id": "pathway_id",
+          "examples": [
+            "hsa:3082",
+            "R-HSA-114608"
+          ]
+        }
+      }
     },
     "pmid": {
       "length": 100,
