@@ -1104,13 +1104,9 @@ const Siteview = ({ position, history }) => {
                             <strong>
                               {proteinStrings.uniprot_accession.name}:{" "}
                             </strong>
-                            <a
-                              href={uniprot.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
+                            <Link to={`${routeConstants.proteinDetail}${uniprot.uniprot_canonical_ac}`}>
                               {uniprot.uniprot_canonical_ac}
-                            </a>
+                            </Link>
                           </div>
                           <div>
                             <strong>
