@@ -464,6 +464,24 @@
             "url": "https://pubchem.ncbi.nlm.nih.gov/compound/610"
           }
         },
+        "pent": {
+          "orderID": 750,
+          "name": "Pentose",
+          "subtext": "Pent, e.g., Ara, Xyl",
+          "shortName": "Pent",
+          "tooltip": {
+            "title": "Pentose",
+            "text1": "Add some unique text here.",
+            "imageArray": [
+              {
+                "imageTitle": "Pent",
+                "imagePath": "/icons/Pent.jpg"
+              }
+            ],
+            "urlText": "Read more...",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/compound/229"
+          }
+        },
         "p": {
           "orderID": 800,
           "name": "Phosphate",

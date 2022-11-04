@@ -263,6 +263,11 @@
               "max": 0,
               "selectValue": "no"
             },
+            "pent": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
             "p": {
               "min": 0,
               "max": 0,
@@ -316,6 +321,11 @@
               "selectValue": "no"
             },
             "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "pent": {
               "min": 0,
               "max": 0,
               "selectValue": "no"
@@ -377,6 +387,11 @@
               "max": 0,
               "selectValue": "no"
             },
+            "pent": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
             "p": {
               "min": 0,
               "max": 0,
@@ -430,6 +445,11 @@
               "selectValue": "no"
             },
             "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "pent": {
               "min": 0,
               "max": 0,
               "selectValue": "no"
@@ -491,6 +511,11 @@
               "max": 0,
               "selectValue": "no"
             },
+            "pent": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
             "p": {
               "min": 0,
               "max": 0,
@@ -544,6 +569,11 @@
               "selectValue": "no"
             },
             "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "pent": {
               "min": 0,
               "max": 0,
               "selectValue": "no"
@@ -605,6 +635,11 @@
               "max": 0,
               "selectValue": "no"
             },
+            "pent": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
             "p": {
               "min": 0,
               "max": 0,
@@ -658,6 +693,11 @@
               "selectValue": "no"
             },
             "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "pent": {
               "min": 0,
               "max": 0,
               "selectValue": "no"
@@ -719,6 +759,11 @@
               "max": 0,
               "selectValue": "no"
             },
+            "pent": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
             "p": {
               "min": 0,
               "max": 0,
@@ -772,6 +817,11 @@
               "selectValue": "no"
             },
             "hexa": {
+              "min": 0,
+              "max": 0,
+              "selectValue": "no"
+            },
+            "pent": {
               "min": 0,
               "max": 0,
               "selectValue": "no"
