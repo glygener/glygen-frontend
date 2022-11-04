@@ -436,8 +436,9 @@ const PublicationDetail = (props) => {
       formatter: (value, row) =>
         value ? (
           <>
+            {value.name}{" "}
             <span className="nowrap">
-              ({proteinStrings.uberonN.name}: <a href={value.url}>{value.uberon}</a>)
+              ({proteinStrings.uberonN.name}: <a href={value.url} target="_blank" rel="noopener noreferrer">{value.uberon}</a>)
             </span>
           </>
         ) : (
