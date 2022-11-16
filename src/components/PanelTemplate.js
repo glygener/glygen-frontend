@@ -1,6 +1,6 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";

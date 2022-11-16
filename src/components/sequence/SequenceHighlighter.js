@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import SequenceDisplay from "../SequenceDisplay";
 import { getPhosphorylationHighlightData, getNLinkGlycanMapHighlights, getOLinkGlycanMapHighlights,
   getSequonHighlightData, getMutationHighlightData, getGlycationHighlightData } from "../../data/sequenceHighlighter";

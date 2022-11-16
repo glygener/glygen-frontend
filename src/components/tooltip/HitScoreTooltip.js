@@ -1,6 +1,6 @@
 import React from "react";
-import Tooltip from "@material-ui/core/Tooltip";
-import HelpOutline from "@material-ui/icons/HelpOutline";
+import Tooltip from "@mui/material/Tooltip";
+import HelpOutline from "@mui/icons-material/HelpOutline";
 import PropTypes from "prop-types";
 import ClientTable from "../ClientTable";
 

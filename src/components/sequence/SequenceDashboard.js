@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import "../../css/feedback.css";
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from "@mui/icons-material/Close";
 import SequenceHighlighter from "./SequenceHighlighter";
 
 /**

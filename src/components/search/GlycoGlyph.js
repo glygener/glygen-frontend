@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog } from "@material-ui/core";
+import { Dialog } from "@mui/material";
 import Iframe from "react-iframe";
 import Button from 'react-bootstrap/Button';
 import { GLYGEN_BASENAME } from "../../envVariables";

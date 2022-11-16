@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 import MainFeaturedCard from "../components/cards/MainFeaturedCard";
 import FeaturedCard from "../components/cards/FeaturedCard";
 // import QuickSearchCard from '../components/cards/QuickSearchCard';

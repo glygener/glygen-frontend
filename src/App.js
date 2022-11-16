@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Routes from "./Routes";
 import Header from "./components/navigation/Header";
 import Footer from "./components/navigation/Footer";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ReactGA from "react-ga";
 import { GLYGEN_ENV } from "./envVariables.js";
 import ScrollToTopBtn from "./components/ScrollToTop";
@@ -36,7 +36,7 @@ function pageProofer(d, t) {
   }
 }
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       "-apple-system",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes as Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import GlycanList from "./pages/GlycanList";
 import ProteinList from "./pages/ProteinList";
@@ -47,11 +47,11 @@ const Routes = (props) => (
   <Switch>
     <Route path={`${routeConstants.glycanListEdit}:id`} component={GlycanListEditColumns} />
     <Route path={`${routeConstants.glycanList}:id/:searchId`} component={GlycanList} />
-    <Route path={`${routeConstants.glycanList}:id`} component={GlycanList} />
+    <Route path={`${routeConstants.glycanList}:id`} component={<GlycanList/>} />
     <Route path={`${routeConstants.proteinList}:id/:searchId`} component={ProteinList} />
     <Route path={`${routeConstants.proteinList}:id`} component={ProteinList} />
-    <Route path={`${routeConstants.glycanSearch}:id`} component={GlycanSearch} />
-    <Route path={routeConstants.glycanSearch} component={GlycanSearch} />
+    <Route path={`${routeConstants.glycanSearch}:id`} element={<GlycanSearch/>} />
+    <Route path={routeConstants.glycanSearch} element={<GlycanSearch/>} />
     <Route path={`${routeConstants.proteinSearch}:id`} component={ProteinSearch} />
     <Route path={routeConstants.proteinSearch} component={ProteinSearch} />
     <Route path={`${routeConstants.siteList}:id/:searchId`} component={SiteList} />
@@ -65,7 +65,7 @@ const Routes = (props) => (
     <Route path={`${routeConstants.glycanDetail}:id`} component={GlycanDetail} />
     <Route path={`${routeConstants.proteinDetail}:id/:select?`} component={ProteinDetail} />
     <Route path={`${routeConstants.isoAlignment}:id/:alignment`} component={IsoAlignment} />
-    <Route path={`${routeConstants.protVista}:id`} component={ProtVista} />
+    <Route path={`${routeConstants.protVista}:id`} element={<ProtVista/>} />
     <Route
       path={`${routeConstants.siteview}:id/:position`}
       render={(props) => <Siteview {...props} position={props.match.params.position} />}
@@ -110,8 +110,8 @@ const Routes = (props) => (
     <Route path={`${routeConstants.blastResult}:jobId`} component={BlastResult} />
     <Route path={routeConstants.blastResult} component={BlastResult} />
     {/* Keep path='/' at the bottom */}
-    <Route path={routeConstants.home} component={Home} />
-    <Route path={routeConstants.default} component={Home} />
+    <Route path={routeConstants.home} element={<Home/>} />
+    <Route path={routeConstants.default} element={<Home/>} />
   </Switch>
 );
 

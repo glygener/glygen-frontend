@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
 import PropTypes from "prop-types";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col } from "react-bootstrap";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";

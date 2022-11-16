@@ -1,12 +1,12 @@
 import React from "react";
 import SelectControl from "../select/SelectControl";
 import HelpTooltip from "../tooltip/HelpTooltip";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import FormHelperText from "@mui/material/FormHelperText";
 import { Row } from "react-bootstrap";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormControl from "@material-ui/core/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
 import Button from "react-bootstrap/Button";
 import { sortDropdown } from "../../utils/common";
 import "../../css/Search.css";

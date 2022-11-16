@@ -1,7 +1,7 @@
 import React from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import PropTypes from 'prop-types';
-import HelpOutline from '@material-ui/icons/HelpOutline';
+import HelpOutline from '@mui/icons-material/HelpOutline';
 
 /**
  * LineTooltip component for showing one line text.

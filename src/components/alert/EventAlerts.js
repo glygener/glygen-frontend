@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import IconButton from "@material-ui/core/IconButton";
-import Collapse from "@material-ui/core/Collapse";
-import CloseIcon from "@material-ui/icons/Close";
+import { Alert, AlertTitle } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import CloseIcon from "@mui/icons-material/Close";
 import CardLoader from "../load/CardLoader";
 import { Card, Col, Row } from "react-bootstrap";
 

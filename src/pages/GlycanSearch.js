@@ -414,7 +414,7 @@ const GlycanSearch = (props) => {
 			selectedTab : ""
 		};
 		var queryError = false;
-		if (props.location.search){
+		if (props.location && props.location.search){
 			queryError = executeQuery(queryString.parse(props.location.search), qryObjOut);
 		}
 		getGlycanInit().then((response) => {
@@ -488,7 +488,10 @@ const GlycanSearch = (props) => {
 			});
 			setGlyCompData(compStateData);
 			setInitData(initData);
-			const anchorElement = props.history.location.hash;
+			let anchorElement = undefined;
+			if (props.history && props.history.location && props.history.location.hash){
+				anchorElement = props.history.location.hash;
+			}
 			if (anchorElement) {
 				var hash = anchorElement.substr(1);
 				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Composition-Search"
@@ -511,7 +514,7 @@ const GlycanSearch = (props) => {
 				window.scrollTo(0, 0);
 			}
 
-			if ((id === undefined && (props.location.search === undefined || props.location.search === "")) || (props.location.search && queryError)) setPageLoading(false);
+			if ((id === undefined && (props.location === undefined || props.location.search === undefined || props.location.search === "")) || (props.location.search && queryError)) setPageLoading(false);
 
 			id &&
 				getGlycanList(id, 1).then(({ data }) => {

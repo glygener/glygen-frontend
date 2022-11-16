@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 //import { getJson } from "../data/api";
@@ -10,8 +10,8 @@ import { AiFillQuestionCircle } from "react-icons/ai";
 import { AiFillBug } from "react-icons/ai";
 import { postTo } from "../data/api";
 import { validateEmail, replaceSpecialCharacters } from "../utils/common";
-import { Typography } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FeedbackWidget = (props) => {
   const { defaultSubject = "Suggestion" } = props;

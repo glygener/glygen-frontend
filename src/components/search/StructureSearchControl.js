@@ -1,10 +1,10 @@
 import React, { useState, useReducer } from "react";
 import { Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Grid, Typography } from "@material-ui/core";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+import { Grid, Typography } from "@mui/material";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
 import SelectControl from "../select/SelectControl";
 import HelpTooltip from "../tooltip/HelpTooltip";
 import "../../css/Search.css";

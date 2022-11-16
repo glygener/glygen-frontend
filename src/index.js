@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -9,7 +10,11 @@ import {GLYGEN_BASENAME} from "./envVariables";
 /**
  * Entry path to Glygen. Renders Glygen App.
  */
-ReactDOM.render(<Router basename={GLYGEN_BASENAME} forceRefresh={true}><App /></Router>, document.getElementById('root'));
+ const container = document.getElementById('root');
+ const root = createRoot(container); 
+ root.render(<Router basename={GLYGEN_BASENAME} forceRefresh={true}><App /></Router>);
+
+// ReactDOM.render(<Router basename={GLYGEN_BASENAME} forceRefresh={true}><App /></Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

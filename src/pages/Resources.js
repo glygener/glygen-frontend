@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import BootstrapTable from "react-bootstrap-table-next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import resourcesData from "../data/json/resourcesData";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import "../css/Responsive.css";
 import Sidebar from "../components/navigation/Sidebar";
 import { Row, Col } from "react-bootstrap";

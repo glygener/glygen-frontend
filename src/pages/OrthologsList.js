@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ORTHOLOGS_COLUMNS, getOrthologsList } from "../data/usecases";
 import ProteinQuerySummary from "../components/ProteinQuerySummary";
 import PaginatedTable from "../components/PaginatedTable";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import FeedbackWidget from "../components/FeedbackWidget";
 import DownloadButton from "../components/DownloadButton";
 import stringConstants from "../data/json/stringConstants.json";

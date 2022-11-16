@@ -4,15 +4,15 @@ import logoFooter from "../../images/glygen_logos/glygen-logoW-top.svg";
 import ugaLogo from "../../images/univ_logos/logo-uga.svg";
 import gwuLogo from "../../images/univ_logos/logo-gwu.svg";
 import { Navbar, Col, Image, Row } from "react-bootstrap";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import { makeStyles } from "@mui/styles";
 import "../../App.css";
 import routeConstants from "../../data/json/routeConstants.json";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import PinterestIcon from "@material-ui/icons/Pinterest";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import PinterestIcon from "@mui/icons-material/Pinterest";
 import { ReactComponent as MediaWikiIcon } from "../../images/icons/mediaWikiIcon.svg";
 import {
   GLYGEN_API,

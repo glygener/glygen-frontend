@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
+// import { useHistory } from "react-router";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
 import PropTypes from "prop-types";
 import { logActivity } from "../../data/logging";
 import routeConstants from "../../data/json/routeConstants";
@@ -14,7 +14,7 @@ import "../../css/globalSearch.css";
  * Global search control.
  **/
 export default function GlobalSearchControl(props) {
-  let history = useHistory();
+  // let history = useHistory();
   const [globalSearchTerm, setGlobalSearchTerm] = useState("");
 
   /**

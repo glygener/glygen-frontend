@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { Row, Image } from "react-bootstrap";
 import ugaImg from "../../images/about/univ-logo/uga.png";
 import gwImg from "../../images/about/univ-logo/gw.png";

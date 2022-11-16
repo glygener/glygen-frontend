@@ -1,11 +1,11 @@
 import React from 'react';
 import SelectControl from '../select/SelectControl';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
-import FormControl from '@material-ui/core/FormControl';
+import FormControl from '@mui/material/FormControl';
 import Button from 'react-bootstrap/Button';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FormHelperText from "@material-ui/core/FormHelperText";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormHelperText from "@mui/material/FormHelperText";
 import '../../css/Search.css';
 import superSearchData from '../../data/json/superSearchData';
 import plusIcon from "../../images/icons/plus.svg";

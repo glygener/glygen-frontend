@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import Button from 'react-bootstrap/Button';
-import { Dialog } from "@material-ui/core";
-import FormControl from '@material-ui/core/FormControl';
-import Typography from '@material-ui/core/Typography';
+import { Dialog } from "@mui/material";
+import FormControl from '@mui/material/FormControl';
+import Typography from '@mui/material/Typography';
 import SelectControl from '../select/SelectControl';
 import stringConstants from '../../data/json/stringConstants';
 import HelpTooltip from '../tooltip/HelpTooltip';
 import superSearchData from '../../data/json/superSearchData';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 /**
  * Dialog component to show query.

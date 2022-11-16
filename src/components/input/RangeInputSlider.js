@@ -1,9 +1,9 @@
 import React from 'react';
-import Slider from '@material-ui/core/Slider';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import Slider from '@mui/material/Slider';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import PropTypes from 'prop-types';
 import '../../css/Search.css';
 

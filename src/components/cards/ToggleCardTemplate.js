@@ -1,6 +1,6 @@
 import React from "react";
-// import Container from '@material-ui/core/Container';
-import CssBaseline from "@material-ui/core/CssBaseline";
+// import Container from '@mui/material/Container';
+import CssBaseline from "@mui/material/CssBaseline";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
@@ -8,8 +8,8 @@ import "../../css/detail.css";
 // import { Col, Row } from 'react-bootstrap';
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 // https://smellycode.com/accordion-in-reactjs/
 // const ToggleCardlTemplate = () => {

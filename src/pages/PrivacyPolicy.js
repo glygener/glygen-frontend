@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import Container from '@material-ui/core/Container';
+import CssBaseline from "@mui/material/CssBaseline";
+// import Container from '@mui/material/Container';
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col } from "react-bootstrap";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import SidebarPages from "../components/sidebar/SidebarPages";

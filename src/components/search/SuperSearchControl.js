@@ -4,7 +4,7 @@ import stringConstants from '../../data/json/stringConstants';
 import superSearchData from '../../data/json/superSearchData';
 import { getSuperSearch } from '../../data/supersearch';
 import SuperSearchInputcontrol from '../input/SuperSearchInputcontrol';
-import { Dialog } from "@material-ui/core";
+import { Dialog } from "@mui/material";
 import Button from 'react-bootstrap/Button';
 import {logActivity} from '../../data/logging';
 import {axiosError} from '../../data/axiosError';

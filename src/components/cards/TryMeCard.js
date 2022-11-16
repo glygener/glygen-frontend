@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer, useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-// import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import { makeStyles } from "@mui/styles";
+// import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import ListGroup from "react-bootstrap/ListGroup";
 import stringConstants from "../../data/json/stringConstants";
 import tryMe from "../../data/json/tryMe";
@@ -19,9 +19,9 @@ import {
 	getGlycanToGlycoproteins,
 	getBiosynthesisEnzymeToGlycans,
 } from "../../data/usecases";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { Container } from 'react-bootstrap';
-// import Container from "@material-ui/core/Container";
+// import Container from "@mui/material/Container";
 // import questions from "../../data/json/questions.json";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +47,7 @@ export default function TryMeCard(props) {
 	let quickSearch = stringConstants.quick_search;
 
 	const classes = useStyles();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const [pageLoading, setPageLoading] = useState(false);
 	const [alertDialogInput, setAlertDialogInput] = useReducer(
@@ -76,7 +76,7 @@ export default function TryMeCard(props) {
 				if (response.data["list_id"] !== "") {
 					setPageLoading(false);
 					logActivity("user", response.data["list_id"], message);
-					history.push(
+					navigate(
 						routeConstants.proteinList +
 							response.data["list_id"] +
 							"/" +
@@ -111,7 +111,7 @@ export default function TryMeCard(props) {
 				if (response.data["list_id"] !== "") {
 					setPageLoading(false);
 					logActivity("user", response.data["list_id"], message);
-					history.push(
+					navigate(
 						routeConstants.proteinList +
 							response.data["list_id"] +
 							"/" +
@@ -145,7 +145,7 @@ export default function TryMeCard(props) {
 			.then((response) => {
 				if (response.data["list_id"] !== "") {
 					logActivity("user", response.data["list_id"], message);
-					history.push(
+					navigate(
 						routeConstants.glycanList +
 							response.data["list_id"] +
 							"/" +

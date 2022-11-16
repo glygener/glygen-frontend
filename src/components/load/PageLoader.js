@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Backdrop from "@material-ui/core/Backdrop";
+import Backdrop from "@mui/material/Backdrop";
 // import LoadingImage from "../../images/page_loading.gif";
 import LoadingImage from "../../images/logo-loading-animated.svg";
 

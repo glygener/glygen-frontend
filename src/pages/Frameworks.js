@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import { Row, Col } from "react-bootstrap";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { logActivity } from "../data/logging";

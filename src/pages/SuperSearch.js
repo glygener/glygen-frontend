@@ -9,7 +9,7 @@ import SuperSearchSampleQuery from '../components/search/SuperSearchSampleQuery'
 import { Tab, Tabs, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import '../css/Search.css';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import superSearchData from '../data/json/superSearchData';
 import routeConstants from '../data/json/routeConstants';
 import edgerules from '../data/json/edgerules';
@@ -22,7 +22,7 @@ import SuperSearchControl from '../components/search/SuperSearchControl';
 import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { getSuperSearch } from '../data/supersearch';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import LineTooltip from "../components/tooltip/LineTooltip";
 import stringConstants from "../data/json/stringConstants";
 

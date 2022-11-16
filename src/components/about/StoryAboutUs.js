@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { Row, Col, Image } from "react-bootstrap";
 import VerticalHeading from "../../components/headings/VerticalHeading";
 import HorizontalHeading from "../../components/headings/HorizontalHeading";
@@ -10,7 +10,7 @@ import OurMissionImg from "../../components/about/OurMissionImg";
 import nihImg from "../../images/about/logo-NIH.svg";
 import glycosciImg from "../../images/about/logo-Glycoscience.svg";
 import WorldMapImg from "../about/WorldMapImg";
-import Hidden from "@material-ui/core/Hidden";
+import Hidden from "@mui/material/Hidden";
 import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV } from "../../envVariables";
 
 const ourMissionImd = {

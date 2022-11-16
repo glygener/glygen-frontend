@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import Container from '@material-ui/core/Container';
+import CssBaseline from "@mui/material/CssBaseline";
+// import Container from '@mui/material/Container';
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col, Image } from "react-bootstrap";
-import { makeStyles, Link } from "@material-ui/core";
+import { Link } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import BootstrapTable from "react-bootstrap-table-next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";

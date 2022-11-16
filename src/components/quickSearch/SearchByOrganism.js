@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
 import Button from "react-bootstrap/Button";
 import SelectControl from "../select/SelectControl";
 import quickSearchData from "../../data/json/quickSearch.json";
@@ -44,13 +44,13 @@ const SearchByOrganism = props => {
             <h4>{stringConstants.sidebar.search_by_organism.displayname}</h4>
           </div>
           <div className="quick-search">
-            <ExpansionPanel
+            <Accordion
               id={quickSearch.question_8.id}
               defaultExpanded={props.questionId === quickSearch.question_8.id}
               expanded={props.panelExpanded.question_8}
               onChange={()=> props.togglePanelExpansion(quickSearch.question_8.id)}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
@@ -62,8 +62,8 @@ const SearchByOrganism = props => {
                   </strong>
                   {quickSearch.question_8.text.split("{0}")[1]}
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -117,15 +117,15 @@ const SearchByOrganism = props => {
                     </Button>
                   </Grid>
                 </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
               id={quickSearch.question_9.id}
               defaultExpanded={props.questionId === quickSearch.question_9.id}
               expanded={props.panelExpanded.question_9}
               onChange={()=> props.togglePanelExpansion(quickSearch.question_9.id)}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
                 aria-controls="panel2bh-content"
                 id="panel2bh-header"
@@ -137,8 +137,8 @@ const SearchByOrganism = props => {
                   </strong>
                   {quickSearch.question_9.text.split("{0}")[1]}
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -192,15 +192,15 @@ const SearchByOrganism = props => {
                     </Button>
                   </Grid>
                 </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
               id={quickSearch.question_10.id}
               defaultExpanded={props.questionId === quickSearch.question_10.id}
               expanded={props.panelExpanded.question_10}
               onChange={()=> props.togglePanelExpansion(quickSearch.question_10.id)}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
                 aria-controls="panel3bh-content"
                 id="panel3bh-header"
@@ -212,8 +212,8 @@ const SearchByOrganism = props => {
                   </strong>
                   {quickSearch.question_10.text.split("{0}")[1]}
                 </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
+              </AccordionSummary>
+              <AccordionDetails>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -322,8 +322,8 @@ const SearchByOrganism = props => {
                     </Typography>
                   </Grid>
                 </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </section>
       </div>

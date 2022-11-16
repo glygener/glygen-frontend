@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import VerticalAlignTopIcon from "@material-ui/icons/VerticalAlignTop";
-import { Button } from "@material-ui/core";
+import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
+import { Button } from "@mui/material";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);

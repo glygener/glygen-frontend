@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Collapse } from "@material-ui/core";
+import { Checkbox, Collapse } from "@mui/material";
 import "../css/Sidebar.css";
 import Button from "react-bootstrap/Button";
-import { withStyles } from "@material-ui/core/styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@mui/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
 const BlueCheckbox = withStyles({
   root: {
     color: "#979797",

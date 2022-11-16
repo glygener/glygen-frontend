@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox, Collapse } from "@material-ui/core";
+import { Checkbox, Collapse } from "@mui/material";
 //import { BrowserRouter } from "react-router-dom";
 const { Panel } = Collapse;
 

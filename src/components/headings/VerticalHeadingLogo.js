@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import { Grid, Link } from "@material-ui/core";
+import Typography from "@mui/material/Typography";
+import { Grid, Link } from "@mui/material";
 import { Row } from "react-bootstrap";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import glygenLogoDownload from "../../images/glygen_logos/logo-glygen-blue-36.svg";
-import CardMedia from "@material-ui/core/CardMedia";
-import GetAppIcon from "@material-ui/icons/GetApp";
+import CardMedia from "@mui/material/CardMedia";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 export default function VerticalHeadingLogo(props) {
 	const { post } = props;

@@ -1,7 +1,7 @@
 import React from "react";
 // import { getIsoAlignment } from "../data/protein";
 import "../css/alignment.css";
-// import { Grid } from "@material-ui/core";
+// import { Grid } from "@mui/material";
 // import routeConstants from "../data/json/routeConstants";
 import SequenceViewer from "../components/sequence/SequenceViewer";
 

@@ -1,9 +1,9 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import HorizontalHeading from "../headings/HorizontalHeading";
 // import VerticalHeading from "../headings/VerticalHeading";
 import Iframe from "react-iframe";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 
 export default function ProteinTutorial(props) {
   const horHeadSimpleOne = {

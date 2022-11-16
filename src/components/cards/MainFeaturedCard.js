@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
-// import FormatQuoteOutlinedIcon from "@material-ui/icons/FormatQuoteOutlined";
+import { makeStyles } from "@mui/styles";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
+// import FormatQuoteOutlinedIcon from "@mui/icons-material/FormatQuoteOutlined";
 import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 import routeConstants from "../../data/json/routeConstants.json";
 import { Link } from "react-router-dom";
@@ -136,13 +136,13 @@ MainFeaturedCard.propTypes = {
 // Proposal 1
 // import React from "react";
 // import PropTypes from "prop-types";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Typography from "@material-ui/core/Typography";
-// import Grid from "@material-ui/core/Grid";
+// import { makeStyles } from "@mui/styles";
+// import Paper from "@mui/material/Paper";
+// import Typography from "@mui/material/Typography";
+// import Grid from "@mui/material/Grid";
 // import { Link, NavLink } from "react-router-dom";
-// import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-// import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
+// import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+// import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
 // import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 // import routeConstants from "../../data/json/routeConstants.json";
 
@@ -276,13 +276,13 @@ MainFeaturedCard.propTypes = {
 // Proposal 2
 // import React from "react";
 // import PropTypes from "prop-types";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Typography from "@material-ui/core/Typography";
-// import Grid from "@material-ui/core/Grid";
+// import { makeStyles } from "@mui/styles";
+// import Paper from "@mui/material/Paper";
+// import Typography from "@mui/material/Typography";
+// import Grid from "@mui/material/Grid";
 // import { Link } from "react-router-dom";
-// import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-// import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
+// import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+// import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
 // import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 // import routeConstants from "../../data/json/routeConstants.json";
 

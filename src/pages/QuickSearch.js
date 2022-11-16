@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import FeedbackWidget from "../components/FeedbackWidget";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";

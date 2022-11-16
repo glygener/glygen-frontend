@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useReducer } from "react";
-import { Grid, Typography } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
+import { Grid, Typography } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import HelpTooltip from "../tooltip/HelpTooltip";
 import SequenceDashboard from "./SequenceDashboard";
 import routeConstants from "../../data/json/routeConstants";
@@ -10,7 +10,7 @@ import SequenceViewer from "./SequenceViewer";
 import "../../css/proteinsequence.css";
 import { GLYGEN_BASENAME } from "../../envVariables";
 import SelectControl from "../select/SelectControl";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import LineTooltip from "../tooltip/LineTooltip";
 

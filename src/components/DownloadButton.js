@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "react-bootstrap";
 import { downloadFromServer } from "../utils/download";
-import FormControl from "@material-ui/core/FormControl";
-// import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from "@mui/material/FormControl";
+// import InputLabel from '@mui/material/InputLabel';
 import Button from "react-bootstrap/Button";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { Link } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import { Link } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import SelectControl from "./select/SelectControl";
 import { getProteinDownload } from "../data/protein";
 import { getProteinSiteDownload } from "../data/protein";
@@ -17,7 +17,7 @@ import { getIdMappingMappedDownload } from "../data/mapping";
 import { getIdMappingUnmappedDownload } from "../data/mapping";
 import { getOrthologDownload, getLocusDownload } from "../data/usecases";
 import { getPublicationDownload } from "../data/publication";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 const DownloadButton = (props) => {
   const { types, dataId, itemType = "glycan" } = props;

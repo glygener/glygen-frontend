@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Card from "@material-ui/core/Card";
-import TableRow from '@material-ui/core/TableRow';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
+import Card from "@mui/material/Card";
+import TableRow from '@mui/material/TableRow';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
+import TableCell from '@mui/material/TableCell';
 import RouteLink from '../Link/RouteLink.js'
 import {sortDropdownIgnoreCase} from '../../utils/common';
 import "../../css/Search.css";

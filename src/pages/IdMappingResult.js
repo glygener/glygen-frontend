@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getMappingList } from "../data/mapping";
 import PaginatedTable from "../components/PaginatedTable";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import DownloadButton from "../components/DownloadButton";
 import FeedbackWidget from "../components/FeedbackWidget";
 import { logActivity } from "../data/logging";

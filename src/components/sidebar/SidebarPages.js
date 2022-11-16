@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../css/Sidebar.css';
 import { NavLink } from 'react-router-dom';
-//import ListItem from '@material-ui/core/ListItem';
-//import ListItemText from '@material-ui/core/ListItemText';
-//import List from '@material-ui/core/List';
+//import ListItem from '@mui/material/ListItem';
+//import ListItemText from '@mui/material/ListItemText';
+//import List from '@mui/material/List';
 
 const SidebarPages = () => {
 	const pages = ['/license', '/privacy-policy', '/disclaimer'];
@@ -35,10 +35,10 @@ const SidebarPages = () => {
 export default SidebarPages;
 
 // import React from 'react';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import { Link } from '@material-ui/core';
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemText from '@mui/material/ListItemText';
+// import { Link } from '@mui/material';
 // import '../../css/Sidebar.css';
 // // import { useLocation } from "react-router-dom";
 // // import { withRouter } from "react-router-dom";

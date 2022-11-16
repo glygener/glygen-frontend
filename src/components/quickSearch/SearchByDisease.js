@@ -1,13 +1,13 @@
 import React from "react";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import quickSearchData from "../../data/json/quickSearch.json";
 import AutoTextInput from "../input/AutoTextInput";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
 import Button from "react-bootstrap/Button";
 import TextAlert from "../alert/TextAlert";
 import ExampleExploreControl from "../example/ExampleExploreControl";
@@ -28,13 +28,13 @@ const SearchByGlycan = props => {
             <h4>{stringConstants.sidebar.search_by_disease.displayname}</h4>
           </div>
           <div className="quick-search">
-            <ExpansionPanel
+            <Accordion
               id={quickSearch.question_11.id}
               defaultExpanded={props.questionId === quickSearch.question_11.id}
               expanded={props.panelExpanded.question_11}
               onChange={()=> props.togglePanelExpansion(quickSearch.question_11.id)}
             >
-              <ExpansionPanelSummary
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
@@ -46,9 +46,9 @@ const SearchByGlycan = props => {
                   </strong>
                   {quickSearch.question_11.text.split("{0}")[1]}
                 </Typography>
-              </ExpansionPanelSummary>
+              </AccordionSummary>
               <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_11.length <= searchByDisease.common.length) props.searchQuestion11()}}>
-                <ExpansionPanelDetails>
+                <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
                       <TextAlert
@@ -97,9 +97,9 @@ const SearchByGlycan = props => {
                       </Button>
                     </Grid>
                   </Grid>
-                </ExpansionPanelDetails>
+                </AccordionDetails>
               </form>
-            </ExpansionPanel>
+            </Accordion>
           </div>
         </section>
       </div>

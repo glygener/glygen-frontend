@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from 'react-bootstrap/Button';
-import { Dialog } from "@material-ui/core";
+import { Dialog } from "@mui/material";
 import ReactCopyClipboard from "../ReactCopyClipboard";
 
 /**

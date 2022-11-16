@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
 import VerticalHeadingLogo from "../components/headings/VerticalHeadingLogo";
 import PanelHowToCite from "../components/PanelHowToCite";
 import "bootstrap/dist/css/bootstrap.min.css";

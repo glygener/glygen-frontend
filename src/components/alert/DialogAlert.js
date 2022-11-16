@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import stringConstants from '../../data/json/stringConstants';
 import routeConstants from '../../data/json/routeConstants';
 import Button from 'react-bootstrap/Button';
-import { Dialog } from "@material-ui/core";
+import { Dialog } from "@mui/material";
 
 /**
  * Dialog alert component to show error messages.

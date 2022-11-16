@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useReducer } from "react";
+import React, { useState, useEffect, useRef, useReducer, createRef } from "react";
 import { useParams } from "react-router-dom";
 import { getProteinDetail } from "../data/protein";
 import Helmet from "react-helmet";
@@ -7,7 +7,7 @@ import ProtvistaSidebar from "../components/navigation/ProtvistaSidebar";
 import "d3";
 import { NavLink } from "react-router-dom";
 import ProtvistaManager from "protvista-manager";
-import ProtvistaTooltip from "protvista-tooltip";
+// import ProtvistaTooltip from "protvista-tooltip";
 import ProtvistaNavigation from "protvista-navigation";
 import ProtvistaSequence from "protvista-sequence";
 import ProtvistaTrack from "protvista-track";
@@ -21,23 +21,71 @@ import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 // import { display } from "@material-ui/system";
-import { useHistory } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
 window.customElements.define("protvista-manager", ProtvistaManager);
 window.customElements.define("protvista-navigation", ProtvistaNavigation);
 window.customElements.define("protvista-sequence", ProtvistaSequence);
 window.customElements.define("protvista-track", ProtvistaTrack);
-window.customElements.define("protvista-tooltip", ProtvistaTooltip);
+// window.customElements.define("protvista-tooltip", ProtvistaTooltip);
+
+let data1 = [
+  {
+      "start": 294,
+      "end": 294,
+      "color": "red",
+      "shape": "circle",
+      "accession": "P14210-1",
+      "type": "Asn",
+      "title": "Asn-294",
+      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 2 more at this site</span>",
+      "count": 3
+  },
+  {
+      "start": 402,
+      "end": 402,
+      "color": "red",
+      "shape": "circle",
+      "accession": "P14210-1",
+      "type": "Asn",
+      "title": "Asn-402",
+      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
+      "count": 2
+  },
+  {
+      "start": 566,
+      "end": 566,
+      "color": "red",
+      "shape": "circle",
+      "accession": "P14210-1",
+      "type": "Asn",
+      "title": "Asn-566",
+      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
+      "count": 2
+  },
+  {
+      "start": 653,
+      "end": 653,
+      "color": "red",
+      "shape": "circle",
+      "accession": "P14210-1",
+      "type": "Asn",
+      "title": "Asn-653",
+      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
+      "count": 2
+  }
+];
 
 const ProtVista = () => {
   let { id, Protvistadisplay } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [data, setData] = useState({});
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const [nGlycanWithImageState, setNGlycanWithImageState] = useState();
 
   function setupProtvista(data) {
     var glycos = [
@@ -399,7 +447,7 @@ const ProtVista = () => {
     };
   }
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [highlighted, setHighlighted] = useState(null);
 
   const nGlycanWithImage = useRef(null);
@@ -432,7 +480,7 @@ const ProtVista = () => {
         if (eventtype === "click") {
           if (event.detail.feature.click !== "block") {
             const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
-            history.push(route);
+            navigate(route);
           } else {
             return;
           }
@@ -480,6 +528,8 @@ const ProtVista = () => {
   };
 
   useEffect(() => {
+    // setTimeout(() => {
+
     setPageLoading(true);
     logActivity("user", id);
     const getData = getProteinDetail(id, Protvistadisplay);
@@ -492,9 +542,26 @@ const ProtVista = () => {
         setData(data);
         setPageLoading(false);
         let formattedData = setupProtvista(data);
+        console.log( "Hi");
+
+
         if (nGlycanWithImage.current) {
+          console.log( "Hi1");
           nGlycanWithImage.current.data = formattedData.nGlycanWithImage;
+          console.log(nGlycanWithImage);
+          // setNGlycanWithImageState(formattedData.nGlycanWithImage);
         }
+        console.log( "Hi2");
+        nGlycanWithImage.data = formattedData.nGlycanWithImage;
+
+        // const track = document.getElementById('ptrack1');
+        // track.data = formattedData.nGlycanWithImage;
+
+        setNGlycanWithImageState(formattedData.nGlycanWithImage);
+        // const track = document.getElementById('ptrack1');
+        // track.data = formattedData.nGlycanWithImage; 
+
+        console.log( nGlycanWithImage);
         if (nGlycanWithoutImage.current) {
           nGlycanWithoutImage.current.data = formattedData.nGlycanWithoutImage;
         }
@@ -507,8 +574,12 @@ const ProtVista = () => {
         if (nSequon.current) {
           nSequon.current.data = formattedData.nSequon;
         }
+        console.log( "Hi3");
 
         if (allTrack && allTrack.current) {
+          console.log( "Hi4");
+          console.log( allTrack);
+
           allTrack.current.data = [
             ...formattedData.nGlycanWithImage,
             ...formattedData.nGlycanWithoutImage,
@@ -517,6 +588,8 @@ const ProtVista = () => {
             ...formattedData.nSequon,
           ];
         }
+        console.log( allTrack);
+
         if (phosphorylationData.current) {
           phosphorylationData.current.data = formattedData.phosphorylationData.residues;
 
@@ -563,6 +636,9 @@ const ProtVista = () => {
       let message = "ProtVista Detail api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
+
+  // },10000);
+
     // eslint-disable-next-line
   }, []);
 
@@ -631,13 +707,23 @@ const ProtVista = () => {
                   length={data.sequence.length}
                   displaystart={1}
                   displayend={data.sequence.length}
+                  highlightStart={1}
+                  highlightEnd={data.sequence.length}
+                  rulerstart={1}
                 />
+                {/* <protvista-sequence 
+                  id="seq1" 
+                  length={data.sequence.length}
+                  displaystart={1}
+                  displayend={data.sequence.length}
+                /> */}
                 <protvista-sequence
                   id="seq1"
                   class="nav-track"
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  // height={60}
+                  // displaystart={1}
+                  // displayend={data.sequence.length}
                   sequence={data.sequence.sequence}
                 />
                 {/* Blank Track */}
@@ -659,7 +745,9 @@ const ProtVista = () => {
                   layout="non-overlapping"
                   ref={allTrack}
                 />
+                <div style={{"line-height": 0}}>
                 <protvista-track
+                  id="ptrack1"
                   class={
                     `nav-track glycotrack ` +
                     (expanded ? "" : " hidden") +
@@ -670,7 +758,9 @@ const ProtVista = () => {
                   displayend={data.sequence.length}
                   layout="non-overlapping"
                   ref={nGlycanWithImage}
+                  // data={data1}
                 />
+                </div>
                 <protvista-track
                   class={
                     `nav-track glycotrack ` +

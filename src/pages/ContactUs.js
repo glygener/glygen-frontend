@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col } from "react-bootstrap";
-import RoomIcon from "@material-ui/icons/Room";
+import RoomIcon from "@mui/icons-material/Room";
 // import GoogleMap from "../components/contactUs/GoogleMap";
 import ContactForm from "../components/contactUs/ContactForm";
 import { logActivity } from "../data/logging";

@@ -1,11 +1,11 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
+import Grid from "@mui/material/Grid";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import FormHelperText from "@mui/material/FormHelperText";
 import ExampleControl from "../example/ExampleControl";
 import SelectControl from "../select/SelectControl";
 import "../../css/Search.css";

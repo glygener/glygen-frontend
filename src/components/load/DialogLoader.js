@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // import LoadingImage from "../../images/page_loading.gif";
 import LoadingImageBlack from "../../images/logo-loading-animated-black.svg";
 import { Row } from "react-bootstrap";
-import { Dialog } from "@material-ui/core";
+import { Dialog } from "@mui/material";
 import Button from 'react-bootstrap/Button';
 
 

@@ -7,7 +7,7 @@ import { getSuperSearchList, getSiteSearchInit } from "../data/supersearch";
 import SitequerySummary from "../components/SitequerySummary";
 // import { SITE_COLUMNS } from "../data/supersearch";
 import PaginatedTable from "../components/PaginatedTable";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import FeedbackWidget from "../components/FeedbackWidget";
 import stringConstants from "../data/json/stringConstants.json";
 // import ReactHtmlParser from "react-html-parser";

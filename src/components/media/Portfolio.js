@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import { Row, Image, Col } from "react-bootstrap";
 import HorizontalHeading from "../../components/headings/HorizontalHeading";
 import "../../css/Media.css";

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getJobResultList } from "../data/job.js"
 import PaginatedTable from "../components/PaginatedTable";
-import Container from "@material-ui/core/Container";
+import Container from "@mui/material/Container";
 import FeedbackWidget from "../components/FeedbackWidget";
 import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
@@ -21,7 +21,7 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import MultiProteinAlignment from "../components/sequence/MultiProteinAlignment";
 import doubleArraowIcon from "../images/icons/doubleArrowIcon.svg";
 import Image from "react-bootstrap/Image";
-import GetAppIcon from "@material-ui/icons/GetApp";
+import GetAppIcon from "@mui/icons-material/GetApp";
 import { downloadFile } from "../utils/download.js"
 
 const createSorter = (sortField, sortOrder) => (a, b) => {

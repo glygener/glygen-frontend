@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import Select from '@material-ui/core/Select';
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Grid from "@material-ui/core/Grid";
-import FormControl from "@material-ui/core/FormControl";
+// import Select from '@mui/material/Select';
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Grid from "@mui/material/Grid";
+import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
-// import MenuItem from '@material-ui/core/MenuItem';
-import Typography from "@material-ui/core/Typography";
+// import MenuItem from '@mui/material/MenuItem';
+import Typography from "@mui/material/Typography";
 import Button from "react-bootstrap/Button";
 import { Row } from "react-bootstrap";
 import ReactHtmlParser from "react-html-parser";
