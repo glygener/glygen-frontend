@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { logActivity } from "../data/logging";
 import {
@@ -56,7 +55,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaReact />
 									</div>
 								</Col>
@@ -85,7 +84,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaHtml5 />
 									</div>
 								</Col>
@@ -114,7 +113,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaCss3Alt />
 									</div>
 								</Col>
@@ -143,7 +142,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<IoLogoJavascript />
 									</div>
 								</Col>
@@ -172,7 +171,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaBootstrap />
 									</div>
 								</Col>
@@ -201,7 +200,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon icon-svg text-right">
+									<div className="icon icon-svg text-end">
 										<MaterialUi />
 									</div>
 								</Col>
@@ -230,7 +229,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaRegPaperPlane />
 									</div>
 								</Col>
@@ -261,7 +260,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon-svg text-right">
+									<div className="icon-svg text-end">
 										<JsonIcon />
 									</div>
 								</Col>
@@ -290,7 +289,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon-svg text-right">
+									<div className="icon-svg text-end">
 										<AiOutlineApi />
 									</div>
 								</Col>
@@ -319,7 +318,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<FaPython />
 									</div>
 								</Col>
@@ -348,7 +347,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon icon-svg5 text-right">
+									<div className="icon icon-svg5 text-end">
 										<DiMongodb />
 									</div>
 								</Col>
@@ -376,7 +375,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon text-right">
+									<div className="icon text-end">
 										<AiFillDatabase />
 									</div>
 								</Col>
@@ -404,7 +403,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon icon-svg text-right">
+									<div className="icon icon-svg text-end">
 										<Swagger />
 									</div>
 								</Col>
@@ -432,7 +431,7 @@ const Frameworks = (props) => {
 						<div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon icon-svg text-right">
+									<div className="icon icon-svg text-end">
 										<Flask />
 									</div>
 								</Col>
@@ -460,7 +459,7 @@ const Frameworks = (props) => {
 						{/* <div className="framework">
 							<Row>
 								<Col xs={12} sm={2}>
-									<div className="icon icon-svg text-right">
+									<div className="icon icon-svg text-end">
 										<img
 											src="images/icons/frameworks-icons/d3-js.svg"
 											alt="d3.js-icon"

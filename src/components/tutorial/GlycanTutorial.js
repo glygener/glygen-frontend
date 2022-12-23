@@ -43,7 +43,7 @@ export default function GlycanTutorial(props) {
 			<div style={{ paddingBottom: "20px" }}>
 				<HorizontalHeading post={horHeadSimpleOne} />
 			</div>
-			<Grid container spacing={3} justify="center">
+			<Grid container spacing={3} justifyCenter="center">
 				<Grid item xs={12} sm={6}>
 					<Iframe
 						src="//www.slideshare.net/slideshow/embed_code/key/1Gk9i2RWn1D9wV"
@@ -86,16 +86,18 @@ export default function GlycanTutorial(props) {
 					</div>
 				</Grid>
 				<Grid item xs={12} sm={6} className="tutorial-text-middle">
-					<Typography>
-						You can search for glycans by specifying their GlyTouCan accession
-						numbers, their specific structures or the specific biochemical
-						contexts within which they are found.
-					</Typography>
-					<div style={{ marginBottom: "20px" }}></div>
-					<Typography>
-						This tutorial was created using a portal version: 1.0.1
-						(09/19/2018).
-					</Typography>
+					<div className="tutorial-text-middle">
+						<Typography>
+							You can search for glycans by specifying their GlyTouCan accession
+							numbers, their specific structures or the specific biochemical
+							contexts within which they are found.
+						</Typography>
+						<div style={{ marginBottom: "20px" }}></div>
+						<Typography>
+							This tutorial was created using a portal version: 1.0.1
+							(09/19/2018).
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 			{/* Advanced Search */}
@@ -104,17 +106,19 @@ export default function GlycanTutorial(props) {
 			</div>
 			<Grid container spacing={3} justify="center">
 				<Grid item xs={12} sm={6} className="tutorial-text-middle">
-					<Typography>
-						You can search for glycans by specifying their chemical features of
-						biological context. In many cases, you may not have this information
-						but will have other information about the glycan or collection of
-						glycans that makes them interesting to you.
-					</Typography>
-					<div style={{ marginBottom: "20px" }}></div>
-					<Typography>
-						This tutorial was created using a portal version: 1.0.1
-						(09/19/2018).
-					</Typography>
+					<div className="tutorial-text-middle">
+						<Typography>
+							You can search for glycans by specifying their chemical features of
+							biological context. In many cases, you may not have this information
+							but will have other information about the glycan or collection of
+							glycans that makes them interesting to you.
+						</Typography>
+						<div style={{ marginBottom: "20px" }}></div>
+						<Typography>
+							This tutorial was created using a portal version: 1.0.1
+							(09/19/2018).
+						</Typography>
+					</div>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Iframe
@@ -190,16 +194,18 @@ export default function GlycanTutorial(props) {
 					</div>
 				</Grid>
 				<Grid item xs={12} sm={6} className="tutorial-text-middle">
-					<Typography>
-						This tutorial describes how to initiate the exploration of GlyGen
-						data by searching for a specific glycan when its GlyTouCan accession
-						is known.
-					</Typography>
-					<div style={{ marginBottom: "20px" }}></div>
-					<Typography>
-						This tutorial was created using a portal version: 1.0.1
-						(09/19/2018).
-					</Typography>
+					<div className="tutorial-text-middle">
+						<Typography>
+							This tutorial describes how to initiate the exploration of GlyGen
+							data by searching for a specific glycan when its GlyTouCan accession
+							is known.
+						</Typography>
+						<div style={{ marginBottom: "20px" }}></div>
+						<Typography>
+							This tutorial was created using a portal version: 1.0.1
+							(09/19/2018).
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 			{/* ADVANCED SEARCH: How to Use Advanced Glycan Search */}
@@ -208,16 +214,18 @@ export default function GlycanTutorial(props) {
 			{/* </div> */}
 			<Grid container spacing={3} justify="center">
 				<Grid item xs={12} sm={6} className="tutorial-text-middle">
-					<Typography>
-						This tutorial illustrates how to search for a glycan or collection
-						of glycans based on their general properties, structural features,
-						attachment to a glycoprotein, mechanisms of biosynthesis.
-					</Typography>
-					<div style={{ marginBottom: "20px" }}></div>
-					<Typography>
-						This tutorial was created using a portal version: 1.0.1
-						(09/19/2018).
-					</Typography>
+					<div className="tutorial-text-middle">
+						<Typography>
+							This tutorial illustrates how to search for a glycan or collection
+							of glycans based on their general properties, structural features,
+							attachment to a glycoprotein, mechanisms of biosynthesis.
+						</Typography>
+						<div style={{ marginBottom: "20px" }}></div>
+						<Typography>
+							This tutorial was created using a portal version: 1.0.1
+							(09/19/2018).
+						</Typography>
+					</div>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Iframe

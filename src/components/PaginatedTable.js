@@ -101,13 +101,14 @@ const PaginatedTable = ({
               <strong className="Paginationtext">Records per page {""}</strong>
               <SizePerPageDropdownStandalone
                 {...paginationProps}
-                className="mr-2 narrow-dropdown"
+                className="me-2 narrow-dropdown"
               />
               <PaginationTotalStandalone {...paginationProps} />
               {/* {onDownload && <button onClick={onDownload}>Download</button>} */}
               {downloadButton}
               <PaginationListStandalone {...paginationProps} />
             </div>
+            <div style={{paddingTop:"20px"}}>
             <BootstrapTable
               bootstrap4
               scrollTop={"Bottom"}
@@ -130,6 +131,7 @@ const PaginatedTable = ({
               rowStyle={rowStyle}
               headerClasses={classes.tableHeader}
             />
+            </div>
             <div>
               <PaginationTotalStandalone {...paginationProps} />
               <PaginationListStandalone {...paginationProps} />

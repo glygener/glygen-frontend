@@ -7,7 +7,7 @@ import UserPermission from '../components/alert/UserPermission';
 import SuperSearchQueryDisplay from '../components/alert/SuperSearchQueryDisplay';
 import SuperSearchSampleQuery from '../components/search/SuperSearchSampleQuery';
 import { Tab, Tabs, Container } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import '../css/Search.css';
 import Grid from '@mui/material/Grid';
 import superSearchData from '../data/json/superSearchData';
@@ -56,6 +56,8 @@ const SuperSearch = (props) => {
 		{show: false, id: ""}
 	);
   const [userPermission, setUserPermission] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   /**
 	* useEffect for retriving data from api and showing page loading effects.
@@ -68,7 +70,7 @@ const SuperSearch = (props) => {
 		setInitData(initData);
 		var initSvgData = getInitSVGData(initData);
 		setSVGData(initSvgData);
-		const anchorElement = props.history.location.hash;
+		const anchorElement = location.hash;
 		if (anchorElement) {
 			setSupSearchActTabKey(anchorElement.substr(1));	
 		} else {
@@ -165,7 +167,7 @@ const SuperSearch = (props) => {
 		message
 	)
 	.finally(() => {	
-		props.history.push(
+		navigate(
 			getListPageRoute(currentNode) + listID + "/sups"
 		);
 	});
@@ -252,7 +254,7 @@ const SuperSearch = (props) => {
 
     return (
 		<>
-      <Helmet>
+      		<Helmet>
 				{getTitle('superSearch')}
 				{getMeta('superSearch')}
 			</Helmet>
@@ -341,23 +343,23 @@ const SuperSearch = (props) => {
 
 									{/* Buttons */}
 									<Grid item xs={12} sm={12}>
-										<Row className="gg-align-right mt-n4 mr-4 pr-2">
+										<div className="gg-align-right btn-supsearch-top me-5 pe-2 mb-2">
 											<LineTooltip text={superSearchStringCommonData.enable_debug.tooltip.text}>
-												<Button className="gg-btn-outline mt-4 mr-4" 
+												<Button className="gg-btn-outline mt-4 me-4" 
 													onClick={() => setEnableDebug(!enableDebug)}			
 												>
 													{enableDebug ? superSearchStringCommonData.enable_debug.disable_name : superSearchStringCommonData.enable_debug.enable_name}
 												</Button>
 											</LineTooltip>
 											<LineTooltip text={superSearchStringCommonData.simple_view.tooltip.text}>
-												<Button className="gg-btn-outline mt-4 mr-4" 
+												<Button className="gg-btn-outline mt-4 me-4" 
 													onClick={() => setShowData(!showData)}			
 												>
 													{showData ? superSearchStringCommonData.simple_view.simple_name : superSearchStringCommonData.simple_view.advanced_name}
 												</Button>
 											</LineTooltip>
 											<LineTooltip text={superSearchStringCommonData.try_sample_query.tooltip.text}>
-												<Button className="gg-btn-outline mt-4 mr-4" 
+												<Button className="gg-btn-outline mt-4 me-4" 
 													onClick={() => setSupSearchSampleQuery(true)}			
 												>
 													{superSearchStringCommonData.try_sample_query.sample_query_name}
@@ -367,7 +369,7 @@ const SuperSearch = (props) => {
 												: (!(queryData.ignored_edges && queryData.ignored_edges.length > 0) && !(queryData.concept_query_list && queryData.concept_query_list.length > 0)) ? "" 
 												: superSearchStringCommonData.reset_query.tooltip.text}
 											>
-												<Button className="gg-btn-outline mt-4 mr-4"
+												<Button className="gg-btn-outline mt-4 me-4"
 													disabled={JSON.stringify(queryData) === JSON.stringify({}) ? true :
 													(!(queryData.ignored_edges && queryData.ignored_edges.length > 0) && !(queryData.concept_query_list && queryData.concept_query_list.length > 0)) }
 													onClick={resetSuperSearchQuery}
@@ -380,7 +382,7 @@ const SuperSearch = (props) => {
 													: (!(queryData.ignored_edges && queryData.ignored_edges.length > 0) && !(queryData.concept_query_list && queryData.concept_query_list.length > 0)) ? "" 
 													: superSearchStringCommonData.show_query.tooltip.text}
 											>
-												<Button className="gg-btn-outline mt-4 mr-4" 
+												<Button className="gg-btn-outline mt-4 me-4" 
 													disabled={JSON.stringify(queryData) === JSON.stringify({}) ? true :
 															(!(queryData.ignored_edges && queryData.ignored_edges.length > 0) && !(queryData.concept_query_list && queryData.concept_query_list.length > 0)) }
 													onClick={() => setSupSearchShowQuery(true)}	
@@ -389,30 +391,34 @@ const SuperSearch = (props) => {
 													{superSearchStringCommonData.show_query.show_query_name}
 												</Button>
 											</LineTooltip>
-										</Row>
+										</div>
 									</Grid>
 
 									{/* Buttons */}
 									{enableDebug && <Grid item xs={12} sm={12}>
-										<Row className="mt-4 mr-5 ml-4 pr-2 pl-4">											
-											<OutlinedInput
-												className={'svg-input'}
-												value={queryDataDirect}
-												fullWidth
-												multiline
-												margin='dense'
-												placeholder='Enter Query'
-												rows={5}
-												onChange={(event)=>{setQueryDataDirect(event.target.value)}}
-											/>
+										<Row className="mt-2 me-5 ms-4 pe-2 ps-4">
+											<div className="pe-4">										
+												<OutlinedInput
+													className={'svg-input'}
+													value={queryDataDirect}
+													fullWidth
+													multiline
+													margin='dense'
+													placeholder='Enter Query'
+													rows={5}
+													onChange={(event)=>{setQueryDataDirect(event.target.value)}}
+												/>
+											</div>
 										</Row>
-										<Row className="gg-align-right mt-4 mr-5 pr-2">											
-											<Button className="gg-btn-outline" 
-												disabled={queryDataDirect.length <= 0}
-												onClick={() => executeSuperSearchQuery(JSON.parse(queryDataDirect), false, true)}			
-											>
-												Execute
-											</Button>
+										<Row className="gg-align-right mt-4 me-5 pe-2 mb-2">			
+											<div className="me-2">			
+												<Button className="gg-btn-outline" 
+													disabled={queryDataDirect.length <= 0}
+													onClick={() => executeSuperSearchQuery(JSON.parse(queryDataDirect), false, true)}			
+												>
+													Execute
+												</Button>
+											</div>		
 										</Row>
 									</Grid>}
 								</Grid>

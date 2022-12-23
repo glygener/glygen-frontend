@@ -28,12 +28,18 @@ export default function SelectControl(props) {
         onBlur={props.onBlur}
         error={props.error}
         margin={props.margin}
+        label={props.label}
         variant={props.variant}
         defaultValue={props.defaultValue}
         MenuProps={{ disablePortal: true }}
         classes={{
-          root: props.rootClass ? props.rootClass : "select-menu-adv"
+          select: props.rootClass ? props.rootClass : "select-menu-adv"
         }}
+      //   classes={{
+      //     option: 'auto-option',
+      //     root: 'auto-input-root',
+      //     input: 'input-auto'
+      //  }}
         labelWidth={props.labelWidth}
       >
         {props.placeholder && (

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useReducer } from "react";
 import { getGlycanDetail, getGlycanImageUrl } from "../data/glycan";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
@@ -17,8 +17,6 @@ import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -42,6 +40,7 @@ import { Tab, Tabs, Container } from "react-bootstrap";
 import CollapsableReference from "../components/CollapsableReference";
 import DirectSearch from "../components/search/DirectSearch.js";
 import { getGlycanSearch } from "../data/glycan";
+import CardToggle from "../components/cards/CardToggle";
 
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
@@ -166,6 +165,8 @@ const getItemsCrossRef = data => {
 
 const GlycanDetail = props => {
   let { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [detailData, setDetailData] = useState({});
   const [nonExistent, setNonExistent] = useState(null);
@@ -402,7 +403,7 @@ const GlycanDetail = props => {
       }
 
       setTimeout(() => {
-        const anchorElement = props.history.location.hash;
+        const anchorElement = location.hash;
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
           document
             .getElementById(anchorElement.substr(1))
@@ -973,6 +974,7 @@ const GlycanDetail = props => {
     {
       general: true,
       organism: true,
+      names_synonyms: true,
       motif: true,
       glycoprotein: true,
       glycanBindingProtein: true,
@@ -992,8 +994,7 @@ const GlycanDetail = props => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-  const expandIcon = <ExpandMoreIcon fontSize="large" />;
-  const closeIcon = <ExpandLessIcon fontSize="large" />;
+
 
   // const ToggleIcon = ({open}) => open ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />
   // ===================================== //
@@ -1035,7 +1036,7 @@ const GlycanDetail = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.glycanList + response.data["list_id"]
             );
           });
@@ -1120,20 +1121,20 @@ const GlycanDetail = props => {
                 </Grid>
               </Row>
             </div>
-            {props.history && props.history.length > 1 && (
-              <div className="text-right gg-download-btn-width pb-3">
+            {window.history && window.history.length > 1 && (
+              <div className="text-end gg-download-btn-width pb-3">
                 <Button
                   type="button"
                   className="gg-btn-blue"
                   onClick={() => {
-                    props.history.goBack();
+                    navigate(-1);
                   }}
                 >
                   Back
                 </Button>
               </div>
             )}
-            <div className="gg-download-btn-width">
+            <div className="text-end gg-download-btn-width">
               <DownloadButton
                 types={[
                   {
@@ -1179,7 +1180,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.general.title}
@@ -1192,7 +1193,7 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.general.displayname}
                     </h4>
-                    <div className="float-right">
+                    <div className="float-end">
                       <span>
                         <Button
                           type="button"
@@ -1263,17 +1264,7 @@ const GlycanDetail = props => {
 													</LineTooltip>
 												</a>
 											</span> */}
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("general", collapsed.general)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.general ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                      <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1360,16 +1351,16 @@ const GlycanDetail = props => {
                         {byonic && byonic.length > 0 && byonic !== "%" && (
                           <div>
                             <Row>
-                              <Col md="auto" className="pr-0">
+                              <Col md="auto" className="pe-0">
                                 <strong>
                                   {glycanStrings.byonic.shortName}:&nbsp;
                                 </strong>
                               </Col>
-                              <Col md="auto" className="pl-0 pr-0">
+                              <Col md="auto" className="ps-0 pe-0">
                                   {byonic.split('%')[0].trim()}
                               </Col>
-                              <Col md="auto" className="pl-0 ml-2">
-                                <ReactCopyClipboard value={byonic} />
+                              <Col md="auto" className="ps-0 ms-2">
+                                <ReactCopyClipboard value={"byonic"} />
                               </Col>
                             </Row>
                           </div>
@@ -1378,13 +1369,13 @@ const GlycanDetail = props => {
                         {classification && classification.length && (
                           <div>
                             <Row>
-                              <Col md="auto" className="pr-0">
+                              <Col md="auto" className="pe-0">
                                 <strong>
                                   {glycanStrings.glycan_type.name} /{" "}
                                   {glycanStrings.glycan_subtype.name}:{" "}
                                 </strong>
                               </Col>
-                              <Col className="pl-0">
+                              <Col className="ps-0">
                                 {classification.map(Formatclassification => (
                                   <React.Fragment
                                     key={`${Formatclassification.type.name}-${Formatclassification.subtype.name}`}
@@ -1491,7 +1482,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.organism.title}
@@ -1504,18 +1495,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.organism.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("organism", collapsed.organism)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.organism ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="organism" toggle={collapsed.organism} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1588,7 +1569,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.names_synonyms.title}
@@ -1601,21 +1582,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.names_synonyms.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse(
-                            "names_synonyms",
-                            collapsed.names_synonyms
-                          )
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.names_synonyms ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="names_synonyms" toggle={collapsed.names_synonyms} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1643,7 +1611,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.motifs.title}
@@ -1656,14 +1624,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.motifs.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("motif", collapsed.motif)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.motif ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="motif" toggle={collapsed.motif} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1690,7 +1652,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.associated_protein.title}
@@ -1703,18 +1665,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.associated_glycan.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("glycoprotein", collapsed.glycoprotein)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.glycoprotein ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="glycoprotein" toggle={collapsed.glycoprotein} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1740,7 +1692,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={
@@ -1760,23 +1712,8 @@ const GlycanDetail = props => {
                           .displayname
                       }
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse(
-                            "glycanBindingProtein",
-                            collapsed.glycanBindingProtein
-                          )
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.glycanBindingProtein
-                            ? closeIcon
-                            : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                       <CardToggle cardid="glycanBindingProtein" toggle={collapsed.glycanBindingProtein} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1803,7 +1740,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.biosynthetic_enzymes.title}
@@ -1818,18 +1755,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.bio_Enzymes.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("bioEnzyme", collapsed.bioEnzyme)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.bioEnzyme ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="bioEnzyme" toggle={collapsed.bioEnzyme} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1856,7 +1783,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.subsumption.title}
@@ -1869,18 +1796,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.subsumption.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("subsumption", collapsed.subsumption)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.subsumption ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="subsumption" toggle={collapsed.subsumption} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1944,7 +1861,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.expression.title}
@@ -1957,18 +1874,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.expression.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("expression", collapsed.expression)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.expression ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="expression" toggle={collapsed.expression} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -2041,7 +1948,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.digital_sequence.title}
@@ -2054,18 +1961,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.digital_seq.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("digitalSeq", collapsed.digitalSeq)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.digitalSeq ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="digitalSeq" toggle={collapsed.digitalSeq} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -2191,7 +2088,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.cross_references.title}
@@ -2204,18 +2101,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.cross_ref.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("crossref", collapsed.crossref)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.crossref ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -2250,7 +2137,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.history.title}
@@ -2263,19 +2150,8 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.history.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        // as={Card.Header}
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("history", collapsed.history)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.history ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="history" toggle={collapsed.history} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse
@@ -2308,7 +2184,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.glycan.publications.title}
@@ -2321,7 +2197,7 @@ const GlycanDetail = props => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.publication.displayname}
                     </h4>
-                    <div className="float-right">
+                    <div className="float-end">
                       <span className="Sorted">Sort By</span>
                       <select
                         className="select-dropdown pt-0 pubselect"
@@ -2345,18 +2221,7 @@ const GlycanDetail = props => {
                         <option value="asc">Asc</option>
                         <option value="desc">Desc</option>
                       </select>
-                      <Accordion.Toggle
-                        // as={Card.Header}
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("publication", collapsed.publication)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.publication ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                       <CardToggle cardid="publication" toggle={collapsed.publication} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse

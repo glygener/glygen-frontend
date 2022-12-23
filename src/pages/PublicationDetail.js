@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { getPublicationDetail } from "../data/publication";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,8 +12,6 @@ import { logActivity } from "../data/logging";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DetailTooltips from "../data/json/pubDetailTooltips.json";
 import stringConstants from "../data/json/stringConstants";
 import DownloadButton from "../components/DownloadButton";
@@ -35,6 +33,7 @@ import { addIndex } from "../utils/common";
 import EvidenceList from "../components/EvidenceList";
 import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import CollapsibleText from "../components/CollapsibleText";
+import CardToggle from "../components/cards/CardToggle";
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
@@ -74,6 +73,8 @@ const PublicationDetail = (props) => {
   let { id } = useParams();
   let { publType } = useParams();
   let { doi } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const proteinStrings = stringConstants.protein.common;
   const glycanStrings = stringConstants.glycan.common;
@@ -212,7 +213,7 @@ const PublicationDetail = (props) => {
         }
       }
       setTimeout(() => {
-        const anchorElement = props.history.location.hash;
+        const anchorElement = location.hash;
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
           document
             .getElementById(anchorElement.substr(1))
@@ -324,8 +325,6 @@ const PublicationDetail = (props) => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-  const expandIcon = <ExpandMoreIcon fontSize="large" />;
-  const closeIcon = <ExpandLessIcon fontSize="large" />;
 
   const expressionTissueColumns = [
     {
@@ -1182,20 +1181,20 @@ const PublicationDetail = (props) => {
                 </Grid>
               </Row>
             </div>
-            {props.history && props.history.length > 1 && (
-              <div className="text-right gg-download-btn-width pb-3">
+            {window.history && window.history.length > 1 && (
+              <div className="text-end gg-download-btn-width pb-3">
                 <Button
                   type="button"
                   className="gg-btn-blue"
                   onClick={() => {
-                    props.history.goBack();
+                    navigate(-1);
                   }}
                 >
                   Back
                 </Button>
               </div>
             )}
-            <div className="gg-download-btn-width">
+            <div className="text-end gg-download-btn-width">
               <DownloadButton
                 types={[
                   {
@@ -1224,7 +1223,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.general.title}
@@ -1237,14 +1236,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.general.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("general", collapsed.general)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.general ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1293,7 +1286,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.organism.title}
@@ -1306,14 +1299,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.organism.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("organism", collapsed.organism)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.organism ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="organism" toggle={collapsed.organism} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1370,7 +1357,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.referenced_proteins.title}
@@ -1383,16 +1370,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.referenced_proteins.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() =>
-                        toggleCollapse("referenced_proteins", collapsed.referenced_proteins)
-                      }
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.referenced_proteins ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="referenced_proteins" toggle={collapsed.referenced_proteins} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1456,7 +1435,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.referenced_glycans.title}
@@ -1469,16 +1448,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.referenced_glycans.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() =>
-                        toggleCollapse("referenced_glycans", collapsed.referenced_glycans)
-                      }
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.referenced_glycans ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="referenced_glycans" toggle={collapsed.referenced_glycans} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1508,7 +1479,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.glycosylation.title}
@@ -1521,14 +1492,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.glycosylation.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("glycosylation", collapsed.glycosylation)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.glycosylation ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1649,7 +1614,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.phosphorylation.title}
@@ -1662,14 +1627,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.phosphorylation.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("phosphorylation", collapsed.phosphorylation)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.phosphorylation ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1707,7 +1666,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.glycation.title}
@@ -1720,14 +1679,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.glycation.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("glycation", collapsed.glycation)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.glycation ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1764,7 +1717,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.snv.title}
@@ -1776,14 +1729,8 @@ const PublicationDetail = (props) => {
                   </span>
                   <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
 
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("mutation", collapsed.mutation)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.mutation ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="snv" toggle={collapsed.snv} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1854,7 +1801,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.mutagenesis.title}
@@ -1868,14 +1815,8 @@ const PublicationDetail = (props) => {
                     {" "}
                     {stringConstants.sidebar.mutagenesis.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("mutagenesis", collapsed.mutagenesis)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.mutagenesis ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
@@ -1903,7 +1844,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <Card.Header className="panelHeadBgr">
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
                       title={DetailTooltips.publication.expression.title}
@@ -1916,14 +1857,8 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">
                     {stringConstants.sidebar.expression.displayname}
                   </h4>
-                  <div className="float-right">
-                    <Accordion.Toggle
-                      eventKey="0"
-                      onClick={() => toggleCollapse("expression", collapsed.expression)}
-                      className="gg-green arrow-btn"
-                    >
-                      <span>{collapsed.expression ? closeIcon : expandIcon}</span>
-                    </Accordion.Toggle>
+                  <div className="float-end">
+                    <CardToggle cardid="expression" toggle={collapsed.expression} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">

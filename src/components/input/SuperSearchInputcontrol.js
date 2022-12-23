@@ -56,7 +56,7 @@ const SuperSearchInputcontrol = (props) => {
 	return (
 		<>
 			<div className={'svg-input-container'}>
-				<Grid container justify="center">
+				<Grid container justifyContent="center">
 					<Grid item style={{width: "110px"}} className={'svg-input-item'}>
 						<FormControl 
 							variant='outlined'
@@ -190,6 +190,9 @@ const SuperSearchInputcontrol = (props) => {
 							{props.query.fieldType === "" &&
 								<OutlinedInput
 									className={'svg-input'}
+									classes={{
+										input: 'input-auto'
+									}}
 									value={props.query.value}
 									margin='dense'
 									onChange={(event)=>{props.supSearchUpdateQuery(props.query.order, "value", event.target.value)}}
@@ -225,7 +228,8 @@ const SuperSearchInputcontrol = (props) => {
 					</Grid>
 					<Grid item style={{width: "240px"}}>
 						<Button 
-							className='gg-btn-outline mr-3 mb-3' 
+							className='gg-btn-outline me-3 mb-3' 
+							style={{padding : "8px 12px"}}
 							onClick={() => props.supSearchAddQuery(props.query.order + 1)}
 						>
 							<Image
@@ -233,7 +237,8 @@ const SuperSearchInputcontrol = (props) => {
 								alt="plus button"
 							/>
 						</Button>
-							{!(props.prevOrderId === undefined && props.nextOrderId === undefined) && <Button className='gg-btn-outline mr-3 mb-3' 
+							{!(props.prevOrderId === undefined && props.nextOrderId === undefined) && <Button className='gg-btn-outline me-3 mb-3' 
+							style={{padding : "8px 12px"}}
 							onClick={() => props.supSearchDeleteQuery(props.query.order)}
 						>
 							<Image
@@ -241,7 +246,8 @@ const SuperSearchInputcontrol = (props) => {
 								alt="delete button"
 							/>
 						</Button>}
-							{props.prevOrderId !== undefined && <Button className='gg-btn-outline mr-3 mb-3' 
+							{props.prevOrderId !== undefined && <Button className='gg-btn-outline me-3 mb-3' 
+							style={{padding : "8px 12px"}}
 							onClick={() => props.supSearchMoveUpQuery(props.query.order, props.prevOrderId)}
 						>
 							<Image
@@ -250,7 +256,7 @@ const SuperSearchInputcontrol = (props) => {
 							/>
 						</Button>}
 						{props.nextOrderId !== undefined && <Button
-							className='gg-btn-outline mb-3'
+							className='gg-btn-outline mb-3' style={{padding : "8px 12px"}}
 							onClick={() => props.supSearchMoveDownQuery(props.query.order, props.nextOrderId)}
 						>
 							<Image

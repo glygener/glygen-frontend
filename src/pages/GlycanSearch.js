@@ -12,7 +12,7 @@ import GlycanTutorial from '../components/tutorial/GlycanTutorial';
 import StructureSearchControl from '../components/search/StructureSearchControl';
 import SubstructureSearchControl from '../components/search/SubstructureSearchControl';
 import { Tab, Tabs, Container } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import '../css/Search.css';
 import glycanSearchData from '../data/json/glycanSearch';
 import stringConstants from '../data/json/stringConstants';
@@ -112,6 +112,9 @@ const GlycanSearch = (props) => {
 		  glycoGlyphName: "",
 		}
 	  );
+
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	let simpleSearch = glycanSearchData.simple_search;
 	let advancedSearch = glycanSearchData.advanced_search;
@@ -381,7 +384,7 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
-						props.history.push(routeConstants.glycanList + response.data['list_id']);
+						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
 				} else {
 					let message = "No results. Query Search query=" + JSON.stringify(formjson);
@@ -406,7 +409,7 @@ const GlycanSearch = (props) => {
 		setPageLoading(true);
 		logActivity();
 		document.addEventListener('click', () => {
-			setAlertTextInput({"show": false, message: ""});
+			setAlertTextInput({"show": false, "id": "", message: ""});
 		});
 		var qryObjOut = {
 			logMessage : "",
@@ -414,8 +417,8 @@ const GlycanSearch = (props) => {
 			selectedTab : ""
 		};
 		var queryError = false;
-		if (props.location && props.location.search){
-			queryError = executeQuery(queryString.parse(props.location.search), qryObjOut);
+		if (location.search){
+			queryError = executeQuery(queryString.parse(location.search), qryObjOut);
 		}
 		getGlycanInit().then((response) => {
 			let initData = response.data;
@@ -488,10 +491,7 @@ const GlycanSearch = (props) => {
 			});
 			setGlyCompData(compStateData);
 			setInitData(initData);
-			let anchorElement = undefined;
-			if (props.history && props.history.location && props.history.location.hash){
-				anchorElement = props.history.location.hash;
-			}
+			const anchorElement = location.hash;
 			if (anchorElement) {
 				var hash = anchorElement.substr(1);
 				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Composition-Search"
@@ -514,7 +514,7 @@ const GlycanSearch = (props) => {
 				window.scrollTo(0, 0);
 			}
 
-			if ((id === undefined && (props.location === undefined || props.location.search === undefined || props.location.search === "")) || (props.location.search && queryError)) setPageLoading(false);
+			if ((id === undefined && (location === undefined || location.search === undefined || location.search === "")) || (location.search && queryError)) setPageLoading(false);
 
 			id &&
 				getGlycanList(id, 1).then(({ data }) => {
@@ -868,7 +868,7 @@ const GlycanSearch = (props) => {
 			if (response.data['list_id'] !== '') {
 				logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 				.finally(() => {	
-					props.history.push(routeConstants.glycanList + response.data['list_id']);
+					navigate(routeConstants.glycanList + response.data['list_id']);
 				});
 				setPageLoading(false);
 			} else {
@@ -917,7 +917,7 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
-						props.history.push(routeConstants.glycanList + response.data['list_id']);
+						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
 					setPageLoading(false);
 				} else {
@@ -958,7 +958,7 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
-						props.history.push(routeConstants.glycanList + response.data['list_id']);
+						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
 					setPageLoading(false);
 				} else {
@@ -1032,7 +1032,7 @@ const GlycanSearch = (props) => {
 						if (response.data['list_id'] !== '') {
 							if (dialogLoadingRef.current) {
 								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-									props.history.push(routeConstants.glycanList + response.data['list_id']);
+									navigate(routeConstants.glycanList + response.data['list_id']);
 								});
 								setDialogLoading(false);
 							} else {
@@ -1099,7 +1099,7 @@ const GlycanSearch = (props) => {
 							if (response.data['list_id'] !== '') {
 								if (dialogLoadingRef.current) {
 									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-										props.history.push(routeConstants.glycanList + response.data['list_id']);
+										navigate(routeConstants.glycanList + response.data['list_id']);
 									});
 									setDialogLoading(false);
 								} else {

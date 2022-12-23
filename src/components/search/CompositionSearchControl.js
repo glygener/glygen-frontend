@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import PropTypes from "prop-types";
 // import MenuItem from '@mui/material/MenuItem';
 import Typography from "@mui/material/Typography";
-import Button from "react-bootstrap/Button";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import ReactHtmlParser from "react-html-parser";
 import HelpTooltip from "../tooltip/HelpTooltip";
@@ -543,15 +543,17 @@ export default function CompositionSearchControl(props) {
           setCompositionSearchTemplate(input);
         }}
       />
-      <Row className="gg-align-center ml-1 pt-3 pb-4">
-        <Typography className={"search-lbl pt-1"} gutterBottom align="center">
-          {compositionSearch.templateDialogLabel.title}
-        </Typography>
-        <Button className="gg-btn-outline ml-4" onClick={() => setCompositionSearchTemplate(true)}>
-          Load Template
-        </Button>
+      <Row className="gg-align-center ms-1 pt-3 pb-4 me-1">
+        <div className="gg-align-center">
+          <span className={"search-lbl pt-1"} gutterBottom align="center">
+            {compositionSearch.templateDialogLabel.title}
+          </span>
+          <Button className="gg-btn-outline ms-4" onClick={() => setCompositionSearchTemplate(true)}>
+            Load Template
+          </Button>
+        </div>
       </Row>
-      <Grid container style={{ margin: 0 }} spacing={2} justify="center">
+      <Grid container style={{ margin: "0 0 0 -12px" }} spacing={2} justifyContent="center">
         <Grid item xs={4} sm={4} md={4}>
           <Typography className={"comp-search-label-header"} gutterBottom>
             Residue
@@ -578,9 +580,9 @@ export default function CompositionSearchControl(props) {
           <Grid
             key={key.residue}
             container
-            style={{ margin: "0  auto" }}
+            style={{ margin: "0 0 0 -3px" }}
             spacing={2}
-            justify="center"
+            justifyContent="center"
           >
             <Grid item xs={12} sm={4}>
               <Typography className={"search-lbl"}>
@@ -604,7 +606,7 @@ export default function CompositionSearchControl(props) {
                   defaultValue={"maybe"}
                   variant="outlined"
                   margin="dense"
-                  rootClass="select-menu"
+                  rootClass="select-menu-adv"
                   name={key.residue}
                   menu={compositionSearch.contains}
                   setInputValue={(value, name, resName) => {
@@ -624,6 +626,9 @@ export default function CompositionSearchControl(props) {
                   variant="outlined"
                   name={key.residue}
                   margin="dense"
+                  classes={{
+                    input: 'input-auto'
+                    }}
                   value={props.inputValue[key.residue].min}
                   onChange={minInputChange}
                   onBlur={() =>
@@ -659,6 +664,9 @@ export default function CompositionSearchControl(props) {
                 <OutlinedInput
                   variant="outlined"
                   margin="dense"
+                  classes={{
+                    input: 'input-auto'
+                    }}
                   name={key.residue}
                   value={props.inputValue[key.residue].max}
                   onChange={maxInputChange}
@@ -693,31 +701,33 @@ export default function CompositionSearchControl(props) {
           </Grid>
         ))}
 
-      <Row className="gg-align-center pt-5">
+      <Row className="gg-align-center pt-5 me-1">
+      {/* <ButtonGroup> */}
+      <div className="gg-align-center">
         <Button
-          className="gg-btn-outline mr-4 mb-3"
+          className="gg-btn-outline me-4 mb-3"
           onClick={() => setCompositionSearchTemplate(true)}
         >
           Load Template
         </Button>
-        <Button className="gg-btn-outline mr-4 mb-3" onClick={allYes}>
+        <Button className="gg-btn-outline me-4 mb-3" onClick={allYes}>
           All Yes
         </Button>
-        <Button className="gg-btn-outline mr-4 mb-3" onClick={allNo}>
+        <Button className="gg-btn-outline me-4 mb-3" onClick={allNo}>
           All No
         </Button>
-        <Button className="gg-btn-outline mr-4 mb-3" onClick={allMaybe}>
+        <Button className="gg-btn-outline me-4 mb-3" onClick={allMaybe}>
           All Maybe
         </Button>
         <Button
-          className="gg-btn-outline mr-4 mb-3"
+          className="gg-btn-outline me-4 mb-3"
           disabled={undoDisabled}
           onClick={() => compSearchUndoRedo("undo")}
         >
           Undo
         </Button>
         <Button
-          className="gg-btn-outline mr-4 mb-3"
+          className="gg-btn-outline me-4 mb-3"
           disabled={redoDisabled}
           onClick={() => compSearchUndoRedo("redo")}
         >
@@ -730,6 +740,8 @@ export default function CompositionSearchControl(props) {
         >
           Search Glycan
         </Button>
+      </div>
+        {/* </ButtonGroup> */}
       </Row>
     </div>
   );

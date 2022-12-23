@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -68,6 +68,7 @@ const BlastSearch = (props) => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   let commonBlastSearchData = stringConstants.blast_search.common;
   let blastJSONData = blastSearchData.blast_search;
@@ -296,7 +297,7 @@ const BlastSearch = (props) => {
             if (response.data["status"].result_count && response.data["status"].result_count > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
-                  props.history.push(routeConstants.blastResult + response.data["jobid"]);
+                  navigate(routeConstants.blastResult + response.data["jobid"]);
                 });
                 setDialogLoading(false);
               } else {
@@ -350,7 +351,7 @@ const BlastSearch = (props) => {
             if (response.data["result_count"] && response.data["result_count"] > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
-                  props.history.push(routeConstants.blastResult + jobID);
+                  navigate(routeConstants.blastResult + jobID);
                 });
                 setDialogLoading(false);
               } else {
@@ -445,6 +446,9 @@ const BlastSearch = (props) => {
               <OutlinedInput
                 fullWidth
                 margin='dense'
+                classes={{
+                  input: 'input-auto'
+                }}
                 value={inputValue.proUniprotAcc}
                 placeholder={blastJSONData.uniprot_canonical_ac.placeholder}
                 onChange={(event) => { proUniprotAccOnChange(event) }}
@@ -460,11 +464,11 @@ const BlastSearch = (props) => {
             <Typography className={"search-lbl"} gutterBottom>
               &nbsp;
             </Typography>
-            <Row className="gg-align-right">
-              <Button className="gg-btn-blue ml-3 mr-3" onClick={retriveSequence} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
+            <div className="gg-align-right">
+              <Button className="gg-btn-blue ms-3 me-3" style={{padding : "9px 12px"}} onClick={retriveSequence} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
                 Retrieve Sequence
               </Button>
-            </Row>
+            </div>
           </Grid>
         </Grid>
         {/* 1. Protein Sequence */}
@@ -545,6 +549,9 @@ const BlastSearch = (props) => {
                 fullWidth
                 margin='dense'
                 value={inputValue.eValue}
+                classes={{
+                  input: 'input-auto'
+                }}
                 onChange={(event) => { eValueOnChange(event) }}
                 onBlur={() =>{
                   let eValue = inputValue.eValue;
@@ -579,6 +586,9 @@ const BlastSearch = (props) => {
                 fullWidth
                 margin='dense'
                 value={inputValue.maxHits}
+                classes={{
+                  input: 'input-auto'
+                }}
                 onChange={(event) => {maxHitsOnChange(event)}}
                 onBlur={() =>{
                   let maxHits = inputValue.maxHits;
@@ -605,8 +615,8 @@ const BlastSearch = (props) => {
         </Grid>
         {/*  Buttons */}
         <Grid item xs={12} sm={12}>
-          <Row className="gg-align-center pt-5">
-            <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
+          <div className="gg-align-center pt-5">
+            <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
               Clear Fields
             </Button>
             <Button
@@ -620,7 +630,7 @@ const BlastSearch = (props) => {
             >
               Submit
             </Button>
-          </Row>
+          </div>
         </Grid>
         <Row>
           <Col>

@@ -19,7 +19,7 @@ export default function ProteinTutorial(props) {
       <div style={{ paddingBottom: "20px" }}>
         <HorizontalHeading post={horHeadSimpleOne} />
       </div>
-      <Grid container spacing={3} justify="center">
+      <Grid container spacing={3} justifyCenter="center">
         <Grid item xs={12} sm={6}>
           <Iframe
             src="//www.slideshare.net/slideshow/embed_code/key/NFd39OszUyFZwi"
@@ -61,14 +61,16 @@ export default function ProteinTutorial(props) {
           </div>
         </Grid>
         <Grid item xs={12} sm={6} className="tutorial-text-middle">
-          <Typography>
-            You can search for proteins by specifying their UniProtKB Accession numbers, their
-            specific structures or the specific biochemical contexts within which they are found.
-          </Typography>
-          <div style={{ marginBottom: "20px" }}></div>
-          <Typography>
-            This tutorial was created using a portal version: 1.0.1 (09/19/2018).
-          </Typography>
+          <div className="tutorial-text-middle">
+            <Typography>
+              You can search for proteins by specifying their UniProtKB Accession numbers, their
+              specific structures or the specific biochemical contexts within which they are found.
+            </Typography>
+            <div style={{ marginBottom: "20px" }}></div>
+            <Typography>
+              This tutorial was created using a portal version: 1.0.1 (09/19/2018).
+            </Typography>
+          </div>
         </Grid>
       </Grid>
     </>

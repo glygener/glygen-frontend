@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -68,6 +68,7 @@ const IdMapping = (props) => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   // let idMapData = stringConstants.id_mapping;
   let commonIdMappingData = stringConstants.id_mapping.common;
@@ -311,7 +312,7 @@ const IdMapping = (props) => {
       .then((response) => {
         if (response.data["list_id"] !== "") {
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(routeConstants.idMappingResult + response.data["list_id"]);
+            navigate(routeConstants.idMappingResult + response.data["list_id"]);
           });
           setPageLoading(false);
         } else {
@@ -622,8 +623,8 @@ const IdMapping = (props) => {
         </Typography>
         {/*  Buttons */}
         <Grid item xs={12} sm={12}>
-          <Row className="gg-align-center pt-5">
-            <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
+          <div className="gg-align-center pt-5">
+            <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
               Clear Fields
             </Button>
             <Button
@@ -641,7 +642,7 @@ const IdMapping = (props) => {
             >
               Submit
             </Button>
-          </Row>
+          </div>
         </Grid>
         <Row>
           <Col>

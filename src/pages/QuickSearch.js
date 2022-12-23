@@ -7,7 +7,7 @@ import VerticalHeading from "../components/headings/VerticalHeading";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import SidebarCategory from "../components/navigation/SidebarCategory";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
@@ -42,6 +42,8 @@ const QuickSearch = (props) => {
   let { id } = useParams("");
   let { questionId } = useParams("");
   let quickSearch = stringConstants.quick_search;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const vertHeadQuickSearch = {
     h5VerticalText: "Searches",
@@ -139,7 +141,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -175,7 +177,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -211,7 +213,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.locusList + response.data["list_id"] + "/" + quickSearch.question_3.id
             );
           });
@@ -244,7 +246,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.orthologsList +
                 response.data["list_id"] +
                 "/" +
@@ -292,7 +294,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.glycanList + response.data["list_id"] + "/" + quickSearch.question_6.id
             );
           });
@@ -340,7 +342,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -376,7 +378,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -415,7 +417,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -452,7 +454,7 @@ const QuickSearch = (props) => {
         if (response.data["list_id"] !== "") {
           setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
                 "/" +
@@ -568,7 +570,10 @@ const QuickSearch = (props) => {
     getGlycanInit()
       .then((response) => {
         setGlycanInitData(response.data);
-        const anchorElement = props.history.location.hash;
+        let anchorElement = undefined;
+        if (location.hash){
+          anchorElement = location.hash;
+        }
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
           document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
           togglePanelExpansion(anchorElement.substr(1));
@@ -603,10 +608,10 @@ const QuickSearch = (props) => {
       </Helmet>
       <FeedbackWidget />
       <Row className="gg-baseline">
-        <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
+        <Col sm={3} md={3} lg={3} xl={3} className="sidebar-col">
           <SidebarCategory items={items} />
         </Col>
-        <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
+        <Col sm={9} md={9} lg={9} xl={9} className="sidebar-page">
           <Container maxWidth="md" className="sidebar-page-mb">
             <div id="Search-Category">
               <VerticalHeading post={vertHeadQuickSearch} style={{ margin: "0 auto" }} />

@@ -7,7 +7,7 @@ import ProtvistaSidebar from "../components/navigation/ProtvistaSidebar";
 import "d3";
 import { NavLink } from "react-router-dom";
 import ProtvistaManager from "protvista-manager";
-// import ProtvistaTooltip from "protvista-tooltip";
+import ProtvistaTooltip from "protvista-tooltip";
 import ProtvistaNavigation from "protvista-navigation";
 import ProtvistaSequence from "protvista-sequence";
 import ProtvistaTrack from "protvista-track";
@@ -27,7 +27,7 @@ window.customElements.define("protvista-manager", ProtvistaManager);
 window.customElements.define("protvista-navigation", ProtvistaNavigation);
 window.customElements.define("protvista-sequence", ProtvistaSequence);
 window.customElements.define("protvista-track", ProtvistaTrack);
-// window.customElements.define("protvista-tooltip", ProtvistaTooltip);
+window.customElements.define("protvista-tooltip", ProtvistaTooltip);
 
 let data1 = [
   {
@@ -447,7 +447,7 @@ const ProtVista = () => {
     };
   }
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [highlighted, setHighlighted] = useState(null);
 
   const nGlycanWithImage = useRef(null);
@@ -479,6 +479,10 @@ const ProtVista = () => {
 
         if (eventtype === "click") {
           if (event.detail.feature.click !== "block") {
+            if (currentTooltip) {
+              document.body.removeChild(currentTooltip);
+              currentTooltip = null;
+            }
             const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
             navigate(route);
           } else {
@@ -552,7 +556,6 @@ const ProtVista = () => {
           // setNGlycanWithImageState(formattedData.nGlycanWithImage);
         }
         console.log( "Hi2");
-        nGlycanWithImage.data = formattedData.nGlycanWithImage;
 
         // const track = document.getElementById('ptrack1');
         // track.data = formattedData.nGlycanWithImage;
@@ -674,7 +677,7 @@ const ProtVista = () => {
         }}
       />
       <div className="gg-protvista-container">
-        <div className="text-right">
+        <div className="text-end">
           <NavLink to={`${routeConstants.proteinDetail}${id}`}>
             <Button
               type="button"

@@ -6,7 +6,7 @@ import TextAlert from "../components/alert/TextAlert";
 import DialogAlert from "../components/alert/DialogAlert";
 import SiteSearchControl from "../components/search/SiteSearchControl";
 import { Tab, Tabs, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "../css/Search.css";
 import {
   getSiteSearch,
@@ -58,6 +58,7 @@ const SiteSearch = (props) => {
     { neighbors: false, pattern: false, peptideInvalid: false, peptideLength: false, upstreamPosition: false }
   );
   const [initData, setInitData] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     setPageLoading(true);
@@ -73,7 +74,7 @@ const SiteSearch = (props) => {
       let initData = response.data;
       setInitData(response.data);
 
-      const anchorElement = props.history.location.hash;
+      let anchorElement = location.hash;
       if (anchorElement) {
         var hash = anchorElement.substr(1);
         if (hash ===  "Site-Search" || hash ===  "Tutorial") {

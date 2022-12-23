@@ -100,7 +100,7 @@ p {
 .gg-nav-link {
   color: var(--light) !important;
   padding: 10px !important;
-  font-weight: 600;
+  font-weight: 600 !important;
   letter-spacing: 0.4px;
 }
 .gg-nav-link:hover,
@@ -148,6 +148,11 @@ p {
 .gg-dropdown-navbar .dropdown-menu {
   background-color: var(--gg-blue) !important;
 }
+
+.gg-dropdown-navbar {
+  color: var(--white) !important;
+}
+
 .gg-dropdown-navbar-active {
   color: var(--white) !important;
   border-bottom: 4px solid var(--gg-light-blue) !important;
@@ -478,9 +483,11 @@ hr {
 }
 .gg-align-right {
   justify-content: flex-end !important;
+  text-align: end !important;
 }
 .gg-align-center {
   justify-content: center !important;
+  text-align: center !important;
 }
 .gg-align-middle {
   display: flex;

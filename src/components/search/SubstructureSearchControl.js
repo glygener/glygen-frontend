@@ -129,14 +129,14 @@ const StructureSearchControl = (props) => {
       />
       <Grid
         container
-        style={{ margin: "0  auto" }}
+        style={{ margin: "0 0 0 -12px" }}
         spacing={3}
-        justify="center"
+        justifyContent="center"
       >
           {/*  Buttons */}
           <Grid item xs={12} sm={10}>
-            <Row  className="gg-align-right pt-3 mb-2 mr-1">
-              <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
+            <div  className="gg-align-right pt-3 mb-2 me-1">
+              <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                 Clear Fields
               </Button>
               <Button
@@ -150,7 +150,7 @@ const StructureSearchControl = (props) => {
               >
                 Submit
               </Button>
-            </Row>
+            </div>
           </Grid>
 
          {/* Sequence Type */}
@@ -246,28 +246,30 @@ const StructureSearchControl = (props) => {
 
         {/*  Buttons */}
         <Grid item xs={12} sm={10}>
-          <Row  className="gg-align-right pt-3 mb-2 mr-1">
-            {props.inputValue.seqType === "GlycoCT" && (<Button
-              className="gg-btn-blue mr-4"
-              onClick={() => setGlycoGlyphDialog(true)}	
-            >
-              Draw Glycan
-            </Button>)}
-            <Button className="gg-btn-outline mr-4" onClick={clearMapFields}>
-              Clear Fields
-            </Button>
-            <Button
-              className="gg-btn-blue"
-              disabled={
-								!Object.keys(structError).every(
-									(err) => structError[err] === false
-								)
-              }
-              onClick={props.searchSubStructClick}
-            >
-              Submit
-            </Button>
-          </Row>
+          <div  className="gg-align-right pt-3 mb-2 me-1">
+            <div>
+              {props.inputValue.seqType === "GlycoCT" && (<Button
+                className="gg-btn-blue me-4"
+                onClick={() => setGlycoGlyphDialog(true)}	
+              >
+                Draw Glycan
+              </Button>)}
+              <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
+                Clear Fields
+              </Button>
+              <Button
+                className="gg-btn-blue"
+                disabled={
+                  !Object.keys(structError).every(
+                    (err) => structError[err] === false
+                  )
+                }
+                onClick={props.searchSubStructClick}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
         </Grid>
         <Grid item xs={12} sm={10}>
         <Row>

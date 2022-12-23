@@ -97,7 +97,7 @@ const Portfolio = (props) => {
 
   return (
     <React.Fragment>
-      <section className="content-box-md">
+      <section className="content-box-md" style={{marginLeft:"12px", marginRight:"12px"}}>
         <Container maxWidth="lg">
           <HorizontalHeading post={horHeadPortfolio} id="horizontal-heading-pb0" />
           <Row className="gg-align-middle5 gg-align-center">
@@ -137,7 +137,7 @@ const Portfolio = (props) => {
           <Row className="no-gutters" id="isotope-container">
             {/* <LightBoxGallery className="popup-gallery" config={config}> */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item brochure">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -165,7 +165,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 02 Poster Biocuration */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -193,7 +193,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 03 One Page Brochure  */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item brochure">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -221,7 +221,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 04 Poster SFG Data  */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -250,7 +250,7 @@ const Portfolio = (props) => {
 
             {/* Portfolio Item 05 Logo  */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item logo">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -280,7 +280,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 06 Poster SFG Website  */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -308,7 +308,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 07 One Page Brochure */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item brochure">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -336,7 +336,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 08 Poster SFG GlycoTree Will York */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -368,7 +368,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 09 GlyGen Logo Stickers  */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item logo">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -396,7 +396,7 @@ const Portfolio = (props) => {
             </Col>
             {/* Portfolio Item 10 Poster SFG GlyGen NCBI 2020 Rahi */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"
@@ -424,7 +424,7 @@ const Portfolio = (props) => {
             </Col>
              {/* Portfolio Item 11 Poster GlyGen BioCuration Text Mining poster October 2021 Jeet */}
              <Col xs={12} sm={6} md={3} lg={3} className="filter-item poster">
-              <div className="text-right">
+              <div className="text-end">
                 <a
                   className="btn btn-link"
                   role="button"

@@ -47,7 +47,11 @@ function SidebarCategory({ items, offset = 90 }) {
       <div className="sidebar">
         {items.map(({ category, label, id }) => (
           <>
-            <Link to={"#" + id}>
+            <Link to={"#" + id} key={id} onClick={() => {
+              if (id && document.getElementById(id)) {
+                document.getElementById(id).scrollIntoView({ behavior: "auto" });
+              }}}
+            >
               <ul
                 key={id}
                 button

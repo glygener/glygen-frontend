@@ -21,7 +21,7 @@ const LineTooltip = (props) => {
                 {props.children ? props.children : <HelpOutline className= {props.helpIcon ? props.helpIcon : "gg-helpicon"}/>}
             </Tooltip>}
             {(props.text === undefined || props.text === "") && 
-                <div>{props.children}</div>
+                <span>{props.children}</span>
             }
         </>
     );

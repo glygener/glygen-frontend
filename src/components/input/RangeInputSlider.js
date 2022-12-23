@@ -90,9 +90,13 @@ export default function RangeInputSlider(props) {
 							className={props.inputClass}
 							value={props.inputValue[0]}
 							margin='dense'
+							classes={{
+								input: 'input-auto'
+						    }}
 							onChange={minInputChange}
 							onBlur={onMinMoveOut}
-							labelWidth={40}
+							// labelWidth={40}
+							label={"Min"}
 							inputProps={{
 								min: props.min,
 								max: props.max,
@@ -121,9 +125,13 @@ export default function RangeInputSlider(props) {
 							className={props.inputClass}
 							value={props.inputValue[1]}
 							margin='dense'
+							classes={{
+								input: 'input-auto'
+						    }}
 							onChange={maxInputChange}
 							onBlur={onMaxMoveOut}
-							labelWidth={40}
+							// labelWidth={40}
+							label={"Max"}
 							inputProps={{
 								min: props.min,
 								max: props.max,

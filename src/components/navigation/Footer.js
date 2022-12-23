@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logoFooter from "../../images/glygen_logos/glygen-logoW-top.svg";
 import ugaLogo from "../../images/univ_logos/logo-uga.svg";
 import gwuLogo from "../../images/univ_logos/logo-gwu.svg";
-import { Navbar, Col, Image, Row } from "react-bootstrap";
+import { Navbar, Col, Image, Row, Container as ContainerBootStrap } from "react-bootstrap";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
@@ -57,9 +57,9 @@ export default function Footer() {
   return (
     <React.Fragment>
       <div className="footer-color gg-align-center gg-footer">
-        <Container maxWidth="xl" className="justify-content-center text-center sitemap-item">
+        <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center sitemap-item">
           <Row className="text-center justify-content-center">
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Get Started</h6>
               <div>
                 <Link to={routeConstants.quickSearch}>Quick&nbsp;Search</Link>
@@ -71,7 +71,7 @@ export default function Footer() {
                 <Link to={routeConstants.compositionSearch}>Composition&nbsp;Search</Link>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Explore</h6>
               <div>
                 <Link to={routeConstants.glycanSearch}>Glycan Search</Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                 <Link to={routeConstants.motifList}>List&nbsp;of&nbsp;Motifs</Link>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Data</h6>
               <div>
                 <a href={GLYGEN_DATA} target="_blank" rel="noopener noreferrer">
@@ -107,7 +107,7 @@ export default function Footer() {
                 </a>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Tools</h6>
               <div>
                 <a href={GLYCAN_SEQ_LOOKUP} target="_blank" rel="noopener noreferrer">
@@ -133,7 +133,7 @@ export default function Footer() {
                 </a>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">My GlyGen</h6>
               <div>
                 <Link to={routeConstants.privacySettings}>Privacy&nbsp;Settings</Link>
@@ -148,7 +148,7 @@ export default function Footer() {
                 <Link to={routeConstants.disclaimer}>Disclaimer</Link>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Help</h6>
               <div>
                 <Link to={routeConstants.howToCite}>How to Cite</Link>
@@ -163,7 +163,7 @@ export default function Footer() {
                 <Link to={routeConstants.media}>Media</Link>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Resources</h6>
               <div>
                 <Link to={routeConstants.feedback}>Feedback</Link>
@@ -180,16 +180,16 @@ export default function Footer() {
                 </a>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-left sitemap-item">
+            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <div>
                 <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <TwitterIcon className="mr-2" />
+                  <TwitterIcon className="me-2" />
                 </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <YouTubeIcon className="mr-2" />
+                  <YouTubeIcon className="me-2" />
                 </a>
                 <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <GitHubIcon className="mr-2" size="14px" />
+                  <GitHubIcon className="me-2" size="14px" />
                 </a>
                 <a
                   href={WIKI}
@@ -197,7 +197,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="media-wiki-icon"
                 >
-                  <MediaWikiIcon className="mr-2" />
+                  <MediaWikiIcon className="me-2" />
                 </a>
                 <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <PinterestIcon />
@@ -214,11 +214,11 @@ export default function Footer() {
               </div>
             </Col>
           </Row>
-        </Container>
+        </ContainerBootStrap>
       </div>
       <div className="gg-blue gg-align-center">
-        <Container maxWidth="xl" className="justify-content-center">
-          <Row className="text-center justify-content-center">
+        <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center">
+          <Row className="justify-content-center mt-1 mb-1">
             <Col md={"auto"}>
               <Navbar.Brand href={routeConstants.home}>
                 <img
@@ -229,32 +229,32 @@ export default function Footer() {
                 />
               </Navbar.Brand>
             </Col>
-            <Box display="flex" alignItems="center" className="box-footer">
               <Col md={"auto"}>
-                <Navbar.Text className={classes.navbarText}>
-                  GlyGen is supported and funded by the{" "}
-                  <a
-                    href={GLYCOSCIENCE}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classes.link}
-                  >
-                    NIH Glycoscience Common Fund{" "}
-                  </a>
-                  under the grant #{" "}
-                  <a
-                    href={GRANT_DETAILS}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classes.link}
-                  >
-                    1U01GM125267&nbsp;-&nbsp;01
-                  </a>
-                </Navbar.Text>
+                <Box display="flex" className="box-footer">
+                  <Navbar.Text className={classes.navbarText}>
+                    GlyGen is supported and funded by the{" "}
+                    <a
+                      href={GLYCOSCIENCE}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={classes.link}
+                    >
+                      NIH Glycoscience Common Fund{" "}
+                    </a>
+                    under the grant #{" "}
+                    <a
+                      href={GRANT_DETAILS}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={classes.link}
+                    >
+                      1U01GM125267&nbsp;-&nbsp;01
+                    </a>
+                  </Navbar.Text>
+                </Box>
               </Col>
-            </Box>
           </Row>
-        </Container>
+        </ContainerBootStrap>
       </div>
     </React.Fragment>
   );

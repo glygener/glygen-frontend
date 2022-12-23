@@ -2,7 +2,7 @@ import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import logo from "../../images/glygen_logos/glygen-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
-import { NavDropdown, Navbar, Nav, Row, Col } from "react-bootstrap";
+import { NavDropdown, Navbar, Nav, Row, Col, Container as ContainerBootStrap } from "react-bootstrap";
 import PersonIcon from "@mui/icons-material/Person";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -55,47 +55,50 @@ export default function Header(props) {
         }
       >
         <Container maxWidth="xl">
-          <Row className="justify-content-end">
-            <div className="mr-4">
-              <Link to={routeConstants.privacySettings} className="gg-link">
-                <span>
-                  <PersonIcon />
-                </span>{" "}
-                MY GLYGEN
-              </Link>
-            </div>
-            {GLYGEN_ENV !== "beta" && (
-              <div className="mr-4">
-                <a href={GLYGEN_BETA} target="_blank" rel="noopener noreferrer" className="gg-link">
+          <Row className="text-end">
+            <div className="text-end">
+              <span className="me-4">
+                <Link to={routeConstants.privacySettings} className="gg-link">
                   <span>
-                    <DeveloperBoardIcon />
+                    <PersonIcon />
                   </span>{" "}
-                  BETA TESTING
-                </a>{" "}
-              </div>
-            )}
-            <div>
-              <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
-                <TwitterIcon className="mr-3" />
-              </a>
-              <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
-                <YouTubeIcon className="mr-3" />
-              </a>
-              <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
-                <GitHubIcon className="mr-3" />
-              </a>
-              <a href={WIKI} target="_blank" rel="noopener noreferrer" className="media-wiki-icon">
-                <MediaWikiIcon className="mr-3" />
-              </a>
-              <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
-                <PinterestIcon className="mr-3" />
-              </a>
+                  MY GLYGEN
+                </Link>
+              </span>
+              {GLYGEN_ENV !== "beta" && (
+                <span className="me-4">
+                  <a href={GLYGEN_BETA} target="_blank" rel="noopener noreferrer" className="gg-link">
+                    <span>
+                      <DeveloperBoardIcon />
+                    </span>{" "}
+                    BETA TESTING
+                  </a>{" "}
+                </span>
+              )}
+              <span>
+                <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <TwitterIcon className="me-3" />
+                </a>
+                <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <YouTubeIcon className="me-3" />
+                </a>
+                <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <GitHubIcon className="me-3" />
+                </a>
+                <a href={WIKI} target="_blank" rel="noopener noreferrer" className="media-wiki-icon">
+                  <MediaWikiIcon className="me-3" />
+                </a>
+                <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <PinterestIcon className="me-3" />
+                </a>
+              </span>
             </div>
           </Row>
         </Container>
       </Navbar>
 
-      <Navbar className="gg-blue" expand="xl">
+      <Navbar className="gg-blue" style={{color:"white"}} expand="xl">
+      <ContainerBootStrap maxWidth="xl" fluid>
         <Navbar.Brand as={Link} to={routeConstants.home}>
           <img src={logo} alt="Glygen" className="logo-nav" />
         </Navbar.Brand>
@@ -242,6 +245,7 @@ export default function Header(props) {
             <GlobalSearchControl />
           </Col>
         </Navbar.Collapse>
+        </ContainerBootStrap>
       </Navbar>
     </React.Fragment>
   );

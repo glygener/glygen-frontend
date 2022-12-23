@@ -46,7 +46,11 @@ function Sidebar({ items, offset = 105 }) {
     <div className="sidebar-container sidbar-top-padding">
       <div className="sidebar">
         {items.map(({ label, id, disabled }) => (
-          <Link to={"#" + id} key={id}>
+          <Link to={"#" + id} key={id} onClick={() => {
+              if (id && document.getElementById(id)) {
+                document.getElementById(id).scrollIntoView({ behavior: "auto" });
+              }}}
+          >
             <ul
               button="true"
               onClick={() => setActiveLink(id)}

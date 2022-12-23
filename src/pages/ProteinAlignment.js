@@ -11,8 +11,6 @@ import { Grid } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DetailTooltips from "../data/json/algnDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -26,6 +24,7 @@ import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import SequenceViewer from "../components/sequence/SequenceViewer";
+import CardToggle from "../components/cards/CardToggle";
 import "../css/proteinsequence.css";
 import { GLYGEN_BASENAME } from "../envVariables";
 
@@ -93,8 +92,7 @@ const ProteinAlignment = () => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-  const expandIcon = <ExpandMoreIcon fontSize="large" />;
-  const closeIcon = <ExpandLessIcon fontSize="large" />;
+
   // ===================================== //
   const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
 
@@ -163,7 +161,7 @@ const ProteinAlignment = () => {
                 }}
               />
               {/* Button */}
-              <div className="text-right gg-download-btn-width">
+              <div className="text-end gg-download-btn-width">
                 <Link to={`${routeConstants.proteinDetail}${id}`}>
                   <Button type="button" style={{ marginLeft: "5px" }} className="gg-btn-blue">
                     Back To Protein Details
@@ -178,7 +176,7 @@ const ProteinAlignment = () => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={isIsoform ? DetailTooltips.alignment.isoalignment.title : DetailTooltips.alignment.homoalignment.title}
@@ -191,14 +189,8 @@ const ProteinAlignment = () => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.alignment.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("alignment", collapsed.alignment)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.alignment ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="alignment" toggle={collapsed.alignment} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={collapsed.alignment ? "false" : "true"}>
@@ -227,7 +219,7 @@ const ProteinAlignment = () => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.alignment.summary.title}
@@ -240,14 +232,8 @@ const ProteinAlignment = () => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.summary.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("summary", collapsed.summary)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.summary ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="summary" toggle={collapsed.summary} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={collapsed.summary ? "false" : "true"}>
@@ -303,7 +289,7 @@ const ProteinAlignment = () => {
                 </Card>
               </Accordion>
               {/* Button */}
-              <div className="text-right gg-download-btn-width">
+              <div className="text-end gg-download-btn-width">
                 <Link to={`${routeConstants.proteinDetail}${id}`}>
                   <Button type="button" style={{ marginLeft: "5px" }} className="gg-btn-blue">
                     Back To Protein Details

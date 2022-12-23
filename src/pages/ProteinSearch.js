@@ -7,7 +7,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import ProteinAdvancedSearch from "../components/search/ProteinAdvancedSearch";
 import SimpleSearchControl from "../components/search/SimpleSearchControl";
 import { Tab, Tabs, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "../css/Search.css";
 import proteinSearchData from "../data/json/proteinSearch";
 import stringConstants from "../data/json/stringConstants";
@@ -87,6 +87,9 @@ const ProteinSearch = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+
+  const navigate = useNavigate();
+	const location = useLocation();
 
   let simpleSearch = proteinSearchData.simple_search;
   let advancedSearch = proteinSearchData.advanced_search;
@@ -201,7 +204,7 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
           });
@@ -233,8 +236,8 @@ const ProteinSearch = props => {
 			selectedTab : ""
 		};
 		var queryError = false;
-    if (props.location.search){
-			queryError = executeQuery(queryString.parse(props.location.search), qryObjOut);
+    if (location.search){
+			queryError = executeQuery(queryString.parse(location.search), qryObjOut);
 		}
     document.addEventListener("click", () => {
       setAlertTextInput({ show: false, message: ""});
@@ -258,7 +261,7 @@ const ProteinSearch = props => {
         });
 
         setInitData(initData);
-        const anchorElement = props.history.location.hash;
+        const anchorElement = location.hash;
         if (anchorElement) {
           var hash = anchorElement.substr(1);
           if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Tutorial") {
@@ -280,7 +283,7 @@ const ProteinSearch = props => {
           window.scrollTo(0, 0);
         }
       
-        if ((id === undefined && (props.location.search === undefined || props.location.search === "")) || (props.location.search && queryError)) setPageLoading(false);
+        if ((id === undefined && (location === undefined || location.search === undefined || location.search === "")) || (location.search && queryError)) setPageLoading(false);
 
         id &&
           getProteinList(id, 1)
@@ -462,7 +465,7 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
           });
@@ -672,7 +675,7 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
-            props.history.push(
+            navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
           });

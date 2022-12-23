@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import { Row } from "react-bootstrap";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Button from "react-bootstrap/Button";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { sortDropdown } from "../../utils/common";
 import "../../css/Search.css";
 import glycanSearchData from "../../data/json/glycanSearch";
@@ -343,14 +343,15 @@ const GlycanAdvancedSearch = props => {
     <>
       <Grid
         container
-        style={{ margin: "0  auto" }}
+        style={{ margin: "0 0 0 -12px" }}
         spacing={3}
-        justify="center"
+        justifyContent="center"
       >
         {/* Buttons Top */}
-        <Grid item xs={12} sm={10}>
-          <Row className="gg-align-right pt-2 pb-2 mr-1">
-            <Button className="gg-btn-outline mr-4" onClick={clearGlycan}>
+        <Grid className="gg-align-right" item xs={12} sm={10}>
+          <div className="gg-align-right pt-2 pb-2 me-1">
+          {/* <ButtonGroup className="text-end"> */}
+            <Button className="gg-btn-outline me-4" onClick={clearGlycan}>
               Clear Fields
             </Button>
             <Button
@@ -364,7 +365,8 @@ const GlycanAdvancedSearch = props => {
             >
               Search Glycan
             </Button>
-          </Row>
+            {/* </ButtonGroup> */}
+          </div>
         </Grid>
         {/* Glycan Id */}
         <Grid item xs={12} sm={10}>
@@ -468,7 +470,8 @@ const GlycanAdvancedSearch = props => {
                   </InputLabel>
                   <SelectControl
                     inputValue={props.inputValue.glyMassType}
-                    labelWidth={85}
+                    // labelWidth={85}
+                    label={commonGlycanData.mass_type.name}
                     menu={Object.keys(props.initData.glycan_mass).map(
                       massType => {
                         return {
@@ -772,11 +775,13 @@ const GlycanAdvancedSearch = props => {
         </Grid>
         {/* Buttons Buttom */}
         <Grid item xs={12} sm={10}>
-          <Row className="gg-align-right pt-3 mb-2 mr-1">
-            <Button className="gg-btn-outline mr-4" onClick={clearGlycan}>
+          {/* <Row className="gg-align-right pt-3 mb-2 me-1"> */}
+          <div className="gg-align-right pt-3 mb-2 me-1">
+          {/* <ButtonGroup> */}
+            <Button type="button" className="gg-btn-outline me-4" onClick={clearGlycan}>
               Clear Fields
             </Button>
-            <Button
+            <Button type="button"
               className="gg-btn-blue"
               onClick={props.searchGlycanAdvClick}
               disabled={
@@ -787,7 +792,9 @@ const GlycanAdvancedSearch = props => {
             >
               Search Glycan
             </Button>
-          </Row>
+            {/* </ButtonGroup> */}
+            </div>
+          {/* </Row> */}
         </Grid>
       </Grid>
     </>

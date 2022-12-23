@@ -4,7 +4,9 @@ import { getTypeahed } from '../../data/commonApi';
 import Autocomplete from "@mui/material/Autocomplete";
 import PropTypes from 'prop-types';
 import FormHelperText from '@mui/material/FormHelperText';
+import Grid from '@mui/material/Grid';
 import '../../css/Search.css';
+
 
 /**
  * Multiline text input component with comma separated typeahead.
@@ -58,13 +60,23 @@ export default function MultilineAutoTextInput(props) {
       autoHighlight={true}
       inputValue={props.inputValue}
       onClose={(event, reason) => setOptions([])}
-      renderOption={option => option}
+      renderOption={(props, option) => {
+        return (
+          <li {...props}>
+            <Grid container alignItems="center">
+              <Grid item xs>
+                <span>{option}</span>
+              </Grid>
+            </Grid>
+          </li>
+        );
+      }}
       onInputChange={handleChange}
       renderInput={params => (
         <TextField
           {...params}
           multiline
-          rows="3"
+          rows="2"
           variant="outlined"
           placeholder={props.placeholder}
           error={

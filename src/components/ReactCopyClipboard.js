@@ -18,15 +18,17 @@ const ReactCopyClipboard = (props) => {
 	return (
 		<div>
 			<LineTooltip text="Copy to clipboard">
-				<CopyToClipboard text={value} onCopy={handleCopy}>
-					{/* <button>Copy to clipboard</button> */}
+				<span>
+					<CopyToClipboard text={value} onCopy={handleCopy}>
+						{/* <button>Copy to clipboard</button> */}
 
-					<Image
-						src={copyIcon}
-						alt="Related glycans"
-						style={{ marginBottom: "5px" }}
-					/>
-				</CopyToClipboard>
+						<Image
+							src={copyIcon}
+							alt="Related glycans"
+							style={{ marginBottom: "5px" }}
+						/>
+					</CopyToClipboard>
+				</span>
 			</LineTooltip>
 
 			{copied ? (

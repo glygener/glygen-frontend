@@ -160,7 +160,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>01</h2>
                           <h3>ASBMB Supersearch.</h3>
                           <p>
@@ -234,7 +234,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>02</h2>
                           <h3>ASBMB Tools.</h3>
                           <p>
@@ -308,7 +308,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>03</h2>
                           <h3>Common Fund.</h3>
                           <p>
@@ -381,7 +381,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>04</h2>
                           <h3>Beilstein Symposium.</h3>
                           <p>
@@ -454,7 +454,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>05</h2>
                           <h3>SFG Bioinformatics Satellite.</h3>
                           <p>
@@ -527,7 +527,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>06</h2>
                           <h3>GlyGen Warren Workshop VII.</h3>
                           <p>
@@ -600,7 +600,7 @@ const OurTalks = (props) => {
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className="tab-bg">
+                        <div className="tab-bg text-start">
                           <h2>07</h2>
                           <h3>GlyGen Life Science Workshop.</h3>
                           <p>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { getProteinsiteDetail } from "../data/protein";
 // import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
@@ -39,6 +39,7 @@ import { getGlycanImageUrl } from "../data/glycan";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import CollapsibleText from "../components/CollapsibleText";
 import FormControl from "@mui/material/FormControl";
+import CardToggle from "../components/cards/CardToggle";
 
 function addCommas(nStr) {
   nStr += "";
@@ -225,7 +226,7 @@ const SequenceLocationViewer = ({
   return (
     <>
       <Row className="sequenceDisplay">
-        <Grid item xs={6} sm={6}>
+        <Col xs={6} sm={6}>
           <FormControl fullWidth>
             <select
               value={position}
@@ -238,15 +239,15 @@ const SequenceLocationViewer = ({
               ))}
             </select>
           </FormControl>
-        </Grid>
+        </Col>
       </Row>
-      <Row className="sequenceDisplay">
-        <Grid item>
+      <Row className="sequenceDisplay ms-1 me-1">
+        <Col className="text-center">
           <button onClick={selectPrevious}>{"<<"}</button>
-        </Grid>
-        <Grid item xs={10} sm={10} className="sequence-scroll">
+        </Col>
+        <Col xs={10} sm={10} className="sequence-scroll">
           <>
-            <Grid className="zoom">
+            <Col className="zoom">
               <div className="zoom-sequence">
                 {styledSequence.map(item => (
                   <span
@@ -265,19 +266,19 @@ const SequenceLocationViewer = ({
                   </span>
                 ))}
               </div>
-            </Grid>
+            </Col>
           </>
-        </Grid>
-        <Grid item>
+        </Col>
+        <Col className="text-center">
           <button onClick={selectNext}>{">>"}</button>
-        </Grid>
+        </Col>
       </Row>
     </>
   );
 };
 
-const Siteview = ({ position, history }) => {
-  let { id } = useParams();
+const Siteview = props => {
+  let { id, position } = useParams();
 
   const [detailData, setDetailData] = useState({});
   const [annotations, setAnnotations] = useState([]);
@@ -290,6 +291,8 @@ const Siteview = ({ position, history }) => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
+
   useEffect(() => {
     logActivity("user", id);
     const getProteinsiteDetailData = getProteinsiteDetail(id, selectedPosition);
@@ -879,8 +882,7 @@ const Siteview = ({ position, history }) => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-  const expandIcon = <ExpandMoreIcon fontSize="large" />;
-  const closeIcon = <ExpandLessIcon fontSize="large" />;
+
   // ===================================== //
 
   if (nonExistent) {
@@ -941,10 +943,10 @@ const Siteview = ({ position, history }) => {
               </Row>
             </div>
             {/* back button */}
-            {history && history.length > 1 && (
-              <div className="text-right gg-download-btn-width pb-3">
+            {window.history && window.history.length > 1 && (
+              <div className="text-end gg-download-btn-width pb-3">
                 <Link to={`${routeConstants.proteinDetail}${id}`}>
-                  <Button type="button" className="gg-btn-blue mr-3">
+                  <Button type="button" className="gg-btn-blue me-3">
                     To Protein Details
                   </Button>
                 </Link>
@@ -952,14 +954,14 @@ const Siteview = ({ position, history }) => {
                   type="button"
                   className="gg-btn-blue"
                   onClick={() => {
-                    history.goBack();
+                    navigate(-1);
                   }}
                 >
                   Back
                 </Button>
               </div>
             )}
-            <div className="gg-download-btn-width">
+            <div className="text-end gg-download-btn-width">
               <DownloadButton
                 types={[
                   {
@@ -1000,7 +1002,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.general.title}
@@ -1013,18 +1015,8 @@ const Siteview = ({ position, history }) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.general.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("general", collapsed.general)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.general ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1207,7 +1199,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.sequence.title}
@@ -1220,18 +1212,8 @@ const Siteview = ({ position, history }) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.sequence.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("sequence", collapsed.sequence)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.sequence ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="sequence" toggle={collapsed.sequence} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1261,7 +1243,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
 
                       <HelpTooltip
@@ -1275,14 +1257,8 @@ const Siteview = ({ position, history }) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.glycosylation.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("glycosylation", collapsed.glycosylation)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.glycosylation ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1307,7 +1283,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.phosphorylation.title}
@@ -1320,14 +1296,8 @@ const Siteview = ({ position, history }) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.phosphorylation.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("phosphorylation", collapsed.phosphorylation)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.phosphorylation ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1351,7 +1321,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.glycation.title}
@@ -1364,14 +1334,8 @@ const Siteview = ({ position, history }) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.glycation.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("glycation", collapsed.glycation)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.glycation ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1395,7 +1359,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.snv.title}
@@ -1407,14 +1371,8 @@ const Siteview = ({ position, history }) => {
                     </span>
                     <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
 
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("mutation", collapsed.mutation)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.mutation ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1440,7 +1398,7 @@ const Siteview = ({ position, history }) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.mutagenesis.title}
@@ -1454,14 +1412,8 @@ const Siteview = ({ position, history }) => {
                       {" "}
                       {stringConstants.sidebar.mutagenesis.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("mutagenesis", collapsed.mutagenesis)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.mutagenesis ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1478,10 +1430,10 @@ const Siteview = ({ position, history }) => {
                 </Card>
               </Accordion>
               {/* back button */}
-              {history && history.length > 1 && (
-                <div className="text-right gg-download-btn-width pb-3">
+              {/* {history && history.length > 1 && ( */}
+                <div className="text-end gg-download-btn-width pb-3">
                   <Link to={`${routeConstants.proteinDetail}${id}`}>
-                    <Button type="button" className="gg-btn-blue mr-3">
+                    <Button type="button" className="gg-btn-blue me-3">
                       To Protein Details
                     </Button>
                   </Link>
@@ -1489,13 +1441,13 @@ const Siteview = ({ position, history }) => {
                     type="button"
                     className="gg-btn-blue"
                     onClick={() => {
-                      history.goBack();
+                      navigate(-1)
                     }}
                   >
                     Back
                   </Button>
                 </div>
-              )}
+              {/* )} */}
             </React.Fragment>
           </div>
         </Col>

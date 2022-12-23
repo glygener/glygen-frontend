@@ -281,13 +281,13 @@ const ProteinAdvancedSearch = (props) => {
 		<>
 			<Grid
 				container
-				style={{ margin: '0  auto' }}
+				style={{ margin: "0 0 0 -12px" }}
 				spacing={3}
-				justify='center'>
+				justifyContent='center'>
 				{/* Buttons Top */}
 				<Grid item xs={12} sm={10}>
-					<Row className='gg-align-right pt-2 pb-2 mr-1'>
-						<Button className='gg-btn-outline mr-4' onClick={clearProtein}>
+					<div className='gg-align-right pt-2 pb-2 me-1'>
+						<Button className='gg-btn-outline me-4' onClick={clearProtein}>
 							Clear Fields
 						</Button>
 						<Button
@@ -300,7 +300,7 @@ const ProteinAdvancedSearch = (props) => {
 							}>
 							Search Protein
 						</Button>
-					</Row>
+					</div>
 				</Grid>
 				{/* Protein Id */}
 				<Grid item xs={12} sm={10}>
@@ -850,8 +850,9 @@ const ProteinAdvancedSearch = (props) => {
 				</Grid>
 				{/* Buttons Buttom */}
 				<Grid item xs={12} sm={10}>
-					<Row className='gg-align-right pt-3 mb-2 mr-1'>
-						<Button className='gg-btn-outline mr-4' onClick={clearProtein}>
+					{/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
+					<div className='gg-align-right pt-3 mb-2 me-1'>
+						<Button className='gg-btn-outline me-4' onClick={clearProtein}>
 							Clear Fields
 						</Button>
 						<Button
@@ -864,7 +865,8 @@ const ProteinAdvancedSearch = (props) => {
 							}>
 							Search Protein
 						</Button>
-					</Row>
+					</div>
+					{/* </Row> */}
 				</Grid>
 			</Grid>
 		</>

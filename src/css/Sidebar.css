@@ -6,7 +6,7 @@
   position: relative;
 }
 .sidebar-page {
-  width: 100% !important;
+  /* width: 100% !important; */
   margin: 0 auto !important;
   overflow: auto;
   /* margin-bottom: 40px !important; */

@@ -160,7 +160,7 @@ const ForMembers = (props) => {
 													</div>
 												</Col>
 												<Col md={6}>
-													<div className="tab-bg">
+													<div className="tab-bg text-start">
 														<h2>01</h2>
 														<h3>General Presentation About GlyGen.</h3>
 														<p>
@@ -234,7 +234,7 @@ const ForMembers = (props) => {
 													</div>
 												</Col>
 												<Col md={6}>
-													<div className="tab-bg">
+													<div className="tab-bg text-start">
 														<h2>02</h2>
 														<h3>GlyGen One Slide.</h3>
 														<p>
@@ -306,7 +306,7 @@ const ForMembers = (props) => {
 													</div>
 												</Col>
 												<Col md={6}>
-													<div className="tab-bg">
+													<div className="tab-bg text-start">
 														<h2>03</h2>
 														<h3>GlyGen Power Points Template.</h3>
 														<p>
@@ -338,7 +338,7 @@ const ForMembers = (props) => {
 													<img src={letterTemplateSvg} alt="letter template" />
 												</Col>
 												<Col md={6}>
-													<div className="tab-bg">
+													<div className="tab-bg text-start">
 														<h2>04</h2>
 														<h3>Letter Template.</h3>
 														<p>
@@ -369,7 +369,7 @@ const ForMembers = (props) => {
 													<img src={letterTemplate2Svg} alt="letter template" />
 												</Col>
 												<Col md={6}>
-													<div className="tab-bg">
+													<div className="tab-bg text-start">
 														<h2>04</h2>
 														<h3>Letter Template 2.</h3>
 														<p>

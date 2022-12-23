@@ -14,6 +14,11 @@ import { validateEmail, replaceSpecialCharacters } from "../../utils/common";
 import { Typography } from "@mui/material";
 import { axiosError } from "../../data/axiosError";
 import { logActivity } from "../../data/logging";
+import "../../css/Search.css";
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 // const useStyles = makeStyles((theme) =>
 // 	createStyles({
@@ -140,7 +145,7 @@ const ContactForm = (props) => {
             <Typography>
               <strong>First name * </strong>
             </Typography>
-            <TextField
+            <OutlinedInput
               id="outlined-full-width"
               required
               // label='First name'
@@ -155,11 +160,14 @@ const ContactForm = (props) => {
                 setContactUsErrorMessage();
               }}
               onBlur={() => setFNameValidated(true)}
-              helperText={
-                (formValidated || fNameValidated) && fname === "" && "First name is required."
-              }
+              // helperText={
+              //   (formValidated || fNameValidated) && fname === "" && "First name is required."
+              // }
               onInput={(e) => onlyText(e)}
-              style={{ margin: "5px 0 15px 0" }}
+              style={{ margin: "5px 0 0 0" }}
+              classes={{
+								input: 'input-auto',
+						  }}
               fullWidth
               margin="dense"
               variant="outlined"
@@ -167,12 +175,17 @@ const ContactForm = (props) => {
                 maxLength: 64,
               }}
             />
+            {(formValidated || fNameValidated) && (fname === "") && (
+              <FormHelperText error>
+                {"First name is required."}
+              </FormHelperText>
+            )}
           </Col>
           <Col sm={12} md={6} lg={6}>
             <Typography>
               <strong>Last name *</strong>
             </Typography>
-            <TextField
+            <OutlinedInput
               id="outlined-full-width"
               required
               type="text"
@@ -186,11 +199,14 @@ const ContactForm = (props) => {
                 setContactUsErrorMessage();
               }}
               onBlur={() => setLNameValidated(true)}
-              helperText={
-                (formValidated || lNameValidated) && lname === "" && "Last name is required."
-              }
+              // helperText={
+              //   (formValidated || lNameValidated) && lname === "" && "Last name is required."
+              // }
               onInput={(e) => onlyText(e)}
-              style={{ margin: "5px 0 15px 0" }}
+              style={{ margin: "5px 0 0 0" }}
+              classes={{
+								input: 'input-auto',
+						  }}
               fullWidth
               margin="dense"
               variant="outlined"
@@ -198,6 +214,11 @@ const ContactForm = (props) => {
                 maxLength: 64,
               }}
             />
+            {(formValidated || lNameValidated) && (lname === "") && (
+              <FormHelperText error>
+                {"Last name is required."}
+              </FormHelperText>
+            )}
           </Col>
           <Col sm={12} md={6} lg={6}>
             <Typography>
@@ -210,7 +231,10 @@ const ContactForm = (props) => {
                 value={subject}
                 fullWidth
                 margin="dense"
-                style={{ margin: "5px 0 15px 0" }}
+                style={{ margin: "5px 0 0 0" }}
+                classes={{
+                  select: "select-menu-adv"
+                }}
                 onChange={handleChange}
               >
                 <MenuItem value={"general"}>General comment</MenuItem>
@@ -227,14 +251,17 @@ const ContactForm = (props) => {
             <Typography>
               <strong>Email *</strong>
             </Typography>
-            <TextField
+            <OutlinedInput
               id="email"
               required
               // label='Email'
               type="email"
               name="email"
               value={email}
-              style={{ margin: "5px 0 15px 0" }}
+              style={{ margin: "5px 0 0 0" }}
+              classes={{
+								input: 'input-auto',
+						  }}
               placeholder="example@domain.com"
               error={(formValidated || emailValidated) && !validEmail}
               onChange={(e) => {
@@ -245,11 +272,12 @@ const ContactForm = (props) => {
                 setContactUsErrorMessage();
               }}
               onBlur={() => setEmailValidated(true)}
-              helperText={
-                (formValidated || emailValidated) && !validEmail && "Please enter a valid email."
-              }
+              // helperText={
+              //   (formValidated || emailValidated) && !validEmail && "Please enter a valid email."
+              // }
               fullWidth
               margin="dense"
+              size="medium"
               // InputLabelProps={{
               // 	shrink: true,
               // 	style: { fontWeight: '900' },
@@ -259,19 +287,24 @@ const ContactForm = (props) => {
                 maxLength: 128,
               }}
             />
+          {(formValidated || emailValidated) && !validEmail && (
+            <FormHelperText error>
+              {"Please enter a valid email."}
+            </FormHelperText>
+          )}
           </Col>
           <Col>
             <Typography>
               <strong>Message *</strong>
             </Typography>
-            <TextField
+            <OutlinedInput
               id="outlined-full-width"
               required
               // label='Message'
               name="message"
               value={message}
               type="text"
-              style={{ margin: "5px 0 15px 0" }}
+              style={{ margin: "5px 0 0 0" }}
               placeholder="Please tell us how we can help you."
               error={
                 (formValidated || messageValidated) &&
@@ -284,12 +317,12 @@ const ContactForm = (props) => {
                 handleWordCount(e);
               }}
               onBlur={() => setMessageValidated(true)}
-              helperText={
-                (formValidated || messageValidated) &&
-                ((message === "" && "Please leave us a message.") ||
-                  ((message.length < 5 || message.length > messageMaxLen) &&
-                    `Message should be between 5 to ${messageMaxLen} characters`))
-              }
+              // helperText={
+              //   (formValidated || messageValidated) &&
+              //   ((message === "" && "Please leave us a message.") ||
+              //     ((message.length < 5 || message.length > messageMaxLen) &&
+              //       `Message should be between 5 to ${messageMaxLen} characters`))
+              // }
               fullWidth
               multiline
               rows="3"
@@ -304,6 +337,14 @@ const ContactForm = (props) => {
                 maxLength: messageMaxLen,
               }}
             />
+            {(formValidated || messageValidated) && (message === "") && (
+              <FormHelperText error>
+                {"Please leave us a message."}
+              </FormHelperText>)}
+            {(formValidated || messageValidated) && (message !== "") && (message.length < 5 || message.length > messageMaxLen) && (
+              <FormHelperText error>
+                {`Message should be between 5 to ${messageMaxLen} characters`}
+              </FormHelperText>)}
             <div className={"text-right text-muted"} style={{ marginTop: "-5px" }}>
               {messageCharsLeft}/{messageMaxLen}
             </div>

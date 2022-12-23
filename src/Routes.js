@@ -33,7 +33,7 @@ import SiteList from "./pages/SiteList";
 import MotifDetail from "./pages/MotifDetail";
 import Siteview from "./pages/Siteview";
 import IdMapping from "./pages/IdMapping";
-import idMappingResult from "./pages/IdMappingResult";
+import IdMappingResult from "./pages/IdMappingResult";
 import SuperSearch from "./pages/SuperSearch";
 import BlastSearch from "./pages/BlastSearch";
 import BlastResult from "./pages/BlastResult"
@@ -45,70 +45,75 @@ import PublicationDetail from "./pages/PublicationDetail";
  */
 const Routes = (props) => (
   <Switch>
-    <Route path={`${routeConstants.glycanListEdit}:id`} component={GlycanListEditColumns} />
-    <Route path={`${routeConstants.glycanList}:id/:searchId`} component={GlycanList} />
-    <Route path={`${routeConstants.glycanList}:id`} component={<GlycanList/>} />
-    <Route path={`${routeConstants.proteinList}:id/:searchId`} component={ProteinList} />
-    <Route path={`${routeConstants.proteinList}:id`} component={ProteinList} />
+    <Route path={`${routeConstants.glycanListEdit}:id`} element={<GlycanListEditColumns/>} />
+    <Route path={`${routeConstants.glycanList}:id/:searchId`} element={<GlycanList/>} />
+    <Route path={`${routeConstants.glycanList}:id`} element={<GlycanList/>} />
+    <Route path={`${routeConstants.proteinList}:id/:searchId`} element={<ProteinList/>} />
+    <Route path={`${routeConstants.proteinList}:id`} element={<ProteinList/>} />
     <Route path={`${routeConstants.glycanSearch}:id`} element={<GlycanSearch/>} />
     <Route path={routeConstants.glycanSearch} element={<GlycanSearch/>} />
-    <Route path={`${routeConstants.proteinSearch}:id`} component={ProteinSearch} />
-    <Route path={routeConstants.proteinSearch} component={ProteinSearch} />
-    <Route path={`${routeConstants.siteList}:id/:searchId`} component={SiteList} />
-    <Route path={`${routeConstants.siteList}:id`} component={SiteList} />
-    <Route path={`${routeConstants.siteSearch}:id`} component={SiteSearch} />
-    <Route path={routeConstants.siteSearch} component={SiteSearch} />
+    <Route path={`${routeConstants.proteinSearch}:id`} element={<ProteinSearch/>} />
+    <Route path={routeConstants.proteinSearch} element={<ProteinSearch/>} />
+    <Route path={`${routeConstants.siteList}:id/:searchId`} element={<SiteList/>} />
+    <Route path={`${routeConstants.siteList}:id`} element={<SiteList/>} />
+    <Route path={`${routeConstants.siteSearch}:id`} element={<SiteSearch/>} />
+    <Route path={routeConstants.siteSearch} element={<SiteSearch/>} />
 
-    <Route path={routeConstants.motifList} component={MotifList} />
-    <Route path={`${routeConstants.motifDetail}:id`} component={MotifDetail} />
-    <Route path={routeConstants.motifDetail} component={MotifDetail} />
-    <Route path={`${routeConstants.glycanDetail}:id`} component={GlycanDetail} />
-    <Route path={`${routeConstants.proteinDetail}:id/:select?`} component={ProteinDetail} />
-    <Route path={`${routeConstants.isoAlignment}:id/:alignment`} component={IsoAlignment} />
+    <Route path={routeConstants.motifList} element={<MotifList/>} />
+    <Route path={`${routeConstants.motifDetail}:id`} element={<MotifDetail/>} />
+    <Route path={routeConstants.motifDetail} element={<MotifDetail/>} />
+    <Route path={`${routeConstants.glycanDetail}:id`} element={<GlycanDetail/>} />
+    <Route path={`${routeConstants.proteinDetail}:id/:select`} element={<ProteinDetail/>} />
+    <Route path={`${routeConstants.proteinDetail}:id/`} element={<ProteinDetail/>} />
+    <Route path={`${routeConstants.isoAlignment}:id/:alignment`} element={<IsoAlignment/>} />
     <Route path={`${routeConstants.protVista}:id`} element={<ProtVista/>} />
     <Route
       path={`${routeConstants.siteview}:id/:position`}
-      render={(props) => <Siteview {...props} position={props.match.params.position} />}
+      element={<Siteview/>}
     />
-    <Route path={`${routeConstants.siteview}:id`} component={Siteview} />
-    <Route path={`${routeConstants.globalSearchResult}:id`} component={GlobalSearchResult} />
-    <Route path={routeConstants.resources} component={Resources} />
-    <Route path={routeConstants.howToCite} component={HowToCite} />
-    <Route path={routeConstants.contactUs} component={ContactUs} />
-    <Route path={routeConstants.disclaimer} component={Disclaimer} />
-    <Route path={routeConstants.privacyPolicy} component={PrivacyPolicy} />
-    <Route path={routeConstants.license} component={License} />
-    <Route path={routeConstants.privacySettings} component={() => <PrivacySettings {...props} />} />
-    <Route path={routeConstants.feedback} component={Feedback} />
-    <Route path={routeConstants.tryMe} component={TryMe} />
-    <Route path={routeConstants.about} component={About} />
-    <Route path={routeConstants.frameworks} component={Frameworks} />
-    <Route path={routeConstants.media} component={Media} />
-    <Route path={`${routeConstants.orthologsList}:id/:searchId`} component={OrthologsList} />
-    <Route path={`${routeConstants.locusList}:id/:searchId`} component={LocusList} />
-    <Route path={`${routeConstants.quickSearch}:id/:questionId`} component={QuickSearch} />
-    <Route path={routeConstants.quickSearch} component={QuickSearch} />
-    <Route path={`${routeConstants.idMapping}:id`} component={IdMapping} />
-    <Route path={routeConstants.idMapping} component={IdMapping} />
-    <Route path={`${routeConstants.idMappingResult}:id`} component={idMappingResult} />
-    <Route path={routeConstants.idMappingResult} component={idMappingResult} />
-    <Route path={`${routeConstants.superSearch}:id/:searchId`} component={SuperSearch} />
-    <Route path={`${routeConstants.superSearch}:id`} component={SuperSearch} />
-    <Route path={routeConstants.superSearch} component={SuperSearch} />
+    {/* <Route
+      path={`${routeConstants.siteview}:id/:position`}
+      render={(props) => { return <Siteview {...props} position={props.match.params.position} />} }
+    /> */}
+    <Route path={`${routeConstants.siteview}:id`} element={<Siteview/>} />
+    <Route path={`${routeConstants.globalSearchResult}:id`} element={<GlobalSearchResult/>} />
+    <Route path={routeConstants.resources} element={<Resources/>} />
+    <Route path={routeConstants.howToCite} element={<HowToCite/>} />
+    <Route path={routeConstants.contactUs} element={<ContactUs/>} />
+    <Route path={routeConstants.disclaimer} element={<Disclaimer/>} />
+    <Route path={routeConstants.privacyPolicy} element={<PrivacyPolicy/>} />
+    <Route path={routeConstants.license} element={<License/>} />
+    <Route path={routeConstants.privacySettings} element={() => <PrivacySettings {...props} />} />
+    <Route path={routeConstants.feedback} element={<Feedback/>} />
+    <Route path={routeConstants.tryMe} element={<TryMe/>} />
+    <Route path={routeConstants.about} element={<About/>} />
+    <Route path={routeConstants.frameworks} element={<Frameworks/>} />
+    <Route path={routeConstants.media} element={<Media/>} />
+    <Route path={`${routeConstants.orthologsList}:id/:searchId`} element={<OrthologsList/>} />
+    <Route path={`${routeConstants.locusList}:id/:searchId`} element={<LocusList/>} />
+    <Route path={`${routeConstants.quickSearch}:id/:questionId`} element={<QuickSearch/>} />
+    <Route path={routeConstants.quickSearch} element={<QuickSearch/>} />
+    <Route path={`${routeConstants.idMapping}:id`} element={<IdMapping/>} />
+    <Route path={routeConstants.idMapping} element={<IdMapping/>} />
+    <Route path={`${routeConstants.idMappingResult}:id`} element={<IdMappingResult/>} />
+    <Route path={routeConstants.idMappingResult} element={<idMappingResult/>} />
+    <Route path={`${routeConstants.superSearch}:id/:searchId`} element={<SuperSearch/>} />
+    <Route path={`${routeConstants.superSearch}:id`} element={<SuperSearch/>} />
+    <Route path={routeConstants.superSearch} element={<SuperSearch/>} />
     <Route
       path={`${routeConstants.publicationDetail}:publType/:id/:doi`}
-      component={PublicationDetail}
+      element={<PublicationDetail/>}
     />
     <Route
       path={`${routeConstants.publicationDetail}:publType/:id`}
-      component={PublicationDetail}
+      element={<PublicationDetail/>}
     />
-    <Route path={`${routeConstants.publicationDetail}:id`} component={PublicationDetail} />
-    <Route path={routeConstants.publicationDetail} component={PublicationDetail} />
-    <Route path={`${routeConstants.blastSearch}:id`} component={BlastSearch} />
-    <Route path={routeConstants.blastSearch} component={BlastSearch} />
-    <Route path={`${routeConstants.blastResult}:jobId`} component={BlastResult} />
-    <Route path={routeConstants.blastResult} component={BlastResult} />
+    <Route path={`${routeConstants.publicationDetail}:id`} element={<PublicationDetail/>} />
+    <Route path={routeConstants.publicationDetail} element={<PublicationDetail/>} />
+    <Route path={`${routeConstants.blastSearch}:id`} element={<BlastSearch/>} />
+    <Route path={routeConstants.blastSearch} element={<BlastSearch/>} />
+    <Route path={`${routeConstants.blastResult}:jobId`} element={<BlastResult/>} />
+    <Route path={routeConstants.blastResult} element={<BlastResult/>} />
     {/* Keep path='/' at the bottom */}
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />

@@ -51,16 +51,16 @@ const SiteSearchControl = props => {
     <>
       <Grid
         container
-        style={{ margin: "0  auto" }}
+        style={{ margin: "0 0 0 -12px" }}
         spacing={3}
-        justify="center"
+        justifyContent="center"
       >
         {initData && (
           <>
             {/* Buttons Top */}
             <Grid item xs={12} sm={10}>
-              <Row className="gg-align-right pt-2 pb-2 mr-1">
-                <Button className="gg-btn-outline mr-4" onClick={clearSite}>
+              <div className="gg-align-right pt-2 pb-2 me-1">
+                <Button className="gg-btn-outline me-4" onClick={clearSite}>
                   Clear Fields
                 </Button>
                 <Button 
@@ -72,7 +72,7 @@ const SiteSearchControl = props => {
                 >
                   Search Protein Site
                 </Button>
-              </Row>
+              </div>
             </Grid>
 
             {/* Amino Acid */}
@@ -184,6 +184,9 @@ const SiteSearchControl = props => {
                         margin='dense'
                         placeholder={sitesData.neighborDistance.placeholder}
                         value={siteSearchData.distance}
+                        classes={{
+                          input: 'input-auto'
+                          }}
                         onChange={(event) => {
                           if (siteError.neighbors && ((event.target.value !== "" && siteSearchData.singleannotations !== "") || (event.target.value === "" && siteSearchData.singleannotations === ""))){
                             let errorTemp = siteError;
@@ -268,6 +271,9 @@ const SiteSearchControl = props => {
                         margin='dense'
                         placeholder={sitesData.patternPosition.placeholder}
                         value={siteSearchData.position}
+                        classes={{
+                          input: 'input-auto'
+                          }}
                         onChange={(event) => {
                           let errorTemp = siteError;
                           if (siteError.pattern && ((event.target.value !== "" && siteSearchData.pattern !== "") || (event.target.value === "" && siteSearchData.pattern === ""))){
@@ -309,6 +315,9 @@ const SiteSearchControl = props => {
                         margin='dense'
                         placeholder={sitesData.patternPeptide.placeholder}
                         value={siteSearchData.pattern}
+                        classes={{
+                          input: 'input-auto'
+                          }}
                         onChange={(event) => {
                           let errorTemp = siteError;
                           if (siteError.pattern && ((event.target.value !== "" && siteSearchData.position !== "") || (event.target.value === "" && siteSearchData.position === ""))){
@@ -355,8 +364,8 @@ const SiteSearchControl = props => {
 
             {/* Buttons Buttom */}
             <Grid item xs={12} sm={10}>
-              <Row className="gg-align-right pt-3 mb-2 mr-1">
-                <Button className="gg-btn-outline mr-4" onClick={clearSite}>
+              <div className="gg-align-right pt-3 mb-2 me-1">
+                <Button className="gg-btn-outline me-4" onClick={clearSite}>
                   Clear Fields
                 </Button>
                 <Button 
@@ -370,7 +379,7 @@ const SiteSearchControl = props => {
                 >
                   Search Protein Site
                 </Button>
-              </Row>
+              </div>
             </Grid>
           </>
         )}

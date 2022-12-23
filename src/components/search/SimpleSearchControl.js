@@ -38,7 +38,7 @@ export default function SimpleSearchControl(props) {
           props.searchSimpleClick();
       }}
     >
-      <Grid container spacing={3} justify="center">
+      <Grid container spacing={3} justifyContent="center">
         <Grid item xs={12} sm={3}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel className={"select-lbl-inline"}>
@@ -47,7 +47,8 @@ export default function SimpleSearchControl(props) {
             <SelectControl
               inputValue={props.simpleSearchCategory}
               rootClass="select-menu"
-              labelWidth={80}
+              label={props.simpleSearchCategoryLabel}
+              // labelWidth={80}
               menu={props.simple_search_category.map(category => {
                 return { id: category.id, name: category.display };
               })}
@@ -96,13 +97,13 @@ export default function SimpleSearchControl(props) {
         </Grid>
       </Grid>
       <br />
-      <Grid container spacing={3} justify="center">
+      <Grid container spacing={3} justifyContent="center">
         <Grid className={"small-text"} item>
-          *{" "}
+          *{" "}Category{" "}
           <em>
-            "<strong>Any category</strong>"
+            "<strong>Any</strong>" 
           </em>{" "}
-          allows you to search an entire GlyGen database, including the context
+           allows you to search an entire GlyGen database, including the context
           match. *
         </Grid>
       </Grid>

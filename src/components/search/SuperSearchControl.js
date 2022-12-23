@@ -386,14 +386,14 @@ const SuperSearchControl = (props) => {
                                 Search
                             </Button>
                             <Button
-                                className='gg-btn-outline mr-3 mb-5'
+                                className='gg-btn-outline me-3 mb-5'
                                 style={{ float: "right" }}
                                 onClick={clearSuperSearchFields}
                                 >
                                 Clear Fields
                             </Button>
                             <Button
-                                className='gg-btn-outline mr-3 mb-5'
+                                className='gg-btn-outline me-3 mb-5'
                                 style={{ float: "right" }}
                                 onClick={() => props.setSelectedNode("")}
                                 >

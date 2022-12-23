@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "@mui/material/Container";
-import { Row, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import ugaImg from "../../images/about/univ-logo/uga.png";
 import gwImg from "../../images/about/univ-logo/gw.png";
 import georgetownImg from "../../images/about/univ-logo/georgetown.png";
@@ -20,8 +20,8 @@ const UnivLogos = (props) => {
     <React.Fragment>
       {/* University logos */}
       <section className="content-box-lg">
-        <Container maxWidth="lg">
-          <Row className="gg-align-middle gg-align-center">
+      <Container maxWidth="lg">
+          <div className="gg-align-middle gg-align-center">
             {/* University 01 */}
             <div>
               <Image src={ugaImg} className="univ-logo img-fluid" alt="uga university logo" />
@@ -98,7 +98,7 @@ const UnivLogos = (props) => {
             <div>
               <Image src={sibImg} className="univ-logo img-fluid" alt="sibImg university logo" />
             </div>
-          </Row>
+          </div>
         </Container>
       </section>
     </React.Fragment>

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useReducer } from "react";
 import { getGlycanImageUrl } from "../data/glycan";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { getMotifDetail } from "../data/motif";
 import PaginatedTable from "../components/PaginatedTable";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,8 +18,6 @@ import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -37,6 +35,8 @@ import ReactCopyClipboard from "../components/ReactCopyClipboard";
 import CollapsableReference from "../components/CollapsableReference";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
+import CardToggle from "../components/cards/CardToggle";
+
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
 
@@ -106,6 +106,8 @@ const getItemsCrossRef = data => {
 
 const MotifDetail = (props) => {
   let { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   // let { namespace } = useParams();
   // let { ac } = useParams();
   // const id = namespace + "." + ac;
@@ -164,7 +166,7 @@ const MotifDetail = (props) => {
         setPageLoading(false);
       }
       setTimeout(() => {
-        const anchorElement = props.history.location.hash;
+        const anchorElement = location.hash;
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
           document
             .getElementById(anchorElement.substr(1))
@@ -258,8 +260,6 @@ const MotifDetail = (props) => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
-  const expandIcon = <ExpandMoreIcon fontSize="large" />;
-  const closeIcon = <ExpandLessIcon fontSize="large" />;
   // ===================================== //
 
   const selectedColumns = [
@@ -321,20 +321,20 @@ const MotifDetail = (props) => {
                 </Grid>
               </Row>
             </div>
-            {props.history && props.history.length > 1 && (
-              <div className="text-right gg-download-btn-width pb-3">
+            {window.history && window.history.length > 1 && (
+              <div className="text-end gg-download-btn-width pb-3">
                 <Button
                   type="button"
                   className="gg-btn-blue"
                   onClick={() => {
-                    props.history.goBack();
+                    navigate(-1);
                   }}
                 >
                   Back
                 </Button>
               </div>
             )}
-            <div className="gg-download-btn-width">
+            <div className="text-end gg-download-btn-width">
               <DownloadButton
                 types={[
                   {
@@ -381,7 +381,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.general.title}
@@ -394,14 +394,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.general.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("general", collapsed.general)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.general ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -566,7 +560,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.glycans.title}
@@ -579,14 +573,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.glycans.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() => toggleCollapse("glycans", collapsed.glycans)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.glycans ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="glycans" toggle={collapsed.glycans} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -617,7 +605,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.digital_sequence.title}
@@ -630,18 +618,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.digital_seq.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("digitalSeq", collapsed.digitalSeq)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.digitalSeq ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="digitalSeq" toggle={collapsed.digitalSeq} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -767,7 +745,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.cross_references.title}
@@ -780,18 +758,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.cross_ref.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("crossref", collapsed.crossref)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.crossref ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -826,7 +794,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.history.title}
@@ -839,19 +807,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.history.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        // as={Card.Header}
-                        eventKey="0"
-                        onClick={() =>
-                          toggleCollapse("history", collapsed.history)
-                        }
-                        className="gg-green arrow-btn"
-                      >
-                        <span>
-                          {collapsed.history ? closeIcon : expandIcon}
-                        </span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="history" toggle={collapsed.history} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse
@@ -884,7 +841,7 @@ const MotifDetail = (props) => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header className="panelHeadBgr">
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.motif.publications.title}
@@ -897,15 +854,8 @@ const MotifDetail = (props) => {
                     <h4 className="gg-green d-inline">
                       {stringConstants.sidebar.publication.displayname}
                     </h4>
-                    <div className="float-right">
-                      <Accordion.Toggle
-                        // as={Card.Header}
-                        eventKey="0"
-                        onClick={() => toggleCollapse("publication", collapsed.publication)}
-                        className="gg-green arrow-btn"
-                      >
-                        <span>{collapsed.publication ? closeIcon : expandIcon}</span>
-                      </Accordion.Toggle>
+                    <div className="float-end">
+                      <CardToggle cardid="publication" toggle={collapsed.publication} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0" out={!collapsed.publication}>

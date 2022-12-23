@@ -288,3 +288,6 @@ input[type="number"] {
   border-bottom: 5px solid #4a4a4a;
 }
 
+.btn-supsearch-top {
+  margin-top: -1.5rem !important;
+}
