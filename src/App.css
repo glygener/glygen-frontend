@@ -1273,3 +1273,11 @@ sub {
   width: fit-content !important;
   padding: 0 !important;
 }
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
