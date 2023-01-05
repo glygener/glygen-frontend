@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
-
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getGlycanList } from "../data";
 import { GLYCAN_COLUMNS } from "../data/glycan";
@@ -44,6 +43,7 @@ const GlycanList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.glycan.common.unmapped;
 
@@ -190,7 +190,7 @@ const GlycanList = props => {
     if (searchId === "gs") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId === "sups") {
-      props.history.push(routeConstants.superSearch + id);
+      navigate(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
@@ -202,7 +202,7 @@ const GlycanList = props => {
         "#" +
         quickSearch[searchId].id;
     } else {
-      props.history.push(routeConstants.glycanSearch + id);
+      navigate(routeConstants.glycanSearch + id);
     }
   };
 
@@ -295,35 +295,37 @@ const GlycanList = props => {
             </section>
 
             <section>
-              <DownloadButton
-                types={[
-                  {
-                    display:
-                      stringConstants.download.glycan_csvdata.displayname,
-                    type: "csv",
-                    data: "glycan_list"
-                  },
-                  {
-                    display:
-                      stringConstants.download.glycan_jsondata.displayname,
-                    type: "json",
-                    data: "glycan_list"
-                  },
-                  {
-                    display:
-                      stringConstants.download.glycan_byonicdata.displayname,
-                    type: "byonic",
-                    data: "glycan_list"
-                  }
-                  // {
-                  //   display:
-                  //     stringConstants.download.glycan_gritsdata.displayname,
-                  //   type: "grits",
-                  //   data: "glycan_list"
-                  // }
-                ]}
-                dataId={id}
-              />
+              <div className="text-end">
+                <DownloadButton
+                  types={[
+                    {
+                      display:
+                        stringConstants.download.glycan_csvdata.displayname,
+                      type: "csv",
+                      data: "glycan_list"
+                    },
+                    {
+                      display:
+                        stringConstants.download.glycan_jsondata.displayname,
+                      type: "json",
+                      data: "glycan_list"
+                    },
+                    {
+                      display:
+                        stringConstants.download.glycan_byonicdata.displayname,
+                      type: "byonic",
+                      data: "glycan_list"
+                    }
+                    // {
+                    //   display:
+                    //     stringConstants.download.glycan_gritsdata.displayname,
+                    //   type: "grits",
+                    //   data: "glycan_list"
+                    // }
+                  ]}
+                  dataId={id}
+                />
+              </div>
               {data && (
                 <PaginatedTable
                   trStyle={rowStyleFormat}

@@ -34,9 +34,28 @@
   box-sizing: border-box;
   transition: 0.5s;
 }
+.sequence-dashboard.active {
+  right: 0;
+}
+
+.sequence-dashboard {
+  z-index: 80;
+  position: fixed;
+  top: 50%;
+  right: -380px;
+  transform: translateY(-50%);
+  width: 380px;
+  height: auto;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  transition: 0.5s;
+}
 .sidebar-contact.active {
   right: 0;
 }
+
 /* .sidebar-contact input, */
 /* .sidebar-contact textarea {
   width: 100%;
@@ -88,17 +107,20 @@
   display: none;
 }
 .sidebar-contact .toggle {
-  top: 2.7%;
+  top: 4.5%;
   /* transform:translateY(-50%); */
   transition: 0.5s;
 }
 .sequence-dashboard .toggle {
-  top: 3%;
+  top: 7.5%;
   transition: 0.5s;
 }
  .sidebar-contact.active {
    z-index: 100 !important;
  }
+ .sequence-dashboard.active {
+  z-index: 100 !important;
+}
 /* @media (min-width: 768px) and (max-width: 991px) {
   .sequence-dashboard .toggle {
   top: 2%;
@@ -111,18 +133,31 @@
     height: 100%;
     right: -100%;
   }
+
+  .sequence-dashboard {
+    width: 100%;
+    height: 100%;
+    right: -100%;
+  }
+
   .sidebar-contact .toggle {
-    top: 20%;
+    top: 15.5%;
     transition: 0.5s;
   }
   .sequence-dashboard .toggle {
-    top: 80%;
+    top: 30.0%;
     transition: 0.5s;
   }
-  .sidebar-contact.active .toggle {
-    top: 10%;
+
+  .sequence-dashboard.active .toggle {
+    top: 8.5%;
     right: 0;
-    left: 87% !important;
+    left: 85.5% !important;
+  }
+  .sidebar-contact.active .toggle {
+    top: 8.5%;
+    right: 0;
+    left: 85.5% !important;
     /* transform: translatex(0); */
   }
   .scroll {
@@ -136,16 +171,21 @@
 }
 @media (max-width: 480px) {
   .sidebar-contact.active .toggle {
-    top: 15%;
+    top: 5%;
     left: 80% !important;
   }
-  /* .sidebar-contact .toggle {
-    top: 40%;
+  .sidebar-contact .toggle {
+    top: 15%;
     transition: 0.5s;
-  } */
+  }
    .sequence-dashboard .toggle {
-    top: 80%;
-    transition: 0.5s;
+    top: 30%;
+    /* transition: 0.5s; */
+  }
+  .sequence-dashboard.active .toggle {
+    top: 7%;
+    left: 81% !important;
+    /* transition: 0.5s; */
   }
 }
 .feedback_ {

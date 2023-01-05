@@ -141,7 +141,7 @@ const ContactForm = (props) => {
         <h4>Send Message</h4>
         <p>We'd love to hear from you.</p>
         <Row>
-          <Col sm={12} md={6} lg={6}>
+          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
             <Typography>
               <strong>First name * </strong>
             </Typography>
@@ -181,7 +181,7 @@ const ContactForm = (props) => {
               </FormHelperText>
             )}
           </Col>
-          <Col sm={12} md={6} lg={6}>
+          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
             <Typography>
               <strong>Last name *</strong>
             </Typography>
@@ -220,7 +220,7 @@ const ContactForm = (props) => {
               </FormHelperText>
             )}
           </Col>
-          <Col sm={12} md={6} lg={6}>
+          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
             <Typography>
               <strong>Subject</strong>
             </Typography>
@@ -247,7 +247,7 @@ const ContactForm = (props) => {
               </Select>
             </FormControl>
           </Col>
-          <Col sm={12} md={6} lg={6}>
+          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
             <Typography>
               <strong>Email *</strong>
             </Typography>
@@ -345,7 +345,7 @@ const ContactForm = (props) => {
               <FormHelperText error>
                 {`Message should be between 5 to ${messageMaxLen} characters`}
               </FormHelperText>)}
-            <div className={"text-right text-muted"} style={{ marginTop: "-5px" }}>
+            <div className={"text-end text-muted"} style={{ marginTop: "15px" }}>
               {messageCharsLeft}/{messageMaxLen}
             </div>
           </Col>

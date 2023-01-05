@@ -64,7 +64,7 @@ const ListFilterOptionGroup = props => {
         <div className="sidebar-header">
           <h6 className="color-white nowrap d-inline-block">{type.label}</h6>
           <select
-            className="select-dropdown float-right pt-0"
+            className="select-dropdown float-end pt-0"
             value={annotationOperation}
             onChange={event => setAnnotationOperation(event.target.value)}
           >
@@ -78,7 +78,7 @@ const ListFilterOptionGroup = props => {
             sortedOptions.map(option => (
               <li key={option.id}>
                 <FormControlLabel
-                  className="pl-3 mt-0 mb-0 pt-0 pb-0"
+                  className="ps-3 mt-0 mb-0 pt-0 pb-0"
                   control={
                     <BlueCheckbox
                       value={option.id}

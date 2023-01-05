@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ORTHOLOGS_COLUMNS, getOrthologsList } from "../data/usecases";
 import ProteinQuerySummary from "../components/ProteinQuerySummary";
@@ -40,6 +40,7 @@ const OrthologsList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   /**
    * useEffect for retriving data from api and showing page loading effects.
@@ -115,7 +116,7 @@ const OrthologsList = props => {
         "#" +
         quickSearch[searchId].id;
     } else {
-      props.history.push(routeConstants.proteinSearch + id);
+      navigate(routeConstants.proteinSearch + id);
     }
   };
 
@@ -155,28 +156,30 @@ const OrthologsList = props => {
           )}
         </section>
         <section>
-          <DownloadButton
-            types={[
-              {
-                display: stringConstants.download.ortholog_csvdata.displayname,
-                type: "csv",
-                data: "ortholog_list"
-              },
-              {
-                display: stringConstants.download.ortholog_jsondata.displayname,
-                type: "json",
-                data: "ortholog_list"
-              },
-              {
-                display:
-                  stringConstants.download.ortholog_fastadata.displayname,
-                type: "fasta",
-                data: "ortholog_list"
-              }
-            ]}
-            dataId={id}
-            itemType="ortholog"
-          />
+          <div className="text-end">
+            <DownloadButton
+              types={[
+                {
+                  display: stringConstants.download.ortholog_csvdata.displayname,
+                  type: "csv",
+                  data: "ortholog_list"
+                },
+                {
+                  display: stringConstants.download.ortholog_jsondata.displayname,
+                  type: "json",
+                  data: "ortholog_list"
+                },
+                {
+                  display:
+                    stringConstants.download.ortholog_fastadata.displayname,
+                  type: "fasta",
+                  data: "ortholog_list"
+                }
+              ]}
+              dataId={id}
+              itemType="ortholog"
+            />
+          </div>
           {selectedColumns && selectedColumns.length !== 0 && (
             <PaginatedTable
               trStyle={rowStyleFormat}

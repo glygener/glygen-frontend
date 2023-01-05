@@ -219,17 +219,19 @@ const MotifList = props => {
             </Row>
           </div>
 
-          <DownloadButton
-            types={[
-              {
-                display: stringConstants.download.motif_jsondata.displayname,
-                type: "json",
-                data: "motif_list"
-              }
-            ]}
-            dataId={""}
-            dataType="motif_list"
-          />
+          <div className="text-end">
+            <DownloadButton
+              types={[
+                {
+                  display: stringConstants.download.motif_jsondata.displayname,
+                  type: "json",
+                  data: "motif_list"
+                }
+              ]}
+              dataId={""}
+              dataType="motif_list"
+            />
+          </div>
 
           {motifListColumns && motifListColumns.length !== 0 && (
             <PaginatedTable

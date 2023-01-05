@@ -104,7 +104,7 @@ const GlobalSearchResult = (props) => {
 					<Grid
 						container
 						style={{ margin: '0  auto' }}
-						justify='center'>
+						justifyContent='center'>
 							<Grid item md={4}>
 								{globalSearchData.other_matches && <GlobalSearchCard
 									cardTitle="Glycan(s)"

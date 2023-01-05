@@ -9,6 +9,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
 import GlobalSearchControl from "../search/GlobalSearchControl";
 import UserTrackingBanner from "../alert/UserTrackingBanner";
@@ -54,9 +55,9 @@ export default function Header(props) {
             : {}
         }
       >
-        <Container maxWidth="xl">
-          <Row className="text-end">
-            <div className="text-end">
+        <Container maxWidth={false}>
+          <Row className="justify-content-end text-end">
+            <div className="navbar-item text-end">
               <span className="me-4">
                 <Link to={routeConstants.privacySettings} className="gg-link">
                   <span>
@@ -75,6 +76,8 @@ export default function Header(props) {
                   </a>{" "}
                 </span>
               )}
+            </div>
+            <div className="navbar-item text-end">
               <span>
                 <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <TwitterIcon className="me-3" />
@@ -92,7 +95,7 @@ export default function Header(props) {
                   <PinterestIcon className="me-3" />
                 </a>
               </span>
-            </div>
+           </div>
           </Row>
         </Container>
       </Navbar>
@@ -104,7 +107,7 @@ export default function Header(props) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
         <Navbar.Collapse className="gg-blue" id="basic-navbar-nav">
-          <Col xs={12} sm={12} md={12} lg={12} xl={8} className="mr-3">
+          <Col xs={12} sm={12} md={12} lg={12} xl={8} className="me-5">
             <Nav>
               <Nav.Link className="gg-nav-link" as={NavLink} to={routeConstants.home}>
                 HOME
@@ -241,7 +244,7 @@ export default function Header(props) {
               </NavDropdown>
             </Nav>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={12} xl={4}>
+          <Col xs={12} sm={12} md={12} lg={12} xl={3}>
             <GlobalSearchControl />
           </Col>
         </Navbar.Collapse>

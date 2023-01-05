@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getProteinList } from "../data";
 import { PROTEIN_COLUMNS, getUserSelectedColumns } from "../data/protein";
@@ -42,6 +42,7 @@ const ProteinList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.protein.common.unmapped;
 
@@ -166,7 +167,7 @@ const ProteinList = props => {
     if (searchId === "gs") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId === "sups") {
-      props.history.push(routeConstants.superSearch + id);
+      navigate(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
@@ -178,7 +179,7 @@ const ProteinList = props => {
         "#" +
         quickSearch[searchId].id;
     } else {
-      props.history.push(routeConstants.proteinSearch + id);
+      navigate(routeConstants.proteinSearch + id);
     }
   };
 
@@ -271,30 +272,32 @@ const ProteinList = props => {
               )}
             </section>
             <section>
-              <DownloadButton
-                types={[
-                  {
-                    display:
-                      stringConstants.download.protein_csvdata.displayname,
-                    type: "csv",
-                    data: "protein_list"
-                  },
-                  {
-                    display:
-                      stringConstants.download.protein_jsondata.displayname,
-                    type: "json",
-                    data: "protein_list"
-                  },
-                  {
-                    display:
-                      stringConstants.download.protein_fastadata.displayname,
-                    type: "fasta",
-                    data: "protein_list"
-                  }
-                ]}
-                dataId={id}
-                itemType="protein"
-              />
+              <div className="text-end">
+                <DownloadButton
+                  types={[
+                    {
+                      display:
+                        stringConstants.download.protein_csvdata.displayname,
+                      type: "csv",
+                      data: "protein_list"
+                    },
+                    {
+                      display:
+                        stringConstants.download.protein_jsondata.displayname,
+                      type: "json",
+                      data: "protein_list"
+                    },
+                    {
+                      display:
+                        stringConstants.download.protein_fastadata.displayname,
+                      type: "fasta",
+                      data: "protein_list"
+                    }
+                  ]}
+                  dataId={id}
+                  itemType="protein"
+                />
+              </div>
               {data && (
                 <PaginatedTable
                   trStyle={rowStyleFormat}

@@ -81,7 +81,7 @@ const DownloadButton = (props) => {
           }}
         >
           <GetAppIcon /> DOWNLOAD
-          <span className="caret mr-1"></span>
+          <span className="caret me-1"></span>
         </button>
       </Link>
       {show && (
@@ -124,7 +124,7 @@ const DownloadButton = (props) => {
                         xs={9}
                         sm={9}
                         // align="right !important"
-                        className="text-right"
+                        className="text-end"
                       >
                         <SelectControl
                           fullWidth

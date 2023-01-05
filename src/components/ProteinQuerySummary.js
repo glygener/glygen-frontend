@@ -402,7 +402,7 @@ const ProteinQuerySummary = (props) => {
           <div className="pb-3 pt-3">
             <Button
               type="button"
-              className="gg-btn-outline mr-4"
+              className="gg-btn-outline me-4"
               onClick={() => {
                 window.location.reload();
               }}

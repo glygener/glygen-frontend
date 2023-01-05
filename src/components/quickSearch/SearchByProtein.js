@@ -59,7 +59,7 @@ const SearchByProtein = props => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6} className="quick-search-control">
+                    <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
                         <Typography className="qs-search-lbl" gutterBottom>
                           {searchByProtein.common.label}
@@ -128,7 +128,7 @@ const SearchByProtein = props => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6} className="quick-search-control">
+                    <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
                         <Typography className="qs-search-lbl" gutterBottom>
                           {searchByProtein.common.label}
@@ -197,7 +197,7 @@ const SearchByProtein = props => {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6} className="quick-search-control">
+                    <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
                         <Typography className="qs-search-lbl" gutterBottom>
                           {searchByProtein.question_6.label}
@@ -257,7 +257,7 @@ const SearchByProtein = props => {
               <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_7.length <= searchByProtein.common.length) props.searchQuestion7()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
-                    <Grid item xs={12} sm={6} className="quick-search-control">
+                    <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
                         <Typography className="qs-search-lbl" gutterBottom>
                           {searchByProtein.common.label}

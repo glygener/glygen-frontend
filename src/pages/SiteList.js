@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getSuperSearchList, getSiteSearchInit } from "../data/supersearch";
 import SitequerySummary from "../components/SitequerySummary";
@@ -54,6 +54,7 @@ const SiteList = (props) => {
   );
 
   const [configData, setConfigData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPageLoading(true);
@@ -184,9 +185,9 @@ const SiteList = (props) => {
 
   const handleModifySearch = () => {
     if (searchId === "sups") {
-      props.history.push(routeConstants.superSearch + id);
+      navigate(routeConstants.superSearch + id);
     } else {
-      props.history.push(routeConstants.siteSearch + id);
+      navigate(routeConstants.siteSearch + id);
     }
   };
 
@@ -385,24 +386,26 @@ const SiteList = (props) => {
               )}
             </section>
             <section>
-              <DownloadButton
-                types={[
-                  {
-                    display:
-                      stringConstants.download.proteinsite_csvdata.displayname,
-                    type: "csv",
-                    data: "site_list",
-                  },
-                  {
-                    display:
-                      stringConstants.download.proteinsite_jsondata.displayname,
-                    type: "json",
-                    data: "site_list",
-                  },
-                ]}
-                dataId={id}
-                itemType="site"
-              />
+              <div className="text-end">
+                <DownloadButton
+                  types={[
+                    {
+                      display:
+                        stringConstants.download.proteinsite_csvdata.displayname,
+                      type: "csv",
+                      data: "site_list",
+                    },
+                    {
+                      display:
+                        stringConstants.download.proteinsite_jsondata.displayname,
+                      type: "json",
+                      data: "site_list",
+                    },
+                  ]}
+                  dataId={id}
+                  itemType="site"
+                />
+              </div>
               {/* {data && data.length !== 0 && ( */}
               {data  && (
                 <PaginatedTable

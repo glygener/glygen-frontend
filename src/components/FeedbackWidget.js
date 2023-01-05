@@ -11,7 +11,9 @@ import { AiFillBug } from "react-icons/ai";
 import { postTo } from "../data/api";
 import { validateEmail, replaceSpecialCharacters } from "../utils/common";
 import { Typography } from "@mui/material";
+import OutlinedInput from '@mui/material/OutlinedInput';
 import CloseIcon from "@mui/icons-material/Close";
+import FormHelperText from '@mui/material/FormHelperText';
 
 const FeedbackWidget = (props) => {
   const { defaultSubject = "Suggestion" } = props;
@@ -195,13 +197,13 @@ const FeedbackWidget = (props) => {
                   <Typography>
                     <strong>Message *</strong>
                   </Typography>
-                  <TextField
+                  <OutlinedInput
                     id="outlined-full-width"
                     required
                     name="message"
                     value={message}
                     type="text"
-                    style={{ margin: "5px 0 15px 0" }}
+                    style={{ margin: "5px 0 0 0" }}
                     placeholder="Your Feedback."
                     error={
                       (formValidated || messageValidated) &&
@@ -214,12 +216,12 @@ const FeedbackWidget = (props) => {
                       handleWordCount(e);
                     }}
                     onBlur={() => setMessageValidated(true)}
-                    helperText={
-                      (formValidated || messageValidated) &&
-                      ((message.trim() === "" && "Please leave us a message.") ||
-                        ((message.length < 5 || message.length > messageMaxLen) &&
-                          `Message should be between 5 to ${messageMaxLen} characters`))
-                    }
+                    // helperText={
+                    //   (formValidated || messageValidated) &&
+                    //   ((message.trim() === "" && "Please leave us a message.") ||
+                    //     ((message.length < 5 || message.length > messageMaxLen) &&
+                    //       `Message should be between 5 to ${messageMaxLen} characters`))
+                    // }
                     fullWidth
                     multiline
                     rows="3"
@@ -235,21 +237,32 @@ const FeedbackWidget = (props) => {
                       {`Message should be between 5 to ${messageMaxLen} characters`}
                     </FormHelperText>
                   )} */}
-                  <div className={"text-right text-muted"} style={{ marginTop: "-5px" }}>
+                {(formValidated || messageValidated) && (message === "") && (
+                  <FormHelperText error>
+                    {"Please leave us a message."}
+                  </FormHelperText>)}
+                {(formValidated || messageValidated) && (message !== "") && (message.length < 5 || message.length > messageMaxLen) && (
+                  <FormHelperText error>
+                    {`Message should be between 5 to ${messageMaxLen} characters`}
+                  </FormHelperText>)}
+                  <div className={"text-end text-muted"} style={{ marginTop: "15px" }}>
                     {messageCharsLeft}/{messageMaxLen}
                   </div>
                 </Col>
 
-                <Col sm={12} md={12} lg={12}>
+                <Col sm={12} md={12} lg={12} style={{ marginBottom: "15px" }}>
                   <Typography>
                     <strong>Name * </strong>
                   </Typography>
-                  <TextField
+                  <OutlinedInput
                     id="outlined-full-width"
                     required
                     type="text"
                     name="fname"
                     value={fname}
+                    classes={{
+                      input: 'input-auto',
+                    }}
                     placeholder="Your Name (will not be published)"
                     error={(formValidated || fNameValidated) && fname.trim() === ""}
                     onChange={(e) => {
@@ -258,11 +271,11 @@ const FeedbackWidget = (props) => {
                       setContactUsErrorMessage();
                     }}
                     onBlur={() => setFNameValidated(true)}
-                    helperText={
-                      (formValidated || fNameValidated) && fname.trim() === "" && "Name is required."
-                    }
+                    // helperText={
+                    //   (formValidated || fNameValidated) && fname.trim() === "" && "Name is required."
+                    // }
                     onInput={(e) => onlyText(e)}
-                    style={{ margin: "5px 0 15px 0" }}
+                    style={{ margin: "5px 0 0 0" }}
                     fullWidth
                     margin="dense"
                     variant="outlined"
@@ -270,19 +283,27 @@ const FeedbackWidget = (props) => {
                       maxLength: 64,
                     }}
                   />
+                {(formValidated || fNameValidated) && (fname.trim() === "") && (
+                  <FormHelperText error>
+                    {"Name is required."}
+                  </FormHelperText>
+                )}
                 </Col>
 
-                <Col sm={12} md={12} lg={12}>
+                <Col sm={12} md={12} lg={12} style={{ marginBottom: "15px" }}>
                   <Typography>
                     <strong>Email *</strong>
                   </Typography>
-                  <TextField
+                  <OutlinedInput
                     id="email"
                     required
                     type="email"
                     name="email"
                     value={email}
-                    style={{ margin: "5px 0 15px 0" }}
+                    style={{ margin: "5px 0 0 0" }}
+                    classes={{
+                      input: 'input-auto',
+                    }}
                     placeholder="Your Email (will not be published)"
                     error={(formValidated || emailValidated) && !validEmail}
                     onChange={(e) => {
@@ -293,11 +314,11 @@ const FeedbackWidget = (props) => {
                       setContactUsErrorMessage();
                     }}
                     onBlur={() => setEmailValidated(true)}
-                    helperText={
-                      (formValidated || emailValidated) &&
-                      !validEmail &&
-                      "Please enter a valid email."
-                    }
+                    // helperText={
+                    //   (formValidated || emailValidated) &&
+                    //   !validEmail &&
+                    //   "Please enter a valid email."
+                    // }
                     fullWidth
                     margin="dense"
                     variant="outlined"
@@ -305,6 +326,11 @@ const FeedbackWidget = (props) => {
                       maxLength: 128,
                     }}
                   />
+                  {(formValidated || emailValidated) && !validEmail && (
+                    <FormHelperText error>
+                      {"Please enter a valid email."}
+                    </FormHelperText>
+                  )}
                 </Col>
               </Row>
 

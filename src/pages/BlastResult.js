@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getJobResultList } from "../data/job.js"
 import PaginatedTable from "../components/PaginatedTable";
@@ -59,6 +59,7 @@ const BlastResult = (props) => {
   const [currentSort, setCurrentSort] = useState("evalue");
   const [currentSortOrder, setCurrentSortOrder] = useState("asc");
   const [sizePerPage, setSizePerPage] = useState(20);
+  const navigate = useNavigate();
 
   const handleTableChange = (
     type,
@@ -132,7 +133,7 @@ const BlastResult = (props) => {
 
 
   const handleModifySearch = () => {
-    props.history.push(routeConstants.blastSearch + jobId);
+    navigate(routeConstants.blastSearch + jobId);
   };
 
     /**
@@ -157,7 +158,7 @@ const BlastResult = (props) => {
           </Link>
         </LineTooltip>
         <LineTooltip text="See alignment">
-          <Button type="button" className="gg-btn-blue ml-3" onClick={() => {setProteinID(value); setBlstActTabKey("Alignments")}}>
+          <Button type="button" className="gg-btn-blue ms-3" onClick={() => {setProteinID(value); setBlstActTabKey("Alignments")}}>
               <Image
                   src={doubleArraowIcon}
                   style={{ width: "15px", height: "15px"}}

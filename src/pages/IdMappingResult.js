@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getMappingList } from "../data/mapping";
 import PaginatedTable from "../components/PaginatedTable";
@@ -45,6 +45,7 @@ const IdMappingResult = (props) => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPageLoading(true);
@@ -157,7 +158,7 @@ const IdMappingResult = (props) => {
   }
 
   const handleModifySearch = () => {
-    props.history.push(routeConstants.idMapping + id);
+    navigate(routeConstants.idMapping + id);
   };
 
   const idMapResultColumns = [
@@ -261,30 +262,32 @@ const IdMappingResult = (props) => {
           )}
         </section>
 
-        <DownloadAllButton
-          types={[
-            {
-              display: stringConstants.download.idmapping_list_all_csvdata.displayname,
-              type: "csv",
-              data: "idmapping_list_all",
-            },
-          ]}
-          dataId={id}
-          itemType="idMappingAll"
-        />
+        <div className="text-end">
+          <DownloadAllButton
+            types={[
+              {
+                display: stringConstants.download.idmapping_list_all_csvdata.displayname,
+                type: "csv",
+                data: "idmapping_list_all",
+              },
+            ]}
+            dataId={id}
+            itemType="idMappingAll"
+          />
 
-        <div id="Mapped-Table"></div>
-        <DownloadButton
-          types={[
-            {
-              display: stringConstants.download.idmapping_mapped_csvdata.displayname,
-              type: "csv",
-              data: "idmapping_list_mapped",
-            },
-          ]}
-          dataId={id}
-          itemType="idMappingMapped"
-        />
+          <div id="Mapped-Table"></div>
+          <DownloadButton
+            types={[
+              {
+                display: stringConstants.download.idmapping_mapped_csvdata.displayname,
+                type: "csv",
+                data: "idmapping_list_mapped",
+              },
+            ]}
+            dataId={id}
+            itemType="idMappingMapped"
+          />
+        </div>
 
         <section>
           {/* Mapped Table */}
@@ -304,7 +307,7 @@ const IdMappingResult = (props) => {
           )}
 
           {/* Button */}
-          <div className="text-right" style={{ marginTop: "48px" }}>
+          <div className="text-end" style={{ marginTop: "48px" }}>
             <Button type="button" className="gg-btn-blue" onClick={handleModifySearch}>
               Modify Request
             </Button>
@@ -315,17 +318,19 @@ const IdMappingResult = (props) => {
           <h1 className="page-heading">{idMappingData.pageTitleIdMapReason}</h1>
         </div>
         <section>
-          <DownloadButton
-            types={[
-              {
-                display: stringConstants.download.idmapping_unmapped_csvdata.displayname,
-                type: "csv",
-                data: "idmapping_list_unmapped",
-              },
-            ]}
-            dataId={id}
-            itemType="idMappingUnmapped"
-          />
+          <div className="text-end">
+            <DownloadButton
+              types={[
+                {
+                  display: stringConstants.download.idmapping_unmapped_csvdata.displayname,
+                  type: "csv",
+                  data: "idmapping_list_unmapped",
+                },
+              ]}
+              dataId={id}
+              itemType="idMappingUnmapped"
+            />
+          </div>
         </section>
         <section>
           {/* Unmapped Table */}
@@ -344,7 +349,7 @@ const IdMappingResult = (props) => {
             />
           )}
           {/* Button */}
-          <div className="text-right" style={{ marginTop: "48px" }}>
+          <div className="text-end" style={{ marginTop: "48px" }}>
             <Button type="button" className="gg-btn-blue" onClick={handleModifySearch}>
               Modify Request
             </Button>

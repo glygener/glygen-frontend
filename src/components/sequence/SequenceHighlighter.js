@@ -10,7 +10,7 @@ import "../../css/proteinsequence.css";
  */
 const HiglightSelecter = ({ count = 0, selectedHighlights, type, label, onSelect, className, showNumbers }) => {
   return (
-    <label>
+    <label style={{marginBottom: "0.5rem"}}>
       <input
         type="checkbox"
         name="checkbox"
@@ -31,7 +31,7 @@ const HiglightSelecter = ({ count = 0, selectedHighlights, type, label, onSelect
  */
 const HiglightInput = ({ selectedHighlights, type, label, onSelect, className, input, onInput }) => {
   return (
-    <label>
+    <label style={{marginBottom: "0.5rem"}}>
       <input
         type="checkbox"
         name="checkbox"

@@ -22,7 +22,7 @@ const SequenceDashboard = (props) => {
     <form autoComplete="off" className="form">
       <div
         className={
-          "sidebar-contact feedback_ protvistaicon sequence-dashboard" + (isOpen ? " active" : "")
+          " feedback_ protvistaicon sequence-dashboard" + (isOpen ? " active" : "")
         }
       >
         <Row>

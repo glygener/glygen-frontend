@@ -1262,3 +1262,14 @@ sub {
 /* .table-height::-webkit-scrollbar-thumb:hover {
   background: #609fd3;
 } */
+
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+
+.navbar-item {
+  width: -moz-fit-content;
+  width: fit-content !important;
+  padding: 0 !important;
+}

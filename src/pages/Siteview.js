@@ -1430,7 +1430,7 @@ const Siteview = props => {
                 </Card>
               </Accordion>
               {/* back button */}
-              {/* {history && history.length > 1 && ( */}
+              {window.history && window.history.length > 1 && (
                 <div className="text-end gg-download-btn-width pb-3">
                   <Link to={`${routeConstants.proteinDetail}${id}`}>
                     <Button type="button" className="gg-btn-blue me-3">
@@ -1447,7 +1447,7 @@ const Siteview = props => {
                     Back
                   </Button>
                 </div>
-              {/* )} */}
+              )}
             </React.Fragment>
           </div>
         </Col>

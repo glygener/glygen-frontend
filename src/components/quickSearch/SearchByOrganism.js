@@ -74,7 +74,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} className="quick-search-control">
+                  <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
                         {searchByOrganism.common.label}
@@ -149,7 +149,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} className="quick-search-control">
+                  <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
                         {searchByOrganism.common.label}
@@ -224,7 +224,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} className="quick-search-control">
+                  <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
                         {searchByOrganism.common.label}
