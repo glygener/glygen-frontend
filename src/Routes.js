@@ -83,7 +83,7 @@ const Routes = (props) => (
     <Route path={routeConstants.disclaimer} element={<Disclaimer/>} />
     <Route path={routeConstants.privacyPolicy} element={<PrivacyPolicy/>} />
     <Route path={routeConstants.license} element={<License/>} />
-    <Route path={routeConstants.privacySettings} element={() => <PrivacySettings {...props} />} />
+    <Route path={routeConstants.privacySettings} element={<PrivacySettings {...props}/>} />
     <Route path={routeConstants.feedback} element={<Feedback/>} />
     <Route path={routeConstants.tryMe} element={<TryMe/>} />
     <Route path={routeConstants.about} element={<About/>} />
