@@ -1274,6 +1274,7 @@ sub {
   padding: 0 !important;
 }
 
+/* Added to make table visible (list page) when browser window is resized. */
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
