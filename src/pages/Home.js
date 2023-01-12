@@ -205,7 +205,7 @@ export default function Home() {
       <MainFeaturedCard post={mainFeaturedCard} />
       <Container maxWidth="xl" className="gg-container" style={{ width: "97%" }}>
         <EventAlerts data={homeData.events} pageLoading={pageLoading} />
-        <Row className="show-grid">
+        <div className="show-grid">
           <Grid container spacing={4}>
             <Grid item xs={12} md={8} lg={9}>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
@@ -228,7 +228,7 @@ export default function Home() {
               </Grid>
             </Grid>
           </Grid>
-        </Row>
+        </div>
       </Container>
     </React.Fragment>
   );

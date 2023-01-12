@@ -1282,3 +1282,10 @@ sub {
   width: 100%;
   overflow-x: auto;
 }
+
+.grid-item{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 !important;
+    margin: 0 !important;
+}

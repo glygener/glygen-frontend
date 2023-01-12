@@ -37,29 +37,33 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
     let proData = algnData[proteinID];
 
     let newData = [];
-    for (let i = 0; i < proData.hsp_list.length; i++) {
-      let data = proData.hsp_list[i].sequences.find((seq => seq.uniprot_ac === proteinID));
-      newData.push({
-        sequences: proData.hsp_list[i].sequences.filter((seq => seq.id !== "matches")).map((seq) => ({
-          ...seq,
-          clickThruUrl: seq.uniprot_ac === ""
-            ? undefined
-            : `${basename}${routeConstants.proteinDetail}${seq.id}`,
-           uniprot_ac : seq.uniprot_ac === "" ? seq.id + " " + (i + 1) : seq.uniprot_ac,
-           offset: seq.start_pos ? parseInt(seq.start_pos) - 1 : 0,
-        })),
-        start_pos: data.start_pos,
-        end_pos: data.end_pos,
-        protein_name: proData.details.protein_name,
-        evalue: proData.hsp_list[i].evalue,
-        score: proData.hsp_list[i].score,
-        positives: proData.hsp_list[i].positives,
-        identities: proData.hsp_list[i].identities,
-        gaps: proData.hsp_list[i].gaps,
-        method: proData.hsp_list[i].method,
-        uniprot_canonical_ac: proteinID,
-        consensus: proData.hsp_list[i].sequences.find(seq => seq.id === "matches").aln
-      });
+    if (proData && proData.hsp_list) {
+      for (let i = 0; i < proData.hsp_list.length; i++) {
+        let data = proData.hsp_list[i].sequences.find((seq => seq.uniprot_ac === proteinID));
+        newData.push({
+          sequences: proData.hsp_list[i].sequences.filter((seq => seq.id !== "matches")).map((seq) => ({
+            ...seq,
+            clickThruUrl: seq.uniprot_ac === ""
+              ? undefined
+              : `${basename}${routeConstants.proteinDetail}${seq.id}`,
+            uniprot_ac : seq.uniprot_ac === "" ? seq.id + " " + (i + 1) : seq.uniprot_ac,
+            offset: seq.start_pos ? parseInt(seq.start_pos) - 1 : 0,
+          })),
+          start_pos: data.start_pos,
+          end_pos: data.end_pos,
+          protein_name: proData.details.protein_name,
+          evalue: proData.hsp_list[i].evalue,
+          score: proData.hsp_list[i].score,
+          positives: proData.hsp_list[i].positives,
+          identities: proData.hsp_list[i].identities,
+          gaps: proData.hsp_list[i].gaps,
+          method: proData.hsp_list[i].method,
+          uniprot_canonical_ac: proteinID,
+          consensus: proData.hsp_list[i].sequences.find(seq => seq.id === "matches").aln
+        });
+      }
+    } else {
+      return;
     }
       proData.details.uniprot_canonical_ac = proteinID;
 

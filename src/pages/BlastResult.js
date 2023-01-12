@@ -42,7 +42,7 @@ const BlastResult = (props) => {
   let { jobId } = useParams();
   const [subjectData, setSubjectData] = useState({});
   const [query, setQuery] = useState({});
-  const [text, setText] = useState({});
+  const [text, setText] = useState("");
   const [timestamp, setTimeStamp] = useState();
   const [proteinID, setProteinID] = useState("");
   const [blstActTabKey, setBlstActTabKey] = useState('Result');
