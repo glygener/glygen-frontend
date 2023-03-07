@@ -24,7 +24,7 @@ import {
   GLYGEN_SANDBOX,
   GLYCAN_SEQ_LOOKUP,
   GRANT_DETAILS,
-  GLYCOSCIENCE,
+  NIGMS,
   CCRC_UGA,
   SMHS_GWU,
   TWITTER,
@@ -234,12 +234,12 @@ export default function Footer() {
                   <Navbar.Text className={classes.navbarText}>
                     GlyGen is supported and funded by the{" "}
                     <a
-                      href={GLYCOSCIENCE}
+                      href={NIGMS}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={classes.link}
                     >
-                      NIH Glycoscience Common Fund{" "}
+                      National Institue of General Medical Sciences{" "}
                     </a>
                     under the grant #{" "}
                     <a
@@ -248,7 +248,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className={classes.link}
                     >
-                      1U01GM125267&nbsp;-&nbsp;01
+                      1R24GM146616&nbsp;-&nbsp;01
                     </a>
                   </Navbar.Text>
                 </Box>

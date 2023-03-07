@@ -32,6 +32,7 @@ import {
   GITHUB,
   WIKI,
   PINTEREST,
+  GLYGEN_GSD
 } from "../../envVariables";
 
 export default function Header(props) {
@@ -194,6 +195,9 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
+                  Glycan Structure Dictionary
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown

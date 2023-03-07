@@ -409,7 +409,7 @@ const GlycanSearch = (props) => {
 		setPageLoading(true);
 		logActivity();
 		document.addEventListener('click', () => {
-			setAlertTextInput({"show": false, "id": "", message: ""});
+			setAlertTextInput({"show": false, "id": "", message: "", custom: ""});
 		});
 		var qryObjOut = {
 			logMessage : "",

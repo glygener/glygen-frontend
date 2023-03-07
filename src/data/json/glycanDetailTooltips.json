@@ -30,6 +30,12 @@
       "title": "Organism",
       "url": "https://wiki.glygen.org/index.php/Glycan_details/Organism"
     },
+    "viewer": {
+      "urlText": "Read more...",
+      "text": "This section provides a 3D view of Glycan.",
+      "title": "3D View",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/Viewer"
+    },
     "glycan_binding_protein": {
       "urlText": "Read more...",
       "text": "The Glycan Binding Protein section provides a list of proteins that bind the glycan.",

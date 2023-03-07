@@ -38,33 +38,9 @@ const UnivLogos = (props) => {
                 alt="georgetown university logo"
               />
             </div>
-            {/* University 04 */}
-            <div>
-              <Image
-                src={harvardImg}
-                className="univ-logo img-fluid"
-                alt="harvard university logo"
-              />
-            </div>
             {/* University 05 */}
             <div>
               <Image src={ncbiImg} className="univ-logo img-fluid" alt="ncbi logo" />
-            </div>
-            {/* University 06 */}
-            <div>
-              <Image
-                src={griffithImg}
-                className="univ-logo img-fluid"
-                alt="griffith university logo"
-              />
-            </div>
-            {/* University 07  */}
-            <div>
-              <Image
-                src={imperialImg}
-                className="univ-logo img-fluid"
-                alt="imperial university logo"
-              />
             </div>
             {/* University 08  */}
             <div>
@@ -84,14 +60,6 @@ const UnivLogos = (props) => {
                 src={delawareImg}
                 className="univ-logo img-fluid"
                 alt="delaware university logo"
-              />
-            </div>
-            {/* University 12 */}
-            <div>
-              <Image
-                src={macquarieImg}
-                className="univ-logo img-fluid"
-                alt="macquarie university logo"
               />
             </div>
             {/* University 13*/}

@@ -14,7 +14,7 @@ export const getMappingInit = () => {
 // Takes selections and inputs in search page and performs search on submit btn
 export const getMappingSearch = (formObject) => {
   // var json = "query=" + JSON.stringify(formObject);
-  const url = "/idmapping/search"; //+ json;
+  const url = "/idmapping/search/"; //+ json;
   return postFormDataTo(url, formObject);
 };
 

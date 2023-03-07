@@ -40,7 +40,7 @@ export default function GlobalSearchControl(props) {
   const globalSearchStart = (event) => {
     event.preventDefault();
     logActivity("user", globalSearchTerm, "Performing Global Search").finally(() => {
-      window.location = routeConstants.globalSearchResult + encodeURIComponent(globalSearchTerm.substring(0, 100));
+      window.location = routeConstants.globalSearchResult + encodeURIComponent(globalSearchTerm);
     });    
   };
 

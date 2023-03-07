@@ -27,6 +27,7 @@
     "jss-preset-default": "^10.9.2",
     "jss-rtl": "^0.3.0",
     "match-sorter": "^6.3.1",
+    "molstar": "^3.28.0",
     "protvista-manager": "^3.4.0",
     "protvista-navigation": "^3.5.1",
     "protvista-sequence": "^3.5.1",

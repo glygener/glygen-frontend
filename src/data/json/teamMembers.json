@@ -3,16 +3,6 @@
 		"heading": "Principal Investigators",
 		"people": [
 			{
-				"name": "William York",
-				"position": "Principal Investigator",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Will-York.png",
-				"imageText": "William York image",
-				"url": "https://ccrc.uga.edu/team/william-york/"
-			},
-			{
 				"name": "Raja Mazumder",
 				"position": "Principal Investigator",
 				"department": "",
@@ -35,28 +25,8 @@
 		]
 	},
 	"advocates": {
-		"heading": "Advocates",
+		"heading": "Advisors",
 		"people": [
-			{
-				"name": "Michael Pierce",
-				"position": "",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Michael-Pierce.png",
-				"imageText": "Michael Pierce image",
-				"url": "https://ccrc.uga.edu/team/michael-pierce/"
-			},
-			{
-				"name": "Radoslav Goldman",
-				"position": "",
-				"department": "",
-				"institution": "The Georgetown University",
-				"location": "Washington, DC",
-				"image": "/team/Radoslav-Goldman.png",
-				"imageText": "Radoslav Goldman image",
-				"url": "https://gufaculty360.georgetown.edu/s/contact/00336000014RxSNAA0/radoslav-goldman?netid=rg26"
-			},
 			{
 				"name": "Lynn Schriml",
 				"position": "",
@@ -68,16 +38,6 @@
 				"url": "https://www.medschool.umaryland.edu/profiles/Schriml-Lynn/"
 			},
 			{
-				"name": "Nicolle Packer",
-				"position": "",
-				"department": "Department of Molecular Sciences",
-				"institution": "The Macquarie University",
-				"location": "Sydney, Australia",
-				"image": "/team/Nicolle-Packer.png",
-				"imageText": "Nicolle Packer image",
-				"url": "https://researchers.mq.edu.au/en/persons/nicki-packer"
-			},
-			{
 				"name": "Michael Cherry",
 				"position": "",
 				"department": "Cherry Lab",
@@ -86,6 +46,17 @@
 				"image": "/team/Michael-Cherry.jpg",
 				"imageText": "Michael-Cherry image",
 				"url": "https://cherrylab.stanford.edu/"
+			},
+			{
+				"name": "Rebekah Gundry",
+				"position": "",
+				"department": "Gundry Lab",
+				"institution": "University of Nebraska Medical Center",
+				"location": "Omaha, NE",
+				"image": "/team/Rebekah-Gundry.jpeg",
+				"image1": "/team/Michael-Cherry.jpg",
+				"imageText": "Rebekah-Gundry image",
+				"url": "https://www.gundrylab.com/"
 			}
 		]
 	},
@@ -94,6 +65,16 @@
 		"ebiIntegration": {
 			"subheading": "Integration with EBI, SIB and NCBI",
 			"people": [
+				{
+					"name": "Kiyoko Aoki-Kinoshita",
+					"position": "Consultant",
+					"department": "",
+					"institution": "Soka University",
+					"location": "Tokyo, Japan",
+					"image": "/team/Kiyoko-Kinoshita.png",
+					"imageText": "Kiyoko Aoki-Kinoshita image",
+					"url": "https://www.soka.ac.jp/en/faculty-profiles/kiyoko-kinoshita/"
+				},
 				{
 					"name": "Maria Martin",
 					"position": "Team Leader",
@@ -115,18 +96,8 @@
 					"url": "https://www.ebi.ac.uk/about/people/preethi-vasudev"
 				},
 				{
-					"name": "Gareth Owen",
-					"position": "Technical Expert",
-					"department": "Protein Function Development",
-					"institution": "EMBL-EBI",
-					"location": "Hinxton, Cambridgeshire, UK",
-					"image": "/team/Gareth-Owen.jpg",
-					"imageText": "Gareth Owen image",
-					"url": ""
-				},
-				{
 					"name": "Evan Bolton",
-					"position": "",
+					"position": "Consultant",
 					"department": "",
 					"institution": "National Center for Biotechnology Information",
 					"location": "Bethesda, MD",
@@ -135,33 +106,33 @@
 					"url": ""
 				},
 				{
-					"name": "Kim Pruitt",
-					"position": "",
-					"department": "",
-					"institution": "National Center for Biotechnology Information",
-					"location": "Bethesda, MD",
-					"image": "/team/Pic-Female.png",
-					"imageText": "Femail image",
-					"url": ""
-				},
-				{
 					"name": "Frederique Lisacek",
-					"position": "",
+					"position": "Consultant",
 					"department": "",
 					"institution": "Group leader SIB Swiss Institute of Bioinformatics",
 					"location": "Geneva, Switzerland",
 					"image": "/team/Frederique-Lisacek.png",
 					"imageText": "Frederique Lisacek image",
 					"url": "https://www.linkedin.com/in/frederique-lisacek-6028275/"
+				},
+				{
+					"name": "Paul Thiessen",
+					"position": "",
+					"department": "",
+					"institution": "National Center for Biotechnology Information",
+					"location": "Bethesda, MD",
+					"image": "/team/Pic-Male.png",
+					"imageText": "Mail image",
+					"url": ""
 				}
 			]
 		},
 		"dataIntegration": {
-			"subheading": "Tool Development and Data Integration",
+			"subheading": "Software Development and Data Integration",
 			"people": [
 				{
 					"name": "Rene Ranzinger",
-					"position": "Project Software Lead ",
+					"position": "Co-Investigator",
 					"department": "",
 					"institution": "The University of Georgia",
 					"location": "Athens, GA",
@@ -171,7 +142,7 @@
 				},
 				{
 					"name": "Robel Kahsay",
-					"position": "Project Co-Data Lead",
+					"position": "Co-Investigator",
 					"department": "",
 					"institution": "The George Washington University",
 					"location": "Washington, DC",
@@ -190,56 +161,6 @@
 					"url": "https://edwardslab.bmcb.georgetown.edu/"
 				},
 				{
-					"name": "Matthew Campbell",
-					"position": "",
-					"department": "Institute for Glycomics",
-					"institution": "Griffith University",
-					"location": "Gold Coast, Queensland, Australia",
-					"image": "/team/Matthew-Campbell.png",
-					"imageText": "Matthew Campbell image",
-					"url": "https://www.griffith.edu.au/institute-glycomics"
-				},
-				{
-					"name": "Kiyoko Aoki-Kinoshita",
-					"position": "",
-					"department": "",
-					"institution": "Soka University",
-					"location": "Tokyo, Japan",
-					"image": "/team/Kiyoko-Kinoshita.png",
-					"imageText": "Kiyoko Aoki-Kinoshita image",
-					"url": "https://www.soka.ac.jp/en/faculty-profiles/kiyoko-kinoshita/"
-				},
-				{
-					"name": "Darren Natale",
-					"position": "",
-					"department": "",
-					"institution": "The Georgetown University",
-					"location": "Washington, DC",
-					"image": "/team/Darren-Natale.png",
-					"imageText": "Darren Natale image",
-					"url": ""
-				},
-				{
-					"name": "Karen Ross",
-					"position": "",
-					"department": "",
-					"institution": "The Georgetown University",
-					"location": "Washington, DC",
-					"image": "/team/Karen-Ross.png",
-					"imageText": "Karen Ross image",
-					"url": "https://www.linkedin.com/in/karen-ross-671207a3/"
-				},
-				{
-					"name": "Robert Woods",
-					"position": "",
-					"department": "",
-					"institution": "The University of Georgia",
-					"location": "Athens, GA",
-					"image": "/team/Robert-Woods.png",
-					"imageText": "Robert Woods image",
-					"url": "https://ccrc.uga.edu/team/robert-j-woods/"
-				},
-				{
 					"name": "Vijay Shanker",
 					"position": "",
 					"department": "",
@@ -248,137 +169,92 @@
 					"image": "/team/Vijay-Shanker.jpg",
 					"imageText": "Vijay Shanker image",
 					"url": "https://www.cis.udel.edu/people/faculty-profile/?id=213"
-				}
-			]
-		},
-		"arrayDatabase": {
-			"subheading": "Glycan Array Database Partners",
-			"people": [
-				{
-					"name": "Ten Feizi",
-					"position": "",
-					"department": "",
-					"institution": "The Imperial College",
-					"location": "London, UK",
-					"image": "/team/Ten-Feizi.png",
-					"imageText": "Ten Feizi image",
-					"url": "http://www.imperial.ac.uk/people/t.feizi"
 				},
 				{
-					"name": "Yukie Akune",
-					"position": "",
+					"name": "Jeet Vora",
+					"position": "Data Manager and Project Coordinator",
 					"department": "",
-					"institution": "The Imperial College",
-					"location": "London, UK",
-					"image": "/team/Yukie-Akune.jpg",
-					"imageText": "Yukie Akune image",
-					"url": "https://www.imperial.ac.uk/people/y.akune"
+					"institution": "The George Washington University",
+					"location": "Washington, DC",
+					"image": "/team/Jeet-Vora.png",
+					"imageText": "Jeet Vora image",
+					"url": "https://www.linkedin.com/in/jeet-vora/"
 				},
 				{
-					"name": "Richard Cummings",
-					"position": "",
+					"name": "Karina Martinez",
+					"position": "Data Manager",
 					"department": "",
-					"institution": "The Harvard University",
-					"location": "Cambridge, MA",
-					"image": "/team/Richard-Cummings.png",
-					"imageText": "Richard Cummings image",
-					"url": "https://ncfg.hms.harvard.edu/people/richard-d-cummings"
+					"institution": "The George Washington University",
+					"location": "Washington, DC",
+					"image": "/team/Karina-Martinez.jpg",
+					"imageText": "Karina Martinez image",
+					"url": "https://www.linkedin.com/in/karinamartinez2/"
 				},
 				{
-					"name": "Akul Mehta",
-					"position": "",
+					"name": "Sujeet Kulkarni",
+					"position": "Full Stack Developer",
 					"department": "",
-					"institution": "The Harvard University",
-					"location": "Cambridge, MA",
-					"image": "/team/Akul-Mehta.jpg",
-					"imageText": "Akul Mehta image",
-					"url": "https://www.linkedin.com/in/akulmehta/"
+					"institution": "The University of Georgia",
+					"location": "Athens, GA",
+					"image": "/team/Sujeet-Kulkarni.png",
+					"imageText": "Sujeet Kulkarni image",
+					"url": "https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/"
 				},
 				{
-					"name": "Jefferey Gildersleeve",
-					"position": "",
+					"name": "Sena Arpinar",
+					"position": "Backend Developer",
 					"department": "",
-					"institution": "National Center for Biotechnology Information",
-					"location": "Bethesda, MD",
-					"image": "/team/Pic-Male.png",
-					"imageText": "Jefferey Gildersleeve image",
+					"institution": "The University of Georgia",
+					"location": "Athens, GA",
+					"image": "/team/Sena-Arpinar.png",
+					"imageText": "Sena Arpinar image",
 					"url": ""
+				},
+				{
+					"name": "Dorteja Dragovic",
+					"position": "Bioinformatics Programmer",
+					"department": "",
+					"institution": "Georgetown University",
+					"location": "Washington DC",
+					"image": "/team/Dorteja-Dragovic.jpeg",
+					"imageText": "Dorteja Dragovic image",
+					"url": ""
+				},
+				{
+					"name": "Jingyue Wu",
+					"position": "Data Manager",
+					"department": "",
+					"institution": "The George Washington University",
+					"location": "Washington DC",
+					"image": "/team/Jingyue-Wu.jpeg",
+					"imageText": "Jingyue Wu image",
+					"url": "https://www.linkedin.com/in/jingyue-wu-bab4a4195/"
+				},
+				{
+					"name": "Michelle Wesser",
+					"position": "Bioinformatics Programmer",
+					"department": "",
+					"institution": "Georgetown University",
+					"location": "Washington DC",
+					"image": "/team/Michelle-Wesser.jpeg",
+					"imageText": "Michelle Wesser image",
+					"url": ""
+				},
+				{
+					"name": "Mindy Porterfield",
+					"position": "",
+					"department": "",
+					"institution": "The University of Georgia",
+					"location": "Athens, GA",
+					"image": "/team/Mindy-Porterfield.png",
+					"imageText": "Mindy Porterfield image",
+					"url": "https://www.linkedin.com/in/mindyporterfield"
 				}
 			]
 		}
 	},
-	"dataManagement": {
-		"heading": "Data Management Team",
-		"people": [
-			{
-				"name": "Jeet Vora",
-				"position": "",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC",
-				"image": "/team/Jeet-Vora.png",
-				"imageText": "Jeet Vora image",
-				"url": "https://www.linkedin.com/in/jeet-vora/"
-			},
-			{
-				"name": "Karina Martinez",
-				"position": "Senior Research Assistant",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC",
-				"image": "/team/Karina-Martinez.jpg",
-				"imageText": "Karina Martinez image",
-				"url": "https://www.linkedin.com/in/karinamartinez2/"
-			}
-		]
-	},
-	"webDevelopers": {
-		"heading": "Web Developers",
-		"people": [
-			{
-				"name": "Tatiana Williamson",
-				"position": "UI/UX Designer & UI Developer",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Tatiana-Williamson.png",
-				"imageText": "Tatiana Williamson image",
-				"url": "https://www.linkedin.com/in/tatiana-williamson/"
-			},
-			{
-				"name": "Sujeet Kulkarni",
-				"position": "Full Stack Developer",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Sujeet-Kulkarni.png",
-				"imageText": "Sujeet Kulkarni image",
-				"url": "https://www.linkedin.com/in/sujeet-kulkarni-3a1a361a/"
-			},
-			{
-				"name": "Sena Arpinar",
-				"position": "Backend Developer",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Sena-Arpinar.png",
-				"imageText": "Sena Arpinar image",
-				"url": ""
-			},
-			{
-				"name": "Sandeep Nakarakommula",
-				"position": "Full Stack Developer",
-				"department": "",
-				"institution": "The University of Georgia",
-				"location": "Athens, GA",
-				"image": "/team/Sandeep-Nakarakommula.png",
-				"imageText": "Sandeep Nakarakommula image",
-				"url": "https://www.linkedin.com/in/nakaras/"
-			}
-		]
-	},
-	"otherMembers": {
-		"heading": "Other Members",
+	"formerMembers": {
+		"heading": "Former Members",
 		"people": [
 			{
 				"name": "Tianyi Wang",
@@ -386,25 +262,189 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC",
-				"image": "/team/Tianyi-Wang.png",
-				"imageText": "Tianyi Wang image",
-				"url": "https://www.linkedin.com/in/tianyi-wang-3432429a/"
-			}
-		]
-	},
-	"formerMembers": {
-		"heading": "Former Members",
-		"people": [
+				"url": "https://www.linkedin.com/in/tianyi-wang-3432429a/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Ten Feizi",
+				"position": "",
+				"department": "",
+				"institution": "The Imperial College",
+				"location": "London, UK",
+				"url": "http://www.imperial.ac.uk/people/t.feizi",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Yukie Akune",
+				"position": "",
+				"department": "",
+				"institution": "The Imperial College",
+				"location": "London, UK",
+				"url": "https://www.imperial.ac.uk/people/y.akune",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Richard Cummings",
+				"position": "",
+				"department": "",
+				"institution": "The Harvard University",
+				"location": "Cambridge, MA",
+				"url": "https://ncfg.hms.harvard.edu/people/richard-d-cummings",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Akul Mehta",
+				"position": "",
+				"department": "",
+				"institution": "The Harvard University",
+				"location": "Cambridge, MA",
+				"url": "https://www.linkedin.com/in/akulmehta/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Jefferey Gildersleeve",
+				"position": "",
+				"department": "",
+				"institution": "National Center for Biotechnology Information",
+				"location": "Bethesda, MD",
+				"url": "",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Gareth Owen",
+				"position": "Technical Expert",
+				"department": "Protein Function Development",
+				"institution": "EMBL-EBI",
+				"location": "Hinxton, Cambridgeshire, UK",
+				"url": "",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Kim Pruitt",
+				"position": "",
+				"department": "",
+				"institution": "National Center for Biotechnology Information",
+				"location": "Bethesda, MD",
+				"url": "",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Darren Natale",
+				"position": "",
+				"department": "",
+				"institution": "The Georgetown University",
+				"location": "Washington, DC",
+				"url": "",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Karen Ross",
+				"position": "",
+				"department": "",
+				"institution": "The Georgetown University",
+				"location": "Washington, DC",
+				"url": "https://www.linkedin.com/in/karen-ross-671207a3/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Robert Woods",
+				"position": "",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"url": "https://ccrc.uga.edu/team/robert-j-woods/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Matthew Campbell",
+				"position": "",
+				"department": "Institute for Glycomics",
+				"institution": "Griffith University",
+				"location": "Gold Coast, Queensland, Australia",
+				"url": "https://www.griffith.edu.au/institute-glycomics",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Nicolle Packer",
+				"position": "",
+				"department": "Department of Molecular Sciences",
+				"institution": "The Macquarie University",
+				"location": "Sydney, Australia",
+				"url": "https://researchers.mq.edu.au/en/persons/nicki-packer",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Michael Pierce",
+				"position": "",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"url": "https://ccrc.uga.edu/team/michael-pierce/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Radoslav Goldman",
+				"position": "",
+				"department": "",
+				"institution": "The Georgetown University",
+				"location": "Washington, DC",
+				"url": "https://gufaculty360.georgetown.edu/s/contact/00336000014RxSNAA0/radoslav-goldman?netid=rg26",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "William York",
+				"position": "Principal Investigator",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"url": "https://ccrc.uga.edu/team/william-york/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Tatiana Williamson",
+				"position": "UI/UX Designer & UI Developer",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"url": "https://www.linkedin.com/in/tatiana-williamson/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
+			{
+				"name": "Sandeep Nakarakommula",
+				"position": "Full Stack Developer",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"url": "https://www.linkedin.com/in/nakaras/",
+				"dateLeft": "Left project May 2022",
+				"orderID": 202205
+			},
 			{
 				"name": "Vinamra Jain",
 				"position": "Backend Developer",
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Vinamra-Jain.png",
-				"imageText": "Vinamra Jain image",
 				"url": "https://www.linkedin.com/in/vinamra-jain09/",
-				"dateLeft": "Left project March 2019"
+				"dateLeft": "Left project March 2019",
+				"orderID": 201903
 			},
 			{
 				"name": "Leyla Jael Garcia Castro",
@@ -412,10 +452,9 @@
 				"department": "",
 				"institution": "EMBL-EBI",
 				"location": "",
-				"image": "/team/Pic-Female.png",
-				"imageText": "Leyla Jael image",
 				"url": "",
-				"dateLeft": "Left project May 2019"
+				"dateLeft": "Left project May 2019",
+				"orderID": 201905
 			},
 			{
 				"name": "Gaurav Agarwal",
@@ -423,10 +462,9 @@
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Gaurav-Agarwal.png",
-				"imageText": "Gaurav Agarwal image",
 				"url": "https://www.linkedin.com/in/glagarwal/",
-				"dateLeft": "Left project June 2019"
+				"dateLeft": "Left project June 2019",
+				"orderID": 201906
 			},
 			{
 				"name": "Brian Fochtman",
@@ -434,10 +472,9 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC ",
-				"image": "/team/Brian-Fochtman.png",
-				"imageText": "Brian Fochtman image",
 				"url": "",
-				"dateLeft": "Left project June 2019"
+				"dateLeft": "Left project June 2019",
+				"orderID": 201906
 			},
 			{
 				"name": "Reza Mousavi",
@@ -445,10 +482,9 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC ",
-				"image": "/team/Reza-Mousavi.jpg",
-				"imageText": "Reza Mousavi image",
 				"url": "https://scholar.google.com/citations?user=L41RrFcAAAAJ&hl=en",
-				"dateLeft": "Left project July 2019"
+				"dateLeft": "Left project July 2019",
+				"orderID": 201907
 			},
 			{
 				"name": "Xavier Holmes",
@@ -456,21 +492,9 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC ",
-				"image": "/team/Pic-Male.png",
-				"imageText": "Xavier Holmes image",
 				"url": "https://www.linkedin.com/in/xavier-holmes-b579a7173/",
-				"dateLeft": "Left project February 2020"
-			},
-			{
-				"name": "Tyler Stewart",
-				"position": "",
-				"department": "",
-				"institution": "The George Washington University",
-				"location": "Washington, DC ",
-				"image": "/team/Tyler-Stewart.jpeg",
-				"imageText": "Tyler Stewart image",
-				"url": "",
-				"dateLeft": "Left project April 2020"
+				"dateLeft": "Left project February 2020",
+				"orderID": 202002
 			},
 			{
 				"name": "Sanath Bhat",
@@ -478,10 +502,9 @@
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Sanath-Bhat.png",
-				"imageText": "Sanath Bhat image",
 				"url": "https://www.linkedin.com/in/sanathb/",
-				"dateLeft": "Left project April 2020"
+				"dateLeft": "Left project April 2020",
+				"orderID": 202004
 			},
 			{
 				"name": "Judith Blake",
@@ -489,10 +512,9 @@
 				"department": "",
 				"institution": "The Jackson Laboratory",
 				"location": "Bar Harbor, ME",
-				"image": "/team/Judith-Blake.png",
-				"imageText": "Judith Blake image",
 				"url": "https://www.jax.org/research-and-faculty/faculty/judith-blake",
-				"dateLeft": "Left project June 2020"
+				"dateLeft": "Left project June 2020",
+				"orderID": 202006
 			},
 			{
 				"name": "Xiying Ding",
@@ -500,10 +522,9 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC",
-				"image": "/team/Xiying-Ding.jpg",
-				"imageText": "Xiying Ding image",
 				"url": "https://www.linkedin.com/in/xiying-ding-4735751a9/",
-				"dateLeft": "Left project July 2021"
+				"dateLeft": "Left project July 2021",
+				"orderID": 202107
 			},
 			{
 				"name": "Rupali Mahadik",
@@ -511,10 +532,9 @@
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Rupali-Mahadik.png",
-				"imageText": "Rupali Mahadik image",
 				"url": "https://www.linkedin.com/in/rupalimahadik02/",
-				"dateLeft": "Left project August 2021"
+				"dateLeft": "Left project August 2021",
+				"orderID": 202108
 			},
 			{
 				"name": "Rahi Navelkar",
@@ -522,10 +542,9 @@
 				"department": "",
 				"institution": "The George Washington University",
 				"location": "Washington, DC",
-				"image": "/team/Rahi-Navelkar.png",
-				"imageText": "Rahi Navelkar image",
 				"url": "https://www.linkedin.com/in/rahi-navelkar-b24b08131/",
-				"dateLeft": "Left project August 2021"
+				"dateLeft": "Left project August 2021",
+				"orderID": 202108
 			},
 			{
 				"name": "Wenjin Zhang",
@@ -533,20 +552,19 @@
 				"department": "",
 				"institution": "The Georgetown University",
 				"location": "Washington, DC",
-				"image": "/team/Wenjin-Zhang.png",
-				"imageText": "Wenjin Zhang image",
 				"url": "https://www.linkedin.com/in/wenjinzhang/",
-				"dateLeft": "Left project August 2021"
+				"dateLeft": "Left project August 2021",
+				"orderID": 202108
 			},
 			{
 				"name": "Peng Su",
-				"position": "",
+				"position": "Research Assistant",
 				"department": "",
 				"institution": "The University of Delaware",
 				"location": "Newark, DE",
-				"image": "/team/Peng-Su.png",
-				"imageText": "Peng Su image",
-				"url": "https://www.linkedin.com/in/peng-su-5135b5154/"
+				"url": "https://www.linkedin.com/in/peng-su-5135b5154/",
+				"dateLeft": "Left project August 2021",
+				"orderID": 202108
 			}
 		]
 	},

@@ -36,11 +36,12 @@ import Button from "react-bootstrap/Button";
 import stringConstants from "../data/json/stringConstants";
 import { Link } from "react-router-dom";
 import { Alert, AlertTitle } from "@mui/material";
-import { Tab, Tabs, Container } from "react-bootstrap";
+import { Tab, Tabs, Container, NavDropdown, Navbar, Nav } from "react-bootstrap";
 import CollapsableReference from "../components/CollapsableReference";
 import DirectSearch from "../components/search/DirectSearch.js";
 import { getGlycanSearch } from "../data/glycan";
 import CardToggle from "../components/cards/CardToggle";
+import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
 
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
@@ -49,6 +50,7 @@ const motifStrings = stringConstants.motif.common;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
+  { label: stringConstants.sidebar.viewer.displayname, id: "3D-View" },
   { label: stringConstants.sidebar.organism.displayname, id: "Organism" },
 
   {
@@ -413,7 +415,7 @@ const GlycanDetail = props => {
     });
     getGlycanDetailData.catch(({ response }) => {
       if (
-        response.data &&
+        response && response.data &&
         response.data.error_list &&
         response.data.error_list.length &&
         response.data.error_list[0].error_code &&
@@ -974,6 +976,7 @@ const GlycanDetail = props => {
     {
       general: true,
       organism: true,
+      viewer: true,
       names_synonyms: true,
       motif: true,
       glycoprotein: true,
@@ -1211,7 +1214,7 @@ const GlycanDetail = props => {
                         >
                           <span>
                             <Image
-                              className="pr-2"
+                              className="pe-2"
                               src={sandBox}
                               alt="Sand Box"
                             />
@@ -1219,7 +1222,7 @@ const GlycanDetail = props => {
                           Sand Box
                         </Button>
                       </span>
-                      <span>
+                      {(!tool_support) || (tool_support.gnome_glygen_nglycans === "no" && tool_support.gnome_glygen_oglycans === "no") ? (<span>
                         <Button
                           type="button"
                           className="gg-btn-blue"
@@ -1239,31 +1242,48 @@ const GlycanDetail = props => {
                         >
                           <span>
                             <Image
-                              className="pr-2"
+                              className="pe-2"
                               src={relatedGlycansIcon}
                               alt="Related glycans"
                             />
                           </span>
                           Related Glycans
                         </Button>
-                      </span>
-                      {/* <span className="pr-3">
-												<a
-													// eslint-disable-next-line
-													href="javascript:void(0)"
-													onClick={() => {
-														handleOpenSubsumptionBrowse(
-															glytoucan && glytoucan.glytoucan_ac
-														);
-													}}>
-													<LineTooltip text="Related glycans">
-														<Image
-															src={relatedGlycansIcon}
-															alt="Related glycans"
-														/>
-													</LineTooltip>
-												</a>
-											</span> */}
+                      </span>) :
+                      (<span>
+                        <Nav className={ "gg-dropdown-nav"} style={{display:"inline-block", borderRadius:".5rem"}} >
+                          <div
+                            type="button"
+                            className="gg-btn-blue gg-dropdown-btn"
+                            style={{
+                              marginLeft: "10px"
+                            }}>
+                              <span  style={{display:"inline-block"}}>
+                                <Image
+                                  style={{display:"inline-block"}}
+                                  src={relatedGlycansIcon}
+                                  alt="Related glycans"
+                                />
+                                <NavDropdown
+                                  className={ "gg-dropdown-navbar gg-dropdown-navitem"}
+                                  style={{display:"inline-block", padding: "0px !important"}}
+                                  title="Related Glycans"
+                                  id="gg-dropdown-navbar"
+                                >
+                                  {tool_support.gnome_glygen_nglycans === "yes" && glytoucan && <NavDropdown.Item href={"https://gnome.glyomics.org/restrictions/GlyGen_NGlycans.StructureBrowser.html?focus=" + glytoucan.glytoucan_ac} target="_blank" rel="noopener noreferrer">
+                                    GlyGen N-Glycans
+                                  </NavDropdown.Item>}
+                                  {tool_support.gnome_glygen_oglycans === "yes" && glytoucan && <NavDropdown.Item href={"https://gnome.glyomics.org/restrictions/GlyGen_OGlycans.StructureBrowser.html?focus=" + glytoucan.glytoucan_ac} target="_blank" rel="noopener noreferrer">
+                                    GlyGen O-Glycans
+                                  </NavDropdown.Item>}
+                                  {tool_support.gnome_glygen === "yes" && glytoucan && <NavDropdown.Item href={"http://gnome.glyomics.org/restrictions/GlyGen.StructureBrowser.html?focus=" + glytoucan.glytoucan_ac} target="_blank" rel="noopener noreferrer">
+                                    GlyGen Glycans
+                                  </NavDropdown.Item>}
+                                </NavDropdown>
+                              </span>
+                          </div>
+                        </Nav>
+                      </span>)}
                       <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1474,6 +1494,48 @@ const GlycanDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/*  Viewer */}
+              <Accordion
+                id="3D-View"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.viewer.title}
+                        text={DetailTooltips.glycan.viewer.text}
+                        urlText={DetailTooltips.glycan.viewer.urlText}
+                        url={DetailTooltips.glycan.viewer.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.viewer.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="viewer" toggle={collapsed.viewer} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Row>
+                        {tool_support && tool_support.pdb === "yes" ?
+                          (<div style={{  height: "350px"}}>
+                            <ThreeDViewer url={"https://api.tst.glygen.org/glycan/pdb/" + id + "/"} />
+                          </div>)
+                          : (
+                            <p className="no-data-msg">No data available.</p>
+                        )}
+                      </Row>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/*  species */}
               <Accordion
                 id="Organism"

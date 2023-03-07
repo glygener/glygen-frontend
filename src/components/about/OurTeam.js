@@ -93,36 +93,36 @@ const OurTeam = (props) => {
       <section className="content-box-md about-section-bg">
         <Container maxWidth="lg">
           <h2 className="section-heading">{teamMembersData.collaborators.heading}</h2>
-          {/* <h3>Integration with EBI and NCBI</h3> */}
-          <TeamMembersCard data={teamMembersData.collaborators.ebiIntegration} />
           {/* <h3>Tool Development and Data Integration</h3> */}
           <TeamMembersCard data={teamMembersData.collaborators.dataIntegration} />
+          {/* <h3>Integration with EBI and NCBI</h3> */}
+          <TeamMembersCard data={teamMembersData.collaborators.ebiIntegration} />
           {/* <h3>Glycan Array Database Partners</h3> */}
-          <TeamMembersCard data={teamMembersData.collaborators.arrayDatabase} />
+          {/* <TeamMembersCard data={teamMembersData.collaborators.arrayDatabase} /> */}
         </Container>
       </section>
-      <section className="content-box-md">
+      {/* <section className="content-box-md">
         <Container maxWidth="lg">
-          {/* <h2 className="section-heading">Data Management Team</h2> */}
+          <h2 className="section-heading">Data Management Team</h2>
           <TeamMembersCard data={teamMembersData.dataManagement} />
         </Container>
-      </section>
-      <section className="content-box-md about-section-bg">
+      </section> */}
+      {/* <section className="content-box-md about-section-bg">
         <Container maxWidth="lg">
-          {/* <h2 className="section-heading">Web Developers</h2> */}
+          <h2 className="section-heading">Web Developers</h2>
           <TeamMembersCard data={teamMembersData.webDevelopers} />
         </Container>
-      </section>
+      </section> */}
+      {/* <section className="content-box-md">
+        <Container maxWidth="lg">
+          <h2 className="section-heading">Former Members</h2>
+          <TeamMembersCard data={teamMembersData.otherMembers} />
+        </Container>
+      </section> */}
       <section className="content-box-md">
         <Container maxWidth="lg">
           {/* <h2 className="section-heading">Former Members</h2> */}
-          <TeamMembersCard data={teamMembersData.otherMembers} />
-        </Container>
-      </section>
-      <section className="content-box-md about-section-bg">
-        <Container maxWidth="lg">
-          {/* <h2 className="section-heading">Former Members</h2> */}
-          <TeamMembersCard data={teamMembersData.formerMembers} />
+          <TeamMembersCard formerMembers={true} data={{"heading": teamMembersData.formerMembers.heading, "people": teamMembersData.formerMembers.people.sort((obj1, obj2) => obj2.orderID - obj1.orderID)}} />
         </Container>
       </section>
     </React.Fragment>

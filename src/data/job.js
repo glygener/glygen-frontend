@@ -15,12 +15,14 @@ export const getJobInit = () => {
 // Takes selections and inputs in search page and performs search on submit btn
 export const postNewJob = (formObject) => {
   // var json = "query=" + JSON.stringify(formObject);
+  let query = formObject;
+  var json = {query};
   const url = `/job/addnew`;
   const myHeaders = {
     "Content-Type": "application/json",
   };
   
-  return postFormDataTo1(url, {"query":formObject}, myHeaders);
+  return postFormDataTo1(url, json, myHeaders);
 };
 
 export const getJobStatus = (
@@ -50,7 +52,7 @@ export const getJobResultList = (
   jobId,
 ) => {
   const queryParams = {
-    jobid: jobId,
+    jobid: parseInt(jobId),
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/job/results/?query=${queryParamString}`;

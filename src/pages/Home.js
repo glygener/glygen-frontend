@@ -28,6 +28,8 @@ import apiImg from "../images/home/api-img.svg";
 import dataImg from "../images/home/data-img.svg";
 import sparqlImg from "../images/home/sparql-img.svg";
 import glygenSandBoxlImg from "../images/home/GlyGen-SandBox-img.svg";
+import glycanStructureDictionaryImg from "../images/home/Glycan-Structure-Dictionary-img.svg"
+import proteinBLASTImg from "../images/home/Protein-BLAST-img.svg"
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { getSystemData } from "../data";
@@ -37,6 +39,7 @@ import {
   GLYGEN_SPARQL,
   GNOME_BROWSER,
   GLYGEN_SANDBOX,
+  GLYGEN_GSD
 } from "../envVariables";
 import routeConstants from "../data/json/routeConstants.json";
 import { logActivity } from "../data/logging";
@@ -118,6 +121,32 @@ const featuredCards = [
     to: routeConstants.motifList,
   },
   {
+    title: "GlyGen Sand Box",
+    description:
+      "The GlyGen Sandbox allows detailed exploration of glycan structure and biosynthesis.",
+    image: glygenSandBoxlImg,
+    imageText: "GlyGen Sand Box",
+    href: GLYGEN_SANDBOX,
+    target: "_blank",
+  },
+  {
+    title: "Glycan Structure Dictionary (GSD)",
+    description:
+      "The GSD provides a standardized list of glycan structure terms commonly described in publications.",
+    image: glycanStructureDictionaryImg,
+    imageText: "Glycan Structure Dictionary (GSD)",
+    href: GLYGEN_GSD,
+    target: "_blank",
+  },
+  {
+    title: "Protein BLAST",
+    description:
+      "The GlyGen Protein BLAST allows to find regions of local similarity between protein sequences.",
+    image: proteinBLASTImg,
+    imageText: "GlyGen Sand Box",
+    href: routeConstants.blastSearch,
+  },
+  {
     title: "Data",
     description:
       "Data from the different resources can be accessed and downloaded in resource-specific formats (e.g. CSV, RDF).",
@@ -142,15 +171,6 @@ const featuredCards = [
     image: sparqlImg,
     imageText: "SPARQL",
     href: GLYGEN_SPARQL,
-    target: "_blank",
-  },
-  {
-    title: "GlyGen Sand Box",
-    description:
-      "The GlyGen Sandbox allows detailed exploration of glycan structure and biosynthesis.",
-    image: glygenSandBoxlImg,
-    imageText: "GlyGen Sand Box",
-    href: GLYGEN_SANDBOX,
     target: "_blank",
   },
 ];

@@ -19,11 +19,11 @@ const TeamMembersCard = (props) => {
 											href={json.url}
 											target="_blank"
 											rel="noopener noreferrer">
-											<Image
+											{!props.formerMembers && (<Image
 												className="img-circle"
 												src={process.env.PUBLIC_URL + json.image}
 												alt={json.imageText}
-											/>
+											/>)}
 										</a>
 										<a
 											href={json.url}
@@ -34,11 +34,11 @@ const TeamMembersCard = (props) => {
 									</>
 								) : (
 									<>
-										<Image
+										{!props.formerMembers && (<Image
 											className="img-circle"
 											src={process.env.PUBLIC_URL + json.image}
 											alt={json.imageText}
-										/>
+										/>)}
 										<h5>{json.name}</h5>
 									</>
 								)}

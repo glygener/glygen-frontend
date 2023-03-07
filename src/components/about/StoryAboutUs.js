@@ -8,10 +8,11 @@ import gwuLogo from "../../images/about/logo_gwu_about.svg";
 import missionImg from "../../images/about/about-mission.png";
 import OurMissionImg from "../../components/about/OurMissionImg";
 import nihImg from "../../images/about/logo-NIH.svg";
+import nigmsImg from "../../images/about/logo-NIGMS.svg"
 import glycosciImg from "../../images/about/logo-Glycoscience.svg";
 import WorldMapImg from "../about/WorldMapImg";
 import Hidden from "@mui/material/Hidden";
-import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV } from "../../envVariables";
+import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD } from "../../envVariables";
 
 const ourMissionImd = {
   title: "Our Mission",
@@ -70,12 +71,12 @@ const StoryAboutUs = (props) => {
               <VerticalHeading post={vertHeadAboutUs} />
             </Col>
             <Col md={"auto"} className="gg-align-middle gg-align-center">
-              <Col>
+              <Col className="ps-3 pe-3">
                 <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={ugaLogo} alt="uga logo" />
                 </a>
               </Col>
-              <Col>
+              <Col className="ps-3 pe-3">
                 <a href={SMHS_GWU} target="_blank" rel="noopener noreferrer">
                   <Image src={gwuLogo} alt="gw logo" />
                 </a>
@@ -229,8 +230,23 @@ const StoryAboutUs = (props) => {
           <VerticalHeading post={vertHeadFunding} />
           <Row>
             <Col md={"auto"} xl={6}>
+            <p>
+                From 2022 onward GlyGen is supported and funded by the{" "}
+                <a href={NIGMS} target="_blank" rel="noopener noreferrer">
+                  National Institue of General Medical Sciences
+                </a>{" "}
+                at{" "}
+                <a href={NIH_GOV} target="_blank" rel="noopener noreferrer">
+                  National Institute of Health (NIH)
+                </a>{" "}
+                under the grant{" "}
+                <a href={GRANT_DETAILS} target="_blank" rel="noopener noreferrer">
+                  1R24GM146616-01
+                </a>
+                .
+              </p>
               <p>
-                GlyGen is supported and funded by the{" "}
+                Between 2017 and 2022 GlyGen was funded by the{" "}
                 <a href={GLYCOSCIENCE} target="_blank" rel="noopener noreferrer">
                   NIH Glycoscience Common Fund Program
                 </a>{" "}
@@ -247,18 +263,21 @@ const StoryAboutUs = (props) => {
                   National Institute of Health (NIH)
                 </a>{" "}
                 under the grant{" "}
-                <a href={GRANT_DETAILS} target="_blank" rel="noopener noreferrer">
+                <a href={GRANT_DETAILS_OLD} target="_blank" rel="noopener noreferrer">
                   1U01GM125267-01
                 </a>
                 .
               </p>
             </Col>
             <Col className="gg-align-middle gg-align-center">
-              <a href={NIH_GOV} target="_blank" rel="noopener noreferrer" className="mr-4">
+              <a href={NIH_GOV} target="_blank" rel="noopener noreferrer" className="me-4">
                 <Image src={nihImg} />
               </a>
-              <a href={GLYCOSCIENCE} target="_blank" rel="noopener noreferrer">
+              <a href={GLYCOSCIENCE} target="_blank" rel="noopener noreferrer" className="me-4">
                 <Image src={glycosciImg} />
+              </a>
+              <a href={NIGMS} target="_blank" rel="noopener noreferrer" className="me-4">
+                <Image src={nigmsImg} />
               </a>
             </Col>
           </Row>

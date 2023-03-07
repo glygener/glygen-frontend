@@ -31,8 +31,6 @@ const WorldMapImg = (props) => {
                 <br />
                 Bethesda, MD
                 <br />
-                Cambridge, MA
-                <br />
                 Palo Alto, CA
                 <br />
                 Newark, DE
@@ -48,23 +46,10 @@ const WorldMapImg = (props) => {
               </span>
             </a>
           </li>
-          <li id="australia">
-            <a href="javascript://">
-              <span>
-                <strong>Australia</strong>
-                <br />
-                Sydney,
-                <br />
-                Queensland (Gold Coast)
-              </span>
-            </a>
-          </li>
           <li id="europe-uk">
             <a href="javascript://">
               <span>
                 <strong>England</strong>
-                <br />
-                London, UK
                 <br />
                 Hinxton Cambridgeshire, UK
               </span>

@@ -1856,6 +1856,11 @@
       "displayname": "Organism",
       "tooltip": " Organism Information for selected accession"
     },
+    "viewer": {
+      "id": "viewer",
+      "displayname": "3D View",
+      "tooltip": " Viewer Information for selected accession"
+    },
     "motifs": {
       "id": "motifs",
       "displayname": "Motifs",
