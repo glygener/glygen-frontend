@@ -23,21 +23,14 @@ export const postTo = (url, headers = {}) => {
 };
 
 export const postFormDataTo = (url, formData = {}, headers = {}) => {
-  // const formDataElement = new FormData();
-  const formDataElement = formData;
+  const formDataElement = new FormData();
 
-
-  // Object.keys(formData).forEach(key => {
-  //   formDataElement.append(key, formData[key]);
-  // });
-
-  // const myHeaders = {
-  //   "Content-Type": "multipart/form-data",
-  //   ...headers
-  // };
+  Object.keys(formData).forEach(key => {
+    formDataElement.append(key, formData[key]);
+  });
 
   const myHeaders = {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     ...headers
   };
 
