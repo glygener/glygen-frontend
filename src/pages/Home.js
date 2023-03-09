@@ -130,7 +130,7 @@ const featuredCards = [
     target: "_blank",
   },
   {
-    title: "Glycan Structure Dictionary (GSD)",
+    title: "Glycan Structure Dictionary",
     description:
       "The GSD provides a standardized list of glycan structure terms commonly described in publications.",
     image: glycanStructureDictionaryImg,

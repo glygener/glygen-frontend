@@ -181,23 +181,23 @@ export default function Header(props) {
                 >
                   Glycan Sequence Lookup
                 </NavDropdown.Item>
+                <NavDropdown.Item href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
+                  Glycan Structure Dictionary
+                </NavDropdown.Item>
                 <NavDropdown.Item href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
                   GlycoMotif Wiki
                 </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
-                  GlyGen Mapper
-                </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.blastSearch}>
                   GlyGen BLAST 
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
+                  GlyGen Mapper
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
-                </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
-                  Glycan Structure Dictionary
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
