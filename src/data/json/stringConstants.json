@@ -1807,12 +1807,12 @@
     "structureSearchError": {
       "id": "structureSearchError",
       "title": "Structure Search Error - No Results Found",
-      "message": "Sorry, we couldn't process structure search request. Please enter valid input."
+      "message": "Sorry, we couldn't process structure search request."
     },
     "substructureSearchError": {
       "id": "substructureSearchError",
       "title": "Substructure Search Error - No Results Found",
-      "message": "Sorry, we couldn't process substructure search request. Please enter valid input."
+      "message": "Sorry, we couldn't process substructure search request."
     },
     "querySerarchError": {
       "id": "querySerarchError",
