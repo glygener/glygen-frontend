@@ -193,6 +193,7 @@ const GlycanDetail = props => {
   // let history;
 
   useEffect(() => {
+    setNonExistent(null);
     setPageLoading(true);
     logActivity("user", id);
     const getGlycanDetailData = getGlycanDetail(id);
@@ -423,8 +424,8 @@ const GlycanDetail = props => {
       ) {
         // history = response.data.history;
         setNonExistent({
-          error_code: response.data.error_list[0].error_code
-          //reason: response.data.reason
+          error_code: response.data.error_list[0].error_code,
+          reason: response.data.reason,
           //history: response.data.history
         });
         setPageLoading(false);
@@ -434,7 +435,7 @@ const GlycanDetail = props => {
       }
     });
     // eslint-disable-next-line
-  }, []);
+  }, [id]);
 
   const {
     mass,
@@ -1068,15 +1069,21 @@ const GlycanDetail = props => {
     return (
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
-          {nonExistent.history && nonExistent.history.length ? (
+          {nonExistent.reason && nonExistent.reason.length ? (
             <>
-              <AlertTitle> {id} is no longer valid Id</AlertTitle>
+              <AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>
               <ul>
-                {nonExistent.history.map(item => (
-                  <span className="recordInfo">
-                    <li>
-                      {capitalizeFirstLetter(nonExistent.reason[0].description)}
-                    </li>
+                {nonExistent.reason.map(item => (
+                  <span>
+                    {!item.replacement_id && (<li>{capitalizeFirstLetter(item.description)}</li>)}
+                    {item.replacement_id && (
+                      <li>
+                        <Link to={`${routeConstants.glycanDetail}${item.replacement_id}`}>
+                          {" "}
+                          {capitalizeFirstLetter(item.description)}
+                        </Link>
+                      </li>
+                    )}
                   </span>
                 ))}
               </ul>
@@ -1084,7 +1091,7 @@ const GlycanDetail = props => {
           ) : (
             <>
               <AlertTitle>
-                This Glycan <b>{id} </b> Record is not valid
+                The accession <b>{id}</b> does not exist in GlyGen
               </AlertTitle>
             </>
           )}

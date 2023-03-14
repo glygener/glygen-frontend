@@ -297,6 +297,7 @@ const ProteinDetail = (props) => {
   const [publicationSort, setPublicationSort] = useState("date");
   const [publicationDirection, setPublicationDirection] = useState("desc");
   useEffect(() => {
+    setNonExistent(null);
     setPageLoading(true);
     logActivity("user", id);
     setSelectedHighlights({
@@ -1559,23 +1560,32 @@ const ProteinDetail = (props) => {
     return (
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
-          <AlertTitle> {id} is no longer valid Protein Id</AlertTitle>
-          {nonExistent.reason && nonExistent.reason.length && (
-            <ul>
-              {/* {nonExistent.reason.map(item => ( */}
-              <span>
-                <li>{capitalizeFirstLetter(nonExistent.reason[0].description)}</li>
-                {nonExistent.reason[1].replacement_id && (
-                  <li>
-                    <Link to={routeConstants.proteinDetail + nonExistent.reason[1].replacement_id}>
-                      {" "}
-                      {capitalizeFirstLetter(nonExistent.reason[1].description)}
-                    </Link>
-                  </li>
-                )}
-              </span>
-              {/* ))} */}
-            </ul>
+          {nonExistent.reason && nonExistent.reason.length ? (
+            <>
+              <AlertTitle> {id} is no longer valid Protein Id</AlertTitle>
+              <ul>
+                {nonExistent.reason.map(item => (
+                <span>
+                  {!item.replacement_id && (<li>{capitalizeFirstLetter(item.description)}</li>)}
+                  {item.replacement_id && (
+                    <li>
+                      <Link to={`${routeConstants.proteinDetail}${item.replacement_id}`} state={{ some: "value" }} to1={routeConstants.proteinDetail + item.replacement_id}>
+                        {" "}
+                        {capitalizeFirstLetter(item.description)}
+                      </Link>
+                    </li>
+                  )}
+                </span>
+                ))} 
+              </ul>
+            </>
+          )
+          : (
+            <>
+              <AlertTitle>
+                The accession <b>{id}</b> does not exist in GlyGen
+              </AlertTitle>
+            </>
           )}
         </Alert>
       </Container>
