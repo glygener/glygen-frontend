@@ -1513,6 +1513,11 @@
         "shortName": "Protein Name",
         "id": "protein_name"
       },
+      "species_name": {
+        "name": "Organism",
+        "shortName": "Organism",
+        "id": "species_name"
+      },
       "score": {
         "name": "Score",
         "shortName": "Score",
@@ -1578,10 +1583,10 @@
         "id": "evalue"
       },
       "num_alignments": {
-        "name": "Number of hit sequences to show in alignment",
-        "shortName": "Number of hit sequences to show in alignment",
+        "name": "Number of Proteins to show in the hit sequences alignment",
+        "shortName": "Number of Proteins to show in the hit sequences alignment",
         "tooltip": {
-          "title": "Number of hit sequences to show in alignment",
+          "title": "Number of Proteins to show in the hit sequences alignment",
           "text": ""
         },
         "id": "num_alignments"

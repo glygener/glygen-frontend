@@ -24,12 +24,13 @@ const PaginatedTable = ({
   onClickTarget,
   noDataIndication,
   rowStyle,
-  wrapperClasses = "table-responsive"
+  wrapperClasses = "table-responsive",
+  totalSizeText = "Results"
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
       <strong>
-        Showing {from} to {to} of {size} Results
+        Showing {from} to {to} of {size} {totalSizeText}
       </strong>
     </span>
   );

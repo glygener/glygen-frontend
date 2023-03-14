@@ -52,10 +52,12 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
           start_pos: data.start_pos,
           end_pos: data.end_pos,
           protein_name: proData.details.protein_name,
+          species_name: proData.details.species.name,
           evalue: proData.hsp_list[i].evalue,
           score: proData.hsp_list[i].score,
           positives: proData.hsp_list[i].positives,
           identities: proData.hsp_list[i].identities,
+          identities_val: parseInt(proData.hsp_list[i].identities.slice(proData.hsp_list[i].identities.indexOf("(")+1, proData.hsp_list[i].identities.indexOf("%"))),
           gaps: proData.hsp_list[i].gaps,
           method: proData.hsp_list[i].method,
           uniprot_canonical_ac: proteinID,
@@ -125,7 +127,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
           style={{ margin: '0  auto' }}
           spacing={3}
           jus1tify='center'>
-          <Grid item xs={6} sm={6} md={6}>
+          <Grid item xs={7} sm={7} md={7}>
             <FormControl
               fullWidth
               variant="outlined"
@@ -140,13 +142,13 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
               <SelectControl
                 inputValue={proteinID}
                 setInputValue={(val) => proteinIDChange(val)}
-                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)) ", id : item}}) : []}
+                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.name, id : item}}) : []}
                 required={true}
               />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {multiSequences && multiSequences.map((multiSeque) =>  
+            {multiSequences && multiSequences.sort((obj1, obj2) => obj2.identities_val - obj1.identities_val).map((multiSeque) =>  
             <div className="mb-3">
                <div>
               <strong>{blastSearch.uniprot_canonical_ac.name}: </strong>{" "}
@@ -159,6 +161,10 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
             <div>
               <strong>{blastSearch.protein_name.name}: </strong>{" "}
               {multiSeque.protein_name}
+            </div>
+            <div>
+              <strong>{blastSearch.species_name.name}: </strong>{" "}
+              {multiSeque.species_name}
             </div>
             <div>
               <strong>{blastSearch.evalue.name}: </strong>{" "}

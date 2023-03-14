@@ -81,7 +81,7 @@ const BlastResultQuerySummary = (props) => {
           </Row>
           <Row className="summary-table-col">
             <Col align="right" xs={6} sm={6} md={6} lg={6}>
-             E-value:
+              E-value:
             </Col>
             <Col align="left" xs={6} sm={6} md={6} lg={6}>
                 {data.parameters === undefined ? "" : data.parameters.evalue}
@@ -89,7 +89,7 @@ const BlastResultQuerySummary = (props) => {
           </Row>         
           <Row className="summary-table-col">
             <Col align="right" xs={6} sm={6} md={6} lg={6}>
-             Max Number of Hits:
+              Max number of hits (Proteins):
             </Col>
             <Col align="left" xs={6} sm={6} md={6} lg={6}>
                 {data.parameters === undefined ? "" : data.parameters.num_alignments}

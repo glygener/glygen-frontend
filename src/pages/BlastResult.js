@@ -195,9 +195,14 @@ const BlastResult = (props) => {
       sort: true,
     },
     {
-      dataField: "evalue",
+      dataField: "identities_val",
       text: blastSearch.evalue.name,
       sort: true,
+      formatter: (value, row) => (
+        <>
+          {row.evalue}
+        </>
+      )
     },
     {
       dataField: "identities_val",
@@ -260,6 +265,7 @@ const BlastResult = (props) => {
                       page={page}
                       sizePerPage={sizePerPage}
                       totalSize={data.length}
+                      totalSizeText={"HSP Results"}
                       onTableChange={handleTableChange}
                       defaultSortField={currentSort}
                       defaultSortOrder={currentSortOrder}
