@@ -1063,7 +1063,7 @@ const GlycanSearch = (props) => {
 				logActivity("user", "", "User canceled job. " + message);
 			}
           } else {
-			let error = status.error ? status.error : "";
+			let error = status.error ? status.error === "Motif is too big" ? "Structure is too big" : status.error : "";
 			logActivity("user", "", "No results. " + message + " " + error);
 			setDialogLoading(false);
 			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + ". Please enter valid input."});
@@ -1130,7 +1130,7 @@ const GlycanSearch = (props) => {
 					logActivity("user", "", "User canceled job. " + message);
 				}
 			}  else {
-				let error = response.data["error"] ? response.data["error"] : "";
+				let error = response.data["error"] ? response.data["error"] === "Motif is too big" ?  "Structure is too big" : response.data["error"] : "";
 				logActivity("error", "", "No results. " + message + " " + error);
 				setDialogLoading(false);
 				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error  + ". Please enter valid input."});
