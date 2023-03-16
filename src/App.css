@@ -904,6 +904,7 @@ sub {
 
 .narrow-dropdown ul {
   min-width: auto;
+  left: 0;
 }
 
 /* =========================================
