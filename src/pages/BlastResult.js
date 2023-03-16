@@ -90,9 +90,12 @@ const BlastResult = (props) => {
         let proData = Object.keys(data.by_subject).map((protID) => {
               return data.by_subject[protID].hsp_list.map((obj) => {
                 let seqObj = obj.sequences.find((seq)=> seq.id === protID);
+                let identities_val = parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%")));
+                let evalue = parseFloat(obj.evalue)
               return {
-                "evalue": parseFloat(obj.evalue),
+                "evalue": evalue,
                 "identities": obj.identities,
+                "evalue_identities_val": {evalue : evalue, identities_val : identities_val},
                 "identities_val": parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%"))),
                 "uniprot_ac": seqObj.uniprot_ac,
                 "uniprot_id": seqObj.uniprot_id,
@@ -195,14 +198,9 @@ const BlastResult = (props) => {
       sort: true,
     },
     {
-      dataField: "identities_val",
+      dataField: "evalue",
       text: blastSearch.evalue.name,
       sort: true,
-      formatter: (value, row) => (
-        <>
-          {row.evalue}
-        </>
-      )
     },
     {
       dataField: "identities_val",
@@ -265,7 +263,7 @@ const BlastResult = (props) => {
                       page={page}
                       sizePerPage={sizePerPage}
                       totalSize={data.length}
-                      totalSizeText={"HSP Results"}
+                      totalSizeText={"High Scoring Pair (HSP) Results"}
                       onTableChange={handleTableChange}
                       defaultSortField={currentSort}
                       defaultSortOrder={currentSortOrder}

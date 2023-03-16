@@ -148,7 +148,12 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {multiSequences && multiSequences.sort((obj1, obj2) => obj2.identities_val - obj1.identities_val).map((multiSeque) =>  
+            {multiSequences && multiSequences.sort((obj1, obj2) => {
+              if (obj1.evalue === obj2.evalue) {
+                return obj2.identities_val - obj1.identities_val;
+              }
+              return obj1.evalue - obj2.evalue;
+            }).map((multiSeque) =>  
             <div className="mb-3">
                <div>
               <strong>{blastSearch.uniprot_canonical_ac.name}: </strong>{" "}
