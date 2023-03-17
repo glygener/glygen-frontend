@@ -95,7 +95,7 @@ const GlycoGlyph = (props) => {
                     Copy Glycan To Search
                 </Button>
                 <Button
-                    className='gg-btn-outline mr-3 mb-5'
+                    className='gg-btn-outline me-3 mb-5'
                     style={{ float: "right" }}
                     onClick={() => props.setOpen(false)}
                     >
