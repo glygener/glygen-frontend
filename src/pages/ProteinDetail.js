@@ -1560,23 +1560,21 @@ const ProteinDetail = (props) => {
     return (
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
-          {nonExistent.reason && nonExistent.reason.length ? (
-            <>
-              <AlertTitle> {id} is no longer valid Protein Id</AlertTitle>
+          {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (<>
+            {nonExistent.reason.type !== "never_in_glygen" && (<AlertTitle> {id} is no longer valid Protein Id</AlertTitle>)}
+            {nonExistent.reason.type === "never_in_glygen" && (<AlertTitle> The UniProtKB accession {id} does not exists in GlyGen</AlertTitle>)}
               <ul>
-                {nonExistent.reason.map(item => (
                 <span>
-                  {!item.replacement_id && (<li>{capitalizeFirstLetter(item.description)}</li>)}
-                  {item.replacement_id && (
+                  {nonExistent.reason.type !== "replacement_in_glygen" && (<li>{capitalizeFirstLetter(nonExistent.reason.description)}</li>)}
+                  {nonExistent.reason.type === "replacement_in_glygen" && (
                     <li>
-                      <Link to={`${routeConstants.proteinDetail}${item.replacement_id}`} state={{ some: "value" }} to1={routeConstants.proteinDetail + item.replacement_id}>
+                      <Link to={`${routeConstants.proteinDetail}${nonExistent.reason.replacement_id}`}>
                         {" "}
-                        {capitalizeFirstLetter(item.description)}
+                        {capitalizeFirstLetter(nonExistent.reason.description)}
                       </Link>
                     </li>
                   )}
                 </span>
-                ))} 
               </ul>
             </>
           )

@@ -1069,23 +1069,22 @@ const GlycanDetail = props => {
     return (
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
-          {nonExistent.reason && nonExistent.reason.length ? (
+          {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (
             <>
-              <AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>
+              {nonExistent.reason.type !== "never_in_glygen" && (<AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>)}
+              {nonExistent.reason.type === "never_in_glygen" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
               <ul>
-                {nonExistent.reason.map(item => (
                   <span>
-                    {!item.replacement_id && (<li>{capitalizeFirstLetter(item.description)}</li>)}
-                    {item.replacement_id && (
+                    {nonExistent.reason.type !== "replacement_in_glygen" && (<li>{capitalizeFirstLetter(nonExistent.reason.description)}</li>)}
+                    {nonExistent.reason.type === "replacement_in_glygen" && (
                       <li>
-                        <Link to={`${routeConstants.glycanDetail}${item.replacement_id}`}>
+                        <Link to={`${routeConstants.glycanDetail}${nonExistent.reason.replacement_id}`}>
                           {" "}
-                          {capitalizeFirstLetter(item.description)}
+                          {capitalizeFirstLetter(nonExistent.reason.description)}
                         </Link>
                       </li>
-                    )}
+                      )}
                   </span>
-                ))}
               </ul>
             </>
           ) : (
