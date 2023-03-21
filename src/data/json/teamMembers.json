@@ -101,9 +101,9 @@
 					"department": "",
 					"institution": "National Center for Biotechnology Information",
 					"location": "Bethesda, MD",
-					"image": "/team/Pic-Male.png",
-					"imageText": "Mail image",
-					"url": ""
+					"image": "/team/Evan-Bolton.png",
+					"imageText": "Evan Bolton image",
+					"url": "https://www.linkedin.com/in/pubchem/"
 				},
 				{
 					"name": "Frederique Lisacek",
@@ -121,9 +121,9 @@
 					"department": "",
 					"institution": "National Center for Biotechnology Information",
 					"location": "Bethesda, MD",
-					"image": "/team/Pic-Male.png",
-					"imageText": "Mail image",
-					"url": ""
+					"image": "/team/Paul-Thiessen.png",
+					"imageText": "Paul Thiessen image",
+					"url": "https://www.linkedin.com/in/thiessenpaul/"
 				}
 			]
 		},
