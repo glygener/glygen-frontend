@@ -805,29 +805,21 @@ const GlycanDetail = props => {
           "Not Reported"
         )
     },
-
     {
-      dataField: "cell_line.name",
-      text: "Cell Line Name",
+      dataField: "cellLineName",
+      text: "Cell Line",
       sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
-      }
-    },
-    {
-      dataField: "cell_line.cellosaurus_id",
-      text: "Cellosaurus ID",
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
       },
       formatter: (value, row) => (
-        <LineTooltip text="View Cell Line details ">
-          <a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">
-            {value}
-          </a>
-        </LineTooltip>
-      )
+        <>
+          {value}{" "}
+          {row.cell_line && (<span className="nowrap">
+            ({row.cell_line.namespace}: <LineTooltip text="View cell line details"><a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">{row.cell_line.id}</a></LineTooltip>)
+          </span>)}
+        </>
+      ),
     }
   ];
   const expressionTissueColumns = [
@@ -891,27 +883,20 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "tissue.name",
-      text: "Tissue Name",
+      dataField: "tissueName",
+      text: proteinStrings.tissue.name,
       sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
-      }
-    },
-    {
-      dataField: "tissue.uberon",
-      text: "Uberon ID",
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
       },
       formatter: (value, row) => (
-        <LineTooltip text="View Tissue details">
-          <a href={row.tissue.url} target="_blank" rel="noopener noreferrer">
-            {value}
-          </a>
-        </LineTooltip>
-      )
+        <>
+          {value}{" "}
+          {row.tissue && (<span className="nowrap">
+            ({row.tissue.namespace}: <LineTooltip text="View tissue details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
+          </span>)}
+        </>
+      ),
     }
   ];
   const motifColumns = [
@@ -1970,7 +1955,7 @@ const GlycanDetail = props => {
                                 expressionWithtissue.length > 0 && (
                                   <ClientPaginatedTable
                                     idField={"start_pos"}
-                                    data={expressionWithtissue}
+                                    data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
                                     columns={expressionTissueColumns}
                                     onClickTarget={"#expression"}
                                     defaultSortField="start_pos"
@@ -1989,7 +1974,7 @@ const GlycanDetail = props => {
                               {expressionWithcell &&
                                 expressionWithcell.length > 0 && (
                                   <ClientPaginatedTable
-                                    data={expressionWithcell}
+                                    data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}
                                     columns={expressionCellColumns}
                                     onClickTarget={"#expression"}
                                     defaultSortField="position"

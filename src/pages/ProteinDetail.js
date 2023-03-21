@@ -1127,7 +1127,7 @@ const ProteinDetail = (props) => {
         <>
           {value}{" "}
           {row.tissue && (<span className="nowrap">
-            ({proteinStrings.uberonN.name}: <a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.uberon}</a>)
+            ({row.tissue.namespace}: <LineTooltip text="View tissue details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
