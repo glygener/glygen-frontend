@@ -51,8 +51,8 @@ export default function CompositionSearchTemplate(props) {
                 <Grid
                     container
                     style={{ margin: '0  auto' }}
-                    justify='center'>
-                        <Grid item xs={11} sm={11} className="pl-3 pr-3 pb-4 pt-2">
+                    justifyContent='center'>
+                        <Grid item xs={11} sm={11} className="ps-3 pe-3 pb-4 pt-2">
                             <FormControl
                                 fullWidth
                                 variant='outlined'
@@ -76,7 +76,7 @@ export default function CompositionSearchTemplate(props) {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={11} sm={11} className="pl-3 pr-3 pb-4 pt-4">  
+                        <Grid item xs={11} sm={11} className="ps-3 pe-3 pb-4 pt-4">  
                             <Button
                                 className= "gg-btn-blue"
                                 style={{ float: "right" }}
@@ -93,7 +93,7 @@ export default function CompositionSearchTemplate(props) {
                                 Load
                             </Button> 
                             <Button
-                                className= "gg-btn-outline mr-4"
+                                className= "gg-btn-outline me-4"
                                 style={{ float: "right" }}
                                 onClick={() => {
                                     setCompositionSearchTemplateSelect(props.compositionSearchTemplateSelect);
