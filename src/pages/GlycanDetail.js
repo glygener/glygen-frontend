@@ -1058,15 +1058,15 @@ const GlycanDetail = props => {
             <>
               {nonExistent.reason.type !== "never_in_glygen" && (<AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>)}
               {nonExistent.reason.type === "never_in_glygen" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
-              <ul>
+              <span className="ms-3">{capitalizeFirstLetter(nonExistent.reason.description)}</span>
+              <ul className="ms-3">
                   <span>
-                    <li>{capitalizeFirstLetter(nonExistent.reason.description)}</li>
                     {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
                       nonExistent.reason.replacement_id_list.map((repID) =>
                       <li>
                         <Link to={`${routeConstants.glycanDetail}${repID}`}>
                           {" "}
-                          {"Click to go to Glycan: "  + repID}
+                          {"Go to Glycan: "  + repID}
                         </Link>
                       </li>
                       )
