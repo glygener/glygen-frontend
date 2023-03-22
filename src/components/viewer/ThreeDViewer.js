@@ -16,7 +16,6 @@ const ThreeDViewer = props => {
   useEffect(() => {
     (async () => {
         const spec = DefaultPluginUISpec();
-        console.log(spec);
         spec.layout = {
           initial: {
             isExpanded: false,
