@@ -1565,15 +1565,17 @@ const ProteinDetail = (props) => {
             {nonExistent.reason.type === "never_in_glygen" && (<AlertTitle> The UniProtKB accession {id} does not exists in GlyGen</AlertTitle>)}
               <ul>
                 <span>
-                  {nonExistent.reason.type !== "replacement_in_glygen" && (<li>{capitalizeFirstLetter(nonExistent.reason.description)}</li>)}
-                  {nonExistent.reason.type === "replacement_in_glygen" && (
-                    <li>
-                      <Link to={`${routeConstants.proteinDetail}${nonExistent.reason.replacement_id}`}>
-                        {" "}
-                        {capitalizeFirstLetter(nonExistent.reason.description)}
-                      </Link>
-                    </li>
-                  )}
+                  {<li>{capitalizeFirstLetter(nonExistent.reason.description)}</li>}
+                  {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
+                      nonExistent.reason.replacement_id_list.map((repID) =>
+                      <li>
+                        <Link to={`${routeConstants.proteinDetail}${repID}`}>
+                          {" "}
+                          {"Click to go to Protein: "  + repID}
+                        </Link>
+                      </li>
+                      )
+                    )}
                 </span>
               </ul>
             </>
