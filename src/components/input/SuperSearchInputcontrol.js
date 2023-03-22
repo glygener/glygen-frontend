@@ -119,6 +119,9 @@ const SuperSearchInputcontrol = (props) => {
 									className={'svg-input'}
 									value={props.query.value}
 									margin='dense'
+									classes={{
+										input: 'input-auto'
+									}}
 									onChange={(event)=>{
 										props.query.error && props.supSearchUpdateQuery(props.query.order, "error", false);
 										props.supSearchUpdateQuery(props.query.order, "value", event.target.value);
@@ -143,6 +146,9 @@ const SuperSearchInputcontrol = (props) => {
 							{(!props.query.typeaheadID || props.query.typeaheadID === "") && props.query.fieldType === "string" && <>
 								<OutlinedInput
 									className={'svg-input'}
+									classes={{
+										input: 'input-auto'
+									}}
 									value={props.query.value}
 									margin='dense'
 									onChange={(event)=>{
