@@ -7,7 +7,7 @@ import { getJson} from "./api";
  * @param {string} limit - total array size.
  */
 export const getTypeahed = (typeahedID, inputValue, limit=100) => {
-    const url = `/typeahead?query={"field":"${typeahedID}","value":"${inputValue}","limit":${limit}}`;
+    const url = `/typeahead/typeahead?query={"field":"${typeahedID}","value":"${inputValue}","limit":${limit}}`;
     return getJson(url);
 }
 
@@ -19,7 +19,7 @@ export const getTypeahed = (typeahedID, inputValue, limit=100) => {
  * @param {string} categorywiseLimit - category wise array size.
  */
 export const getCategorizedTypeahed = (typeahedID, inputValue, totalLimit=15, categorywiseLimit=5) => {
-    const url = `/categorized_typeahead?query={"field":"${typeahedID}","value":"${inputValue}","total_limit":${totalLimit},"categorywise_limit":${categorywiseLimit}}`;
+    const url = `/typeahead/categorized_typeahead?query={"field":"${typeahedID}","value":"${inputValue}","total_limit":${totalLimit},"categorywise_limit":${categorywiseLimit}}`;
     return getJson(url);
 }
 
