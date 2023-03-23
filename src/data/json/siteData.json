@@ -3,6 +3,7 @@
 
   "site_search": {
     "tabTitle": "Site Search",
+    "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all sites in GlyGen.",
     "uniprot_canonical_ac": {
       "length": 10000,
       "errorText": "Entry is too long - max length is 10000.",

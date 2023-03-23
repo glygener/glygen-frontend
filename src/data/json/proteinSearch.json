@@ -94,6 +94,7 @@
   },
   "advanced_search": {
     "tabTitle": "Advanced Search",
+    "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all proteins in GlyGen.",
     "cluster_type": {
       "placeholder": " Select"
     },

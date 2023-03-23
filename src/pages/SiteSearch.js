@@ -257,6 +257,7 @@ const SiteSearch = (props) => {
             >
               <TextAlert alertInput={alertTextInput} />
               <Container className="tab-content-border">
+              <h5><br></br><center>{siteData.site_search.message}</center></h5>
                 <SiteSearchControl
                   siteSearchData={siteSearchData}
                   setSiteSearchData={setSiteSearchData}

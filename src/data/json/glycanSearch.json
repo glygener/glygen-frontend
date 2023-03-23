@@ -44,6 +44,7 @@
   },
   "advanced_search": {
     "tabTitle": "Advanced Search",
+    "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all glycans in GlyGen.",
     "glycan_identifier": {
       "length": 10000,
       "errorText": "Entry is too long - max length is 10000.",

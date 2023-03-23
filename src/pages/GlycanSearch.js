@@ -1257,6 +1257,7 @@ const GlycanSearch = (props) => {
 								alertInput={alertTextInput}
 							/>
 							<Container className='tab-content-border'>
+							<h5><br></br><center>{advancedSearch.message}</center></h5>
 								{initData && (
 									<GlycanAdvancedSearch
 										searchGlycanAdvClick={searchGlycanAdvClick}

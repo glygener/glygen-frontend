@@ -773,6 +773,7 @@ const ProteinSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <Container className="tab-content-border">
+              <h5><br></br><center>{advancedSearch.message}</center></h5>
                 {initData && (
                   <ProteinAdvancedSearch
                     searchProteinAdvClick={searchProteinAdvClick}
