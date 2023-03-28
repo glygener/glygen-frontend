@@ -215,7 +215,7 @@ const MotifDetail = (props) => {
           let temp = {term : null, url : null};
           temp.term = data.dictionary.term;
           if (data.dictionary.evidence && data.dictionary.evidence.length > 0) {
-            let evidence = data.dictionary.evidence.find((item => item.database === "Glycan Dictionary"));
+            let evidence = data.dictionary.evidence.find((item => item.database === "Glycan Structure Dictionary"));
             if (evidence){
               temp.url = evidence.url;
             }
