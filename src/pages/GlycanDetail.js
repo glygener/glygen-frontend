@@ -1056,8 +1056,8 @@ const GlycanDetail = props => {
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (
             <>
-              {nonExistent.reason.type !== "never_in_glygen" && (<AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>)}
-              {nonExistent.reason.type === "never_in_glygen" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
+              {nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan" && (<AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>)}
+              {nonExistent.reason.type === "never_in_glygen_current_in_glytoucan" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
               <span className="ms-3">{capitalizeFirstLetter(nonExistent.reason.description)}</span>
               <ul className="ms-3">
                   <span>
