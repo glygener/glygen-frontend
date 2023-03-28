@@ -807,7 +807,7 @@ const GlycanDetail = props => {
     },
     {
       dataField: "cellLineName",
-      text: "Cell Line",
+      text: "Cell / Cell Line Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
@@ -816,7 +816,7 @@ const GlycanDetail = props => {
         <>
           {value}{" "}
           {row.cell_line && (<span className="nowrap">
-            ({row.cell_line.namespace}: <LineTooltip text="View cell line details"><a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">{row.cell_line.id}</a></LineTooltip>)
+            ({row.cell_line.namespace}: <LineTooltip text="View cell / cell line expression details"><a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">{row.cell_line.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
@@ -884,7 +884,7 @@ const GlycanDetail = props => {
     },
     {
       dataField: "tissueName",
-      text: proteinStrings.tissue.name,
+      text: "Tissue / Bodily Fluid Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
@@ -893,7 +893,7 @@ const GlycanDetail = props => {
         <>
           {value}{" "}
           {row.tissue && (<span className="nowrap">
-            ({row.tissue.namespace}: <LineTooltip text="View tissue details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
+            ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid expression details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
@@ -1949,14 +1949,13 @@ const GlycanDetail = props => {
                         >
                           <Tab
                             eventKey="with_tissue"
-                            title="Tissue Expression"
+                            title="Tissue / Bodily Fluid Expression"
                             //disabled={(!mutataionWithdisease || (mutataionWithdisease.length === 0))}
                           >
                             <Container className="tab-content-padding">
                               {expressionWithtissue &&
                                 expressionWithtissue.length > 0 && (
                                   <ClientPaginatedTable
-                                    idField={"start_pos"}
                                     data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
                                     columns={expressionTissueColumns}
                                     onClickTarget={"#expression"}
@@ -1970,7 +1969,7 @@ const GlycanDetail = props => {
                           </Tab>
                           <Tab
                             eventKey="with_cellline"
-                            title="Cell Line Expression "
+                            title="Cell / Cell Line Expression"
                           >
                             <Container className="tab-content-padding">
                               {expressionWithcell &&
