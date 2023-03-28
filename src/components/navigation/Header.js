@@ -32,8 +32,12 @@ import {
   GITHUB,
   WIKI,
   PINTEREST,
-  GLYGEN_GSD
+  GLYGEN_GSD,
+  GLYGEN_FAQ,
+  GLYGEN_TUT_HOWT,
+  GLYGEN_DOC
 } from "../../envVariables";
+
 
 export default function Header(props) {
   const location = useLocation();
@@ -167,6 +171,8 @@ export default function Header(props) {
               </NavDropdown>
               <NavDropdown
                 className={
+                  location.pathname === routeConstants.resources ||
+                  location.pathname === routeConstants.blastSearch ||
                   location.pathname === routeConstants.idMapping
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
@@ -196,24 +202,31 @@ export default function Header(props) {
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box
                 </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
+                  Other Resources
+                </NavDropdown.Item>
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className={
-                  location.pathname === routeConstants.about ||
                   location.pathname === routeConstants.contactUs ||
-                  location.pathname === routeConstants.feedback ||
-                  location.pathname === routeConstants.howToCite
+                  location.pathname === routeConstants.feedback
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
                 }
                 title="HELP"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item as={NavLink} to={routeConstants.about}>
-                  About
+                <NavDropdown.Item href={GLYGEN_FAQ} target="_blank" rel="noopener noreferrer">
+                  FAQ
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
+                  Tutorials and How to
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYGEN_DOC} target="_blank" rel="noopener noreferrer">
+                  Documentation
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.contactUs}>
                   Contact Us
@@ -221,26 +234,27 @@ export default function Header(props) {
                 <NavDropdown.Item as={NavLink} to={routeConstants.feedback}>
                   Feedback
                 </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.howToCite}>
-                  How to Cite
-                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className={
+                  location.pathname === routeConstants.about ||
+                  location.pathname === routeConstants.howToCite ||
                   location.pathname === routeConstants.media ||
-                  location.pathname === routeConstants.resources ||
                   location.pathname === routeConstants.frameworks
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
                 }
-                title="MORE"
+                title="ABOUT"
                 id="basic-nav-dropdown"
               >
+                <NavDropdown.Item as={NavLink} to={routeConstants.about}>
+                  We are GlyGen
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.howToCite}>
+                  How to Cite
+                </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.media}>
                   Media
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
-                  Resources
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.frameworks}>
                   Frameworks

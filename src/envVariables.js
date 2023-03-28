@@ -42,3 +42,6 @@ export const NIH_GOV = process.env.REACT_APP_NIH_GOV || "https://www.nih.gov/";
 export const GLYGEN_BASENAME = process.env.REACT_APP_BASENAME || "/";
 export const UNIPROT_BASENAME = "https://www.uniprot.org/"
 export const UNIPROT_REST_BASENAME = "https://rest.uniprot.org/"
+export const GLYGEN_FAQ = process.env.REACT_APP_GSD || "https://wiki.glygen.org/Frequently_Asked_Questions";
+export const GLYGEN_TUT_HOWT = process.env.REACT_APP_TUT_HOWT || "https://wiki.glygen.org/GlyGen_Tutorials";
+export const GLYGEN_DOC = process.env.REACT_APP_DOC || "https://wiki.glygen.org/GlyGen_Documentation";
