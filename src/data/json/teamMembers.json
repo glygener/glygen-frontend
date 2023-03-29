@@ -67,7 +67,7 @@
 			"people": [
 				{
 					"name": "Kiyoko Aoki-Kinoshita",
-					"position": "Consultant",
+					"position": "Collaborator",
 					"department": "",
 					"institution": "Soka University",
 					"location": "Tokyo, Japan",
@@ -77,7 +77,7 @@
 				},
 				{
 					"name": "Maria Martin",
-					"position": "Team Leader",
+					"position": "Collaborator",
 					"department": "Protein Function Development",
 					"institution": "EMBL-EBI",
 					"location": "Hinxton, Cambridgeshire, UK",
@@ -87,7 +87,7 @@
 				},
 				{
 					"name": "Preethi Vasudev",
-					"position": "Software Engineer",
+					"position": "Collaborator",
 					"department": "Protein Function Development",
 					"institution": "EMBL-EBI",
 					"location": "Hinxton, Cambridgeshire, UK",
@@ -97,7 +97,7 @@
 				},
 				{
 					"name": "Evan Bolton",
-					"position": "Consultant",
+					"position": "Collaborator",
 					"department": "",
 					"institution": "National Center for Biotechnology Information",
 					"location": "Bethesda, MD",
@@ -107,7 +107,7 @@
 				},
 				{
 					"name": "Frederique Lisacek",
-					"position": "Consultant",
+					"position": "Collaborator",
 					"department": "",
 					"institution": "Group leader SIB Swiss Institute of Bioinformatics",
 					"location": "Geneva, Switzerland",
@@ -117,7 +117,7 @@
 				},
 				{
 					"name": "Paul Thiessen",
-					"position": "",
+					"position": "Collaborator",
 					"department": "",
 					"institution": "National Center for Biotechnology Information",
 					"location": "Bethesda, MD",
