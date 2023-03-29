@@ -1058,8 +1058,8 @@ const GlycanDetail = props => {
             <>
               {nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan" && (<AlertTitle> {id} is no longer valid Glycan Id</AlertTitle>)}
               {nonExistent.reason.type === "never_in_glygen_current_in_glytoucan" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
-              <span className="ms-3">{capitalizeFirstLetter(nonExistent.reason.description)}</span>
-              <ul className="ms-3">
+              <span>{capitalizeFirstLetter(nonExistent.reason.description)}</span>
+              <ul>
                   <span>
                     {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
                       nonExistent.reason.replacement_id_list.map((repID) =>
