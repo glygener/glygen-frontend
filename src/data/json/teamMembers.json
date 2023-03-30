@@ -63,7 +63,7 @@
 	"collaborators": {
 		"heading": "Key Collaborators / Co-Investigators",
 		"ebiIntegration": {
-			"subheading": "Integration with EBI, SIB and NCBI",
+			"subheading": "Integration with EBI, SIB, NCBI and GlySpace",
 			"people": [
 				{
 					"name": "Kiyoko Aoki-Kinoshita",
@@ -77,7 +77,7 @@
 				},
 				{
 					"name": "Maria Martin",
-					"position": "Collaborator",
+					"position": "Co-Investigator",
 					"department": "Protein Function Development",
 					"institution": "EMBL-EBI",
 					"location": "Hinxton, Cambridgeshire, UK",
@@ -152,7 +152,7 @@
 				},
 				{
 					"name": "Nathan Edwards",
-					"position": "Co-Investigator ",
+					"position": "Co-Investigator",
 					"department": "",
 					"institution": "The Georgetown University",
 					"location": "Washington, DC",
@@ -162,7 +162,7 @@
 				},
 				{
 					"name": "Vijay Shanker",
-					"position": "",
+					"position": "Co-Investigator",
 					"department": "",
 					"institution": "The University of Delaware",
 					"location": "Newark, DE",
@@ -242,7 +242,7 @@
 				},
 				{
 					"name": "Mindy Porterfield",
-					"position": "",
+					"position": "Data Curator",
 					"department": "",
 					"institution": "The University of Georgia",
 					"location": "Athens, GA",
