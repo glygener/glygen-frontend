@@ -202,11 +202,12 @@ export default function Header(props) {
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box
                 </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
-                  Other Resources
-                </NavDropdown.Item>
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
+                  Other Resources
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
