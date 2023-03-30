@@ -205,7 +205,7 @@ export default function Header(props) {
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
+                <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
                 <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
                   Other Resources
                 </NavDropdown.Item>
