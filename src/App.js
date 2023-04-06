@@ -11,7 +11,7 @@ import ScrollToTopBtn from "./components/ScrollToTop";
 
 function initializeReactGA() {
   if (GLYGEN_ENV === "prod" || GLYGEN_ENV === "beta") {
-    ReactGA.initialize("UA-123338976-1");
+    ReactGA.initialize("G-47WSZ1WYRZ");
     ReactGA.pageview(window.location.pathname);
   }
 }
