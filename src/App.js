@@ -5,14 +5,14 @@ import Routes from "./Routes";
 import Header from "./components/navigation/Header";
 import Footer from "./components/navigation/Footer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import { GLYGEN_ENV } from "./envVariables.js";
 import ScrollToTopBtn from "./components/ScrollToTop";
 
 function initializeReactGA() {
   if (GLYGEN_ENV === "prod" || GLYGEN_ENV === "beta") {
     ReactGA.initialize("G-47WSZ1WYRZ");
-    ReactGA.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
   }
 }
 
