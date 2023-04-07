@@ -98,18 +98,19 @@ const StoryAboutUs = (props) => {
               <Row>
                 <Col xs={12} md={6}>
                   <p>
-                    GlyGen is an international project funded by The National Institutes of Health
-                    to facilitate glycoscience research by integrating diverse kinds of information,
-                    including glycomics, genomics, proteomics (and glycoproteomics), cell biology,
-                    developmental biology and biochemistry.
+                  GlyGen is an international project funded by The National Institutes of Health (NIH) and 
+                  The National Institute of General Medical Sciences (NIGMS) to facilitate glycoscience 
+                  research by integrating diverse kinds of information related to glycoscience, including 
+                  glycomics, genomics, proteomics (including glycoproteomics), cell biology, developmental 
+                  biology and biochemistry.
                   </p>
                 </Col>
                 <Col xs={12} md={6}>
                   <p>
-                    GlyGen retrieves information from multiple international data sources and
-                    integrates and harmonizes this data. GlyGen allows for exploring this data by
-                    performing unique searches that cannot be executed in any of the existing
-                    databases alone.
+                  GlyGen retrieves information from multiple international data sources and integrates and 
+                  harmonizes this data into a single resource. GlyGen allows for exploring this data by 
+                  performing unique searches that cannot be executed in any of the existing databases alone. 
+                  Information is provided in user friendly graphical web interfaces as well as machine-readable APIs.
                   </p>
                 </Col>
               </Row>
@@ -126,9 +127,8 @@ const StoryAboutUs = (props) => {
               {/* Goal item 01 */}
               <div className="about-item card text-center mb-2">
                 <p>
-                  The major goal of GlyGen is to develop an integrated, extendable, and
-                  cross-disciplinary resource providing tools and data to address specific questions
-                  in glycoscience.
+                The major goal of GlyGen is to develop an integrated, extendable, and cross-disciplinary 
+                resource providing tools and data to address specific questions in glycoscience.
                 </p>
               </div>
             </Col>
@@ -136,8 +136,8 @@ const StoryAboutUs = (props) => {
               {/* Goal item 02 */}
               <div class="about-item card text-center mb-2">
                 <p>
-                  Currently, these questions can be answered only by extensive literature-based
-                  research and/or manual collection of data from disparate databases and websites.
+                Currently, these questions can be answered only by extensive literature-based research 
+                and/or manual collection of data from disparate databases and websites.
                 </p>
               </div>
             </Col>
@@ -145,8 +145,8 @@ const StoryAboutUs = (props) => {
               {/* Goal item 03 */}
               <div class="about-item card text-center mb-2">
                 <p>
-                  The GlyGen project is built using insight gained during workshops which evaluated
-                  existing resources and identified pressing community needs.
+                The GlyGen project is built using insight gained during workshops which evaluated 
+                existing resources and identified pressing community needs.
                 </p>
               </div>
             </Col>
@@ -164,9 +164,11 @@ const StoryAboutUs = (props) => {
                 An open, standardized environment for independent development and integration of
                 additional research tools by other investigators.
               </p>
-              <p>More than 15 investigators in five countries play key roles in the project.</p>
+              <p>GlyGen is an international effort involving core collaborators from Europe and 
+                as well as many collaborators and data providers from around the world.</p>
               <p>
-                Two years of organized discussion and planning involving nearly 100 investigators.
+              Two years of organized discussion and planning involving nearly 100 investigators 
+              was used to define the scope and use cases for GlyGen. 
               </p>
             </Col>
             <Col xs={12} md={12} xl={6} className="gg-align-middle gg-align-center">
