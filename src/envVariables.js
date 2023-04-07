@@ -8,7 +8,7 @@ export const GLYGEN_API = process.env.REACT_APP_API || "https://api.tst.glygen.o
 export const GLYGEN_DOMAIN = process.env.REACT_APP_DOMAIN || "http://localhost:3000";
 export const GLYGEN_DATA = process.env.REACT_APP_DATA || "https://data.glygen.org";
 export const GLYGEN_SPARQL = process.env.REACT_APP_SPARQL || "https://sparql.glygen.org";
-export const GLYGEN_GSD = process.env.REACT_APP_GSD || "https://wiki.glygen.org/index.php/Glycan_structure_dictionary";
+export const GLYGEN_GSD = process.env.REACT_APP_GSD || "https://wiki.glygen.org/Glycan_structure_dictionary";
 export const GLYGEN_BETA = process.env.REACT_APP_BETA || "https://beta.glygen.org";
 export const GNOME_BROWSER =
   process.env.REACT_APP_GNOME_BROWSER ||
