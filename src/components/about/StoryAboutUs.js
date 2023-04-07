@@ -128,7 +128,7 @@ const StoryAboutUs = (props) => {
               <div className="about-item card text-center mb-2">
                 <p>
                 The major goal of GlyGen is to develop an integrated, extendable, and cross-disciplinary 
-                resource providing tools and data to address specific questions in glycoscience.
+                resource to address specific questions in glycoscience.​
                 </p>
               </div>
             </Col>
@@ -136,8 +136,8 @@ const StoryAboutUs = (props) => {
               {/* Goal item 02 */}
               <div class="about-item card text-center mb-2">
                 <p>
-                Currently, these questions can be answered only by extensive literature-based research 
-                and/or manual collection of data from disparate databases and websites.
+                To provide standardized data under open license allowing sharing and reuse of data 
+                with proper attribution that can be manually and programmatically accessed.​
                 </p>
               </div>
             </Col>
@@ -145,8 +145,8 @@ const StoryAboutUs = (props) => {
               {/* Goal item 03 */}
               <div class="about-item card text-center mb-2">
                 <p>
-                The GlyGen project is built using insight gained during workshops which evaluated 
-                existing resources and identified pressing community needs.
+                To develop and integrate new glycoinformatics tools allowing further 
+                exploration of glycoscience data.
                 </p>
               </div>
             </Col>
@@ -164,11 +164,12 @@ const StoryAboutUs = (props) => {
                 An open, standardized environment for independent development and integration of
                 additional research tools by other investigators.
               </p>
-              <p>GlyGen is an international effort involving core collaborators from Europe and 
+              <p>GlyGen is an international effort involving core collaborators from Europe 
                 as well as many collaborators and data providers from around the world.</p>
               <p>
-              Two years of organized discussion and planning involving nearly 100 investigators 
-              was used to define the scope and use cases for GlyGen. 
+              Two years of organized discussion and planning involving nearly 100 
+              investigators was used to define the scope and use cases for GlyGen prior to 
+              the inception in 2017.​ 
               </p>
             </Col>
             <Col xs={12} md={12} xl={6} className="gg-align-middle gg-align-center">
