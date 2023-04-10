@@ -43,7 +43,7 @@ const MotifList = props => {
     setPageLoading(true);
     logActivity("user", id);
 
-    getMotifList(id)
+    getMotifList(id, 1, sizePerPage)
       .then(({ data }) => {
         if (data.error_code) {
           let message = "list api call";
