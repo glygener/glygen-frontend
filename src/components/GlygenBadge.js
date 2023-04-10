@@ -99,9 +99,11 @@ const GlygenBadge = (props) => {
         <ul style={{ listStyle: "none", padding: "5px", margin: "0" }}>
           {props.expandList.map((value, index) => (
             <li key={index}>
-              <Link href={value.url} target="_blank" rel="noopener noreferrer">
+              {value.url ? <Link href={value.url} target="_blank" rel="noopener noreferrer">
                 {value.id}
-              </Link>
+              </Link> : 
+                <span>{value.id}</span>
+              }
             </li>
           ))}
         </ul>
