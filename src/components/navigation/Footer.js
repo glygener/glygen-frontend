@@ -32,6 +32,10 @@ import {
   GITHUB,
   WIKI,
   PINTEREST,
+  GLYGEN_GSD,
+  GLYGEN_FAQ,
+  GLYGEN_TUT_HOWT,
+  GLYGEN_DOC,
 } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
@@ -115,9 +119,17 @@ export default function Footer() {
                 </a>
               </div>
               <div>
+                <a href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
+                Glycan Structure Dictionary
+                </a>
+              </div>
+              <div>
                 <a href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
                   GlycoMotif&nbsp;Wiki
                 </a>
+              </div>
+              <div>
+                <Link to={routeConstants.blastSearch}>GlyGen&nbsp;BLAST</Link>
               </div>
               <div>
                 <Link to={routeConstants.idMapping}>GlyGen&nbsp;Mapper</Link>
@@ -131,6 +143,9 @@ export default function Footer() {
                 <a href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure&nbsp;Browser
                 </a>
+              </div>
+              <div>
+                <Link to={routeConstants.resources}>Other Resources</Link>
               </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
@@ -151,25 +166,37 @@ export default function Footer() {
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Help</h6>
               <div>
-                <Link to={routeConstants.howToCite}>How to Cite</Link>
+                <a href={GLYGEN_FAQ} target="_blank" rel="noopener noreferrer">
+                  FAQ
+                </a>
+              </div>
+              <div>
+                <a href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
+                  Tutorials and How to
+                </a>
+              </div>
+              <div>
+                <a href={GLYGEN_DOC} target="_blank" rel="noopener noreferrer">
+                  Documentation
+                </a>
               </div>
               <div>
                 <Link to={routeConstants.contactUs}>Contact Us</Link>
               </div>
               <div>
-                <Link to={routeConstants.about}>About</Link>
-              </div>
-              <div>
-                <Link to={routeConstants.media}>Media</Link>
+                <Link to={routeConstants.feedback}>Feedback</Link>
               </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
-              <h6 className="text-uppercase">Resources</h6>
+              <h6 className="text-uppercase">About</h6>
               <div>
-                <Link to={routeConstants.feedback}>Feedback</Link>
+                <Link to={routeConstants.about}>We are GlyGen</Link>
               </div>
               <div>
-                <Link to={routeConstants.resources}>Resources</Link>
+                <Link to={routeConstants.howToCite}>How to Cite</Link>
+              </div>
+              <div>
+                <Link to={routeConstants.media}>Media</Link>
               </div>
               <div>
                 <Link to={routeConstants.frameworks}>Frameworks</Link>
