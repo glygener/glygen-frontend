@@ -1007,6 +1007,7 @@ sub {
 }
 .alert-banner-message {
   font-size: 20px;
+  overflow: hidden !important;
   /* text-align: center !important;
 	margin: 0 auto !important; */
 }
