@@ -25,8 +25,20 @@
 		{
 			"heading": "The Glycan Structure Dictionary -a  dictionary describing commonly used glycan structure terms.",
 			"authors": "Jeet Vora, Rahi Navelkar, K.Vijay-Shanker, Nathan Edwards, Xiying Ding, Tianyi Wang, Peng Su, Karen Ross, Frederique Lisacek, Catherine Hayes, Karina Martinez, Robel Kahsay, Rene Ranzinger, Michael Tiemeyer, Raja Mazumder.",
-			"pdf": "/downloads/pdf/The Glycan Structure Dictionary - a dictionary describing commonly used glycan structure terms.pdf",
-			"pdflabel": "PDF Download"
+			"publisher": "Glycobiology. 2023.",
+			"pmid": "PMID:",
+			"website": {
+				"name": "36799723",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/36799723"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/36799723.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/36799723.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/36799723.ris",
+			"rislabel": "RIS",
+			"period": "."
 		},
 		{
 			"heading": "Enhancing the interoperability of glycan data flow between ChEBI, PubChem and GlyGen.",
