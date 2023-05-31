@@ -168,11 +168,11 @@ export const getGeneLocusList = (
  * @param {string} type - download type.
  * @param {object} headers - headers.
  */
-export const getLocusDownload = (id, format, compressed, type, headers) => {
+export const getLocusListDownload = (id, format, compressed, type, headers) => {
   let message = "downloaded successfully ";
   logActivity("user", id, format, compressed, "No results. " + message);
-  const query = { id, type, format, compressed };
-  const url = `/data/download?query=${JSON.stringify(query)}`;
+  const query = { id, "download_type": type, format, compressed };
+  const url = `/data/list_download?query=${JSON.stringify(query)}`;
   return postToAndGetBlob(url, headers);
 };
 
@@ -322,11 +322,11 @@ export const getOrthologsList = (
  * @param {string} type - download type.
  * @param {object} headers - headers.
  */
-export const getOrthologDownload = (id, format, compressed, type, headers) => {
+export const getOrthologListDownload = (id, format, compressed, type, headers) => {
   let message = "downloaded successfully ";
   logActivity("user", id, format, compressed, "No results. " + message);
-  const query = { id, type, format, compressed };
-  const url = `/data/download?query=${JSON.stringify(query)}`;
+  const query = { id, "download_type": type, format, compressed };
+  const url = `/data/list_download?query=${JSON.stringify(query)}`;
   return postToAndGetBlob(url, headers);
 };
 
