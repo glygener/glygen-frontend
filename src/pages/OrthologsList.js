@@ -177,7 +177,7 @@ const OrthologsList = props => {
                 }
               ]}
               dataId={id}
-              itemType="ortholog"
+              itemType="ortholog_list"
             />
           </div>
           {selectedColumns && selectedColumns.length !== 0 && (

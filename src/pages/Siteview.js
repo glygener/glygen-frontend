@@ -1258,6 +1258,25 @@ const Siteview = props => {
                       {stringConstants.sidebar.glycosylation.displayname}
                     </h4>
                     <div className="float-end">
+
+                    <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Glycosylation (*.csv)",
+                              type: "glycosylation_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "glycosylation",
+                            }  
+                          ]}
+                          dataId={id + "." + position + "." + position}
+                          itemType="site_section"
+                          showBlueBackground={true}
+                          enable={(glycosylation && glycosylation.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1297,6 +1316,25 @@ const Siteview = props => {
                       {stringConstants.sidebar.phosphorylation.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Phosphorylation (*.csv)",
+                              type: "phosphorylation_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "phosphorylation",
+                            }  
+                          ]}
+                          dataId={id + "." + position + "." + position}
+                          itemType="site_section"
+                          showBlueBackground={true}
+                          enable={(phosphorylation && phosphorylation.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1335,6 +1373,25 @@ const Siteview = props => {
                       {stringConstants.sidebar.glycation.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                          {
+                              display: "Glycation (*.csv)",
+                              type: "glycation_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "glycation",
+                            }  
+                          ]}
+                          dataId={id + "." + position + "." + position}
+                          itemType="site_section"
+                          showBlueBackground={true}
+                          enable={(glycation && glycation.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1372,6 +1429,32 @@ const Siteview = props => {
                     <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
 
                     <div className="float-end">
+                    
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Disease Associated Mutations (*.csv)",
+                              type: "snv_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "snv_disease_associated_mutations",
+                            },
+                            {
+                              display: "Non-disease Associated Mutations (*.csv)",
+                              type: "snv_non_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "snv_non_disease_associated_mutations",
+                            },
+                          ]}
+                          dataId={id + "." + position + "." + position}
+                          itemType="site_section"
+                          showBlueBackground={true}
+                          enable={(snv && snv.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1413,6 +1496,25 @@ const Siteview = props => {
                       {stringConstants.sidebar.mutagenesis.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Mutagenesis (*.csv)",
+                              type: "mutagenesis_csv",
+                              format: "csv",
+                              data: "site_section",
+                              section: "mutagenesis",
+                            }
+                          ]}
+                          dataId={id + "." + position + "." + position}
+                          itemType="site_section"
+                          showBlueBackground={true}
+                          enable={(mutagenesis && mutagenesis.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

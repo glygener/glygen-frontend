@@ -295,7 +295,8 @@ const ProteinList = props => {
                     }
                   ]}
                   dataId={id}
-                  itemType="protein"
+                  itemType="protein_list"
+                  filters={appliedFilters}
                 />
               </div>
               {data && (

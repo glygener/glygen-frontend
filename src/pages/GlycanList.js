@@ -324,6 +324,8 @@ const GlycanList = props => {
                     // }
                   ]}
                   dataId={id}
+                  dataType="glycan_list"
+                  filters={appliedFilters}
                 />
               </div>
               {data && (

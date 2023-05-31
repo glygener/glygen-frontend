@@ -28,7 +28,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import DetailTooltips from "../data/json/proteinDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
-import { Tab, Tabs, Container } from "react-bootstrap";
+import { Tab, Tabs, Container, NavDropdown, Nav } from "react-bootstrap";
 // import ReactCopyClipboard from'../components/ReactCopyClipboard';
 import routeConstants from "../data/json/routeConstants";
 import FunctionList from "../components/FunctionList";
@@ -54,6 +54,10 @@ import { getProteinSearch } from "../data/protein";
 import SequenceHighlighter from "../components/sequence/SequenceHighlighter";
 import SequenceViewer from "../components/sequence/SequenceViewer";
 import CollapsibleText from "../components/CollapsibleText";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import { downloadFile } from "../utils/download";
+import { postToAndGetBlob } from "../data/api";
+
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -1650,7 +1654,7 @@ const ProteinDetail = (props) => {
                   },
                 ]}
                 dataId={id}
-                itemType="protein"
+                itemType="protein_detail"
               />
             </div>
             <React.Fragment>
@@ -1856,6 +1860,48 @@ const ProteinDetail = (props) => {
                           </Button>
                         </Link>
                       </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            glycosylationWithImage && glycosylationWithImage.length > 0  && {
+                              display: "Reported Sites with Glycan (*.csv)",
+                              type: "glycosylation_reported_with_glycans_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "glycosylation_reported_with_glycans",
+                            },
+                            glycosylationWithoutImage && glycosylationWithoutImage.length > 0 && {
+                              display: "Reported Sites (*.csv)",
+                              type: "glycosylation_reported_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "glycosylation_reported",
+                            },
+                            glycosylationPredicted && glycosylationPredicted.length > 0 && {
+                              display: "Predicted Only (*.csv)",
+                              type: "glycosylation_predicted_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "glycosylation_predicted",
+                            },
+                            glycosylationMining && glycosylationMining.length > 0 && {
+                              display: "Text Mining (*.csv)",
+                              type: "glycosylation_automatic_literature_mining_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "glycosylation_automatic_literature_mining",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={(glycosylationWithImage && glycosylationWithImage.length > 0) ||
+                            (glycosylationWithoutImage && glycosylationWithoutImage.length > 0) ||
+                            (glycosylationPredicted && glycosylationPredicted.length > 0) ||
+                            (glycosylationMining && glycosylationMining.length > 0)}
+                        />
+                      </span>
                       <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2042,6 +2088,25 @@ const ProteinDetail = (props) => {
                           </Button>
                         </Link>
                       </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Phosphorylation (*.csv)",
+                              type: "phosphorylation_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "phosphorylation",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={phosphorylation && phosphorylation.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2104,6 +2169,25 @@ const ProteinDetail = (props) => {
                           </Button>
                         </Link>
                       </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Glycation (*.csv)",
+                              type: "glycation_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "glycation",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={glycation && glycation.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2384,6 +2468,33 @@ const ProteinDetail = (props) => {
                           </Button>
                         </Link>
                       </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            mutataionWithdisease && mutataionWithdisease.length > 0 && {
+                              display: "Disease Associated Mutations (*.csv)",
+                              type: "snv_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "snv_disease_associated_mutations",
+                            },
+                            mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && {
+                              display: "Non-disease Associated Mutations (*.csv)",
+                              type: "snv_non_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "snv_non_disease_associated_mutations",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={(mutataionWithdisease && mutataionWithdisease.length > 0) ||
+                            (mutataionWithoutdisease && mutataionWithoutdisease.length > 0)}
+                        />
+                      </span>
+
                       <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2483,6 +2594,25 @@ const ProteinDetail = (props) => {
                           </Button>
                         </Link>
                       </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Mutagenesis (*.csv)",
+                              type: "mutagenesis_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "mutagenesis",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={mutagenesis && mutagenesis.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2621,6 +2751,26 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.glycan_ligands.displayname}
                     </h4>
                     <div className="float-end">
+
+                    <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Glycan Ligands (*.csv)",
+                              type: "interactions_csv",
+                              format: "csv",
+                              fileName: "glycan_ligands",
+                              data: "protein_section",
+                              section: "interactions",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={interactions && interactions.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="glycanLigands" toggle={collapsed.glycanLigands} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2661,6 +2811,23 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.ptm_annotation.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "PTM Annotation (*.csv)",
+                              type: "ptm_annotation_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "ptm_annotation",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={ptm_annotation && ptm_annotation.length > 0}
+                        />
+                      </span>
                       <CardToggle cardid="ptm_annotation" toggle={collapsed.ptm_annotation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2701,6 +2868,25 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.pro_annotation.displayname}
                     </h4>
                     <div className="float-end">
+
+                    <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Proteoform Annotation (*.csv)",
+                              type: "pro_annotation_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "pro_annotation",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={pro_annotation && pro_annotation.length > 0}
+                        />
+                      </span>
+
                        <CardToggle cardid="pro_annotation" toggle={collapsed.pro_annotation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -2790,6 +2976,25 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.synthesized_glycans.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Synthesized Glycans (*.csv)",
+                              type: "synthesized_glycans_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "synthesized_glycans",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={synthesized_glycans && synthesized_glycans.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="synthesized_glycans" toggle={collapsed.synthesized_glycans} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -3200,6 +3405,25 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.expression_Tissue.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Expression Tissue (*.csv)",
+                              type: "expression_tissue_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "expression_tissue",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={expression_tissue && expression_tissue.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="expression_tissue" toggle={collapsed.expression_tissue} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -3241,6 +3465,25 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.expression_Disease.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                          <DownloadButton
+                            types={[
+                              {
+                                display: "Expression Disease (*.csv)",
+                                type: "expression_disease_csv",
+                                format: "csv",
+                                data: "protein_section",
+                                section: "expression_disease",
+                              }
+                            ]}
+                            dataId={id}
+                            itemType="protein_section"
+                            showBlueBackground={true}
+                            enable={expression_disease && expression_disease.length > 0}
+                          />
+                        </span>
+
                       <CardToggle cardid="expression_disease" toggle={collapsed.expression_disease} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

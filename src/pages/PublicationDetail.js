@@ -106,13 +106,17 @@ const PublicationDetail = (props) => {
   const displayedItems = open ? allItems : allItems?.slice(0, maxItems);
   const displayedCellLineItems = open ? cellLineItems : cellLineItems?.slice(0, maxCellItems);
 
+  const [downloadId, setDownloadId] = useState("");
+
   useEffect(() => {
     setPageLoading(true);
     let publId = "";
     if (id && doi && publType) {
       publId = `${id}/${doi}`;
+      setDownloadId("doi." + id + "." + doi);
     } else {
       publId = id;
+      setDownloadId("pubmed." + id);
     }
 
     logActivity("user", publId);
@@ -1186,7 +1190,7 @@ const PublicationDetail = (props) => {
                   },
                 ]}
                 dataId={id}
-                itemType="publication"
+                itemType="publication_detail"
               />
             </div>
             <FeedbackWidget />
@@ -1353,6 +1357,24 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.referenced_proteins.displayname}
                   </h4>
                   <div className="float-end">
+                    <span className="gg-download-btn-width text-end">
+                      <DownloadButton
+                        types={[
+                          {
+                            display: "Referenced Proteins (*.csv)",
+                            type: "publication_section_csv",
+                            format: "csv",   
+                            data: "publication_section",
+                            section: "referenced_proteins",
+                          }
+                        ]}
+                        dataId={downloadId}
+                        itemType="publication_section"
+                        showBlueBackground={true}
+                        enable={referenced_proteins && referenced_proteins.length > 0}
+                      />
+                    </span>
+
                     <CardToggle cardid="referenced_proteins" toggle={collapsed.referenced_proteins} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1431,6 +1453,25 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.referenced_glycans.displayname}
                   </h4>
                   <div className="float-end">
+                    
+                    <span className="gg-download-btn-width text-end">
+                      <DownloadButton
+                        types={[
+                          {
+                            display: "Referenced Glycans (*.csv)",
+                            type: "publication_section_csv",
+                            format: "csv",   
+                            data: "publication_section",
+                            section: "referenced_glycans",
+                          }
+                        ]}
+                        dataId={downloadId}
+                        itemType="publication_section"
+                        showBlueBackground={true}
+                        enable={referenced_glycans && referenced_glycans.length > 0}
+                      />
+                    </span>
+
                     <CardToggle cardid="referenced_glycans" toggle={collapsed.referenced_glycans} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1475,6 +1516,39 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.glycosylation.displayname}
                   </h4>
                   <div className="float-end">
+                    <span className="gg-download-btn-width text-end">
+                      <DownloadButton
+                        types={[
+                          glycosylationWithImage && glycosylationWithImage.length > 0  && {
+                            display: "Reported Sites with Glycan (*.csv)",
+                            type: "glycosylation_reported_with_glycans_csv",
+                            format: "csv",
+                            data: "publication_section",
+                            section: "glycosylation_reported_with_glycans",
+                          },
+                          glycosylationWithoutImage && glycosylationWithoutImage.length > 0 && {
+                            display: "Reported Sites (*.csv)",
+                            type: "glycosylation_reported_csv",
+                            format: "csv",
+                            data: "publication_section",
+                            section: "glycosylation_reported",
+                          },
+                          glycosylationMining && glycosylationMining.length > 0 && {
+                            display: "Text Mining (*.csv)",
+                            type: "glycosylation_automatic_literature_mining_csv",
+                            format: "csv",
+                            data: "publication_section",
+                            section: "glycosylation_automatic_literature_mining",
+                          }
+                        ]}
+                        dataId={downloadId}
+                        itemType="publication_section"
+                        showBlueBackground={true}
+                        enable={(glycosylationWithImage && glycosylationWithImage.length > 0) ||
+                          (glycosylationWithoutImage && glycosylationWithoutImage.length > 0) ||
+                          (glycosylationMining && glycosylationMining.length > 0)}
+                      />
+                    </span>
                     <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1610,6 +1684,25 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.phosphorylation.displayname}
                   </h4>
                   <div className="float-end">
+
+                  <span className="gg-download-btn-width text-end">
+                    <DownloadButton
+                      types={[
+                        {
+                          display: "Phosphorylation (*.csv)",
+                          type: "phosphorylation_csv",
+                          format: "csv",
+                          data: "publication_section",
+                          section: "phosphorylation",
+                        }
+                      ]}
+                      dataId={downloadId}
+                      itemType="publication_section"
+                      showBlueBackground={true}
+                      enable={phosphorylation && phosphorylation.length > 0}
+                    />
+                  </span>
+
                     <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1662,6 +1755,25 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.glycation.displayname}
                   </h4>
                   <div className="float-end">
+
+                    <span className="gg-download-btn-width text-end">
+                      <DownloadButton
+                        types={[
+                          {
+                            display: "Glycation (*.csv)",
+                            type: "glycation_csv",
+                            format: "csv",
+                            data: "publication_section",
+                            section: "glycation",
+                          }
+                        ]}
+                        dataId={downloadId}
+                        itemType="publication_section"
+                        showBlueBackground={true}
+                        enable={glycation && glycation.length > 0}
+                      />
+                    </span>
+
                     <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1798,6 +1910,24 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.mutagenesis.displayname}
                   </h4>
                   <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Mutagenesis (*.csv)",
+                              type: "mutagenesis_csv",
+                              format: "csv",
+                              data: "publication_section",
+                              section: "mutagenesis",
+                            }
+                          ]}
+                          dataId={downloadId}
+                          itemType="publication_section"
+                          showBlueBackground={true}
+                          enable={mutagenesis && mutagenesis.length > 0}
+                        />
+                      </span>
                     <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
@@ -1840,6 +1970,32 @@ const PublicationDetail = (props) => {
                     {stringConstants.sidebar.expression.displayname}
                   </h4>
                   <div className="float-end">
+
+                  <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            expressionWithtissue && expressionWithtissue.length > 0 && {
+                              display: "Tissue / Bodily Fluid Expression (*.csv)",
+                              type: "expression_tissue_csv",
+                              format: "csv",
+                              data: "publication_section",
+                              section: "expression_tissue",
+                            },
+                            expressionWithcell && expressionWithcell.length > 0 && {
+                              display: "Cell / Cell Line Expression (*.csv)",
+                              type: "expression_cell_line_csv",
+                              format: "csv",
+                              data: "publication_section",
+                              section: "expression_cell_line",
+                            }
+                          ]}
+                          dataId={downloadId}
+                          itemType="publication_section"
+                          showBlueBackground={true}
+                          enable={(expressionWithtissue && expressionWithtissue.length > 0) ||
+                            (expressionWithcell && expressionWithcell.length > 0)}
+                        />
+                      </span>
                     <CardToggle cardid="expression" toggle={collapsed.expression} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>

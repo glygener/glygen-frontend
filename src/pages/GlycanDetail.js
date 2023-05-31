@@ -1009,7 +1009,7 @@ const GlycanDetail = props => {
    **/
   function handleOpenSandbox(glytoucan_ac) {
     var url =
-      "https://glygen.ccrc.uga.edu/sandbox/explore.html?" + glytoucan_ac;
+      "https://sandbox.glyomics.org/explore.html?" + glytoucan_ac;
     window.open(url);
   }
 
@@ -1691,6 +1691,23 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.motifs.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                          <DownloadButton
+                            types={[
+                              {
+                                display: "Motif (*.csv)",
+                                type: "motifs_csv",
+                                format: "csv",
+                                data: "glycan_section",
+                                section: "motifs",
+                              }
+                            ]}
+                            dataId={id}
+                            itemType="glycan_section"
+                            showBlueBackground={true}
+                            enable={motifs && motifs.length > 0}
+                          />
+                        </span>
                       <CardToggle cardid="motif" toggle={collapsed.motif} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1732,6 +1749,24 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.associated_glycan.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Associated Protein (*.csv)",
+                              type: "glycoprotein_csv",
+                              format: "csv",
+                              fileName: "associated_protein",
+                              data: "glycan_section",
+                              section: "glycoprotein",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="glycan_section"
+                          showBlueBackground={true}
+                          enable={glycoprotein && glycoprotein.length > 0}
+                        />
+                      </span>
                       <CardToggle cardid="glycoprotein" toggle={collapsed.glycoprotein} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1779,6 +1814,24 @@ const GlycanDetail = props => {
                       }
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Glycan Binding Protein (*.csv)",
+                              type: "interactions_csv",
+                              format: "csv",
+                              fileName: "glycan_binding_protein",
+                              data: "glycan_section",
+                              section: "interactions",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="glycan_section"
+                          showBlueBackground={true}
+                          enable={interactions && interactions.length > 0}
+                        />
+                      </span>
                        <CardToggle cardid="glycanBindingProtein" toggle={collapsed.glycanBindingProtein} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1822,6 +1875,24 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.bio_Enzymes.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Biosynthetic Enzymes (*.csv)",
+                              type: "enzyme_csv",
+                              format: "csv",
+                              fileName: "biosynthetic_enzymes",
+                              data: "glycan_section",
+                              section: "enzyme",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="glycan_section"
+                          showBlueBackground={true}
+                          enable={enzyme && enzyme.length > 0}
+                        />
+                      </span>
                       <CardToggle cardid="bioEnzyme" toggle={collapsed.bioEnzyme} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1863,6 +1934,32 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.subsumption.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            subsumptionAncestor && subsumptionAncestor.length > 0 && {
+                              display: "Ancestor (*.csv)",
+                              type: "subsumption_ancestor_csv",
+                              format: "csv",
+                              data: "glycan_section",
+                              section: "subsumption_ancestor",
+                            },
+                            subsumptionDescendant && subsumptionDescendant.length > 0 && {
+                              display: "Descendant (*.csv)",
+                              type: "subsumption_descendant_csv",
+                              format: "csv",
+                              data: "glycan_section",
+                              section: "subsumption_descendant",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="glycan_section"
+                          showBlueBackground={true}
+                          enable={(subsumption && subsumption.length !== 0) &&
+                            ((subsumptionAncestor && subsumptionAncestor.length > 0) ||
+                            (subsumptionDescendant && subsumptionDescendant.length > 0))}
+                        />
+                      </span>
                       <CardToggle cardid="subsumption" toggle={collapsed.subsumption} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1941,6 +2038,32 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.expression.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                          <DownloadButton
+                            types={[
+                              expressionWithtissue && expressionWithtissue.length > 0 && {
+                                display: "Tissue / Bodily Fluid Expression (*.csv)",
+                                type: "expression_tissue_csv",
+                                format: "csv",
+                                data: "glycan_section",
+                                section: "expression_tissue",
+                              },
+                              expressionWithcell && expressionWithcell.length > 0 && {
+                                display: "Cell / Cell Line Expression (*.csv)",
+                                type: "expression_cell_line_csv",
+                                format: "csv",
+                                data: "glycan_section",
+                                section: "expression_cell_line",
+                              }
+                            ]}
+                            dataId={id}
+                            itemType="glycan_section"
+                            showBlueBackground={true}
+                            enable={(expression && expression.length !== 0) &&
+                              ((expressionWithtissue && expressionWithtissue.length > 0) ||
+                              (expressionWithcell && expressionWithcell.length > 0))}
+                          />
+                        </span>
                       <CardToggle cardid="expression" toggle={collapsed.expression} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

@@ -27,11 +27,27 @@ export const getMotifList = (
   return getJson(url);
 };
 
-export const getMotifDownload = (id, format, compressed, type, headers) => {
+export const getMotifListDownload = (id, format, compressed, type, headers) => {
   let message = "downloaded successfully ";
   logActivity("user", id, format, compressed, "No results. " + message);
-  const query = { id, type, format, compressed };
-  const url = `/data/download?query=${JSON.stringify(query)}`;
+  const query = { id, "download_type": type, format, compressed };
+  const url = `/data/list_download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
+
+export const getMotifDetailDownload = (id, format, compressed, type, headers) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, "download_type": type, format, compressed };
+  const url = `/data/detail_download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
+
+export const getMotifSectionDownload = (id, format, compressed, type, headers, section) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, "download_type": type, section, format, compressed };
+  const url = `/data/section_download?query=${JSON.stringify(query)}`;
   return postToAndGetBlob(url, headers);
 };
 

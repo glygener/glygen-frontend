@@ -574,6 +574,26 @@ const MotifDetail = (props) => {
                       {stringConstants.sidebar.glycans.displayname}
                     </h4>
                     <div className="float-end">
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Glycans With This Motif (*.csv)",
+                              type: "glycans_csv",
+                              format: "csv",
+                              fileName: "glycans_with_this_motif",
+                              data: "motif_section",
+                              section: "glycans",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="motif_section"
+                          showBlueBackground={true}
+                          enable={selectedColumns && selectedColumns.length > 0}
+                        />
+                      </span>
+
                       <CardToggle cardid="glycans" toggle={collapsed.glycans} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

@@ -61,13 +61,16 @@ export const downloadFromServer = async (
   format,
   compressed,
   type,
-  itemTypeResolver
+  itemTypeResolver,
+  section,
+  customFileName,
+  filters
 ) => {
-  const formatDetails = getFormatDetails(format, type, compressed);
+  const formatDetails = getFormatDetails(format, customFileName ? customFileName : section ? section  : type, compressed);
   const { fields, data } = formatDetails;
   const serverData = await itemTypeResolver(id, format, compressed, type, {
     "Content-Type": data
-  });
+  }, section, filters);
   const { mimeType, ext, type: newType } = formatDetails;
   const filename = `${newType}_${id}${ext}`;
 

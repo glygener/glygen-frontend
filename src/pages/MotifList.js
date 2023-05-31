@@ -229,7 +229,7 @@ const MotifList = props => {
                 }
               ]}
               dataId={""}
-              dataType="motif_list"
+              itemType="motif_list"
             />
           </div>
 

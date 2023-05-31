@@ -175,7 +175,7 @@ const LocusList = props => {
                 }
               ]}
               dataId={id}
-              itemType="locus"
+              itemType="locus_list"
             />
           </div>
           {selectedColumns && selectedColumns.length !== 0 && (

@@ -403,7 +403,8 @@ const SiteList = (props) => {
                     },
                   ]}
                   dataId={id}
-                  itemType="site"
+                  itemType="site_list"
+                  filters={appliedFilters}
                 />
               </div>
               {/* {data && data.length !== 0 && ( */}
