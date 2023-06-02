@@ -68,7 +68,7 @@ const DownloadButton = (props) => {
   });
 
   const [show, setShow] = useState(false);
-  const [format, setFormat] = useState(props.types[0].type);
+  const [format, setFormat] = useState(props.format || props.types[0].type);
   // const [displayformat, setDisplayFormat] = useState(display);
   const [compressed, setCompressed] = useState(props.compressed || false);
 
@@ -91,7 +91,7 @@ const DownloadButton = (props) => {
     }
   };
   const clearForm = () => {
-    setFormat( props.types[0].type);
+    setFormat( props.format || props.types[0].type);
     setCompressed(props.compressed || false);
   };
   const handleClickOutside = (event) => {
@@ -186,6 +186,7 @@ const DownloadButton = (props) => {
                         <SelectControl
                           fullWidth
                           inputValue={format}
+                          defaultValue={props.types[0].type}
                           menu={types.map((typeItem) => {
                             return {
                               id: typeItem.type,
