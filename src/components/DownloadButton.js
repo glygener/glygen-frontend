@@ -68,7 +68,7 @@ const DownloadButton = (props) => {
   });
 
   const [show, setShow] = useState(false);
-  const [format, setFormat] = useState(props.format || props.types[0].type);
+  const [format, setFormat] = useState(props.types[0].type);
   // const [displayformat, setDisplayFormat] = useState(display);
   const [compressed, setCompressed] = useState(props.compressed || false);
 
@@ -91,7 +91,7 @@ const DownloadButton = (props) => {
     }
   };
   const clearForm = () => {
-    setFormat(props.format || props.types[0].type);
+    setFormat( props.types[0].type);
     setCompressed(props.compressed || false);
   };
   const handleClickOutside = (event) => {
@@ -105,7 +105,6 @@ const DownloadButton = (props) => {
       <Link>
       {(props.showBlueBackground) ?  
         (<Button
-          class1Name="btn btn-link gg-download-btn dropdown-toggle"
           className="gg-btn-blue gg-drownload-btn-card dropdown-toggle"
           style={{
             marginLeft: "10px",
