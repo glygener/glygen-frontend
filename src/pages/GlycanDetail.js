@@ -1149,6 +1149,7 @@ const GlycanDetail = props => {
                   }
                 ]}
                 dataType="glycan_detail"
+                itemType="glycan_detail"
                 dataId={id}
               />
             </div>
