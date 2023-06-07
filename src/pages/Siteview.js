@@ -1429,24 +1429,16 @@ const Siteview = props => {
                     <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
 
                     <div className="float-end">
-                    
                       <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
                             {
-                              display: "Disease Associated Mutations (*.csv)",
-                              type: "snv_disease_associated_mutations_csv",
+                              display: "Single Nucleotide Variation (*.csv)",
+                              type: "snv_mutations_csv",
                               format: "csv",
                               data: "site_section",
-                              section: "snv_disease_associated_mutations",
-                            },
-                            {
-                              display: "Non-disease Associated Mutations (*.csv)",
-                              type: "snv_non_disease_associated_mutations_csv",
-                              format: "csv",
-                              data: "site_section",
-                              section: "snv_non_disease_associated_mutations",
-                            },
+                              section: "snv_mutations",
+                            }
                           ]}
                           dataId={id + "." + position + "." + position}
                           itemType="site_section"
@@ -1454,7 +1446,6 @@ const Siteview = props => {
                           enable={(snv && snv.length > 0)}
                         />
                       </span>
-
                       <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
