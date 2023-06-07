@@ -303,6 +303,10 @@ const ProteinDetail = (props) => {
   useEffect(() => {
     setNonExistent(null);
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     setSelectedHighlights({
       mutation: "mutation" === select,

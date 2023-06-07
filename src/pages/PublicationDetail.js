@@ -110,6 +110,10 @@ const PublicationDetail = (props) => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     let publId = "";
     if (id && doi && publType) {
       publId = `${id}/${doi}`;

@@ -198,6 +198,10 @@ const GlycanDetail = props => {
   useEffect(() => {
     setNonExistent(null);
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     const getGlycanDetailData = getGlycanDetail(id);
 

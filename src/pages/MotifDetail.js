@@ -149,6 +149,10 @@ const MotifDetail = (props) => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     const getMotifDetaildata = getMotifDetail(id);
     getMotifDetaildata.then(({ data }) => {

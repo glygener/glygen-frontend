@@ -295,6 +295,10 @@ const Siteview = props => {
 
   useEffect(() => {
     logActivity("user", id);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     const getProteinsiteDetailData = getProteinsiteDetail(id, selectedPosition);
     getProteinsiteDetailData.then(({ data }) => {
       if (data.code) {
