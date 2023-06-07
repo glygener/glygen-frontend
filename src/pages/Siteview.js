@@ -33,6 +33,7 @@ import { axiosError } from "../data/axiosError";
 import DetailTooltips from "../data/json/siteDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
+import PageLoader from "../components/load/PageLoader";
 import routeConstants from "../data/json/routeConstants";
 import stringConstants from "../data/json/stringConstants";
 import { getGlycanImageUrl } from "../data/glycan";
@@ -296,6 +297,7 @@ const Siteview = props => {
 
   useEffect(() => {
     logActivity("user", id);
+    setPageLoading(true);
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -995,7 +997,7 @@ const Siteview = props => {
                 {getMeta("siteView")}
               </Helmet>
               <FeedbackWidget />
-              {/* <PageLoader pageLoading={pageLoading} /> */}
+              <PageLoader pageLoading={pageLoading} />
               <DialogAlert
                 alertInput={alertDialogInput}
                 setOpen={input => {
@@ -1238,7 +1240,7 @@ const Siteview = props => {
                           </Col>
                         </Row>
                       )}
-                      {!sequence.length && <p>{dataStatus}</p>}
+                      {!sequence && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1297,7 +1299,7 @@ const Siteview = props => {
                           />
                       )}
 
-                      {(glycosylation && glycosylation.length === 0) && <p>{dataStatus}</p>}
+                      {(!glycosylation || glycosylation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1354,7 +1356,7 @@ const Siteview = props => {
                           columns={phosphorylationColumns}
                         />
                       )}
-                      {(phosphorylation && phosphorylation.length === 0) && <p>{dataStatus}</p>}
+                      {(!phosphorylation || phosphorylation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1411,7 +1413,7 @@ const Siteview = props => {
                           columns={glycationColumns}
                         />
                       )}
-                      {(glycation && glycation.length === 0) && <p>{dataStatus}</p>}
+                      {(!glycation || glycation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1466,7 +1468,7 @@ const Siteview = props => {
                             />
                       )}
 
-                      {(snv && snv.length === 0) && <p>{dataStatus}</p>}
+                      {(!snv || snv.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1525,7 +1527,7 @@ const Siteview = props => {
                           columns={mutagenesisColumns}
                         />
                       )}
-                      {(mutagenesis && mutagenesis.length === 0) && <p>{dataStatus}</p>}
+                      {(!mutagenesis || mutagenesis.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
