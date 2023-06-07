@@ -52,6 +52,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
           start_pos: data.start_pos,
           end_pos: data.end_pos,
           protein_name: proData.details.protein_name,
+          gene_name: proData.details.gene_name,
           species_name: proData.details.species.name,
           evalue: proData.hsp_list[i].evalue,
           score: proData.hsp_list[i].score,
@@ -166,6 +167,10 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
             <div>
               <strong>{blastSearch.protein_name.name}: </strong>{" "}
               {multiSeque.protein_name}
+            </div>
+            <div>
+              <strong>{blastSearch.gene_name.name}: </strong>{" "}
+              {multiSeque.gene_name}
             </div>
             <div>
               <strong>{blastSearch.species_name.name}: </strong>{" "}

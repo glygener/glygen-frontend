@@ -100,6 +100,7 @@ const BlastResult = (props) => {
                 "uniprot_ac": seqObj.uniprot_ac,
                 "uniprot_id": seqObj.uniprot_id,
                 "protein_name": data.by_subject[protID].details.protein_name,
+                "gene_name": data.by_subject[protID].details.gene_name,
                 "tax_name": seqObj.tax_name,
                 "tax_id": seqObj.tax_id,
                 "start_pos": seqObj.start_pos,
@@ -190,6 +191,11 @@ const BlastResult = (props) => {
     {
       dataField: "protein_name",
       text: blastSearch.protein_name.name,
+      sort: true,
+    },
+    {
+      dataField: "gene_name",
+      text: blastSearch.gene_name.name,
       sort: true,
     },
     {

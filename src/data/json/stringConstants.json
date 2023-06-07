@@ -1513,6 +1513,11 @@
         "shortName": "Protein Name",
         "id": "protein_name"
       },
+      "gene_name": {
+        "name": "Gene Name",
+        "shortName": "Gene Name",
+        "id": "gene_name"
+      },
       "species_name": {
         "name": "Organism",
         "shortName": "Organism",
