@@ -1824,6 +1824,31 @@ const PublicationDetail = (props) => {
                   <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
 
                   <div className="float-end">
+                  <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            mutataionWithdisease && mutataionWithdisease.length > 0 && {
+                              display: "Disease Associated Mutations (*.csv)",
+                              type: "snv_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "publication_section",
+                              section: "snv_disease_associated_mutations",
+                            },
+                            mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && {
+                              display: "Non-disease Associated Mutations (*.csv)",
+                              type: "snv_non_disease_associated_mutations_csv",
+                              format: "csv",
+                              data: "publication_section",
+                              section: "snv_non_disease_associated_mutations",
+                            }
+                          ]}
+                          dataId={downloadId}
+                          itemType="publication_section"
+                          showBlueBackground={true}
+                          enable={(mutataionWithdisease && mutataionWithdisease.length > 0) ||
+                            (mutataionWithoutdisease && mutataionWithoutdisease.length > 0)}
+                        />
+                      </span>
                     <CardToggle cardid="snv" toggle={collapsed.snv} eventKey="0" toggleCollapse={toggleCollapse}/>
                   </div>
                 </Card.Header>
