@@ -138,6 +138,8 @@ const MotifDetail = (props) => {
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState();
   const [pageLoading, setPageLoading] = useState(true);
+  const [dataStatus, setDataStatus] = useState("Fetching Data.");
+
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -160,6 +162,7 @@ const MotifDetail = (props) => {
         let message = "Motif Detail api call";
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
+        setDataStatus("No data available.");
       } else {
         setData(data.results);
         setPagination(data.pagination);
@@ -168,6 +171,7 @@ const MotifDetail = (props) => {
         //   setSizePerPage()
         setTotalSize(data.pagination.total_length);
         setPageLoading(false);
+        setDataStatus("No data available.");
       }
       setTimeout(() => {
         const anchorElement = location.hash;
@@ -181,6 +185,7 @@ const MotifDetail = (props) => {
     getMotifDetaildata.catch(({ response }) => {
       let message = "motif api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      setDataStatus("No data available.");
     });
   }, [id, sizePerPage]);
 
@@ -804,7 +809,7 @@ const MotifDetail = (props) => {
                           </ul>
                         </div>
                       ) : (
-                        <span>No data available.</span>
+                        <span>{dataStatus}</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -851,7 +856,7 @@ const MotifDetail = (props) => {
                           ))}
                         </>
                       ) : (
-                        <span>No data available.</span>
+                        <span>{dataStatus}</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -930,7 +935,7 @@ const MotifDetail = (props) => {
                             ))}
                           </tbody>
                         ) : (
-                          <p className="no-data-msg-publication">No data available.</p>
+                          <p className="no-data-msg-publication">{dataStatus}</p>
                         )}
                       </Table>
                     </Card.Body>

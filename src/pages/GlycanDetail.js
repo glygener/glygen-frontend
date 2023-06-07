@@ -177,6 +177,7 @@ const GlycanDetail = props => {
   const [nonExistent, setNonExistent] = useState(null);
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -224,6 +225,7 @@ const GlycanDetail = props => {
         let message = "Glycan Detail api call";
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
+        setDataStatus("No data available.");
       } else {
         let detailDataTemp = data;
         if (data.subsumption) {
@@ -308,6 +310,7 @@ const GlycanDetail = props => {
         setItemsCrossRef(getItemsCrossRef(detailDataTemp));
         setDetailData(detailDataTemp);
         setPageLoading(false);
+        setDataStatus("No data available.");
         //new side bar
         let newSidebarData = sideBarData;
         if (
@@ -440,6 +443,7 @@ const GlycanDetail = props => {
         let message = "Glycan Detail api call";
         axiosError(response, id, message, setPageLoading, setAlertDialogInput);
       }
+      setDataStatus("No data available.");
     });
     // eslint-disable-next-line
   }, [id]);
@@ -1537,7 +1541,7 @@ const GlycanDetail = props => {
                             </div>
                           </div>)
                           : (
-                            <p className="no-data-msg">No data available.</p>
+                            <p className="no-data-msg">{dataStatus}</p>
                         )}
                       </Row>
                     </Card.Body>
@@ -1625,7 +1629,7 @@ const GlycanDetail = props => {
                             </Col>
                           ))}
                         {!species && (
-                          <p className="no-data-msg">No data available.</p>
+                          <p className="no-data-msg">{dataStatus}</p>
                         )}
                       </Row>
                     </Card.Body>
@@ -1668,7 +1672,7 @@ const GlycanDetail = props => {
                           ))}
                         </ul>
                       ) : (
-                        <p>No data available.</p>
+                        <p>{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -1727,7 +1731,7 @@ const GlycanDetail = props => {
                           onClickTarget={"#motif"}
                         />
                       )}
-                      {!motifs && <p>No data available.</p>}
+                      {!motifs && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1785,7 +1789,7 @@ const GlycanDetail = props => {
                           onClickTarget={"#glycoprotein"}
                         />
                       )}
-                      {!glycoprotein.length && <p>No data available.</p>}
+                      {!glycoprotein.length && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1851,7 +1855,7 @@ const GlycanDetail = props => {
                           onClickTarget={"#glycanBindingProtein"}
                         />
                       )}
-                      {!interactions && <p>No data available.</p>}
+                      {!interactions && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1912,7 +1916,7 @@ const GlycanDetail = props => {
                           onClickTarget={"#biosyntheticenzymes"}
                         />
                       )}
-                      {!enzyme && <p>No data available.</p>}
+                      {!enzyme && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1993,7 +1997,7 @@ const GlycanDetail = props => {
                                   />
                                 )}
                               {!subsumptionAncestor.length && (
-                                <p>No data available.</p>
+                                <p>{dataStatus}</p>
                               )}
                             </Container>
                           </Tab>
@@ -2010,13 +2014,13 @@ const GlycanDetail = props => {
                                   />
                                 )}
                               {!subsumptionDescendant.length && (
-                                <p>No data available.</p>
+                                <p>{dataStatus}</p>
                               )}
                             </Container>
                           </Tab>
                         </Tabs>
                       )}
-                      {!subsumption && <p>No data available.</p>}
+                      {!subsumption && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2102,7 +2106,7 @@ const GlycanDetail = props => {
                                   />
                                 )}
                               {!expressionWithtissue.length && (
-                                <p>No data available.</p>
+                                <p>{dataStatus}</p>
                               )}
                             </Container>
                           </Tab>
@@ -2121,14 +2125,14 @@ const GlycanDetail = props => {
                                   />
                                 )}
                               {!expressionWithcell.length && (
-                                <p>No data available.</p>
+                                <p>{dataStatus}</p>
                               )}
                             </Container>
                           </Tab>
                         </Tabs>
                       )}
 
-                      {!expression && <p>No data available.</p>}
+                      {!expression && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2316,7 +2320,7 @@ const GlycanDetail = props => {
                           </ul>
                         </div>
                       ) : (
-                        <span>No data available.</span>
+                        <span>{dataStatus}</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -2363,7 +2367,7 @@ const GlycanDetail = props => {
                           ))}
                         </>
                       ) : (
-                        <span>No data available.</span>
+                        <span>{dataStatus}</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -2482,7 +2486,7 @@ const GlycanDetail = props => {
                       </Table>
                       {!publication && (
                         <p className="no-data-msg-publication">
-                          No data available.
+                          {dataStatus}
                         </p>
                       )}
                     </Card.Body>

@@ -91,6 +91,7 @@ const PublicationDetail = (props) => {
   const [mutataionWithoutdisease, setMutataionWithoutdisease] = useState([]);
   const [mutataionTabSelected, setMutataionTabSelected] = useState("");
   const [pageLoading, setPageLoading] = useState(true);
+  const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -132,11 +133,13 @@ const PublicationDetail = (props) => {
         let message = "Publication api call";
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
+        setDataStatus("No data available.");
       } else {
         setDetailData(data);
         setAllItems(data.referenced_proteins);
         setCellLineItems(data.cell_line);
         setPageLoading(false);
+        setDataStatus("No data available.");
         if (data.glycosylation) {
           const mapOfGlycosylationCategories = data.glycosylation.reduce((collection, item) => {
             const category = item.site_category || logActivity("No results. ");
@@ -233,6 +236,7 @@ const PublicationDetail = (props) => {
     getPublData.catch(({ response }) => {
       let message = "Publication api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      setDataStatus("No data available.");
     });
     // eslint-disable-next-line
   }, [id, doi, publType]);
@@ -1263,7 +1267,7 @@ const PublicationDetail = (props) => {
                         <CollapsibleText text={abstract} />
                       </div>
                     )}
-                    {!title && <span>No data available.</span>}
+                    {!title && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1332,7 +1336,7 @@ const PublicationDetail = (props) => {
                           </Col>
                       ))}
                       {!species && (
-                        <p className="no-data-msg">No data available.</p>
+                        <p className="no-data-msg">{dataStatus}</p>
                       )}
                     </Row>
                   </Card.Body>
@@ -1430,7 +1434,7 @@ const PublicationDetail = (props) => {
                         </div>
                       </>
                     )}
-                    {!referenced_proteins && <span>No data available.</span>}
+                    {!referenced_proteins && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1493,7 +1497,7 @@ const PublicationDetail = (props) => {
                         idField={"refGlyc"}
                       />
                     )}
-                    {!referenced_glycans && <span>No data available.</span>}
+                    {!referenced_glycans && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1599,7 +1603,7 @@ const PublicationDetail = (props) => {
                                 />
                               )}
                               {!glycosylationWithImage.length && (
-                                <div className="tab-content-padding">No data available.</div>
+                                <div className="tab-content-padding">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
@@ -1627,7 +1631,7 @@ const PublicationDetail = (props) => {
                                   />
                                 )}
                               {!glycosylationWithoutImage.length && (
-                                <div className="tab-content-padding">No data available.</div>
+                                <div className="tab-content-padding">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
@@ -1654,14 +1658,14 @@ const PublicationDetail = (props) => {
                                 />
                               )}
                               {!glycosylationMining.length && (
-                                <div className="tab-content-padding">No data available.</div>
+                                <div className="tab-content-padding">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
                         </Tabs>
                       </>
                     )}
-                    {!glycosylation && <span>No data available.</span>}
+                    {!glycosylation && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1732,7 +1736,7 @@ const PublicationDetail = (props) => {
                         idField={"index"}
                       />
                     )}
-                    {!phosphorylation && <span>No data available.</span>}
+                    {!phosphorylation && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1802,7 +1806,7 @@ const PublicationDetail = (props) => {
                         defaultSortOrder="asc"
                       />
                     )}
-                    {!glycation && <span>No data available.</span>}
+                    {!glycation && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1885,7 +1889,7 @@ const PublicationDetail = (props) => {
                                 defaultSortOrder="asc"
                               />
                             )}
-                            {!mutataionWithdisease.length && <span>No data available.</span>}
+                            {!mutataionWithdisease.length && <span>{dataStatus}</span>}
                           </Container>
                         </Tab>
                         <Tab
@@ -1905,13 +1909,13 @@ const PublicationDetail = (props) => {
                                 defaultSortOrder="asc"
                               />
                             )}
-                            {!mutataionWithoutdisease.length && <span>No data available.</span>}
+                            {!mutataionWithoutdisease.length && <span>{dataStatus}</span>}
                           </Container>
                         </Tab>
                       </Tabs>
                     )}
 
-                    {!snv && <span>No data available.</span>}
+                    {!snv && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -1972,7 +1976,7 @@ const PublicationDetail = (props) => {
                         defaultSortOrder="asc"
                       />
                     )}
-                    {!mutagenesis && <span>No data available.</span>}
+                    {!mutagenesis && <span>{dataStatus}</span>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
@@ -2054,7 +2058,7 @@ const PublicationDetail = (props) => {
                                 defaultSortField="start_pos"
                               />
                             )}
-                            {!expressionWithtissue.length && <p>No data available.</p>}
+                            {!expressionWithtissue.length && <p>{dataStatus}</p>}
                           </Container>
                         </Tab>
                         <Tab eventKey="with_cellline" title="Cell / Cell Line Expression ">
@@ -2067,13 +2071,13 @@ const PublicationDetail = (props) => {
                                 defaultSortField="position"
                               />
                             )}
-                            {!expressionWithcell.length && <p>No data available.</p>}
+                            {!expressionWithcell.length && <p>{dataStatus}</p>}
                           </Container>
                         </Tab>
                       </Tabs>
                     )}
 
-                    {!glycan_expression && <p>No data available.</p>}
+                    {!glycan_expression && <p>{dataStatus}</p>}
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>

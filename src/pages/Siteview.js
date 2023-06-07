@@ -286,6 +286,7 @@ const Siteview = props => {
   const [selectedPosition, setSelectedPosition] = useState(position);
   const [nonExistent, setNonExistent] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [sideBarData, setSidebarData] = useState(items);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -305,9 +306,11 @@ const Siteview = props => {
         let message = "Detail api call";
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
+        setDataStatus("No data available.");
       } else {
         setDetailData(data);
         setPageLoading(false);
+        setDataStatus("No data available.");
         let newSidebarData = items;
         if (!data.uniprot_canonical_ac || data.uniprot_canonical_ac.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "General", true);
@@ -349,6 +352,7 @@ const Siteview = props => {
       } else {
         let message = "Site Detail api call";
         axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+        setDataStatus("No data available.");
       }
     });
   }, [id, selectedPosition]);
@@ -1079,7 +1083,7 @@ const Siteview = props => {
                         )}
                         {!gene && (
                           <p className="no-data-msg-publication">
-                            No data available.
+                            {dataStatus}
                           </p>
                         )}
                       </div>
@@ -1188,7 +1192,7 @@ const Siteview = props => {
                             </div>
                           ))}
                         {/* {!species && (
-													<p className="no-data-msg">No data available.</p>
+													<p className="no-data-msg">{dataStatus}</p>
 												)} */}
                       </div>
                     </Card.Body>
@@ -1234,7 +1238,7 @@ const Siteview = props => {
                           </Col>
                         </Row>
                       )}
-                      {!sequence.length && <p>No data available.</p>}
+                      {!sequence.length && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1293,7 +1297,7 @@ const Siteview = props => {
                           />
                       )}
 
-                      {(glycosylation && glycosylation.length === 0) && <p>No data available.</p>}
+                      {(glycosylation && glycosylation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1350,7 +1354,7 @@ const Siteview = props => {
                           columns={phosphorylationColumns}
                         />
                       )}
-                      {(phosphorylation && phosphorylation.length === 0) && <p>No data available.</p>}
+                      {(phosphorylation && phosphorylation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1407,7 +1411,7 @@ const Siteview = props => {
                           columns={glycationColumns}
                         />
                       )}
-                      {(glycation && glycation.length === 0) && <p>No data available.</p>}
+                      {(glycation && glycation.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1462,7 +1466,7 @@ const Siteview = props => {
                             />
                       )}
 
-                      {(snv && snv.length === 0) && <p>No data available.</p>}
+                      {(snv && snv.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -1521,7 +1525,7 @@ const Siteview = props => {
                           columns={mutagenesisColumns}
                         />
                       )}
-                      {(mutagenesis && mutagenesis.length === 0) && <p>No data available.</p>}
+                      {(mutagenesis && mutagenesis.length === 0) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

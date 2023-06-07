@@ -278,6 +278,7 @@ const ProteinDetail = (props) => {
   const [mutataionTabSelected, setMutataionTabSelected] = useState("");
   const [ptmAnnotation, setPtmAnnotation] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -325,6 +326,7 @@ const ProteinDetail = (props) => {
         let message = "Detail api call";
         logActivity("user", id, "No results. " + message);
         setPageLoading(false);
+        setDataStatus("No data available.");
       } else {
         let detailDataTemp = data;
         setItemsCrossRef(getItemsCrossRef(data));
@@ -525,6 +527,7 @@ const ProteinDetail = (props) => {
           setPtmAnnotation(ptmEvidence);
         }
         setPageLoading(false);
+        setDataStatus("No data available.");
       }
 
       // Need to call it second time due to glycosylationWithImage and glycosylationWithoutImage table loading time.
@@ -554,6 +557,7 @@ const ProteinDetail = (props) => {
         let message = "Protein Detail api call";
         axiosError(response, id, message, setPageLoading, setAlertDialogInput);
       }
+      setDataStatus("No data available.");
     });
   }, [id]);
 
@@ -1735,7 +1739,7 @@ const ProteinDetail = (props) => {
                             ))}
                           </>
                         )}
-                        {!gene && <p className="no-data-msg-publication">No data available.</p>}
+                        {!gene && <p className="no-data-msg-publication">{dataStatus}</p>}
                       </div>
 
                       {uniprot && uniprot.uniprot_canonical_ac && (
@@ -1824,7 +1828,7 @@ const ProteinDetail = (props) => {
                             </div>
                           ))}
                         {/* {!species && (
-													<p className="no-data-msg">No data available.</p>
+													<p className="no-data-msg">{dataStatus}</p>
 												)} */}
                       </div>
                     </Card.Body>
@@ -1951,7 +1955,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationWithImage.length && (
-                                  <div className="tab-content-padding">No data available.</div>
+                                  <div className="tab-content-padding">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -1983,7 +1987,7 @@ const ProteinDetail = (props) => {
                                     />
                                   )}
                                 {!glycosylationWithoutImage.length && (
-                                  <div className="tab-content-padding">No data available.</div>
+                                  <div className="tab-content-padding">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2013,7 +2017,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationPredicted.length && (
-                                  <div className="tab-content-padding">No data available.</div>
+                                  <div className="tab-content-padding">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2046,7 +2050,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationMining.length && (
-                                  <div className="tab-content-padding">No data available.</div>
+                                  <div className="tab-content-padding">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2054,7 +2058,7 @@ const ProteinDetail = (props) => {
                         </>
                       )}
 
-                      {!glycosylation && <p>No data available.</p>}
+                      {!glycosylation && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2135,7 +2139,7 @@ const ProteinDetail = (props) => {
                           defaultSortOrder="asc"
                         />
                       )}
-                      {!phosphorylation && <p>No data available.</p>}
+                      {!phosphorylation && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2216,7 +2220,7 @@ const ProteinDetail = (props) => {
                           defaultSortOrder="asc"
                         />
                       )}
-                      {!glycation && <p>No data available.</p>}
+                      {!glycation && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2288,7 +2292,7 @@ const ProteinDetail = (props) => {
                           )}
                         </ul>
                       ) : (
-                        <p>No data available.</p>
+                        <p>{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -2335,7 +2339,7 @@ const ProteinDetail = (props) => {
                           </tbody>
                         </Table>
                       </div>
-                      {!functions && <p className="no-data-msg-publication">No data available.</p>}
+                      {!functions && <p className="no-data-msg-publication">{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2530,7 +2534,7 @@ const ProteinDetail = (props) => {
                                   defaultSortOrder="asc"
                                 />
                               )}
-                              {!mutataionWithdisease.length && <p>No data available.</p>}
+                              {!mutataionWithdisease.length && <p>{dataStatus}</p>}
                             </Container>
                           </Tab>
                           <Tab
@@ -2552,13 +2556,13 @@ const ProteinDetail = (props) => {
                                   defaultSortOrder="asc"
                                 />
                               )}
-                              {!mutataionWithoutdisease.length && <p>No data available.</p>}
+                              {!mutataionWithoutdisease.length && <p>{dataStatus}</p>}
                             </Container>
                           </Tab>
                         </Tabs>
                       )}
 
-                      {!snv && <p>No data available.</p>}
+                      {!snv && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2632,7 +2636,7 @@ const ProteinDetail = (props) => {
                           defaultSortOrder="asc"
                         />
                       )}
-                      {!mutagenesis && <p>No data available.</p>}
+                      {!mutagenesis && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2727,7 +2731,7 @@ const ProteinDetail = (props) => {
                               </strong>
                             </>
                           ))}
-                        {!go_annotation && <p className="no-data-msg">No data available.</p>}
+                        {!go_annotation && <p className="no-data-msg">{dataStatus}</p>}
                       </div>
                     </Card.Body>
                   </Accordion.Collapse>
@@ -2788,7 +2792,7 @@ const ProteinDetail = (props) => {
                           onClickTarget={"#glycanLigands"}
                         />
                       )}
-                      {!interactions && <p>No data available.</p>}
+                      {!interactions && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2845,7 +2849,7 @@ const ProteinDetail = (props) => {
                           // defaultSortField={"annotation"}
                         />
                       )}
-                      {!ptm_annotation && <p>No data available.</p>}
+                      {!ptm_annotation && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2904,7 +2908,7 @@ const ProteinDetail = (props) => {
                           // defaultSortField={"annotation"}
                         />
                       )}
-                      {!pro_annotation && <p>No data available.</p>}
+                      {!pro_annotation && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2952,7 +2956,7 @@ const ProteinDetail = (props) => {
                           ))}
                         </ul>
                       ) : (
-                        <p>No data available.</p>
+                        <p>{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3012,7 +3016,7 @@ const ProteinDetail = (props) => {
                           onClickTarget={"#synthesized_glycans"}
                         />
                       )}
-                      {!synthesized_glycans && <p>No data available.</p>}
+                      {!synthesized_glycans && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -3120,7 +3124,7 @@ const ProteinDetail = (props) => {
                         )}
                       </div>
                       {!isoforms && (
-                        <p classisoforms_ac="no-data-msg-publication">No data available.</p>
+                        <p classisoforms_ac="no-data-msg-publication">{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3233,7 +3237,7 @@ const ProteinDetail = (props) => {
                       )}
 
                       {!orthologs && (
-                        <p classorthologs_ac="no-data-msg-publication">No data available.</p>
+                        <p classorthologs_ac="no-data-msg-publication">{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3381,7 +3385,7 @@ const ProteinDetail = (props) => {
                         )}
                       </Table>
                       {diseaseData && diseaseData.length === 0 && (
-                        <p className="no-data-msg-publication">No data available.</p>
+                        <p className="no-data-msg-publication">{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3441,7 +3445,7 @@ const ProteinDetail = (props) => {
                           defaultSortField={"tissue"}
                         />
                       )}
-                      {!expression_tissue && <p>No data available.</p>}
+                      {!expression_tissue && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -3501,7 +3505,7 @@ const ProteinDetail = (props) => {
                           defaultSortField={"disease"}
                         />
                       )}
-                      {!expression_disease && <p>No data available.</p>}
+                      {!expression_disease && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -3548,7 +3552,7 @@ const ProteinDetail = (props) => {
                           </ul>
                         </div>
                       ) : (
-                        <p>No data available.</p>
+                        <p>{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3591,7 +3595,7 @@ const ProteinDetail = (props) => {
                           ))}
                         </>
                       ): (
-                        <span>No data available.</span>
+                        <span>{dataStatus}</span>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -3703,7 +3707,7 @@ const ProteinDetail = (props) => {
                         )}
                       </Table>
                       {!publication && (
-                        <p className="no-data-msg-publication">No data available.</p>
+                        <p className="no-data-msg-publication">{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
