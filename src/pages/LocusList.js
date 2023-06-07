@@ -191,6 +191,7 @@ const LocusList = props => {
               defaultSortField="uniprot_canonical_ac"
               defaultSortOrder="desc"
               idField="uniprot_canonical_ac"
+              noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
             />
           )}
         </section>

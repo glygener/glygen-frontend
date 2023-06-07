@@ -311,7 +311,7 @@ const ProteinList = props => {
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
                   idField="uniprot_canonical_ac"
-                  noDataIndication={"No data available, please select filters."}
+                  noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                 />
               )}
             </section>

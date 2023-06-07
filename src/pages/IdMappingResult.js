@@ -302,7 +302,7 @@ const IdMappingResult = (props) => {
               pagination={pagination}
               defaultSortField="from"
               defaultSortOrder="asc"
-              noDataIndication={"No data available."}
+              noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
             />
           )}
 
@@ -345,7 +345,7 @@ const IdMappingResult = (props) => {
               pagination={paginationUnmap}
               defaultSortField="input_id"
               defaultSortOrder="asc"
-              noDataIndication={"No data available."}
+              noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
             />
           )}
           {/* Button */}

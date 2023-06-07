@@ -274,7 +274,7 @@ const BlastResult = (props) => {
                       defaultSortField={currentSort}
                       defaultSortOrder={currentSortOrder}
                       wrapperClasses="table-responsive table-height"
-                      noDataIndication={"No data available."}
+                      noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                     />
                 </div>
               )}

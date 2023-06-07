@@ -192,6 +192,7 @@ const OrthologsList = props => {
               defaultSortField="uniprot_canonical_ac"
               idField="uniprot_canonical_ac"
               defaultSortOrder="desc"
+              noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
             />
           )}
         </section>
