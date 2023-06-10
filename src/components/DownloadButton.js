@@ -74,10 +74,15 @@ const DownloadButton = (props) => {
 
   const handleDownload = async () => {
     setShowLoading(true);
-    const selObj = types.find((typeItem) => typeItem.type === format);
+    let fileFormat = format;
+    if (!fileFormat) {
+      setFormat(props.types[0].type);
+      fileFormat = props.types[0].type;
+    }
+
+    const selObj = types.filter(item=> item.type !== undefined).find((typeItem) => typeItem.type === fileFormat);
     const dataType = selObj.data;
     const section = selObj.section;
-    let fileFormat = format;
     let fileName = undefined;
     if (section) {
       fileFormat = selObj.format;
@@ -187,7 +192,7 @@ const DownloadButton = (props) => {
                           fullWidth
                           inputValue={format}
                           defaultValue={props.types[0].type}
-                          menu={types.map((typeItem) => {
+                          menu={types.filter(item=>item.type !== undefined).map((typeItem) => {
                             return {
                               id: typeItem.type,
                               name: typeItem.display,
