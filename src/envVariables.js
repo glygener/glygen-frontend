@@ -16,7 +16,7 @@ export const GNOME_BROWSER =
 export const GLYCOMOTIF_WIKI =
   process.env.REACT_APP_GLYCOMOTIF_WIKI || "https://glycomotif.glyomics.org/glycomotif/GlycoMotif";
 export const GLYGEN_SANDBOX =
-  process.env.REACT_APP_GLYGEN_SANDBOX || "https://glygen.ccrc.uga.edu/sandbox/";
+  process.env.REACT_APP_GLYGEN_SANDBOX || "https://sandbox.glyomics.org/";
 export const GLYCAN_SEQ_LOOKUP =
   process.env.REACT_APP_GLYCAN_SEQ_LOOKUP || "https://glylookup.glyomics.org/";
 export const GRANT_DETAILS =
