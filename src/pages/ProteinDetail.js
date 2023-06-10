@@ -1506,7 +1506,7 @@ const ProteinDetail = (props) => {
       .then((response) => {
         if (response.data["list_id"] !== "") {
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            props.history.push(routeConstants.proteinList + response.data["list_id"]);
+            navigate(routeConstants.proteinList + response.data["list_id"]);
           });
           setPageLoading(false);
         } else {
