@@ -1601,50 +1601,110 @@
   "quick_search": {
     "question_1": {
       "text": "What are the glycosyltransferases used to add the residues contained in {0} in human?",
-      "id": "question_1"
+      "id": "question_1",
+      "tooltip": {
+        "title": "Glycan X",
+        "text": "Provide the GlyTouCan Accession of a fully defined glycan in GlyGen and a list of all enzymes potentially involved in the biosynthesis will be shown. To find the GlyTouCan access for a fully defined glycan it is possible to use the GlyGen glycan search and after performing the search to filter by \"Fully defined\" in the left side menu.",
+        "urlText": "GlyGen glycan search...",
+        "url": "https://www.glygen.org/glycan-search/"
+      }
     },
     "question_2": {
       "text": "Which proteins have been shown to bear {0} and which site is this glycan attached to?",
-      "id": "question_2"
+      "id": "question_2",
+      "tooltip": {
+        "title": "Glycan X",
+        "text": "Provide the GlyTouCan Accession of a glycan in GlyGen and a list of proteins and their sites that carry this glycan will be shown. To find the GlyTouCan access for a glycan it is possible to use the GlyGen glycan search.",
+        "urlText": "GlyGen glycan search...",
+        "url": "https://www.glygen.org/glycan-search/"
+      }
     },
     "question_3": {
       "text": "What are the gene locations of the enzymes involved in the biosynthesis of {0} in human?",
-      "id": "question_3"
+      "id": "question_3",
+      "tooltip": {
+        "title": "Glycan X",
+        "text": "Provide the GlyTouCan Accession of a glycan in GlyGen and a list of all enzymes potentially involved in the biosynthesis together with their gene location will be shown. To find the GlyTouCan access for a glycan it is possible to use the GlyGen glycan search.",
+        "urlText": "GlyGen glycan search...",
+        "url": "https://www.glygen.org/glycan-search/"
+      }
     },
     "question_4": {
       "text": "What are the orthologs of {0} in different organism?",
-      "id": "question_4"
+      "id": "question_4",
+      "tooltip": {
+        "title": "Protein X",
+        "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to find the orthologs of this protein in different organism present in GlyGen. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
+        "urlText": "GlyGen protein search...",
+        "url": "https://www.glygen.org/protein-search/"
+      }
     },
     "question_5": {
       "text": "What are the functions of {0}?",
-      "id": "question_5"
+      "id": "question_5",
+      "tooltip": {
+        "title": "Protein X",
+        "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to see all the function annotations of this protein in GlyGen. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
+        "urlText": "GlyGen protein search...",
+        "url": "https://www.glygen.org/protein-search/"
+      }
     },
     "question_6": {
       "text": "Which glycans might have been synthesized in mouse using {0}?",
-      "id": "question_6"
+      "id": "question_6",
+      "tooltip": {
+        "title": "Enzyme X",
+        "text": "Provide the UniProt Accession of a enzyme in GlyGen (e.g., P15291 for B4GALT1) to see all glycans whos synthesis may have involved the enzyme. To find the UniProt Accession for a protein/enzyme it is possible to use the GlyGen protein search.",
+        "urlText": "GlyGen protein search...",
+        "url": "https://www.glygen.org/protein-search/"
+      }
     },
     "question_7": {
       "text": "Where are the N-Glycosylation Sequons of the {0}?",
-      "id": "question_7"
+      "id": "question_7",
+      "tooltip": {
+        "title": "Protein X",
+        "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to see all N-glycosylation sequons of the protein. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
+        "urlText": "GlyGen protein search...",
+        "url": "https://www.glygen.org/protein-search/"
+      }
     },
     "question_8": {
       "text": "What are the glycosyltransferases in {0}?",
       "id": "question_8",
-      "organism": "organism"
+      "organism": "organism",
+      "tooltip": {
+        "title": "Organism",
+        "text": "Select a species to see the glycosyltransferases report for this species in GlyGen."
+      }
     },
     "question_9": {
       "text": "What are the glycosylhydrolases in {0}?",
       "id": "question_9",
-      "organism": "organism"
+      "organism": "organism",
+      "tooltip": {
+        "title": "Organism",
+        "text": "Select a species to see the glycosylhydrolases report for this species in GlyGen."
+      }
     },
     "question_10": {
       "text": "What are the reported or predicted glycosylated proteins in {0}?",
       "id": "question_10",
-      "organism": "organism"
+      "organism": "organism",
+      "tooltip": {
+        "title": "Organism",
+        "text": "Select a species to see all glycosylated proteins reported for this species in GlyGen. It is possible to filter this list using the \"Type\" field and show sites reported in papers (reported), sites prediced using prediction software (predicted) or the combined list (both)."
+      }
     },
     "question_11": {
       "text": "Which glycosyltransferases are known to be involved in {0}?",
-      "id": "question_11"
+      "id": "question_11",
+      "tooltip": {
+        "title": "Disease",
+        "text": "Provide a disease name to see the list of glycosyltransferases that have been report to be involved in or affected by this disease. Its possible to start typing and the system will propose similar disease names in GlyGen. It is also possible to search for disease names using the Disease Ontology.",
+        "urlText": "Disease Ontology...",
+        "url": "https://disease-ontology.org/"
+      }
     },
     "question_tryMe1": {
       "text": "What are the glycosyltransferases used to add  the residues contained in the lipid-linked N-glycan precursor GlcNAc2Man9Glc3 ({0}) in human?",

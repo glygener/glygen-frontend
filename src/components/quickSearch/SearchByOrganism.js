@@ -13,6 +13,7 @@ import stringConstants from "../../data/json/stringConstants";
 import proteinSearchData from "../../data/json/proteinSearch";
 import TextAlert from "../alert/TextAlert";
 import { getUsecaseInit } from "../../data/usecases";
+import HelpTooltip from "../tooltip/HelpTooltip";
 
 /**
  * Quick search control for organism usecases.
@@ -63,7 +64,7 @@ const SearchByOrganism = props => {
                   {quickSearch.question_8.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails className={"ms-2"}>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -76,7 +77,11 @@ const SearchByOrganism = props => {
                   </Grid>
                   <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
-                      <Typography className={"qs-search-lbl"} gutterBottom>
+                      <Typography className={"search-lbl"} gutterBottom>
+                        <HelpTooltip
+                          title={quickSearch.question_8.tooltip.title}
+                          text={quickSearch.question_8.tooltip.text}
+                        />
                         {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl
@@ -138,7 +143,7 @@ const SearchByOrganism = props => {
                   {quickSearch.question_9.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails className={"ms-2"}>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -151,7 +156,11 @@ const SearchByOrganism = props => {
                   </Grid>
                   <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
-                      <Typography className={"qs-search-lbl"} gutterBottom>
+                      <Typography className={"search-lbl"} gutterBottom>
+                        <HelpTooltip
+                          title={quickSearch.question_9.tooltip.title}
+                          text={quickSearch.question_9.tooltip.text}
+                        />
                         {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl
@@ -213,7 +222,7 @@ const SearchByOrganism = props => {
                   {quickSearch.question_10.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails className={"ms-2"}>
                 <Grid container xs={12} sm={12}>
                   <Grid item xs={12} sm={12}>
                     <TextAlert
@@ -226,7 +235,11 @@ const SearchByOrganism = props => {
                   </Grid>
                   <Grid item xs={12} sm={7} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
-                      <Typography className={"qs-search-lbl"} gutterBottom>
+                      <Typography className={"search-lbl"} gutterBottom>
+                        <HelpTooltip
+                          title={quickSearch.question_10.tooltip.title}
+                          text={quickSearch.question_10.tooltip.text}
+                        />
                         {searchByOrganism.common.label}
                       </Typography>
                       <SelectControl

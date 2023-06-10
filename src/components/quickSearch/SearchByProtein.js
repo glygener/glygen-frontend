@@ -12,6 +12,7 @@ import TextAlert from "../alert/TextAlert";
 import Button from "react-bootstrap/Button";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
+import HelpTooltip from "../tooltip/HelpTooltip";
 
 /**
  * Quick search control for protein usecases.
@@ -47,7 +48,7 @@ const SearchByProtein = props => {
                   {quickSearch.question_4.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_4.length <= searchByProtein.common.length) props.searchQuestion4()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_4.length <= searchByProtein.common.length) props.searchQuestion4()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -61,7 +62,13 @@ const SearchByProtein = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_4.tooltip.title}
+                            text={quickSearch.question_4.tooltip.text}
+                            urlText={quickSearch.question_4.tooltip.urlText}
+                            url={quickSearch.question_4.tooltip.url}
+                          />
                           {searchByProtein.common.label}
                         </Typography>
                         <AutoTextInput
@@ -116,7 +123,7 @@ const SearchByProtein = props => {
                   {quickSearch.question_5.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_5.length <= searchByProtein.common.length) props.searchQuestion5()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_5.length <= searchByProtein.common.length) props.searchQuestion5()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -130,7 +137,13 @@ const SearchByProtein = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_5.tooltip.title}
+                            text={quickSearch.question_5.tooltip.text}
+                            urlText={quickSearch.question_5.tooltip.urlText}
+                            url={quickSearch.question_5.tooltip.url}
+                          />
                           {searchByProtein.common.label}
                         </Typography>
                         <AutoTextInput
@@ -185,7 +198,7 @@ const SearchByProtein = props => {
                   {quickSearch.question_6.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_6.length <= searchByProtein.common.length) props.searchQuestion6()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_6.length <= searchByProtein.common.length) props.searchQuestion6()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -199,7 +212,13 @@ const SearchByProtein = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_6.tooltip.title}
+                            text={quickSearch.question_6.tooltip.text}
+                            urlText={quickSearch.question_6.tooltip.urlText}
+                            url={quickSearch.question_6.tooltip.url}
+                          />
                           {searchByProtein.question_6.label}
                         </Typography>
                         <AutoTextInput
@@ -254,12 +273,18 @@ const SearchByProtein = props => {
                   {quickSearch.question_7.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_7.length <= searchByProtein.common.length) props.searchQuestion7()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_7.length <= searchByProtein.common.length) props.searchQuestion7()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_7.tooltip.title}
+                            text={quickSearch.question_7.tooltip.text}
+                            urlText={quickSearch.question_7.tooltip.urlText}
+                            url={quickSearch.question_7.tooltip.url}
+                          />
                           {searchByProtein.common.label}
                         </Typography>
                         <AutoTextInput

@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import TextAlert from "../alert/TextAlert";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
+import HelpTooltip from "../tooltip/HelpTooltip";
 
 /**
  * Quick search control for disease usecases.
@@ -47,7 +48,7 @@ const SearchByGlycan = props => {
                   {quickSearch.question_11.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_11.length <= searchByDisease.common.length) props.searchQuestion11()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_11.length <= searchByDisease.common.length) props.searchQuestion11()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -62,7 +63,13 @@ const SearchByGlycan = props => {
 
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_11.tooltip.title}
+                            text={quickSearch.question_11.tooltip.text}
+                            urlText={quickSearch.question_11.tooltip.urlText}
+                            url={quickSearch.question_11.tooltip.url}
+                          />
                           {searchByDisease.common.label}
                         </Typography>
                         <AutoTextInput

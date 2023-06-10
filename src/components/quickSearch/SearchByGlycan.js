@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import TextAlert from "../alert/TextAlert";
 import ExampleExploreControl from "../example/ExampleExploreControl";
 import stringConstants from "../../data/json/stringConstants";
+import HelpTooltip from "../tooltip/HelpTooltip";
 
 /**
  * Quick search control for glycan usecases.
@@ -47,7 +48,7 @@ const SearchByGlycan = props => {
                   {quickSearch.question_1.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_1.length <= searchByGlycan.common.length) props.searchQuestion1()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_1.length <= searchByGlycan.common.length) props.searchQuestion1()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -61,7 +62,13 @@ const SearchByGlycan = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_1.tooltip.title}
+                            text={quickSearch.question_1.tooltip.text}
+                            urlText={quickSearch.question_1.tooltip.urlText}
+                            url={quickSearch.question_1.tooltip.url}
+                          />
                           {searchByGlycan.common.label}
                         </Typography>
                         <AutoTextInput
@@ -116,7 +123,7 @@ const SearchByGlycan = props => {
                   {quickSearch.question_2.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_2.length <= searchByGlycan.common.length) props.searchQuestion2()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_2.length <= searchByGlycan.common.length) props.searchQuestion2()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -130,7 +137,13 @@ const SearchByGlycan = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_2.tooltip.title}
+                            text={quickSearch.question_2.tooltip.text}
+                            urlText={quickSearch.question_2.tooltip.urlText}
+                            url={quickSearch.question_2.tooltip.url}
+                          />
                           {searchByGlycan.common.label}
                         </Typography>
                         <AutoTextInput
@@ -185,7 +198,7 @@ const SearchByGlycan = props => {
                   {quickSearch.question_3.text.split("{0}")[1]}
                 </Typography>
               </AccordionSummary>
-              <form onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_3.length <= searchByGlycan.common.length) props.searchQuestion3()}}>
+              <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_3.length <= searchByGlycan.common.length) props.searchQuestion3()}}>
                 <AccordionDetails>
                   <Grid container xs={12} sm={12}>
                     <Grid item xs={12} sm={12}>
@@ -199,7 +212,13 @@ const SearchByGlycan = props => {
                     </Grid>
                     <Grid item xs={12} sm={7} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
-                        <Typography className="qs-search-lbl" gutterBottom>
+                        <Typography className="search-lbl" gutterBottom>
+                          <HelpTooltip
+                            title={quickSearch.question_3.tooltip.title}
+                            text={quickSearch.question_3.tooltip.text}
+                            urlText={quickSearch.question_3.tooltip.urlText}
+                            url={quickSearch.question_3.tooltip.url}
+                          />
                           {searchByGlycan.common.label}
                         </Typography>
                         <AutoTextInput
