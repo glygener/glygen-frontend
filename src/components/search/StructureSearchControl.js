@@ -227,20 +227,13 @@ const StructureSearchControl = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={10}>
-        <Row>
-          <Col>
-            <div className="text-muted mt-2">
-              <strong>*</strong> These fields are required.
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <div className="text-muted">
-              <strong><sup>1</sup></strong> Maximum number of monosaccharides supported is 10.
-            </div>
-          </Col>
-        </Row>
+          <Row>
+            <Col>
+              <div className="text-muted mt-2">
+                <strong>*</strong> These fields are required.
+              </div>
+            </Col>
+          </Row>
         </Grid>
       </Grid>
     </>
