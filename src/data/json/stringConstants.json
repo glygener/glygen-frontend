@@ -1606,7 +1606,7 @@
         "title": "Glycan X",
         "text": "Provide the GlyTouCan Accession of a fully defined glycan in GlyGen and a list of all enzymes potentially involved in the biosynthesis will be shown. To find the GlyTouCan access for a fully defined glycan it is possible to use the GlyGen glycan search and after performing the search to filter by \"Fully defined\" in the left side menu.",
         "urlText": "GlyGen glycan search...",
-        "url": "https://www.glygen.org/glycan-search/"
+        "url": "/glycan-search/"
       }
     },
     "question_2": {
@@ -1616,7 +1616,7 @@
         "title": "Glycan X",
         "text": "Provide the GlyTouCan Accession of a glycan in GlyGen and a list of proteins and their sites that carry this glycan will be shown. To find the GlyTouCan access for a glycan it is possible to use the GlyGen glycan search.",
         "urlText": "GlyGen glycan search...",
-        "url": "https://www.glygen.org/glycan-search/"
+        "url": "/glycan-search/"
       }
     },
     "question_3": {
@@ -1626,7 +1626,7 @@
         "title": "Glycan X",
         "text": "Provide the GlyTouCan Accession of a glycan in GlyGen and a list of all enzymes potentially involved in the biosynthesis together with their gene location will be shown. To find the GlyTouCan access for a glycan it is possible to use the GlyGen glycan search.",
         "urlText": "GlyGen glycan search...",
-        "url": "https://www.glygen.org/glycan-search/"
+        "url": "/glycan-search/"
       }
     },
     "question_4": {
@@ -1636,7 +1636,7 @@
         "title": "Protein X",
         "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to find the orthologs of this protein in different organism present in GlyGen. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
         "urlText": "GlyGen protein search...",
-        "url": "https://www.glygen.org/protein-search/"
+        "url": "/protein-search/"
       }
     },
     "question_5": {
@@ -1646,7 +1646,7 @@
         "title": "Protein X",
         "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to see all the function annotations of this protein in GlyGen. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
         "urlText": "GlyGen protein search...",
-        "url": "https://www.glygen.org/protein-search/"
+        "url": "/protein-search/"
       }
     },
     "question_6": {
@@ -1656,7 +1656,7 @@
         "title": "Enzyme X",
         "text": "Provide the UniProt Accession of a enzyme in GlyGen (e.g., P15291 for B4GALT1) to see all glycans whos synthesis may have involved the enzyme. To find the UniProt Accession for a protein/enzyme it is possible to use the GlyGen protein search.",
         "urlText": "GlyGen protein search...",
-        "url": "https://www.glygen.org/protein-search/"
+        "url": "/protein-search/"
       }
     },
     "question_7": {
@@ -1666,7 +1666,7 @@
         "title": "Protein X",
         "text": "Provide the UniProt Accession of a protein in GlyGen (e.g., P14210 for HGF) to see all N-glycosylation sequons of the protein. To find the UniProt Accession for a protein it is possible to use the GlyGen protein search.",
         "urlText": "GlyGen protein search...",
-        "url": "https://www.glygen.org/protein-search/"
+        "url": "/protein-search/"
       }
     },
     "question_8": {

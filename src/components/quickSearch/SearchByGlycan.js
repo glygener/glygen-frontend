@@ -68,6 +68,7 @@ const SearchByGlycan = props => {
                             text={quickSearch.question_1.tooltip.text}
                             urlText={quickSearch.question_1.tooltip.urlText}
                             url={quickSearch.question_1.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByGlycan.common.label}
                         </Typography>
@@ -143,6 +144,7 @@ const SearchByGlycan = props => {
                             text={quickSearch.question_2.tooltip.text}
                             urlText={quickSearch.question_2.tooltip.urlText}
                             url={quickSearch.question_2.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByGlycan.common.label}
                         </Typography>
@@ -218,6 +220,7 @@ const SearchByGlycan = props => {
                             text={quickSearch.question_3.tooltip.text}
                             urlText={quickSearch.question_3.tooltip.urlText}
                             url={quickSearch.question_3.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByGlycan.common.label}
                         </Typography>

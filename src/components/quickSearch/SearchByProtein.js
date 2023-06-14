@@ -68,6 +68,7 @@ const SearchByProtein = props => {
                             text={quickSearch.question_4.tooltip.text}
                             urlText={quickSearch.question_4.tooltip.urlText}
                             url={quickSearch.question_4.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByProtein.common.label}
                         </Typography>
@@ -143,6 +144,7 @@ const SearchByProtein = props => {
                             text={quickSearch.question_5.tooltip.text}
                             urlText={quickSearch.question_5.tooltip.urlText}
                             url={quickSearch.question_5.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByProtein.common.label}
                         </Typography>
@@ -218,6 +220,7 @@ const SearchByProtein = props => {
                             text={quickSearch.question_6.tooltip.text}
                             urlText={quickSearch.question_6.tooltip.urlText}
                             url={quickSearch.question_6.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByProtein.question_6.label}
                         </Typography>
@@ -284,6 +287,7 @@ const SearchByProtein = props => {
                             text={quickSearch.question_7.tooltip.text}
                             urlText={quickSearch.question_7.tooltip.urlText}
                             url={quickSearch.question_7.tooltip.url}
+                            relativeURL={true}
                           />
                           {searchByProtein.common.label}
                         </Typography>

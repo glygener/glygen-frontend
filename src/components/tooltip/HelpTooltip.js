@@ -4,6 +4,7 @@ import HelpOutline from "@mui/icons-material/HelpOutline";
 import Image from "react-bootstrap/Image";
 import PropTypes from "prop-types";
 import Grid from '@mui/material/Grid';
+import { Link } from "react-router-dom";
 
 /**
  * HelpTooltip component for showing text, link.
@@ -45,9 +46,9 @@ const HelpTooltip = (props) => {
 						))}
 					</>}
 					{props.text && <br />}
-					<a href={props.url} target="_blank" rel="noopener noreferrer">
+					{!props.relativeURL ? <a href={props.url} target="_blank" rel="noopener noreferrer">
 						{props.urlText}
-					</a>
+					</a> : <Link to={props.url}>{props.urlText}</Link>}
 				</React.Fragment>
 			}>
 			{props.children ? (
