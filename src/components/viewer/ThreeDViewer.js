@@ -46,6 +46,22 @@ const ThreeDViewer = props => {
 
       const renderer = plugin.canvas3d?.props.renderer;
       PluginCommands.Canvas3D.SetSettings(plugin, { settings: { renderer: { ...renderer, backgroundColor: ColorNames.white } } });
+      
+      plugin.dataTransaction(async () => {
+        for (const struct of plugin.managers.structure.hierarchy.current.structures) {
+          for (const comp of struct.components) {
+            for (const rep of comp.representations) {
+              if (rep.cell?.obj?.label === "Carbohydrate" && rep.cell?.params?.values?.type?.name === "carbohydrate") {
+                let values = JSON.stringify(rep.cell.params.values);
+                let params =  JSON.parse(values);
+                params.sizeTheme.params.value = 0.55;
+                params.type.params.alpha = 1;
+                await plugin.managers.structure.component.updateRepresentations([comp], rep, params);
+              }
+            }
+          }
+        }
+      });
     }
   }
 
