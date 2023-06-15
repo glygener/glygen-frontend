@@ -54,7 +54,7 @@ const ThreeDViewer = props => {
               if (rep.cell?.obj?.label === "Carbohydrate" && rep.cell?.params?.values?.type?.name === "carbohydrate") {
                 let values = JSON.stringify(rep.cell.params.values);
                 let params =  JSON.parse(values);
-                params.sizeTheme.params.value = 0.55;
+                params.sizeTheme.params.value = 0.5;
                 params.type.params.alpha = 1;
                 await plugin.managers.structure.component.updateRepresentations([comp], rep, params);
               }
