@@ -15,9 +15,10 @@ const CollapsableReference = (props) => {
           {displayedItems.map((link) => (
             <Col xs={12} sm={4} key={link.id}>
               <li>
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                {link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">
                   {link.id}
-                </a>
+                </a> :
+                <span>{link.id}</span>}
               </li>
             </Col>
           ))}
