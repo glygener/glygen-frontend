@@ -88,7 +88,7 @@ const BlastResult = (props) => {
           setPageLoading(false);
         } else {
         let proData = Object.keys(data.by_subject).map((protID) => {
-              return data.by_subject[protID].hsp_list.map((obj) => {
+              return data.by_subject[protID].hsp_list.filter(obj => obj.sequences !== undefined).map((obj) => {
                 let seqObj = obj.sequences.find((seq)=> seq.id === protID);
                 let identities_val = parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%")));
                 let evalue = parseFloat(obj.evalue)

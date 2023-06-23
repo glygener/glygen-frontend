@@ -143,7 +143,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
               <SelectControl
                 inputValue={proteinID}
                 setInputValue={(val) => proteinIDChange(val)}
-                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.name, id : item}}) : []}
+                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).filter(item => algnData[item].details !== undefined).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.name, id : item}}) : []}
                 required={true}
               />
             </FormControl>
