@@ -13,11 +13,12 @@ import SelectControl from "../select/SelectControl";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import LineTooltip from "../tooltip/LineTooltip";
+import { logActivity } from "../../data/logging";
 
 const blastSearch = stringConstants.blast_search.common;
 
 
-const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
+const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) => {
 
   const [selectedHighlights, setSelectedHighlights] = useState({
     mutation: false,
@@ -36,6 +37,13 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange}) => {
   useEffect(() => {
     let proData = algnData[proteinID];
 
+    if (algnData && Object.keys(algnData).length > 0) {
+      let protArr = Object.keys(algnData).filter(item => algnData[item].details === undefined);
+      if (protArr && protArr.length > 0){
+        let message = "Protein objects with no details object: " + protArr.join(", ");
+        logActivity("error", jobId, message);
+      }
+    }
     let newData = [];
     if (proData && proData.hsp_list) {
       for (let i = 0; i < proData.hsp_list.length; i++) {

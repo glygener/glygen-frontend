@@ -87,7 +87,19 @@ const BlastResult = (props) => {
           logActivity("user", jobId, "No results. " + message);
           setPageLoading(false);
         } else {
-        let proData = Object.keys(data.by_subject).map((protID) => {
+          let protArr = [];
+          Object.keys(data.by_subject).map((protID) => {
+            let proObjs = data.by_subject[protID].hsp_list.filter(obj => obj.sequences === undefined);
+            if (proObjs !== undefined){
+              protArr.push(protID);
+            }
+          })
+          if (protArr.length > 0){
+            let message = "Protein object with no sequences array: " + protArr.join(", ");
+            logActivity("error", jobId, message);
+          }
+
+          let proData = Object.keys(data.by_subject).map((protID) => {
               return data.by_subject[protID].hsp_list.filter(obj => obj.sequences !== undefined).map((obj) => {
                 let seqObj = obj.sequences.find((seq)=> seq.id === protID);
                 let identities_val = parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%")));
@@ -288,6 +300,7 @@ const BlastResult = (props) => {
             algnData={subjectData} 
             proteinID={proteinID}
             proteinIDChange={proteinIDChange}
+            jobId={jobId}
             />}
         </Tab>
 				<Tab
