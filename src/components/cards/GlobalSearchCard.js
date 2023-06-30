@@ -32,16 +32,16 @@ export default function GlobalSearchCard(props) {
                                 </strong></h4>
                             </TableCell>
                         </TableRow>
-                        <TableRow hover className="card-row">
+                        {false && <TableRow hover className="card-row">
                             <TableCell classes={{head: "gs-cell"}}>
                                 <span><strong>{props.colHeading1}</strong></span>
                             </TableCell>
                             <TableCell className={"gs-cell-center"} classes={{head: "gs-cell"}}>
                                 <span><strong>{props.colHeading2}</strong></span>
                             </TableCell>
-                        </TableRow>
+                        </TableRow>}
                     </TableHead>
-                    <TableBody>
+                    {false && <TableBody>
                         {props.searchItems.sort(sortDropdownIgnoreCase).map( items => 
                         (items.name !== "all" && <TableRow key={items.name} hover className="card-row">
                             <TableCell className={"gs-cell-left"} classes={{body: "gs-cell"}}>
@@ -55,7 +55,7 @@ export default function GlobalSearchCard(props) {
                                 />
                             </TableCell>
                         </TableRow>))}
-                    </TableBody>
+                    </TableBody>}
                 </Table>
 			</Card>
 		</div>
