@@ -982,7 +982,7 @@ const Siteview = props => {
                   }
                 ]}
                 itemType="site_detail"
-                dataId={`${id}.${position}.${position}`}
+                dataId={`${id}.${selectedPosition}.${selectedPosition}`}
               />
             </div>
 
@@ -1280,7 +1280,7 @@ const Siteview = props => {
                               section: "glycosylation",
                             }  
                           ]}
-                          dataId={id + "." + position + "." + position}
+                          dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
                           showBlueBackground={true}
                           enable={(glycosylation && glycosylation.length > 0)}
@@ -1338,7 +1338,7 @@ const Siteview = props => {
                               section: "phosphorylation",
                             }  
                           ]}
-                          dataId={id + "." + position + "." + position}
+                          dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
                           showBlueBackground={true}
                           enable={(phosphorylation && phosphorylation.length > 0)}
@@ -1395,7 +1395,7 @@ const Siteview = props => {
                               section: "glycation",
                             }  
                           ]}
-                          dataId={id + "." + position + "." + position}
+                          dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
                           showBlueBackground={true}
                           enable={(glycation && glycation.length > 0)}
@@ -1450,7 +1450,7 @@ const Siteview = props => {
                               section: "snv_mutations",
                             }
                           ]}
-                          dataId={id + "." + position + "." + position}
+                          dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
                           showBlueBackground={true}
                           enable={(snv && snv.length > 0)}
@@ -1509,7 +1509,7 @@ const Siteview = props => {
                               section: "mutagenesis",
                             }
                           ]}
-                          dataId={id + "." + position + "." + position}
+                          dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
                           showBlueBackground={true}
                           enable={(mutagenesis && mutagenesis.length > 0)}
