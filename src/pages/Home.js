@@ -244,7 +244,7 @@ export default function Home() {
                 <InfoCard post={resourcesCard} />
                 <StatDBCard data={homeData.statistics} pageLoading={pageLoading} />
                 <InfoCard post={feedbackCard} />
-                <TwitterCard />
+                {/* <TwitterCard /> */}
               </Grid>
             </Grid>
           </Grid>
