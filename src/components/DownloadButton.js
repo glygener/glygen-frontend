@@ -68,19 +68,18 @@ const DownloadButton = (props) => {
   });
 
   const [show, setShow] = useState(false);
-  const [format, setFormat] = useState(props.types[0].type);
+  const [format, setFormat] = useState(types[0].type !== undefined ? types[0].type : types.filter(Boolean)[0] ? types.filter(Boolean)[0].type : undefined);
   // const [displayformat, setDisplayFormat] = useState(display);
   const [compressed, setCompressed] = useState(props.compressed || false);
-
   const handleDownload = async () => {
     setShowLoading(true);
     let fileFormat = format;
     if (!fileFormat) {
-      setFormat(props.types[0].type);
-      fileFormat = props.types[0].type;
+      setFormat(types.filter(Boolean)[0].type);
+      fileFormat = types[0].type !== undefined ? types[0].type : types.filter(Boolean)[0].type;
     }
 
-    const selObj = types.filter(item=> item.type !== undefined).find((typeItem) => typeItem.type === fileFormat);
+    const selObj = types.filter(Boolean).find((typeItem) => typeItem.type === fileFormat);
     const dataType = selObj.data;
     const section = selObj.section;
     let fileName = undefined;
@@ -96,7 +95,7 @@ const DownloadButton = (props) => {
     }
   };
   const clearForm = () => {
-    setFormat( props.types[0].type);
+    setFormat( types.filter(Boolean)[0].type);
     setCompressed(props.compressed || false);
   };
   const handleClickOutside = (event) => {
@@ -191,8 +190,8 @@ const DownloadButton = (props) => {
                         <SelectControl
                           fullWidth
                           inputValue={format}
-                          defaultValue={props.types[0].type}
-                          menu={types.filter(item=>item.type !== undefined).map((typeItem) => {
+                          defaultValue={types.filter(Boolean)[0].type}
+                          menu={types.filter(Boolean).map((typeItem) => {
                             return {
                               id: typeItem.type,
                               name: typeItem.display,
