@@ -981,7 +981,7 @@ const Siteview = props => {
                     data: "site_detail"
                   }
                 ]}
-                dataType="site_detail"
+                itemType="site_detail"
                 dataId={`${id}.${position}.${position}`}
               />
             </div>
