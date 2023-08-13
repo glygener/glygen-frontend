@@ -25,7 +25,8 @@ const PaginatedTable = ({
   noDataIndication,
   rowStyle,
   wrapperClasses = "table-responsive",
-  totalSizeText = "Results"
+  totalSizeText = "Results",
+  tableHeader,
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
@@ -79,7 +80,7 @@ const PaginatedTable = ({
     tableHeader: {
       backgroundColor: "#4B85B6",
       color: theme.palette.common.white,
-      height: "50px"
+      height: "50px",
     }
   }));
   const classes = useStyles();
@@ -130,7 +131,7 @@ const PaginatedTable = ({
               {...paginationTableProps}
               noDataIndication={noDataIndication}
               rowStyle={rowStyle}
-              headerClasses={classes.tableHeader}
+              headerClasses={tableHeader ? tableHeader : classes.tableHeader}
             />
             </div>
             <div>

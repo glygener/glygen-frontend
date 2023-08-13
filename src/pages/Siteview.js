@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
@@ -1293,7 +1294,7 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycosylation && glycosylation.length > 0 && (
-                          <ClientPaginatedTable
+                          <ClientServerPaginatedTable
                             data={glycosylation}
                             columns={glycoSylationColumns}
                           />
@@ -1351,7 +1352,7 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {phosphorylation && phosphorylation.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           data={phosphorylation}
                           columns={phosphorylationColumns}
                         />
@@ -1408,7 +1409,7 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycation && glycation.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           data={glycation}
                           columns={glycationColumns}
                         />
@@ -1462,7 +1463,7 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {snv && snv.length !== 0 && (
-                          <ClientPaginatedTable
+                          <ClientServerPaginatedTable
                               data={snv}
                               columns={mutationColumns}
                             />
@@ -1522,7 +1523,7 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {mutagenesis && mutagenesis.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           data={mutagenesis}
                           columns={mutagenesisColumns}
                         />

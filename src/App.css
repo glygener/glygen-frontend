@@ -1247,6 +1247,10 @@ sub {
   max-height: 600px;
   margin-bottom: 20px;
 }
+.table-height-auto {
+   max-height: auto;
+   margin-bottom: 20px; 
+}
 .table-height-resources {
   max-height: 900px;
   margin-bottom: 20px;
@@ -1327,4 +1331,18 @@ sub {
     box-sizing: border-box;
     padding: 0 !important;
     margin: 0 !important;
+}
+
+.paper-table-header {
+  display: none,
+}
+
+.nav-tabs .nav-link .tab-disabled {
+  background-color: #1d9901 !important;
+  color: black !important;
+}
+
+.nav-tabs .disabled {
+  background-color: #1d9901;
+  color: black;
 }

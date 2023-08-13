@@ -57,7 +57,24 @@ export const getGlycanSectionDownload = (id, format, compressed, type, headers, 
 };
 
 export const getGlycanDetail = accessionId => {
-  const url = `/glycan/detail/${accessionId}`;
+
+  const queryParams = {"paginated_tables":[{"table_id": "glycoprotein","offset":1, "limit":20,"sort1": "glytoucan_ac","order":"asc"},
+  {"table_id": "publication","offset":1, "limit":200,"sort": "date","order":"desc"}]}
+
+const queryParamString = JSON.stringify(queryParams);
+
+const url = `/glycan/detail/${accessionId}/?query=${queryParamString}`;
+// const url = `/protein/detail/${accessionId}`;
+
+
+// const url = `/pagination/page/?query=${queryParamString}`;
+//  const url = `pagination/page/`;
+// const myHeaders = {
+// "Content-Type": "application/json",
+// };
+// return postFormDataTo1(url, queryParamString, myHeaders);
+
+  // const url = `/glycan/detail/${accessionId}`;
   return getJson(url);
 };
 

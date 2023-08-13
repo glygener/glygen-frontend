@@ -13,6 +13,7 @@ import { FiBookOpen } from "react-icons/fi";
 import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -42,6 +43,7 @@ import DirectSearch from "../components/search/DirectSearch.js";
 import { getGlycanSearch } from "../data/glycan";
 import CardToggle from "../components/cards/CardToggle";
 import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
+import CardLoader from "../components/load/CardLoader";
 import {
   GLYGEN_API,
 } from "../envVariables";
@@ -194,6 +196,16 @@ const GlycanDetail = props => {
   ]);
   const [publicationSort, setPublicationSort] = useState("date");
   const [publicationDirection, setPublicationDirection] = useState("desc");
+  const [glycoproteinTotal, setGlycoproteinTotal] = useState(undefined);
+  const [publicationTotal, setPublicationTotal] = useState(undefined);
+  const [expressionWithtissueTotal, setExpressionWithtissueTotal] = useState(undefined);
+  const [expressionWithcellTotal, setExpressionWithcellTotal] = useState(undefined);
+
+  const [cardLoadingExp, setCardLoadingExp] = useState(false);
+  const [cardLoadingPub, setCardLoadingPub] = useState(false);
+  const [cardLoadingGlyc, setCardLoadingGlyc] = useState(false);
+
+
   // let history;
 
   useEffect(() => {
@@ -307,6 +319,25 @@ const GlycanDetail = props => {
             (a, b) => parseInt(b.date) - parseInt(a.date)
           );
         }
+
+        if (data.section_stats) {
+          let glycoProt = data.section_stats.filter(obj => obj.table_id === "glycoprotein");
+          let glycoProtStat = glycoProt[0].table_stats.filter(obj => obj.field === "total");
+          setGlycoproteinTotal(glycoProtStat[0].count);
+
+          let expTiss = data.section_stats.filter(obj => obj.table_id === "expression_tissue");
+          let expTissStat = expTiss[0].table_stats.filter(obj => obj.field === "total");
+          setExpressionWithtissueTotal(expTissStat[0].count);
+
+          let expCellLine = data.section_stats.filter(obj => obj.table_id === "expression_cell_line");
+          let expCellLineStat = expCellLine[0].table_stats.filter(obj => obj.field === "total");
+          setExpressionWithcellTotal(expCellLineStat[0].count);
+
+          let publ = data.section_stats.filter(obj => obj.table_id === "publication");
+          let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
+          setPublicationTotal(publStat[0].count);
+        }
+
         setItemsCrossRef(getItemsCrossRef(detailDataTemp));
         setDetailData(detailDataTemp);
         setPageLoading(false);
@@ -627,6 +658,57 @@ const GlycanDetail = props => {
       )
     }
   ];
+
+  const paperColumns = [
+    {
+      headerStyle: (colum, colIndex) => {
+        return { display: "none" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <div>
+          <div>
+            <h5 style={{ marginBottom: "3px" }}>
+              <strong>{row.title}</strong>{" "}
+            </h5>
+          </div>
+          <div>{row.authors}</div>
+          <div>
+            {row.journal} <span>&nbsp;</span>(
+            {row.date})
+          </div>
+          <div>
+            {row.reference.map(ref => (
+              <>
+                <FiBookOpen />
+                <span style={{ paddingLeft: "15px" }}>
+                  {ref.type}:
+                </span>{" "}
+                <Link
+                  to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
+                >
+                  <>{ref.id}</>
+                </Link>{" "}
+                <DirectSearch
+                  text={glycanDirectSearch.pmid.text}
+                  searchType={"glycan"}
+                  fieldType={glycanStrings.pmid.id}
+                  fieldValue={ref.id}
+                  executeSearch={glycanSearch}
+                />
+              </>
+            ))}
+          </div>
+          <EvidenceList
+            inline={true}
+            evidences={groupEvidences(row.evidence)}
+          />
+        </div>
+        );
+      }
+    }
+  ];
+
   const bioEnzymeColumns = [
     {
       dataField: "evidence",
@@ -817,7 +899,7 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "cellLineName",
+      dataField: "name",
       text: "Cell / Cell Line Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -894,7 +976,7 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "tissueName",
+      dataField: "name",
       text: "Tissue / Bodily Fluid Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -1723,7 +1805,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {motifs && motifs.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           idField={"name"}
                           data={motifs}
                           columns={motifColumns}
@@ -1744,6 +1826,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
+                <CardLoader pageLoading={cardLoadingGlyc} />
                   <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
@@ -1782,11 +1865,19 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycoprotein && glycoprotein.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           data={glycoprotein}
                           columns={glycoProtienColumns}
-                          defaultSortField={"uniprot_canonical_ac"}
+                          default1SortField={"uniprot_canonical_ac"}
+                          default1SortOrder="asc"
                           onClickTarget={"#glycoprotein"}
+                          record_type={"glycan"}
+                          table_id={"glycoprotein"}
+                          record_id={id}
+                          serverPagination={true}
+                          totalDataSize={glycoproteinTotal}
+                          setAlertDialogInput={setAlertDialogInput}
+                          setCardLoading={setCardLoadingGlyc}
                         />
                       )}
                       {!glycoprotein.length && <p>{dataStatus}</p>}
@@ -1847,7 +1938,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {interactions && interactions.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           idField={"interactor_id"}
                           data={interactions}
                           columns={glycanBindingProteinColumns}
@@ -1908,7 +1999,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {enzyme && enzyme.length !== 0 && (
-                        <ClientPaginatedTable
+                        <ClientServerPaginatedTable
                           idField={"uniprot_canonical_ac"}
                           data={enzyme}
                           columns={bioEnzymeColumns}
@@ -1984,11 +2075,14 @@ const GlycanDetail = props => {
                             setSubsumptionTabSelected(key);
                           }}
                         >
-                          <Tab eventKey="ancestor" title="Ancestor">
+                          <Tab eventKey="ancestor" title="Ancestor"
+                            tabClassName={(!subsumptionAncestor || (subsumptionAncestor.length === 0)) ? "tab-disabled" : ""}
+                            disabled={(!subsumptionAncestor || (subsumptionAncestor.length === 0))}
+                          >
                             <Container className="tab-content-padding">
                               {subsumptionAncestor &&
                                 subsumptionAncestor.length > 0 && (
-                                  <ClientPaginatedTable
+                                  <ClientServerPaginatedTable
                                     idField={"id"}
                                     data={subsumptionAncestor}
                                     columns={subsumptionColumns}
@@ -2001,11 +2095,14 @@ const GlycanDetail = props => {
                               )}
                             </Container>
                           </Tab>
-                          <Tab eventKey="descendant" title="Descendant">
+                          <Tab eventKey="descendant" title="Descendant"
+                            tabClassName={(!subsumptionDescendant || (subsumptionDescendant.length === 0)) ? "tab-disabled" : ""}
+                            disabled={(!subsumptionDescendant || (subsumptionDescendant.length === 0))}
+                          >
                             <Container className="tab-content-padding">
                               {subsumptionDescendant &&
                                 subsumptionDescendant.length > 0 && (
-                                  <ClientPaginatedTable
+                                  <ClientServerPaginatedTable
                                     idField={"id"}
                                     data={subsumptionDescendant}
                                     columns={subsumptionColumns}
@@ -2033,6 +2130,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
+                  <CardLoader pageLoading={cardLoadingExp} />
                   <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
@@ -2093,16 +2191,26 @@ const GlycanDetail = props => {
                           <Tab
                             eventKey="with_tissue"
                             title="Tissue / Bodily Fluid Expression"
-                            //disabled={(!mutataionWithdisease || (mutataionWithdisease.length === 0))}
+                            tabClassName={(!expressionWithtissue || (expressionWithtissue.length === 0)) ? "tab-disabled" : ""}
+                            disabled={(!expressionWithtissue || (expressionWithtissue.length === 0))}
                           >
                             <Container className="tab-content-padding">
                               {expressionWithtissue &&
                                 expressionWithtissue.length > 0 && (
-                                  <ClientPaginatedTable
-                                    data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
+                                  <ClientServerPaginatedTable
+                                    // data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
+                                    data={expressionWithtissue}
                                     columns={expressionTissueColumns}
                                     onClickTarget={"#expression"}
-                                    defaultSortField="start_pos"
+                                    default1SortField="start_pos"
+                                    default1SortOrder="asc"
+                                    record_type={"glycan"}
+                                    table_id={"expression_tissue"}
+                                    record_id={id}
+                                    serverPagination={true}
+                                    totalDataSize={expressionWithtissueTotal}
+                                    setAlertDialogInput={setAlertDialogInput}
+                                    setCardLoading={setCardLoadingExp}
                                   />
                                 )}
                               {!expressionWithtissue.length && (
@@ -2113,15 +2221,26 @@ const GlycanDetail = props => {
                           <Tab
                             eventKey="with_cellline"
                             title="Cell / Cell Line Expression"
+                            tabClassName={(!expressionWithcell || (expressionWithcell.length === 0)) ? "tab-disabled" : ""}
+                            disabled={(!expressionWithcell || (expressionWithcell.length === 0))}
                           >
                             <Container className="tab-content-padding">
                               {expressionWithcell &&
                                 expressionWithcell.length > 0 && (
-                                  <ClientPaginatedTable
-                                    data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}
+                                  <ClientServerPaginatedTable
+                                    // data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}
+                                    data={expressionWithcell}
                                     columns={expressionCellColumns}
                                     onClickTarget={"#expression"}
-                                    defaultSortField="position"
+                                    default1SortField="position"
+                                    default1SortOrder="asc"
+                                    record_type={"glycan"}
+                                    table_id={"expression_cell_line"}
+                                    record_id={id}
+                                    serverPagination={true}
+                                    totalDataSize={expressionWithcellTotal}
+                                    setAlertDialogInput={setAlertDialogInput}
+                                    setCardLoading={setCardLoadingExp}
                                   />
                                 )}
                               {!expressionWithcell.length && (
@@ -2381,6 +2500,7 @@ const GlycanDetail = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
+                  <CardLoader pageLoading={cardLoadingPub} />
                   <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
@@ -2426,7 +2546,33 @@ const GlycanDetail = props => {
                     out={(collapsed.publication = "false")}
                   >
                     <Card.Body className="card-padding-zero">
-                      <Table hover fluid="true">
+
+                    <div className="m-3">
+                    {publication && publication.length > 0 && <ClientServerPaginatedTable
+                            // idField={"interactor_id"}
+                            data={publication}
+                            columns={paperColumns}
+                            tableHeader={'paper-table-header'}
+                            wrapperClasses={"table-responsive table-height-auto"}
+                            // serverPagination={false}
+                            defaultSizePerPage={200}
+                            defaultSortField={"date"}
+                            defaultSortOrder={"desc"}
+                            // defaultSortField={"interactor_id"}
+                            // onClickTarget={"#glycanBindingProtein"}
+                            record_type={"glycan"}
+                            table_id={"publication"}
+                            record_id={id}
+                            serverPagination={true}
+                            totalDataSize={publicationTotal}
+                            currentSort={publicationSort}
+                            currentSortOrder={publicationDirection}
+                            setAlertDialogInput={setAlertDialogInput}
+                            setCardLoading={setCardLoadingPub}
+                      />}
+                    </div>
+
+                      {/* <Table hover fluid="true">
                         {sortedPublication && (
                           <tbody className="table-body">
                             {sortedPublication.map((pub, pubIndex) => (
@@ -2448,7 +2594,6 @@ const GlycanDetail = props => {
                                         <>
                                           <FiBookOpen />
                                           <span style={{ paddingLeft: "15px" }}>
-                                            {/* {glycanStrings.pmid.shortName}: */}
                                             {ref.type}:
                                           </span>{" "}
                                           <Link
@@ -2456,13 +2601,7 @@ const GlycanDetail = props => {
                                           >
                                             <>{ref.id}</>
                                           </Link>{" "}
-                                          {/* <a
-                                            href={ref.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <>{ref.id}</>
-                                          </a>{" "} */}
+
                                           <DirectSearch
                                             text={glycanDirectSearch.pmid.text}
                                             searchType={"glycan"}
@@ -2483,7 +2622,7 @@ const GlycanDetail = props => {
                             ))}
                           </tbody>
                         )}
-                      </Table>
+                      </Table> */}
                       {!publication && (
                         <p className="no-data-msg-publication">
                           {dataStatus}

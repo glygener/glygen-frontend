@@ -19,7 +19,9 @@ const ClientPaginatedTable = props => {
     defaultSortField = "",
     defaultSortOrder = "desc",
     onClickTarget,
-    idField
+    idField,
+    tableHeader,
+    wrapperClasses
   } = props;
 
   const [page, setPage] = useState(1);
@@ -63,7 +65,8 @@ const ClientPaginatedTable = props => {
       defaultSortField={defaultSortField}
       defaultSortOrder={defaultSortOrder}
       idField={idField}
-      wrapperClasses="table-responsive table-height"
+      wrapperClasses={wrapperClasses ? wrapperClasses : "table-responsive table-height"}
+      tableHeader={tableHeader}
     />
   );
 };

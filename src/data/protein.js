@@ -1,4 +1,4 @@
-import { getJson, postToAndGetBlob } from "./api";
+import { getJson, postToAndGetBlob, postFormDataTo1 } from "./api";
 
 import { Link } from "react-router-dom";
 import React from "react";
@@ -40,7 +40,24 @@ export const getProteinsiteDetail = (protienId, position) => {
 };
 
 export const getProteinDetail = accessionId => {
-  const url = `/protein/detail/${accessionId}`;
+
+  const queryParams = {"paginated_tables":[{"table_id": "glycosylation_reported_with_glycan","offset":1, "limit":20,"sort": "glytoucan_ac","order":"asc"},
+                      {"table_id": "glycosylation_reported","offset":1, "limit":20,"s1ort": "glytoucan_ac","order":"asc"},
+                      {"table_id": "phosphorylation","offset":1, "limit":20,"s1ort": "glytoucan_ac","order":"asc"},
+                      {"table_id": "publication","offset":1, "limit":200,"sort": "date","order":"desc"}]}
+
+  const queryParamString = JSON.stringify(queryParams);
+
+  const url = `/protein/detail/${accessionId}/?query=${queryParamString}`;
+  // const url = `/protein/detail/${accessionId}`;
+
+
+  // const url = `/pagination/page/?query=${queryParamString}`;
+    //  const url = `pagination/page/`;
+    //  const myHeaders = {
+    //   "Content-Type": "application/json",
+    // };
+  // return postFormDataTo1(url, queryParamString, myHeaders);
   return getJson(url);
 };
 export const getProteinDetailDownload = (id, format, compressed, type, headers) => {
