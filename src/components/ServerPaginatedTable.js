@@ -86,7 +86,6 @@ useEffect(() => {
 
 
 useEffect(() => {
-  logActivity("user", record_id);
 
   // don't need to call the websrvice here when the component is loaded for the first time.
   if (!firstLoad) {
@@ -97,6 +96,8 @@ useEffect(() => {
   if (!currentSort || !currentSortOrder) {
     return;
   }
+
+  logActivity("user", record_id);
 
   setCardLoading(true);
   getTableList(
@@ -144,7 +145,7 @@ const handleTableChange = (
     //   return;
     // }
 
-  console.log("Hi " + type);
+  // console.log("Hi " + type);
 
   setPage(page);
   setSizePerPage(sizePerPage);

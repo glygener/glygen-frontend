@@ -976,7 +976,7 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "name",
+      dataField: "namespace",
       text: "Tissue / Bodily Fluid Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
