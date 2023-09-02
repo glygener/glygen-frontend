@@ -789,7 +789,7 @@ const BiomarkerDetail = (props) => {
                   <Accordion.Collapse eventKey="0" out={!collapsed.publication}>
                     <Card.Body className="card-padding-zero">
                     <div className="m-3">
-                      {publicationTotal && publication && publication.length > 0 && <ClientServerPaginatedTable
+                      {publicationTotal !== undefined && publication && publication.length > 0 && <ClientServerPaginatedTable
                               // idField={"interactor_id"}
                               data={publication}
                               columns={paperColumns}
