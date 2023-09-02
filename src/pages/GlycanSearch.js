@@ -71,7 +71,9 @@ const GlycanSearch = (props) => {
 			glyBindingProteinId: '',
 			glyGlyName: '',
 			glyIDNamespace: '',
-			glyAdvSearchValError: [false, false, false, false, false, false, false],
+			glyBiomarkerDisease: "",
+			glyBiomarkerType: { id: "", name: "" },
+			glyAdvSearchValError: [false, false, false, false, false, false, false, false],
 		}
 	);
 	const [glyCompData, setGlyCompData] = useReducer(
@@ -688,6 +690,24 @@ const GlycanSearch = (props) => {
 								data.cache_info.query.id_namespace === undefined
 									? advancedSearch.id_namespace.placeholderId
 									: data.cache_info.query.id_namespace,
+									proBiomarkerDisease:
+									data.cache_info.query.biomarker === undefined || data.cache_info.query.biomarker.name === undefined
+									  ? ""
+									  : data.cache_info.query.biomarker.name,
+							glyBiomarkerDisease:
+								data.cache_info.query.biomarker === undefined || data.cache_info.query.biomarker.disease_name === undefined
+								? ""
+								: data.cache_info.query.biomarker.disease_name,
+							glyBiomarkerType:
+								data.cache_info.query.biomarker === undefined || data.cache_info.query.biomarker.type === undefined
+								? {
+									id: advancedSearch.biomarker_type.placeholderId,
+									name: advancedSearch.biomarker_type.placeholderName
+								}
+								: {
+									id: data.cache_info.query.biomarker.type,
+									name: data.cache_info.query.biomarker.type.charAt(0).toUpperCase() + data.cache_info.query.biomarker.type.slice(1)
+								},
 							glyAdvSearchValError: [false, false, false, false, false, false, false],
 						});
 
@@ -727,6 +747,8 @@ const GlycanSearch = (props) => {
 	 * @param {string} input_pmid - input_pmid value.
 	 * @param {string} input_binding_protein_id - input_binding_protein_id value.
 	 * @param {string} input_id_namespace - input_id_namespace value.
+	 * @param {string} input_biomarker_disease - input_biomarker_disease value.
+	 * @param {object} input_biomarker_type - input_biomarker_type value.
 	 * @param {object} input_residue_comp - input_residue_comp value.
 	 **/
 	function searchjson(
@@ -750,6 +772,8 @@ const GlycanSearch = (props) => {
 		input_pmid,
 		input_binding_protein_id,
 		input_id_namespace,
+		input_biomarker_disease,
+		input_biomarker_type,
 		input_residue_comp
 	) {
 		var enzymes = undefined;
@@ -828,6 +852,14 @@ const GlycanSearch = (props) => {
 			}
 		}
 
+		var biomarker = undefined;
+		if (input_biomarker_disease || input_biomarker_type) {
+			biomarker = {
+				disease_name: input_biomarker_disease ? input_biomarker_disease : undefined,
+				type: input_biomarker_type ? input_biomarker_type : undefined,
+			};
+		}
+
 		var formjson = {
 			[commonGlycanData.operation.id]: 'AND',
 			[glycanData.advanced_search.query_type.id]: input_query_type,
@@ -845,6 +877,7 @@ const GlycanSearch = (props) => {
 			[commonGlycanData.pmid.id]: input_pmid !== "" ? input_pmid : undefined,
 			[commonGlycanData.binding_protein_id.id]: input_binding_protein_id !== "" ? input_binding_protein_id : undefined,
 			[commonGlycanData.id_namespace.id]: input_id_namespace !== "" ? input_id_namespace : undefined,
+			[commonGlycanData.biomarker.id]: biomarker ? biomarker	: undefined,
 			[commonGlycanData.composition.id]: input_residue_comp,
 		};
 		return formjson;
@@ -908,6 +941,8 @@ const GlycanSearch = (props) => {
 			glyAdvSearchData.glyPubId,
 			glyAdvSearchData.glyBindingProteinId,
 			glyAdvSearchData.glyIDNamespace,
+			glyAdvSearchData.glyBiomarkerDisease,
+			glyAdvSearchData.glyBiomarkerType.id,
 			undefined
 		);
 		logActivity("user", id, "Performing Advanced Search");

@@ -1,0 +1,34 @@
+{
+  "biomarker": {
+    "general": {
+      "urlText1": "Read more...",
+      "text": "The General section provides identifying information about the biomarker.",
+      "title": "General",
+      "url": ""
+    },
+    "biomarker_description": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarker Description",
+      "url": "https://wiki.glygen.org/index.php/Motif_details/Glycans"
+    },
+    "components": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Components",
+      "url": ""
+    },
+    "cross_references": {
+      "urlText1": "Read more...",
+      "text": "The Cross References section provides a list of database entries and links for the biomarker in other databases.",
+      "title": "Cross References",
+      "url": ""
+    },
+    "publications": {
+      "urlText1": "Read more...",
+      "text": "The Publications section contains publications where the given biomarker was reported.",
+      "title": "Publications",
+      "url": ""
+    }
+  }
+}

@@ -63,6 +63,7 @@ const GlycanQuerySummary = (props) => {
     composition,
     binding_protein_id,
     id_namespace,
+    biomarker
   } = data;
 
   const [glycanIdentifierShowMore, setGlycanIdentifierShowMore] = useState(true);
@@ -375,6 +376,26 @@ const GlycanQuerySummary = (props) => {
                   </Col>
                   <Col align="left" xs={6} sm={6} md={6} lg={6}>
                     {id_namespace}
+                  </Col>
+                </Row>
+              )}
+              {biomarker && biomarker.disease_name && (
+                <Row className="summary-table-col">
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {glycanStrings.biomarker_disease.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {biomarker.disease_name}
+                  </Col>
+                </Row>
+              )}
+              {biomarker && biomarker.type && (
+                <Row className="summary-table-col">
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {glycanStrings.biomarker_type.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {biomarker.type}
                   </Col>
                 </Row>
               )}

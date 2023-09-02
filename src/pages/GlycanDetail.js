@@ -52,6 +52,7 @@ const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
 const proteinStrings = stringConstants.protein.common;
 const motifStrings = stringConstants.motif.common;
+const biomarkerStrings = stringConstants.biomarker.common;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
@@ -78,6 +79,10 @@ const items = [
   {
     label: stringConstants.sidebar.subsumption.displayname,
     id: "Subsumption"
+  },
+  {
+    label: stringConstants.sidebar.biomarkers.displayname,
+    id: "Biomarkers"
   },
   {
     label: stringConstants.sidebar.expression.displayname,
@@ -411,7 +416,16 @@ const GlycanDetail = props => {
             true
           );
         }
-
+        if (
+          !detailDataTemp.biomarkers ||
+          detailDataTemp.biomarkers.length === 0
+        ) {
+          newSidebarData = setSidebarItemState(
+            newSidebarData,
+            "Biomarkers",
+            true
+          );
+        }
         if (
           !detailDataTemp.iupac &&
           !detailDataTemp.wurcs &&
@@ -498,6 +512,7 @@ const GlycanDetail = props => {
     wurcs,
     enzyme,
     subsumption,
+    biomarkers,
     expression,
     mass_pme,
     names,
@@ -1045,6 +1060,46 @@ const GlycanDetail = props => {
       )
     }
   ];
+
+  const biomarkerColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.biomarker_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "biomarker_id",
+      text: biomarkerStrings.biomarker_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View biomarker details">
+          <Link to={routeConstants.biomarkerDetail + row.biomarker_id}>{row.biomarker_id}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    }
+  ];
+
   // ==================================== //
   /**
    * Adding toggle collapse arrow icon to card header individualy.
@@ -1062,6 +1117,7 @@ const GlycanDetail = props => {
       glycanBindingProtein: true,
       bioEnzyme: true,
       subsumption: true,
+      biomarkers: true,
       expression: true,
       digitalSeq: true,
       crossref: true,
@@ -1864,12 +1920,12 @@ const GlycanDetail = props => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {glycoprotein && glycoprotein.length !== 0 && (
+                      {glycoproteinTotal !== undefined && glycoprotein && glycoprotein.length !== 0 && (
                         <ClientServerPaginatedTable
                           data={glycoprotein}
                           columns={glycoProtienColumns}
-                          default1SortField={"uniprot_canonical_ac"}
-                          default1SortOrder="asc"
+                          defaultSortField={"uniprot_canonical_ac"}
+                          defaultSortOrder="asc"
                           onClickTarget={"#glycoprotein"}
                           record_type={"glycan"}
                           table_id={"glycoprotein"}
@@ -2122,6 +2178,49 @@ const GlycanDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/*  Biomarkers */}
+              <Accordion
+                id="Biomarkers"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.biomarkers.title}
+                        text={DetailTooltips.glycan.biomarkers.text}
+                        urlText={DetailTooltips.glycan.biomarkers.urlText}
+                        url={DetailTooltips.glycan.biomarkers.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.biomarkers.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {biomarkers && biomarkers.length !== 0 && (
+                        <ClientServerPaginatedTable
+                          data={biomarkers}
+                          columns={biomarkerColumns}
+                          onClickTarget={"#biomarkers"}
+                          defaultSortField={"biomarker_id"}
+                          defaultSortOrder={"asc"}
+                        />
+                      )}
+                      {!biomarkers && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/* Expression */}
               <Accordion
                 id="Expression"
@@ -2195,15 +2294,14 @@ const GlycanDetail = props => {
                             disabled={(!expressionWithtissue || (expressionWithtissue.length === 0))}
                           >
                             <Container className="tab-content-padding">
-                              {expressionWithtissue &&
+                              {expressionWithtissueTotal !== undefined && expressionWithtissue &&
                                 expressionWithtissue.length > 0 && (
                                   <ClientServerPaginatedTable
-                                    // data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
                                     data={expressionWithtissue}
                                     columns={expressionTissueColumns}
                                     onClickTarget={"#expression"}
-                                    default1SortField="start_pos"
-                                    default1SortOrder="asc"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                     record_type={"glycan"}
                                     table_id={"expression_tissue"}
                                     record_id={id}
@@ -2225,15 +2323,14 @@ const GlycanDetail = props => {
                             disabled={(!expressionWithcell || (expressionWithcell.length === 0))}
                           >
                             <Container className="tab-content-padding">
-                              {expressionWithcell &&
+                              {expressionWithcellTotal !== undefined && expressionWithcell &&
                                 expressionWithcell.length > 0 && (
                                   <ClientServerPaginatedTable
-                                    // data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}
                                     data={expressionWithcell}
                                     columns={expressionCellColumns}
                                     onClickTarget={"#expression"}
-                                    default1SortField="position"
-                                    default1SortOrder="asc"
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                     record_type={"glycan"}
                                     table_id={"expression_cell_line"}
                                     record_id={id}
@@ -2547,82 +2644,26 @@ const GlycanDetail = props => {
                   >
                     <Card.Body className="card-padding-zero">
 
-                    <div className="m-3">
-                    {publication && publication.length > 0 && <ClientServerPaginatedTable
-                            // idField={"interactor_id"}
-                            data={publication}
-                            columns={paperColumns}
-                            tableHeader={'paper-table-header'}
-                            wrapperClasses={"table-responsive table-height-auto"}
-                            // serverPagination={false}
-                            defaultSizePerPage={200}
-                            defaultSortField={"date"}
-                            defaultSortOrder={"desc"}
-                            // defaultSortField={"interactor_id"}
-                            // onClickTarget={"#glycanBindingProtein"}
-                            record_type={"glycan"}
-                            table_id={"publication"}
-                            record_id={id}
-                            serverPagination={true}
-                            totalDataSize={publicationTotal}
-                            currentSort={publicationSort}
-                            currentSortOrder={publicationDirection}
-                            setAlertDialogInput={setAlertDialogInput}
-                            setCardLoading={setCardLoadingPub}
-                      />}
-                    </div>
-
-                      {/* <Table hover fluid="true">
-                        {sortedPublication && (
-                          <tbody className="table-body">
-                            {sortedPublication.map((pub, pubIndex) => (
-                              <tr className="table-row">
-                                <td key={pubIndex}>
-                                  <div>
-                                    <div>
-                                      <h5 style={{ marginBottom: "3px" }}>
-                                        <strong>{pub.title}</strong>{" "}
-                                      </h5>
-                                    </div>
-                                    <div>{pub.authors}</div>
-                                    <div>
-                                      {pub.journal} <span>&nbsp;</span>(
-                                      {pub.date})
-                                    </div>
-                                    <div>
-                                      {pub.reference.map(ref => (
-                                        <>
-                                          <FiBookOpen />
-                                          <span style={{ paddingLeft: "15px" }}>
-                                            {ref.type}:
-                                          </span>{" "}
-                                          <Link
-                                            to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
-                                          >
-                                            <>{ref.id}</>
-                                          </Link>{" "}
-
-                                          <DirectSearch
-                                            text={glycanDirectSearch.pmid.text}
-                                            searchType={"glycan"}
-                                            fieldType={glycanStrings.pmid.id}
-                                            fieldValue={ref.id}
-                                            executeSearch={glycanSearch}
-                                          />
-                                        </>
-                                      ))}
-                                    </div>
-                                    <EvidenceList
-                                      inline={true}
-                                      evidences={groupEvidences(pub.evidence)}
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        )}
-                      </Table> */}
+                      <div className="m-3">
+                        {publicationTotal !== undefined && publication && publication.length > 0 && <ClientServerPaginatedTable
+                              data={publication}
+                              columns={paperColumns}
+                              tableHeader={'paper-table-header'}
+                              wrapperClasses={"table-responsive table-height-auto"}
+                              defaultSizePerPage={200}
+                              defaultSortField={"date"}
+                              defaultSortOrder={"desc"}
+                              record_type={"glycan"}
+                              table_id={"publication"}
+                              record_id={id}
+                              serverPagination={true}
+                              totalDataSize={publicationTotal}
+                              currentSort={publicationSort}
+                              currentSortOrder={publicationDirection}
+                              setAlertDialogInput={setAlertDialogInput}
+                              setCardLoading={setCardLoadingPub}
+                          />}
+                       </div>
                       {!publication && (
                         <p className="no-data-msg-publication">
                           {dataStatus}

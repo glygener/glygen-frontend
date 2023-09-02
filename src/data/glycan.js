@@ -58,23 +58,15 @@ export const getGlycanSectionDownload = (id, format, compressed, type, headers, 
 
 export const getGlycanDetail = accessionId => {
 
-  const queryParams = {"paginated_tables":[{"table_id": "glycoprotein","offset":1, "limit":20,"sort1": "glytoucan_ac","order":"asc"},
+  const queryParams = {"paginated_tables":[{"table_id": "glycoprotein","offset":1, "limit":20,"sort": "uniprot_canonical_ac","order":"asc"},
+  {"table_id": "expression_tissue","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+  // {"table_id": "expression_cell_line","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
   {"table_id": "publication","offset":1, "limit":200,"sort": "date","order":"desc"}]}
 
-const queryParamString = JSON.stringify(queryParams);
+  const queryParamString = JSON.stringify(queryParams);
 
-const url = `/glycan/detail/${accessionId}/?query=${queryParamString}`;
-// const url = `/protein/detail/${accessionId}`;
+  const url = `/glycan/detail/${accessionId}/?query=${queryParamString}`;
 
-
-// const url = `/pagination/page/?query=${queryParamString}`;
-//  const url = `pagination/page/`;
-// const myHeaders = {
-// "Content-Type": "application/json",
-// };
-// return postFormDataTo1(url, queryParamString, myHeaders);
-
-  // const url = `/glycan/detail/${accessionId}`;
   return getJson(url);
 };
 

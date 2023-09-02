@@ -37,6 +37,7 @@
   "publicationDetail": "/publication/",
   "blastSearch": "/blast/",
   "blastResult": "/blast-result/",
+  "biomarkerDetail": "/biomarker/",
   "home": "/home/",
   "default": "/"
 }

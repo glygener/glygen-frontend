@@ -38,6 +38,7 @@ import SuperSearch from "./pages/SuperSearch";
 import BlastSearch from "./pages/BlastSearch";
 import BlastResult from "./pages/BlastResult"
 import PublicationDetail from "./pages/PublicationDetail";
+import BiomarkerDetail from "./pages/BiomarkerDetail";
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -114,6 +115,7 @@ const Routes = (props) => (
     <Route path={routeConstants.blastSearch} element={<BlastSearch/>} />
     <Route path={`${routeConstants.blastResult}:jobId`} element={<BlastResult/>} />
     <Route path={routeConstants.blastResult} element={<BlastResult/>} />
+    <Route path={`${routeConstants.biomarkerDetail}:id`} element={<BiomarkerDetail/>} />
     {/* Keep path='/' at the bottom */}
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />

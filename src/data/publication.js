@@ -5,12 +5,12 @@ export const getPublicationDetail = (publId, publType) => {
   const queryParamString = JSON.stringify({
     id: publId,
     type: publType,
-    paginated_tables:[{"table_id": "glycosylation_reported_with_glycan","offset":1, "limit":20,"sort": "glytoucan_ac","order":"asc"},
-                      {"table_id": "glycosylation_reported","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "glycosylation_predicted","offset":1, "limit":20,"sort": "start_pos","order":"desc"},
-                      {"table_id": "phosphorylation","offset":1, "limit":20,"sort": "uniprot_canonical_ac","order":"asc"},
-                      {"table_id": "referenced_proteins","offset":1, "limit":20,"s1ort": "date","order":"desc"},
-                      {"table_id": "referenced_glycans","offset":1, "limit":20,"s1ort": "date","order":"desc"}]
+    paginated_tables:[{"table_id": "glycosylation_reported_with_glycan", "offset":1, "limit":20,"sort": "start_pos", "order":"asc"},
+                      {"table_id": "glycosylation_reported", "offset":1, "limit":20, "sort": "start_pos", "order":"asc"},
+                      {"table_id": "glycosylation_predicted", "offset":1, "limit":20, "sort": "start_pos", "order":"asc"},
+                      {"table_id": "phosphorylation", "offset":1, "limit":20,"sort": "start_pos", "order":"asc"},
+                      {"table_id": "referenced_proteins", "offset":1, "limit":20, "sort": "uniprot_canonical_ac", "order":"asc"},
+                      {"table_id": "referenced_glycans", "offset":1, "limit":20, "sort": "referenced_glycans", "order":"asc"}]
   });
   const url = `/publication/detail?query=${queryParamString}`;
   return getJson(url);

@@ -67,6 +67,10 @@ const items = [
   },
   { label: stringConstants.sidebar.mutagenesis.displayname, id: "Mutagenesis" },
   {
+    label: stringConstants.sidebar.biomarkers.displayname,
+    id: "Biomarkers",
+  },
+  {
     label: stringConstants.sidebar.expression.displayname,
     id: "Expression",
   },
@@ -80,6 +84,8 @@ const PublicationDetail = (props) => {
 
   const proteinStrings = stringConstants.protein.common;
   const glycanStrings = stringConstants.glycan.common;
+  const biomarkerStrings = stringConstants.biomarker.common;
+
   const [expressionTabSelected, setExpressionTabSelected] = useState("");
   const [expressionWithtissue, setExpressionWithtissue] = useState([]);
   const [expressionWithcell, setExpressionWithcell] = useState([]);
@@ -99,13 +105,56 @@ const PublicationDetail = (props) => {
     { show: false, id: "" }
   );
   const [sideBarData, setSidebarData] = useState(items);
-
   const [refProTotal, setRefProTotal] = useState(undefined);
   const [refGlyTotal, setRefGlyTotal] = useState(undefined);
   const [phosphorylationTotal, setPhosphorylationTotal] = useState(undefined);
   const [glycosylationWithImageTotal, setGlycosylationWithImageTotal] = useState(undefined);
   const [glycosylationWithoutImageTotal, setGlycosylationWithoutImageTotal] = useState(undefined);
-  const [glycosylationPredictedTotal, setGlycosylationPredictedTotal] = useState(undefined);
+  const [glycosylationAutoLitMinTotal, setGlycosylationAutoLitMinTotal] = useState(undefined);
+  const [glycosylatioSectStat, setGlycosylationSectStat] = useState({
+    "total_sites": 0,
+    "Nlinked": {
+      "count": 0,
+      "sites": 0
+    },
+    "Olinked": {
+      "count": 0,
+      "sites": 0
+    }
+  });
+  const [glycosylationWithImageSectStat, setGlycosylationWithImageSectStat] = useState({
+    "total_sites": 0,
+    "Nlinked": {
+      "count": 0,
+      "sites": 0
+    },
+    "Olinked": {
+      "count": 0,
+      "sites": 0
+    }
+  });
+  const [glycosylationWithoutImageSectStat, setGlycosylationWithoutImageSectStat] = useState({
+    "total_sites": 0,
+    "Nlinked": {
+      "count": 0,
+      "sites": 0
+    },
+    "Olinked": {
+      "count": 0,
+      "sites": 0
+    }
+  });
+  const [glycosylationAutoLitMinSectStat, setGlycosylationAutoLitMinSectStat] = useState({
+    "total_sites": 0,
+    "Nlinked": {
+      "count": 0,
+      "sites": 0
+    },
+    "Olinked": {
+      "count": 0,
+      "sites": 0
+    }
+  });
   const [cardLoadingGly, setCardLoadingGly] = useState(false);
   const [cardLoadingPho, setCardLoadingPho] = useState(false);
   const [cardLoadingRefPro, setCardLoadingRefPro] = useState(false);
@@ -217,6 +266,11 @@ const PublicationDetail = (props) => {
         if (!detailDataTemp.glycan_expression || detailDataTemp.glycan_expression.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Expression", true);
         }
+
+        if (!detailDataTemp.biomarkers || detailDataTemp.biomarkers.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Biomarkers", true);
+        }
+
         if (
           !detailDataTemp.referenced_proteins ||
           detailDataTemp.referenced_proteins.length === 0
@@ -238,45 +292,92 @@ const PublicationDetail = (props) => {
 
         if (data.section_stats) {
 
-          console.log("Hi");
           let refProt = data.section_stats.filter(obj => obj.table_id === "referenced_proteins");
           let refProtStat = refProt[0].table_stats.filter(obj => obj.field === "total");
 
           setRefProTotal(refProtStat[0].count);
-          console.log(refProtStat[0].count);
-
 
           let refGly = data.section_stats.filter(obj => obj.table_id === "referenced_glycans");
           let refGlyStat = refGly[0].table_stats.filter(obj => obj.field === "total");
 
           setRefGlyTotal(refGlyStat[0].count);
-          console.log(refProtStat[0].count);
+
+          let glycosylation = data.section_stats.filter(obj => obj.table_id === "glycosylation");
+
+          let temp = {
+            "total_sites": glycosylation[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "Nlinked": {
+              "count": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
+              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+            },
+            "Olinked": {
+              "count": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
+              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+            }
+          };
+
+          setGlycosylationSectStat(temp);
 
 
           let glyWithImage = data.section_stats.filter(obj => obj.table_id === "glycosylation_reported_with_glycan");
           let glyWithImageStat = glyWithImage[0].table_stats.filter(obj => obj.field === "total");
 
           setGlycosylationWithImageTotal(glyWithImageStat[0].count);
-          console.log(glyWithImageStat[0].count);
+
+          let temp1 = {
+            "total_sites": glyWithImage[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "Nlinked": {
+              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
+              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+            },
+            "Olinked": {
+              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
+              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+            }
+          };
+
+          setGlycosylationWithImageSectStat(temp1);
 
 
           let glyWithoutImage = data.section_stats.filter(obj => obj.table_id === "glycosylation_reported");
           let glyWithoutImageStat = glyWithoutImage[0].table_stats.filter(obj => obj.field === "total");
           setGlycosylationWithoutImageTotal(glyWithoutImageStat[0].count);
-          console.log(glyWithoutImageStat[0].count);
 
+          let temp2 = {
+            "total_sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "Nlinked": {
+              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
+              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+            },
+            "Olinked": {
+              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
+              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+            }
+          };
 
-          let glyPred = data.section_stats.filter(obj => obj.table_id === "glycosylation_predicted");
-          let glyPredStat = glyPred[0].table_stats.filter(obj => obj.field === "total");
-          setGlycosylationPredictedTotal(glyPredStat[0].count);
-          console.log(glyPredStat[0].count);
+          setGlycosylationWithoutImageSectStat(temp2);
 
+          let glyAutoLitMin = data.section_stats.filter(obj => obj.table_id === "glycosylation_automatic_literature_mining");
+          let glyAutoLitMinStat = glyAutoLitMin[0].table_stats.filter(obj => obj.field === "total");
+          setGlycosylationAutoLitMinTotal(glyAutoLitMinStat[0].count);
+
+          let temp4 = {
+            "total_sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "Nlinked": {
+              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
+              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+            },
+            "Olinked": {
+              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
+              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+            }
+          };
+
+          setGlycosylationAutoLitMinSectStat(temp4);
         
           let phosphoryl = data.section_stats.filter(obj => obj.table_id === "phosphorylation");
           let phosphorylStat = phosphoryl[0].table_stats.filter(obj => obj.field === "total");
           setPhosphorylationTotal(phosphorylStat[0].count); 
-          console.log(phosphorylStat[0].count);
-
           
         }
       }
@@ -314,6 +415,7 @@ const PublicationDetail = (props) => {
     glycan_expression,
     referenced_proteins,
     referenced_glycans,
+    biomarkers
   } = detailData;
 
   const organismEvidence = groupOrganismEvidences(species);
@@ -363,6 +465,38 @@ const PublicationDetail = (props) => {
     //15 sites, 31 N-linked glycans (14 sites), 1 O-linked glycan (1 site)
   };
 
+  const createGlycosylationSummaryFromSectionStat = (sectStat, glycan = false) => {
+    
+    let totalSites = sectStat.total_sites;
+    let info = {};
+
+    if (sectStat.Nlinked.count > 0 || sectStat.Nlinked.sites > 0) {
+      info["N-linked"] = {
+        count: sectStat.Nlinked.count,
+        sites: sectStat.Nlinked.sites
+      }
+    }
+
+    if (sectStat.Olinked.count > 0 || sectStat.Olinked.sites > 0) {
+      info["O-linked"] = {
+        count: sectStat.Olinked.count,
+        sites: sectStat.Olinked.sites
+      }
+    }
+
+    let glycans = (glycan ? 'glycan(s)' : 'annotation(s)');
+
+    return [`${totalSites} site(s) total`]
+      .concat(
+        Object.keys(info).sort((a, b) => a.localeCompare(b)).map(
+          (key) => `${info[key].count} ${key} ${glycans} at ${info[key].sites} site(s)`
+        )
+      )
+      .join(", ");
+
+    //15 sites, 31 N-linked glycans (14 sites), 1 O-linked glycan (1 site)
+  };
+
   /**
    * Adding toggle collapse arrow icon to card header individualy.
    * @param {object} uniprot_canonical_ac- uniprot accession ID.
@@ -384,6 +518,7 @@ const PublicationDetail = (props) => {
       cell_line: true,
       referenced_proteins: true,
       referenced_glycans: true,
+      biomarkers: true
     }
   );
   /**
@@ -1228,6 +1363,45 @@ const PublicationDetail = (props) => {
     },
   ];
 
+  const biomarkerColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.biomarker_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "biomarker_id",
+      text: biomarkerStrings.biomarker_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View biomarker details">
+          <Link to={routeConstants.biomarkerDetail + row.biomarker_id}>{row.biomarker_id}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    }
+  ];
+
   const setSidebarItemState = (items, itemId, disabledState) => {
     return items.map((item) => {
       return {
@@ -1499,60 +1673,14 @@ const PublicationDetail = (props) => {
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    {/* {displayedItems && (
-                      <>
-                        <div>
-                          <ul className="list-style-none">
-                            <Row>
-                              {displayedItems.sort(sortIgnoreCase).map((refProt) => (
-                                <Col key={refProt} className="nowrap" xs={6} sm={4} lg={3} xl={2}>
-                                  <LineTooltip text="View protein details">
-                                    <Link to={`${routeConstants.proteinDetail}${refProt}`}>
-                                      <li>{refProt}</li>
-                                    </Link>
-                                  </LineTooltip>
-                                </Col>
-                              ))}
-                            </Row>
-                            {allItems.length > maxItems && (
-                              <>
-                                {open ? (
-                                  <Button
-                                    style={{
-                                      marginTop: "5px",
-                                    }}
-                                    className={"lnk-btn"}
-                                    variant="link"
-                                    onClick={() => setOpen(false)}
-                                  >
-                                    Show Less...
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    style={{
-                                      marginTop: "5px",
-                                    }}
-                                    className={"lnk-btn"}
-                                    variant="link"
-                                    onClick={() => setOpen(true)}
-                                  >
-                                    Show More...
-                                  </Button>
-                                )}
-                              </>
-                            )}
-                          </ul>
-                        </div>
-                      </>
-                    )} */}
-                    {refProTotal && referenced_proteins && referenced_proteins.length > 0 && (
+                  <Card.Body>               
+                    {refProTotal !== undefined && referenced_proteins && referenced_proteins.length > 0 && (
                       <ClientServerPaginatedTable
                         data={referenced_proteins}
                         columns={refProtienColumns}
-                        onClickTarget={"#mutation"}
-                        default1SortField="start_pos"
-                        default1SortOrder="asc"
+                        onClickTarget={"#referenced_proteins"}
+                        defaultSortField="uniprot_canonical_ac"
+                        defaultSortOrder="asc"
                         record_type={"publication"}
                         table_id={"referenced_proteins"}
                         record_id={id}
@@ -1614,16 +1742,13 @@ const PublicationDetail = (props) => {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    {refGlyTotal && referenced_glycans && (
+                    {refGlyTotal !== undefined && referenced_glycans && (
                       <ClientServerPaginatedTable
-                        // data={referenced_glycans
-                        //   .sort(sortIgnoreCase)
-                        //   .map((refGlyc) => ({ refGlyc }))}
                         data={referenced_glycans}
                         columns={refGlycansColumns}
                         onClickTarget={"#referenced-glycans"}
-                        default1SortField="refGlyc"
-                        default1SortOrder="asc"
+                        defaultSortField="referenced_glycans"
+                        defaultSortOrder="asc"
                         idField={"refGlyc"}
                         record_type={"publication"}
                         table_id={"referenced_glycans"}
@@ -1704,7 +1829,7 @@ const PublicationDetail = (props) => {
                       <>
                         <div className="Glycosummary">
                           <strong>Glycosylation Summary:</strong>{" "}
-                          {createGlycosylationSummary(glycosylation)}
+                          {createGlycosylationSummaryFromSectionStat(glycosylatioSectStat)}
                         </div>
                         <Tabs
                           activeKey={glycosylationTabSelected}
@@ -1722,26 +1847,18 @@ const PublicationDetail = (props) => {
                             {glycosylationWithImage && glycosylationWithImage.length > 0 && (
                               <div className="Glycosummary">
                                 <strong>Summary:</strong>{" "}
-                                {createGlycosylationSummary(glycosylationWithImage, true)}
+                                {createGlycosylationSummaryFromSectionStat(glycosylationWithImageSectStat, true)}
                               </div>
                             )}
 
                             <Container className="tab-content-padding">
-                              {glycosylationWithImageTotal && glycosylationWithImage && glycosylationWithImage.length > 0 && (
+                              {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                 <ClientServerPaginatedTable
-                                  // data={addIndex(
-                                  //   glycosylationWithImage.sort((a, b) => {
-                                  //     if (a.start_pos < b.start_pos) return -1;
-                                  //     if (b.start_pos < a.start_pos) return 1;
-                                  //     return 0;
-                                  //   })
-                                  // )}
                                   data={glycosylationWithImage}
                                   columns={glycoSylationColumns}
                                   onClickTarget={"#glycosylation"}
-                                  default1SortField="start_pos"
-                                  default1SortOrder="asc"
-                                  // idField={"index"}
+                                  defaultSortField="start_pos"
+                                  defaultSortOrder="asc"
                                   record_type={"publication"}
                                   table_id={"glycosylation_reported_with_glycan"}
                                   record_id={id}
@@ -1763,14 +1880,13 @@ const PublicationDetail = (props) => {
                             {glycosylationWithoutImage && glycosylationWithoutImage.length !== 0 && (
                               <div className="Glycosummary">
                                 <strong>Summary:</strong>{" "}
-                                {createGlycosylationSummary(glycosylationWithoutImage)}
+                                {createGlycosylationSummaryFromSectionStat(glycosylationWithoutImageSectStat)}
                               </div>
                             )}
                             <Container className="tab-content-padding">
-                              {glycosylationWithoutImageTotal && glycosylationWithoutImage &&
+                              {glycosylationWithoutImageTotal !== undefined && glycosylationWithoutImage &&
                                 glycosylationWithoutImage.length > 0 && (
                                   <ClientServerPaginatedTable
-                                    // data={addIndex(glycosylationWithoutImage)}
                                     data={glycosylationWithoutImage}
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
@@ -1778,9 +1894,8 @@ const PublicationDetail = (props) => {
                                         column.dataField !== "image"
                                     )}
                                     onClickTarget={"#glycosylation"}
-                                    default1SortField="start_pos"
-                                    default1SortOrder="asc"
-                                    // idField={"index"}
+                                    defaultSortField="start_pos"
+                                    defaultSortOrder="asc"
                                     record_type={"publication"}
                                     table_id={"glycosylation_reported"}
                                     record_id={id}
@@ -1802,13 +1917,12 @@ const PublicationDetail = (props) => {
                             {glycosylationMining && glycosylationMining.length !== 0 && (
                               <div className="Glycosummary">
                                 <strong>Summary:</strong>{" "}
-                                {createGlycosylationSummary(glycosylationMining)}
+                                {createGlycosylationSummaryFromSectionStat(glycosylationAutoLitMinSectStat)}
                               </div>
                             )}
                             <Container className="tab-content-padding">
-                              {glycosylationPredictedTotal && glycosylationMining && glycosylationMining.length > 0 && (
+                              {glycosylationAutoLitMinTotal !== undefined && glycosylationMining && glycosylationMining.length > 0 && (
                                 <ClientServerPaginatedTable
-                                  // data={addIndex(glycosylationMining)}
                                   data={glycosylationMining}
                                   columns={glycoSylationColumns.filter(
                                     (column) =>
@@ -1816,14 +1930,13 @@ const PublicationDetail = (props) => {
                                       column.dataField !== "image"
                                   )}
                                   onClickTarget={"#glycosylation"}
-                                  default1SortField="start_pos"
-                                  default1SortOrder="asc"
-                                  // idField={"index"}
+                                  defaultSortField="start_pos"
+                                  defaultSortOrder="asc"
                                   record_type={"publication"}
-                                  table_id={"glycosylation_predicted"}
+                                  table_id={"glycosylation_automatic_literature_mining"}
                                   record_id={id}
                                   serverPagination={true}
-                                  totalDataSize={glycosylationPredictedTotal}
+                                  totalDataSize={glycosylationAutoLitMinTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingGly}
                                 />
@@ -1888,25 +2001,13 @@ const PublicationDetail = (props) => {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    {phosphorylationTotal && phosphorylation && phosphorylation.length !== 0 && (
+                    {phosphorylationTotal !== undefined && phosphorylation && phosphorylation.length !== 0 && (
                       <ClientServerPaginatedTable
-                        // data={addIndex(phosphorylation)
-                        //   .map((x) => ({
-                        //     ...x,
-                        //     start_pos: parseInt(x.start_pos),
-                        //     end_pos: parseInt(x.end_pos),
-                        //   }))
-                        //   .sort((a, b) => {
-                        //     if (a.start_pos < b.start_pos) return -1;
-                        //     if (b.start_pos < a.start_pos) return 1;
-                        //     return 0;
-                        //   })}
                         data={phosphorylation}
                         columns={phosphorylationColumns}
                         onClickTarget={"#phosphorylation"}
-                        default1SortField={"start_pos"}
-                        default1SortOrder="asc"
-                        // idField={"index"}
+                        defaultSortField={"start_pos"}
+                        defaultSortOrder="asc"
                         record_type={"publication"}
                         table_id={"phosphorylation"}
                         record_id={id}
@@ -2165,6 +2266,49 @@ const PublicationDetail = (props) => {
                 </Accordion.Collapse>
               </Card>
             </Accordion>
+
+            {/*  Biomarkers */}
+            <Accordion
+              id="Biomarkers"
+              defaultActiveKey="0"
+              className="panel-width"
+              style={{ padding: "20px 0" }}
+            >
+              <Card>
+                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <span className="gg-green d-inline">
+                    <HelpTooltip
+                      title={DetailTooltips.publication.biomarkers.title}
+                      text={DetailTooltips.publication.biomarkers.text}
+                      urlText={DetailTooltips.publication.biomarkers.urlText}
+                      url={DetailTooltips.publication.biomarkers.url}
+                      helpIcon="gg-helpicon-detail"
+                    />
+                  </span>
+                  <h4 className="gg-green d-inline">
+                    {stringConstants.sidebar.biomarkers.displayname}
+                  </h4>
+                  <div className="float-end">
+                    <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
+                  </div>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    {biomarkers && biomarkers.length !== 0 && (
+                      <ClientServerPaginatedTable
+                        data={biomarkers}
+                        columns={biomarkerColumns}
+                        onClickTarget={"#biomarkers"}
+                        defaultSortField={"biomarker_id"}
+                        defaultSortOrder={"asc"}
+                      />
+                    )}
+                    {!biomarkers && <p>{dataStatus}</p>}
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+
             {/* Expression */}
             <Accordion
               id="Expression"

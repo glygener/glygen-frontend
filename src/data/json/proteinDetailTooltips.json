@@ -54,6 +54,12 @@
       "title": "Mutagenesis",
       "url": "https://wiki.glygen.org/index.php/Protein_details/Mutagenesis"
     },
+    "biomarkers": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarkers",
+      "url": "https://wiki.glygen.org/index.php/Protein_details/Biomarkers"
+    },
     "expression_disease": {
       "urlText": "Read more...",
       "text": "The Expression Disease section provides information on the differential expression of a gene for a given disease.",

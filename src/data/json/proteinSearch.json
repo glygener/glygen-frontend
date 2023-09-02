@@ -358,6 +358,26 @@
           }
         }
       ]
+    },
+    "biomarker_type": {
+      "placeholder": "Select Biomarker Type",
+      "placeholderName": "",
+      "placeholderId": ""
+    },
+    "biomarker_disease": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "biomarker_disease_name",
+      "placeholder": "Enter the Biomarker Disease",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "liver cancer"
+          }
+        }
+      ]
     }
   },
   "tutorial": {

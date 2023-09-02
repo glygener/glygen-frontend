@@ -18,6 +18,12 @@
       "title": "Referenced Proteins",
       "url": "https://wiki.glygen.org/index.php/Publication_details/Referenced_proteins"
     },
+    "biomarkers": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarkers",
+      "url": "https://wiki.glygen.org/index.php/Publication_details/Biomarkers"
+    },
     "expression": {
       "urlText": "Read more...",
       "text": "The Expression section contains information on the expression of the glycan (attached to proteins) within tissues and cell line.",

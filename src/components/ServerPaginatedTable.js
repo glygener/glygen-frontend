@@ -140,12 +140,12 @@ const handleTableChange = (
 ) => {
 
     // // don't need to call the websrvice here when the component is loaded for the first time.
-    // if (!firstLoadHandle) {
-    //   setFirstLoadHandle(true);
-    //   return;
-    // }
-
-  // console.log("Hi " + type);
+    if (!firstLoadHandle && sortField === defaultSortField && sortOrder === defaultSortOrder) {
+      setFirstLoadHandle(true);
+      return;
+    } else {
+      setFirstLoadHandle(true);
+    }
 
   setPage(page);
   setSizePerPage(sizePerPage);

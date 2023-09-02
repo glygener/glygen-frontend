@@ -12,6 +12,12 @@
       "title": "Biosynthetic Enzymes",
       "url": "https://wiki.glygen.org/index.php/Glycan_details/Biosynthetic_enzymes"
     },
+    "biomarkers": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarkers",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/Biomarkers"
+    },
     "expression": {
       "urlText": "Read more...",
       "text": "The Expression section contains information on the expression of the glycan (attached to proteins) within tissues and cell line.",

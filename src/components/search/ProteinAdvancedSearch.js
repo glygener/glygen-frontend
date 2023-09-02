@@ -74,6 +74,15 @@ const ProteinAdvancedSearch = (props) => {
 	}
 
 	/**
+	 * Function to set biomarker type value.
+	 * @param {string} value - input biomarker type id value.
+	 * @param {string} name - input biomarker type name value.
+	 **/
+	const proBiomarkerTypeOnChange = (value, name) => {
+		props.setProAdvSearchData({ proBiomarkerType: {id: value, name: name} });
+	}
+
+	/**
 	 * Function to set protein name value.
 	 * @param {string} inputProteinName - input protein name value.
 	 **/
@@ -81,6 +90,16 @@ const ProteinAdvancedSearch = (props) => {
 		let valArr = props.inputValue.proAdvSearchValError;
 		valArr[2] = inputProteinName.length > advancedSearch.protein_name.length;
 		props.setProAdvSearchData({ proteinName: inputProteinName, proAdvSearchValError: valArr });	
+	}
+
+	/**
+	 * Function to set biomarker disease value.
+	 * @param {string} inputBiomarkerDisease - input biomarker disease name value.
+	 **/
+	function proBiomarkerDiseaseChange(inputProBiomarkerDisease) {
+		let valArr = props.inputValue.proAdvSearchValError;
+		valArr[13] = inputProBiomarkerDisease.length > advancedSearch.biomarker_disease.length;
+		props.setProAdvSearchData({ proBiomarkerDisease: inputProBiomarkerDisease, proAdvSearchValError: valArr });	
 	}
 
 	/**
@@ -845,6 +864,59 @@ const ProteinAdvancedSearch = (props) => {
                         <ExampleExploreControl
 							setInputValue={proPubIdChange}
 							inputValue={advancedSearch.pmid.examples}
+						/>
+					</FormControl>
+				</Grid>
+				
+				{/* Biomarker Disease */}
+				<Grid item xs={12} sm={10}>
+					<FormControl fullWidth variant='outlined'>
+						<Typography
+							className={'search-lbl'}
+							gutterBottom
+						>
+							<HelpTooltip
+                                title={commonProteinData.biomarker_disease.tooltip.title}
+                                text={commonProteinData.biomarker_disease.tooltip.text}
+                                urlText={commonProteinData.biomarker_disease.tooltip.urlText}
+                                url={commonProteinData.biomarker_disease.tooltip.url}
+                            />
+                            {commonProteinData.biomarker_disease.name}
+						</Typography>
+						<AutoTextInput
+							inputValue={props.inputValue.proBiomarkerDisease}
+                            setInputValue={proBiomarkerDiseaseChange}
+                            placeholder={advancedSearch.biomarker_disease.placeholder}
+							typeahedID={advancedSearch.biomarker_disease.typeahedID}
+							length={advancedSearch.biomarker_disease.length}
+							errorText={advancedSearch.biomarker_disease.errorText}
+						/>
+                        <ExampleExploreControl
+							setInputValue={proBiomarkerDiseaseChange}
+							inputValue={advancedSearch.biomarker_disease.examples}
+						/>
+					</FormControl>
+				</Grid>
+				{/* Biomarker Type */}
+				<Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.biomarker_type.tooltip.title}
+                                text={commonProteinData.biomarker_type.tooltip.text}
+                            />
+                            {commonProteinData.biomarker_type.name}
+						</Typography>
+						<SelectControl
+							inputValue={props.inputValue.proBiomarkerType.id}
+							placeholder={advancedSearch.biomarker_type.placeholder}
+							placeholderId={advancedSearch.biomarker_type.placeholderId}
+							placeholderName={advancedSearch.biomarker_type.placeholderName}
+							menu={props.initData.biomarker_types.map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
+							setInputValue={proBiomarkerTypeOnChange}
 						/>
 					</FormControl>
 				</Grid>

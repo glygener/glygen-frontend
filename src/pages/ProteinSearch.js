@@ -59,7 +59,10 @@ const ProteinSearch = props => {
       proBindingGlycanId: "",
       proGlycosylationType: "",
       proGlycosylationSubType: "",
+      proBiomarkerDisease: "",
+      proBiomarkerType: { id: "", name: "" },
       proAdvSearchValError: [
+        false,
         false,
         false,
         false,
@@ -420,7 +423,21 @@ const ProteinSearch = props => {
                   proBindingGlycanId:
                     data.cache_info.query.binding_glycan_id === undefined
                       ? ""
-                      : data.cache_info.query.binding_glycan_id
+                      : data.cache_info.query.binding_glycan_id,
+                  proBiomarkerDisease:
+                    data.cache_info.query.biomarker === undefined || data.cache_info.query.biomarker.disease_name === undefined
+                      ? ""
+                      : data.cache_info.query.biomarker.disease_name,
+                  proBiomarkerType:
+                    data.cache_info.query.biomarker === undefined || data.cache_info.query.biomarker.type === undefined
+                  ? {
+                      id: advancedSearch.biomarker_type.placeholderId,
+                      name: advancedSearch.biomarker_type.placeholderName
+                    }
+                  : {
+                      id: data.cache_info.query.biomarker.type,
+                      name: data.cache_info.query.biomarker.type.charAt(0).toUpperCase() + data.cache_info.query.biomarker.type.slice(1)
+                    },
                 });
 
                 setProActTabKey("Advanced-Search");
@@ -508,6 +525,8 @@ const ProteinSearch = props => {
    * @param {string} input_disease_id user input
    * @param {string} input_attached_glycan_id user input
    * @param {string} input_binding_glycan_id user input
+   * @param {string} input_biomarker_disease - input_biomarker_disease value.
+	 * @param {object} input_biomarker_type - input_biomarker_type value.
    * @return {string} returns json
    */
   function searchJson(
@@ -532,7 +551,9 @@ const ProteinSearch = props => {
     input_disease_name,
     input_disease_id,
     input_attached_glycan_id,
-    input_binding_glycan_id
+    input_binding_glycan_id,
+    input_biomarker_disease,
+    input_biomarker_type
   ) {
     var uniprot_id = input_protein_id;
     if (uniprot_id) {
@@ -584,6 +605,14 @@ const ProteinSearch = props => {
       };
     }
 
+    var biomarker = undefined;
+		if (input_biomarker_disease || input_biomarker_type) {
+			biomarker = {
+				disease_name: input_biomarker_disease ? input_biomarker_disease : undefined,
+				type: input_biomarker_type ? input_biomarker_type : undefined,
+			};
+		}
+
     var formjson = {
       [commonProteinData.operation.id]: "AND",
       [proteinData.advanced_search.query_type.id]: input_query_type,
@@ -630,7 +659,8 @@ const ProteinSearch = props => {
         : undefined,
       [commonProteinData.binding_glycan_id.id]: input_binding_glycan_id
         ? input_binding_glycan_id
-        : undefined
+        : undefined,
+      [commonProteinData.biomarker.id]: biomarker ? biomarker	: undefined,
     };
     return formjson;
   }
@@ -663,7 +693,9 @@ const ProteinSearch = props => {
       proAdvSearchData.proDiseaseName,
       proAdvSearchData.proDiseaseId,
       proAdvSearchData.proAttachedGlycanId,
-      proAdvSearchData.proBindingGlycanId
+      proAdvSearchData.proBindingGlycanId,
+      proAdvSearchData.proBiomarkerDisease,
+      proAdvSearchData.proBiomarkerType.id
     );
     logActivity("user", id, "Performing Advanced Search");
     let message = "Advanced Search query=" + JSON.stringify(formObject);

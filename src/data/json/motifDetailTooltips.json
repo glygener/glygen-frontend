@@ -24,6 +24,12 @@
       "title": "Cross References",
       "url": "https://wiki.glygen.org/index.php/Motif_details/Cross_references"
     },
+    "biomarkers": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarkers",
+      "url": "https://wiki.glygen.org/index.php/Motif_details/Biomarkers"
+    },
     "digital_sequence": {
       "urlText": "Read more...",
       "text": "The Digital Sequence section displays the sequence of the motif in various sequence formats.",

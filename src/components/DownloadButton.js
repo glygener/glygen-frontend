@@ -15,6 +15,7 @@ import { getGlycanDetailDownload, getGlycanListDownload, getGlycanSectionDownloa
 import { getMotifListDownload, getMotifDetailDownload, getMotifSectionDownload } from "../data/motif";
 import { getIdMappingMappedDownload } from "../data/mapping";
 import { getIdMappingUnmappedDownload } from "../data/mapping";
+import { getBiomarkerDetailDownload } from "../data/biomarker";
 import { getOrthologListDownload, getLocusListDownload } from "../data/usecases";
 import { getPublicationDetailDownload, getPublicationSectionDownload } from "../data/publication";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -62,6 +63,8 @@ const DownloadButton = (props) => {
         return getPublicationDetailDownload;
       case "publication_section":
         return getPublicationSectionDownload;
+      case "biomarker_detail":
+        return getBiomarkerDetailDownload;
       default:
     }
     return null;

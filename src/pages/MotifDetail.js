@@ -36,13 +36,19 @@ import CollapsableReference from "../components/CollapsableReference";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
 import CardToggle from "../components/cards/CardToggle";
+import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
+const biomarkerStrings = stringConstants.biomarker.common;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
   { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motif" },
+  {
+    label: stringConstants.sidebar.biomarkers.displayname,
+    id: "Biomarkers"
+  },
   {
     label: stringConstants.sidebar.digital_seq.displayname,
     id: "Digital-Sequence"
@@ -116,6 +122,7 @@ const MotifDetail = (props) => {
   const [publication, setPublication] = useState([]);
   const [glytoucan, setGlytoucan] = useState([]);
   const [motif, setMotif] = useState([]);
+  const [biomarkers, setBiomarkers] = useState([]);
   const [mass, setMass] = useState([]);
   const [history, setHistory] = useState([]);
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
@@ -203,6 +210,7 @@ const MotifDetail = (props) => {
         setPagination(data.pagination);
         setMass(data.mass);
         setMotif(data.motif);
+        setBiomarkers(data.biomarkers);
         setMotifName(data.name);
         setMotifSynonym(data.synonym);
         setMotifKeywords(data.keywords);
@@ -261,6 +269,7 @@ const MotifDetail = (props) => {
     general: true,
     glycans: true,
     history: true,
+    biomarkers: true,
     digitalSeq: true,
     crossref: true,
     publication: true
@@ -303,6 +312,45 @@ const MotifDetail = (props) => {
         };
       },
     },
+  ];
+
+  const biomarkerColumns = [
+    {
+      dataField: "evidence",
+      text: motifStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.biomarker_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "biomarker_id",
+      text: biomarkerStrings.biomarker_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View biomarker details">
+          <Link to={routeConstants.biomarkerDetail + row.biomarker_id}>{row.biomarker_id}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    }
   ];
 
   return (
@@ -626,6 +674,49 @@ const MotifDetail = (props) => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/*  Biomarkers */}
+              <Accordion
+                id="Biomarkers"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.motif.biomarkers.title}
+                        text={DetailTooltips.motif.biomarkers.text}
+                        urlText={DetailTooltips.motif.biomarkers.urlText}
+                        url={DetailTooltips.motif.biomarkers.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.biomarkers.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {biomarkers && biomarkers.length !== 0 && (
+                        <ClientServerPaginatedTable
+                          data={biomarkers}
+                          columns={biomarkerColumns}
+                          onClickTarget={"#biomarkers"}
+                          defaultSortField={"biomarker_id"}
+                          defaultSortOrder={"asc"}
+                        />
+                      )}
+                      {biomarkers.length === 0 && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/* Digital Sequence */}
               <Accordion
                 id="Digital-Sequence"

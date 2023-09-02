@@ -284,6 +284,25 @@ const GlycanAdvancedSearch = props => {
     props.setGlyAdvSearchData({ glyIDNamespace: value });
   };
 
+  	/**
+	 * Function to set biomarker disease value.
+	 * @param {string} inputBiomarkerDisease - input biomarker disease name value.
+	 **/
+	function glyBiomarkerDiseaseChange(inputGlyBiomarkerDisease) {
+		let valArr = props.inputValue.glyAdvSearchValError;
+		valArr[7] = inputGlyBiomarkerDisease.length > advancedSearch.biomarker_disease.length;
+		props.setGlyAdvSearchData({ glyBiomarkerDisease: inputGlyBiomarkerDisease, proAdvSearchValError: valArr });	
+	}
+
+  	/**
+	 * Function to set biomarker type value.
+	 * @param {string} value - input biomarker type id value.
+	 * @param {string} name - input biomarker type name value.
+	 **/
+	const glyBiomarkerTypeOnChange = (value, name) => {
+		props.setGlyAdvSearchData({ glyBiomarkerType: {id: value, name: name} });
+	}
+
   /**
    * Function to clear input field values.
    **/
@@ -773,6 +792,60 @@ const GlycanAdvancedSearch = props => {
             />
           </FormControl>
         </Grid>
+
+        {/* Biomarker Disease */}
+				<Grid item xs={12} sm={10}>
+					<FormControl fullWidth variant='outlined'>
+						<Typography
+							className={'search-lbl'}
+							gutterBottom
+						>
+							<HelpTooltip
+                  title={commonGlycanData.biomarker_disease.tooltip.title}
+                  text={commonGlycanData.biomarker_disease.tooltip.text}
+                  urlText={commonGlycanData.biomarker_disease.tooltip.urlText}
+                  url={commonGlycanData.biomarker_disease.tooltip.url}
+              />
+              {commonGlycanData.biomarker_disease.name}
+						</Typography>
+						<AutoTextInput
+							inputValue={props.inputValue.glyBiomarkerDisease}
+              setInputValue={glyBiomarkerDiseaseChange}
+              placeholder={advancedSearch.biomarker_disease.placeholder}
+							typeahedID={advancedSearch.biomarker_disease.typeahedID}
+							length={advancedSearch.biomarker_disease.length}
+							errorText={advancedSearch.biomarker_disease.errorText}
+						/>
+            <ExampleExploreControl
+							setInputValue={glyBiomarkerDiseaseChange}
+							inputValue={advancedSearch.biomarker_disease.examples}
+						/>
+					</FormControl>
+				</Grid>
+				{/* Biomarker Type */}
+				<Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                  title={commonGlycanData.biomarker_type.tooltip.title}
+                  text={commonGlycanData.biomarker_type.tooltip.text}
+              />
+              {commonGlycanData.biomarker_type.name}
+						</Typography>
+						<SelectControl
+							inputValue={props.inputValue.glyBiomarkerType.id}
+							placeholder={advancedSearch.biomarker_type.placeholder}
+							placeholderId={advancedSearch.biomarker_type.placeholderId}
+							placeholderName={advancedSearch.biomarker_type.placeholderName}
+							menu={props.initData.biomarker_types.map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
+							setInputValue={glyBiomarkerTypeOnChange}
+						/>
+					</FormControl>
+				</Grid>
+
         {/* Buttons Buttom */}
         <Grid item xs={12} sm={10}>
           {/* <Row className="gg-align-right pt-3 mb-2 me-1"> */}

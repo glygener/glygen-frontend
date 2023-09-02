@@ -51,6 +51,29 @@
         },
         "id": "id_namespace"
       },
+      "biomarker_disease": {
+        "name": "Biomarker Disease",
+        "shortName": "Biomarker Disease",
+        "tooltip": {
+          "title": "Biomarker Disease",
+          "text": ""
+        },
+        "id": "biomarker_disease"
+      },
+      "biomarker_type": {
+        "name": "Biomarker Type",
+        "shortName": "Biomarker Type",
+        "tooltip": {
+          "title": "Biomarker Type",
+          "text": ""
+        },
+        "id": "biomarker_type"
+      },
+      "biomarker": {
+        "name": "Biomarker",
+        "shortName": "Biomarker",
+        "id": "biomarker"
+      },
       "organism_annotation": {
         "name": "Organism Annotation",
         "shortName": "Organism Annotation",
@@ -981,6 +1004,29 @@
         },
         "id": "binding_glycan_id"
       },
+      "biomarker_disease": {
+        "name": "Biomarker Disease",
+        "shortName": "Biomarker Disease",
+        "tooltip": {
+          "title": "Biomarker Disease",
+          "text": ""
+        },
+        "id": "biomarker_disease"
+      },
+      "biomarker_type": {
+        "name": "Biomarker Type",
+        "shortName": "Biomarker Type",
+        "tooltip": {
+          "title": "Biomarker Type",
+          "text": ""
+        },
+        "id": "biomarker_type"
+      },
+      "biomarker": {
+        "name": "Biomarker",
+        "shortName": "Biomarker",
+        "id": "biomarker"
+      },
       "glycosylated_aa": {
         "name": "Glycosylated Amino Acid",
         "shortName": "Glycosylated Residue",
@@ -1444,6 +1490,49 @@
       },
       "protein_count": {
         "name": "No of Proteins"
+      },
+      "evidence": {
+        "name": "Source",
+        "shortName": "Source",
+        "tooltip": {},
+        "id": "evidence"
+      }
+    }
+  },
+  "biomarker": {
+    "common": {
+      "biomarker_id": {
+        "name": "Biomarker ID"
+      },
+      "assessed_biomarker_entity": {
+        "name": "Assessed Biomarker Entity"
+      },
+      "biomarker_status": {
+        "name": "Biomarker Status"
+      },
+      "best_biomarker_type": {
+        "name": "BEST Biomarker Type"
+      },
+      "specimen_type": {
+        "name": "Specimen Type"
+      },
+      "loinc_code": {
+        "name": "LOINC Code"
+      },
+      "disease_name": {
+        "name": "Disease Name"
+      },
+      "literature_evidence": {
+        "name": "Literature Evidence"
+      },
+      "best_biomarker_type_url" :{
+        "diagnostic": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/diagnostic/",
+        "monitoring": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/monitoring/",
+        "response": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/pharmacodynamic/",
+        "predictive": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/predictive/",
+        "prognostic": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/prognostic/",
+        "safety": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/safety/",
+        "risk": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/susceptibility/"
       }
     }
   },
@@ -2131,6 +2220,24 @@
       "displayname": "Cell Line",
       "tooltip": "Cell Line information",
       "name": "Cell Line Name"
+    },
+    "components": {
+      "id": "components",
+      "displayname": "Components",
+      "tooltip": "Components information",
+      "name": "Components "
+    },
+    "biomarker_description": {
+      "id": "biomarker_description",
+      "displayname": "Biomarker Description",
+      "tooltip": "Biomarker Description information",
+      "name": "Biomarker Description "
+    },
+    "biomarkers": {
+      "id": "biomarkers",
+      "displayname": "Biomarkers",
+      "tooltip": "Biomarkers information",
+      "name": "Biomarkers "
     }
   },
   "download": {

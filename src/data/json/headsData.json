@@ -519,5 +519,18 @@
         "content": ""
       }
     ]
+  },
+  "biomarkerDetail": {
+    "title": "Biomarker | Specific Details for #id | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
   }
 }
