@@ -857,7 +857,6 @@ const GlycanDetail = props => {
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
-      sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },
@@ -934,7 +933,6 @@ const GlycanDetail = props => {
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
-      sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },

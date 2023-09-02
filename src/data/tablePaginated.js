@@ -32,8 +32,7 @@ export const getTableList = (
     sort: sort,
   };
   const queryParamString = JSON.stringify(queryParams);
-  // const url = `/pagination/page/?query=${queryParamString}`;
-     const url = `pagination/page/`;
+     const url = `/pagination/page/`;
      const myHeaders = {
       "Content-Type": "application/json",
     };
