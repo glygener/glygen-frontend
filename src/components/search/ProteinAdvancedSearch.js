@@ -291,6 +291,8 @@ const ProteinAdvancedSearch = (props) => {
 			proDiseaseId: '',
 			proAttachedGlycanId: '',
 			proBindingGlycanId: '',
+			proBiomarkerDisease: "",
+			proBiomarkerType: { id: "", name: "" },
 			proAdvSearchValError: [false, false, false, false, false,
 				false, false, false, false, false, false, false, false]
 		});

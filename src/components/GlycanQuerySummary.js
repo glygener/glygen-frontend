@@ -395,7 +395,7 @@ const GlycanQuerySummary = (props) => {
                     {glycanStrings.biomarker_type.name}:
                   </Col>
                   <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                    {biomarker.type}
+                    {biomarker.type.charAt(0).toUpperCase() + biomarker.type.slice(1)}
                   </Col>
                 </Row>
               )}

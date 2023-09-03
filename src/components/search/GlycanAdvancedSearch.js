@@ -354,6 +354,8 @@ const GlycanAdvancedSearch = props => {
       glyPubId: "",
       glyBindingProteinId: "",
       glyIDNamespace: "",
+      glyBiomarkerDisease: "",
+			glyBiomarkerType: { id: "", name: "" },
       glyAdvSearchValError: [false, false, false, false, false, false, false]
     });
   };
