@@ -1175,7 +1175,7 @@ const ProteinDetail = (props) => {
     },
 
     {
-      dataField: "sequence",
+      dataField: "sequence_org",
       text: stringConstants.sidebar.sequence.displayname,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -1203,7 +1203,7 @@ const ProteinDetail = (props) => {
       },
       formatter: (value, row) => (
         <>
-          {value.map((disease, index) => (
+          {value && value.map((disease, index) => (
             <ul key={index} className="pl-3">
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
@@ -1874,7 +1874,7 @@ const ProteinDetail = (props) => {
     return [`${totalSites} site(s) total`]
       .concat(
         Object.keys(info).sort((a, b) => a.localeCompare(b)).map(
-          (key) => `${info[key].count} ${key} ${glycans} at ${info[key].sites} site(s)`
+          (key) => glycan ? `${info[key].count} ${key} ${glycans} at ${info[key].sites} site(s)` : `${info[key].sites} ${key} site(s)`
         )
       )
       .join(", ");
