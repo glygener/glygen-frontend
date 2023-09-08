@@ -1327,9 +1327,9 @@ const PublicationDetail = (props) => {
   ];
   const refGlycansColumns = [
     {
-      dataField: "referenced_glycans",
+      dataField: "glytoucan_ac",
       text: proteinStrings.glytoucan_ac.shortName,
-      defaultSortField: "referenced_glycans",
+      defaultSortField: "glytoucan_ac",
       sort: true,
       headerStyle: (column, colIndex) => {
         return {
@@ -1339,7 +1339,7 @@ const PublicationDetail = (props) => {
       },
       formatter: (value, row) => (
         <LineTooltip text="View glycan details">
-          <Link to={`${routeConstants.glycanDetail}${row}`}>{row}</Link>
+          <Link to={`${routeConstants.glycanDetail}${value}`}>{value}</Link>
         </LineTooltip>
       ),
     },
@@ -1349,7 +1349,7 @@ const PublicationDetail = (props) => {
       sort: false,
       formatter: (value, row) => (
         <div className="img-wrapper">
-          <img className="img-cartoon" src={getGlycanImageUrl(row)} alt="Glycan img" />
+          <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
         </div>
       ),
       headerStyle: (colum, colIndex) => {
@@ -1747,9 +1747,9 @@ const PublicationDetail = (props) => {
                         data={referenced_glycans}
                         columns={refGlycansColumns}
                         onClickTarget={"#referenced-glycans"}
-                        defaultSortField="referenced_glycans"
+                        defaultSortField="glytoucan_ac"
                         defaultSortOrder="asc"
-                        idField={"refGlyc"}
+                        idField={"glytoucan_ac"}
                         record_type={"publication"}
                         table_id={"referenced_glycans"}
                         record_id={id}
