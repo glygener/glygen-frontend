@@ -69,6 +69,10 @@ const License = () => {
     },
   ];
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity();
   }, []);
 
@@ -90,76 +94,78 @@ const License = () => {
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
           <SidebarPages />
         </Col>
-        <Col sm={12} md={12} lg={12} xl={9} className="sidebarpages-page card">
-          <div style={{ margin: "0 20px 40px" }}>
-            <Row>
-              <Col>
-                <VerticalHeading post={vertHeadDisclaimer} />
-              </Col>
-              <Col className="content-box-md" style={{ display: "flex", verticalAlign: "middle" }}>
-                <a href={"https://www.gnu.org/licenses/gpl-3.0.en.html"} target="_blank" rel="noopener noreferrer">
-                  <Image src={gplLicenseIcon} className={classes.licenseIcons} />
-                </a>
-                <a href={"https://creativecommons.org/licenses/by/4.0/"} target="_blank" rel="noopener noreferrer">
-                  <Image src={creativecommonsLicenseIcon} className={classes.licenseIcons} />
-                </a>
-              </Col>
-            </Row>
-            <p>
-              We have chosen to apply the{" "}
-              <a
-                href="https://creativecommons.org/licenses/by/4.0/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Creative Commons Attribution 4.0 International (CC BY 4.0)
-              </a>{" "}
-              license to all our database sets. This means that you are free to copy, distribute,
-              display and make commercial use of these databases in all legislations, provided you
-              give us credit.
-            </p>
-            <p>
-              {" "}
-              The source code of the project is released under{" "}
-              <a
-                href="https://www.gnu.org/licenses/gpl-3.0.en.html"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+        <Col sm={12} md={12} lg={12} xl={9} className1="sidebar-page" className="sidebarpages-page">
+          <div style={{ padding: "0 20px 0 20px" }} className="card">
+            <div style={{ margin: "0 20px 40px" }}>
+              <Row>
+                <Col>
+                  <VerticalHeading post={vertHeadDisclaimer} />
+                </Col>
+                <Col className="content-box-md" style={{ display: "flex", verticalAlign: "middle" }}>
+                  <a href={"https://www.gnu.org/licenses/gpl-3.0.en.html"} target="_blank" rel="noopener noreferrer">
+                    <Image src={gplLicenseIcon} className={classes.licenseIcons} />
+                  </a>
+                  <a href={"https://creativecommons.org/licenses/by/4.0/"} target="_blank" rel="noopener noreferrer">
+                    <Image src={creativecommonsLicenseIcon} className={classes.licenseIcons} />
+                  </a>
+                </Col>
+              </Row>
+              <p>
+                We have chosen to apply the{" "}
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Creative Commons Attribution 4.0 International (CC BY 4.0)
+                </a>{" "}
+                license to all our database sets. This means that you are free to copy, distribute,
+                display and make commercial use of these databases in all legislations, provided you
+                give us credit.
+              </p>
+              <p>
                 {" "}
-                GNU General Public License v3
-              </a>{" "}
-              and is available in our{" "}
-              <a href={GITHUB} target="_blank" rel="noopener noreferrer">
-                GlyGen GitHub{" "}
-              </a>
-              repository.
-            </p>
-            <p>
-              Below are some of the databases we integrate data from, along with their license
-              information.
-            </p>
-            <br />
-            <Col sm={12} lg={10} style={{ margin: "0px auto" }}>
-              <BootstrapTable
-                bootstrap4
-                // responsive='xl'
-                striped
-                hover
-                wrapperClasses="table-responsive"
-                // condensed
-                headerClasses={classes.tableHeader}
-                keyField="id"
-                data={licenseData.databasesLicenseData}
-                columns={databasesLicenseCols}
-                // defaultSorted={[
-                // 	{
-                // 		dataField: 'databases',
-                // 		order: 'asc'
-                // 	}
-                // ]}
-              />
-            </Col>
+                The source code of the project is released under{" "}
+                <a
+                  href="https://www.gnu.org/licenses/gpl-3.0.en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {" "}
+                  GNU General Public License v3
+                </a>{" "}
+                and is available in our{" "}
+                <a href={GITHUB} target="_blank" rel="noopener noreferrer">
+                  GlyGen GitHub{" "}
+                </a>
+                repository.
+              </p>
+              <p>
+                Below are some of the databases we integrate data from, along with their license
+                information.
+              </p>
+              <br />
+              <Col sm={12} lg={10} style={{ margin: "0px auto" }}>
+                <BootstrapTable
+                  bootstrap4
+                  // responsive='xl'
+                  striped
+                  hover
+                  wrapperClasses="table-responsive"
+                  // condensed
+                  headerClasses={classes.tableHeader}
+                  keyField="id"
+                  data={licenseData.databasesLicenseData}
+                  columns={databasesLicenseCols}
+                  // defaultSorted={[
+                  // 	{
+                  // 		dataField: 'databases',
+                  // 		order: 'asc'
+                  // 	}
+                  // ]}
+                />
+              </Col>
+            </div>
           </div>
         </Col>
       </Row>

@@ -28,6 +28,10 @@ const Frameworks = (props) => {
 		h2textBottomStrongAfter: "Libraries & Frameworks",
 	};
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
 		logActivity();
 	}, []);
 

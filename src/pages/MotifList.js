@@ -41,6 +41,10 @@ const MotifList = props => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
 
     getMotifList(id, 1, sizePerPage)

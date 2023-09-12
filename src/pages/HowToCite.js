@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
+import { useLocation } from "react-router-dom";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
 import VerticalHeadingLogo from "../components/headings/VerticalHeadingLogo";
@@ -13,6 +14,8 @@ import { logActivity } from "../data/logging";
 // https://zbib.org/   to generate .RIS file
 
 const HowToCite = (props) => {
+  const location = useLocation();
+
   const vertHeadHowToCite = {
     h5VerticalText: "Citations",
     h2textTop: "Our",
@@ -26,6 +29,14 @@ const HowToCite = (props) => {
     { label: "Website Citation", id: "Website-Citation" },
   ];
   useEffect(() => {
+
+    let anchorElement = location.hash;
+    if (anchorElement === undefined || anchorElement === null || anchorElement === "") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
     logActivity();
   }, []);
 

@@ -21,6 +21,10 @@ const PrivacySettings = (props) => {
 	const [enabled, setEnabled] = useState(props.userTrackingBannerState === "track" ? true : props.userTrackingBannerState === "donottrack" ? false : isLoggingUserActivity());
 	
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
 		logActivity();
 	}, []);
 

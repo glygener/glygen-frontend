@@ -16,6 +16,10 @@ export default function Feedback() {
 		h2textBottomStrongAfter: "Feedback",
 	};
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
 		logActivity();
 	}, []);
 

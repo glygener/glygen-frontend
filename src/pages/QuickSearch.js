@@ -577,6 +577,11 @@ const QuickSearch = (props) => {
         if (anchorElement && document.getElementById(anchorElement.substr(1))) {
           document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
           togglePanelExpansion(anchorElement.substr(1));
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
         }
         if (!id || !question) setPageLoading(false);
       })

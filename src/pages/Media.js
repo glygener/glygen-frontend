@@ -9,6 +9,10 @@ import { logActivity } from "../data/logging";
 
 const Media = (props) => {
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
 		logActivity();
 	}, []);
 

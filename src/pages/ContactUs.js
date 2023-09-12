@@ -40,6 +40,10 @@ const ContactUs = (props) => {
 			"We always welcome questions, comments, and suggestions regarging our website and information we provide in general. We will make every effort to respond to you within a reasonable amount of time.",
 	};
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
 		logActivity();
 	}, []);
 
