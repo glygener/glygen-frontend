@@ -107,6 +107,9 @@ p {
 .dropdown-toggle.nav-link:hover {
   color: var(--gg-light-blue) !important;
 }
+.dropdown-navbar-submenu > .dropdown-toggle.nav-link:hover{
+  color: var(--gg-light-blue) !important;
+}
 .gg-nav-link.active {
   color: var(--white) !important;
   border-bottom: 4px solid var(--gg-light-blue) !important;
@@ -121,6 +124,17 @@ p {
   font-weight: 600;
   letter-spacing: 0.4px;
 }
+
+.dropdown-navbar-submenu > .dropdown-toggle.nav-link {
+  color: white !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-bottom: 5px !important;
+  padding-top: 5px !important;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
 .logo-nav {
   width: 80% !important;
 }
@@ -147,6 +161,12 @@ p {
 }
 .gg-dropdown-navbar .dropdown-menu {
   background-color: var(--gg-blue) !important;
+}
+
+.gg-dropdown-navbar-submenu .dropdown-menu {
+  background-color: var(--gg-blue) !important;
+  margin-left: -2px  !important;
+  margin-top: -3px  !important;
 }
 
 .gg-dropdown-nav {
@@ -187,6 +207,10 @@ p {
 }
 
 .gg-dropdown-navbar {
+  color: var(--white) !important;
+}
+
+.gg-dropdown-navbar-submenu {
   color: var(--white) !important;
 }
 
@@ -1345,4 +1369,11 @@ sub {
 .nav-tabs .disabled {
   background-color: #1d9901;
   color: black;
+}
+
+.img-home {
+  width: 55px;
+  height: 55px;
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
 }

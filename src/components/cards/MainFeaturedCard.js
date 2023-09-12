@@ -8,8 +8,16 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutlined";
 // import FormatQuoteOutlinedIcon from "@mui/icons-material/FormatQuoteOutlined";
 import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
+import cfdeIcon from "../../images/icons/CFDE-logo.png";
+import glyspaceIcon from "../../images/icons/glyspace-logo.png";
 import routeConstants from "../../data/json/routeConstants.json";
 import { Link } from "react-router-dom";
+import { Image } from "react-bootstrap";
+import {
+  NIH_COMMONFUND_DATAECOSYSTEM,
+  GLYSPACE
+} from "../../envVariables";
+
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedCard: {
@@ -67,7 +75,7 @@ export default function MainFeaturedCard(props) {
       {/* <Grid container className="gg-align-center"> */}
       <Grid container>
         {/* <Grid item sm={ 12 } lg={ 8 }> */}
-        <Grid item sm={12} md={8} lg={6} className="text-left">
+        <Grid item sm={12} md={5} lg={6} className="text-left me-3">
           <div className={classes.mainFeaturedCardContent} style={{ letterSpacing: "1px" }}>
             <Typography component="h5" variant="h6" color="inherit" gutterBottom>
               {post.title}
@@ -78,7 +86,53 @@ export default function MainFeaturedCard(props) {
           </div>
         </Grid>
         {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
-        <Grid item sm={12} md={4} lg={6} className="btn-outline-white-col">
+        <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
+          <div className={classes.mainFeaturedCardButtons}>
+            <div className="btn-outline-white">
+              <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white">
+                <span
+                  style={{
+                    paddingRight: "15px",
+                    paddingLeft: "5px",
+                    fontSize: "24px",
+                    textAlign: "center"
+                  }}
+                  class="pagination-centered"
+                >
+                  <Image
+                    className="img-home"
+                    src={glyspaceIcon}
+                    alt={"glyspace icon"}
+                  />
+                </span>
+                GlySpace Alliance
+                </a>
+            </div>
+            <div className="btn-outline-white">
+              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white">
+                <span style={{ paddingRight: "10px" }}>
+                <span
+                  style={{
+                    paddingRight: "15px",
+                    paddingLeft: "5px",
+                    fontSize: "24px",
+                    textAlign: "center"
+                  }}
+                  class="pagination-centered"
+                >
+                  <Image
+                    className="img-home"
+                    src={cfdeIcon}
+                    alt={"cfde icon"}
+                  />
+                </span>                
+                </span>
+                Member of CFDE
+              </a>
+            </div>
+          </div>
+        </Grid>
+        <Grid item sm={12} md={3} lg={2} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
             <div className="btn-outline-white">
               <Link to={routeConstants.howToCite} className="gg-btn-outline-blue">

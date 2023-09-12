@@ -35,7 +35,8 @@ import {
   GLYGEN_GSD,
   GLYGEN_FAQ,
   GLYGEN_TUT_HOWT,
-  GLYGEN_DOC
+  GLYGEN_DOC,
+  CFDE_GENE_PAGES
 } from "../../envVariables";
 
 
@@ -206,9 +207,15 @@ export default function Header(props) {
                   Structure Browser
                 </NavDropdown.Item>
                 <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
-                <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
+                <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="Third Party Tools">
+                  <NavDropdown.Item href={CFDE_GENE_PAGES} target="_blank" rel="noopener noreferrer">
+                    Gene and Drug Landing Page Aggregator
+                  </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
+              <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
                   Other Resources
-                </NavDropdown.Item>
+              </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className={
