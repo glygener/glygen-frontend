@@ -625,6 +625,31 @@ const BiomarkerDetail = (props) => {
                     <h4 className="gg-green d-inline">{stringConstants.sidebar.components.displayname}</h4>
 
                     <div className="float-end">
+                    <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            components && components.glycan && components.glycan.length > 0  && {
+                              display: "Glycan (*.csv)",
+                              type: "component_glycan_csv",
+                              format: "csv",
+                              data: "biomarker_section",
+                              section: "component_glycan",
+                            },
+                            components && components.protein && components.protein.length > 0 && {
+                              display: "Protein (*.csv)",
+                              type: "component_protein_csv",
+                              format: "csv",
+                              data: "biomarker_section",
+                              section: "component_protein",
+                            }
+                          ].filter(obj => obj !== undefined)}
+                          dataId={id}
+                          itemType="biomarker_section"
+                          showBlueBackground={true}
+                          enable={(components && components.glycan && components.glycan.length > 0) ||
+                            (components && components.protein && components.protein.length > 0)}
+                        />
+                      </span>
                       <CardToggle cardid="components" toggle={collapsed.components} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

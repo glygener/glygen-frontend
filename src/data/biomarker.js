@@ -26,3 +26,11 @@ export const getBiomarkerDetail = (
 export const getGlycanImageUrl = (glytoucan_id) => {
   return glycanImageUrl + glytoucan_id;
 };
+
+export const getBiomarkerSectionDownload = (id, format, compressed, type, headers, section) => {
+  let message = "downloaded successfully ";
+  logActivity("user", id, format, compressed, "No results. " + message);
+  const query = { id, "download_type": type, section, format, compressed };
+  const url = `/data/section_download?query=${JSON.stringify(query)}`;
+  return postToAndGetBlob(url, headers);
+};
