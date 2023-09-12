@@ -4,7 +4,7 @@
  * Do not use direct url's in the code.
  */
 export const GLYGEN_ENV = process.env.REACT_APP_ENV || "dev";
-export const GLYGEN_API = process.env.REACT_APP_API || "https://api.tst.glygen.org";
+export const GLYGEN_API = process.env.REACT_APP_API || "https://api.tst.glygen.org/";
 export const GLYGEN_DOMAIN = process.env.REACT_APP_DOMAIN || "http://localhost:3000";
 export const GLYGEN_DATA = process.env.REACT_APP_DATA || "https://data.glygen.org";
 export const GLYGEN_SPARQL = process.env.REACT_APP_SPARQL || "https://sparql.glygen.org";
@@ -45,3 +45,6 @@ export const UNIPROT_REST_BASENAME = "https://rest.uniprot.org/"
 export const GLYGEN_FAQ = process.env.REACT_APP_GSD || "https://wiki.glygen.org/Frequently_Asked_Questions";
 export const GLYGEN_TUT_HOWT = process.env.REACT_APP_TUT_HOWT || "https://wiki.glygen.org/GlyGen_Tutorials";
 export const GLYGEN_DOC = process.env.REACT_APP_DOC || "https://wiki.glygen.org/GlyGen_Documentation";
+export const CFDE_GENE_PAGES = process.env.REACT_APP_CFDE_GENE_PAGES || "https://cfde-gene-pages.cloud/";
+export const NIH_COMMONFUND_DATAECOSYSTEM = process.env.REACT_APP_COMMONFUND || "https://commonfund.nih.gov/dataecosystem"
+export const GLYSPACE = process.env.REACT_APP_GLYSPACE || "http://www.glyspace.org/"
