@@ -73,9 +73,9 @@ export default function MainFeaturedCard(props) {
       {<img style={{ display: "none" }} src={post.image} alt={post.imageText} />}
       <div className={classes.overlay} />
       {/* <Grid container className="gg-align-center"> */}
-      <Grid container>
+      <Grid container wrap="wrap">
         {/* <Grid item sm={ 12 } lg={ 8 }> */}
-        <Grid item sm={12} md={5} lg={6} className="text-left me-3">
+        <Grid item wrap="wrap" sm={12} md={5} lg={6} className="text-left me-3">
           <div className={classes.mainFeaturedCardContent} style={{ letterSpacing: "1px" }}>
             <Typography component="h5" variant="h6" color="inherit" gutterBottom>
               {post.title}
@@ -86,7 +86,7 @@ export default function MainFeaturedCard(props) {
           </div>
         </Grid>
         {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
-        <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
+        <Grid item wrap="wrap" sm={12} md={3} lg={3} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
             <div className="btn-outline-white">
               <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
@@ -126,7 +126,7 @@ export default function MainFeaturedCard(props) {
             </div>
           </div>
         </Grid>
-        <Grid item sm={12} md={3} lg={2} className="btn-outline-white-col">
+        <Grid wrap="wrap" item sm={12} md={3} lg={2} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
             <div className="btn-outline-white">
               <Link to={routeConstants.howToCite} className="gg-btn-outline-blue">
