@@ -36,6 +36,8 @@ import {
   GLYGEN_FAQ,
   GLYGEN_TUT_HOWT,
   GLYGEN_DOC,
+  GRANT_DETAILS_COMMONFUND,
+  NIH_COMMONFUND
 } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
@@ -276,7 +278,26 @@ export default function Footer() {
                       className={classes.link}
                     >
                       1R24GM146616&nbsp;-&nbsp;01
+                    </a>{" "}
+                    and the {" "}
+                    <a
+                      href={NIH_COMMONFUND}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={classes.link}
+                    >
+                      National Institutes of Health Office of Strategic Coordination - The Common Fund{" "}
                     </a>
+                    under the grant #{" "}
+                    <a
+                      href={GRANT_DETAILS_COMMONFUND}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={classes.link}
+                    >
+                      1OT2OD032092
+                    </a>
+                    .
                   </Navbar.Text>
                 </Box>
               </Col>

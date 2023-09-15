@@ -89,13 +89,11 @@ export default function MainFeaturedCard(props) {
         <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
             <div className="btn-outline-white">
-              <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white">
+              <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
                   style={{
                     paddingRight: "15px",
                     paddingLeft: "5px",
-                    fontSize: "24px",
-                    textAlign: "center"
                   }}
                   class="pagination-centered"
                 >
@@ -109,14 +107,11 @@ export default function MainFeaturedCard(props) {
                 </a>
             </div>
             <div className="btn-outline-white">
-              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white">
-                <span style={{ paddingRight: "10px" }}>
+              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
                   style={{
                     paddingRight: "15px",
-                    paddingLeft: "5px",
-                    fontSize: "24px",
-                    textAlign: "center"
+                    paddingLeft: "5px"
                   }}
                   class="pagination-centered"
                 >
@@ -126,7 +121,6 @@ export default function MainFeaturedCard(props) {
                     alt={"cfde icon"}
                   />
                 </span>                
-                </span>
                 Member of CFDE
               </a>
             </div>

@@ -10,9 +10,10 @@ import OurMissionImg from "../../components/about/OurMissionImg";
 import nihImg from "../../images/about/logo-NIH.svg";
 import nigmsImg from "../../images/about/logo-NIGMS.svg"
 import glycosciImg from "../../images/about/logo-Glycoscience.svg";
+import cfdeIcon from "../../images/about/logo-CFDE.svg"
 import WorldMapImg from "../about/WorldMapImg";
 import Hidden from "@mui/material/Hidden";
-import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD } from "../../envVariables";
+import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD, GRANT_DETAILS_COMMONFUND, NIH_COMMONFUND } from "../../envVariables";
 
 const ourMissionImd = {
   title: "Our Mission",
@@ -245,6 +246,14 @@ const StoryAboutUs = (props) => {
                 under the grant{" "}
                 <a href={GRANT_DETAILS} target="_blank" rel="noopener noreferrer">
                   1R24GM146616-01
+                </a>{" "}
+                and the {" "}
+                <a href={NIH_COMMONFUND} target="_blank" rel="noopener noreferrer">
+                  National Institutes of Health Office of Strategic Coordination - The Common Fund{" "}
+                </a>
+                under the grant #{" "}
+                <a href={GRANT_DETAILS_COMMONFUND} target="_blank" rel="noopener noreferrer">
+                  1OT2OD032092
                 </a>
                 .
               </p>
@@ -281,6 +290,9 @@ const StoryAboutUs = (props) => {
               </a>
               <a href={NIGMS} target="_blank" rel="noopener noreferrer" className="me-4">
                 <Image src={nigmsImg} />
+              </a>
+              <a href={NIH_COMMONFUND} target="_blank" rel="noopener noreferrer" className="me-4">
+                <Image src={cfdeIcon} />
               </a>
             </Col>
           </Row>

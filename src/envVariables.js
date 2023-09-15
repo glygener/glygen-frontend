@@ -47,4 +47,7 @@ export const GLYGEN_TUT_HOWT = process.env.REACT_APP_TUT_HOWT || "https://wiki.g
 export const GLYGEN_DOC = process.env.REACT_APP_DOC || "https://wiki.glygen.org/GlyGen_Documentation";
 export const CFDE_GENE_PAGES = process.env.REACT_APP_CFDE_GENE_PAGES || "https://cfde-gene-pages.cloud/";
 export const NIH_COMMONFUND_DATAECOSYSTEM = process.env.REACT_APP_COMMONFUND || "https://commonfund.nih.gov/dataecosystem"
+export const NIH_COMMONFUND = process.env.REACT_APP_COMMONFUND || "https://commonfund.nih.gov"
 export const GLYSPACE = process.env.REACT_APP_GLYSPACE || "http://www.glyspace.org/"
+export const GRANT_DETAILS_COMMONFUND =
+  process.env.REACT_APP_GRANT_DETAILS_COMMONFUND || "https://reporter.nih.gov/project-details/10397274";
