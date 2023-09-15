@@ -40,7 +40,6 @@
     display: flex !important;
     justify-content: center;
     align-items: center;
-    max-width: 50% !important;
   }
   .btn-outline-white {
     display: inline-block !important;
