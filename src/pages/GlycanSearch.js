@@ -1056,7 +1056,7 @@ const GlycanSearch = (props) => {
 
       postNewJob(formObject)
       .then((response) => {
-        if (response.data["status"] && response.data["status"] !== {}) {
+        if (response.data["status"]) {
 		  let status = response.data["status"];
           let josStatus = status.status;
           let jobid = response.data["jobid"];
@@ -1125,7 +1125,7 @@ const GlycanSearch = (props) => {
     let message = (glyActTabKey === "Structure-Search" ? "Structure" : "Substructure") + " Search query=" + JSON.stringify(jobID);
     getJobStatus(jobID)
       .then((response) => {
-        if (response.data["status"] && response.data["status"] !== {}) {
+        if (response.data["status"]) {
           let josStatus = response.data["status"];
           	if (josStatus === "finished") {
 				if (response.data["result_count"] && response.data["result_count"] > 0) {
