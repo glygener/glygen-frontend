@@ -913,7 +913,7 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "name",
+      dataField: "cell_line.name",
       text: "Cell / Cell Line Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -921,9 +921,8 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {value}{" "}
           {row.cell_line && (<span className="nowrap">
-            ({row.cell_line.namespace}: <LineTooltip text="View cell / cell line expression details"><a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">{row.cell_line.id}</a></LineTooltip>)
+           {row.cell_line.name}{" "} ({row.cell_line.namespace}: <LineTooltip text="View cell / cell line expression details"><a href={row.cell_line.url} target="_blank" rel="noopener noreferrer">{row.cell_line.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
@@ -989,7 +988,7 @@ const GlycanDetail = props => {
         )
     },
     {
-      dataField: "namespace",
+      dataField: "tissue.name",
       text: "Tissue / Bodily Fluid Expression",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -997,9 +996,8 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {value}{" "}
           {row.tissue && (<span className="nowrap">
-            ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid expression details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
+            {row.tissue.name}{" "} ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid expression details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
@@ -1720,9 +1718,9 @@ const GlycanDetail = props => {
                             <Col
                               xs={12}
                               sm={12}
-                              md={4}
-                              lg={4}
-                              xl={4}
+                              md={6}
+                              lg={6}
+                              xl={6}
                               style={{ marginBottom: "10px" }}
                               key={orgEvi}
                             >
