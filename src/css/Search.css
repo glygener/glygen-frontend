@@ -158,7 +158,20 @@ input[type="number"] {
 .card-row:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
+
 .card-row:hover {
+  background-color: #dbe4ec !important;
+}
+
+.card-row-even {
+  background-color: #fff !important;
+}
+
+.card-row-even:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.card-row-even:hover {
   background-color: #dbe4ec !important;
 }
 

@@ -4,6 +4,7 @@ import { getTitle, getMeta } from '../utils/head';
 import PageLoader from '../components/load/PageLoader';
 import GlobalSearchCard from '../components/cards/GlobalSearchCard';
 import GlobalSearchDualCard from '../components/cards/GlobalSearchDualCard';
+import GlobalSearchModifiedCard from '../components/cards/GlobalSearchModifiedCard';
 import DialogAlert from '../components/alert/DialogAlert';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
@@ -106,6 +107,19 @@ const GlobalSearchResult = (props) => {
 						style={{ margin: '0  auto' }}
 						justifyContent='center'>
 							<Grid item md={4}>
+								{globalSearchData.other_matches && <GlobalSearchModifiedCard
+									glycanCount={globalSearchData.other_matches.glycan.all.count}
+									glycanListId={globalSearchData.other_matches.glycan.all.list_id}
+									proteinCount={globalSearchData.other_matches.protein.all.count}
+									proteinListId={globalSearchData.other_matches.protein.all.list_id}
+									glycoproteinCount={globalSearchData.other_matches.glycoprotein.all.count}
+									glycoproteinListId={globalSearchData.other_matches.glycoprotein.all.list_id}
+									route={routeConstants.glycanList}
+									term={id}
+									routeTerm="gs"
+								/>}
+							</Grid>
+							{false && <Grid item md={4}>
 								{globalSearchData.other_matches && <GlobalSearchCard
 									cardTitle="Glycan(s)"
 									route={routeConstants.glycanList}
@@ -118,8 +132,8 @@ const GlobalSearchResult = (props) => {
 									searchItems={Object.keys(globalSearchData.other_matches.glycan)
 										.map((searchItem)  => {return {name: glycanGlobalSearch[searchItem] ? glycanGlobalSearch[searchItem].name : searchItem, count: globalSearchData.other_matches.glycan[searchItem].count, list_id : globalSearchData.other_matches.glycan[searchItem].list_id}})}
 								/>}
-							</Grid>
-							<Grid item md={6}>
+							</Grid>}
+							{false && <Grid item md={6}>
 								{globalSearchData.other_matches && proteinKeyList.length > 0 && <GlobalSearchDualCard
 									cardTitle1="Protein(s)"
 									cardTitle2="Glycoprotein(s)"
@@ -138,7 +152,7 @@ const GlobalSearchResult = (props) => {
 										.map((searchItem)  => {return {name: proteinGlobalSearch[searchItem] ? proteinGlobalSearch[searchItem].name : searchItem, count1: globalSearchData.other_matches.protein[searchItem] ? globalSearchData.other_matches.protein[searchItem].count : 0, list_id1 : globalSearchData.other_matches.protein[searchItem] ? globalSearchData.other_matches.protein[searchItem].list_id : "",
 																count2: globalSearchData.other_matches.glycoprotein[searchItem] ? globalSearchData.other_matches.glycoprotein[searchItem].count : 0, list_id2 : globalSearchData.other_matches.glycoprotein[searchItem] ? globalSearchData.other_matches.glycoprotein[searchItem].list_id : ""}})}
 								/>}
-							</Grid>
+							</Grid>}
 						</Grid>
                     </Paper>
                 </Container>
