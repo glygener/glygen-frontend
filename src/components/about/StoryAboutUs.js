@@ -13,7 +13,7 @@ import glycosciImg from "../../images/about/logo-Glycoscience.svg";
 import cfdeIcon from "../../images/about/logo-CFDE.svg"
 import WorldMapImg from "../about/WorldMapImg";
 import Hidden from "@mui/material/Hidden";
-import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD, GRANT_DETAILS_COMMONFUND, NIH_COMMONFUND } from "../../envVariables";
+import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD, GRANT_DETAILS_COMMONFUND, NIH_COMMONFUND_DATAECOSYSTEM } from "../../envVariables";
 
 const ourMissionImd = {
   title: "Our Mission",
@@ -248,7 +248,7 @@ const StoryAboutUs = (props) => {
                   1R24GM146616-01
                 </a>{" "}
                 and the {" "}
-                <a href={NIH_COMMONFUND} target="_blank" rel="noopener noreferrer">
+                <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer">
                   National Institutes of Health Office of Strategic Coordination - The Common Fund{" "}
                 </a>
                 under the grant #{" "}
@@ -291,7 +291,7 @@ const StoryAboutUs = (props) => {
               <a href={NIGMS} target="_blank" rel="noopener noreferrer" className="me-4">
                 <Image src={nigmsImg} />
               </a>
-              <a href={NIH_COMMONFUND} target="_blank" rel="noopener noreferrer" className="me-4">
+              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="me-4">
                 <Image src={cfdeIcon} />
               </a>
             </Col>
