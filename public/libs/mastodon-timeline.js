@@ -8,7 +8,9 @@
  * Timeline settings
  * Adjust these parameters to customize your timeline
  */
-window.addEventListener("load", () => {
+// window.addEventListener("load", loadMastodonApi);
+
+function loadMastodonApi() {
   const mastodonTimeline = new MastodonApi({
     // Id of the <div> containing the timeline
     container_body_id: "mt-body",
@@ -61,7 +63,62 @@ window.addEventListener("load", () => {
     // Customize the text of the link pointing to the Mastodon page (appears after the last toot)
     link_see_more: "See more posts at Mastodon",
   });
-});
+}
+
+// window.addEventListener("load", () => {
+//   const mastodonTimeline = new MastodonApi({
+//     // Id of the <div> containing the timeline
+//     container_body_id: "mt-body",
+
+//     // Class name for the loading spinner (also used in CSS file)
+//     spinner_class: "loading-spinner",
+
+//     // Preferred color theme: 'light', 'dark' or 'auto'. Default: auto
+//     default_theme: "auto",
+
+//     // Your Mastodon instance
+//     instance_url: "https://mstdn.science",
+
+//     // Choose type of toots to show in the timeline: 'local', 'profile', 'hashtag'. Default: local
+//     timeline_type: "profile",
+
+//     // Your user ID on Mastodon instance. Leave empty if you didn't choose 'profile' as type of timeline
+//     user_id: "111020038931508923",
+
+//     // Your user name on Mastodon instance. Leave empty if you didn't choose 'profile' as type of timeline
+//     profile_name: "@glygen",
+
+//     // The name of the hashtag. Leave empty if you didn't choose 'hashtag' as type of timeline
+//     hashtag_name: "",
+
+//     // Maximum amount of toots to get. Default: 20
+//     toots_limit: "20",
+
+//     // Hide unlisted toots. Default: don't hide
+//     hide_unlisted: false,
+
+//     // Hide boosted toots. Default: don't hide
+//     hide_reblog: false,
+
+//     // Hide replies toots. Default: don't hide
+//     hide_replies: false,
+
+//     // Hide preview card if toot contains a link, photo or video from a URL. Default: don't hide
+//     hide_preview_link: false,
+
+//     // Hide custom emojis available on the server. Default: don't hide
+//     hide_emojos: false,
+
+//     // Converts Markdown symbol ">" at the beginning of a paragraph into a blockquote HTML tag. Ddefault: don't apply
+//     markdown_blockquote: false,
+
+//     // Limit the text content to a maximum number of lines. Default: 0 (unlimited)
+//     text_max_lines: "0",
+
+//     // Customize the text of the link pointing to the Mastodon page (appears after the last toot)
+//     link_see_more: "See more posts at Mastodon",
+//   });
+// });
 
 /**
  * Set all variables with customized values or use default ones

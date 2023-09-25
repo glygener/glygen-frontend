@@ -27,7 +27,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MastodonCard(props) {
   const classes = useStyles();
-  JSFileLoad(window.location.origin + (GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME) + '/libs/mastodon-timeline.js');
+
+  // JSFileLoad(window.location.origin + (GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME) + '/libs/mastodon-timeline.js');
+
+  useEffect(() => {
+    if (window["loadMastodonApi"]) {
+      window["loadMastodonApi"]();
+    }
+  }, [])
+
 
   return (
     <Grid item xs={12} sm={6} md={12}>
