@@ -499,12 +499,14 @@ const Siteview = props => {
           width: "15%",
         };
       },
-      formatter: (value, row) => (
+      formatter: (value, row) => 
+      value ? (
         <LineTooltip text="View glycan details">
           <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
         </LineTooltip>
-      ),
-      //testing
+      ) : (
+        "Not Reported"
+        ),
     },
     {
       dataField: "image",

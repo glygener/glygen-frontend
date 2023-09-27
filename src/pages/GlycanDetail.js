@@ -879,12 +879,15 @@ const GlycanDetail = props => {
       headerStyle: (column, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
       },
-      formatter: (value, row) => (
+      formatter: (value, row) => 
+        value ? (
         <LineTooltip text="View protein details">
           <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
+      ) : (
+        "Not Reported"
       )
     },
     {
@@ -954,12 +957,15 @@ const GlycanDetail = props => {
       headerStyle: (column, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "15%" };
       },
-      formatter: (value, row) => (
+      formatter: (value, row) => 
+        value ? (
         <LineTooltip text="View protein details">
           <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
+      ) : (
+        "Not Reported"
       )
     },
     {

@@ -860,12 +860,15 @@ const PublicationDetail = (props) => {
           width: "15%",
         };
       },
-      formatter: (value, row) => (
+      formatter: (value, row) => 
+        value ? (
         <LineTooltip text="View protein details">
           <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
             {row.uniprot_canonical_ac}
           </Link>
         </LineTooltip>
+      ) : (
+        "Not Reported"
       ),
     },
     {
@@ -883,10 +886,13 @@ const PublicationDetail = (props) => {
           width: "15%",
         };
       },
-      formatter: (value, row) => (
+      formatter: (value, row) => 
+        value ? (
         <LineTooltip text="View glycan details">
           <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
         </LineTooltip>
+      ) : (
+        "Not Reported"
       ),
     },
     {
