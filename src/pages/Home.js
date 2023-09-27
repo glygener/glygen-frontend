@@ -242,10 +242,10 @@ export default function Home() {
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
                 <VersionCard data={homeData.version} pageLoading={pageLoading} />
                 <VideoCard post={videoCard} data={homeData.video}/>
-                <InfoCard post={resourcesCard} />
                 <StatDBCard data={homeData.statistics} pageLoading={pageLoading} />
-                <InfoCard post={feedbackCard} />
                 <MastodonCard />
+                <InfoCard post={resourcesCard} />
+                <InfoCard post={feedbackCard} />
                 {/* <TwitterCard /> */}
               </Grid>
             </Grid>
