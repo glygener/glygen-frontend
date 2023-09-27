@@ -1,4 +1,5 @@
 import { getJson} from "./api";
+import { replaceSpecialCharacters } from "../utils/common";
 
 /**
  * Gets JSON for typeahead.
@@ -28,6 +29,6 @@ export const getCategorizedTypeahed = (typeahedID, inputValue, totalLimit=15, ca
  * @param {string} searchTerm - search term.
  */
 export const getGlobalSearch = (searchTerm) => {
-    const url = `/globalsearch/search?query={"term":"${searchTerm}"}`;
+    const url = `/globalsearch/search?query={"term":"${ escape(replaceSpecialCharacters(searchTerm))}"}`;
     return getJson(url);
 }
