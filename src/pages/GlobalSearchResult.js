@@ -88,18 +88,18 @@ const GlobalSearchResult = (props) => {
 
 						<Typography className={"gs-exact-match"} variant="h6"> 	
 							{globalSearchData.exact_match && globalSearchData.exact_match.map((searchMatch) => 
-									<li key={searchMatch.id}>
-										<span>A {searchMatch.type} exactly matching </span>
-										<LineTooltip text="Click to see details page."> 
-											<Link
-												className={"gs-exact-match-link"}
-												to={searchMatch.type === "glycan" ? routeConstants.glycanDetail + searchMatch.id : routeConstants.proteinDetail + searchMatch.id}
-												>
-											{id}
-											</Link>
-										</LineTooltip>
-										<span> was found.</span>
-									</li>
+								<div key={searchMatch.id}>
+									<span>A {searchMatch.type} exactly matching </span>
+									<LineTooltip text="Click to see details page."> 
+										<Link
+											className={"gs-exact-match-link"}
+											to={searchMatch.type === "glycan" ? routeConstants.glycanDetail + searchMatch.id : routeConstants.proteinDetail + searchMatch.id}
+											>
+										{id}
+										</Link>
+									</LineTooltip>
+									<span> was found.</span>
+								</div>
 								)}
 						</Typography>
 					<Grid
