@@ -211,14 +211,6 @@ const PublicationDetail = (props) => {
             };
           }, {});
 
-          if (data.glycan_expression) {
-            const WithTissue = data.glycan_expression.filter((item) => item.tissue !== undefined);
-            const WithCellline = data.glycan_expression.filter((item) => item.cell_line !== undefined);
-            setExpressionWithtissue(WithTissue);
-            setExpressionWithcell(WithCellline);
-            setExpressionTabSelected(WithTissue.length > 0 ? "with_tissue" : "with_cellline");
-          }
-
           const withImage = mapOfGlycosylationCategories.reported_with_glycan || [];
           const withoutImage = mapOfGlycosylationCategories.reported || [];
           const mining = mapOfGlycosylationCategories.automatic_literature_mining || [];
@@ -236,6 +228,14 @@ const PublicationDetail = (props) => {
           setGlycosylationWithoutImage(withoutImage);
           setGlycosylationMining(mining);
           setGlycosylationTabSelected(selectTab);
+        }
+
+        if (data.glycan_expression) {
+          const WithTissue = data.glycan_expression.filter((item) => item.tissue !== undefined);
+          const WithCellline = data.glycan_expression.filter((item) => item.cell_line !== undefined);
+          setExpressionWithtissue(WithTissue);
+          setExpressionWithcell(WithCellline);
+          setExpressionTabSelected(WithTissue.length > 0 ? "with_tissue" : "with_cellline");
         }
 
         let detailDataTemp = data;
@@ -2368,7 +2368,7 @@ const PublicationDetail = (props) => {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    {glycan_expression && glycan_expression.length !== 0 && (
+                    {glycan_expression && glycan_expression.length > 0 && (
                       <Tabs
                         activeKey={expressionTabSelected}
                         onSelect={(key) => {
