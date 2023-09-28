@@ -8,13 +8,13 @@
     },
     "biomarker_description": {
       "urlText1": "Read more...",
-      "text": "",
+      "text": "The Biomarker Description section describes the measured change of the biomarker entity within a specific tissue and disease.",
       "title": "Biomarker Description",
       "url": "https://wiki.glygen.org/index.php/Motif_details/Glycans"
     },
     "components": {
       "urlText1": "Read more...",
-      "text": "",
+      "text": "The Components section contains glycan and protein accessions associated with the biomarker.",
       "title": "Components",
       "url": ""
     },
