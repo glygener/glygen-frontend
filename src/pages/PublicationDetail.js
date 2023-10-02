@@ -558,7 +558,7 @@ const PublicationDetail = (props) => {
     },
     {
       dataField: "gene_name",
-      text: proteinStrings.gene_name.shortName,
+      text: proteinStrings.gene_name.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
