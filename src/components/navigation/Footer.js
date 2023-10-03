@@ -268,7 +268,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className={classes.link}
                     >
-                      National Institue of General Medical Sciences{" "}
+                      National Institute of General Medical Sciences{" "}
                     </a>
                     under the grant #{" "}
                     <a

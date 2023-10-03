@@ -237,7 +237,7 @@ const StoryAboutUs = (props) => {
             <p>
                 From 2022 onward GlyGen is supported and funded by the{" "}
                 <a href={NIGMS} target="_blank" rel="noopener noreferrer">
-                  National Institue of General Medical Sciences
+                  National Institute of General Medical Sciences
                 </a>{" "}
                 at{" "}
                 <a href={NIH_GOV} target="_blank" rel="noopener noreferrer">
