@@ -16,7 +16,7 @@ const BlueCheckbox = withStyles({
 
 // let advancedSearch = proteinSearchData.advanced_search;
 const ListFilterOptionGroup = props => {
-  const { type, onFilterChange } = props;
+  const { type, onFilterChange, filterOperations, filterReset, setFilterReset } = props;
   const [optionState, setOptionState] = useState([...type.options]);
   const [selection, setSelection] = useState(null);
   const [annotationOperation, setAnnotationOperation] = useState(
@@ -58,19 +58,28 @@ const ListFilterOptionGroup = props => {
     }
   }, [annotationOperation, optionState]);
 
+  useEffect(() => {
+    if (filterReset > 0) {
+      const newOptionState = optionState
+      .map(item => {item.selected = false; return item });
+      setOptionState(newOptionState);
+      setFilterReset && setFilterReset(filterReset - 1);
+    }
+  }, [filterReset]);
+
   return (
     <>
       <div className="pb-1">
         <div className="sidebar-header">
           <h6 className="color-white nowrap d-inline-block">{type.label}</h6>
-          <select
+          {filterOperations === true && <select
             className="select-dropdown float-end pt-0"
             value={annotationOperation}
             onChange={event => setAnnotationOperation(event.target.value)}
           >
             <option value="OR">OR</option>
             <option value="AND">AND</option>
-          </select>
+          </select>}
         </div>
         {/* <div className="parentElement">{type.label}</div> */}
         <ul className="list-unstyled mt-0 mb-0 pt-1">
@@ -88,7 +97,7 @@ const ListFilterOptionGroup = props => {
                       className="pt-1 pb-1"
                     />
                   }
-                  label={`${option.label} (${option.count})`}
+                  label={`${option.label}` + `${option && option.count !== undefined ? ` (${option.count})` : ''}`}
                 />
               </li>
             ))}
@@ -104,8 +113,12 @@ const ListFilterOptionGroup = props => {
 const ListFilter = ({
   availableOptions = [],
   selectedOptions = [],
-  onFilterChange
+  onFilterChange,
+  filterOperations = true,
+  filterReset = 0,
+  setFilterReset = undefined
 }) => {
+
   // If nothing available, exit
   if (!availableOptions.length) {
     return <></>;
@@ -142,7 +155,8 @@ const ListFilter = ({
     <div>
       {filterGroupData.map(type => (
         <div key={type.id}>
-          <ListFilterOptionGroup type={type} onFilterChange={onFilterChange} />
+          <ListFilterOptionGroup type={type} onFilterChange={onFilterChange} filterOperations={filterOperations} 
+           filterReset={filterReset} setFilterReset={setFilterReset} />
         </div>
       ))}
     </div>

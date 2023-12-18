@@ -21,6 +21,7 @@ import Feedback from "./pages/Feedback";
 import routeConstants from "./data/json/routeConstants.json";
 import TryMe from "./pages/TryMe";
 import About from "./pages/About";
+import Outreach from "./pages/Outreach";
 import Frameworks from "./pages/Frameworks";
 import Media from "./pages/Media";
 import LocusList from "./pages/LocusList";
@@ -88,6 +89,7 @@ const Routes = (props) => (
     <Route path={routeConstants.feedback} element={<Feedback/>} />
     <Route path={routeConstants.tryMe} element={<TryMe/>} />
     <Route path={routeConstants.about} element={<About/>} />
+    <Route path={routeConstants.outreach} element={<Outreach/>} />
     <Route path={routeConstants.frameworks} element={<Frameworks/>} />
     <Route path={routeConstants.media} element={<Media/>} />
     <Route path={`${routeConstants.orthologsList}:id/:searchId`} element={<OrthologsList/>} />

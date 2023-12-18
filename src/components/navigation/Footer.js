@@ -198,6 +198,9 @@ export default function Footer() {
                 <Link to={routeConstants.howToCite}>How to Cite</Link>
               </div>
               <div>
+                <Link to={routeConstants.outreach}>Outreach</Link>
+              </div>
+              <div>
                 <Link to={routeConstants.media}>Media</Link>
               </div>
               <div>

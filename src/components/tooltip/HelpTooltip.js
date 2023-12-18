@@ -5,6 +5,9 @@ import Image from "react-bootstrap/Image";
 import PropTypes from "prop-types";
 import Grid from '@mui/material/Grid';
 import { Link } from "react-router-dom";
+import {
+	GLYGEN_DOMAIN
+  } from "../../envVariables";
 
 /**
  * HelpTooltip component for showing text, link.
@@ -36,9 +39,9 @@ const HelpTooltip = (props) => {
 								<Grid item xs={8} sm={8}>
 									{value.imageTitle}
 								</Grid>
-								<Grid item xs={3} sm={3}>								
+								<Grid item xs={3} sm={3}>
 									<Image
-										src={process.env.PUBLIC_URL + value.imagePath}
+										src={GLYGEN_DOMAIN + value.imagePath}
 										style={{ width: "20px", height: "20px"}}
 									/>
 								</Grid>

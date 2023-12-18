@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useReducer } from "react";
-import { getGlycanDetail, getGlycanImageUrl } from "../data/glycan";
+import { getGlycanDetail, getGlycanImageUrl, getGlycanJson } from "../data/glycan";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -43,10 +43,14 @@ import DirectSearch from "../components/search/DirectSearch.js";
 import { getGlycanSearch } from "../data/glycan";
 import CardToggle from "../components/cards/CardToggle";
 import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
+import GlycanViewer from "../components/viewer/GlycanViewer.js";
 import CardLoader from "../components/load/CardLoader";
 import {
   GLYGEN_API,
 } from "../envVariables";
+import IUPACresJson from "../data/json/glycan-viewer-residues";
+import motifListJson from "../data/json/motif_mapping";
+import enzymeJson from "../data/json/enzyme_mapping";
 
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
@@ -56,6 +60,7 @@ const biomarkerStrings = stringConstants.biomarker.common;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
+  { label: stringConstants.sidebar.feature_view.displayname, id: "Feature-View"},  
   { label: stringConstants.sidebar.viewer.displayname, id: "3D-View" },
   { label: stringConstants.sidebar.organism.displayname, id: "Organism" },
 
@@ -189,7 +194,6 @@ const GlycanDetail = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
-
   const [expressionTabSelected, setExpressionTabSelected] = useState("");
   const [expressionWithtissue, setExpressionWithtissue] = useState([]);
   const [expressionWithcell, setExpressionWithcell] = useState([]);
@@ -205,11 +209,25 @@ const GlycanDetail = props => {
   const [publicationTotal, setPublicationTotal] = useState(undefined);
   const [expressionWithtissueTotal, setExpressionWithtissueTotal] = useState(undefined);
   const [expressionWithcellTotal, setExpressionWithcellTotal] = useState(undefined);
-
   const [cardLoadingExp, setCardLoadingExp] = useState(false);
   const [cardLoadingPub, setCardLoadingPub] = useState(false);
   const [cardLoadingGlyc, setCardLoadingGlyc] = useState(false);
-
+  const [glycanJSON, setGlycanJSON] = useState({});
+  const [glycanEnzymeList, setGlycanEnzymeList] = useState([]);
+  const [glycanMotifList, setGlycanMotifList] = useState([]);
+  const [glycanResidueList, setGlycanResidueList] = useState([]);
+  const [checkedResidue, setCheckedResidue] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { }
+  );
+  const [checkedMotif, setCheckedMotif] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { }
+  );
+  const [checkedEnzyme, setCheckedEnzyme] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { }
+  );
 
   // let history;
 
@@ -244,6 +262,132 @@ const GlycanDetail = props => {
         setPageLoading(false);
         setDataStatus("No data available.");
       } else {
+        getGlycanJson(id).then((response ) => {
+          let jsonData = response.data;
+          setGlycanJSON(jsonData);
+
+          let enzyme = enzymeJson;
+          let IUPACres = IUPACresJson;
+          let motifList = motifListJson;
+
+          if (jsonData) {
+            let enzMap = new Map();
+            for (let i = 0; i < enzyme.length; i ++) {
+              enzMap.set(enzyme[i].id, enzyme[i]);
+            }
+
+            let glEnz = Object.keys(jsonData.annotations.Enzyme);
+            let enzList = [];
+
+            for (let i = 0; i < glEnz.length; i++) {
+              if (glEnz[i] && glEnz[i] !== "__synonyms__") {
+                let temp = {};
+                let enz = enzMap.get(glEnz[i]);
+                let tmp1 = undefined;
+                
+                if (enzList.length > 0) {
+                 tmp1 = enzList.find(obj => obj.tax_name === enz.tax_name)
+                }
+
+                if (tmp1 !== undefined) {
+                  temp = tmp1;
+                }
+
+                temp.tax_name = enz.tax_name
+                temp.tax_common_name = enz.tax_common_name
+                if (!temp.enz_list) {
+                  temp.enz_list = [];
+                }
+                temp.enz_list.push(enz);
+                if (tmp1 === undefined) {
+                  enzList.push(temp)
+                }
+              }
+            }
+            setGlycanEnzymeList(enzList);
+
+            let motifMap = new Map();
+            for (let i = 0; i < motifList.length; i ++) {
+              motifMap.set(motifList[i].id, motifList[i]);
+            }
+
+            let glMot = Object.keys(jsonData.annotations.MotifAlignments);
+            let motList = [];
+
+            for (let i = 0; i < glMot.length; i++) {
+              if (glMot[i].startsWith('GGM.')) {
+                let mot = motifMap.get(glMot[i]);
+                if (mot) {
+                  motList.push(mot);
+                }
+              } 
+            }
+            setGlycanMotifList(motList);
+
+            let glRes = Object.keys(jsonData.annotations.IUPAC);
+            let resList = [];
+
+            let resMap = new Map();
+            for (let i = 0; i < IUPACres.length; i ++) {
+              let tempResArr = []
+              if (IUPACres[i].children) {
+                for (let j = 0; j < IUPACres[i].children.length; j++) {
+                  let obj = IUPACres[i].children[j];
+                  obj.parent = IUPACres[i].id;
+                  resMap.set(obj.id, obj);
+                  if (jsonData.annotations.IUPAC[obj.id] && !obj.ignore){
+                    tempResArr.push(obj);
+                  }
+                }
+              }
+
+              let temp = IUPACres[i];
+              temp.children = undefined;
+              temp.parent = undefined;
+              resMap.set(IUPACres[i].id, temp);
+
+              temp.children = tempResArr;
+              temp.parent = undefined;
+              if (jsonData.annotations.IUPAC[temp.id]  && !temp.ignore) {
+                resList.push(temp);
+              }
+            }
+
+            let parentMissing = [];
+            let residueMissing = [];
+            for (let i = 0; i < glRes.length; i ++) {
+              if (glRes[i]) {
+                let resObj = resMap.get(glRes[i]);
+                if (!resObj) {
+                  residueMissing.push(glRes[i]);
+                  continue;
+                }
+
+                if (resObj.parent && !jsonData.annotations.IUPAC[resObj.parent]) {
+                  parentMissing.push(glRes[i]);
+                  continue;
+                }
+              }
+            }
+
+            if (parentMissing.length > 0) {
+              let message = "Parent of residues missing in json file: " + parentMissing.join(", ");
+              logActivity("user", id, message);
+            }
+
+            if (residueMissing.length > 0) {
+              let message = "Missing residues in map file: " + residueMissing.join(", ");
+              logActivity("user", id, message);
+            }
+
+            setGlycanResidueList(resList);
+          }
+       })
+       .catch(( error ) => {
+          let message = "Glycan JSON api call";
+          axiosError(error, id, message, undefined, undefined);
+      });
+
         let detailDataTemp = data;
         if (data.subsumption) {
           const mapOfSubsumptionCategories = data.subsumption.filter((val)=> val.related_accession !== id).reduce(
@@ -361,6 +505,9 @@ const GlycanDetail = props => {
             "Organism",
             true
           );
+        }
+        if (tool_support && tool_support.pdb !== "yes") {
+          newSidebarData = setSidebarItemState(newSidebarData, "3D-View", true);
         }
         if (!detailDataTemp.names || detailDataTemp.names.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Names", true);
@@ -1112,6 +1259,7 @@ const GlycanDetail = props => {
     {
       general: true,
       organism: true,
+      feature_view: true,
       viewer: true,
       names_synonyms: true,
       motif: true,
@@ -1633,6 +1781,113 @@ const GlycanDetail = props => {
                               </a>
                             </div>
                           </>
+                        )}
+                      </div>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+               {/*  Feature View */}
+               <Accordion
+                id="Feature-View"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={"Feature View"}
+                        text={DetailTooltips.glycan.feature_view.text}
+                        urlText={DetailTooltips.glycan.feature_view.urlText}
+                        url={DetailTooltips.glycan.feature_view.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.feature_view.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="feature_view" toggle={collapsed.feature_view} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <div>
+                        {glycanEnzymeList && glycanResidueList && glycanMotifList && (glycanEnzymeList.length > 0 ||  glycanResidueList.length > 0 || glycanMotifList.length > 0) ?
+                          (<Row style={{  height: "500px"}}>
+                            <Col 
+                              xs={4}
+                              sm={4}
+                              md={4}
+                              lg={4}
+                              xl={4}
+                              style1={{ marginBottom: "10px" }}
+                              className="pe-0">
+                              <>
+                                <span id="residues">
+                                  {glycanResidueList.map((parentObj) => (<>
+                                    <span id={"Residue." + parentObj.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + parentObj.id}></span>
+                                    {parentObj.children && parentObj.children.length > 0 && parentObj.children.map((child) => (<>
+                                      <span id={"Residue." + child.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + child.id}></span>            
+                                    </>))}
+                                  </>))}
+                                </span>
+
+                                <span id="motifs">
+                                  {glycanMotifList.map((parentObj) => (<>
+                                    <span id={"Motif." + parentObj.id} glymagesvg_motifs="motifs" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"MotifAlignments." + parentObj.id}></span>
+                                  </>))}
+                                </span>
+
+                                <span id="enzymes">
+                                  {glycanEnzymeList.map((parentObj) => (<>
+                                    {parentObj.enz_list && parentObj.enz_list.length > 0 && parentObj.enz_list.map((child) => (<>
+                                      <span id={"EnzymeUniAcc." + child.id} glymagesvg_enzymes="enzymes" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"Enzyme." + child.id}></span>            
+                                    </>))}
+                                  </>))}
+                                </span>
+
+                                <GlycanViewer 
+                                  enzParentList={glycanEnzymeList} 
+                                  resParentList={glycanResidueList} 
+                                  motifList={glycanMotifList} 
+                                  url={GLYGEN_API + "/glycan/pdb/" + id + "/"} 
+                                  checkedResidue={checkedResidue}
+                                  setCheckedResidue={setCheckedResidue}
+                                  checkedMotif={checkedMotif}
+                                  setCheckedMotif={setCheckedMotif}
+                                  checkedEnzyme={checkedEnzyme}
+                                  setCheckedEnzyme={setCheckedEnzyme}
+                                  />
+                              </>                 
+                            </Col>
+                            <Col 
+                              xs={8}
+                              sm={8}
+                              md={8}
+                              lg={8}
+                              xl={8}
+                              justify={"center"}
+                              className="pe-0 text-center">
+                                <div style={{"width": "100%", "height": "100%", "margin": "0", "padding": "0"}}>
+                                  <div className="content-cen" id="glymagesvg"
+                                      glymagesvg_accession={id} 
+                                      glymagesvg_imageclass="glymagesvg_low_opacity"
+                                      glymagesvg_monoclass="glymagesvg_high_opacity"
+                                      glymagesvg_linkclass="glymagesvg_high_opacity"
+                                      glymagesvg_linkinfoclass="glymagesvg_high_opacity"
+                                      glymagesvg_monoclick_highlights_parent_link="true"
+                                      glymagesvg_monoclick_highlights_related_monos="true"
+                                      glymagesvg_clicktarget="remote_element"
+                                  />
+                                </div>
+                            </Col>
+                          </Row>)
+                          : (
+                            <p className="no-data-msg">{dataStatus}</p>
                         )}
                       </div>
                     </Card.Body>

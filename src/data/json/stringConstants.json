@@ -2020,6 +2020,11 @@
       "displayname": "3D View",
       "tooltip": " Viewer Information for selected accession"
     },
+    "feature_view": {
+      "id": "feature_view",
+      "displayname": "Feature View",
+      "tooltip": "Feature View Information"
+    },
     "motifs": {
       "id": "motifs",
       "displayname": "Motifs",

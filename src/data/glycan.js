@@ -1,4 +1,4 @@
-import { getJson, postToAndGetBlob, glycanImageUrl } from "./api";
+import { getJson, postToAndGetBlob, glycanImageUrl, glycanSvgUrl, glycanJsonUrl } from "./api";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -8,6 +8,7 @@ import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import stringConstants from "./json/stringConstants";
 import { logActivity } from "../data/logging";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const glycanStrings = stringConstants.glycan.common;
 
@@ -246,3 +247,16 @@ export const getGlycanInit = () => {
 export const getGlycanImageUrl = glytoucan_id => {
   return glycanImageUrl + glytoucan_id;
 };
+
+export const getGlycanJson = id => {
+  let url = '/glycan/image_metadata/' + id;
+  return getJson(url);
+};
+
+export function glymagesvgInit() {
+  var params = {
+      imageurl: glycanSvgUrl,
+      jsonurl: glycanJsonUrl
+  };
+  window.glymagesvg.init(params);
+}

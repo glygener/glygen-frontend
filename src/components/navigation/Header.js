@@ -247,6 +247,7 @@ export default function Header(props) {
                 className={
                   location.pathname === routeConstants.about ||
                   location.pathname === routeConstants.howToCite ||
+                  location.pathname === routeConstants.outreach ||
                   location.pathname === routeConstants.media ||
                   location.pathname === routeConstants.frameworks
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
@@ -260,6 +261,9 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.howToCite}>
                   How to Cite
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.outreach}>
+                  Outreach
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.media}>
                   Media

@@ -1,4 +1,4 @@
-import { getJson, postToAndGetBlob, glycanImageUrl } from "./api";
+import { getJson, postToAndGetBlob, glycanImageUrl, glycanSvgUrl, glycanJsonUrl } from "./api";
 // import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -73,3 +73,16 @@ export const getMotifDetail = (
 export const getGlycanImageUrl = (glytoucan_id) => {
   return glycanImageUrl + glytoucan_id;
 };
+
+export function glymagesvgInit() {
+  var params = {
+      imageurl: glycanSvgUrl,
+      jsonurl: glycanJsonUrl,
+      imageclass: "glymagesvg_low_opacity",
+			monoclass: "glymagesvg_high_opacity",
+			substclass: "glymagesvg_high_opacity",
+			linkclass: "glymagesvg_high_opacity",
+			linkinfoclass: "glymagesvg_high_opacity",
+  };
+  window.glymagesvg.init(params);
+}

@@ -12,6 +12,12 @@
   /* margin-bottom: 40px !important; */
   position: relative;
 }
+.sidebar-page-outreach {
+  width: 100% !important;
+  margin: 0 auto !important;
+  overflow: auto;
+  position: relative;
+}
 .sidebar-page-mb {
   margin-bottom: 700px !important;
 }

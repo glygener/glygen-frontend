@@ -370,6 +370,10 @@ p {
   margin: 0 auto;
   overflow: auto;
 }
+.panel-width-outreach {
+  margin: 0 auto;
+  overflow: auto;
+}
 .text-indent div {
   text-indent: -50px;
   padding-left: 50px;
@@ -594,6 +598,10 @@ hr {
 .id-mapping-go-to-top {
   float: right;
   color: #2e78b7;
+}
+
+.gg-txt-blue {
+  color: var(--gg-blue) !important;
 }
 
 .gg-btn-blue {
@@ -838,6 +846,17 @@ ul.office-details {
   margin: 5px !important;
   padding: 15px !important;
   max-width: 700px !important;
+}
+.gg-tooltip-feature-view {
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 16px !important;
+  border: 1px solid #eee !important;
+  -webkit-box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 5px !important;
+  max-width: 500px !important;
 }
 .gg-helpicon {
   margin-right: 8px !important;
@@ -1375,4 +1394,22 @@ sub {
   height: 55px;
   background-color: #ffffff;
   border: 2px solid #ffffff;
+}
+
+.content-cen {
+  position: relative;
+  /* left: 50%; */
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  overflow: auto;
+}
+
+.feature-view-label {
+  margin-right: 5px !important;
+}
+
+.gg-helpicon-feature-view {
+  margin-right: 8px !important;
+  font-size: large !important;
 }

@@ -532,5 +532,18 @@
         "content": ""
       }
     ]
+  },
+  "outreach": {
+    "title": "Outreach | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
   }
 }

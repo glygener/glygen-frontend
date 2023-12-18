@@ -1,0 +1,486 @@
+[
+    {
+        "id": "GGM.000001",
+        "name": "Type 2 LN"
+    },
+    {
+        "id": "GGM.000002",
+        "name": "Type 2 LN2"
+    },
+    {
+        "id": "GGM.000003",
+        "name": "I antigen"
+    },
+    {
+        "id": "GGM.000004",
+        "name": "i antigen"
+    },
+    {
+        "id": "GGM.000005",
+        "name": "Type 1 LN"
+    },
+    {
+        "id": "GGM.000006",
+        "name": "Type 1 LN2"
+    },
+    {
+        "id": "GGM.000007",
+        "name": "Type 1 LN3"
+    },
+    {
+        "id": "GGM.000008",
+        "name": "Tn antigen"
+    },
+    {
+        "id": "GGM.000009",
+        "name": "T antigen"
+    },
+    {
+        "id": "GGM.000010",
+        "name": "H antigen (type 3)"
+    },
+    {
+        "id": "GGM.000011",
+        "name": "A antigen (type 3)"
+    },
+    {
+        "id": "GGM.000012",
+        "name": "Sialyl Tn antigen"
+    },
+    {
+        "id": "GGM.000013",
+        "name": "Sialyl T antigen"
+    },
+    {
+        "id": "GGM.000014",
+        "name": "Di-sialyl T antigen"
+    },
+    {
+        "id": "GGM.000015",
+        "name": "a-Gal antigen"
+    },
+    {
+        "id": "GGM.000016",
+        "name": "LacdiNAc"
+    },
+    {
+        "id": "GGM.000017",
+        "name": "Fucosylated LDN"
+    },
+    {
+        "id": "GGM.000018",
+        "name": "Lewis x"
+    },
+    {
+        "id": "GGM.000019",
+        "name": "Lewis y"
+    },
+    {
+        "id": "GGM.000020",
+        "name": "Lewis a"
+    },
+    {
+        "id": "GGM.000021",
+        "name": "Lewis b"
+    },
+    {
+        "id": "GGM.000022",
+        "name": "Sialyl Lewis x"
+    },
+    {
+        "id": "GGM.000024",
+        "name": "Sialyl Lewis a"
+    },
+    {
+        "id": "GGM.000025",
+        "name": "6'-Sulfo-sialyl Lewis x"
+    },
+    {
+        "id": "GGM.000026",
+        "name": "2,6-sialyl-Sulfo-LN"
+    },
+    {
+        "id": "GGM.000027",
+        "name": "6-Sulfo-sialyl Lewis x"
+    },
+    {
+        "id": "GGM.000028",
+        "name": "6,6'-bisSulfo-Lewis x"
+    },
+    {
+        "id": "GGM.000029",
+        "name": "3'-Sulfo-Lewis x"
+    },
+    {
+        "id": "GGM.000030",
+        "name": "3'-Sulfo-Lewis a"
+    },
+    {
+        "id": "GGM.000031",
+        "name": "Lex-Lex"
+    },
+    {
+        "id": "GGM.000032",
+        "name": "SDLex"
+    },
+    {
+        "id": "GGM.000033",
+        "name": "VIM-2"
+    },
+    {
+        "id": "GGM.000034",
+        "name": "3-Sialyl-LN (type 2)"
+    },
+    {
+        "id": "GGM.000035",
+        "name": "6-Sialyl-GalNAc"
+    },
+    {
+        "id": "GGM.000036",
+        "name": "Blood group H (type 2)"
+    },
+    {
+        "id": "GGM.000037",
+        "name": "Blood group B (type 2)"
+    },
+    {
+        "id": "GGM.000038",
+        "name": "Blood group A (type 2)"
+    },
+    {
+        "id": "GGM.000039",
+        "name": "Blood group A (type 2) - Lewis y"
+    },
+    {
+        "id": "GGM.000040",
+        "name": "Blood group A1 (type 3)"
+    },
+    {
+        "id": "GGM.000041",
+        "name": "Blood group A2 (A-associated H type 3)"
+    },
+    {
+        "id": "GGM.000042",
+        "name": "Blood group H (type 1)"
+    },
+    {
+        "id": "GGM.000043",
+        "name": "Blood group B (type 1)"
+    },
+    {
+        "id": "GGM.000044",
+        "name": "Blood group A (type 1)"
+    },
+    {
+        "id": "GGM.000045",
+        "name": "Blood group H (type 2) - Lewis y"
+    },
+    {
+        "id": "GGM.000046",
+        "name": "Blood group B (type 1) - Lewis b"
+    },
+    {
+        "id": "GGM.000047",
+        "name": "Blood group A (type 1) - Lewis b"
+    },
+    {
+        "id": "GGM.000049",
+        "name": "4'-sulfated LDN"
+    },
+    {
+        "id": "GGM.000050",
+        "name": "Sialylated LDN"
+    },
+    {
+        "id": "GGM.000051",
+        "name": "Sda/CT antigen"
+    },
+    {
+        "id": "GGM.000053",
+        "name": "SLex Core 2 O-glycan"
+    },
+    {
+        "id": "GGM.000054",
+        "name": "Diphosphorylated Man6"
+    },
+    {
+        "id": "GGM.000055",
+        "name": "O-Linked mannose"
+    },
+    {
+        "id": "GGM.000056",
+        "name": "2,6-Branched O-mannose"
+    },
+    {
+        "id": "GGM.000057",
+        "name": "O-Mannose Lex"
+    },
+    {
+        "id": "GGM.000058",
+        "name": "HNK-1 antigen"
+    },
+    {
+        "id": "GGM.000059",
+        "name": "HNK-1 on O-mannose"
+    },
+    {
+        "id": "GGM.000060",
+        "name": "Glucosylceramide"
+    },
+    {
+        "id": "GGM.000061",
+        "name": "Galactosylceramide"
+    },
+    {
+        "id": "GGM.000062",
+        "name": "Seminolipid"
+    },
+    {
+        "id": "GGM.000063",
+        "name": "Sulfatide"
+    },
+    {
+        "id": "GGM.000064",
+        "name": "Lactosylceramide"
+    },
+    {
+        "id": "GGM.000065",
+        "name": "Ceramide dihexosyl sulfate"
+    },
+    {
+        "id": "GGM.000066",
+        "name": "Monosulfated gangliotetraosylceramide"
+    },
+    {
+        "id": "GGM.000067",
+        "name": "Lactotriaosylceramide"
+    },
+    {
+        "id": "GGM.000068",
+        "name": "Pk antigen"
+    },
+    {
+        "id": "GGM.000069",
+        "name": "P1 antigen"
+    },
+    {
+        "id": "GGM.000070",
+        "name": "Globoside"
+    },
+    {
+        "id": "GGM.000071",
+        "name": "Isoglobotetraosylceramide"
+    },
+    {
+        "id": "GGM.000072",
+        "name": "Mono-sulfated globopentaosylceramide"
+    },
+    {
+        "id": "GGM.000073",
+        "name": "Mono-sulfated globotetraosylceramide"
+    },
+    {
+        "id": "GGM.000074",
+        "name": "Sulfo-isogloboside"
+    },
+    {
+        "id": "GGM.000075",
+        "name": "LcGg4"
+    },
+    {
+        "id": "GGM.000076",
+        "name": "Gb5"
+    },
+    {
+        "id": "GGM.000077",
+        "name": "Paragloboside"
+    },
+    {
+        "id": "GGM.000078",
+        "name": "GL-6 fucosylated"
+    },
+    {
+        "id": "GGM.000079",
+        "name": "SSEA-3"
+    },
+    {
+        "id": "GGM.000080",
+        "name": "GL-7 globoseries ganglioside"
+    },
+    {
+        "id": "GGM.000081",
+        "name": "Sialosyl paragloboside"
+    },
+    {
+        "id": "GGM.000082",
+        "name": "Disialosyl globopentaosylceramide"
+    },
+    {
+        "id": "GGM.000083",
+        "name": "Cytolipin R"
+    },
+    {
+        "id": "GGM.000084",
+        "name": "Forssman glycolipid"
+    },
+    {
+        "id": "GGM.000085",
+        "name": "para-Forssman glycolipid"
+    },
+    {
+        "id": "GGM.000086",
+        "name": "Blood group H (type 4)"
+    },
+    {
+        "id": "GGM.000087",
+        "name": "Blood group B (type 4)"
+    },
+    {
+        "id": "GGM.000088",
+        "name": "Blood group A (type 4)"
+    },
+    {
+        "id": "GGM.000089",
+        "name": "GM4"
+    },
+    {
+        "id": "GGM.000090",
+        "name": "GM3"
+    },
+    {
+        "id": "GGM.000091",
+        "name": "GD3"
+    },
+    {
+        "id": "GGM.000092",
+        "name": "GT3"
+    },
+    {
+        "id": "GGM.000093",
+        "name": "9-O-Acetyl GD3"
+    },
+    {
+        "id": "GGM.000094",
+        "name": "GD2"
+    },
+    {
+        "id": "GGM.000095",
+        "name": "GM2"
+    },
+    {
+        "id": "GGM.000096",
+        "name": "N-Glycolyl-GM2"
+    },
+    {
+        "id": "GGM.000097",
+        "name": "Sialopentaosylceramide"
+    },
+    {
+        "id": "GGM.000098",
+        "name": "GM1"
+    },
+    {
+        "id": "GGM.000099",
+        "name": "Asialo-GM1"
+    },
+    {
+        "id": "GGM.000100",
+        "name": "cisGM1"
+    },
+    {
+        "id": "GGM.000101",
+        "name": "2-Fucosyl-GM1"
+    },
+    {
+        "id": "GGM.000102",
+        "name": "B-GM1"
+    },
+    {
+        "id": "GGM.000103",
+        "name": "2-Fucosyl-GD1b"
+    },
+    {
+        "id": "GGM.000104",
+        "name": "B-GD1b"
+    },
+    {
+        "id": "GGM.000105",
+        "name": "GD1"
+    },
+    {
+        "id": "GGM.000106",
+        "name": "GD1a"
+    },
+    {
+        "id": "GGM.000107",
+        "name": "GD1a"
+    },
+    {
+        "id": "GGM.000108",
+        "name": "GD1b"
+    },
+    {
+        "id": "GGM.000109",
+        "name": "GT2"
+    },
+    {
+        "id": "GGM.000110",
+        "name": "GT1a"
+    },
+    {
+        "id": "GGM.000111",
+        "name": "GT1aa"
+    },
+    {
+        "id": "GGM.000112",
+        "name": "GT1b"
+    },
+    {
+        "id": "GGM.000113",
+        "name": "GT1c"
+    },
+    {
+        "id": "GGM.000114",
+        "name": "GQ1aa"
+    },
+    {
+        "id": "GGM.000115",
+        "name": "GQ1b"
+    },
+    {
+        "id": "GGM.000116",
+        "name": "GQ1ba"
+    },
+    {
+        "id": "GGM.000117",
+        "name": "GQ1c"
+    },
+    {
+        "id": "GGM.000118",
+        "name": "GP1c"
+    },
+    {
+        "id": "GGM.000119",
+        "name": "GP1ca"
+    },
+    {
+        "id": "GGM.000120",
+        "name": "GH1ca"
+    },
+    {
+        "id": "GGM.000121",
+        "name": "Mono-fucosyl LN5"
+    },
+    {
+        "id": "GGM.000122",
+        "name": "Mono-fucosyl LN3"
+    },
+    {
+        "id": "GGM.000201",
+        "name": "B antigen (type 3)"
+    },
+    {
+        "id": "GGM.000252",
+        "name": "Polysialic acid"
+    }
+]

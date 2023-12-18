@@ -9,12 +9,14 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
+import { glymagesvgInit } from "../data/motif"
 import { Grid } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
 import { FiBookOpen } from "react-icons/fi";
 import { groupEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import "../css/detail.css";
+import "../css/glymagesvg.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
@@ -37,6 +39,8 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
 import CardToggle from "../components/cards/CardToggle";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
@@ -114,9 +118,6 @@ const MotifDetail = (props) => {
   let { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // let { namespace } = useParams();
-  // let { ac } = useParams();
-  // const id = namespace + "." + ac;
 
   const [data, setData] = useState([]);
   const [publication, setPublication] = useState([]);
@@ -146,6 +147,7 @@ const MotifDetail = (props) => {
   const [totalSize, setTotalSize] = useState();
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
+  const [motifOn, setMotifOn] = useState(true);
 
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -172,11 +174,45 @@ const MotifDetail = (props) => {
         setDataStatus("No data available.");
       } else {
         setData(data.results);
+         setPublication(data.publication);
+         setGlytoucan(data.glytoucan);
+         setMass(data.mass);
+         setMotif(data.motif);
+         setBiomarkers(data.biomarkers);
+         setMotifName(data.name);
+         setMotifSynonym(data.synonym);
+         setMotifKeywords(data.keywords);
+         setReducingEnd(data.reducing_end);
+         setClassification(data.classification);
+         setHistory(data.history);
+         setItemsCrossRef(getItemsCrossRef(data));
+         setIupac(data.iupac);
+         setWurcs(data.wurcs);
+         if (data.glycoct) {
+           setGlycoct(data.glycoct.replace(/ /g, "\n"));
+         }
+         setInchi(data.inchi);
+         setGlycam(data.glycam);
+         setSmiles_isomeric(data.smiles_isomeric);
+ 
+         let dictionary = null;
+         if (data.dictionary && data.dictionary.term){
+           let temp = {term : null, url : null};
+           temp.term = data.dictionary.term;
+           if (data.dictionary.evidence && data.dictionary.evidence.length > 0) {
+             let evidence = data.dictionary.evidence.find((item => item.database === "Glycan Structure Dictionary"));
+             if (evidence){
+               temp.url = evidence.url;
+             }
+           }
+           dictionary = temp;
+         }
+        setMotifDictionary(dictionary);
         setPagination(data.pagination);
         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
         setPage(currentPage);
-        //   setSizePerPage()
         setTotalSize(data.pagination.total_length);
+        glymagesvgInit();
         setPageLoading(false);
         setDataStatus("No data available.");
       }
@@ -194,13 +230,18 @@ const MotifDetail = (props) => {
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
       setDataStatus("No data available.");
     });
-  }, [id, sizePerPage]);
+  }, [id]);
 
-  const handleTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
-    setPage(page);
-    setSizePerPage(sizePerPage);
+  const handleTableChange = (type, changeData) => {
 
-    getMotifDetail(id, (page - 1) * sizePerPage + 1, sizePerPage, sortField, sortOrder).then(
+    if (pageLoading)
+      return;
+
+    setPage(changeData.page);
+    setSizePerPage(changeData.sizePerPage);
+    setPageLoading(true);
+
+    getMotifDetail(id, (changeData.page - 1) * changeData.sizePerPage + 1, changeData.sizePerPage, changeData.sortField, changeData.sortOrder).then(
       ({ data }) => {
         // place to change values before rendering
 
@@ -240,16 +281,18 @@ const MotifDetail = (props) => {
           dictionary = temp;
         }
         setMotifDictionary(dictionary);
-
-        // setClassification(
-        //   data.classification.filter(
-        //     classif =>
-        //       !(classif.type.name === "Other" && classif.subtype.name === "Other")
-        //   )
-        // );
-
-        //   setSizePerPage()
         setTotalSize(data.pagination.total_length);
+        glymagesvgInit();
+        setPageLoading(false);
+
+        setTimeout((motifOn1) => {
+          if (!motifOn1) {
+            window.glymagesvg.reset('[glymagesvg_marker1]')
+          }
+        }, 500, motifOn);
+
+
+
       }
     );
   };
@@ -298,9 +341,13 @@ const MotifDetail = (props) => {
       text: glycanStrings.glycan_image.name,
       sort: false,
       selected: true,
-      formatter: (value, row) => (
+      formatter: (value, row, rowIndex) => (
         <div className="img-wrapper">
-          <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
+          <div className1="content-cen" 
+              glymagesvg_accession={row.glytoucan_ac}
+              glymagesvg_annotation = {"MotifAlignments." + id}
+              glymagesvg_marker1=""
+          />
         </div>
       ),
       headerStyle: (colum, colIndex) => {
@@ -633,6 +680,29 @@ const MotifDetail = (props) => {
                     <div className="float-end">
 
                       <span className="gg-download-btn-width text-end">
+                      <span className="text-end gg-download-btn-width pb-3">
+                          <FormControlLabel
+                            control={
+                              <Switch
+                                checked={motifOn}
+                                onChange={() => {
+                                  if (motifOn) {
+                                    window.glymagesvg.reset('[glymagesvg_marker1]')
+                                  } else {
+                                    window.glymagesvg.highlight('[glymagesvg_marker1]')
+                                  }
+                                  setMotifOn(!motifOn);
+                                }}
+                                name="checkedB"
+                                color="primary"
+                              />
+                            }
+                            label="Highlight Motif"
+                            classes={{
+                              root:"gg-txt-blue"
+                            }}
+                          />
+                        </span>
                         <DownloadButton
                           types={[
                             {

@@ -85,3 +85,11 @@ export const getPageData = (url, headers = {}) => {
 };
 
 export const glycanImageUrl = GLYGEN_API + "/glycan/image/";
+
+export function glycanSvgUrl(acc) {
+  return GLYGEN_API + '/glycan/image_svg/' + acc;
+}
+
+export function glycanJsonUrl(acc) {
+  return GLYGEN_API + '/glycan/image_metadata/' + acc;
+}

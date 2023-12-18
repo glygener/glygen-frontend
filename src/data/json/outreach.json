@@ -1,0 +1,79 @@
+{    
+  "funding": {
+    "GlyGen U24": {
+      "id": "GlyGen U24",
+      "label": "GlyGen U24",
+      "order": 1
+    },
+    "CFDE": {
+      "id": "CFDE",
+      "label": "CFDE",
+      "order": 2
+    },
+    "default": {
+      "id": "default",
+      "label": "Default",
+      "order": 101
+    }
+  },
+  "filters": [
+    {
+      "id": "outreach_type",
+      "label": "Outreach Type",
+      "order": 1,
+      "tooltip": "",
+      "options": []
+    },
+    {
+      "id": "project",
+      "label": "Project",
+      "order": 2,
+      "tooltip": "",
+      "options": []
+    },
+    {
+      "id": "year",
+      "label": "Year",
+      "order": 3,
+      "tooltip": "",
+      "options": []
+    }
+  ],
+  "outreach_type": {
+    "papers": {
+      "id": "papers",
+      "label": "Paper",
+      "order": 1
+    },
+    "meeting_talk": {
+      "id": "meeting_talk",
+      "label": "Meeting Talk",
+      "order": 2
+    },
+    "online_talk": {
+      "id": "online_talk",
+      "label": "Online Talk",
+      "order": 3
+    },
+    "poster": {
+      "id": "poster",
+      "label": "Poster",
+      "order": 4
+    },
+    "workshop": {
+      "id": "workshop",
+      "label": "Workshop",
+      "order": 5
+    },
+    "training": {
+      "id": "training",
+      "label": "Training",
+      "order": 6
+    },
+    "demo": {
+      "id": "demo",
+      "label": "Demo",
+      "order": 7
+    }
+  }
+}

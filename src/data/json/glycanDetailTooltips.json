@@ -42,6 +42,12 @@
       "title": "3D View",
       "url": "https://wiki.glygen.org/index.php/Glycan_details/Viewer"
     },
+    "feature_view": {
+      "urlText": "Read more...",
+      "text": "The Feature View is an interactive tool that displays the glycan sequence in SNFG notation and allows user to highlight residues based on their type, motifs or residues that can be added by enzymes.",
+      "title": "feature_view",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/feature_view"
+    },
     "glycan_binding_protein": {
       "urlText": "Read more...",
       "text": "The Glycan Binding Protein section provides a list of proteins that bind the glycan.",
