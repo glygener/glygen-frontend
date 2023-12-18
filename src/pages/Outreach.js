@@ -9,7 +9,6 @@ import PanelOutreach from "../components/PanelOutreach";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import outreachJSON from "../data/json/outreach.json";
-import data from "../data/json/input.json";
 import { Row, Col } from "react-bootstrap";
 import Sidebar from "../components/navigation/Sidebar";
 import { logActivity } from "../data/logging";
@@ -56,7 +55,7 @@ const Outreach = (props) => {
       });
     }
     logActivity();
-    getOutreachData().then(( {data1} ) => {
+    getOutreachData().then(( {data} ) => {
         let dateArray = [];
         let projectArray = [];
         let outreachTypeArray = [];
