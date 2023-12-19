@@ -55,7 +55,7 @@ const GlycanViewerTooltip = (props) => {
 						</>}
 						{props.type === "enzyme" && <>
 							<Grid style={{ paddingBottom: "10px" }} item xs={12} sm={12}>
-								<div>{"See enzymes on Protein Details ("}
+								<div>{`See enzyme ${props.title} on Protein Details (`}
 									<a href={props.url} target="_blank" rel="noopener noreferrer">
 										{props.id}
 									</a>{") page."}
