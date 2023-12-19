@@ -163,13 +163,12 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
               title={child.name}
               text={""}
               helpIcon="gg-helpicon-feature-view"
-              imageArray={[{imageTitle: child.name, imagePath: "icons/svg/" + child.image}]}
               type="residue"
               id={child.id}
               pubChemCompound={child.pubChemCompound}
               pubChemUrl={"https://pubchem.ncbi.nlm.nih.gov/compound/"}
               wikiLink={child.url}
-              imagePath= {"icons/svg/" + child.image}
+              imagePath= {"/icons/svg/" + child.image}
             />
           </span>
         </>))}
@@ -275,8 +274,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
                     pubChemCompound={resParent.pubChemCompound}
                     pubChemUrl={"https://pubchem.ncbi.nlm.nih.gov/compound/"}
                     wikiLink={resParent.url}
-                    imagePath= {"icons/svg/" + resParent.image}
-                    imageArray={[{imageTitle: resParent.name, imagePath: "icons/svg/" + resParent.image}]}
+                    imagePath= {"/icons/svg/" + resParent.image}
                   />
                 </span>
                 {resParent.children && resParent.children.length > 0 && <ChildNodesResidue childrenList={resParent.children} parentIndex={index}/>}
