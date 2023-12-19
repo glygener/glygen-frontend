@@ -26,17 +26,17 @@ const PanelOutreach = (props) => {
               <tbody className="table-body">
                 {props.data.map((json) => (
                   <tr className="table-row">
-                    <td style={{   position: "relative"}}>
+                    <td style={{ position: "relative", paddingLeft: "15px", paddingRight: "15px", width: "70px" }}>
                     {json.imagePath && <div style={{ top: "50%", left: "50%", position: "absolute", transform: "translate(-50%, -50%)" }}>	
                       <LineTooltip text={json.outreach_type}>
                         <Image
                           src={GLYGEN_DOMAIN + "/icons/" + json.imagePath}
-                          style={{ width: "25px", height: "25px"}}
+                          style={{ width: "40px", height: "40px"}}
                         />
                       </LineTooltip>
                     </div>}
                     </td>
-                    <td>
+                    <td style={{ paddingLeft: "0px" }}>
                       <div>
                         <div>
                           <h5 style={{ marginBottom: "3px" }}>
@@ -101,17 +101,17 @@ const PanelOutreach = (props) => {
                             {json.pdflabel}
                           </Link>
                         </div>)}
-                        {json.files && (<div>
+                        {json.files && (<div style={{ height: "30px", verticalAlign: "center" }}>
                           {json.files.map((obj) => (
                             <span>
                               {obj && (<>
                                 <a href={obj.url} target="_blank" rel="noopener noreferrer">
                                   <Image
                                     src={GLYGEN_DOMAIN + "/icons/" + obj.imagePath}
-                                    style={{ width: "18px", height: "18px"}}
-                                  />
+                                    style={{ height: "25px" }}
+                                  />{" "}{obj.label}
                                 </a>
-                                  {" "}({obj.label})&nbsp;&nbsp;&nbsp;&nbsp;
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                 </>)}
                             </span>
                           ))}

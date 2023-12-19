@@ -283,8 +283,10 @@ const GlycanDetail = props => {
               if (glEnz[i] && glEnz[i] !== "__synonyms__") {
                 let temp = {};
                 let enz = enzMap.get(glEnz[i]);
+                if (!enz) {
+                  continue;
+                }
                 let tmp1 = undefined;
-                
                 if (enzList.length > 0) {
                  tmp1 = enzList.find(obj => obj.tax_name === enz.tax_name)
                 }
