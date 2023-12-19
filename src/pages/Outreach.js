@@ -97,8 +97,8 @@ const Outreach = (props) => {
           if (obj.files) {
             for (let k = 0; k < obj.files.length; k++) {
               if (obj.files[k]) {
-                obj.files[k].imagePath = outreachJSON.file_formats[obj.files[k].format] ? outreachJSON.file_formats[obj.files[k].format].imagePath : outreachJSON.file_formats.unknown_file.imagePath
-                obj.files[k].label = outreachJSON.file_types[obj.files[k].type] ? outreachJSON.file_types[obj.files[k].type].label : outreachJSON.file_types.unknown_type.label
+                obj.files[k].imagePath = outreachJSON.file_formats[obj.files[k].format] ? outreachJSON.file_formats[obj.files[k].format].imagePath : outreachJSON.file_formats.default.imagePath
+                obj.files[k].label = outreachJSON.file_types[obj.files[k].type] ? outreachJSON.file_types[obj.files[k].type].label : outreachJSON.file_types.default.label
               }
             }
           }

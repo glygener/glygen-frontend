@@ -25,8 +25,8 @@
       "id": "poster",
       "label": "Poster"
     },
-    "unknown_type": {
-      "id": "unknown_type",
+    "default": {
+      "id": "default",
       "label": "File"
     }
   },
@@ -39,8 +39,8 @@
       "id": "ppt",
       "imagePath": "PPT_file.png"
     },
-    "unknown_file": {
-      "id": "unknown_file",
+    "default": {
+      "id": "default",
       "imagePath": "unknown_file.png"
     }
   },
