@@ -7,10 +7,10 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Link } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
-import CiteImage from "../images/icons/quote-open-outline.svg";
-import Icon from '@mui/material/Icon';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import Skeleton from '@mui/material/Skeleton';
+import LineTooltip from "../components/tooltip/LineTooltip";
+import {
+	GLYGEN_DOMAIN
+  } from "../envVariables";
 
 /**
  * PanelOutreach component for showing glygen outreach data.
@@ -26,6 +26,16 @@ const PanelOutreach = (props) => {
               <tbody className="table-body">
                 {props.data.map((json) => (
                   <tr className="table-row">
+                    <td style={{   position: "relative"}}>
+                    {json.imagePath && <div style={{ top: "50%", left: "50%", position: "absolute", transform: "translate(-50%, -50%)" }}>	
+                      <LineTooltip text={json.outreach_type}>
+                        <Image
+                          src={GLYGEN_DOMAIN + "/icons/" + json.imagePath}
+                          style={{ width: "25px", height: "25px"}}
+                        />
+                      </LineTooltip>
+                    </div>}
+                    </td>
                     <td>
                       <div>
                         <div>
@@ -82,32 +92,30 @@ const PanelOutreach = (props) => {
                           {json.period}
                         </div>)}
                         {json.pdf && (<div>
-                            <Link
-                              to={json.pdf}
-                              target="_blank"
-                              download
-                              style={{ paddingRight: "20px" }}
-                            >
-                              {json.pdflabel}
-                            </Link>
-                          </div>)}
-
-                          {json.files && (<div>
-                            {json.files.map((obj) => ( 
-                              <span>
-                                {obj && obj.format === "pdf" && (<>
-                                  <a href={obj.url} target="_blank" rel="noopener noreferrer">
-                                    <PictureAsPdfIcon></PictureAsPdfIcon>
-                                  </a>
-                                    {" "}({obj.type})&nbsp;&nbsp;&nbsp;&nbsp;
-                                  </>)}
-                              </span>
-                            ))}
-                          </div>)}
-
-                          <div className="text-end">                          
-                            <i>{json.outreach_type}</i>
-                        </div>
+                          <Link
+                            to={json.pdf}
+                            target="_blank"
+                            download
+                            style={{ paddingRight: "20px" }}
+                          >
+                            {json.pdflabel}
+                          </Link>
+                        </div>)}
+                        {json.files && (<div>
+                          {json.files.map((obj) => (
+                            <span>
+                              {obj && (<>
+                                <a href={obj.url} target="_blank" rel="noopener noreferrer">
+                                  <Image
+                                    src={GLYGEN_DOMAIN + "/icons/" + obj.imagePath}
+                                    style={{ width: "18px", height: "18px"}}
+                                  />
+                                </a>
+                                  {" "}({obj.label})&nbsp;&nbsp;&nbsp;&nbsp;
+                                </>)}
+                            </span>
+                          ))}
+                        </div>)}
                       </div>
                     </td>
                   </tr>

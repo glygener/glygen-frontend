@@ -16,6 +16,34 @@
       "order": 101
     }
   },
+  "file_types": {
+    "slides": {
+      "id": "slides",
+      "label": "Slides"
+    },
+    "poster": {
+      "id": "poster",
+      "label": "Poster"
+    },
+    "unknown_type": {
+      "id": "unknown_type",
+      "label": "File"
+    }
+  },
+  "file_formats": {
+    "pdf": {
+      "id": "pdf",
+      "imagePath": "PDF_file.png"
+    },
+    "ppt": {
+      "id": "ppt",
+      "imagePath": "PPT_file.png"
+    },
+    "unknown_file": {
+      "id": "unknown_file",
+      "imagePath": "unknown_file.png"
+    }
+  },
   "filters": [
     {
       "id": "outreach_type",
@@ -43,37 +71,44 @@
     "papers": {
       "id": "papers",
       "label": "Paper",
-      "order": 1
+      "order": 1,
+      "imagePath": "paper.png"
     },
     "meeting_talk": {
       "id": "meeting_talk",
       "label": "Meeting Talk",
-      "order": 2
+      "order": 2,
+      "imagePath": "meeting_talk.png"
     },
     "online_talk": {
       "id": "online_talk",
       "label": "Online Talk",
-      "order": 3
+      "order": 3,
+      "imagePath": "online_talk.png"
     },
     "poster": {
       "id": "poster",
       "label": "Poster",
-      "order": 4
+      "order": 4,
+      "imagePath": "poster.png"
     },
     "workshop": {
       "id": "workshop",
       "label": "Workshop",
-      "order": 5
+      "order": 5,
+      "imagePath": "workshop.png"
     },
     "training": {
       "id": "training",
       "label": "Training",
-      "order": 6
+      "order": 6,
+      "imagePath": "training.png"
     },
     "demo": {
       "id": "demo",
       "label": "Demo",
-      "order": 7
+      "order": 7,
+      "imagePath": "demo.png"
     }
   }
 }

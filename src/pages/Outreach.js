@@ -77,6 +77,7 @@ const Outreach = (props) => {
           if (filterOp && filterOp.id) {
             obj.filterOptions.push(filterOp.id);
             obj.outreach_type = filterOp.label;
+            obj.imagePath = filterOp.imagePath;
           }
 
           if (obj.funding) {
@@ -89,6 +90,15 @@ const Outreach = (props) => {
                   "order": outreachJSON.funding[obj.funding[k]] ? outreachJSON.funding[obj.funding[k]].order : outreachJSON.funding["default"].order + k
                 }
                 projectArray.push(temp);
+              }
+            }
+          }
+
+          if (obj.files) {
+            for (let k = 0; k < obj.files.length; k++) {
+              if (obj.files[k]) {
+                obj.files[k].imagePath = outreachJSON.file_formats[obj.files[k].format] ? outreachJSON.file_formats[obj.files[k].format].imagePath : outreachJSON.file_formats.unknown_file.imagePath
+                obj.files[k].label = outreachJSON.file_types[obj.files[k].type] ? outreachJSON.file_types[obj.files[k].type].label : outreachJSON.file_types.unknown_type.label
               }
             }
           }
