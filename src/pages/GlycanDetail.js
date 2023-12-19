@@ -270,119 +270,125 @@ const GlycanDetail = props => {
           let IUPACres = IUPACresJson;
           let motifList = motifListJson;
 
-          if (jsonData) {
-            let enzMap = new Map();
-            for (let i = 0; i < enzyme.length; i ++) {
-              enzMap.set(enzyme[i].id, enzyme[i]);
-            }
+          if (jsonData && jsonData.annotations) {
+            if (jsonData.annotations.Enzyme) {
+              let enzMap = new Map();
+              for (let i = 0; i < enzyme.length; i ++) {
+                enzMap.set(enzyme[i].id, enzyme[i]);
+              }
 
-            let glEnz = Object.keys(jsonData.annotations.Enzyme);
-            let enzList = [];
+              let glEnz = Object.keys(jsonData.annotations.Enzyme);
+              let enzList = [];
 
-            for (let i = 0; i < glEnz.length; i++) {
-              if (glEnz[i] && glEnz[i] !== "__synonyms__") {
-                let temp = {};
-                let enz = enzMap.get(glEnz[i]);
-                if (!enz) {
-                  continue;
-                }
-                let tmp1 = undefined;
-                if (enzList.length > 0) {
-                 tmp1 = enzList.find(obj => obj.tax_name === enz.tax_name)
-                }
+              for (let i = 0; i < glEnz.length; i++) {
+                if (glEnz[i] && glEnz[i] !== "__synonyms__") {
+                  let temp = {};
+                  let enz = enzMap.get(glEnz[i]);
+                  if (!enz) {
+                    continue;
+                  }
+                  let tmp1 = undefined;
+                  if (enzList.length > 0) {
+                    tmp1 = enzList.find(obj => obj.tax_name === enz.tax_name)
+                  }
 
-                if (tmp1 !== undefined) {
-                  temp = tmp1;
-                }
+                  if (tmp1 !== undefined) {
+                    temp = tmp1;
+                  }
 
-                temp.tax_name = enz.tax_name
-                temp.tax_common_name = enz.tax_common_name
-                if (!temp.enz_list) {
-                  temp.enz_list = [];
-                }
-                temp.enz_list.push(enz);
-                if (tmp1 === undefined) {
-                  enzList.push(temp)
+                  temp.tax_name = enz.tax_name
+                  temp.tax_common_name = enz.tax_common_name
+                  if (!temp.enz_list) {
+                    temp.enz_list = [];
+                  }
+                  temp.enz_list.push(enz);
+                  if (tmp1 === undefined) {
+                    enzList.push(temp)
+                  }
                 }
               }
-            }
-            setGlycanEnzymeList(enzList);
-
-            let motifMap = new Map();
-            for (let i = 0; i < motifList.length; i ++) {
-              motifMap.set(motifList[i].id, motifList[i]);
+              setGlycanEnzymeList(enzList);
             }
 
-            let glMot = Object.keys(jsonData.annotations.MotifAlignments);
-            let motList = [];
+            if (jsonData.annotations.MotifAlignments) {
+              let motifMap = new Map();
+              for (let i = 0; i < motifList.length; i ++) {
+                motifMap.set(motifList[i].id, motifList[i]);
+              }
 
-            for (let i = 0; i < glMot.length; i++) {
-              if (glMot[i].startsWith('GGM.')) {
-                let mot = motifMap.get(glMot[i]);
-                if (mot) {
-                  motList.push(mot);
+              let glMot = Object.keys(jsonData.annotations.MotifAlignments);
+              let motList = [];
+
+              for (let i = 0; i < glMot.length; i++) {
+                if (glMot[i].startsWith('GGM.')) {
+                  let mot = motifMap.get(glMot[i]);
+                  if (mot) {
+                    motList.push(mot);
+                  }
+                } 
+              }
+              setGlycanMotifList(motList);
+            }
+
+            if (jsonData.annotations.IUPAC) {
+              let glRes = Object.keys(jsonData.annotations.IUPAC);
+              let resList = [];
+
+              let resMap = new Map();
+              for (let i = 0; i < IUPACres.length; i ++) {
+                let tempResArr = []
+                if (IUPACres[i].children) {
+                  for (let j = 0; j < IUPACres[i].children.length; j++) {
+                    let obj = IUPACres[i].children[j];
+                    obj.parent = IUPACres[i].id;
+                    resMap.set(obj.id, obj);
+                    if (jsonData.annotations.IUPAC[obj.id] && !obj.ignore){
+                      tempResArr.push(obj);
+                    }
+                  }
                 }
-              } 
-            }
-            setGlycanMotifList(motList);
 
-            let glRes = Object.keys(jsonData.annotations.IUPAC);
-            let resList = [];
+                let temp = IUPACres[i];
+                temp.children = undefined;
+                temp.parent = undefined;
+                resMap.set(IUPACres[i].id, temp);
 
-            let resMap = new Map();
-            for (let i = 0; i < IUPACres.length; i ++) {
-              let tempResArr = []
-              if (IUPACres[i].children) {
-                for (let j = 0; j < IUPACres[i].children.length; j++) {
-                  let obj = IUPACres[i].children[j];
-                  obj.parent = IUPACres[i].id;
-                  resMap.set(obj.id, obj);
-                  if (jsonData.annotations.IUPAC[obj.id] && !obj.ignore){
-                    tempResArr.push(obj);
+                temp.children = tempResArr;
+                temp.parent = undefined;
+                if (jsonData.annotations.IUPAC[temp.id]  && !temp.ignore) {
+                  resList.push(temp);
+                }
+              }
+
+              let parentMissing = [];
+              let residueMissing = [];
+              for (let i = 0; i < glRes.length; i ++) {
+                if (glRes[i]) {
+                  let resObj = resMap.get(glRes[i]);
+                  if (!resObj) {
+                    residueMissing.push(glRes[i]);
+                    continue;
+                  }
+
+                  if (resObj.parent && !jsonData.annotations.IUPAC[resObj.parent]) {
+                    parentMissing.push(glRes[i]);
+                    continue;
                   }
                 }
               }
 
-              let temp = IUPACres[i];
-              temp.children = undefined;
-              temp.parent = undefined;
-              resMap.set(IUPACres[i].id, temp);
-
-              temp.children = tempResArr;
-              temp.parent = undefined;
-              if (jsonData.annotations.IUPAC[temp.id]  && !temp.ignore) {
-                resList.push(temp);
+              if (parentMissing.length > 0) {
+                let message = "Parent of residues missing in json file: " + parentMissing.join(", ");
+                logActivity("user", id, message);
               }
-            }
 
-            let parentMissing = [];
-            let residueMissing = [];
-            for (let i = 0; i < glRes.length; i ++) {
-              if (glRes[i]) {
-                let resObj = resMap.get(glRes[i]);
-                if (!resObj) {
-                  residueMissing.push(glRes[i]);
-                  continue;
-                }
-
-                if (resObj.parent && !jsonData.annotations.IUPAC[resObj.parent]) {
-                  parentMissing.push(glRes[i]);
-                  continue;
-                }
+              if (residueMissing.length > 0) {
+                let message = "Missing residues in map file: " + residueMissing.join(", ");
+                logActivity("user", id, message);
               }
-            }
 
-            if (parentMissing.length > 0) {
-              let message = "Parent of residues missing in json file: " + parentMissing.join(", ");
-              logActivity("user", id, message);
+              setGlycanResidueList(resList);
             }
-
-            if (residueMissing.length > 0) {
-              let message = "Missing residues in map file: " + residueMissing.join(", ");
-              logActivity("user", id, message);
-            }
-
-            setGlycanResidueList(resList);
           }
        })
        .catch(( error ) => {
