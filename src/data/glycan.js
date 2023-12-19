@@ -256,7 +256,8 @@ export const getGlycanJson = id => {
 export function glymagesvgInit() {
   var params = {
       imageurl: glycanSvgUrl,
-      jsonurl: glycanJsonUrl
+      jsonurl: glycanJsonUrl,
+      cssurl: null
   };
   window.glymagesvg.init(params);
 }

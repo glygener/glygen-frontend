@@ -83,6 +83,7 @@ export function glymagesvgInit() {
 			substclass: "glymagesvg_high_opacity",
 			linkclass: "glymagesvg_high_opacity",
 			linkinfoclass: "glymagesvg_high_opacity",
+			cssurl: null
   };
   window.glymagesvg.init(params);
 }
