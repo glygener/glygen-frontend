@@ -285,14 +285,11 @@ const MotifDetail = (props) => {
         glymagesvgInit();
         setPageLoading(false);
 
-        setTimeout((motifOn1) => {
-          if (!motifOn1) {
+        setTimeout((motifOnInput) => {
+          if (!motifOnInput) {
             window.glymagesvg.reset('[glymagesvg_marker1]')
           }
-        }, 500, motifOn);
-
-
-
+        }, 1500, motifOn);
       }
     );
   };
