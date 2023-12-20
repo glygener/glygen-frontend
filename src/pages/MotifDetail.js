@@ -158,6 +158,15 @@ const MotifDetail = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  function getTimeoutValue(inpuPageSize) {
+    let timeout = 2500;
+    if (inpuPageSize < 50) {
+      return timeout;
+    } else {
+      return timeout * parseInt(inpuPageSize/50);
+    }
+  }
+
   useEffect(() => {
     setPageLoading(true);
     window.scrollTo({
@@ -289,7 +298,7 @@ const MotifDetail = (props) => {
           if (!motifOnInput) {
             window.glymagesvg.reset('[glymagesvg_marker1]')
           }
-        }, 1500, motifOn);
+        }, getTimeoutValue(sizePerPage), motifOn);
       }
     );
   };
