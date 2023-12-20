@@ -35,7 +35,7 @@ const GlycanViewerTooltip = (props) => {
 						{props.type === "residue" && <>
 							<Grid item xs={9} sm={9}>
 								<div>{props.title}{" "}({props.id})</div>
-								{props.pubChemCompound && <div>{"PubChem Compound : "}
+								{props.pubChemCompound && <div>{"PubChem Compound: "}
 									<a href={props.pubChemUrl + props.pubChemCompound} target="_blank" rel="noopener noreferrer">
 										{props.pubChemCompound}
 									</a>{"."}
