@@ -139,6 +139,7 @@ const Outreach = (props) => {
         setAvailableFilters(fl);
         setOutreachItemsArray(data);
         setPageLoading(false);
+        setDataStatus("No data available.");
     })
     .catch(function (error) {
       let message = "outreach api call";

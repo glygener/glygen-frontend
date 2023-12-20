@@ -68,8 +68,8 @@
     }
   ],
   "outreach_type": {
-    "papers": {
-      "id": "papers",
+    "paper": {
+      "id": "paper",
       "label": "Paper",
       "order": 1,
       "imagePath": "paper.png"
