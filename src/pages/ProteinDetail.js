@@ -1887,9 +1887,14 @@ const ProteinDetail = (props) => {
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (<>
-            {nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && (<AlertTitle> {id} is no longer valid Protein Id</AlertTitle>)}
+            {nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && (<AlertTitle> {id} is no longer valid Protein ID</AlertTitle>)}
             {nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb" && (<AlertTitle> The UniProtKB accession {id} does not exists in GlyGen</AlertTitle>)}
-            <span>{capitalizeFirstLetter(nonExistent.reason.description)}</span>
+            {nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && (<span>{capitalizeFirstLetter(nonExistent.reason.description)}</span>)}
+            {nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb" && (<span>{"Valid ID in UniProtKB: "} 
+              <a href={"https://www.uniprot.org/uniprotkb/" + id} target="_blank" rel="noopener noreferrer">
+                {id}
+              </a>
+            </span>)}
             <ul>
               <span>
                 {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
