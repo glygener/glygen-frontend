@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
 import LineTooltip from "../components/tooltip/LineTooltip";
+import { Row, Col } from "react-bootstrap";
 import {
 	GLYGEN_DOMAIN
   } from "../envVariables";
@@ -101,9 +102,9 @@ const PanelOutreach = (props) => {
                             {json.pdflabel}
                           </Link>
                         </div>)}
-                        {json.files && (<div style={{ height: "30px", verticalAlign: "center" }}>
+                        {json.files && (<Row>
                           {json.files.map((obj) => (
-                            <span>
+                            <Col>
                               {obj && (<>
                                 <a href={obj.url} target="_blank" rel="noopener noreferrer">
                                   <Image
@@ -113,9 +114,9 @@ const PanelOutreach = (props) => {
                                 </a>
                                   &nbsp;&nbsp;&nbsp;&nbsp;
                                 </>)}
-                            </span>
+                            </Col>
                           ))}
-                        </div>)}
+                        </Row>)}
                       </div>
                     </td>
                   </tr>
