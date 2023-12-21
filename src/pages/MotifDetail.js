@@ -296,11 +296,19 @@ const MotifDetail = (props) => {
 
         setTimeout((motifOnInput) => {
           if (!motifOnInput) {
-            window.glymagesvg.reset('[glymagesvg_marker1]')
+            try {
+              window.glymagesvg.reset('[glymagesvg_marker1]')
+            } catch(error) {
+            }
           }
         }, getTimeoutValue(sizePerPage), motifOn);
       }
-    );
+    )
+    .catch(({ response }) => {
+      let message = "motif api call";
+      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+      setDataStatus("No data available.");
+    });
   };
   function rowStyleFormat(row, rowIdx) {
     return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
@@ -692,12 +700,15 @@ const MotifDetail = (props) => {
                               <Switch
                                 checked={motifOn}
                                 onChange={() => {
-                                  if (motifOn) {
-                                    window.glymagesvg.reset('[glymagesvg_marker1]')
-                                  } else {
-                                    window.glymagesvg.highlight('[glymagesvg_marker1]')
+                                  try {
+                                    if (motifOn) {
+                                      window.glymagesvg.reset('[glymagesvg_marker1]')
+                                    } else {
+                                      window.glymagesvg.highlight('[glymagesvg_marker1]')
+                                    }
+                                    setMotifOn(!motifOn);
+                                  } catch(error) {
                                   }
-                                  setMotifOn(!motifOn);
                                 }}
                                 name="checkedB"
                                 color="primary"
