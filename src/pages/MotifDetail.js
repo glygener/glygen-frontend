@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import { getGlycanImageUrl } from "../data/glycan";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { getMotifDetail } from "../data/motif";
@@ -148,6 +148,8 @@ const MotifDetail = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [motifOn, setMotifOn] = useState(true);
+  const motifOnRef = useRef(motifOn);
+  motifOnRef.current = motifOn;
 
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -159,7 +161,7 @@ const MotifDetail = (props) => {
   }
 
   function getTimeoutValue(inpuPageSize) {
-    let timeout = 2500;
+    let timeout = 3000;
     if (inpuPageSize < 50) {
       return timeout;
     } else {
@@ -294,14 +296,14 @@ const MotifDetail = (props) => {
         glymagesvgInit();
         setPageLoading(false);
 
-        setTimeout((motifOnInput) => {
-          if (!motifOnInput) {
+        setTimeout(() => {
+          if (!motifOnRef.current) {
             try {
               window.glymagesvg.reset('[glymagesvg_marker1]')
             } catch(error) {
             }
           }
-        }, getTimeoutValue(sizePerPage), motifOn);
+        }, getTimeoutValue(changeData.sizePerPage));
       }
     )
     .catch(({ response }) => {
