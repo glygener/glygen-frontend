@@ -2251,6 +2251,11 @@
       "displayname": "Glycan Image (*.png)",
       "tooltip": " glycan_image Information for selected accession"
     },
+    "glycan_svg_image": {
+      "id": "glycan_svg_image",
+      "displayname": "Glycan SVG Image (*.svg)",
+      "tooltip": " glycan_image Information for selected accession"
+    },
     "proteinsite_csvdata": {
       "id": "proteinsite_jsondata",
       "displayname": "Site data (*.csv)",

@@ -149,8 +149,8 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
 
   const ChildNodesResidue = ({childrenList, parentIndex}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
-        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (<>
-          <span>
+        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
+          <div>
             <FormControlLabel
                 className="feature-view-label"
                 label={child.name}
@@ -170,15 +170,15 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
               wikiLink={child.url}
               imagePath= {"/icons/svg/" + child.image}
             />
-          </span>
-        </>))}
+          </div>
+        ))}
       </Box>
     </>);
 
   const ChildNodesEnzyme = ({childrenList, parentIndex}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
-        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (<>
-          <span>
+        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
+          <div>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -195,15 +195,15 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
               type="enzyme"
               id={child.id}
             />
-          </span>
-        </>))}
+          </div>
+        ))}
       </Box>
      </>);
 
    const ChildNodesMotif = ({childrenList}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "scroll" }}>
-        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (<>
-          <span>
+        {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
+          <div>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -224,8 +224,8 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
               type="motif"
               id={child.id}
             />
-          </span>
-        </>))}
+          </div>
+        ))}
       </Box>
     </>);
 
@@ -254,7 +254,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
           </AccordionSummary>
           <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
             {resParentList.map((resParent, index) => (<>
-                <span>
+                <div>
                   <FormControlLabel
                     className="feature-view-label"
                     label={resParent.name}
@@ -276,7 +276,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
                     wikiLink={resParent.url}
                     imagePath= {"/icons/svg/" + resParent.image}
                   />
-                </span>
+                </div>
                 {resParent.children && resParent.children.length > 0 && <ChildNodesResidue childrenList={resParent.children} parentIndex={index}/>}
               </>))}
           </AccordionDetails>
@@ -331,7 +331,9 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
         </AccordionSummary>
         <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
           {enzParentList.map((enzParent, index) => (<>
-            <FormLabel component="legend"><strong>{enzParent.tax_name}</strong></FormLabel>
+              <div>
+                <FormLabel component="legend"><strong>{enzParent.tax_name}</strong></FormLabel>
+              </div>
               <ChildNodesEnzyme childrenList={enzParent.enz_list} parentIndex={index}/>
             </>))
           }

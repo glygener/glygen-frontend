@@ -1371,20 +1371,20 @@ const GlycanDetail = props => {
                   {id}
                 </a>
               </span>)}
-              <ul>
-                  <span>
-                    {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
-                      nonExistent.reason.replacement_id_list.map((repID) =>
-                      <li>
-                        <Link to={`${routeConstants.glycanDetail}${repID}`}>
-                          {" "}
-                          {"Go to Glycan: "  + repID}
-                        </Link>
-                      </li>
-                      )
-                    )}
-                  </span>
-              </ul>
+              {nonExistent.reason.type === "replacement_in_glygen" && <ul>
+                <span>
+                  {nonExistent.reason.replacement_id_list && (
+                    nonExistent.reason.replacement_id_list.map((repID) =>
+                    <li>
+                      {" "}{"Go to Glycan: "}
+                      <Link to={`${routeConstants.glycanDetail}${repID}`}>
+                        {repID}
+                      </Link>
+                    </li>
+                    )
+                  )}
+                </span>
+              </ul>}
             </>
           ) : (
             <>
@@ -1448,6 +1448,11 @@ const GlycanDetail = props => {
                   {
                     display: stringConstants.download.glycan_image.displayname,
                     type: "png",
+                    data: "glycan_image"
+                  },
+                  {
+                    display: stringConstants.download.glycan_svg_image.displayname,
+                    type: "svg",
                     data: "glycan_image"
                   },
                   {

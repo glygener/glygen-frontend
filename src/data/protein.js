@@ -39,20 +39,24 @@ export const getProteinsiteDetail = (protienId, position) => {
   return getJson(url);
 };
 
-export const getProteinDetail = accessionId => {
+export const getProteinDetail = (accessionId, noPagination) => {
 
-  const queryParams = {"paginated_tables":[{"table_id": "glycosylation_reported_with_glycan","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "glycosylation_reported","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "glycosylation_predicted","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "glycosylation_automatic_literature_mining","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "phosphorylation","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "snv_disease","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "snv_non_disease","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
-                      {"table_id": "publication","offset":1, "limit":200,"sort": "date","order":"desc"}]}
+  let url = '';
+  if (noPagination) {
+    url = `/protein/detail/${accessionId}`;
+  } else {
+    const queryParams = {"paginated_tables":[{"table_id": "glycosylation_reported_with_glycan","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "glycosylation_reported","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "glycosylation_predicted","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "glycosylation_automatic_literature_mining","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "phosphorylation","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "snv_disease","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "snv_non_disease","offset":1, "limit":20,"sort": "start_pos","order":"asc"},
+    {"table_id": "publication","offset":1, "limit":200,"sort": "date","order":"desc"}]}
 
-  const queryParamString = JSON.stringify(queryParams);
-
-  const url = `/protein/detail/${accessionId}/?query=${queryParamString}`;
+    const queryParamString = JSON.stringify(queryParams);
+    url = `/protein/detail/${accessionId}/?query=${queryParamString}`;
+  }
  
   return getJson(url);
 };

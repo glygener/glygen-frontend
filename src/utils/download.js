@@ -30,6 +30,9 @@ const getFormatDetails = (format, type, compressed = false) => {
   } else if (format === "grits") {
     mimeType = "application/xml";
     ext = ".grits";
+  } else if (format === "svg") {
+    mimeType = "application/xml";
+    ext = ".svg";
   }
 
   if (compressed) {

@@ -20,61 +20,14 @@ import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
-// import { display } from "@material-ui/system";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
+
 window.customElements.define("protvista-manager", ProtvistaManager);
 window.customElements.define("protvista-navigation", ProtvistaNavigation);
 window.customElements.define("protvista-sequence", ProtvistaSequence);
 window.customElements.define("protvista-track", ProtvistaTrack);
 window.customElements.define("protvista-tooltip", ProtvistaTooltip);
-
-let data1 = [
-  {
-      "start": 294,
-      "end": 294,
-      "color": "red",
-      "shape": "circle",
-      "accession": "P14210-1",
-      "type": "Asn",
-      "title": "Asn-294",
-      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 2 more at this site</span>",
-      "count": 3
-  },
-  {
-      "start": 402,
-      "end": 402,
-      "color": "red",
-      "shape": "circle",
-      "accession": "P14210-1",
-      "type": "Asn",
-      "title": "Asn-402",
-      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
-      "count": 2
-  },
-  {
-      "start": 566,
-      "end": 566,
-      "color": "red",
-      "shape": "circle",
-      "accession": "P14210-1",
-      "type": "Asn",
-      "title": "Asn-566",
-      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
-      "count": 2
-  },
-  {
-      "start": 653,
-      "end": 653,
-      "color": "red",
-      "shape": "circle",
-      "accession": "P14210-1",
-      "type": "Asn",
-      "title": "Asn-653",
-      "tooltipContent": "<img src='https://api.glygen.org/glycan/image/G17689DH' /><br/></br><span className=marker>Click marker to show 1 more at this site</span>",
-      "count": 2
-  }
-];
 
 const ProtVista = () => {
   let { id, Protvistadisplay } = useParams();
@@ -160,8 +113,6 @@ const ProtVista = () => {
     if (data.glycosylation) {
       for (let glyco of data.glycosylation) {
         if (glyco.start_pos === undefined) continue;
-        // if (glyco.start_pos !== glyco.end_pos) continue;
-        // $.each(data.glycosylation, function (i, glyco) {
         if (glyco.type === "N-linked") {
           if (glyco.glytoucan_ac) {
             if (glyco.start_pos === glyco.end_pos) {
@@ -299,12 +250,11 @@ const ProtVista = () => {
             });
           }
         } 
-      } //);
+      }
     }
 
     if (data.phosphorylation) {
       for (let phosphorylation of data.phosphorylation) {
-        // $.each(data.mutation, function (i, mutation) {
         phosphorylationP.residues.push({
           start: phosphorylation.start_pos,
           end: phosphorylation.end_pos,
@@ -312,19 +262,19 @@ const ProtVista = () => {
           shape: phosphorylationP.shape,
           accession: data.uniprot.uniprot_canonical_ac,
           type: phosphorylation.residue,
+          click: phosphorylation.start_pos === phosphorylation.end_pos ? undefined : "block",
           title: phosphorylation.residue + "-" + phosphorylation.start_pos,
           tooltipContent:
-            "<br className=marker>Phosphorylation site without reported glycan at " +
+            "<div className=marker>Phosphorylation site without reported glycan at " +
             phosphorylation.start_pos +
             "." +
-            "</br>Click on the Node to see site details. </span>",
+            "</div><div>Click on the Node to see site details. </div>",
         });
       }
     }
 
     if (data.glycation) {
       for (let glycation of data.glycation) {
-        // $.each(data.mutation, function (i, mutation) {
         glycationG.residues.push({
           start: glycation.start_pos,
           end: glycation.end_pos,
@@ -332,19 +282,19 @@ const ProtVista = () => {
           shape: glycationG.shape,
           accession: data.uniprot.uniprot_canonical_ac,
           type: glycation.residue,
+          click: glycation.start_pos === glycation.end_pos ? undefined : "block",
           title: glycation.residue + "-" + glycation.start_pos,
           tooltipContent:
-            "<span className=marker>Glycation site without reported glycan at " +
+            "<div className=marker>Glycation site without reported glycan at " +
             glycation.start_pos +
             "." +
-            "</br>Click on the Node to see site details. </span>",
+            "</div><div>Click on the Node to see site details. </div>",
         });
       }
     }
 
     if (data.snv) {
       for (let mutation of data.snv) {
-        // $.each(data.mutation, function (i, mutation) {
         mutations.residues.push({
           start: mutation.start_pos,
           end: mutation.end_pos,
@@ -352,15 +302,15 @@ const ProtVista = () => {
           shape: mutations.shape,
           accession: data.uniprot.uniprot_canonical_ac,
           type: "(" + mutation.sequence_org + " → " + mutation.sequence_mut + ")",
-          title: "(" + mutation.sequence_org + " → " + mutation.sequence_mut + ")",
-          tooltipContent: "<span className=marker> annotation " + mutation.comment + "</span>",
+          click: mutation.start_pos === mutation.end_pos ? undefined : "block",
+          title: mutation.sequence_org + "-" + mutation.start_pos,
+          tooltipContent: "<div><strong>" + mutation.sequence_org + " → " + mutation.sequence_mut +"</strong></div><span className=marker> Annotation: " + mutation.comment + "</span>",
         });
-      } //);
+      }
     }
 
     if (data.mutagenesis) {
       for (let mutagenesis of data.mutagenesis) {
-        // $.each(data.mutation, function (i, mutation) {
         mutagenesisS.residues.push({
           start: mutagenesis.start_pos,
           end: mutagenesis.end_pos,
@@ -368,25 +318,23 @@ const ProtVista = () => {
           shape: mutagenesisS.shape,
           accession: data.uniprot.uniprot_canonical_ac,
           type: "(" + mutagenesis.sequence_org + " → " + mutagenesis.sequence_mut + ")",
+          click: mutagenesis.start_pos === mutagenesis.end_pos ? undefined : "block",
           title:
-            "(" +
-            mutagenesis.sequence_org +
-            "-" +
-            mutagenesis.start_pos +
+             (mutagenesis.start_pos ? mutagenesis.start_pos : "") +
+             (mutagenesis.end_pos !== mutagenesis.start_pos ? "-" + mutagenesis.end_pos : ""),
+          tooltipContent: 
+          "<div> <div style=overflow-wrap:break-word className=marker>" +
+            (mutagenesis.sequence_org ? mutagenesis.sequence_org : "") +
             " → " +
-            mutagenesis.sequence_mut +
-            "-" +
-            mutagenesis.end_pos +
-            ")",
-
-          tooltipContent: "<span className=marker> annotation " + mutagenesis.comment + "</span>",
+            (mutagenesis.sequence_mut ? mutagenesis.sequence_mut : "deleted")
+            + "</div>" +
+          "<div className=marker> Annotation: " + mutagenesis.comment + "</div></div>",
         });
-      } //);
+      }
     }
 
     if (data.site_annotation) {
       for (let site_annotation of data.site_annotation) {
-        // $.each(data.site_annotation, function (i, site_annotation) {
         glycos[4].residues.push({
           start: site_annotation.start_pos,
           end: site_annotation.end_pos,
@@ -403,36 +351,125 @@ const ProtVista = () => {
             site_annotation.end_pos +
             "</span>",
         });
-      } //);
+      }
     }
 
-    // tO CHECK MULTILE GLYCOSYLATION AT SAME POINT
+    // TO CHECK MULTILE GLYCOSYLATION AT SAME POINT
     let glycosCombined = [];
-
     for (let i in glycos) {
-      // $.each(glycos, function (i, v) {
       var combinedResiduesMap = {};
       for (let v of glycos[i].residues) {
-        // $.each(glycos[i].residues, function (i, v) {
         if (!combinedResiduesMap[v.start + ":" + v.end]) {
           v["count"] = 1;
           combinedResiduesMap[v.start + ":" + v.end] = v;
         } else {
           combinedResiduesMap[v.start + ":" + v.end].count += 1;
         }
-      } //);
+      }
       glycosCombined.push(
         Object.values(combinedResiduesMap).map(function (v) {
           v["tooltipContent"] +=
             v["count"] > 1
               ? "<span className=marker>Click marker to show " +
                 (v["count"] - 1) +
-                " more at this site</span>"
+                " more at this site.</span>"
               : "";
           return v;
         })
       );
     }
+
+     // TO CHECK MULTILE PHOSPHORYLATION AT SAME POINT
+    let phosphoCombined = [];
+    var combinedPhosphoResiduesMap = {};
+    for (let v of phosphorylationP.residues) {
+      if (!combinedPhosphoResiduesMap[v.start + ":" + v.end]) {
+        v["count"] = 1;
+        combinedPhosphoResiduesMap[v.start + ":" + v.end] = v;
+      } else {
+      combinedPhosphoResiduesMap[v.start + ":" + v.end].count += 1;
+      }
+    }
+    phosphoCombined.push(
+      Object.values(combinedPhosphoResiduesMap).map(function (v) {
+        v["tooltipContent"] +=
+          v["count"] > 1
+            ? "<div className=marker>Click marker to show " +
+              (v["count"] - 1) +
+              " more at this site.</div>"
+            : "";
+        return v;
+      })
+    );
+
+    // TO CHECK MULTILE GLYCATION AT SAME POINT
+    let glycatCombined = [];
+    var combinedGlycatResiduesMap = {};
+    for (let v of glycationG.residues) {
+      if (!combinedGlycatResiduesMap[v.start + ":" + v.end]) {
+        v["count"] = 1;
+        combinedGlycatResiduesMap[v.start + ":" + v.end] = v;
+      } else {
+        combinedGlycatResiduesMap[v.start + ":" + v.end].count += 1;
+      }
+    }
+    glycatCombined.push(
+      Object.values(combinedGlycatResiduesMap).map(function (v) {
+        v["tooltipContent"] +=
+          v["count"] > 1
+            ? "<div className=marker>Click marker to show " +
+              (v["count"] - 1) +
+              " more at this site.</div>"
+            : "";
+        return v;
+      })
+    );
+
+     // TO CHECK MULTILE MUTATIONS AT SAME POINT
+     let mutationsCombined = [];
+      var combinedMutationsResiduesMap = {};
+      for (let v of mutations.residues) {
+        if (!combinedMutationsResiduesMap[v.start + ":" + v.end]) {
+          v["count"] = 1;
+          combinedMutationsResiduesMap[v.start + ":" + v.end] = v;
+        } else {
+          combinedMutationsResiduesMap[v.start + ":" + v.end].count += 1;
+        }
+      }
+      mutationsCombined.push(
+        Object.values(combinedMutationsResiduesMap).map(function (v) {
+          v["tooltipContent"] +=
+            v["count"] > 1
+              ? "<div className=marker>Click marker to show " +
+                (v["count"] - 1) +
+                " more SNV at this site.</div>"
+              : "";
+          return v;
+        })
+      );
+
+      // TO CHECK MULTILE MUTAGENESIS AT SAME POINT
+      let mutagenesisCombined = [];
+      var combinedMutagenesisResiduesMap = {};
+      for (let v of mutagenesisS.residues) {
+        if (!combinedMutagenesisResiduesMap[v.start + ":" + v.end]) {
+          v["count"] = 1;
+          combinedMutagenesisResiduesMap[v.start + ":" + v.end] = v;
+        } else {
+          combinedMutagenesisResiduesMap[v.start + ":" + v.end].count += 1;
+        }
+      }
+      mutagenesisCombined.push(
+        Object.values(combinedMutagenesisResiduesMap).map(function (v) {
+          v["tooltipContent"] +=
+            v["count"] > 1
+              ? "<div className=marker>Click marker to show " +
+                (v["count"] - 1) +
+                " more at this site.</div>"
+              : "";
+          return v;
+        })
+      );
 
     return {
       nGlycanWithImage: glycosCombined[0],
@@ -440,10 +477,10 @@ const ProtVista = () => {
       oGlycanWithImage: glycosCombined[2],
       oGlycanWithoutImage: glycosCombined[3],
       nSequon: glycosCombined[4],
-      phosphorylationData: phosphorylationP,
-      glycationData: glycationG,
-      mutationsData: mutations,
-      mutagenesisData: mutagenesisS,
+      phosphorylationData: phosphoCombined[0],
+      glycationData: glycatCombined[0],
+      mutationsData: mutationsCombined[0],
+      mutagenesisData: mutagenesisCombined[0],
     };
   }
 
@@ -532,11 +569,9 @@ const ProtVista = () => {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
-
     setPageLoading(true);
     logActivity("user", id);
-    const getData = getProteinDetail(id, Protvistadisplay);
+    const getData = getProteinDetail(id, true);
     getData.then(({ data }) => {
       if (data.code) {
         let message = "Protvista Detail api call";
@@ -546,25 +581,13 @@ const ProtVista = () => {
         setData(data);
         setPageLoading(false);
         let formattedData = setupProtvista(data);
-        console.log( "Hi");
-
 
         if (nGlycanWithImage.current) {
-          console.log( "Hi1");
           nGlycanWithImage.current.data = formattedData.nGlycanWithImage;
-          console.log(nGlycanWithImage);
-          // setNGlycanWithImageState(formattedData.nGlycanWithImage);
         }
-        console.log( "Hi2");
-
-        // const track = document.getElementById('ptrack1');
-        // track.data = formattedData.nGlycanWithImage;
 
         setNGlycanWithImageState(formattedData.nGlycanWithImage);
-        // const track = document.getElementById('ptrack1');
-        // track.data = formattedData.nGlycanWithImage; 
 
-        console.log( nGlycanWithImage);
         if (nGlycanWithoutImage.current) {
           nGlycanWithoutImage.current.data = formattedData.nGlycanWithoutImage;
         }
@@ -577,12 +600,8 @@ const ProtVista = () => {
         if (nSequon.current) {
           nSequon.current.data = formattedData.nSequon;
         }
-        console.log( "Hi3");
 
         if (allTrack && allTrack.current) {
-          console.log( "Hi4");
-          console.log( allTrack);
-
           allTrack.current.data = [
             ...formattedData.nGlycanWithImage,
             ...formattedData.nGlycanWithoutImage,
@@ -591,34 +610,33 @@ const ProtVista = () => {
             ...formattedData.nSequon,
           ];
         }
-        console.log( allTrack);
 
         if (phosphorylationData.current) {
-          phosphorylationData.current.data = formattedData.phosphorylationData.residues;
+          phosphorylationData.current.data = formattedData.phosphorylationData;
 
           setTracksShown({
-            phosphorylationData: formattedData.phosphorylationData.residues.length > 0,
+            phosphorylationData: formattedData.phosphorylationData.length > 0,
           });
         }
         if (glycationData.current) {
-          glycationData.current.data = formattedData.glycationData.residues;
+          glycationData.current.data = formattedData.glycationData;
 
           setTracksShown({
-            glycationData: formattedData.glycationData.residues.length > 0,
+            glycationData: formattedData.glycationData.length > 0,
           });
         }
         if (mutationsData.current) {
-          mutationsData.current.data = formattedData.mutationsData.residues;
+          mutationsData.current.data = formattedData.mutationsData;
 
           setTracksShown({
-            mutation: formattedData.mutationsData.residues.length > 0,
+            mutation: formattedData.mutationsData.length > 0,
           });
         }
         if (mutagenesisData.current) {
-          mutagenesisData.current.data = formattedData.mutagenesisData.residues;
+          mutagenesisData.current.data = formattedData.mutagenesisData;
 
           setTracksShown({
-            mutagenesisData: formattedData.mutagenesisData.residues.length > 0,
+            mutagenesisData: formattedData.mutagenesisData.length > 0,
           });
         }
 
@@ -639,8 +657,6 @@ const ProtVista = () => {
       let message = "ProtVista Detail api call";
       axiosError(response, id, message, setPageLoading, setAlertDialogInput);
     });
-
-  // },10000);
 
     // eslint-disable-next-line
   }, []);
@@ -681,7 +697,6 @@ const ProtVista = () => {
           <NavLink to={`${routeConstants.proteinDetail}${id}`}>
             <Button
               type="button"
-              // style={{ marginLeft: "15px", marginTop: "15px" }}
               className="gg-btn-blue"
             >
               Back To Protein Details
@@ -689,7 +704,6 @@ const ProtVista = () => {
           </NavLink>
         </div>
         <Row>
-          {/* <> */}
           <Col xs={12} sm={12} xl={2} className="prot-sidebar">
             <ProtvistaSidebar
               tracksShown={tracksShown}
@@ -697,7 +711,6 @@ const ProtVista = () => {
               handleExpand={() => setExpanded(!expanded)}
             />
           </Col>
-          {/* </> */}
 
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
@@ -714,19 +727,11 @@ const ProtVista = () => {
                   highlightEnd={data.sequence.length}
                   rulerstart={1}
                 />
-                {/* <protvista-sequence 
-                  id="seq1" 
-                  length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
-                /> */}
+
                 <protvista-sequence
                   id="seq1"
                   class="nav-track"
                   length={data.sequence.length}
-                  // height={60}
-                  // displaystart={1}
-                  // displayend={data.sequence.length}
                   sequence={data.sequence.sequence}
                 />
                 {/* Blank Track */}
@@ -761,7 +766,6 @@ const ProtVista = () => {
                   displayend={data.sequence.length}
                   layout="non-overlapping"
                   ref={nGlycanWithImage}
-                  // data={data1}
                 />
                 </div>
                 <protvista-track

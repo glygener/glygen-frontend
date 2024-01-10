@@ -1895,20 +1895,34 @@ const ProteinDetail = (props) => {
                 {id}
               </a>
             </span>)}
-            <ul>
+            {nonExistent.reason.type === "replacement_in_glygen" && <ul>
               <span>
-                {nonExistent.reason.type === "replacement_in_glygen" && nonExistent.reason.replacement_id_list && (
+                {nonExistent.reason.replacement_id_list && (
                     nonExistent.reason.replacement_id_list.map((repID) =>
                     <li>
+                      {" "}{"Go to Protein: "}
                       <Link to={`${routeConstants.proteinDetail}${repID}`}>
-                        {" "}
-                        {"Go to Protein: "  + repID}
+                        {repID}
                       </Link>
                     </li>
                     )
                   )}
               </span>
-            </ul>
+            </ul>}
+            {nonExistent.reason.type === "replacement_not_in_glygen" && <ul>
+                <span>
+                  {nonExistent.reason.replacement_id_list && (
+                    nonExistent.reason.replacement_id_list.map((repID) =>
+                    <li>
+                      {" "}{"Go to replacement ID in UniProtKB: "}
+                      <a href={"https://www.uniprot.org/uniprotkb/" + repID} target="_blank" rel="noopener noreferrer">
+                        {repID}
+                      </a>
+                    </li>
+                    )
+                  )}
+                </span>
+              </ul>}
             </>
           )
           : (
