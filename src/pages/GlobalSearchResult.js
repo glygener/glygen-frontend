@@ -37,6 +37,30 @@ const GlobalSearchResult = (props) => {
 	const [globalSearchData, setGlobalSearchData] = useState({});
 	const [proteinKeyList, setProteinKeyList] = useState([]);
 
+	function getExactMatchLink(type, exactId) {
+		let link = ""
+		if (type === "glycan") {
+			link = routeConstants.glycanDetail + exactId;
+		} else if (type === "motif") {
+			link = routeConstants.motifDetail + exactId;
+		} else if (type === "publication") {
+			let ind = exactId.indexOf(".");
+			let publicationId = "";
+			if (ind > 0) {
+				publicationId = exactId.slice(ind+1);
+			}
+			if (exactId.startsWith("pubmed.")) {
+				link = routeConstants.publicationDetailPubMed + publicationId;
+			} else {
+				link = routeConstants.publicationDetailDOI + publicationId;
+			}
+		}  else if (type === "biomarker") {
+			link = routeConstants.biomarkerDetail + exactId;
+		} else {
+			link = routeConstants.proteinDetail + exactId;
+		}
+		return link;
+	}
 
 	/**
 	 * useEffect for retriving data from api and showing page loading effects.
@@ -93,8 +117,8 @@ const GlobalSearchResult = (props) => {
 									<LineTooltip text="Click to see details page."> 
 										<Link
 											className={"gs-exact-match-link"}
-											to={searchMatch.type === "glycan" ? routeConstants.glycanDetail + searchMatch.id : routeConstants.proteinDetail + searchMatch.id}
-											>
+											to={getExactMatchLink(searchMatch.type, searchMatch.id)}
+										>
 										{id}
 										</Link>
 									</LineTooltip>

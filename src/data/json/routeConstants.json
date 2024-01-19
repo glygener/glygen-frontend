@@ -36,6 +36,8 @@
   "idMappingResult": "/mapper-result/",
   "superSearch": "/super-search/",
   "publicationDetail": "/publication/",
+  "publicationDetailPubMed": "/publication/PubMed/",
+  "publicationDetailDOI": "/publication/DOI/",
   "blastSearch": "/blast/",
   "blastResult": "/blast-result/",
   "biomarkerDetail": "/biomarker/",
