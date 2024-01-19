@@ -60,6 +60,11 @@ import { downloadFile } from "../utils/download";
 import { postToAndGetBlob } from "../data/api";
 import CardLoader from "../components/load/CardLoader";
 import PropTypes from 'prop-types';
+import AccordionMUI from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -215,47 +220,68 @@ const getItemsPathway = (data) => {
   return itemspathway;
 };
 
-const getItemsCrossRef = (data) => {
-  let itemscrossRef = [];
+const getItemsCrossRefWithCategory = (data) => {
+  let itemscrossRefCategory = [];
 
   //check data.
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {
-      let found = "";
-      for (let databaseitem of itemscrossRef) {
-        if (databaseitem.database === crossrefitem.database) {
-          found = true;
-          databaseitem.links.push({
+      for (let category of crossrefitem.categories) {
+        let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
+        if (!categoryItem) {
+          categoryItem = {
+            category : category,
+            database : []
+          }
+          itemscrossRefCategory.push(categoryItem);
+        }
+        let databaseItem = categoryItem.database.filter(item => item.database === crossrefitem.database)[0];
+        if (!databaseItem) {
+          databaseItem = {
+            database: crossrefitem.database,
+            links: [
+              {
+                url: crossrefitem.url,
+                id: crossrefitem.id,
+              },
+            ]
+          }
+          categoryItem.database.push(databaseItem);
+        } else {
+          databaseItem.links.push({
             url: crossrefitem.url,
             id: crossrefitem.id,
           });
         }
       }
-      if (!found) {
-        itemscrossRef.push({
-          database: crossrefitem.database,
-          links: [
-            {
-              url: crossrefitem.url,
-              id: crossrefitem.id,
-            },
-          ],
-        });
-      }
     }
 
-    itemscrossRef.sort(function (a, b) {
-      if (a.database.toLowerCase() > b.database.toLowerCase()) {
+    for (let crossrefitem of itemscrossRefCategory) {
+      crossrefitem.database.sort(function (a, b) {
+          if (a.database.toLowerCase() > b.database.toLowerCase()) {
+            return 1;
+          }
+          if (b.database.toLowerCase() > a.database.toLowerCase()) {
+            return -1;
+          }
+          return 0;
+        });
+    }
+    
+    itemscrossRefCategory.sort(function (a, b) {
+      if (a.category === "Other") return 1;
+      if (b.category === "Other") return -1;
+      if (a.category.toLowerCase() > b.category.toLowerCase()) {
         return 1;
       }
-      if (b.database.toLowerCase() > a.database.toLowerCase()) {
+      if (b.category.toLowerCase() > a.category.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   }
 
-  return itemscrossRef;
+  return itemscrossRefCategory;
 };
 
 const TYPE_RECOMMENDED = "recommended";
@@ -375,6 +401,15 @@ const ProteinDetail = (props) => {
   const [sequenceSearchText, setSequenceSearchText] = useState("");
   const [publicationSort, setPublicationSort] = useState("date");
   const [publicationDirection, setPublicationDirection] = useState("desc");
+  const [showCategories, setShowCategories] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useReducer(
+    (state, newState) => ({
+      ...state, 
+      ...newState,
+    }),{
+      catInd: [0]
+    }
+    );
 
   useEffect(() => {
     setNonExistent(null);
@@ -404,7 +439,7 @@ const ProteinDetail = (props) => {
         setDataStatus("No data available.");
       } else {
         let detailDataTemp = data;
-        setItemsCrossRef(getItemsCrossRef(data));
+        setItemsCrossRef(getItemsCrossRefWithCategory(data));
         setItemsPathway(getItemsPathway(data));
         setDetailData(data);
 
@@ -1803,6 +1838,19 @@ const ProteinDetail = (props) => {
         axiosError(error, "", message, setPageLoading, setAlertDialogInput);
       });
   };
+
+  function handleCategories(event, expanded, catInd) {
+    let catArr = expandedCategories;
+    if (expanded) {
+      catArr.catInd.push(catInd);
+    } else {
+      const ind = catArr.catInd.indexOf(catInd);
+      if (ind > -1) {
+        catArr.catInd.splice(ind, 1);
+      }
+    }
+    setExpandedCategories(catArr)
+  }
 
   const createGlycosylationSummary = (data, glycan = false) => {
     const info = {};
@@ -3959,24 +4007,50 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.cross_ref.displayname}
                     </h4>
                     <div className="float-end">
+                      <Button
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                        type="button"
+                        className="gg-btn-blue"
+                        onClick={() => {setShowCategories(!showCategories); setExpandedCategories({catInd:[]})}}
+                      >
+                        {showCategories ? "Hide All" : "Show All"}
+                      </Button>
                       <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {itemsCrossRef && itemsCrossRef.length ? (
-                        <div className="mb-3">
-                          <ul className="list-style-none">
-                            {/* <Row> */}
-                            {itemsCrossRef.map((crossRef, index) => (
-                              <li key={index}>
-                                <CollapsableReference
-                                  database={crossRef.database}
-                                  links={crossRef.links}
-                                />
-                              </li>
-                            ))}
-                          </ul>
+                        <div>
+                          {itemsCrossRef.map((dbItem, catInd) => (
+                            <AccordionMUI disableGutters={true} 
+                              expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
+                              onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
+                            >
+                              <AccordionSummary
+                                style={{backgroundColor: "#f5f8fa", height: "50px"}}
+                                expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                              >
+                                <Typography className="gg-blue-color">{dbItem.category}</Typography>
+                              </AccordionSummary>
+                              <AccordionDetails style={{paddingBottom: "0px"}}>
+                                <ul className="list-style-none">
+                                  {dbItem.database.map((crossRef, dbInd) => (
+                                    <li key={dbInd}>
+                                      <CollapsableReference
+                                        database={crossRef.database}
+                                        links={crossRef.links}
+                                      />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionDetails>
+                            </AccordionMUI>
+                          ))}
                         </div>
                       ) : (
                         <p>{dataStatus}</p>

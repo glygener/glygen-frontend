@@ -41,7 +41,7 @@
     "url" : "https://en.wikipedia.org/wiki/N-Acetylmannosamine",
     "pubChemCompound" : 439281
   }, {
-    "name" : "N-acetly Glucosamine",
+    "name" : "N-acetyl Glucosamine",
     "id" : "GlcNAc",
     "ignore" : false,
     "image" : "glcnac.svg",

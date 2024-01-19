@@ -332,7 +332,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
         <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
           {enzParentList.map((enzParent, index) => (<>
               <div>
-                <FormLabel component="legend"><strong>{enzParent.tax_name}</strong></FormLabel>
+                <FormLabel component="legend"><strong>{enzParent.tax_common_name}</strong></FormLabel>
               </div>
               <ChildNodesEnzyme childrenList={enzParent.enz_list} parentIndex={index}/>
             </>))
