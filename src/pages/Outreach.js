@@ -97,8 +97,10 @@ const Outreach = (props) => {
           if (obj.files) {
             for (let k = 0; k < obj.files.length; k++) {
               if (obj.files[k]) {
-                obj.files[k].imagePath = outreachJSON.file_formats[obj.files[k].format] ? outreachJSON.file_formats[obj.files[k].format].imagePath : outreachJSON.file_formats.default.imagePath
-                obj.files[k].label = outreachJSON.file_types[obj.files[k].type] ? outreachJSON.file_types[obj.files[k].type].label : outreachJSON.file_types.default.label
+                let format = obj.files[k].format ? obj.files[k].format.toLowerCase() : "";
+                let type = obj.files[k].type ? obj.files[k].type.toLowerCase() : "";
+                obj.files[k].imagePath = outreachJSON.file_formats[format] ? outreachJSON.file_formats[format].imagePath : outreachJSON.file_formats.default.imagePath;
+                obj.files[k].label = outreachJSON.file_types[type] ? outreachJSON.file_types[type].label : outreachJSON.file_types.default.label;
               }
             }
           }
@@ -190,19 +192,23 @@ function outreachArraySort(a, b) {
  **/
  function outreachArrayFilter(a) {
     let nofilterApplied = true;
+    let applFilters = [];
 
     for (let i = 0; i < appliedFilters.length; i++) {
       if (appliedFilters[i] && appliedFilters[i].selected &&  appliedFilters[i].selected.length > 0) {
         nofilterApplied = false;
+        applFilters[i] = false
         for (let j = 0; j < appliedFilters[i].selected.length; j++) {
           if (a.filterOptions && a.filterOptions.length > 0) {
-            if (a.filterOptions.includes(appliedFilters[i].selected[j]))
-              return true;
+            if (a.filterOptions.includes(appliedFilters[i].selected[j])) {
+              applFilters[i] = true;
+              continue;
+            }
           }
         }
       }
     }
-    return nofilterApplied;
+    return nofilterApplied || applFilters.every(fl => fl === true);
 }
 
   const handleFilterChange = newFilter => {

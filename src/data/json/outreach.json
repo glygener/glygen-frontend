@@ -1,14 +1,19 @@
 {    
   "funding": {
-    "GlyGen U24": {
-      "id": "GlyGen U24",
-      "label": "GlyGen U24",
+    "GlyGen U01": {
+      "id": "GlyGen U01",
+      "label": "GlyGen U01 (2017-2023)",
       "order": 1
+    },
+    "GlyGen R24": {
+      "id": "GlyGen R24",
+      "label": "GlyGen R24 (2022-2027)",
+      "order": 2
     },
     "CFDE": {
       "id": "CFDE",
       "label": "CFDE",
-      "order": 2
+      "order": 3
     },
     "default": {
       "id": "default",
@@ -25,6 +30,10 @@
       "id": "poster",
       "label": "Poster"
     },
+    "youtube": {
+      "id": "youtube",
+      "label": "YouTube"
+    },
     "default": {
       "id": "default",
       "label": "File"
@@ -38,6 +47,10 @@
     "ppt": {
       "id": "ppt",
       "imagePath": "PPT_file.png"
+    },
+    "youtube": {
+      "id": "youtube",
+      "imagePath": "youtube_file.png"
     },
     "default": {
       "id": "default",
