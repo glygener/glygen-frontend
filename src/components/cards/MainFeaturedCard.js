@@ -9,6 +9,7 @@ import PersonPinCircleOutlinedIcon from "@mui/icons-material/PersonPinCircleOutl
 // import FormatQuoteOutlinedIcon from "@mui/icons-material/FormatQuoteOutlined";
 import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 import cfdeIcon from "../../images/icons/CFDE-logo.png";
+import demo from "../../images/icons/demo.png";
 import glyspaceIcon from "../../images/icons/glyspace-logo.png";
 import routeConstants from "../../data/json/routeConstants.json";
 import { Link } from "react-router-dom";
@@ -67,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainFeaturedCard(props) {
   const classes = useStyles();
   const { post } = props;
+  const demoForm = "https://docs.google.com/forms/d/e/1FAIpQLSdUwz7SiTD9f0uEieTjHIqBllY5OTfEa0G1SiitQmrbMVEhUw/viewform";
 
   return (
     <Paper className={classes.mainFeaturedCard} style={{ backgroundImage: `url(${post.image})` }}>
@@ -88,6 +90,24 @@ export default function MainFeaturedCard(props) {
         {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
         <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
+          <div className="btn-outline-white">
+              <a href={demoForm} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-blue text-start">
+                <span
+                  style={{
+                    paddingRight: "15px",
+                    paddingLeft: "5px"
+                  }}
+                  class="pagination-centered"
+                >
+                  <Image
+                    className="img-home"
+                    src={demo}
+                    alt={"cfde icon"}
+                  />
+                </span>                
+                Schedule A Demo
+              </a>
+            </div>
             <div className="btn-outline-white">
               <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
