@@ -34,6 +34,8 @@
   "motifDetail": "/motif/",
   "idMapping": "/mapper/",
   "idMappingResult": "/mapper-result/",
+  "isoformMapping": "/isoform-mapper/",
+  "isoformMappingResult": "/isoform-mapper-result/",
   "superSearch": "/super-search/",
   "publicationDetail": "/publication/",
   "publicationDetailPubMed": "/publication/PubMed/",

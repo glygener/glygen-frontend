@@ -363,6 +363,7 @@ const MotifDetail = (props) => {
               glymagesvg_accession={row.glytoucan_ac}
               glymagesvg_annotation = {"MotifAlignments." + id}
               glymagesvg_marker1=""
+              glymagesvg_substclass = "glymagesvg_high_opacity"
           />
         </div>
       ),

@@ -1221,6 +1221,26 @@
         "shortName": "Annotation",
         "tooltip": " site annotation Information for selected Protein accession"
       },
+      "details": {
+        "id": "details",
+        "name": "Details"
+      },
+      "id": {
+        "id": "id",
+        "name": "ID"
+      },
+      "species_name": {
+        "id": "species_name",
+        "name": "Species"
+      },
+      "common_name": {
+        "id": "common_name",
+        "name": "Common Name"
+      },
+      "taxid": {
+        "id": "taxid",
+        "name": "Tax ID"
+      },
       "term": {
         "id": "term"
       },

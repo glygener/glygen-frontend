@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 import motifList from "../../data/json/motif_mapping.json";
 import enzyme from "../../data/json/enzyme_mapping.json";
 import GlycanViewerTooltip from "../tooltip/GlycanViewerTooltip";
+import { Col, Row } from "react-bootstrap";
 import routeConstants from "../../data/json/routeConstants";
 
 /**
@@ -148,7 +149,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
   }
 
   const ChildNodesResidue = ({childrenList, parentIndex}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
           <div>
             <FormControlLabel
@@ -175,8 +176,8 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
       </Box>
     </>);
 
-  const ChildNodesEnzyme = ({childrenList, parentIndex}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
+  const ChildNodesEnzyme = ({childrenList}) => (<>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
           <div>
             <FormControlLabel
@@ -201,7 +202,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
      </>);
 
    const ChildNodesMotif = ({childrenList}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "scroll" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
           <div>
             <FormControlLabel
@@ -231,28 +232,37 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
 
   return (
     <div>
-        <Accordion style={{maxHeight: "400px"}} defaultExpanded={true} disableGutters={true} expanded={expanded === 'residues'} onChange={handleChange('residues')}>
+        <Accordion defaultExpanded={true} disableGutters={true} expanded={expanded === 'residues'} onChange={handleChange('residues')}>
           <AccordionSummary
-            style={{backgroundColor: "#f5f8fa", height: "50px"}}
+            style={{backgroundColor: "#f5f8fa"}}
             expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            classes={{
+              content:"acc-summary"
+            }}
           >
-            <Typography className="gg-blue-color">Residues</Typography>
-            <div className="text-end gg-download-btn-width pe-1">
-              <Button
-                type="button"
-                className="gg-btn-blue"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  residueClear();
-                }}
-              >
-                Clear
-              </Button>
-            </div>
+            <Row>
+              <Col>
+                <Typography className="gg-blue-color pt-1">Residues</Typography>
+              </Col>
+              <Col>
+                <div className="text-end gg-download-btn-width 1pe-1">
+                  <Button
+                    type="button"
+                    className="gg-btn-blue"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      residueClear();
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </AccordionSummary>
-          <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
+          <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
             {resParentList.map((resParent, index) => (<>
                 <div>
                   <FormControlLabel
@@ -282,54 +292,72 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
           </AccordionDetails>
         </Accordion>
 
-        <Accordion style={{maxHeight: "400px"}} disableGutters={true} expanded={expanded === 'motifs'} onChange={handleChange('motifs')}>
+        <Accordion disableGutters={true} expanded={expanded === 'motifs'} onChange={handleChange('motifs')}>
           <AccordionSummary
-            style={{backgroundColor: "#f5f8fa", height: "50px"}}
+            style={{backgroundColor: "#f5f8fa"}}
             expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            classes={{
+              content:"acc-summary"
+            }}
           >
-            <Typography className="gg-blue-color">Motifs</Typography>
-            <div className="text-end gg-download-btn-width pe-1">
-              <Button
-                type="button"
-                className="gg-btn-blue"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  motifClear();
-                }}
-              >
-                Clear
-              </Button>
-            </div>
+            <Row>
+              <Col>
+                <Typography className="gg-blue-color pt-1">Motifs</Typography>
+              </Col>
+            <Col> 
+              <div className="text-end gg-download-btn-width">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    motifClear();
+                  }}
+                >
+                  Clear
+                </Button>
+              </div>
+            </Col>
+            </Row>
           </AccordionSummary>
-          <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
+          <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
           {motifList && motifList.length > 0 && <ChildNodesMotif childrenList = {motifList}/>}
         </AccordionDetails>
       </Accordion>
 
-      <Accordion style={{maxHeight: "400px"}} disableGutters={true} expanded={expanded === 'enzymes'} onChange={handleChange('enzymes')}>
+      <Accordion disableGutters={true} expanded={expanded === 'enzymes'} onChange={handleChange('enzymes')}>
         <AccordionSummary
-          style={{backgroundColor: "#f5f8fa", height: "50px"}}
+          style={{backgroundColor: "#f5f8fa"}}
           expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          classes={{
+            content:"acc-summary"
+          }}
         >
-          <Typography className="gg-blue-color">Enzymes</Typography>
-          <div className="text-end gg-download-btn-width pe-1">
-            <Button
-              type="button"
-              className="gg-btn-blue"
-              onClick={(e) => {
-                e.stopPropagation();
-                enzymeClear();
-              }}
-            >
-              Clear
-            </Button>
-          </div>
+          <Row>
+            <Col>
+              <Typography className="gg-blue-color pt-1">Enzymes</Typography>
+            </Col>
+            <Col>
+              <div className="text-end gg-download-btn-width">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    enzymeClear();
+                  }}
+                >
+                  Clear
+                </Button>
+              </div>
+            </Col>
+          </Row>
         </AccordionSummary>
-        <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
+        <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
           {enzParentList.map((enzParent, index) => (<>
               <div>
                 <FormLabel component="legend"><strong>{enzParent.tax_common_name}</strong></FormLabel>

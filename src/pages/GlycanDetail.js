@@ -10,10 +10,12 @@ import { getTitle, getMeta } from "../utils/head";
 import { Grid } from "@mui/material";
 import { Col, Row, Image } from "react-bootstrap";
 import { FiBookOpen } from "react-icons/fi";
-import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
+import { groupEvidences, groupOrganismEvidences, groupOrganismEvidencesTableView } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientExpandableTable from "../components/ClientExpandableTable"
+import CollapsibleTextTableView from "../components/CollapsibleTextTableView"
 import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -36,7 +38,7 @@ import { axiosError } from "../data/axiosError";
 import Button from "react-bootstrap/Button";
 import stringConstants from "../data/json/stringConstants";
 import { Link } from "react-router-dom";
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert, AlertTitle, Link as LinkMUI } from "@mui/material";
 import { Tab, Tabs, Container, NavDropdown, Navbar, Nav } from "react-bootstrap";
 import CollapsableReference from "../components/CollapsableReference";
 import DirectSearch from "../components/search/DirectSearch.js";
@@ -155,7 +157,6 @@ function addCommas(nStr) {
 
 const getItemsCrossRefWithCategory = (data) => {
   let itemscrossRefCategory = [];
-
   //check data.
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {
@@ -274,6 +275,15 @@ const GlycanDetail = props => {
       catInd: [0]
     }
     );
+
+    const [orgExpandedRow, setOrgExpandedRow] = useReducer(
+      (state, newState) => ({
+        ...state, 
+        ...newState,
+      }),{
+        orgArr: []
+      }
+      );
 
   // let history;
 
@@ -737,7 +747,7 @@ const GlycanDetail = props => {
       };
     });
   };
-  const organismEvidence = groupOrganismEvidences(species);
+  const organismEvidence = groupOrganismEvidencesTableView(species);
   const sortedPublication = (publication && publication.length
     ? [...publication]
     : []
@@ -831,6 +841,157 @@ const GlycanDetail = props => {
       )
     }
   ];
+
+  function expandCloseTableRow(id, expand) {
+    let orgExp = orgExpandedRow;
+    if (expand) {
+      orgExp.orgArr.push(id);
+      setOrgExpandedRow(orgExp)
+    } else {
+      orgExp.orgArr = orgExp.orgArr.filter(org => org !== id);
+      setOrgExpandedRow(orgExp)
+    }  
+  }
+
+  const glycoOrganismColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      // sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.uniprot_canonical_ac}
+            evidences={cell}
+          />
+        );
+      }
+    },
+    {
+      dataField: "common_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.common_name}
+          {" "}
+          <DirectSearch
+            text={glycanDirectSearch.organism.text}
+            searchType={"glycan"}
+            fieldType={glycanStrings.organism.id}
+            fieldValue={{
+              organism_list: [
+                {
+                  name: row.common_name,
+                  id: row.taxid,
+                }
+              ],
+              annotation_category: "",
+              operation: "or"
+            }}
+            executeSearch={glycanSearch}
+          />
+        </>
+      )
+    },
+    {
+      dataField: "details",
+      text: glycanStrings.details.name,
+      // sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "35%" };
+      },
+      formatter: (value, row) => (<>
+          {row.annotation_count && row.species_count && <CollapsibleTextTableView text={`${row.annotation_count} annotations and ${row.species_count} Species`} id={row.common_name} handleCallback={expandCloseTableRow} />}
+        </>)
+    }
+  ];
+
+  const glycoOrganismExpandedColumns = [
+    {
+      dataField: "database",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "id",
+      text: glycanStrings.id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.url ? <LinkMUI href={row.url} target="_blank" rel="noopener noreferrer">
+                {value}
+              </LinkMUI> : 
+          <span>{value}</span>}
+        </>
+      )
+    },
+    {
+      dataField: "name",
+      text: glycanStrings.species_name.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "common_name",
+      text: glycanStrings.common_name.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "taxid",
+      text: glycanStrings.taxid.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value && <LineTooltip text="View details on NCBI">
+            <a
+              href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${value}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            {value}
+            </a>
+          </LineTooltip>}
+        </>
+      )
+    },
+  ];
+
   const glycanBindingProteinColumns = [
     {
       dataField: "evidence",
@@ -1663,7 +1824,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <div>
-                        {glytoucan && glytoucan.glytoucan_ac && (
+                        {glytoucan && glytoucan.glytoucan_ac ? (
                           <>
                             <span>
                               <img
@@ -1725,8 +1886,7 @@ const GlycanDetail = props => {
                                 <> </>
                               )}
                             </div>
-                          </>
-                        )}
+
                         {composition && (
                           <div>
                             <strong>Composition:{" "}</strong>
@@ -1753,7 +1913,7 @@ const GlycanDetail = props => {
                                   {byonic.split('%')[0].trim()}
                               </Col>
                               <Col md="auto" className="ps-0 ms-2">
-                                <ReactCopyClipboard value={"byonic"} />
+                                <ReactCopyClipboard value={byonic.split('%')[0].trim()} />
                               </Col>
                             </Row>
                           </div>
@@ -1862,6 +2022,10 @@ const GlycanDetail = props => {
                             </div>
                           </>
                         )}
+                        </>)
+                          : (
+                            <p className="no-data-msg">{dataStatus}</p>
+                        )}
                       </div>
                     </Card.Body>
                   </Accordion.Collapse>
@@ -1897,7 +2061,7 @@ const GlycanDetail = props => {
                     <Card.Body>
                       <div>
                         {glycanEnzymeList && glycanResidueList && glycanMotifList && (glycanEnzymeList.length > 0 ||  glycanResidueList.length > 0 || glycanMotifList.length > 0) ?
-                          (<Row style={{  height: "500px"}}>
+                          (<Row style={{  minHeight : "495px"}}>
                             <Col 
                               xs={4}
                               sm={4}
@@ -1951,7 +2115,7 @@ const GlycanDetail = props => {
                               lg={8}
                               xl={8}
                               justify={"center"}
-                              className="pe-0 text-center">
+                              className="pe-0 text-center pr-1">
                                 <div style={{"width": "100%", "height": "100%", "margin": "0", "padding": "0"}}>
                                   <div className="content-cen" id="glymagesvg"
                                       glymagesvg_accession={id} 
@@ -1962,6 +2126,9 @@ const GlycanDetail = props => {
                                       glymagesvg_monoclick_highlights_parent_link="true"
                                       glymagesvg_monoclick_highlights_related_monos="true"
                                       glymagesvg_clicktarget="remote_element"
+                                      glymagesvg_parentlinkclass="glymagesvg_low_opacity"
+                                      glymagesvg_parentlinkinfoclass="glymagesvg_high_opacity_anomer"
+                                      glymagesvg_substclass = "glymagesvg_high_opacity"
                                   />
                                 </div>
                             </Col>
@@ -2052,57 +2219,14 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <Row>
-                        {organismEvidence &&
-                          // For every organism object
-                          Object.keys(organismEvidence).map(orgEvi => (
-                            // For every database for current organism object
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={6}
-                              lg={6}
-                              xl={6}
-                              style={{ marginBottom: "10px" }}
-                              key={orgEvi}
-                            >
-                              <>
-                                <strong>{orgEvi}</strong> {"("}
-                                <span className="text-capitalize">
-                                  {organismEvidence[orgEvi].common_name}
-                                </span>
-                                {")"} {"["}
-                                <LineTooltip text="View details on NCBI">
-                                  <a
-                                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {organismEvidence[orgEvi].taxid}
-                                  </a>
-                                </LineTooltip>
-                                {"]"}{" "}
-                                <DirectSearch
-                                  text={glycanDirectSearch.organism.text}
-                                  searchType={"glycan"}
-                                  fieldType={glycanStrings.organism.id}
-                                  fieldValue={{
-                                    organism_list: [
-                                      {
-                                        name: orgEvi,
-                                        id: organismEvidence[orgEvi].taxid
-                                      }
-                                    ],
-                                    annotation_category: "",
-                                    operation: "or"
-                                  }}
-                                  executeSearch={glycanSearch}
-                                />
-                                <EvidenceList
-                                  evidences={organismEvidence[orgEvi].evidence}
-                                />
-                              </>
-                            </Col>
-                          ))}
+                         {organismEvidence && <ClientExpandableTable
+                            data={organismEvidence}
+                            orgExpandedRow={orgExpandedRow}
+                            columns={glycoOrganismColumns}
+                            expandableTableColumns={glycoOrganismExpandedColumns}
+                            defaultSortField={"name"}
+                            onClickTarget={"#motif"} 
+                          /> }
                         {!species && (
                           <p className="no-data-msg">{dataStatus}</p>
                         )}
@@ -2111,6 +2235,7 @@ const GlycanDetail = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
               {/*  Names */}
               <Accordion
                 id="Names"

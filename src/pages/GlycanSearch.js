@@ -645,12 +645,18 @@ const GlycanSearch = (props) => {
 									? 'or'
 									: data.cache_info.query.organism.operation,
 							glyOrganisms:
-								data.cache_info.query.organism === undefined
+								data.cache_info.query.organism === undefined || data.cache_info.query.organism.organism_list.map(
+										org => {
+											return initData.organism.find(initOrg => {
+												return initOrg.name === org.name;
+											});
+										}
+									)[0] === undefined
 									? []
 									: data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.id === org.id;
+												return initOrg.name === org.name;
 											});
 										}
 									),
@@ -993,9 +999,9 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
+						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
-					setPageLoading(false);
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);

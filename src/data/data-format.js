@@ -30,6 +30,77 @@ export function groupOrganismEvidences(values) {
 	return groupedEvidences;
 }
 
+export function groupOrganismEvidencesTableView(values) {
+	var groupedEvidences = [];
+
+	if (!values) {
+		return groupedEvidences;
+	}
+
+	let order = 0;
+	for (const s of values) {
+
+		let grEve = groupedEvidences.find(obj => obj.common_name == s.common_name);
+
+		if (grEve) {
+			continue;
+		}
+
+		let spArray = values.filter(obj => obj.common_name == s.common_name);
+		order++;
+		let obj = {
+			common_name: s.common_name,
+			evidence: [],
+			expanded_table: [],
+			species_count: spArray.length,
+			annotation_count: 0,
+			order: order
+		}
+
+		for (const sp of spArray) {
+			let expTableRow = [];
+			let arr = [];
+			obj.taxid = sp.taxid;
+			for (const e of sp.evidence) {
+				if (e.database in obj.evidence) {
+					if (arr[e.database] && !(e.id in arr[e.database])) {
+						obj["evidence"][e.database].push({
+							id: e.id,
+							url: e.url,
+						});
+						arr[e.database].push(e.id)
+					}
+				} else {
+					obj["evidence"][e.database] = [
+						{
+							id: e.id,
+							url: e.url,
+						},
+					];
+					arr[e.database] = [e.id]
+				}
+
+				obj.annotation_count++;
+				order++;
+
+				expTableRow.push({
+					database: e.database,
+					name: sp.name,
+					common_name: s.common_name,
+					taxid: sp.taxid,
+					id: e.id,
+					url: e.url,
+					order: order
+				})
+			}
+			obj.expanded_table.push(...expTableRow);
+		}
+
+		groupedEvidences.push(obj);
+	}
+	return groupedEvidences;
+}
+
 export function groupEvidences(values) {
 	var groupedEvidences = {};
 
