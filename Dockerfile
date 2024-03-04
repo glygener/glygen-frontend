@@ -13,7 +13,6 @@ RUN npm install --silent
 RUN npm install google-maps-react@2.0.6 --silent --legacy-peer-deps
 RUN npm install react-bootstrap-table-next@4.0.3 --silent --legacy-peer-deps
 RUN npm install react-bootstrap-table2-paginator@2.1.2 --silent --legacy-peer-deps
-RUN npm install react-bootstrap-table2-editor@1.4.0 --silent --legacy-peer-deps
 RUN npm install react-html-parser@2.0.2 --silent --legacy-peer-deps
 RUN npm install react-magnific-popup@1.0.1 --silent --legacy-peer-deps
 RUN npm install react-router-sitemap@1.2.0 --silent --legacy-peer-deps
