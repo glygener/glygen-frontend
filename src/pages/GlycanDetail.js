@@ -160,6 +160,11 @@ const getItemsCrossRefWithCategory = (data) => {
   //check data.
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {
+      if (crossrefitem.categories === undefined) {
+        crossrefitem.categories = [
+          "Other"
+        ]
+      }
       for (let category of crossrefitem.categories) {
         let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
         if (!categoryItem) {
@@ -971,7 +976,7 @@ const GlycanDetail = props => {
     },
     {
       dataField: "taxid",
-      text: glycanStrings.taxid.name,
+      text: proteinStrings.tax_id.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
