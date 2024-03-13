@@ -85,6 +85,12 @@ Steps for deploying source code to a server with maven script.
       make -f MakeFile prod
       sudo systemctl start docker-glygen-frontend.service
       ```
+      + For AWS server:
+      ```
+      sudo systemctl stop docker-glygen-frontend.service
+      make -f MakeFile aws
+      sudo systemctl start docker-glygen-frontend.service
+      ```
   You'll receive a message, stating "Creating glygen-frontend-dev/glygen-frontend-test/glygen-frontend-beta/glygen-frontend ... done" and a list of deleted dangling images. If this is not the message, please contact your supervisor or Rene.
 
 + Exit the server
