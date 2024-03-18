@@ -339,6 +339,12 @@
         "id": "common_name",
         "name": "Common Name"
       },
+      "motif_name_recommended": {
+        "name": "Motif Name (Recommended)"
+      },
+      "motif_name_synonym": {
+        "name": "Motif Name (Synonyms)"
+      },
       "composition": {
         "id": "composition",
         "hex": {

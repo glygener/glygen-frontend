@@ -110,9 +110,11 @@ const BlastResult = (props) => {
                 "evalue_identities_val": {evalue : evalue, identities_val : identities_val},
                 "identities_val": parseInt(obj.identities.slice(obj.identities.indexOf("(")+1, obj.identities.indexOf("%"))),
                 "uniprot_ac": seqObj.uniprot_ac,
+                "uniprot_canonical_ac": data.by_subject[protID].details.uniprot_canonical_ac,
                 "uniprot_id": seqObj.uniprot_id,
                 "protein_name": data.by_subject[protID].details.protein_name,
                 "gene_name": data.by_subject[protID].details.gene_name,
+                "common_name": data.by_subject[protID].details.species.common_name,
                 "tax_name": seqObj.tax_name,
                 "tax_id": seqObj.tax_id,
                 "start_pos": seqObj.start_pos,
@@ -169,7 +171,7 @@ const BlastResult = (props) => {
       formatter: (value, row) => (
         <>
         <LineTooltip text="View details">
-          <Link to={routeConstants.proteinDetail + value}>
+          <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
             {value}
           </Link>
         </LineTooltip>
@@ -211,7 +213,7 @@ const BlastResult = (props) => {
       sort: true,
     },
     {
-      dataField: "tax_name",
+      dataField: "common_name",
       text: blastSearch.organism.name,
       sort: true,
     },

@@ -297,9 +297,9 @@ const BlastSearch = (props) => {
             if (response.data["status"].result_count && response.data["status"].result_count > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
+                  setDialogLoading(false);
                   navigate(routeConstants.blastResult + response.data["jobid"]);
                 });
-                setDialogLoading(false);
               } else {
                 logActivity("user", "", "User canceled job. " + message);
               }
@@ -351,9 +351,9 @@ const BlastSearch = (props) => {
             if (response.data["result_count"] && response.data["result_count"] > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
+                  setDialogLoading(false);
                   navigate(routeConstants.blastResult + jobID);
                 });
-                setDialogLoading(false);
               } else {
                 logActivity("user", "", "User canceled job. " + message);
               }

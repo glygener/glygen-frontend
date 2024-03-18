@@ -207,6 +207,7 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
+            setPageLoading(false);
             navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
@@ -482,11 +483,11 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
+            setPageLoading(false);
             navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
           });
-          setPageLoading(false);
         } else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);
@@ -707,11 +708,11 @@ const ProteinSearch = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
+            setPageLoading(false);
             navigate(
               routeConstants.proteinList + response.data["list_id"]
             );
           });
-          setPageLoading(false);
         } else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);

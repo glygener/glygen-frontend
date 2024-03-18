@@ -205,6 +205,7 @@ const SiteSearch = (props) => {
         if (listId) {
           logActivity("user", (props.searchId || "") + ">" + listId, message)
 					.finally(() => {	
+            setPageLoading(false);
             window.location = routeConstants.siteList + listId;
 					});
         } else {

@@ -410,6 +410,8 @@ const ProteinDetail = (props) => {
       catInd: [0]
     }
     );
+  const [sequenceFeatures, setSequenceFeatures] = useState(undefined);
+
 
   useEffect(() => {
     setNonExistent(null);
@@ -750,6 +752,11 @@ const ProteinDetail = (props) => {
           const ptmEvidence = data.ptm_annotation.filter((item) => item.annotation);
           setPtmAnnotation(ptmEvidence);
         }
+
+        if (data.sequence_features) {
+          setSequenceFeatures(data.sequence_features)
+        }
+
         setPageLoading(false);
         setDataStatus("No data available.");
       }
@@ -1822,9 +1829,9 @@ const ProteinDetail = (props) => {
       .then((response) => {
         if (response.data["list_id"] !== "") {
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
+            setPageLoading(false);
             navigate(routeConstants.proteinList + response.data["list_id"]);
           });
-          setPageLoading(false);
         } else {
           let error = {
             response: {
@@ -2665,7 +2672,7 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {(geneNames && geneNames.length) || (proteinNames && proteinNames.length) ? (
-                        <ul className="list-style-none">
+                        <ul className="list-style-none mb-0">
                           {geneNames && geneNames.length ? (
                             <>
                               {recommendedGeneRows && recommendedGeneRows.length > 0 && (
@@ -2798,7 +2805,7 @@ const ProteinDetail = (props) => {
                       <Grid container className="content-box">
                         <Grid item>
                           <div>
-                            {detailData.sequence && (
+                            {detailData.sequence && sequenceFeatures && (
                               <SequenceViewer
                                 sequenceObject={[
                                   {
@@ -2810,13 +2817,15 @@ const ProteinDetail = (props) => {
                                 details={[
                                   {
                                     uniprot_canonical_ac: uniprot.uniprot_canonical_ac,
-                                    glycosylation: detailData.glycosylation,
-                                    snv: detailData.snv,
-                                    site_annotation: detailData.site_annotation,
-                                    phosphorylation: detailData.phosphorylation,
-                                    glycation: detailData.glycation,
+                                    n_glycosylation: sequenceFeatures.n_linked_sites,
+                                    o_glycosylation: sequenceFeatures.o_linked_sites,
+                                    snv: sequenceFeatures.snv_sites,
+                                    site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                    phosphorylation: sequenceFeatures.phosphorylation_sites,
+                                    glycation: sequenceFeatures.glycation_sites,
                                   },
                                 ]}
+                                flatDataStructure={true}
                                 multiSequence={false}
                                 selectedHighlights={selectedHighlights}
                                 sequenceSearchText={sequenceSearchText}
@@ -2825,7 +2834,7 @@ const ProteinDetail = (props) => {
                           </div>
                         </Grid>
                         <Grid item className="content-active">
-                          {detailData.sequence && (
+                          {detailData.sequence && sequenceFeatures && (
                             <SequenceHighlighter
                               sequenceObject={[
                                 {
@@ -2837,13 +2846,15 @@ const ProteinDetail = (props) => {
                               details={[
                                 {
                                   uniprot_canonical_ac: uniprot.uniprot_canonical_ac,
-                                  glycosylation: detailData.glycosylation,
-                                  snv: detailData.snv,
-                                  site_annotation: detailData.site_annotation,
-                                  phosphorylation: detailData.phosphorylation,
-                                  glycation: detailData.glycation,
+                                  n_glycosylation: sequenceFeatures.n_linked_sites,
+                                  o_glycosylation: sequenceFeatures.o_linked_sites,
+                                  snv: sequenceFeatures.snv_sites,
+                                  site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                  phosphorylation: sequenceFeatures.phosphorylation_sites,
+                                  glycation: sequenceFeatures.glycation_sites,
                                 },
                               ]}
+                              flatDataStructure={true}
                               showNumbers={true}
                               selectedHighlights={selectedHighlights}
                               setSelectedHighlights={setSelectedHighlights}

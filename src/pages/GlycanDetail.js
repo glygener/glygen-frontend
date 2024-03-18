@@ -259,6 +259,8 @@ const GlycanDetail = props => {
   const [glycanEnzymeList, setGlycanEnzymeList] = useState([]);
   const [glycanMotifList, setGlycanMotifList] = useState([]);
   const [glycanResidueList, setGlycanResidueList] = useState([]);
+  const [recommendedMotifRows, setRecommendedMotifRows] = useState([]);
+  const [synonymMotifRows, setSynonymMotifRows] = useState([]);
   const [checkedResidue, setCheckedResidue] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { }
@@ -334,6 +336,8 @@ const GlycanDetail = props => {
           if (jsonData && jsonData.annotations) {
             if (jsonData.annotations.Enzyme) {
               let enzMap = new Map();
+              let enzMissing = [];
+
               for (let i = 0; i < enzyme.length; i ++) {
                 enzMap.set(enzyme[i].id, enzyme[i]);
               }
@@ -346,6 +350,7 @@ const GlycanDetail = props => {
                   let temp = {};
                   let enz = enzMap.get(glEnz[i]);
                   if (!enz) {
+                    enzMissing.push(glEnz[i]);
                     continue;
                   }
                   let tmp1 = undefined;
@@ -367,6 +372,11 @@ const GlycanDetail = props => {
                     enzList.push(temp)
                   }
                 }
+              }
+
+              if (enzMissing.length > 0) {
+                let message = "Missing enzymes in map file: " + enzMissing.join(", ");
+                logActivity("user", id, message);
               }
               setGlycanEnzymeList(enzList);
             }
@@ -447,7 +457,6 @@ const GlycanDetail = props => {
                 let message = "Missing residues in map file: " + residueMissing.join(", ");
                 logActivity("user", id, message);
               }
-
               setGlycanResidueList(resList);
             }
           }
@@ -554,6 +563,13 @@ const GlycanDetail = props => {
           let publ = data.section_stats.filter(obj => obj.table_id === "publication");
           let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
           setPublicationTotal(publStat[0].count);
+        }
+
+        if (detailDataTemp.names) {
+          let motifRecNames = detailDataTemp.names.filter(motifRec => motifRec.domain === "motifname").map(obj => obj.name);
+          let motifSynNames = detailDataTemp.names.filter(motifRec => motifRec.domain === "motifsynonym").map(obj => obj.name);
+          setRecommendedMotifRows(motifRecNames);
+          setSynonymMotifRows(motifSynNames);
         }
 
         setItemsCrossRef(getItemsCrossRefWithCategory(detailDataTemp));
@@ -833,7 +849,7 @@ const GlycanDetail = props => {
     },
 
     {
-      dataField: "tax_name",
+      dataField: "tax_common_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -841,7 +857,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {row.tax_name}
+          {row.tax_common_name}
         </>
       )
     }
@@ -893,8 +909,7 @@ const GlycanDetail = props => {
             fieldValue={{
               organism_list: [
                 {
-                  name: row.common_name,
-                  id: row.taxid,
+                  common_name: row.common_name,
                 }
               ],
               annotation_category: "",
@@ -1151,7 +1166,7 @@ const GlycanDetail = props => {
     },
 
     {
-      dataField: "tax_name",
+      dataField: "tax_common_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -1159,9 +1174,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {row.tax_name} {"("}
           <span className="text-capitalize">{row.tax_common_name}</span>
-          {")"}
         </>
       )
     }
@@ -1544,11 +1557,11 @@ const GlycanDetail = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
+            setPageLoading(false);
             navigate(
               routeConstants.glycanList + response.data["list_id"]
             );
           });
-          setPageLoading(false);
         } else {
           let error = {
             response: {
@@ -2224,7 +2237,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <Row>
-                         {organismEvidence && <ClientExpandableTable
+                         {organismEvidence && organismEvidence.length > 0 && <ClientExpandableTable
                             data={organismEvidence}
                             orgExpandedRow={orgExpandedRow}
                             columns={glycoOrganismColumns}
@@ -2268,17 +2281,36 @@ const GlycanDetail = props => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {names && names.length ? (
-                        <ul className="list-style-none">
-                          {names.map(nameObject => (
-                            <li key={nameObject.domain}>
-                              <b>{nameObject.domain}</b>: {nameObject.name}
-                            </li>
-                          ))}
+                      <>
+                      {(names && names.length) ? (
+                        <ul className="list-style-none mb-0">
+                            <>
+                              {recommendedMotifRows && recommendedMotifRows.length > 0 && (
+                                <>
+                                  <strong>{glycanStrings.motif_name_recommended.name}</strong>
+                                  {recommendedMotifRows.map(nameObject => (
+                                    <li key={nameObject}>
+                                      <ul><li>{nameObject}</li></ul>
+                                    </li>
+                                  ))}
+                                </>
+                              )}
+                              {synonymMotifRows && synonymMotifRows.length > 0 && (
+                                <>
+                                  <strong>{glycanStrings.motif_name_synonym.name}</strong>
+                                  {synonymMotifRows.map(nameObject => (
+                                    <li key={nameObject}>
+                                      <ul><li>{nameObject}</li></ul>
+                                    </li>
+                                  ))}
+                                </>
+                              )}
+                            </>
                         </ul>
                       ) : (
                         <p>{dataStatus}</p>
                       )}
+                      </>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

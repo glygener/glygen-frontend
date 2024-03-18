@@ -106,6 +106,7 @@ const ProteinList = props => {
     }
     setPage(page);
     setSizePerPage(sizePerPage);
+    setPageLoading(true);
     getProteinList(
       id,
       (page - 1) * sizePerPage + 1,

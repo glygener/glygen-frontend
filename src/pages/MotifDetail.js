@@ -522,7 +522,7 @@ const MotifDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <p>
-                        {motif && motif.accession && (
+                        {motif && motif.accession ? (
                           <>
                             <p>
                               <img
@@ -544,7 +544,7 @@ const MotifDetail = (props) => {
                               </a>
                             </div>
                             <div>
-                              {motifSynonym && motifSynonym.length > 0 ? (
+                              {motifSynonym && motifSynonym.length > 0 && (
                                 <>
                                   <Row>
                                     <Col Col md="auto" className="pr-0">
@@ -569,8 +569,6 @@ const MotifDetail = (props) => {
                                     </Col>
                                   </Row>
                                 </>
-                              ) : (
-                                <></>
                               )}
                             </div>
                             <div>
@@ -584,6 +582,8 @@ const MotifDetail = (props) => {
                               {mass} Da
                             </div>
                           </>
+                        ) : (
+                          <span>{dataStatus}</span>
                         )}
                         {classification &&
                           classification.length > 0 &&
@@ -737,7 +737,7 @@ const MotifDetail = (props) => {
                           dataId={id}
                           itemType="motif_section"
                           showBlueBackground={true}
-                          enable={selectedColumns && selectedColumns.length > 0}
+                          enable={data && data.length > 0}
                         />
                       </span>
 
@@ -746,7 +746,7 @@ const MotifDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {selectedColumns && selectedColumns.length !== 0 && (
+                      {data && data.length > 0 ? (
                         <PaginatedTable
                           trStyle={rowStyleFormat}
                           data={data}
@@ -759,7 +759,10 @@ const MotifDetail = (props) => {
                           defaultSortField="glytoucan_ac"
                           idField="glytoucan_ac"
                         />
-                      )}
+                      ): (
+                        <span>{dataStatus}</span>
+                      )
+                      }
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

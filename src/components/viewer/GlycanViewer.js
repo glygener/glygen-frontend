@@ -263,7 +263,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
             </Row>
           </AccordionSummary>
           <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-            {resParentList.map((resParent, index) => (<>
+            {resParentList && resParentList.length > 0 ? (resParentList.map((resParent, index) => (<>
                 <div>
                   <FormControlLabel
                     className="feature-view-label"
@@ -288,7 +288,10 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
                   />
                 </div>
                 {resParent.children && resParent.children.length > 0 && <ChildNodesResidue childrenList={resParent.children} parentIndex={index}/>}
-              </>))}
+              </>))
+              ) : (
+                <div>{"No data available."}</div>
+            )}
           </AccordionDetails>
         </Accordion>
 
@@ -323,7 +326,10 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
             </Row>
           </AccordionSummary>
           <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-          {motifList && motifList.length > 0 && <ChildNodesMotif childrenList = {motifList}/>}
+          {motifList && motifList.length > 0 ? (<ChildNodesMotif childrenList = {motifList}/>
+            ) : (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
 
@@ -358,13 +364,15 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
           </Row>
         </AccordionSummary>
         <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-          {enzParentList.map((enzParent, index) => (<>
+          {enzParentList && enzParentList.length > 0 ? (enzParentList.map((enzParent, index) => (<>
               <div>
                 <FormLabel component="legend"><strong>{enzParent.tax_common_name}</strong></FormLabel>
               </div>
               <ChildNodesEnzyme childrenList={enzParent.enz_list} parentIndex={index}/>
             </>))
-          }
+            ): (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
     </div>

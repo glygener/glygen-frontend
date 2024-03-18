@@ -642,66 +642,6 @@
         "tax_name": "Homo sapiens"
     },
     {
-        "id": "P16442",
-        "name": "ABO",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "P38649",
-        "name": "Abo",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q812F8",
-        "name": "Mgat4b",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q812G0",
-        "name": "Mgat4a",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q9UM21",
-        "name": "MGAT4A",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q9UQ53",
-        "name": "MGAT4B",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q09328",
-        "name": "MGAT5",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q3V5L5",
-        "name": "MGAT5B",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q765H6",
-        "name": "Mgat5b",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q8R4G6",
-        "name": "Mgat5",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
         "id": "P70277",
         "name": "St6galnac2",
         "tax_common_name": "Mouse",
@@ -774,6 +714,114 @@
         "tax_name": "Mus musculus"
     },
     {
+        "id": "P16442",
+        "name": "ABO",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "P38649",
+        "name": "Abo",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q812F8",
+        "name": "Mgat4b",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q812G0",
+        "name": "Mgat4a",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q9UM21",
+        "name": "MGAT4A",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q9UQ53",
+        "name": "MGAT4B",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q09328",
+        "name": "MGAT5",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q3V5L5",
+        "name": "MGAT5B",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q765H6",
+        "name": "Mgat5b",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q8R4G6",
+        "name": "Mgat5",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q1RLK6",
+        "name": "B3gnt4",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q7Z7M8",
+        "name": "B3GNT8",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q8BGY6",
+        "name": "B3gnt5",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q8R3I9",
+        "name": "B3gnt8",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
+        "id": "Q9BYG0",
+        "name": "B3GNT5",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q9C0J1",
+        "name": "B3GNT4",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q9NY97",
+        "name": "B3GNT2",
+        "tax_common_name": "Human",
+        "tax_name": "Homo sapiens"
+    },
+    {
+        "id": "Q9Z222",
+        "name": "B3gnt2",
+        "tax_common_name": "Mouse",
+        "tax_name": "Mus musculus"
+    },
+    {
         "id": "P23336",
         "name": "Ggta1",
         "tax_common_name": "Mouse",
@@ -796,42 +844,6 @@
         "name": "A3GALT2",
         "tax_common_name": "Human",
         "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q1RLK6",
-        "name": "B3gnt4",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q7Z7M8",
-        "name": "B3GNT8",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q8R3I9",
-        "name": "B3gnt8",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q9C0J1",
-        "name": "B3GNT4",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q9NY97",
-        "name": "B3GNT2",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q9Z222",
-        "name": "B3gnt2",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
     },
     {
         "id": "Q11130",
@@ -866,18 +878,6 @@
     {
         "id": "Q9Y2A9",
         "name": "B3GNT3",
-        "tax_common_name": "Human",
-        "tax_name": "Homo sapiens"
-    },
-    {
-        "id": "Q8BGY6",
-        "name": "B3gnt5",
-        "tax_common_name": "Mouse",
-        "tax_name": "Mus musculus"
-    },
-    {
-        "id": "Q9BYG0",
-        "name": "B3GNT5",
         "tax_common_name": "Human",
         "tax_name": "Homo sapiens"
     },
