@@ -2242,8 +2242,8 @@ const GlycanDetail = props => {
                             orgExpandedRow={orgExpandedRow}
                             columns={glycoOrganismColumns}
                             expandableTableColumns={glycoOrganismExpandedColumns}
-                            defaultSortField={"common_name"}
-                            onClickTarget={"#organism"} 
+                            defaultSortField={"name"}
+                            onClickTarget={"#motif"} 
                           /> }
                         {!species && (
                           <p className="no-data-msg">{dataStatus}</p>
