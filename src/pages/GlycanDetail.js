@@ -1075,8 +1075,8 @@ const GlycanDetail = props => {
             {row.date})
           </div>
           <div>
-            {row.reference.map(ref => (
-              <>
+            {row.reference.map((ref, ind) => (
+              <div key={ind}>
                 <FiBookOpen />
                 <span style={{ paddingLeft: "15px" }}>
                   {ref.type}:
@@ -1093,7 +1093,7 @@ const GlycanDetail = props => {
                   fieldValue={ref.id}
                   executeSearch={glycanSearch}
                 />
-              </>
+              </div>
             ))}
           </div>
           <EvidenceList
@@ -2090,26 +2090,26 @@ const GlycanDetail = props => {
                               className="pe-0">
                               <>
                                 <span id="residues">
-                                  {glycanResidueList.map((parentObj) => (<>
+                                  {glycanResidueList.map((parentObj, resParInd) => (<span key={"enSpan" + resParInd}>
                                     <span id={"Residue." + parentObj.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + parentObj.id}></span>
-                                    {parentObj.children && parentObj.children.length > 0 && parentObj.children.map((child) => (<>
-                                      <span id={"Residue." + child.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + child.id}></span>            
-                                    </>))}
-                                  </>))}
+                                    {parentObj.children && parentObj.children.length > 0 && parentObj.children.map((child, chInd) => (
+                                      <span key={"chSpan" + chInd} id={"Residue." + child.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + child.id}></span>            
+                                    ))}
+                                  </span>))}
                                 </span>
 
                                 <span id="motifs">
-                                  {glycanMotifList.map((parentObj) => (<>
-                                    <span id={"Motif." + parentObj.id} glymagesvg_motifs="motifs" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"MotifAlignments." + parentObj.id}></span>
-                                  </>))}
+                                  {glycanMotifList.map((parentObj, chInd) => (
+                                    <span key={"chSpan" + chInd} id={"Motif." + parentObj.id} glymagesvg_motifs="motifs" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"MotifAlignments." + parentObj.id}></span>
+                                  ))}
                                 </span>
 
                                 <span id="enzymes">
-                                  {glycanEnzymeList.map((parentObj) => (<>
-                                    {parentObj.enz_list && parentObj.enz_list.length > 0 && parentObj.enz_list.map((child) => (<>
-                                      <span id={"EnzymeUniAcc." + child.id} glymagesvg_enzymes="enzymes" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"Enzyme." + child.id}></span>            
-                                    </>))}
-                                  </>))}
+                                  {glycanEnzymeList.map((parentObj, enParInd) => (<span key={"enSpan" + enParInd}>
+                                    {parentObj.enz_list && parentObj.enz_list.length > 0 && parentObj.enz_list.map((child, chInd) => (
+                                      <span key={"chSpan" + chInd} id={"EnzymeUniAcc." + child.id} glymagesvg_enzymes="enzymes" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"Enzyme." + child.id}></span>            
+                                    ))}
+                                  </span>))}
                                 </span>
 
                                 <GlycanViewer 
@@ -3032,7 +3032,7 @@ const GlycanDetail = props => {
                       {itemsCrossRef && itemsCrossRef.length ? (
                         <div>
                           {itemsCrossRef.map((dbItem, catInd) => (
-                            <AccordionMUI disableGutters={true} 
+                            <AccordionMUI disableGutters={true} key={"catDiv" + catInd}
                               expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
                               onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
                             >

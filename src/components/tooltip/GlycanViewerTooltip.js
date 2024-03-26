@@ -97,7 +97,7 @@ GlycanViewerTooltip.propTypes = {
 	urlText: PropTypes.string,
 	glycoMotifUrl: PropTypes.string,
 	imagePath: PropTypes.string,
-	pubChemCompound: PropTypes.string,
+	pubChemCompound: PropTypes.number,
 	pubChemUrl: PropTypes.string,
 	helpIcon: PropTypes.string,
 };
