@@ -640,7 +640,7 @@ const PublicationDetail = (props) => {
     },
     {
       dataField: "common_name",
-      text: glycanStrings.common_name.name,
+      text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
