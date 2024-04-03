@@ -476,6 +476,7 @@ const MotifDetail = (props) => {
                 ]}
                 dataId={id}
                 dataType="motif_detail"
+                itemType="motif_detail"
               />
             </div>
             <React.Fragment>
