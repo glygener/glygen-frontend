@@ -70,7 +70,7 @@ const GlycanQuerySummary = (props) => {
 
   const formatOrganisms = (organism) => {
     if (organism.organism_list) {
-      const organismNames = organism.organism_list.map((item) => item.name);
+      const organismNames = organism.organism_list.map((item) => item.common_name);
       const OrganiOperation = organism.operation.toUpperCase();
       return organismNames.join(` ${OrganiOperation} `);
     }

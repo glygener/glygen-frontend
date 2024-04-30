@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 import motifList from "../../data/json/motif_mapping.json";
 import enzyme from "../../data/json/enzyme_mapping.json";
 import GlycanViewerTooltip from "../tooltip/GlycanViewerTooltip";
+import { Col, Row } from "react-bootstrap";
 import routeConstants from "../../data/json/routeConstants";
 
 /**
@@ -148,9 +149,9 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
   }
 
   const ChildNodesResidue = ({childrenList, parentIndex}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
                 className="feature-view-label"
                 label={child.name}
@@ -175,10 +176,10 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
       </Box>
     </>);
 
-  const ChildNodesEnzyme = ({childrenList, parentIndex}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "scroll" }}>
+  const ChildNodesEnzyme = ({childrenList}) => (<>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -201,9 +202,9 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
      </>);
 
    const ChildNodesMotif = ({childrenList}) => (<>
-      <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "scroll" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -231,30 +232,39 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
 
   return (
     <div>
-        <Accordion style={{maxHeight: "400px"}} defaultExpanded={true} disableGutters={true} expanded={expanded === 'residues'} onChange={handleChange('residues')}>
+        <Accordion defaultExpanded={true} disableGutters={true} expanded={expanded === 'residues'} onChange={handleChange('residues')}>
           <AccordionSummary
-            style={{backgroundColor: "#f5f8fa", height: "50px"}}
+            style={{backgroundColor: "#f5f8fa"}}
             expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            classes={{
+              content:"acc-summary"
+            }}
           >
-            <Typography className="gg-blue-color">Residues</Typography>
-            <div className="text-end gg-download-btn-width pe-1">
-              <Button
-                type="button"
-                className="gg-btn-blue"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  residueClear();
-                }}
-              >
-                Clear
-              </Button>
-            </div>
+            <Row>
+              <Col>
+                <Typography className="gg-blue-color pt-1">Residues</Typography>
+              </Col>
+              <Col>
+                <div className="text-end gg-download-btn-width 1pe-1">
+                  <Button
+                    type="button"
+                    className="gg-btn-blue"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      residueClear();
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </AccordionSummary>
-          <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
-            {resParentList.map((resParent, index) => (<>
-                <div>
+          <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
+            {resParentList && resParentList.length > 0 ? (resParentList.map((resParent, index) => (
+                <div key={"resPadiv" + index}>
                   <FormControlLabel
                     className="feature-view-label"
                     label={resParent.name}
@@ -276,67 +286,93 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
                     wikiLink={resParent.url}
                     imagePath= {"/icons/svg/" + resParent.image}
                   />
-                </div>
+               
                 {resParent.children && resParent.children.length > 0 && <ChildNodesResidue childrenList={resParent.children} parentIndex={index}/>}
-              </>))}
+                </div>))
+              ) : (
+                <div>{"No data available."}</div>
+            )}
           </AccordionDetails>
         </Accordion>
 
-        <Accordion style={{maxHeight: "400px"}} disableGutters={true} expanded={expanded === 'motifs'} onChange={handleChange('motifs')}>
+        <Accordion disableGutters={true} expanded={expanded === 'motifs'} onChange={handleChange('motifs')}>
           <AccordionSummary
-            style={{backgroundColor: "#f5f8fa", height: "50px"}}
+            style={{backgroundColor: "#f5f8fa"}}
             expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            classes={{
+              content:"acc-summary"
+            }}
           >
-            <Typography className="gg-blue-color">Motifs</Typography>
-            <div className="text-end gg-download-btn-width pe-1">
-              <Button
-                type="button"
-                className="gg-btn-blue"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  motifClear();
-                }}
-              >
-                Clear
-              </Button>
-            </div>
+            <Row>
+              <Col>
+                <Typography className="gg-blue-color pt-1">Motifs</Typography>
+              </Col>
+            <Col> 
+              <div className="text-end gg-download-btn-width">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    motifClear();
+                  }}
+                >
+                  Clear
+                </Button>
+              </div>
+            </Col>
+            </Row>
           </AccordionSummary>
-          <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
-          {motifList && motifList.length > 0 && <ChildNodesMotif childrenList = {motifList}/>}
+          <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
+          {motifList && motifList.length > 0 ? (<ChildNodesMotif childrenList = {motifList}/>
+            ) : (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
 
-      <Accordion style={{maxHeight: "400px"}} disableGutters={true} expanded={expanded === 'enzymes'} onChange={handleChange('enzymes')}>
+      <Accordion disableGutters={true} expanded={expanded === 'enzymes'} onChange={handleChange('enzymes')}>
         <AccordionSummary
-          style={{backgroundColor: "#f5f8fa", height: "50px"}}
+          style={{backgroundColor: "#f5f8fa"}}
           expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          classes={{
+            content:"acc-summary"
+          }}
         >
-          <Typography className="gg-blue-color">Enzymes</Typography>
-          <div className="text-end gg-download-btn-width pe-1">
-            <Button
-              type="button"
-              className="gg-btn-blue"
-              onClick={(e) => {
-                e.stopPropagation();
-                enzymeClear();
-              }}
-            >
-              Clear
-            </Button>
-          </div>
+          <Row>
+            <Col>
+              <Typography className="gg-blue-color pt-1">Enzymes</Typography>
+            </Col>
+            <Col>
+              <div className="text-end gg-download-btn-width">
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    enzymeClear();
+                  }}
+                >
+                  Clear
+                </Button>
+              </div>
+            </Col>
+          </Row>
         </AccordionSummary>
-        <AccordionDetails style={{maxHeight: "350px", overflow: "scroll"}}>
-          {enzParentList.map((enzParent, index) => (<>
+        <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
+          {enzParentList && enzParentList.length > 0 ? (enzParentList.map((enzParent, index) => (<div key={"enPadiv" + index}>
               <div>
                 <FormLabel component="legend"><strong>{enzParent.tax_common_name}</strong></FormLabel>
               </div>
               <ChildNodesEnzyme childrenList={enzParent.enz_list} parentIndex={index}/>
-            </>))
-          }
+            </div>))
+            ): (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
     </div>

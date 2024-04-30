@@ -257,6 +257,10 @@ export function glymagesvgInit() {
   var params = {
       imageurl: glycanSvgUrl,
       jsonurl: glycanJsonUrl,
+      parentlinkclass: "glymagesvg_low_opacity",
+      parentlinkinfoclass: "glymagesvg_high_opacity_anomer",
+      highlight_parent_link: "true",
+      imageclass_byannotation: "true",
       cssurl: null
   };
   window.glymagesvg.init(params);

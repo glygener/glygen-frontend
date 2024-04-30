@@ -22,7 +22,7 @@
         "placeholder": "Enter the GlyTouCan Accession"
       },
       "organism": {
-        "examples": ["Homo sapiens"],
+        "examples": ["Human"],
         "placeholder": "Enter the organism"
       },
       "protein": {
@@ -34,7 +34,7 @@
           "P14210",
           "G17689DH",
           "hsa:3082",
-          "Homo sapiens",
+          "Human",
           "Deafness",
           "HGF"
         ],

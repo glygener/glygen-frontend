@@ -53,7 +53,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
             ...seq,
             clickThruUrl: seq.uniprot_ac === ""
               ? undefined
-              : `${basename}${routeConstants.proteinDetail}${seq.id}`,
+              : `${basename}${routeConstants.proteinDetail}${proData.details.uniprot_canonical_ac}`,
             uniprot_ac : seq.uniprot_ac === "" ? seq.id + " " + (i + 1) : seq.uniprot_ac,
             offset: seq.start_pos ? parseInt(seq.start_pos) - 1 : 0,
           })),
@@ -61,7 +61,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
           end_pos: data.end_pos,
           protein_name: proData.details.protein_name,
           gene_name: proData.details.gene_name,
-          species_name: proData.details.species.name,
+          species_name: proData.details.species.common_name,
           evalue: proData.hsp_list[i].evalue,
           score: proData.hsp_list[i].score,
           positives: proData.hsp_list[i].positives,
@@ -69,14 +69,16 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
           identities_val: parseInt(proData.hsp_list[i].identities.slice(proData.hsp_list[i].identities.indexOf("(")+1, proData.hsp_list[i].identities.indexOf("%"))),
           gaps: proData.hsp_list[i].gaps,
           method: proData.hsp_list[i].method,
-          uniprot_canonical_ac: proteinID,
+          uniprot_canonical_ac: proData.details.uniprot_canonical_ac,
+          uniprot_ac: proteinID,
           consensus: proData.hsp_list[i].sequences.find(seq => seq.id === "matches").aln
         });
       }
     } else {
       return;
     }
-      proData.details.uniprot_canonical_ac = proteinID;
+      proData.details.uniprot_canonical_ac = proData.details.uniprot_canonical_ac;
+      proData.details.uniprot_ac = proteinID;
 
       let seqData = [];
       for (let i = 0; i < proData.hsp_list.length; i++) {
@@ -151,7 +153,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
               <SelectControl
                 inputValue={proteinID}
                 setInputValue={(val) => proteinIDChange(val)}
-                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).filter(item => algnData[item].details !== undefined).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.name, id : item}}) : []}
+                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).filter(item => algnData[item].details !== undefined).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.common_name, id : item}}) : []}
                 required={true}
               />
             </FormControl>
@@ -168,7 +170,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
               <strong>{blastSearch.uniprot_canonical_ac.name}: </strong>{" "}
               {<LineTooltip text="View details">
               <Link to={routeConstants.proteinDetail + multiSeque.uniprot_canonical_ac}>
-                {multiSeque.uniprot_canonical_ac}
+                {multiSeque.uniprot_ac}
               </Link>
               </LineTooltip>} {"(" + multiSeque.start_pos + " : " + multiSeque.end_pos +")"}
             </div>

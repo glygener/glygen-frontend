@@ -1413,3 +1413,10 @@ sub {
   margin-right: 8px !important;
   font-size: large !important;
 }
+
+.acc-summary {
+  display: block !important;
+  width: 100%;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}

@@ -386,6 +386,7 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
+						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
 				} else {
@@ -645,12 +646,18 @@ const GlycanSearch = (props) => {
 									? 'or'
 									: data.cache_info.query.organism.operation,
 							glyOrganisms:
-								data.cache_info.query.organism === undefined
+								data.cache_info.query.organism === undefined || data.cache_info.query.organism.organism_list.map(
+										org => {
+											return initData.organism.find(initOrg => {
+												return initOrg.name === org.common_name;
+											});
+										}
+									)[0] === undefined
 									? []
 									: data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.id === org.id;
+												return initOrg.name === org.common_name;
 											});
 										}
 									),
@@ -828,7 +835,7 @@ const GlycanSearch = (props) => {
 		var organisms = undefined;
 		if (input_organism && input_organism.length > 0) {
 			organisms = {
-				organism_list: input_organism,
+				organism_list:input_organism.map(obj => { return {"common_name": obj.name}}),
 				annotation_category: input_organism_annotation_cat,
 				operation: input_organism_operation
 			};
@@ -901,9 +908,9 @@ const GlycanSearch = (props) => {
 			if (response.data['list_id'] !== '') {
 				logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 				.finally(() => {	
+					setPageLoading(false);
 					navigate(routeConstants.glycanList + response.data['list_id']);
 				});
-				setPageLoading(false);
 			} else {
 				logActivity("user", "", "No results. " + message);
 				setPageLoading(false);
@@ -952,9 +959,9 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
+						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
-					setPageLoading(false);
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);
@@ -993,9 +1000,9 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
+						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
-					setPageLoading(false);
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);
@@ -1067,11 +1074,12 @@ const GlycanSearch = (props) => {
 						if (response.data['list_id'] !== '') {
 							if (dialogLoadingRef.current) {
 								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+									setDialogLoading(false);
 									navigate(routeConstants.glycanList + response.data['list_id']);
 								});
-								setDialogLoading(false);
 							} else {
 								logActivity("user", "", "User canceled job. " + message);
+								setDialogLoading(false);
 							}
 						} else {
 							logActivity("user", "", "No results. " + message);
@@ -1134,11 +1142,12 @@ const GlycanSearch = (props) => {
 							if (response.data['list_id'] !== '') {
 								if (dialogLoadingRef.current) {
 									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+										setDialogLoading(false);
 										navigate(routeConstants.glycanList + response.data['list_id']);
 									});
-									setDialogLoading(false);
 								} else {
 									logActivity("user", "", "User canceled job. " + message);
+									setDialogLoading(false);
 								}
 							} else {
 								logActivity("user", "", "No results. " + message);

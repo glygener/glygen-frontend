@@ -410,6 +410,8 @@ const ProteinDetail = (props) => {
       catInd: [0]
     }
     );
+  const [sequenceFeatures, setSequenceFeatures] = useState(undefined);
+
 
   useEffect(() => {
     setNonExistent(null);
@@ -750,6 +752,11 @@ const ProteinDetail = (props) => {
           const ptmEvidence = data.ptm_annotation.filter((item) => item.annotation);
           setPtmAnnotation(ptmEvidence);
         }
+
+        if (data.sequence_features) {
+          setSequenceFeatures(data.sequence_features)
+        }
+
         setPageLoading(false);
         setDataStatus("No data available.");
       }
@@ -1675,8 +1682,8 @@ const ProteinDetail = (props) => {
             {row.date})
           </div>
           <div>
-            {row.reference.map(ref => (
-              <>
+            {row.reference.map((ref, ind) => (
+              <div key={ind}>
                 <FiBookOpen />
                 <span style={{ paddingLeft: "15px" }}>
                   {ref.type}:
@@ -1693,7 +1700,7 @@ const ProteinDetail = (props) => {
                   fieldValue={ref.id}
                   executeSearch={proteinSearch}
                 />
-              </>
+              </div>
             ))}
           </div>
           <EvidenceList
@@ -1822,9 +1829,9 @@ const ProteinDetail = (props) => {
       .then((response) => {
         if (response.data["list_id"] !== "") {
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
+            setPageLoading(false);
             navigate(routeConstants.proteinList + response.data["list_id"]);
           });
-          setPageLoading(false);
         } else {
           let error = {
             response: {
@@ -2665,7 +2672,7 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {(geneNames && geneNames.length) || (proteinNames && proteinNames.length) ? (
-                        <ul className="list-style-none">
+                        <ul className="list-style-none mb-0">
                           {geneNames && geneNames.length ? (
                             <>
                               {recommendedGeneRows && recommendedGeneRows.length > 0 && (
@@ -2741,7 +2748,7 @@ const ProteinDetail = (props) => {
                         <Table hover fluid="true">
                           <tbody key={"body"} className="table-body">
                             {functions && functions.map((group, funIndex) => (
-                                <tr className="table-row">
+                                <tr className="table-row"  key={"tr" + funIndex}>
                                   <td key={"td" + funIndex}>
                                     <p key={"p" + funIndex}><CollapsibleText text={group.annotation} lines={2}/></p>
                                     <EvidenceList inline={true} key={"evidence" + funIndex} evidences={groupEvidences(group.evidence)} />
@@ -2798,7 +2805,7 @@ const ProteinDetail = (props) => {
                       <Grid container className="content-box">
                         <Grid item>
                           <div>
-                            {detailData.sequence && (
+                            {detailData.sequence && sequenceFeatures && (
                               <SequenceViewer
                                 sequenceObject={[
                                   {
@@ -2810,13 +2817,15 @@ const ProteinDetail = (props) => {
                                 details={[
                                   {
                                     uniprot_canonical_ac: uniprot.uniprot_canonical_ac,
-                                    glycosylation: detailData.glycosylation,
-                                    snv: detailData.snv,
-                                    site_annotation: detailData.site_annotation,
-                                    phosphorylation: detailData.phosphorylation,
-                                    glycation: detailData.glycation,
+                                    n_glycosylation: sequenceFeatures.n_linked_sites,
+                                    o_glycosylation: sequenceFeatures.o_linked_sites,
+                                    snv: sequenceFeatures.snv_sites,
+                                    site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                    phosphorylation: sequenceFeatures.phosphorylation_sites,
+                                    glycation: sequenceFeatures.glycation_sites,
                                   },
                                 ]}
+                                flatDataStructure={true}
                                 multiSequence={false}
                                 selectedHighlights={selectedHighlights}
                                 sequenceSearchText={sequenceSearchText}
@@ -2825,7 +2834,7 @@ const ProteinDetail = (props) => {
                           </div>
                         </Grid>
                         <Grid item className="content-active">
-                          {detailData.sequence && (
+                          {detailData.sequence && sequenceFeatures && (
                             <SequenceHighlighter
                               sequenceObject={[
                                 {
@@ -2837,13 +2846,15 @@ const ProteinDetail = (props) => {
                               details={[
                                 {
                                   uniprot_canonical_ac: uniprot.uniprot_canonical_ac,
-                                  glycosylation: detailData.glycosylation,
-                                  snv: detailData.snv,
-                                  site_annotation: detailData.site_annotation,
-                                  phosphorylation: detailData.phosphorylation,
-                                  glycation: detailData.glycation,
+                                  n_glycosylation: sequenceFeatures.n_linked_sites,
+                                  o_glycosylation: sequenceFeatures.o_linked_sites,
+                                  snv: sequenceFeatures.snv_sites,
+                                  site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                  phosphorylation: sequenceFeatures.phosphorylation_sites,
+                                  glycation: sequenceFeatures.glycation_sites,
                                 },
                               ]}
+                              flatDataStructure={true}
                               showNumbers={true}
                               selectedHighlights={selectedHighlights}
                               setSelectedHighlights={setSelectedHighlights}
@@ -3102,8 +3113,8 @@ const ProteinDetail = (props) => {
                       <div>
                         {go_annotation &&
                           go_annotation.categories &&
-                          go_annotation.categories.map((category) => (
-                            <>
+                          go_annotation.categories.map((category, ind) => (
+                            <div key={ind}>
                               <b>
                                 <h5
                                   style={{
@@ -3160,7 +3171,7 @@ const ProteinDetail = (props) => {
                                   category.
                                 </p>
                               </strong>
-                            </>
+                            </div>
                           ))}
                         {!go_annotation && <p className="no-data-msg">{dataStatus}</p>}
                       </div>
@@ -3704,8 +3715,8 @@ const ProteinDetail = (props) => {
                       <Table hover fluid="true">
                         {diseaseData && diseaseData.length > 0 && (
                           <tbody className="table-body">
-                            {diseaseData.map((thisDisease) => (
-                              <tr className="table-row">
+                            {diseaseData.map((thisDisease, indDis) => (
+                              <tr className="table-row" key={"dis" + indDis}>
                                 <td>
                                   <div className="mb-3">
                                     <Grid item xs={12}>
@@ -3751,8 +3762,8 @@ const ProteinDetail = (props) => {
                                                       ? thisDisease.synShortLen
                                                       : thisDisease.synLen
                                                   )
-                                                  .map((synonyms) => (
-                                                    <li>
+                                                  .map((synonyms, indSyn) => (
+                                                    <li key={"syn" + indSyn}>
                                                       {" "}
                                                       {synonyms.name}{" "}
                                                       {synonyms.resource &&
@@ -3763,7 +3774,7 @@ const ProteinDetail = (props) => {
                                                             {synonyms.resource.map(
                                                               (res, ind, arr) => {
                                                                 return (
-                                                                  <>
+                                                                  <span key={"spn" + ind}>
                                                                     <a
                                                                       href={res.url}
                                                                       target="_blank"
@@ -3774,7 +3785,7 @@ const ProteinDetail = (props) => {
                                                                     {ind < arr.length - 1
                                                                       ? ", "
                                                                       : ""}
-                                                                  </>
+                                                                  </span>
                                                                 );
                                                               }
                                                             )}
@@ -4026,6 +4037,7 @@ const ProteinDetail = (props) => {
                         <div>
                           {itemsCrossRef.map((dbItem, catInd) => (
                             <AccordionMUI disableGutters={true} 
+                              key={catInd}
                               expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
                               onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
                             >
@@ -4089,8 +4101,8 @@ const ProteinDetail = (props) => {
                     <Card.Body>
                       {history && history.length ? (
                         <>
-                          {history.sort(sortedHistory).map((historyItem) => (
-                            <ul className="pl-3">
+                          {history.sort(sortedHistory).map((historyItem, ind) => (
+                            <ul className="pl-3" key={ind}>
                               <li>{capitalizeFirstLetter(historyItem.description)} </li>
                             </ul>
                           ))}

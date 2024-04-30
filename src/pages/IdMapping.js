@@ -312,9 +312,9 @@ const IdMapping = (props) => {
       .then((response) => {
         if (response.data["list_id"] !== "") {
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
+            setPageLoading(false);
             navigate(routeConstants.idMappingResult + response.data["list_id"]);
           });
-          setPageLoading(false);
         } else {
           logActivity("user", "", "No results. " + message);
           setPageLoading(false);

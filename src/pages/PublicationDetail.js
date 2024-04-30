@@ -24,16 +24,19 @@ import Button from "react-bootstrap/Button";
 import { FiBookOpen } from "react-icons/fi";
 import { Tab, Tabs, Container } from "react-bootstrap";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import ClientExpandableTable from "../components/ClientExpandableTable"
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import "../css/detail.css";
 import "../css/Responsive.css";
+import { Link as LinkMUI } from "@mui/material";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import routeConstants from "../data/json/routeConstants";
 import { getGlycanImageUrl } from "../data/glycan";
 import { addIndex } from "../utils/common";
 import EvidenceList from "../components/EvidenceList";
-import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
+import { groupEvidences, groupOrganismEvidences, groupOrganismEvidencesTableView } from "../data/data-format";
 import CollapsibleText from "../components/CollapsibleText";
+import CollapsibleTextTableView from "../components/CollapsibleTextTableView"
 import CardToggle from "../components/cards/CardToggle";
 import CardLoader from "../components/load/CardLoader";
 
@@ -170,6 +173,14 @@ const PublicationDetail = (props) => {
   const displayedCellLineItems = open ? cellLineItems : cellLineItems?.slice(0, maxCellItems);
 
   const [downloadId, setDownloadId] = useState("");
+  const [orgExpandedRow, setOrgExpandedRow] = useReducer(
+    (state, newState) => ({
+      ...state, 
+      ...newState,
+    }),{
+      orgArr: []
+    }
+    );
 
   useEffect(() => {
     setPageLoading(true);
@@ -418,7 +429,7 @@ const PublicationDetail = (props) => {
     biomarkers
   } = detailData;
 
-  const organismEvidence = groupOrganismEvidences(species);
+  const organismEvidence = groupOrganismEvidencesTableView(species);
 
   const createGlycosylationSummary = (data, glycan = false) => {
     const info = {};
@@ -529,6 +540,139 @@ const PublicationDetail = (props) => {
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
   }
+
+  function expandCloseTableRow(id, expand) {
+    let orgExp = orgExpandedRow;
+    if (expand) {
+      orgExp.orgArr.push(id);
+      setOrgExpandedRow(orgExp)
+    } else {
+      orgExp.orgArr = orgExp.orgArr.filter(org => org !== id);
+      setOrgExpandedRow(orgExp)
+    }  
+  }
+
+  const glycoOrganismColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      // sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.uniprot_canonical_ac}
+            evidences={cell}
+          />
+        );
+      }
+    },
+    {
+      dataField: "common_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.common_name}
+        </>
+      )
+    },
+    {
+      dataField: "details",
+      text: glycanStrings.details.name,
+      // sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "35%" };
+      },
+      formatter: (value, row) => (<>
+          {row.annotation_count && row.species_count && <CollapsibleTextTableView text={`${row.annotation_count} annotations and ${row.species_count} Species`} id={row.common_name} handleCallback={expandCloseTableRow} />}
+        </>)
+    }
+  ];
+
+  const glycoOrganismExpandedColumns = [
+    {
+      dataField: "database",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "id",
+      text: glycanStrings.id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.url ? <LinkMUI href={row.url} target="_blank" rel="noopener noreferrer">
+                {value}
+              </LinkMUI> : 
+          <span>{value}</span>}
+        </>
+      )
+    },
+    {
+      dataField: "name",
+      text: glycanStrings.species_name.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "common_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value}
+        </>
+      )
+    },
+    {
+      dataField: "taxid",
+      text: proteinStrings.tax_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          {value && <LineTooltip text="View details on NCBI">
+            <a
+              href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${value}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            {value}
+            </a>
+          </LineTooltip>}
+        </>
+      )
+    },
+  ];
 
   const refProtienColumns = [
     {
@@ -1591,41 +1735,14 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <Row>
-                      {organismEvidence &&
-                        // For every organism object
-                        Object.keys(organismEvidence).map(orgEvi => (
-                          // For every database for current organism object
-                          <Col
-                            xs={12}
-                            sm={12}
-                            md={4}
-                            lg={4}
-                            xl={4}
-                            style={{ marginBottom: "10px" }}
-                            key={orgEvi}
-                          >
-                            <>
-                              <strong>{orgEvi}</strong> {"("}
-                              <span className="text-capitalize">
-                                {organismEvidence[orgEvi].common_name}
-                              </span>
-                              {")"} {"["}
-                              <LineTooltip text="View details on NCBI">
-                                <a
-                                  href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {organismEvidence[orgEvi].taxid}
-                                </a>
-                              </LineTooltip>
-                              {"]"}{" "}
-                              <EvidenceList
-                                evidences={organismEvidence[orgEvi].evidence}
-                              />
-                            </>
-                          </Col>
-                      ))}
+                        {organismEvidence && organismEvidence.length > 0 && <ClientExpandableTable
+                          data={organismEvidence}
+                          orgExpandedRow={orgExpandedRow}
+                          columns={glycoOrganismColumns}
+                          expandableTableColumns={glycoOrganismExpandedColumns}
+                          defaultSortField={"common_name"}
+                          onClickTarget={"#publication"} 
+                        /> }
                       {!species && (
                         <p className="no-data-msg">{dataStatus}</p>
                       )}
