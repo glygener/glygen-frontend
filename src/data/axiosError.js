@@ -16,7 +16,11 @@ export const axiosError = (error, id, msg, setPageLoading, setAlertDialogInput) 
     console.log(error);
     let message = msg || "";
     let pageId = id || "";
-    if (!error || !error.response) {
+    if (error.id === "no_data") {
+        logActivity("error", pageId, "No data available. " + message);
+        (setPageLoading && setPageLoading(false));
+        (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.error_code}));
+    } else if (!error || !error.response) {
         let agent = "";
         if (navigator && navigator.userAgent) {
             agent = navigator.userAgent;

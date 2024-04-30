@@ -34,6 +34,8 @@ export default class ProteinDirectQueries {
             this.getDiseaseIDJson(fieldValue);
         } else if (fieldType === commonProteinData.pmid.id){
             this.getPMIDJson(fieldValue);
+        } else if (fieldType === commonProteinData.attached_glycan_id.id){
+            this.getAttachedGlycanIDJson(fieldValue);
         }
         return this.formjson;
     }
@@ -83,6 +85,15 @@ export default class ProteinDirectQueries {
     **/
     getPMIDJson(fieldValue) {
         this.formjson[commonProteinData.pmid.id] = fieldValue;
+        return this.formjson;
+    }
+
+    /**
+	* Function to generate protein attached glycan id search json object.
+    * @param {var} fieldValue - input field value.
+    **/
+    getAttachedGlycanIDJson(fieldValue) {
+        this.formjson[commonProteinData.attached_glycan_id.id] = fieldValue;
         return this.formjson;
     }
 }

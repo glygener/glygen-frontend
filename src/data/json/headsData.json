@@ -520,6 +520,32 @@
       }
     ]
   },
+  "biomarkerSearch": {
+    "title": "Biomarker Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for biomarkers based on their Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      },
+      {
+        "name": "keywords",
+        "content": "Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      }
+    ]
+  },
+  "biomarkerList": {
+    "title": "Biomarker List | Summary of Your Biomarker Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a biomarker search - a list of biomarkers conforming to the query parameters. Select the Biomarker ID from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      }
+    ]
+  },
   "biomarkerDetail": {
     "title": "Biomarker | Specific Details for #id | glygen.org",
     "meta": [

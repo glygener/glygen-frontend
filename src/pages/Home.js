@@ -70,19 +70,19 @@ const featuredCards = [
     to: routeConstants.proteinSearch,
   },
   {
+    title: "Biomarker Search",
+    description: "Search for biomarkers based on their id, assessed entity type, and role.",
+    image: proteinImg,
+    imageText: "Protein Search",
+    to: routeConstants.biomarkerSearch,
+  },
+  {
     title: "Super Search",
     description:
       "Super search is a graphical interface to build queries across all GlyGen datasets.",
     image: superSearchImg,
     imageText: "Super Search",
     to: routeConstants.superSearch,
-  },
-  {
-    title: "Quick Search",
-    description: "Quick Search provides multi-domain queries that are based on user requests.",
-    image: quickSearchImg,
-    imageText: "Quick Search",
-    to: routeConstants.quickSearch,
   },
   {
     title: "Site Search",
@@ -138,6 +138,13 @@ const featuredCards = [
     imageText: "Glycan Structure Dictionary (GSD)",
     href: GLYGEN_GSD,
     target: "_blank",
+  },
+  {
+    title: "Quick Search",
+    description: "Quick Search provides multi-domain queries that are based on user requests.",
+    image: quickSearchImg,
+    imageText: "Quick Search",
+    to: routeConstants.quickSearch,
   },
   {
     title: "Protein BLAST",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getGlycanImageUrl, getMotifList } from "../data/motif";
 import PaginatedTable from "../components/PaginatedTable";
@@ -19,12 +19,16 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import { Link } from "react-router-dom";
 import routeConstants from "../data/json/routeConstants";
 import { Col } from "react-bootstrap";
+import DirectSearch from "../components/search/DirectSearch.js";
+import { getSuperSearch } from '../data/supersearch';
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
+const superSearchDirectSearch = stringConstants.super_search.direct_search;
 
 const MotifList = props => {
   let { id } = useParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   // const [query, setQuery] = useState([]);
@@ -94,6 +98,60 @@ const MotifList = props => {
     });
   };
 
+/**
+    * Function to execute super search query.
+	* @param {array} superSearchQuery - query object.
+	* @param {boolean} selected - true if sample query is executed.
+	* @param {boolean} selected - true if sample query is executed.
+  **/
+  function executeSuperSearchQuery(superSearchQuery, navigateTo) {
+
+    superSearchQuery = {
+      concept_query_list : [superSearchQuery]
+    };
+  
+    if (JSON.stringify(superSearchQuery) !== JSON.stringify({})){
+      setPageLoading(true);
+      let message = "Direct Search query=" + JSON.stringify(superSearchQuery);
+      logActivity("user", "", "Performing Direct Search. " + message);
+      getSuperSearch(superSearchQuery).then((response) => {
+        let searchData = response.data;
+        if (navigateTo === "protein") {
+          if (searchData.results_summary.protein.list_id === "") {
+           let error = {
+             id: "no_data",
+             error_code: "directSearchError"
+           }
+            axiosError(error, "", message, setPageLoading, setAlertDialogInput);          
+          } else {
+            setPageLoading(false);
+            navigate(
+              routeConstants.proteinList + searchData.results_summary.protein.list_id + "/sups"
+            );
+          }
+        }
+        if (navigateTo === "glycan") {
+          if (searchData.results_summary.glycan.list_id === "") {
+            let error = {
+              id: "no_data",
+              error_code: "directSearchError"
+            }
+            axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+          } else {
+            setPageLoading(false);
+            navigate(
+              routeConstants.glycanList + searchData.results_summary.glycan.list_id + "/sups"
+            );
+          }
+        }
+      })
+      .catch(function (error) {
+        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+      });
+    }
+    }
+
+
   function rowStyleFormat(row, rowIdx) {
     return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
   }
@@ -143,11 +201,9 @@ const MotifList = props => {
         return { width: "20%" };
       },
       formatter: (value, row) => (
-        <LineTooltip text="View details">
-          <Link to={routeConstants.motifDetail + row.motif_ac}>
-            {row.motif_name}
-          </Link>
-        </LineTooltip>
+        <div>
+          {row.motif_name}
+        </div>
       )
     },
     {
@@ -161,11 +217,9 @@ const MotifList = props => {
         <>
           {value.map(synonyms => (
             <Col className="nowrap pl-0">
-              <LineTooltip text="View details">
-                <Link to={routeConstants.motifDetail + row.motif_ac}>
-                  {synonyms}
-                </Link>
-              </LineTooltip>
+              <div>
+                {synonyms}
+              </div>
             </Col>
           ))}
         </>
@@ -179,17 +233,44 @@ const MotifList = props => {
         return { width: "20%" };
       },
       formatter: (value, row) => (
-        <LineTooltip text="View details">
-          <Link to={routeConstants.motifDetail + row.motif_ac}>
-            {row.glycan_count}
-          </Link>
-        </LineTooltip>
+        <div>
+          {row.glycan_count}
+          {" "}
+          {row.glycan_count > 0 && <DirectSearch
+            text={superSearchDirectSearch.motif_glycan.text}
+            nodeType="motif"
+            searchType="superSearch"
+            fieldType="string_value"
+            fieldValue={row.motif_ac}
+            operator="$eq"
+            fieldPath= "motif_ac"
+            navigateTo = "glycan"
+            executeSearch={executeSuperSearchQuery}
+          />}
+        </div>
       )
     },
     {
       dataField: "protein_count",
       text: motifStrings.protein_count.name,
       sort: true,
+      formatter: (value, row) => (
+        <div>
+          {row.protein_count}
+          {" "}
+          {row.protein_count > 0 && <DirectSearch
+            text={superSearchDirectSearch.motif_protein.text}
+            nodeType="motif"
+            searchType="superSearch"
+            fieldType="string_value"
+            fieldValue={row.motif_ac}
+            operator="$eq"
+            fieldPath= "motif_ac"
+            navigateTo = "protein"
+            executeSearch={executeSuperSearchQuery}
+          />}
+        </div>
+      )
     }
   ];
 

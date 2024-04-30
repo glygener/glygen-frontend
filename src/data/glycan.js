@@ -74,6 +74,9 @@ export const getGlycanDetail = accessionId => {
 // const headerSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>
 //   sortOrder === "asc" ? "demo-sorting-asc" : "demo-sorting-desc";
 
+
+// Creaated a copy of GLYCAN_COLUMNS in GlycanList file to avoid circular dependecy.
+// Need to find a way to avoid  circular dependecy and dulicate copy when user gets an option to edit columns on glycan list page.
 export const GLYCAN_COLUMNS = [
   {
     dataField: glycanStrings.glycan_id.id,

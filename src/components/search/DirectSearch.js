@@ -4,6 +4,7 @@ import LineTooltip from "../tooltip/LineTooltip";
 import Button from "react-bootstrap/Button";
 import GlycanDirectQueries from "../../data/glycanDirectQueries";
 import ProteinDirectQueries from "../../data/proteinDirectQueries";
+import SuperSearchDirectQueries from "../../data/superSearchDirectQueries";
 
 /**
  * Direct search component for executing direct search queries.
@@ -24,6 +25,11 @@ const DirectSearch = (props) => {
       if (searchType === "protein") {
         this.dq = new ProteinDirectQueries();
       }
+
+      if (searchType === "superSearch") {
+        this.dq = new SuperSearchDirectQueries();
+      }
+
       this.executeSearch = executeSearch;
     }
 
@@ -31,11 +37,14 @@ const DirectSearch = (props) => {
      * Function to execute glycan/protein direct search queries.
      * @param {var} fieldType - input field type.
      * @param {var} fieldValue - input field value.
+     * @param {var} nodeType - node type.
+     * @param {var} operator - input field operator.
+     * @param {var} fieldPath - input field path.
      **/
-    execute(fieldType, fieldValue) {
-      let json = this.dq.getJson(fieldType, fieldValue);
+    execute(fieldType, fieldValue, nodeType, operator, fieldPath) {
+      let json = this.dq.getJson(fieldType, fieldValue, nodeType, operator, fieldPath);
       console.log(JSON.stringify(json));
-      this.executeSearch(json);
+      this.executeSearch(json, props.navigateTo);
     }
   }
 
@@ -47,10 +56,12 @@ const DirectSearch = (props) => {
           variant="link"
           onClick={() => {
             let dq = new DirectQueries(props.searchType, props.executeSearch);
-            dq.execute(props.fieldType, props.fieldValue);
+            // dq.execute(props.fieldType, props.fieldValue);
+
+            dq.execute(props.fieldType, props.fieldValue, props.nodeType, props.operator, props.fieldPath)
           }}
         >
-          <SearchIcon title className="ml-1 mr-1 custom-icon-blue" />
+          <SearchIcon title className="ml-1 mr-1 custom-icon-blue gg-align-top" />
         </Button>
       </LineTooltip>
     </>

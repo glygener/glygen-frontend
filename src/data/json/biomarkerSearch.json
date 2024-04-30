@@ -1,0 +1,155 @@
+{
+  "pageTitle": "Biomarker Search",
+  "simple_search": {
+    "tabTitle": "Simple Search",
+    "length": 100,
+    "errorText": "Entry is too long - max length is 100.",
+    "categories": {
+      "biomarker": {
+        "examples": ["AA4691-4"],
+        "placeholder": "Enter the biomarker"
+      },
+      "condition": {
+        "examples": ["Colorectal Cancer"],
+        "placeholder": "Enter the disease name"
+      },
+      "any": {
+        "examples": [
+          "AA4686-1",
+          "Colorectal Cancer"
+        ],
+        "placeholder": "Enter the search term"
+      }
+    }
+  },
+  "advanced_search": {
+    "tabTitle": "Advanced Search",
+    "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all proteins in GlyGen.",
+    "specimen_name": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "specimen_name",
+      "placeholder": "Enter the Specimen",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "blood"
+          }
+        }
+      ]
+    },
+    "loinc_code": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "specimen_loinc_code",
+      "placeholder": "Enter the LOINC code",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "26881-3"
+          }
+        }
+      ]
+    },
+    "biomarker_entity": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "biomarker_entity_name",
+      "placeholder": "Enter the Biomarker Entity",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Interleukin-6"
+          }
+        }
+      ]
+    },
+    "biomarker_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "biomarker_id",
+      "placeholder": "Enter the Biomarker ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "AA4686-1"
+          }
+        }
+      ]
+    },
+    "exposure_agent_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "pathway_id",
+      "placeholder": "Enter a Exposure Agent ID",
+      "examples": [
+      ]
+    },
+    "publication_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "publication_id",
+      "placeholder": "Enter the Pubmed ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "32234467"
+          }
+        }
+      ]
+    },
+    "assessed_entity_type": {
+      "placeholder": "Select Assessed Entity Type",
+      "placeholderId": "",
+      "placeholderName": ""
+    },
+    "condition_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "condition_id",
+      "placeholder": "Enter the Disease ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "DOID:9256"
+          }
+        }
+      ]
+    },
+    "best_biomarker_role": {
+      "placeholder": "Select BEST Biomarker Role",
+      "placeholderName": "",
+      "placeholderId": ""
+    },
+    "condition": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "condition_name",
+      "placeholder": "Enter the Biomarker Condition",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "colorectal cancer"
+          }
+        }
+      ]
+    }
+  },
+  "tutorial": {
+    "tabTitle": "Tutorial"
+  }
+}

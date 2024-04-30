@@ -5,6 +5,7 @@ import PageLoader from "../components/load/PageLoader";
 import TextAlert from "../components/alert/TextAlert";
 import DialogAlert from "../components/alert/DialogAlert";
 import ProteinAdvancedSearch from "../components/search/ProteinAdvancedSearch";
+import SequenceSearch from "../components/search/SequenceSearch";
 import SimpleSearchControl from "../components/search/SimpleSearchControl";
 import { Tab, Tabs, Container } from "react-bootstrap";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
@@ -79,6 +80,14 @@ const ProteinSearch = props => {
       ]
     }
   );
+
+  const [sequenceSearchData, setSequenceSearchData] = useReducer(
+		(state, newState) => ({ ...state, ...newState }),
+		{
+		  proSequence: "",
+		}
+	  );
+
   const [proActTabKey, setProActTabKey] = useState("Simple-Search");
   const [pageLoading, setPageLoading] = useState(true);
   const [searchStarted, setSearchStarted] = useState(false);
@@ -96,6 +105,7 @@ const ProteinSearch = props => {
 
   let simpleSearch = proteinSearchData.simple_search;
   let advancedSearch = proteinSearchData.advanced_search;
+  let sequenceSearch = proteinSearchData.sequence_search;
   let querySearch = proteinSearchData.query_search;
   let proteinData = stringConstants.protein;
   let commonProteinData = proteinData.common;
@@ -268,7 +278,7 @@ const ProteinSearch = props => {
         const anchorElement = location.hash;
         if (anchorElement) {
           var hash = anchorElement.substr(1);
-          if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Tutorial") {
+          if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash === "Sequence-Search" || hash ===  "Tutorial") {
             setProActTabKey(hash);	
           } else {
             setProActTabKey("Simple-Search");
@@ -293,7 +303,15 @@ const ProteinSearch = props => {
           getProteinList(id, 1)
             .then(({ data }) => {
               logActivity("user", id, "Search modification initiated");
-              if (
+              if (data.cache_info.query.sequence !== undefined) {
+
+                setSequenceSearchData({
+                  proSequence : data.cache_info.query.sequence.aa_sequence ? data.cache_info.query.sequence.aa_sequence : ""
+                });
+
+                setProActTabKey("Sequence-Search");
+                setPageLoading(false);
+              } else if (
                 data.cache_info.query.query_type ===
                 proteinData.simple_search.query_type.name
               ) {
@@ -729,6 +747,80 @@ const ProteinSearch = props => {
   };
 
   /**
+   * Forms searchjson from the form values submitted
+   * @param {string} input_query_type query search
+   * @param {string} input_sequence user input
+   * @return {string} returns json
+   */
+  function searchSequenceJson(
+    input_query_type,
+    input_sequence,
+  ) {
+
+    var sequences;
+    if (input_sequence) {
+      sequences = {
+        type: "exact",
+        aa_sequence: input_sequence
+      };
+    }
+
+    var formjson = {
+      [commonProteinData.operation.id]: "AND",
+      [proteinData.advanced_search.query_type.id]: input_query_type,
+      [commonProteinData.sequence.id]: sequences ? sequences : undefined,
+    };
+    return formjson;
+  }
+
+  /**
+   * Function to handle protein peptide search.
+   **/
+  const proteinSequenceSearch = () => {
+    let formObject = searchSequenceJson(
+      proteinData.advanced_search.query_type.name,
+      sequenceSearchData.proSequence,
+    );
+    logActivity("user", id, "Performing Sequence Search");
+    let message = "Sequence Search query=" + JSON.stringify(formObject);
+    getProteinSearch(formObject)
+      .then(response => {
+        if (response.data["list_id"] !== "") {
+          logActivity(
+            "user",
+            (id || "") + ">" + response.data["list_id"],
+            message
+          ).finally(() => {
+            setPageLoading(false);
+            navigate(
+              routeConstants.proteinList + response.data["list_id"]
+            );
+          });
+        } else {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.advSerarchError.id
+          });
+          window.scrollTo(0, 0);
+        }
+      })
+      .catch(function(error) {
+        axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+      });
+  };
+
+  /**
+   * Function to handle click event for protein peptide search.
+   **/
+    const searchSequenceClick = () => {
+      setSearchStarted(true);
+      setPageLoading(true);
+      proteinSequenceSearch();
+    };
+
+  /**
    * Function to handle click event for protein advanced search.
    **/
   const searchProteinAdvClick = () => {
@@ -813,6 +905,22 @@ const ProteinSearch = props => {
                     inputValue={proAdvSearchData}
                     initData={initData}
                     setProAdvSearchData={setProAdvSearchData}
+                  />
+                )}
+              </Container>
+            </Tab>
+            <Tab
+              eventKey="Sequence-Search"
+              className="tab-content-padding"
+              title={sequenceSearch.tabTitle}
+            >
+              <TextAlert alertInput={alertTextInput} />
+              <Container className="tab-content-border">
+                {initData && (
+                  <SequenceSearch
+                    searchSequenceClick={searchSequenceClick}
+                    inputValue={sequenceSearchData}
+                    setInputValue={setSequenceSearchData}
                   />
                 )}
               </Container>

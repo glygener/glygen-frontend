@@ -40,6 +40,8 @@
   "publicationDetailDOI": "/publication/DOI/",
   "blastSearch": "/blast/",
   "blastResult": "/blast-result/",
+  "biomarkerSearch": "/biomarker-search/",
+  "biomarkerList": "/biomarker-list/",
   "biomarkerDetail": "/biomarker/",
   "home": "/home/",
   "default": "/"

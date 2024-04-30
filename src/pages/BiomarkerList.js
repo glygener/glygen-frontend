@@ -4,9 +4,8 @@ import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getProteinList } from "../data";
-import { PROTEIN_COLUMNS, getUserSelectedColumns } from "../data/protein";
-import ProteinQuerySummary from "../components/ProteinQuerySummary";
+import { getBiomarkerList } from "../data";
+import { BIOMARKER_COLUMNS, getUserSelectedColumns } from "../data/biomarker";
 import PaginatedTable from "../components/PaginatedTable";
 import DownloadButton from "../components/DownloadButton";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -20,9 +19,9 @@ import { GLYGEN_BASENAME } from "../envVariables";
 import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
-import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import BiomarkerQuerySummary from "../components/BiomarkerQuerySummary";
 
-const ProteinList = props => {
+const BiomarkerList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
@@ -31,7 +30,7 @@ const ProteinList = props => {
   const [dataUnmap, setDataUnmap] = useState([]);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
-  const [selectedColumns, setSelectedColumns] = useState(PROTEIN_COLUMNS);
+  const [selectedColumns, setSelectedColumns] = useState(BIOMARKER_COLUMNS);
   const [page, setPage] = useState(1);
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [availableFilters, setAvailableFilters] = useState([]);
@@ -44,8 +43,6 @@ const ProteinList = props => {
   );
   const navigate = useNavigate();
 
-  const unmappedStrings = stringConstants.protein.common.unmapped;
-
   useEffect(() => {
     setPageLoading(true);
     window.scrollTo({
@@ -54,7 +51,7 @@ const ProteinList = props => {
     });
     setPage(1);
     logActivity("user", id);
-    getProteinList(
+    getBiomarkerList(
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
@@ -69,16 +66,6 @@ const ProteinList = props => {
           setPageLoading(false);
         } else {
           setData(data.results);
-          setDataUnmap(data.cache_info.batch_info && data.cache_info.batch_info.unmapped ? data.cache_info.batch_info.unmapped : []);
-          if (data.cache_info.query.uniprot_canonical_ac) {
-            data.cache_info.query.uniprot_canonical_ac_short =
-              data.cache_info.query.uniprot_canonical_ac.split(",").length > 9
-                ? data.cache_info.query.uniprot_canonical_ac
-                    .split(",")
-                    .slice(0, 9)
-                    .join(",")
-                : "";
-          }
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
           setPagination(data.pagination);
@@ -111,7 +98,7 @@ const ProteinList = props => {
     setPage(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
-    getProteinList(
+    getBiomarkerList(
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
@@ -169,23 +156,7 @@ const ProteinList = props => {
   };
 
   const handleModifySearch = () => {
-    if (searchId === "gs") {
-      window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
-    } else if (searchId === "sups") {
-      navigate(routeConstants.superSearch + id);
-    } else if (quickSearch[searchId] !== undefined) {
-      const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
-      window.location =
-        basename +
-        routeConstants.quickSearch +
-        id +
-        "/" +
-        quickSearch[searchId].id +
-        "#" +
-        quickSearch[searchId].id;
-    } else {
-      navigate(routeConstants.proteinSearch + id);
-    }
+      navigate(routeConstants.biomarkerSearch + id);
   };
 
   function rowStyleFormat(rowIdx) {
@@ -193,25 +164,11 @@ const ProteinList = props => {
   }
   const [sidebar, setSidebar] = useState(true);
 
-  const unmapIDColumns = [
-    {
-      dataField: unmappedStrings.input_id.shortName,
-      text: unmappedStrings.input_id.name,
-      sort: true,
-      selected: true,
-    },
-    {
-      dataField: unmappedStrings.reason.shortName,
-      text: unmappedStrings.reason.name,
-      sort: true,
-    },
-  ];
-
   return (
     <>
       <Helmet>
-        {getTitle("proteinList")}
-        {getMeta("proteinList")}
+        {getTitle("biomarkerList")}
+        {getMeta("biomarkerList")}
       </Helmet>
 
       <FeedbackWidget />
@@ -266,7 +223,7 @@ const ProteinList = props => {
             />
             <section className="content-box-md">
               {query && (
-                <ProteinQuerySummary
+                <BiomarkerQuerySummary
                   data={query}
                   question={quickSearch[searchId]}
                   searchId={searchId}
@@ -282,25 +239,19 @@ const ProteinList = props => {
                   types={[
                     {
                       display:
-                        stringConstants.download.protein_csvdata.displayname,
+                        stringConstants.download.biomarker_csvdata.displayname,
                       type: "csv",
-                      data: "protein_list"
+                      data: "biomarker_list"
                     },
                     {
                       display:
-                        stringConstants.download.protein_jsondata.displayname,
+                        stringConstants.download.biomarker_jsondata.displayname,
                       type: "json",
-                      data: "protein_list"
-                    },
-                    {
-                      display:
-                        stringConstants.download.protein_fastadata.displayname,
-                      type: "fasta",
-                      data: "protein_list"
+                      data: "biomarker_list"
                     }
                   ]}
                   dataId={id}
-                  itemType="protein_list"
+                  itemType="biomarker_list"
                   filters={appliedFilters}
                 />
               </div>
@@ -320,24 +271,6 @@ const ProteinList = props => {
                 />
               )}
             </section>
-            {dataUnmap && dataUnmap.length > 0 && (<>
-              <div id="Unmapped-Table"></div>
-                <div className="content-box-sm">
-                  <h1 className="page-heading">{unmappedStrings.title}</h1>
-                </div>
-              <section>
-                {/* Unmapped Table */}
-                {unmapIDColumns && unmapIDColumns.length !== 0 && (
-                  <ClientPaginatedTable
-                    data={dataUnmap}
-                    columns={unmapIDColumns}
-                    defaultSortField={"input_id"}
-                    defaultSortOrder="asc"
-                    onClickTarget={"#Unmapped-Table"}
-                />
-                )}
-              </section>
-            </>)}
           </div>
         </div>
       </div>
@@ -345,4 +278,4 @@ const ProteinList = props => {
   );
 };
 
-export default ProteinList;
+export default BiomarkerList;
