@@ -169,9 +169,9 @@ const BiomarkerDetail = (props) => {
       } else {
         setData(data);
 
-        setPublication(data.publication);
+        setPublication(data.citation);
         setAsseBiomarkerEntity(data.assessed_biomarker_entity);
-        setComponents(data.components);
+        setComponents(data.biomarker_component);
         setInstances(data.instances);
         setBiomarkerId(data.biomarker_id);
         setItemsCrossRef(data.crossref);

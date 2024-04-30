@@ -120,15 +120,15 @@ export const getBiomarkerListDownload = (
 
 export const BIOMARKER_COLUMNS = [
   {
-    dataField: biomarkerStrings.biomarker_canonical_id.id,
-    text: biomarkerStrings.biomarker_canonical_id.name,
+    dataField: biomarkerStrings.biomarker_id.id,
+    text: biomarkerStrings.biomarker_id.name,
     sort: true,
     selected: true,
     headerStyle: HeaderwithsameStyle,
     formatter: (value, row) => (
       <LineTooltip text="View details">
-        <Link to={routeConstants.biomarkerDetail + row.biomarker_canonical_id}>
-          {row.biomarker_canonical_id}
+        <Link to={routeConstants.biomarkerDetail + row.biomarker_id}>
+          {row.biomarker_id}
         </Link>
       </LineTooltip>
     )
