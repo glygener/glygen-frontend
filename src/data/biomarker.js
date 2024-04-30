@@ -150,14 +150,7 @@ export const BIOMARKER_COLUMNS = [
     dataField: biomarkerStrings.assessed_biomarker_entity_id.id,
     text: biomarkerStrings.assessed_biomarker_entity_id.name,
     sort: true,
-    headerStyle: HeaderwithsameStyle,
-    formatter: (value, row) => (
-      <LineTooltip text="View details">
-        <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>
-          {row.assessed_biomarker_entity_id}
-        </Link>
-      </LineTooltip>
-    )
+    headerStyle: HeaderwithsameStyle
   },
   {
     dataField: proteinStrings.hit_score.id,
