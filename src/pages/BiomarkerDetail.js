@@ -51,8 +51,11 @@ function getBESTBiomarkerTypeUrl(type) {
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
-  { label: stringConstants.sidebar.biomarker_description.displayname, id: "Biomarker-Description" },
   { label: stringConstants.sidebar.components.displayname, id: "Components" },
+  { label: stringConstants.sidebar.condition.displayname, id: "Condition" },
+  { label: stringConstants.sidebar.exposure_agent.displayname, id: "Exposure-Agent" },
+  { label: stringConstants.sidebar.evidence.displayname, id: "Evidence" },
+
   {
     label: stringConstants.sidebar.cross_ref.displayname,
     id: "Cross-References"
@@ -113,18 +116,22 @@ const BiomarkerDetail = (props) => {
   let { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // let { namespace } = useParams();
-  // let { ac } = useParams();
-  // const id = namespace + "." + ac;
 
   const [data, setData] = useState([]);
   const [publication, setPublication] = useState([]);
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
   const [componentTabSelected, setComponentTabSelected] = useState("glycan");
   const [asseBiomarkerEntity, setAsseBiomarkerEntity] = useState("");
-  const [components, setComponents] = useState("");
+  const [components, setComponents] = useState(undefined);
   const [instances, setInstances] = useState("");
   const [biomarkerId, setBiomarkerId] = useState("");
+  const [biomarkerCanonicalId, setBiomarkerCanonicalId] = useState("");
+  const [condition, setCondition] = useState("");
+  const [exposureAgent, setExposureAgent] = useState("");
+  const [evidence, setEvidence] = useState("");
+  const [glycanComponents, setGlycanComponents] = useState("");
+  const [proteinComponents, setProteinComponents] = useState("");
+
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [publicationSort, setPublicationSort] = useState("date");
@@ -132,7 +139,8 @@ const BiomarkerDetail = (props) => {
   const [cardLoadingPub, setCardLoadingPub] = useState(false);
   const [publicationTotal, setPublicationTotal] = useState(undefined);
   const [sideBarData, setSidebarData] = useState(items);
-
+  const [conditionData, setConditionData] = useState([]);
+  const [exposureAgentData, setExposureAgentData] = useState([]);
 
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -174,21 +182,98 @@ const BiomarkerDetail = (props) => {
         setComponents(data.biomarker_component);
         setInstances(data.instances);
         setBiomarkerId(data.biomarker_id);
+        setBiomarkerCanonicalId(data.biomarker_canonical_id);
         setItemsCrossRef(data.crossref);
 
-        setComponentTabSelected(data.components && data.components.glycan && data.components.glycan.length > 0 ? "glycan" : "protein");
+
+        let glyComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "glycan").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code) : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id) : [], specimen : obj.specimen}})
+
+        let proComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "protein").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code) : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id) : [], specimen : obj.specimen}})
+
+        setGlycanComponents(glyComp);
+        setProteinComponents(proComp);
+
+        setComponentTabSelected(glyComp && glyComp.length > 0 ? "glycan" : "protein");
+
+        if (data.condition) {
+          let conditionDataTemp = conditionDataRearrangement();
+          setConditionData(conditionDataTemp);
+          function conditionDataRearrangement() {
+            var condition = []
+            condition.push(data.condition);
+            for (var i = 0; i < condition.length; i++) {
+              if (condition[i].synonyms) {
+                var synTemp = [];
+                var synonyms = condition[i].synonyms.slice();
+                for (var j = 0, k = 0; j < condition[i].synonyms.length; j++) {
+                  var temp = synonyms.filter((syn) => syn.name === condition[i].synonyms[j].name);
+                  if (temp && temp.length) {
+                    synTemp[k] = {
+                      name: condition[i].synonyms[j].name,
+                      resource: temp,
+                    };
+                    synonyms = synonyms.filter((syn) => syn.name !== synTemp[k].name);
+                    k++;
+                  }
+                }
+                condition[i].synonyms = synTemp;
+                condition[i].synShortLen = synTemp.length > 2 ? 2 : synTemp.length;
+                condition[i].synLen = synTemp.length;
+                condition[i].synBtnDisplay = synTemp.length <= 2 ? false : true;
+                condition[i].synShowMore = true;
+              }
+            }
+            return condition;
+          }
+        }
+
+        if (data.exposure_agent) {
+          var exposure_agent = []
+          exposure_agent.push(data.exposure_agent);
+          setExposureAgentData(exposure_agent);
+        }
+
+        let litEvidence = [];
+
+        for (let i  = 0; i < data.biomarker_component.length; i++) {
+          let obj = data.biomarker_component[i];
+          if (obj.evidence_source) {
+            for (let j  = 0; j < obj.evidence_source.length; j++) {
+              let eveObj = obj.evidence_source[j];
+              let eve = {
+                id : eveObj.id,
+                database : eveObj.database,
+                url : eveObj.url
+              };
+              if (eveObj.evidence_list) {
+                for (let k  = 0; k < eveObj.evidence_list.length; k++) {
+                let evidence_list = [];
+                evidence_list.push(eve);
+                litEvidence.push({literature_evidence : eveObj.evidence_list[k].evidence, evidence : evidence_list});
+              }
+            }
+          }
+          }
+        }
+
+        setEvidence(litEvidence);
 
         let newSidebarData = sideBarData;
         if (!data.biomarker_id || data.biomarker_id.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "General", true);
         }
 
-        if (!data.instances || data.instances.length === 0) {
-          newSidebarData = setSidebarItemState(newSidebarData, "Biomarker-Description", true);
-        }
-
-        if (!data.components || (!data.components.protein && !data.components.glycan)) {
+        if ((glyComp.length === 0 && proComp.glycan === 0)) {
           newSidebarData = setSidebarItemState(newSidebarData, "Components", true);
+        }
+        if (!data.condition) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Condition", true);
+        }
+        if (!data.exposure_agent) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Exposure-Agent", true);
+        }
+        if (!litEvidence || litEvidence.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Evidence", true);
         }
         if (!data.crossref || data.crossref.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Cross-References", true);
@@ -200,7 +285,7 @@ const BiomarkerDetail = (props) => {
         setSidebarData(newSidebarData);
 
         if (data.section_stats) {
-          let publi = data.section_stats.filter(obj => obj.table_id === "publication");
+          let publi = data.section_stats.filter(obj => obj.table_id === "citation");
           let publiStat = publi[0].table_stats.filter(obj => obj.field === "total");
           setPublicationTotal(publiStat[0].count);  
         }
@@ -241,7 +326,9 @@ const BiomarkerDetail = (props) => {
   const [collapsed, setCollapsed] = useReducer((state, newState) => ({ ...state, ...newState }), {
     general: true,
     components: true,
-    instances: true,
+    condition: true,
+    exposureagent: true,
+    evidence: true,
     crossref: true,
     publication: true
   });
@@ -251,41 +338,134 @@ const BiomarkerDetail = (props) => {
   }
   // ===================================== //
 
-  const glycanColumns = [
+  function setConditionDataSynonyms(conditionName) {
+    let conditionDataTemp = conditionData.map((conData) => {
+      if (conData.recommended_name.name === conditionName) {
+        conData.synShowMore = conData.synShowMore ? false : true;
+      }
+      return conData;
+    });
+    setConditionData(conditionDataTemp);
+  }
+
+  const proteinColumns = [
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
       headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
       formatter: (cell, row) => {
         return (
           <EvidenceList
-            key={row.position + row.uniprot_canonical_ac}
+            key={row.position + row.assessed_biomarker_entity_id}
             evidences={groupEvidences(cell)}
           />
         );
       }
     },
     {
-      dataField: "accession",
-      text: glycanStrings.glycan_id.name,
+      dataField: "biomarker",
+      text: biomarkerStrings.biomarker.name,
       sort: true,
       selected: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
+    },
+    {
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
+      sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+    {
+      dataField: "assessed_biomarker_entity_id",
+      text: biomarkerStrings.assessed_biomarker_entity_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
       formatter: (value, row) => (
-        <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.accession}>{row.accession}</Link>
+        <LineTooltip text="View protein details">
+          <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
         </LineTooltip>
       ),
+    },
+    {
+      dataField: "loinc_code",
+      text: biomarkerStrings.loinc_code.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+        <ul style={{ marginLeft: "-40px" }}>
+          <ul>
+            {row && row.loinc_code && row.loinc_code.map(obj => (
+              <li>{obj}</li>))}
+          </ul>
+        </ul>
+      </>);
+      }
+    },
+    {
+      dataField: "specimen_id",
+      text:  biomarkerStrings.specimen_name.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+        <ul style={{ marginLeft: "-40px" }}>
+          <ul>
+            {row && row.specimen && row.specimen.map(obj => (
+              <li>{obj.name} ({obj.namespace}: <a href={obj.url} target="_blank" rel="noopener noreferrer">{obj.id}</a>)</li>
+            ))}
+          </ul>
+        </ul>
+      </>);
+      }
+    },
+  ];
+
+  const glycanColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.assessed_biomarker_entity_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "biomarker",
+      text: biomarkerStrings.biomarker.name,
+      sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
     },
     {
       text: glycanStrings.glycan_image.name,
       formatter: (value, row) => (
         <div className="img-wrapper">
-          <img className="img-cartoon" src={getGlycanImageUrl(row.accession)} alt="Glycan img" />
+          <img className="img-cartoon" src={getGlycanImageUrl(row.assessed_biomarker_entity_id)} alt="Glycan img" />
         </div>
       ),
       headerStyle: (colum, colIndex) => {
@@ -297,27 +477,9 @@ const BiomarkerDetail = (props) => {
         };
       },
     },
-  ];
-
-  const proteinColumns = [
     {
-      dataField: "evidence",
-      text: proteinStrings.evidence.name,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
-      },
-      formatter: (cell, row) => {
-        return (
-          <EvidenceList
-            key={row.position + row.uniprot_canonical_ac}
-            evidences={groupEvidences(cell)}
-          />
-        );
-      }
-    },
-    {
-      dataField: "name",
-      text: proteinStrings.protein_name.name,
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
       sort: true,
       selected: true,
       headerStyle: (colum, colIndex) => {
@@ -325,17 +487,56 @@ const BiomarkerDetail = (props) => {
       },
     },
     {
-      dataField: "accession",
-      text: proteinStrings.uniprot_canonical_ac.name,
+      dataField: "assessed_biomarker_entity_id",
+      text: biomarkerStrings.assessed_biomarker_entity_id.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
       formatter: (value, row) => (
         <LineTooltip text="View protein details">
-          <Link to={routeConstants.proteinDetail + row.accession}>{row.accession}</Link>
+          <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
         </LineTooltip>
       ),
+    },
+    {
+      dataField: "loinc_code",
+      text: biomarkerStrings.loinc_code.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+        <ul style={{ marginLeft: "-40px" }}>
+          <ul>
+            {row && row.loinc_code && row.loinc_code.map(obj => (
+              <li>{obj}</li>))}
+          </ul>
+        </ul>
+      </>);
+      }
+    },
+    {
+      dataField: "specimen_id",
+      text: biomarkerStrings.specimen_name.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+        <ul style={{ marginLeft: "-40px" }}>
+          <ul>
+            {row && row.specimen && row.specimen.map(obj => (
+              <li>{obj.name} ({obj.namespace}: <a href={obj.url} target="_blank" rel="noopener noreferrer">{obj.id}</a>)</li>
+            ))}
+          </ul>
+        </ul>
+      </>);
+      }
     },
   ];
 
@@ -482,123 +683,15 @@ const BiomarkerDetail = (props) => {
                           <>
                             <div>
                               <strong>{biomarkerStrings.biomarker_id.name}: </strong>{" "}
-                              {/* <a href={motif.url} target="_blank" rel="noopener noreferrer"> */}
                                 {biomarkerId}
-                              {/* </a> */}
                             </div>
-                            {asseBiomarkerEntity && <div>
-                              <strong>{biomarkerStrings.assessed_biomarker_entity.name}: </strong>{" "}
-                              {/* <a href={motif.url} target="_blank" rel="noopener noreferrer"> */}
-                                {asseBiomarkerEntity}
-                              {/* </a> */}
+                            {biomarkerCanonicalId && <div>
+                              <strong>{biomarkerStrings.biomarker_canonical_id.name}: </strong>{" "}
+                                {biomarkerCanonicalId}
                             </div>}
                           </>
                         )}
                       </p>
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
-
-              {/* Biomarker Description */}
-              <Accordion
-                id="Biomarker-Description"
-                defaultActiveKey="0"
-                className="panel-width"
-                style={{ padding: "20px 0" }}
-              >
-                <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
-                    <span className="gg-green d-inline">
-                      <HelpTooltip
-                        title={DetailTooltips.biomarker.biomarker_description.title}
-                        text={DetailTooltips.biomarker.biomarker_description.text}
-                        urlText={DetailTooltips.biomarker.biomarker_description.urlText}
-                        url={DetailTooltips.biomarker.biomarker_description.url}
-                        helpIcon="gg-helpicon-detail"
-                      />
-                    </span>
-                    <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.biomarker_description.displayname}
-                    </h4>
-                    <div className="float-end">
-                      <CardToggle cardid="instances" toggle={collapsed.instances} eventKey="0" toggleCollapse={toggleCollapse}/>
-                    </div>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body className="card-padding-zero">
-                      <Table hover fluid="true">
-                        {instances && instances.length > 0 && (
-                          <tbody className="table-body">
-                            {instances.map((thisInstance) => (
-                              <tr className="table-row">
-                                <td>
-                                  <div className="mb-3">
-                                    <Grid item xs={12}>
-                                      <div>
-                                        <div className="mb-3">
-                                        {thisInstance.status && <div>
-                                        <strong> {biomarkerStrings.biomarker_status.name}: </strong>{" "}
-                                          {thisInstance.status} 
-                                          </div>}
-                                          {thisInstance.best_biomarker_type && <div>
-                                          <strong> {biomarkerStrings.best_biomarker_type.name}: </strong>{" "}
-                                          <a href={getBESTBiomarkerTypeUrl(thisInstance.best_biomarker_type)} target="_blank" rel="noopener noreferrer">
-                                            {thisInstance.best_biomarker_type}
-                                          </a>
-                                          </div>}
-                                          {thisInstance.tissue && <div>
-                                          <strong> {biomarkerStrings.specimen_type.name}: </strong>{" "}
-                                          {thisInstance.tissue.name} (
-                                          {thisInstance.tissue.namespace}{": "}
-                                          <a
-                                            href={thisInstance.tissue.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {thisInstance.tissue.id}
-                                          </a>
-                                          )
-                                          </div>}
-                                          {thisInstance.loinc_code && <div>
-                                          <strong> {biomarkerStrings.loinc_code.name}: </strong>{" "}
-                                          {thisInstance.loinc_code}
-                                          </div>}
-                                          {thisInstance.disease && <div>
-                                          <strong> {biomarkerStrings.disease_name.name}: </strong>{" "}
-                                          {thisInstance.disease.recommended_name.name} (
-                                          <a
-                                            href={thisInstance.disease.recommended_name.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {thisInstance.disease.recommended_name.id}
-                                          </a>
-                                          )
-                                          </div>}
-                                          {thisInstance.literature_evidence && <div>
-                                           <strong> {biomarkerStrings.literature_evidence.name}: </strong>{" "}
-                                            <CollapsibleText text={thisInstance.literature_evidence} lines={2} />
-                                          </div>}
-                                          <div>
-                                            <EvidenceList
-                                              inline={true}
-                                              evidences={groupEvidences(thisInstance.evidence)}
-                                            />
-                                          </div>
-                                        </div>                                   
-                                      </div>
-                                    </Grid>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        )}
-                      </Table>
-                      {instances && instances.length === 0 && (
-                        <p className="no-data-msg-publication">{dataStatus}</p>
-                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -628,14 +721,14 @@ const BiomarkerDetail = (props) => {
                     <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
-                            components && components.glycan && components.glycan.length > 0  && {
+                            glycanComponents && glycanComponents.length > 0  && {
                               display: "Glycan (*.csv)",
                               type: "component_glycan_csv",
                               format: "csv",
                               data: "biomarker_section",
                               section: "component_glycan",
                             },
-                            components && components.protein && components.protein.length > 0 && {
+                            proteinComponents && proteinComponents.length > 0 && {
                               display: "Protein (*.csv)",
                               type: "component_protein_csv",
                               format: "csv",
@@ -646,8 +739,8 @@ const BiomarkerDetail = (props) => {
                           dataId={id}
                           itemType="biomarker_section"
                           showBlueBackground={true}
-                          enable={(components && components.glycan && components.glycan.length > 0) ||
-                            (components && components.protein && components.protein.length > 0)}
+                          enable={(glycanComponents && glycanComponents.length > 0) ||
+                            (proteinComponents && proteinComponents.length > 0)}
                         />
                       </span>
                       <CardToggle cardid="components" toggle={collapsed.components} eventKey="0" toggleCollapse={toggleCollapse}/>
@@ -655,7 +748,7 @@ const BiomarkerDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {components && ((components.glycan || components.protein) || (components.glycan.length !== 0 || components.protein.length !== 0 )) && (
+                      {((glycanComponents || proteinComponents) || (glycanComponents.length !== 0 || proteinComponents.length !== 0 )) && (
                         <Tabs
                           activeKey={componentTabSelected}
                           onSelect={(key) => {
@@ -668,56 +761,337 @@ const BiomarkerDetail = (props) => {
                           <Tab
                             eventKey="glycan"
                             title="Glycan"
-                            tabClassName={(components && ((!components.glycan) || (components.glycan.length === 0))) ? "tab-disabled" : ""}
-                            disabled={(components && ((!components.glycan) || (components.glycan.length === 0)))}
+                            tabClassName={((!glycanComponents) || (glycanComponents.length === 0)) ? "tab-disabled" : ""}
+                            disabled={((!proteinComponents) || (proteinComponents.length === 0))}
                           >
                             <Container className="tab-content-padding">
-                              {components && components.glycan && components.glycan.length > 0 && (
+                              {components && glycanComponents && glycanComponents.length > 0 && (
                                 <ClientServerPaginatedTable
-                                  data={components.glycan}
+                                  data={glycanComponents}
                                   columns={glycanColumns}
                                   onClickTarget={"#components"}
-                                  defaultSortField="accession"
+                                  defaultSortField="assessed_biomarker_entity_id"
                                   defaultSortOrder="asc"
                                   record_type={"protein"}
                                   record_id={id}
                                   serverPagination={false}
                                 />
                               )}
-                              {(components && (components.glycan === undefined || components.glycan.length === 0)) && <p>{dataStatus}</p>}
+                              {(glycanComponents === undefined || glycanComponents.length === 0) && <p>{dataStatus}</p>}
                             </Container>
                           </Tab>
                           <Tab
                             eventKey="protein"
                             className="tab-content-padding"
                             title="Protein"
-                            tabClassName={(components && ((!components.protein) || (components.protein.length === 0))) ? "tab-disabled" : ""}
-                            disabled={(components && ((!components.protein) || (components.protein.length === 0)))}
+                            tabClassName={((!proteinComponents) || (proteinComponents.length === 0)) ? "tab-disabled" : ""}
+                            disabled={((!proteinComponents) || (proteinComponents.length === 0))}
                           >
                             <Container>
-                              {components && components.protein && components.protein.length > 0 && (
+                              {proteinComponents && proteinComponents.length > 0 && (
                                 <ClientServerPaginatedTable
-                                  data={components.protein}
+                                  data={proteinComponents}
                                   columns={proteinColumns}
                                   onClickTarget={"#components"}
-                                  default1SortField="start_pos"
+                                  default1SortField="assessed_biomarker_entity_id"
                                   default1SortOrder="asc"
                                   record_type={"protein"}
                                   record_id={id}
                                   serverPagination={false}
                                 />
                               )}
-                               {(components && (components.protein === undefined || components.protein.length === 0))  && <p>{dataStatus}</p>}
+                               {(proteinComponents === undefined || proteinComponents.length === 0) && <p>{dataStatus}</p>}
                             </Container>
                           </Tab>
                         </Tabs>
                       )}
-                      {(!components || ((components.protein === undefined  || components.protein.length === 0) && (components.glycan === undefined || components.glycan.length === 0))) && <p>{dataStatus}</p>}
+                      {(((proteinComponents=== undefined  || proteinComponents.length === 0) && (glycanComponents === undefined || glycanComponents.length === 0))) && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-             
+
+              {/*  Condition */}
+              <Accordion
+                id="Condition"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.biomarker.condition.title}
+                        text={DetailTooltips.biomarker.condition.text}
+                        urlText={DetailTooltips.biomarker.condition.urlText}
+                        url={DetailTooltips.biomarker.condition.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.condition.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="condition" toggle={collapsed.condition} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body className="card-padding-zero">
+                      <Table hover fluid="true">
+                        {conditionData && conditionData.length > 0 && (
+                          <tbody className="table-body">
+                            {conditionData.map((thisCondition, indDis) => (
+                              <tr className="table-row" key={"dis" + indDis}>
+                                <td>
+                                  <div className="mb-3">
+                                    <Grid item xs={12}>
+                                      <div>
+                                        <div className="mb-3">
+                                          <strong> {proteinStrings.name.name}: </strong>{" "}
+                                          {thisCondition.recommended_name.name} (
+                                          <a
+                                            href={thisCondition.recommended_name.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            {thisCondition.recommended_name.id}
+                                          </a>
+                                          )
+                                          <EvidenceList
+                                            inline={true}
+                                            evidences={groupEvidences(thisCondition.evidence)}
+                                          />
+                                        </div>
+                                        {thisCondition.recommended_name.description && (
+                                          <div className="mb-3">
+                                            <strong> {proteinStrings.description.name}: </strong>
+                                            {thisCondition.recommended_name.description}{" "}
+                                          </div>
+                                        )}
+                                        {thisCondition.synonyms && thisCondition.synonyms.length && (
+                                          <div className="mb-3">
+                                            <strong> {proteinStrings.synonyms.name}: </strong>
+                                            <ul style={{ marginLeft: "-40px" }}>
+                                              <ul>
+                                                {thisCondition.synonyms
+                                                  .slice(
+                                                    0,
+                                                    thisCondition.synShowMore
+                                                      ? thisCondition.synShortLen
+                                                      : thisCondition.synLen
+                                                  )
+                                                  .map((synonyms, indSyn) => (
+                                                    <li key={"syn" + indSyn}>
+                                                      {" "}
+                                                      {synonyms.name}{" "}
+                                                      {synonyms.resource &&
+                                                        synonyms.resource.length !== 0 && (
+                                                          <>
+                                                            {" "}
+                                                            [
+                                                            {synonyms.resource.map(
+                                                              (res, ind, arr) => {
+                                                                return (
+                                                                  <span key={"spn" + ind}>
+                                                                    <a
+                                                                      href={res.url}
+                                                                      target="_blank"
+                                                                      rel="noopener noreferrer"
+                                                                    >
+                                                                      {res.id}
+                                                                    </a>
+                                                                    {ind < arr.length - 1
+                                                                      ? ", "
+                                                                      : ""}
+                                                                  </span>
+                                                                );
+                                                              }
+                                                            )}
+                                                            ]
+                                                          </>
+                                                        )}
+                                                    </li>
+                                                  ))}
+                                              </ul>
+                                              {thisCondition.synBtnDisplay && (
+                                                <Button
+                                                  style={{
+                                                    marginLeft: "20px",
+                                                    marginTop: "5px",
+                                                  }}
+                                                  className={"lnk-btn"}
+                                                  variant="link"
+                                                  onClick={() => {
+                                                    setConditionDataSynonyms(
+                                                      thisCondition.recommended_name.name
+                                                    );
+                                                  }}
+                                                >
+                                                  {thisCondition.synShowMore
+                                                    ? "Show More..."
+                                                    : "Show Less..."}
+                                                </Button>
+                                              )}
+                                            </ul>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </Grid>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        )}
+                      </Table>
+                      {conditionData && conditionData.length === 0 && (
+                        <p className="no-data-msg-publication">{dataStatus}</p>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/*  exposure agent */}
+              <Accordion
+                id="Exposure-Agent"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.biomarker.exposure_agent.title}
+                        text={DetailTooltips.biomarker.exposure_agent.text}
+                        urlText={DetailTooltips.biomarker.exposure_agent.urlText}
+                        url={DetailTooltips.biomarker.exposure_agent.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.exposure_agent.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="exposureagent" toggle={collapsed.exposureagent} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body className="card-padding-zero">
+                      <Table hover fluid="true">
+                        {exposureAgentData && exposureAgentData.length > 0 && (
+                          <tbody className="table-body">
+                            {exposureAgentData.map((thisExposureAgent, indDis) => (
+                              <tr className="table-row" key={"dis" + indDis}>
+                                <td>
+                                  <div className="mb-3">
+                                    <Grid item xs={12}>
+                                      <div>
+                                        <div className="mb-3">
+                                          <strong> {proteinStrings.name.name}: </strong>{" "}
+                                          {thisExposureAgent.recommended_name.name} (
+                                          <a
+                                            href={thisExposureAgent.recommended_name.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            {thisExposureAgent.recommended_name.id}
+                                          </a>
+                                          )
+                                          <EvidenceList
+                                            inline={true}
+                                            evidences={groupEvidences(thisExposureAgent.evidence)}
+                                          />
+                                        </div>
+                                        {thisExposureAgent.recommended_name.description && (
+                                          <div className="mb-3">
+                                            <strong> {proteinStrings.description.name}: </strong>
+                                            {thisExposureAgent.recommended_name.description}{" "}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </Grid>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        )}
+                      </Table>
+                      {exposureAgentData && exposureAgentData.length === 0 && (
+                        <p className="no-data-msg-publication">{dataStatus}</p>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* Evidence */}
+              <Accordion
+                id="Evidence"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.biomarker.evidence.title}
+                        text={DetailTooltips.biomarker.evidence.text}
+                        urlText={DetailTooltips.biomarker.evidence.urlText}
+                        url={DetailTooltips.biomarker.evidence.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.evidence.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <CardToggle cardid="evidence" toggle={collapsed.evidence} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body className="card-padding-zero">
+                      <Table hover fluid="true">
+                        {evidence && evidence.length > 0 && (
+                          <tbody className="table-body">
+                            {evidence.map((thisInstance) => (
+                              <tr className="table-row">
+                                <td>
+                                  <div className="mb-3">
+                                    <Grid item xs={12}>
+                                      <div>
+                                        <div className="mb-3">
+                                          {thisInstance.literature_evidence && <div>
+                                            <CollapsibleText text={thisInstance.literature_evidence} lines={2} />
+                                          </div>}
+                                          <div>
+                                            <EvidenceList
+                                              inline={true}
+                                              evidences={groupEvidences(thisInstance.evidence)}
+                                            />
+                                          </div>
+                                        </div>                                   
+                                      </div>
+                                    </Grid>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        )}
+                      </Table>
+                      {evidence && evidence.length === 0 && (
+                        <p className="no-data-msg-publication">{dataStatus}</p>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
                {/* Cross References */}
                <Accordion
                 id="Cross-References"
@@ -759,7 +1133,7 @@ const BiomarkerDetail = (props) => {
                           </ul>
                         </div>
                       ) : (
-                        <span>{dataStatus}</span>
+                        <p>{dataStatus}</p>
                       )}
                     </Card.Body>
                   </Accordion.Collapse>
@@ -824,7 +1198,7 @@ const BiomarkerDetail = (props) => {
                               default1SortField={"date"}
                               default1SortOrder={"desc"}
                               record_type={"biomarker"}
-                              table_id={"publication"}
+                              table_id={"citation"}
                               record_id={id}
                               serverPagination={true}
                               totalDataSize={publicationTotal}

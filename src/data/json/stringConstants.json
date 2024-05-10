@@ -1633,7 +1633,7 @@
       },
       "biomarker_canonical_id": {
         "id": "biomarker_canonical_id",
-        "name": "Biomarker ID"
+        "name": "Biomarker Canonical ID"
       },
       "assessed_biomarker_entity_id": {
         "id": "assessed_biomarker_entity_id",
@@ -2399,6 +2399,24 @@
       "displayname": "Components",
       "tooltip": "Components information",
       "name": "Components "
+    },
+    "condition": {
+      "id": "condition",
+      "displayname": "Condition",
+      "tooltip": "Condition information",
+      "name": "Condition "
+    },
+    "exposure_agent": {
+      "id": "exposure_agent",
+      "displayname": "Exposure Agent",
+      "tooltip": "Exposure Agent information",
+      "name": "Exposure Agent "
+    },
+    "evidence": {
+      "id": "evidence",
+      "displayname": "Evidence",
+      "tooltip": "Evidence information",
+      "name": "Evidence "
     },
     "biomarker_description": {
       "id": "biomarker_description",
