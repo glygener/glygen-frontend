@@ -1676,6 +1676,16 @@
         "prognostic": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/prognostic/",
         "safety": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/safety/",
         "risk": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/susceptibility/"
+      },
+      "contributions": {
+        "biomarker_exact_match": {
+          "id": "biomarker_exact_match",
+          "name": "Biomarker Exact Match"
+        },
+        "biomarker_component_count": {
+          "id": "biomarker_component_count",
+          "name": "Biomarker Component Count"
+        }
       }
     },
     "advanced_search": {

@@ -165,8 +165,8 @@ export const BIOMARKER_COLUMNS = [
           formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
           contributions={row.score_info.contributions.map(item => {
             return {
-              c: proteinStrings.contributions[item.c]
-                ? proteinStrings.contributions[item.c].name
+              c: biomarkerStrings.contributions[item.c]
+                ? biomarkerStrings.contributions[item.c].name
                 : item.c,
               w: item.w,
               f: item.f
