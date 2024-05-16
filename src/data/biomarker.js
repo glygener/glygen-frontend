@@ -163,7 +163,7 @@ export const BIOMARKER_COLUMNS = [
           title={"Hit Score"}
           text={"Hit Score Formula"}
           formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-          contributions={row.score_info.contributions.map(item => {
+          contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map(item => {
             return {
               c: biomarkerStrings.contributions[item.c]
                 ? biomarkerStrings.contributions[item.c].name

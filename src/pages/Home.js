@@ -17,6 +17,7 @@ import mainImg from "../images/home/main-featured-img.png";
 import feedback from "../images/home/feedback.svg";
 import resources from "../images/home/resources.svg";
 import proteinImg from "../images/home/glycoprotein-img.svg";
+import biomarkerImg from "../images/home/biomarker-img.svg";
 import siteSearchImg from "../images/home/protein-img.svg";
 import glycanImg from "../images/home/glycan-img.svg";
 import quickSearchImg from "../images/home/quick-search-img.svg";
@@ -71,9 +72,9 @@ const featuredCards = [
   },
   {
     title: "Biomarker Search",
-    description: "Search for biomarkers based on their id, assessed entity type, and role.",
-    image: proteinImg,
-    imageText: "Protein Search",
+    description: "Search for biomarkers based on their entity, condition, BEST role, and annotations.",
+    image: biomarkerImg,
+    imageText: "Biomarker Search",
     to: routeConstants.biomarkerSearch,
   },
   {

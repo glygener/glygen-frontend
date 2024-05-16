@@ -135,7 +135,7 @@ export const GLYCAN_COLUMNS = [
           title={"Hit Score"}
           text={"Hit Score Formula"}
           formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-          contributions={row.score_info.contributions.map((item) => {return {c:glycanStrings.contributions[item.c] ? glycanStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
+          contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map((item) => {return {c:glycanStrings.contributions[item.c] ? glycanStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
         />
         {row.hit_score}
       </>
