@@ -717,20 +717,6 @@ const BiomarkerDetail = (props) => {
                     <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
-                            // glycanComponents && glycanComponents.length > 0  && {
-                            //   display: "Glycan (*.csv)",
-                            //   type: "component_glycan_csv",
-                            //   format: "csv",
-                            //   data: "biomarker_section",
-                            //   section: "component_glycan",
-                            // },
-                            // proteinComponents && proteinComponents.length > 0 && {
-                            //   display: "Protein (*.csv)",
-                            //   type: "component_protein_csv",
-                            //   format: "csv",
-                            //   data: "biomarker_section",
-                            //   section: "component_protein",
-                            // },
                             ((glycanComponents && glycanComponents.length > 0) || (proteinComponents && proteinComponents.length > 0)) && {
                               display: "Biomarker Component (*.csv)",
                               type: "biomarker_component_csv",
