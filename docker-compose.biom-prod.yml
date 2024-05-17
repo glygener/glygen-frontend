@@ -1,23 +1,18 @@
 version: '3.4'
 services:
   frontend:
-    container_name: glygen-frontend
-    image: glygen-frontend:latest
     build:
-      context: .
-      dockerfile: Dockerfile
       args:
-        - REACT_APP_ENV=prod
-        - REACT_APP_BUILD=glygen
+        - REACT_APP_ENV=biom_prod
+        - REACT_APP_BUILD=biomarker
         - REACT_APP_API=https://api.glygen.org
-        - REACT_APP_DOMAIN=https://glygen.org
+        - REACT_APP_DOMAIN=https://www.glygen.org
+        # - REACT_APP_DOMAIN=http://localhost:6060
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
         - REACT_APP_DATA=https://data.glygen.org
         - REACT_APP_SPARQL=https://sparql.glygen.org
         - REACT_APP_BASENAME=/
         - GENERATE_SOURCEMAP_FILES=true
-        - PORT=80
-networks:
-  default:
-    external:
-      name: glygen-network
+        - PORT=7070
+    ports:
+      - '7070:80'

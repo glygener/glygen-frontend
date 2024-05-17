@@ -4,6 +4,7 @@
  * Do not use direct url's in the code.
  */
 export const GLYGEN_ENV = process.env.REACT_APP_ENV || "dev";
+export const GLYGEN_BUILD = process.env.REACT_APP_BUILD || "glygen";
 export const GLYGEN_API = process.env.REACT_APP_API || "https://api.tst.glygen.org";
 export const GLYGEN_DOMAIN = process.env.REACT_APP_DOMAIN || "http://localhost:3000";
 export const GLYGEN_DATA = process.env.REACT_APP_DATA || "https://data.glygen.org";

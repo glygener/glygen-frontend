@@ -385,11 +385,6 @@ const BiomarkerDetail = (props) => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
-      formatter: (value, row) => (
-        <LineTooltip text="View protein details">
-          <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
-        </LineTooltip>
-      ),
     },
     {
       dataField: "loinc_code",
@@ -489,11 +484,6 @@ const BiomarkerDetail = (props) => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
-      formatter: (value, row) => (
-        <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
-        </LineTooltip>
-      ),
     },
     {
       dataField: "loinc_code",
@@ -561,11 +551,7 @@ const BiomarkerDetail = (props) => {
                 <span style={{ paddingLeft: "15px" }}>
                   {ref.type}:
                 </span>{" "}
-                <Link
-                  to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
-                >
-                  <>{ref.id}</>
-                </Link>{" "}
+                <span>{ref.id}</span>{" "}
               </>
             ))}
           </div>

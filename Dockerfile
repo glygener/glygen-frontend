@@ -19,6 +19,9 @@ RUN npm install react-router-sitemap@1.2.0 --silent --legacy-peer-deps
 RUN npm install react-swipeable-views@0.14.0 --silent --legacy-peer-deps
 
 # set env variables
+ARG REACT_APP_BUILD
+ENV REACT_APP_BUILD=$REACT_APP_BUILD
+
 ARG REACT_APP_ENV
 ENV REACT_APP_ENV=$REACT_APP_ENV
 
