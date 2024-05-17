@@ -1,6 +1,8 @@
 version: '3.4'
 services:
   frontend:
+    container_name: glygen-frontend-test
+    image: glygen-frontend-test:latest
     build:
       args:
         - REACT_APP_ENV=biom_prod
