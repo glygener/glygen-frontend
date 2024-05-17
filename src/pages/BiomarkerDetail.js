@@ -182,7 +182,7 @@ const BiomarkerDetail = (props) => {
         setItemsCrossRef(data.crossref);
 
 
-        let glyComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "glycan").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code).filter(obj => obj !== undefined) : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
+        let glyComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "glycan").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
 
         let proComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "protein").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code).filter(obj => obj !== undefined) : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
 
@@ -486,25 +486,6 @@ const BiomarkerDetail = (props) => {
       },
     },
     {
-      dataField: "loinc_code",
-      text: biomarkerStrings.loinc_code.name,
-      // sort: true,
-      selected: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: (cell, row) => {
-        return (<>
-        <ul style={{ marginLeft: "-40px" }}>
-          <ul>
-            {row && row.loinc_code && row.loinc_code.map(obj => (
-              <li>{obj}</li>))}
-          </ul>
-        </ul>
-      </>);
-      }
-    },
-    {
       dataField: "specimen_id",
       text: biomarkerStrings.specimen_name.name,
       // sort: true,
@@ -747,7 +728,7 @@ const BiomarkerDetail = (props) => {
                                   onClickTarget={"#components"}
                                   defaultSortField="assessed_biomarker_entity_id"
                                   defaultSortOrder="asc"
-                                  record_type={"protein"}
+                                  record_type={"glycan"}
                                   record_id={id}
                                   serverPagination={false}
                                 />
@@ -768,8 +749,8 @@ const BiomarkerDetail = (props) => {
                                   data={proteinComponents}
                                   columns={proteinColumns}
                                   onClickTarget={"#components"}
-                                  default1SortField="assessed_biomarker_entity_id"
-                                  default1SortOrder="asc"
+                                  defaultSortField="assessed_biomarker_entity_id"
+                                  defaultSortOrder="asc"
                                   record_type={"protein"}
                                   record_id={id}
                                   serverPagination={false}
