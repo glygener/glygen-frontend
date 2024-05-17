@@ -5,8 +5,8 @@ services:
       args:
         - REACT_APP_ENV=biom_prod
         - REACT_APP_BUILD=biomarker
-        - REACT_APP_API=https://api.glygen.org
-        - REACT_APP_DOMAIN=https://www.glygen.org
+        - REACT_APP_API=https://api.tst.glygen.org
+        - REACT_APP_DOMAIN=https://tst.glygen.org
         # - REACT_APP_DOMAIN=http://localhost:6060
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
         - REACT_APP_DATA=https://data.glygen.org
