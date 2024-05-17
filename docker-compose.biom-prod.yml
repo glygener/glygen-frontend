@@ -16,3 +16,7 @@ services:
         - PORT=7070
     ports:
       - '7070:80'
+networks:
+  default:
+    external:
+      name: glygen-network-biom-prod
