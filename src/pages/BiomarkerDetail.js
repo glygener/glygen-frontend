@@ -38,6 +38,9 @@ import routeConstants from "../data/json/routeConstants";
 import CardToggle from "../components/cards/CardToggle";
 import CardLoader from "../components/load/CardLoader";
 import CollapsibleText from "../components/CollapsibleText";
+import {
+  GLYGEN_BUILD,
+} from "../envVariables";
 
 const glycanStrings = stringConstants.glycan.common;
 const proteinStrings = stringConstants.protein.common;
@@ -231,24 +234,21 @@ const BiomarkerDetail = (props) => {
 
         let litEvidence = [];
 
-        for (let i  = 0; i < data.biomarker_component.length; i++) {
-          let obj = data.biomarker_component[i];
-          if (obj.evidence_source) {
-            for (let j  = 0; j < obj.evidence_source.length; j++) {
-              let eveObj = obj.evidence_source[j];
-              let eve = {
-                id : eveObj.id,
-                database : eveObj.database,
-                url : eveObj.url
-              };
-              if (eveObj.evidence_list) {
+        if (data.evidence_source) {
+          for (let j  = 0; j < data.evidence_source.length; j++) {
+            let eveObj = data.evidence_source[j];
+            let eve = {
+              id : eveObj.id,
+              database : eveObj.database,
+              url : eveObj.url
+            };
+            if (eveObj.evidence_list) {
                 for (let k  = 0; k < eveObj.evidence_list.length; k++) {
                 let evidence_list = [];
                 evidence_list.push(eve);
                 litEvidence.push({literature_evidence : eveObj.evidence_list[k].evidence, evidence : evidence_list});
               }
             }
-          }
           }
         }
 
@@ -385,6 +385,13 @@ const BiomarkerDetail = (props) => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
+      formatter: (value, row) => (
+        <>
+          {GLYGEN_BUILD === "glygen" ? <LineTooltip text="View protein details">
+            <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
+          </LineTooltip> : <span>{row.assessed_biomarker_entity_id}</span>}
+        </>
+      ),
     },
     {
       dataField: "loinc_code",
@@ -484,6 +491,13 @@ const BiomarkerDetail = (props) => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
+      formatter: (value, row) => (
+        <>
+          {GLYGEN_BUILD === "glygen" ? <LineTooltip text="View glycan details">
+            <Link to={routeConstants.glycanDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
+          </LineTooltip> : <span>{row.assessed_biomarker_entity_id}</span>}
+        </>
+      ),
     },
     {
       dataField: "specimen_id",
@@ -532,7 +546,14 @@ const BiomarkerDetail = (props) => {
                 <span style={{ paddingLeft: "15px" }}>
                   {ref.type}:
                 </span>{" "}
-                <span>{ref.id}</span>{" "}
+                <>
+                  {GLYGEN_BUILD === "glygen" ? <><Link
+                    to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
+                  >
+                    {ref.id}
+                  </Link>{" "}</> :
+                  <><span>{ref.id}</span>{" "}</>}
+                </>
               </>
             ))}
           </div>
