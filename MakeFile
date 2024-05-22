@@ -6,6 +6,7 @@ GLYGEN_NETWORK_BETA = glygen-network-beta
 GLYGEN_NETWORK_DEV = glygen-network-dev
 GLYGEN_NETWORK_TEST = glygen-network-test
 GLYGEN_NETWORK_BIOM_PROD = glygen-network-biom-prod
+GLYGEN_NETWORK_BIOM_DEV = glygen-network-biom-dev
 
 network:
 	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK};
@@ -21,6 +22,9 @@ network-test:
 
 network-biom-prod:
 	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_BIOM_PROD}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_BIOM_PROD};
+
+network-biom-dev:
+	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_BIOM_DEV}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_BIOM_DEV};
 
 prod: network
 	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend rm --force
@@ -46,6 +50,11 @@ dev: network-dev
 biom-prod: network-biom-prod
 	@docker-compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod rm --force
 	@docker-compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod up --no-start --build
+	@docker image prune --force
+
+biom-dev: network-biom-dev
+	@docker-compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev rm --force
+	@docker-compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev up --no-start --build
 	@docker image prune --force
 
 clean:
