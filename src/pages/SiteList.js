@@ -256,7 +256,7 @@ const SiteList = (props) => {
       text: "Start Pos",
       sort: true,
       formatter: (value, row) =>
-        row.start_pos === row.end_pos ? (
+        row.start_pos === row.end_pos && row.start_pos !== 0 ? (
           <LineTooltip text="View siteview details">
             <Link
               to={`${routeConstants.siteview + row.uniprot_canonical_ac}/${
@@ -267,7 +267,7 @@ const SiteList = (props) => {
             </Link>
           </LineTooltip>
         ) : (
-          value
+          row.start_pos === row.end_pos && row.start_pos === 0 ? "Not Reported" : value
         ),
     },
     {
@@ -275,7 +275,7 @@ const SiteList = (props) => {
       text: "End Pos",
       sort: true,
       formatter: (value, row) =>
-        row.start_pos === row.end_pos ? (
+        row.end_pos === row.start_pos && row.end_pos !== 0 ? (
           <LineTooltip text="View siteview details">
             <Link
               to={`${routeConstants.siteview + row.uniprot_canonical_ac}/${
@@ -286,7 +286,7 @@ const SiteList = (props) => {
             </Link>
           </LineTooltip>
         ) : (
-          value
+          row.end_pos === row.start_pos && row.end_pos === 0 ? "Not Reported" : value
         ),
     },
     {
