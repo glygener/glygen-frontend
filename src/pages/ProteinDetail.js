@@ -3857,6 +3857,23 @@ const ProteinDetail = (props) => {
                     {stringConstants.sidebar.biomarkers.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Biomarkers (*.csv)",
+                              type: "biomarkers_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "biomarkers",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={biomarkers && biomarkers.length > 0}
+                        />
+                      </span>
                       <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
