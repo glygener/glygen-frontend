@@ -927,10 +927,10 @@ const BiomarkerDetail = (props) => {
                         {BESTBiomarkerRole && BESTBiomarkerRole.length > 0 && (
                           <>
                             <Row>
-                              <Col Col md="auto" className="pr-0">
+                              <Col Col md="auto" className="pe-0">
                                 <strong>{biomarkerStrings.best_biomarker_role.name}: </strong>
                               </Col>
-                              <Col className="nowrap d-inline5 pl-1">
+                              <Col className="nowrap d-inline5 ps-1">
                                 {BESTBiomarkerRole.map((obj) => (
                                   <>
                                     <span>

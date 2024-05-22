@@ -548,12 +548,12 @@ const MotifDetail = (props) => {
                               {motifSynonym && motifSynonym.length > 0 && (
                                 <>
                                   <Row>
-                                    <Col Col md="auto" className="pr-0">
+                                    <Col Col md="auto" className="pe-0">
                                       <strong>{motifStrings.motif_synonym.synonym}: </strong>
                                     </Col>
-                                    <Col className="nowrap d-inline5 pl-1">
+                                    <Col className="nowrap d-inline5 ps-1">
                                       {motifSynonym.map((synonym) => (
-                                        // <Col className="nowrap5 d-inline5 pl-0">
+                                        // <Col className="nowrap5 d-inline5 ps-0">
                                         <>
                                           <span>
                                             <a
@@ -620,10 +620,10 @@ const MotifDetail = (props) => {
                           {motifKeywords && motifKeywords.length > 0 ? (
                             <>
                               <Row>
-                                <Col Col md="auto" className="pr-0">
+                                <Col Col md="auto" className="pe-0">
                                   <strong>{motifStrings.motif_keywords.name}: </strong>
                                 </Col>
-                                <Col className="nowrap d-inline5 pl-1">
+                                <Col className="nowrap d-inline5 ps-1">
                                   {motifKeywords.map((keywords) => (
                                     <>
                                       <span>
@@ -1050,7 +1050,7 @@ const MotifDetail = (props) => {
                       {history && history.length ? (
                         <>
                           {history.map(historyItem => (
-                            <ul className="pl-3" key={historyItem.description}>
+                            <ul className="ps-3" key={historyItem.description}>
                               <li>
                                 {capitalizeFirstLetter(historyItem.description)}{" "}
                               </li>

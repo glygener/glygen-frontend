@@ -2133,7 +2133,7 @@ const GlycanDetail = props => {
                               lg={8}
                               xl={8}
                               justify={"center"}
-                              className="pe-0 text-center pr-1">
+                              className="pe-0 text-center">
                                 <div style={{"width": "100%", "height": "100%", "margin": "0", "padding": "0"}}>
                                   <div className="content-cen" id="glymagesvg"
                                       glymagesvg_accession={id} 
@@ -3116,7 +3116,7 @@ const GlycanDetail = props => {
                       {history && history.length ? (
                         <>
                           {history.map(historyItem => (
-                            <ul className="pl-3" key={historyItem.description}>
+                            <ul className="ps-3" key={historyItem.description}>
                               <li>
                                 {capitalizeFirstLetter(historyItem.description)}{" "}
                               </li>

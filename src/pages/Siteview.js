@@ -768,7 +768,7 @@ const Siteview = props => {
       formatter: (value, row) => (
         <>
           {value && value.map((disease, index) => (
-            <ul key={index} className="pl-3">
+            <ul key={index} className="ps-3">
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
                 <span className="nowrap">

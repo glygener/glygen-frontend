@@ -216,7 +216,7 @@ const MotifList = props => {
       formatter: (value, row) => (
         <>
           {value.map(synonyms => (
-            <Col className="nowrap pl-0">
+            <Col className="nowrap ps-0">
               <div>
                 {synonyms}
               </div>
