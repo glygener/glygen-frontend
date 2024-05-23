@@ -9,6 +9,9 @@ export function groupOrganismEvidences(values) {
 		groupedEvidences[s.name] = {
 			taxid: s.taxid,
 			common_name: s.common_name,
+			reference_species: s.reference_species,
+			glygen_name: s.glygen_name,
+			name: s.name,
 			evidence: [],
 		};
 		for (const e of s.evidence) {
@@ -50,6 +53,7 @@ export function groupOrganismEvidencesTableView(values) {
 		order++;
 		let obj = {
 			common_name: s.common_name,
+			glygen_name: s.glygen_name,
 			evidence: [],
 			expanded_table: [],
 			species_count: spArray.length,

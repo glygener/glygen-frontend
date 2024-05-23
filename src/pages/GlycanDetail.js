@@ -892,7 +892,7 @@ const GlycanDetail = props => {
       }
     },
     {
-      dataField: "common_name",
+      dataField: "glygen_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -900,7 +900,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {row.common_name}
+          {row.glygen_name}
           {" "}
           <DirectSearch
             text={glycanDirectSearch.organism.text}
@@ -909,7 +909,7 @@ const GlycanDetail = props => {
             fieldValue={{
               organism_list: [
                 {
-                  common_name: row.common_name,
+                  common_name: row.glygen_name,
                 }
               ],
               annotation_category: "",
@@ -978,7 +978,7 @@ const GlycanDetail = props => {
     },
     {
       dataField: "common_name",
-      text: glycanStrings.organism.shortName,
+      text: glycanStrings.common_name.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };

@@ -1158,6 +1158,15 @@
         },
         "id": "organism"
       },
+      "reference_species": {
+        "name": "Reference Species",
+        "shortName": "Reference Species",
+        "tooltip": {
+          "title": "Reference Species",
+          "text": ""
+        },
+        "id": "reference_species"
+      },
       "protein_name": {
         "name": "Protein Name",
         "shortName": "Protein Name",

@@ -2194,25 +2194,25 @@ const ProteinDetail = (props) => {
                           Object.keys(organismEvidence).map((orgEvi) => (
                             // For every database for current organism object
                             <div key={organismEvidence[orgEvi].taxid}>
-                              <>
+                              <div>
                                 <strong>{proteinStrings.organism.name}: </strong>
-                                {orgEvi} {"("}
-                                <span className="text-capitalize">
-                                  {organismEvidence[orgEvi].common_name}
-                                </span>
-                                {")"} {"["}
-                                {/* <LineTooltip text="View details on NCBI"> */}
-                                <a
-                                  href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {organismEvidence[orgEvi].taxid}
-                                </a>
-                                {/* </LineTooltip> */}
-                                {"]"}
-                                <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
-                              </>
+                                {organismEvidence[orgEvi].glygen_name}
+                              </div>
+                              <div>
+                                  <strong>{proteinStrings.reference_species.name}: </strong>
+                                  {orgEvi} {"["}
+                                  {/* <LineTooltip text="View details on NCBI"> */}
+                                  <a
+                                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {organismEvidence[orgEvi].taxid}
+                                  </a>
+                                  {/* </LineTooltip> */}
+                                  {"]"}
+                                  <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
+                              </div>
                             </div>
                           ))}
                         {/* {!species && (
@@ -3645,11 +3645,14 @@ const ProteinDetail = (props) => {
                               </div>
                               <div>
                                 <strong>{glycanStrings.organism.name}: </strong>
-                                {orthologsS.organism}{" "}
                                 <span className="text-capitalize">
-                                  {"("}
-                                  {orthologsS.common_name}
-                                  {")"}
+                                  {orthologsS.glygen_name}
+                                </span>
+                              </div>
+                              <div>
+                                <strong>{proteinStrings.reference_species.name}: </strong>
+                                <span className="text-capitalize">
+                                  {orthologsS.reference_species}
                                 </span>
                               </div>
 
