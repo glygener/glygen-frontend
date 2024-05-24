@@ -43,13 +43,13 @@ export function groupOrganismEvidencesTableView(values) {
 	let order = 0;
 	for (const s of values) {
 
-		let grEve = groupedEvidences.find(obj => obj.common_name == s.common_name);
+		let grEve = groupedEvidences.find(obj => obj.glygen_name == s.glygen_name);
 
 		if (grEve) {
 			continue;
 		}
 
-		let spArray = values.filter(obj => obj.common_name == s.common_name);
+		let spArray = values.filter(obj => obj.glygen_name == s.glygen_name);
 		order++;
 		let obj = {
 			common_name: s.common_name,
@@ -91,6 +91,7 @@ export function groupOrganismEvidencesTableView(values) {
 					database: e.database,
 					name: sp.name,
 					common_name: s.common_name,
+					glygen_name: s.glygen_name,
 					taxid: sp.taxid,
 					id: e.id,
 					url: e.url,
