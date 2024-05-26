@@ -649,7 +649,7 @@ const GlycanSearch = (props) => {
 								data.cache_info.query.organism === undefined || data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.name === org.common_name;
+												return initOrg.name === org.glygen_name;
 											});
 										}
 									)[0] === undefined
@@ -657,7 +657,7 @@ const GlycanSearch = (props) => {
 									: data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.name === org.common_name;
+												return initOrg.name === org.glygen_name;
 											});
 										}
 									),
@@ -835,7 +835,7 @@ const GlycanSearch = (props) => {
 		var organisms = undefined;
 		if (input_organism && input_organism.length > 0) {
 			organisms = {
-				organism_list:input_organism.map(obj => { return {"common_name": obj.name}}),
+				organism_list:input_organism.map(obj => { return {"glygen_name": obj.name}}),
 				annotation_category: input_organism_annotation_cat,
 				operation: input_organism_operation
 			};
@@ -874,7 +874,7 @@ const GlycanSearch = (props) => {
 			[commonGlycanData.mass.id]: input_mass,
 			[commonGlycanData.number_monosaccharides.id]: monosaccharides,
 			[commonGlycanData.enzyme.id]: enzymes,
-			[commonGlycanData.glycan_name.id]: input_glycan_name,
+			[commonGlycanData.glycan_name.id]: input_glycan_name !== "" ? input_glycan_name : undefined,
 			[commonGlycanData.glycan_identifier.id]: glycan_identifier,
 			[commonGlycanData.organism.id]: organisms,
 			[commonGlycanData.glycan_type.id]: input_glycantype !== "" ? input_glycantype : undefined,

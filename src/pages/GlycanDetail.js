@@ -909,7 +909,7 @@ const GlycanDetail = props => {
             fieldValue={{
               organism_list: [
                 {
-                  common_name: row.glygen_name,
+                  glygen_name: row.glygen_name,
                 }
               ],
               annotation_category: "",
