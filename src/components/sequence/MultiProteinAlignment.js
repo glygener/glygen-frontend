@@ -61,7 +61,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
           end_pos: data.end_pos,
           protein_name: proData.details.protein_name,
           gene_name: proData.details.gene_name,
-          species_name: proData.details.species.common_name,
+          species_name: proData.details.species.glygen_name,
           evalue: proData.hsp_list[i].evalue,
           score: proData.hsp_list[i].score,
           positives: proData.hsp_list[i].positives,
@@ -153,7 +153,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
               <SelectControl
                 inputValue={proteinID}
                 setInputValue={(val) => proteinIDChange(val)}
-                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).filter(item => algnData[item].details !== undefined).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.common_name, id : item}}) : []}
+                menu={algnData && Object.keys(algnData).length > 0 ? Object.keys(algnData).filter(item => algnData[item].details !== undefined).map(item => {return {name : item + " : " + algnData[item].details.protein_name + " (" + algnData[item].hsp_list.length + " match(es)), " + algnData[item].details.species.glygen_name, id : item}}) : []}
                 required={true}
               />
             </FormControl>

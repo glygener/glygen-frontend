@@ -115,6 +115,7 @@ const BlastResult = (props) => {
                 "protein_name": data.by_subject[protID].details.protein_name,
                 "gene_name": data.by_subject[protID].details.gene_name,
                 "common_name": data.by_subject[protID].details.species.common_name,
+                "glygen_name": data.by_subject[protID].details.species.glygen_name,
                 "tax_name": seqObj.tax_name,
                 "tax_id": seqObj.tax_id,
                 "start_pos": seqObj.start_pos,
@@ -213,7 +214,7 @@ const BlastResult = (props) => {
       sort: true,
     },
     {
-      dataField: "common_name",
+      dataField: "glygen_name",
       text: blastSearch.organism.name,
       sort: true,
     },
