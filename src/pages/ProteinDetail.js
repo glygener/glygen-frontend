@@ -540,7 +540,7 @@ const ProteinDetail = (props) => {
           newSidebarData = setSidebarItemState(newSidebarData, "History", true);
         }
         if (!detailDataTemp.publication || detailDataTemp.publication.length === 0) {
-          newSidebarData = setSidebarItemState(newSidebarData, "Publication", true);
+          newSidebarData = setSidebarItemState(newSidebarData, "Publications", true);
         }
         setSidebarData(newSidebarData);
         if (data.disease) {

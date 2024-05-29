@@ -274,8 +274,8 @@ const BiomarkerDetail = (props) => {
         if (!data.crossref || data.crossref.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Cross-References", true);
         }
-        if (!data.publication || data.publication.length === 0) {
-          newSidebarData = setSidebarItemState(newSidebarData, "Publication", true);
+        if (!data.citation || data.citation.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Publications", true);
         }
 
         setSidebarData(newSidebarData);
@@ -1208,7 +1208,7 @@ const BiomarkerDetail = (props) => {
                               setCardLoading={setCardLoadingPub}
                         />}
                     </div>
-                      {!publication && (
+                      {(!publication || (publication && publication.length === 0)) && (
                         <p className="no-data-msg-publication">{dataStatus}</p>
                       )}
                     </Card.Body>
