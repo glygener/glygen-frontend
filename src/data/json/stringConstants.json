@@ -1694,6 +1694,18 @@
         "biomarker_component_count": {
           "id": "biomarker_component_count",
           "name": "Biomarker Component Count"
+        },
+        "component_count": {
+          "id": "component_count",
+          "name": "Component Count"
+        },
+        "component_evidence_count": {
+          "id": "component_evidence_count",
+          "name": "Component Evidence Count"
+        },
+        "global_evidence_count": {
+          "id": "global_evidence_count",
+          "name": "Global Evidence Count"
         }
       }
     },

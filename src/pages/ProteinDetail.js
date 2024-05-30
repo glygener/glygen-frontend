@@ -3651,11 +3651,18 @@ const ProteinDetail = (props) => {
                               </div>
                               <div>
                                 <strong>{proteinStrings.reference_species.name}: </strong>
-                                <span className="text-capitalize">
-                                  {orthologsS.reference_species}
-                                </span>
+                                  {orthologsS.organism} {"["}
+                                  {/* <LineTooltip text="View details on NCBI"> */}
+                                  <a
+                                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${orthologsS.tax_id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {orthologsS.tax_id}
+                                  </a>
+                                  {/* </LineTooltip> */}
+                                  {"]"}
                               </div>
-
                               <Grid item className="badge-grid" xs={12}>
                                 <EvidenceList
                                   inline={true}
