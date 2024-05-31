@@ -14,6 +14,7 @@ import routeConstants from "../data/json/routeConstants";
 import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
+import "../css/Sidebar.css";
 import { axiosError } from "../data/axiosError";
 import { GLYGEN_BASENAME } from "../envVariables";
 import ListFilter from "../components/ListFilter";
@@ -212,7 +213,7 @@ const BiomarkerList = props => {
             </div>
           </div>
         )}
-        <div className="sidebar-page">
+        <div className="sidebar-page" style={{width: "100%"}}>
           <div class="list-mainpage-container list-mainpage-container">
             <PageLoader pageLoading={pageLoading} />
             <DialogAlert
