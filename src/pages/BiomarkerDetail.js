@@ -815,8 +815,8 @@ const BiomarkerDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body className="card-padding-zero">
-                      <Table hover fluid="true">
-                        {conditionData && conditionData.length > 0 && (
+                      {conditionData && conditionData.length > 0 && (
+                        <Table hover fluid="true">
                           <tbody className="table-body">
                             {conditionData.map((thisCondition, indDis) => (
                               <tr className="table-row" key={"dis" + indDis}>
@@ -846,7 +846,7 @@ const BiomarkerDetail = (props) => {
                                             {thisCondition.recommended_name.description}{" "}
                                           </div>
                                         )}
-                                        {thisCondition.synonyms && thisCondition.synonyms.length && (
+                                        {thisCondition.synonyms && thisCondition.synonyms.length > 0 && (
                                           <div className="mb-3">
                                             <strong> {proteinStrings.synonyms.name}: </strong>
                                             <ul style={{ marginLeft: "-40px" }}>
@@ -920,30 +920,28 @@ const BiomarkerDetail = (props) => {
                               </tr>
                             ))}
                           </tbody>
-                        )}
-                      </Table>
+                        </Table>
+                      )}
 
-                      <div style={{paddingTop: "20px", paddingBottom: "20px", paddingRight: "25px", paddingLeft: "25px"}}>
-                        {BESTBiomarkerRole && BESTBiomarkerRole.length > 0 && (
-                          <>
-                            <Row>
-                              <Col Col md="auto" className="pe-0">
-                                <strong>{biomarkerStrings.best_biomarker_role.name}: </strong>
-                              </Col>
-                              <Col className="nowrap d-inline5 ps-1">
-                                {BESTBiomarkerRole.map((obj) => (
-                                  <>
-                                    <span>
-                                      {obj.role}
-                                    </span>
-                                    {<br />}
-                                  </>
-                                ))}
-                              </Col>
-                            </Row>
-                          </>
-                        )}
-                      </div>
+                      {BESTBiomarkerRole && BESTBiomarkerRole.length > 0 && (
+                        <div style={{paddingTop: "20px", paddingBottom: "20px", paddingRight: "25px", paddingLeft: "25px"}}>
+                          <Row>
+                            <Col Col md="auto" className="pe-0">
+                              <strong>{biomarkerStrings.best_biomarker_role.name}: </strong>
+                            </Col>
+                            <Col className="nowrap d-inline5 ps-1">
+                              {BESTBiomarkerRole.map((obj) => (
+                                <>
+                                  <span>
+                                    {obj.role}
+                                  </span>
+                                  {<br />}
+                                </>
+                              ))}
+                            </Col>
+                          </Row>
+                        </div>
+                      )}
 
                       {conditionData && conditionData.length === 0 && BESTBiomarkerRole && BESTBiomarkerRole.length === 0 && (
                         <p className="no-data-msg-publication">{dataStatus}</p>
