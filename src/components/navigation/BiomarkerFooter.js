@@ -215,7 +215,7 @@ export default function Footer() {
         <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center">
           <Row className="justify-content-center mt-1 mb-1">
             <Col md={"auto"}>
-              <Navbar.Brand href={routeConstants.home}>
+              <Navbar.Brand as={Link} to={routeConstants.home}>
                 <img
                   href={routeConstants.home}
                   src={logoFooter}
