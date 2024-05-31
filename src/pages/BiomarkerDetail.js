@@ -725,7 +725,7 @@ const BiomarkerDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {((glycanComponents || proteinComponents) && !(glycanComponents.length === 0 && proteinComponents.length === 0 )) && (
+                      {((glycanComponents || proteinComponents) && !(glycanComponents.length === 0 && proteinComponents.length === 0)) && (
                         <Tabs
                           activeKey={componentTabSelected}
                           onSelect={(key) => {
