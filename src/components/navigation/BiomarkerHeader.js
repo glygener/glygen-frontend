@@ -1,6 +1,6 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import logo from "../../images/glygen_logos/glygen-logoW.svg";
+import logo from "../../images/glygen_logos/biomarker-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
 import { NavDropdown, Navbar, Nav, Row, Col, Container as ContainerBootStrap } from "react-bootstrap";
 import PersonIcon from "@mui/icons-material/Person";
@@ -69,7 +69,7 @@ export default function Header(props) {
                   <span>
                     <PersonIcon />
                   </span>{" "}
-                  MY GLYGEN
+                  MY BIOMARKER
                 </Link>
               </span>
             </div>

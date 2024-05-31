@@ -571,5 +571,18 @@
         "content": ""
       }
     ]
+  },
+  "biomarkerHome": {
+    "title": "Biomarker Home | Informatics Resources for Glycoscience",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "biomarker search"
+      }
+    ]
   }
 }

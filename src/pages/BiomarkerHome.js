@@ -50,9 +50,9 @@ import { axiosError } from "../data/axiosError";
 import EventAlerts from "../components/alert/EventAlerts";
 
 const mainFeaturedCard = {
-  title: "GlyGen: Computational and Informatics Resources for Glycoscience",
+  title: "Biomarker Partnership Project",
   description:
-    "GlyGen is a data integration and dissemination project for carbohydrate and glycoconjugate related data. GlyGen retrieves information from multiple international data sources and integrates and harmonizes this data. This web portal allows exploring this data and performing unique searches that cannot be executed in any of the integrated databases alone.",
+    "Biomarker Partnership is a Common Fund Data Ecosystem (CFDE) sponsored project to develop a knowledgebase that will organize and integrate biomarker data from different public sources. The data will be connected to contextual information to show a novel systems-level view of biomarkers.",
   image: mainImg,
 };
 const featuredCards = [
@@ -134,8 +134,8 @@ export default function Home() {
   return (
     <React.Fragment>
       <Helmet>
-        {getTitle("home")}
-        {getMeta("home")}
+        {getTitle("biomarkerHome")}
+        {getMeta("biomarkerHome")}
       </Helmet>
 
       <CssBaseline />

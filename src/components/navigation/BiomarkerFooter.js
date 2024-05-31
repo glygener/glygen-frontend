@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logoFooter from "../../images/glygen_logos/glygen-logoW-top.svg";
+import logoFooter from "../../images/glygen_logos/biomarker-logoW.svg";
 import ugaLogo from "../../images/univ_logos/logo-uga.svg";
 import gwuLogo from "../../images/univ_logos/logo-gwu.svg";
 import { Navbar, Col, Image, Row, Container as ContainerBootStrap } from "react-bootstrap";
@@ -37,7 +37,8 @@ import {
   GLYGEN_TUT_HOWT,
   GLYGEN_DOC,
   GRANT_DETAILS_COMMONFUND,
-  NIH_COMMONFUND
+  NIH_COMMONFUND,
+  NIH_COMMONFUND_DATAECOSYSTEM
 } from "../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
@@ -226,43 +227,17 @@ export default function Footer() {
               <Col md={"auto"}>
                 <Box display="flex" className="box-footer">
                   <Navbar.Text className={classes.navbarText}>
-                    GlyGen is supported and funded by the{" "}
+                    Biomarker Partnership is a Common Fund Data Ecosystem{" "}
                     <a
-                      href={NIGMS}
+                      href={NIH_COMMONFUND_DATAECOSYSTEM}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={classes.link}
                     >
-                      National Institute of General Medical Sciences{" "}
+                      (CFDE)
                     </a>
-                    under the grant #{" "}
-                    <a
-                      href={GRANT_DETAILS}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={classes.link}
-                    >
-                      1R24GM146616&nbsp;-&nbsp;01
-                    </a>{" "}
-                    and the {" "}
-                    <a
-                      href={NIH_COMMONFUND}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={classes.link}
-                    >
-                      National Institutes of Health Office of Strategic Coordination - The Common Fund{" "}
-                    </a>
-                    under the grant #{" "}
-                    <a
-                      href={GRANT_DETAILS_COMMONFUND}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={classes.link}
-                    >
-                      1OT2OD032092
-                    </a>
-                    .
+                    {" "}
+                    sponsored project to develop a knowledgebase that will organize and integrate biomarker data from different public sources.
                   </Navbar.Text>
                 </Box>
               </Col>
