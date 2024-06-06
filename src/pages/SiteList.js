@@ -58,6 +58,10 @@ const SiteList = (props) => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
 
     logActivity("user", id);
 
@@ -233,7 +237,7 @@ const SiteList = (props) => {
             title={"Hit Score"}
             text={"Hit Score Formula"}
             formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-            contributions={row.score_info.contributions.map((item) => {
+            contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map((item) => {
               return {
                 c: siteStrings.contributions[item.c]
                   ? siteStrings.contributions[item.c].name
@@ -252,7 +256,7 @@ const SiteList = (props) => {
       text: "Start Pos",
       sort: true,
       formatter: (value, row) =>
-        row.start_pos === row.end_pos ? (
+        row.start_pos === row.end_pos && row.start_pos !== 0 ? (
           <LineTooltip text="View siteview details">
             <Link
               to={`${routeConstants.siteview + row.uniprot_canonical_ac}/${
@@ -263,7 +267,7 @@ const SiteList = (props) => {
             </Link>
           </LineTooltip>
         ) : (
-          value
+          row.start_pos === row.end_pos && row.start_pos === 0 ? "Not Reported" : value
         ),
     },
     {
@@ -271,7 +275,7 @@ const SiteList = (props) => {
       text: "End Pos",
       sort: true,
       formatter: (value, row) =>
-        row.start_pos === row.end_pos ? (
+        row.end_pos === row.start_pos && row.end_pos !== 0 ? (
           <LineTooltip text="View siteview details">
             <Link
               to={`${routeConstants.siteview + row.uniprot_canonical_ac}/${
@@ -282,7 +286,7 @@ const SiteList = (props) => {
             </Link>
           </LineTooltip>
         ) : (
-          value
+          row.end_pos === row.start_pos && row.end_pos === 0 ? "Not Reported" : value
         ),
     },
     {

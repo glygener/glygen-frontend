@@ -86,6 +86,9 @@ export default function Footer() {
                 <Link to={routeConstants.proteinSearch}>Protein&nbsp;Search</Link>
               </div>
               <div>
+                <Link to={routeConstants.biomarkerSearch}>Biomarker&nbsp;Search</Link>
+              </div>
+              <div>
                 <Link to={routeConstants.siteSearch}>Site&nbsp;Search</Link>
               </div>
               <div>

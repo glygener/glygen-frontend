@@ -43,7 +43,7 @@ export default function VerticalHeadingLogo(props) {
 					<Link
 						className="align-logo"
 						alignContent="bottom"
-						href="https://github.com/glygener/glygen-frontend/tree/master/src/GlyGen-logos"
+						href="https://github.com/glygener/glygen-frontend/tree/master/src/images/glygen_logos"
 						target="_blank">
 						<div>
 						<div>

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Routes from "./Routes";
-import Header from "./components/navigation/Header";
-import Footer from "./components/navigation/Footer";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import GlyGenApp from "./GlyGenApp";
+import BiomarkerApp from "./BiomarkerApp";
+import { createTheme } from "@mui/material/styles";
 import ReactGA from "react-ga4";
-import { GLYGEN_ENV } from "./envVariables.js";
-import ScrollToTopBtn from "./components/ScrollToTop";
+import { GLYGEN_ENV, GLYGEN_BUILD } from "./envVariables.js";
 
 function initializeReactGA() {
   if (GLYGEN_ENV === "prod" || GLYGEN_ENV === "beta") {
@@ -64,18 +62,21 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <Header
-          userTrackingBannerState={userTrackingBannerState}
+
+      {GLYGEN_BUILD === "glygen" && 
+        <GlyGenApp 
+          theme={theme} 
+          userTrackingBannerState={userTrackingBannerState} 
           setUserTrackingBannerState={setUserTrackingBannerState}
-        />
-        <ScrollToTopBtn />
-        <Routes
-          userTrackingBannerState={userTrackingBannerState}
+      />}
+
+      {GLYGEN_BUILD === "biomarker" && 
+        <BiomarkerApp 
+          theme={theme} 
+          userTrackingBannerState={userTrackingBannerState} 
           setUserTrackingBannerState={setUserTrackingBannerState}
-        />
-        <Footer />
-      </ThemeProvider>
+      />}
+
     </div>
   );
 }

@@ -151,7 +151,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
   const ChildNodesResidue = ({childrenList, parentIndex}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
                 className="feature-view-label"
                 label={child.name}
@@ -179,7 +179,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
   const ChildNodesEnzyme = ({childrenList}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -204,7 +204,7 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
    const ChildNodesMotif = ({childrenList}) => (<>
       <Box sx={{ display: 'flex', flexDirection: 'column', overflow: "auto" }}>
         {childrenList && childrenList.length > 0 && childrenList.map((child, index) => (
-          <div>
+          <div key={"div" + index}>
             <FormControlLabel
               className="feature-view-label"
               label={child.name}
@@ -263,8 +263,8 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
             </Row>
           </AccordionSummary>
           <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-            {resParentList.map((resParent, index) => (<>
-                <div>
+            {resParentList && resParentList.length > 0 ? (resParentList.map((resParent, index) => (
+                <div key={"resPadiv" + index}>
                   <FormControlLabel
                     className="feature-view-label"
                     label={resParent.name}
@@ -286,9 +286,12 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
                     wikiLink={resParent.url}
                     imagePath= {"/icons/svg/" + resParent.image}
                   />
-                </div>
+               
                 {resParent.children && resParent.children.length > 0 && <ChildNodesResidue childrenList={resParent.children} parentIndex={index}/>}
-              </>))}
+                </div>))
+              ) : (
+                <div>{"No data available."}</div>
+            )}
           </AccordionDetails>
         </Accordion>
 
@@ -323,7 +326,10 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
             </Row>
           </AccordionSummary>
           <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-          {motifList && motifList.length > 0 && <ChildNodesMotif childrenList = {motifList}/>}
+          {motifList && motifList.length > 0 ? (<ChildNodesMotif childrenList = {motifList}/>
+            ) : (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
 
@@ -358,13 +364,15 @@ export default function GlycanViewer({motifList, resParentList, enzParentList, c
           </Row>
         </AccordionSummary>
         <AccordionDetails style={{maxHeight: "350px", minWidth: "100px", overflow: "scroll"}}>
-          {enzParentList.map((enzParent, index) => (<>
+          {enzParentList && enzParentList.length > 0 ? (enzParentList.map((enzParent, index) => (<div key={"enPadiv" + index}>
               <div>
                 <FormLabel component="legend"><strong>{enzParent.tax_common_name}</strong></FormLabel>
               </div>
               <ChildNodesEnzyme childrenList={enzParent.enz_list} parentIndex={index}/>
-            </>))
-          }
+            </div>))
+            ): (
+              <div>{"No data available."}</div>
+          )}
         </AccordionDetails>
       </Accordion>
     </div>

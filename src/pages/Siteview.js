@@ -768,7 +768,7 @@ const Siteview = props => {
       formatter: (value, row) => (
         <>
           {value && value.map((disease, index) => (
-            <ul key={index} className="pl-3">
+            <ul key={index} className="ps-3">
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
                 <span className="nowrap">
@@ -1170,30 +1170,26 @@ const Siteview = props => {
                           // For every organism object
                           Object.keys(organismEvidence).map(orgEvi => (
                             // For every database for current organism object
-                            <div key={orgEvi}>
-                              <>
-                                <strong>
-                                  {proteinStrings.organism.name}:{" "}
-                                </strong>
-                                {orgEvi} {"("}
-                                <span className="text-capitalize">
-                                  {organismEvidence[orgEvi].common_name}
-                                </span>
-                                {")"} {"["}
-                                {/* <LineTooltip text="View details on NCBI"> */}
-                                <a
-                                  href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {organismEvidence[orgEvi].taxid}
-                                </a>
-                                {/* </LineTooltip> */}
-                                {"]"}
-                                <EvidenceList
-                                  evidences={organismEvidence[orgEvi].evidence}
-                                />
-                              </>
+                            <div key={organismEvidence[orgEvi].taxid}>
+                              <div>
+                                <strong>{proteinStrings.organism.name}: </strong>
+                                {organismEvidence[orgEvi].glygen_name}
+                              </div>
+                              <div>
+                                  <strong>{proteinStrings.reference_species.name}: </strong>
+                                  {orgEvi} {"["}
+                                  {/* <LineTooltip text="View details on NCBI"> */}
+                                  <a
+                                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {organismEvidence[orgEvi].taxid}
+                                  </a>
+                                  {/* </LineTooltip> */}
+                                  {"]"}
+                                  <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
+                              </div>
                             </div>
                           ))}
                         {/* {!species && (

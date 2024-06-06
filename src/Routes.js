@@ -9,6 +9,8 @@ import ProteinDetail from "./pages/ProteinDetail";
 import GlycanListEditColumns from "./pages/GlycanListEditColumns";
 import GlycanSearch from "./pages/GlycanSearch";
 import ProteinSearch from "./pages/ProteinSearch";
+import BiomarkerSearch from "./pages/BiomarkerSearch";
+import BiomarkerList from "./pages/BiomarkerList";
 import SiteSearch from "./pages/SiteSearch";
 import GlobalSearchResult from "./pages/GlobalSearchResult";
 import HowToCite from "./pages/HowToCite";
@@ -35,8 +37,6 @@ import MotifDetail from "./pages/MotifDetail";
 import Siteview from "./pages/Siteview";
 import IdMapping from "./pages/IdMapping";
 import IdMappingResult from "./pages/IdMappingResult";
-import IsoformMapping from "./pages/IsoformMapping";
-import IsoformMappingResult from "./pages/IsoformMappingResult";
 import SuperSearch from "./pages/SuperSearch";
 import BlastSearch from "./pages/BlastSearch";
 import BlastResult from "./pages/BlastResult"
@@ -62,7 +62,6 @@ const Routes = (props) => (
     <Route path={`${routeConstants.siteList}:id`} element={<SiteList/>} />
     <Route path={`${routeConstants.siteSearch}:id`} element={<SiteSearch/>} />
     <Route path={routeConstants.siteSearch} element={<SiteSearch/>} />
-
     <Route path={routeConstants.motifList} element={<MotifList/>} />
     <Route path={`${routeConstants.motifDetail}:id`} element={<MotifDetail/>} />
     <Route path={routeConstants.motifDetail} element={<MotifDetail/>} />
@@ -101,8 +100,6 @@ const Routes = (props) => (
     <Route path={`${routeConstants.idMapping}:id`} element={<IdMapping/>} />
     <Route path={routeConstants.idMapping} element={<IdMapping/>} />
     <Route path={`${routeConstants.idMappingResult}:id`} element={<IdMappingResult/>} />
-    <Route path={routeConstants.isoformMapping} element={<IsoformMapping/>} />
-    <Route path={`${routeConstants.isoformMappingResult}:id`} element={<IsoformMappingResult/>} />
     <Route path={routeConstants.idMappingResult} element={<idMappingResult/>} />
     <Route path={`${routeConstants.superSearch}:id/:searchId`} element={<SuperSearch/>} />
     <Route path={`${routeConstants.superSearch}:id`} element={<SuperSearch/>} />
@@ -121,6 +118,9 @@ const Routes = (props) => (
     <Route path={routeConstants.blastSearch} element={<BlastSearch/>} />
     <Route path={`${routeConstants.blastResult}:jobId`} element={<BlastResult/>} />
     <Route path={routeConstants.blastResult} element={<BlastResult/>} />
+    <Route path={`${routeConstants.biomarkerList}:id`} element={<BiomarkerList/>} />
+    <Route path={`${routeConstants.biomarkerSearch}:id`} element={<BiomarkerSearch/>} />
+    <Route path={routeConstants.biomarkerSearch} element={<BiomarkerSearch/>} />
     <Route path={`${routeConstants.biomarkerDetail}:id`} element={<BiomarkerDetail/>} />
     {/* Keep path='/' at the bottom */}
     <Route path={routeConstants.home} element={<Home/>} />

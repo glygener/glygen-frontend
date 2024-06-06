@@ -339,6 +339,12 @@
         "id": "common_name",
         "name": "Common Name"
       },
+      "motif_name_recommended": {
+        "name": "Motif Name (Recommended)"
+      },
+      "motif_name_synonym": {
+        "name": "Motif Name (Synonyms)"
+      },
       "composition": {
         "id": "composition",
         "hex": {
@@ -1152,6 +1158,15 @@
         },
         "id": "organism"
       },
+      "reference_species": {
+        "name": "Reference Species",
+        "shortName": "Reference Species",
+        "tooltip": {
+          "title": "Reference Species",
+          "text": ""
+        },
+        "id": "reference_species"
+      },
       "protein_name": {
         "name": "Protein Name",
         "shortName": "Protein Name",
@@ -1362,6 +1377,9 @@
       },
       "pmid": {
         "text": "Find all proteins / glycoproteins with the same PMID."
+      },
+      "attached_glycan_id": {
+        "text": "Find all proteins / glycoproteins Covalently Attached with this Glycan."
       }
     }
   },
@@ -1517,11 +1535,129 @@
   },
   "biomarker": {
     "common": {
+      "operation": {
+        "id": "operation"
+      },
+      "specimen_name": {
+        "name": "Specimen",
+        "shortName": "Specimen",
+        "tooltip": {
+          "title": "Specimen",
+          "text": ""
+        },
+        "id": "specimen_name"
+      },
+      "specimen_loinc_code": {
+        "name": "LOINC code",
+        "shortName": "LOINC code",
+        "tooltip": {
+          "title": "LOINC code",
+          "text": ""
+        },
+        "id": "specimen_loinc_code"
+      },
+      "biomarker_entity_type": {
+        "name": "Assessed Entity Type",
+        "shortName": "Assessed Entity Type",
+        "tooltip": {
+          "title": "Assessed Entity Type",
+          "text": ""
+        },
+        "id": "biomarker_entity_type"
+      },
+      "biomarker_entity_name": {
+        "name": "Biomarker Entity",
+        "shortName": "Biomarker Entity",
+        "tooltip": {
+          "title": "Biomarker Entity",
+          "text": ""
+        },
+        "id": "biomarker_entity_name"
+      },
       "biomarker_id": {
-        "name": "Biomarker ID"
+        "name": "Biomarker ID",
+        "shortName": "Biomarker ID",
+        "tooltip": {
+          "title": "Biomarker ID",
+          "text": ""
+        },
+        "id": "biomarker_id"
+      },
+      "condition_name": {
+        "name": "Condition",
+        "shortName": "Condition",
+        "tooltip": {
+          "title": "Condition",
+          "text": ""
+        },
+        "id": "condition_name"
+      },
+      "condition_id": {
+        "name": "Disease ID",
+        "shortName": "Disease ID",
+        "tooltip": {
+          "title": "Disease ID",
+          "text": ""
+        },
+        "id": "condition_id"
+      },
+      "disease_id": {
+        "name": "Disease ID",
+        "shortName": "Disease ID",
+        "tooltip": {
+          "title": "Disease ID",
+          "text": ""
+        },
+        "id": "disease_id"
+      },
+      "publication_id": {
+        "name": "Pubmed ID",
+        "shortName": "Pubmed ID",
+        "tooltip": {
+          "title": "Pubmed ID",
+          "text": ""
+        },
+        "id": "publication_id"
+      },
+      "best_biomarker_role": {
+        "name": "BEST Biomarker Role",
+        "shortName": "BEST Biomarker Role",
+        "tooltip": {
+          "title": "BEST Biomarker Role",
+          "text": ""
+        },
+        "id": "best_biomarker_role"
+      },
+      "term": {
+        "id": "term"
+      },
+      "term_category": {
+        "id": "term_category",
+        "name": "Category"
+      },
+      "condition": {
+        "name": "Condition",
+        "shortName": "Condition",
+        "id": "condition"
+      },
+      "biomarker_canonical_id": {
+        "id": "biomarker_canonical_id",
+        "name": "Biomarker Canonical ID"
+      },
+      "assessed_biomarker_entity_id": {
+        "id": "assessed_biomarker_entity_id",
+        "name": "Assessed Entity ID"
       },
       "assessed_biomarker_entity": {
+        "id": "assessed_biomarker_entity",
+        "shortName": "Entity Name",
         "name": "Assessed Biomarker Entity"
+        
+      },
+      "biomarker": {
+        "name": "Biomarker",
+        "shortName": "Biomarker",
+        "id": "biomarker"
       },
       "biomarker_status": {
         "name": "Biomarker Status"
@@ -1549,6 +1685,40 @@
         "prognostic": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/prognostic/",
         "safety": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/safety/",
         "risk": "https://www.ncbi.nlm.nih.gov/books/n/biomarkers/susceptibility/"
+      },
+      "contributions": {
+        "biomarker_exact_match": {
+          "id": "biomarker_exact_match",
+          "name": "Biomarker Exact Match"
+        },
+        "biomarker_component_count": {
+          "id": "biomarker_component_count",
+          "name": "Biomarker Component Count"
+        },
+        "component_count": {
+          "id": "component_count",
+          "name": "Component Count"
+        },
+        "component_evidence_count": {
+          "id": "component_evidence_count",
+          "name": "Component Evidence Count"
+        },
+        "global_evidence_count": {
+          "id": "global_evidence_count",
+          "name": "Global Evidence Count"
+        }
+      }
+    },
+    "advanced_search": {
+      "query_type": {
+        "id": "query_type",
+        "name": "search_biomarker"
+      }
+    },
+    "simple_search": {
+      "query_type": {
+        "id": "query_type",
+        "name": "biomarker_search_simple"
       }
     }
   },
@@ -1593,6 +1763,14 @@
         "tooltip": {
           "text": "Show last executed query in JSON format. Can be used in combination with Debug mode or when reporting problems."
         }
+      }
+    },
+    "direct_search": {
+      "motif_glycan": {
+        "text": "Find all glycans related to this motif."
+      },
+      "motif_protein": {
+        "text": "Find all proteins related to this motif."
       }
     }
   },
@@ -1979,6 +2157,11 @@
       "title": "Blast Search Error - Enter Valid UniProtKB Accession",
       "message": "Sorry, we couldn't process retrive sequence request. Please enter valid UniProtKB Accession."
     },
+    "directSearchError": {
+      "id": "directSearchError",
+      "title": "Direct Search Error - No Results Found",
+      "message": "Sorry, we couldn't process direct search request."
+    },
     "structureSearchError": {
       "id": "structureSearchError",
       "title": "Structure Search Error - No Results Found",
@@ -2248,6 +2431,24 @@
       "tooltip": "Components information",
       "name": "Components "
     },
+    "condition": {
+      "id": "condition",
+      "displayname": "Condition",
+      "tooltip": "Condition information",
+      "name": "Condition "
+    },
+    "exposure_agent": {
+      "id": "exposure_agent",
+      "displayname": "Exposure Agent",
+      "tooltip": "Exposure Agent information",
+      "name": "Exposure Agent "
+    },
+    "evidence": {
+      "id": "evidence",
+      "displayname": "Evidence",
+      "tooltip": "Evidence information",
+      "name": "Evidence "
+    },
     "biomarker_description": {
       "id": "biomarker_description",
       "displayname": "Biomarker Description",
@@ -2386,6 +2587,16 @@
       "id": "publication_jsondata",
       "displayname": "Publication data (*.json)",
       "tooltip": "publication_jsondata Information for publication specific detail"
+    },
+    "biomarker_jsondata": {
+      "id": "biomarker_jsondata",
+      "displayname": "Biomarker data (*.json)",
+      "tooltip": " Biomarker jsondata Information"
+    },
+    "biomarker_csvdata": {
+      "id": "biomarker_csvdata",
+      "displayname": "Biomarker data (*.csv)",
+      "tooltip": " Biomarker csvdata Information"
     }
   },
   "id_mapping": {

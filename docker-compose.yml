@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         - REACT_APP_ENV=prod
+        - REACT_APP_BUILD=glygen
         - REACT_APP_API=https://api.glygen.org
         - REACT_APP_DOMAIN=https://glygen.org
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org

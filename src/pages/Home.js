@@ -17,6 +17,7 @@ import mainImg from "../images/home/main-featured-img.png";
 import feedback from "../images/home/feedback.svg";
 import resources from "../images/home/resources.svg";
 import proteinImg from "../images/home/glycoprotein-img.svg";
+import biomarkerImg from "../images/home/biomarker-img.svg";
 import siteSearchImg from "../images/home/protein-img.svg";
 import glycanImg from "../images/home/glycan-img.svg";
 import quickSearchImg from "../images/home/quick-search-img.svg";
@@ -70,19 +71,19 @@ const featuredCards = [
     to: routeConstants.proteinSearch,
   },
   {
+    title: "Biomarker Search",
+    description: "Search for biomarkers based on their entity, condition, BEST role, and annotations.",
+    image: biomarkerImg,
+    imageText: "Biomarker Search",
+    to: routeConstants.biomarkerSearch,
+  },
+  {
     title: "Super Search",
     description:
       "Super search is a graphical interface to build queries across all GlyGen datasets.",
     image: superSearchImg,
     imageText: "Super Search",
     to: routeConstants.superSearch,
-  },
-  {
-    title: "Quick Search",
-    description: "Quick Search provides multi-domain queries that are based on user requests.",
-    image: quickSearchImg,
-    imageText: "Quick Search",
-    to: routeConstants.quickSearch,
   },
   {
     title: "Site Search",
@@ -138,6 +139,13 @@ const featuredCards = [
     imageText: "Glycan Structure Dictionary (GSD)",
     href: GLYGEN_GSD,
     target: "_blank",
+  },
+  {
+    title: "Quick Search",
+    description: "Quick Search provides multi-domain queries that are based on user requests.",
+    image: quickSearchImg,
+    imageText: "Quick Search",
+    to: routeConstants.quickSearch,
   },
   {
     title: "Protein BLAST",
