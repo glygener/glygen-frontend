@@ -559,9 +559,6 @@ hr {
   align-items: center;
   flex-wrap: wrap;
 }
-.gg-align-top {
-  vertical-align: text-top;
-}
 .gg-align-middle-right {
   display: flex;
   align-items: center;

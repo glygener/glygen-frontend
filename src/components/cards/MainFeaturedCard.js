@@ -16,8 +16,7 @@ import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import {
   NIH_COMMONFUND_DATAECOSYSTEM,
-  GLYSPACE,
-  GLYGEN_BUILD
+  GLYSPACE
 } from "../../envVariables";
 
 
@@ -91,7 +90,7 @@ export default function MainFeaturedCard(props) {
         {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
         <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
-          {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
+          <div className="btn-outline-white">
               <a href={demoForm} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-blue text-start">
                 <span
                   style={{
@@ -108,7 +107,7 @@ export default function MainFeaturedCard(props) {
                 </span>                
                 Schedule A Demo
               </a>
-            </div>}
+            </div>
             <div className="btn-outline-white">
               <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
@@ -175,14 +174,14 @@ export default function MainFeaturedCard(props) {
                 How To Cite
               </Link>
             </div>
-            {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
+            <div className="btn-outline-white">
               <Link to={routeConstants.tryMe} className="gg-btn-outline-white">
                 <span style={{ paddingRight: "10px" }}>
                   <HourglassEmptyIcon style={{ fontSize: "24px" }} />
                 </span>
                 Quick Start
               </Link>
-            </div>}
+            </div>
             <div className="btn-outline-white">
               <Link to={routeConstants.about} className="gg-btn-outline-white">
                 <span style={{ paddingRight: "10px" }}>

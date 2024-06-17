@@ -6,7 +6,6 @@ services:
     build:
       args:
         - REACT_APP_ENV=test
-        - REACT_APP_BUILD=glygen
         - REACT_APP_API=https://api.tst.glygen.org
         - REACT_APP_DOMAIN=https://tst.glygen.org
         # - REACT_APP_DOMAIN=http://localhost:4040

@@ -5,11 +5,7 @@ import { getTitle, getMeta } from "../utils/head";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getGlycanList } from "../data";
-import { getGlycanImageUrl } from "../data/glycan";
-import DirectSearch from "../components/search/DirectSearch.js";
-import LineTooltip from "../components/tooltip/LineTooltip";
-import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
-import { Link } from "react-router-dom";
+import { GLYCAN_COLUMNS } from "../data/glycan";
 import GlycanQuerySummary from "../components/GlycanQuerySummary";
 import PaginatedTable from "../components/PaginatedTable";
 import DownloadButton from "../components/DownloadButton";
@@ -20,7 +16,6 @@ import routeConstants from "../data/json/routeConstants";
 import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
-import { getProteinSearch } from "../data/protein";
 import { axiosError } from "../data/axiosError";
 import { GLYGEN_BASENAME } from "../envVariables";
 import ListFilter from "../components/ListFilter";
@@ -31,135 +26,6 @@ const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
-  const proteinDirectSearch = stringConstants.protein.direct_search;
-  const proteinStrings = stringConstants.protein.common;
-  const glycanStrings = stringConstants.glycan.common;
-
-  const GLYCAN_COLUMNS = [
-    {
-      dataField: glycanStrings.glycan_id.id,
-      text: glycanStrings.glycan_id.shortName,
-      sort: true,
-      selected: true,
-      headerStyle: (colum, colIndex) => {
-        return {
-          backgroundColor: "#4B85B6",
-          color: "white",
-          width: "15% !important"
-        };
-      },
-  
-      formatter: (value, row) => (
-        <LineTooltip text="View details">
-          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>
-            {row.glytoucan_ac}
-          </Link>
-        </LineTooltip>
-      )
-    },
-    {
-      text: glycanStrings.glycan_image.name,
-      sort: false,
-      selected: true,
-      formatter: (value, row) => (
-        <div className="img-wrapper">
-          <img
-            className="img-cartoon"
-            src={getGlycanImageUrl(row.glytoucan_ac)}
-            alt="Glycan img"
-          />
-        </div>
-      ),
-      headerStyle: (colum, colIndex) => {
-        return {
-          width: "30%",
-          textAlign: "left",
-          backgroundColor: "#4B85B6",
-          color: "white",
-          whiteSpace: "nowrap"
-        };
-      }
-    },
-    {
-      dataField: "hit_score",
-      text: "Hit Score",
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: (value, row) => (
-        <>
-          <HitScoreTooltip
-            title={"Hit Score"}
-            text={"Hit Score Formula"}
-            formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-            contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map((item) => {return {c:glycanStrings.contributions[item.c] ? glycanStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
-          />
-          {row.hit_score}
-        </>
-      )
-    },
-    {
-      dataField: glycanStrings.mass.id,
-      text: glycanStrings.mass.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      selected: true
-    },
-  
-    {
-      dataField: "mass_pme",
-      text: glycanStrings.mass_pme.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: value => (value ? value : "N/A")
-    },
-    {
-      dataField: glycanStrings.number_monosaccharides.id,
-      text: glycanStrings.number_monosaccharides.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: value => (value ? value : "N/A")
-    },
-    {
-      dataField: glycanStrings.number_proteins.id,
-      text: glycanStrings.number_proteins.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      // formatter: value => (value ? value : " ")
-      formatter: (value, row) => (
-        <div>
-          {value ? value : " "}
-          {" "}
-          {row[glycanStrings.number_proteins.id] > 0 && <DirectSearch
-            text={proteinDirectSearch.attached_glycan_id.text}
-            searchType={"protein"}
-            fieldType={proteinStrings.attached_glycan_id.id}
-            fieldValue={row.glytoucan_ac}
-            executeSearch={proteinSearch}
-          />}
-        </div>
-      )
-    },
-    {
-      dataField: glycanStrings.number_enzymes.id,
-      text: glycanStrings.number_enzymes.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: value => (value ? value : " ")
-    }
-  ];
-
   const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
@@ -180,34 +46,6 @@ const GlycanList = props => {
   const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.glycan.common.unmapped;
-
-    /**
-   * Function to handle protein direct search.
-   **/
-    const proteinSearch = (formObject) => {
-      setPageLoading(true);
-      logActivity("user", id, "Performing Direct Search");
-      let message = "Direct Search query=" + JSON.stringify(formObject);
-      getProteinSearch(formObject)
-        .then((response) => {
-          if (response.data["list_id"] !== "") {
-            logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-              setPageLoading(false);
-              navigate(routeConstants.proteinList + response.data["list_id"]);
-            });
-          } else {
-            let error = {
-              response: {
-                status: stringConstants.errors.defaultDialogAlert.id,
-              },
-            };
-            axiosError(error, "", "No results. " + message, setPageLoading, setAlertDialogInput);
-          }
-        })
-        .catch(function (error) {
-          axiosError(error, "", message, setPageLoading, setAlertDialogInput);
-        });
-    };
 
   const fixResidueToShortNames = query => {
     const residueMap = stringConstants.glycan.common.composition;
@@ -236,10 +74,7 @@ const GlycanList = props => {
 
   useEffect(() => {
     setPageLoading(true);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+
     setPage(1);
     logActivity("user", id);
     getGlycanList(id, 1, sizePerPage, "hit_score", "desc", appliedFilters)

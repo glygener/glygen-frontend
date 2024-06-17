@@ -3,6 +3,15 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import paginationFactory, {
+  PaginationProvider,
+  PaginationListStandalone,
+  PaginationTotalStandalone,
+  SizePerPageDropdownStandalone
+} from "react-bootstrap-table2-paginator";
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLess from '@mui/icons-material/ExpandLess';
 import "../App.css";
 
 const ClientExpandableTable = ({
@@ -22,6 +31,13 @@ const ClientExpandableTable = ({
   expandableTableColumns
 }) => {
 
+
+  // const handleTableChange = (type, values) => {
+  //   // if (onClickTarget) {
+  //   //   scrollToElement(onClickTarget);
+  //   // }
+  //   onTableChange(type, values);
+  // };
   const useStyles = makeStyles(theme => ({
     tableHeader: {
       backgroundColor: "#4B85B6",

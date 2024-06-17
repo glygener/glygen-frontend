@@ -291,7 +291,7 @@ const ProteinAlignment = () => {
               {/* Button */}
               <div className="text-end gg-download-btn-width">
                 <Link to={`${routeConstants.proteinDetail}${id}`}>
-                  <Button type="button" style={{ marginLeft: "5px", marginBottom: "10px" }} className="gg-btn-blue">
+                  <Button type="button" style={{ marginLeft: "5px" }} className="gg-btn-blue">
                     Back To Protein Details
                   </Button>
                 </Link>

@@ -476,7 +476,6 @@ const MotifDetail = (props) => {
                 ]}
                 dataId={id}
                 dataType="motif_detail"
-                itemType="motif_detail"
               />
             </div>
             <React.Fragment>
@@ -523,7 +522,7 @@ const MotifDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <p>
-                        {motif && motif.accession ? (
+                        {motif && motif.accession && (
                           <>
                             <p>
                               <img
@@ -545,15 +544,15 @@ const MotifDetail = (props) => {
                               </a>
                             </div>
                             <div>
-                              {motifSynonym && motifSynonym.length > 0 && (
+                              {motifSynonym && motifSynonym.length > 0 ? (
                                 <>
                                   <Row>
-                                    <Col Col md="auto" className="pe-0">
+                                    <Col Col md="auto" className="pr-0">
                                       <strong>{motifStrings.motif_synonym.synonym}: </strong>
                                     </Col>
-                                    <Col className="nowrap d-inline5 ps-1">
+                                    <Col className="nowrap d-inline5 pl-1">
                                       {motifSynonym.map((synonym) => (
-                                        // <Col className="nowrap5 d-inline5 ps-0">
+                                        // <Col className="nowrap5 d-inline5 pl-0">
                                         <>
                                           <span>
                                             <a
@@ -570,6 +569,8 @@ const MotifDetail = (props) => {
                                     </Col>
                                   </Row>
                                 </>
+                              ) : (
+                                <></>
                               )}
                             </div>
                             <div>
@@ -583,8 +584,6 @@ const MotifDetail = (props) => {
                               {mass} Da
                             </div>
                           </>
-                        ) : (
-                          <span>{dataStatus}</span>
                         )}
                         {classification &&
                           classification.length > 0 &&
@@ -620,10 +619,10 @@ const MotifDetail = (props) => {
                           {motifKeywords && motifKeywords.length > 0 ? (
                             <>
                               <Row>
-                                <Col Col md="auto" className="pe-0">
+                                <Col Col md="auto" className="pr-0">
                                   <strong>{motifStrings.motif_keywords.name}: </strong>
                                 </Col>
-                                <Col className="nowrap d-inline5 ps-1">
+                                <Col className="nowrap d-inline5 pl-1">
                                   {motifKeywords.map((keywords) => (
                                     <>
                                       <span>
@@ -738,7 +737,7 @@ const MotifDetail = (props) => {
                           dataId={id}
                           itemType="motif_section"
                           showBlueBackground={true}
-                          enable={data && data.length > 0}
+                          enable={selectedColumns && selectedColumns.length > 0}
                         />
                       </span>
 
@@ -747,7 +746,7 @@ const MotifDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {data && data.length > 0 ? (
+                      {selectedColumns && selectedColumns.length !== 0 && (
                         <PaginatedTable
                           trStyle={rowStyleFormat}
                           data={data}
@@ -760,10 +759,7 @@ const MotifDetail = (props) => {
                           defaultSortField="glytoucan_ac"
                           idField="glytoucan_ac"
                         />
-                      ): (
-                        <span>{dataStatus}</span>
-                      )
-                      }
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -791,23 +787,6 @@ const MotifDetail = (props) => {
                       {stringConstants.sidebar.biomarkers.displayname}
                     </h4>
                     <div className="float-end">
-                      <span className="gg-download-btn-width text-end">
-                        <DownloadButton
-                          types={[
-                            {
-                              display: "Biomarkers (*.csv)",
-                              type: "biomarkers_csv",
-                              format: "csv",
-                              data: "motif_section",
-                              section: "biomarkers",
-                            }
-                          ]}
-                          dataId={id}
-                          itemType="motif_section"
-                          showBlueBackground={true}
-                          enable={biomarkers && biomarkers.length > 0}
-                        />
-                      </span>
                       <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1050,7 +1029,7 @@ const MotifDetail = (props) => {
                       {history && history.length ? (
                         <>
                           {history.map(historyItem => (
-                            <ul className="ps-3" key={historyItem.description}>
+                            <ul className="pl-3" key={historyItem.description}>
                               <li>
                                 {capitalizeFirstLetter(historyItem.description)}{" "}
                               </li>

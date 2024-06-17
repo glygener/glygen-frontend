@@ -10,7 +10,6 @@ import EvidenceList from "../components/EvidenceList";
 import { logActivity } from "../data/logging";
 
 const proteinStrings = stringConstants.protein.common;
-const glycanStrings = stringConstants.glycan.common;
 
 /**
  * Add commas to string.
@@ -234,7 +233,7 @@ export const ORTHOLOGS_COLUMNS = [
     },
   },
   {
-    dataField: glycanStrings.common_name.id,
+    dataField: proteinStrings.organism.id,
     text: proteinStrings.organism.name,
     sort: true,
     headerStyle: (colum, colIndex) => {

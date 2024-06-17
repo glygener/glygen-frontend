@@ -60,8 +60,7 @@ const SequenceHighlighter = ({
   setSelectedHighlights,
   sequenceSearchText,
   setSequenceSearchText,
-  showNumbers,
-  flatDataStructure
+  showNumbers
 }) => {
 
   const [highlightsCount, setHighlightsCount] = useState({});
@@ -94,12 +93,12 @@ const SequenceHighlighter = ({
     let glyca = 0;
 
     details && details.map((det) => {
-      phArr = getPhosphorylationHighlightData(det.phosphorylation, flatDataStructure);
-      glycoNArr = getNLinkGlycanMapHighlights(det.n_glycosylation ? det.n_glycosylation : det.glycosylation, flatDataStructure);
-      glycoOArr = getOLinkGlycanMapHighlights(det.o_glycosylation ? det.o_glycosylation : det.glycosylation, flatDataStructure);
+      phArr = getPhosphorylationHighlightData(det.phosphorylation);
+      glycoNArr = getNLinkGlycanMapHighlights(det.glycosylation);
+      glycoOArr = getOLinkGlycanMapHighlights(det.glycosylation);
       siAnArr = getSequonHighlightData(det.site_annotation);
-      muArr = getMutationHighlightData(det.snv, flatDataStructure);
-      glycaArr = getGlycationHighlightData(det.glycation, flatDataStructure);
+      muArr = getMutationHighlightData(det.snv);
+      glycaArr = getGlycationHighlightData(det.glycation);
 
       if (phArr.length > 0){
         ph = phArr.length

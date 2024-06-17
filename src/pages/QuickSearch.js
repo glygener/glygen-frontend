@@ -139,8 +139,8 @@ const QuickSearch = (props) => {
     getGlycanToBiosynthesisEnzymes(9606, inputValue.question_1)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -175,8 +175,8 @@ const QuickSearch = (props) => {
     getGlycanToGlycoproteins(0, inputValue.question_2)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -211,8 +211,8 @@ const QuickSearch = (props) => {
     getGlycanToEnzymeGeneLoci(9606, inputValue.question_3)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.locusList + response.data["list_id"] + "/" + quickSearch.question_3.id
             );
@@ -244,8 +244,8 @@ const QuickSearch = (props) => {
     getProteinToOrthologs(inputValue.question_4)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.orthologsList +
                 response.data["list_id"] +
@@ -274,10 +274,8 @@ const QuickSearch = (props) => {
    * Function to handle protein detail function question.
    */
   const searchQuestion5 = () => {
-    setPageLoading(true);
     let message = `Quick Search Question_5 =/${inputValue.question_5} function`;
     logActivity("user", (id || "") + ">" + inputValue.question_5, message).finally(() => {
-      setPageLoading(false);
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
         basename + routeConstants.proteinDetail + inputValue.question_5 + "#Function";
@@ -294,8 +292,8 @@ const QuickSearch = (props) => {
     getBiosynthesisEnzymeToGlycans(10090, inputValue.question_6)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.glycanList + response.data["list_id"] + "/" + quickSearch.question_6.id
             );
@@ -321,10 +319,8 @@ const QuickSearch = (props) => {
    * Function to handle protein detail site_annotation question.
    */
   const searchQuestion7 = () => {
-    setPageLoading(true);
     let message = `Quick Search Question_7 =/${inputValue.question_7} sequence`;
     logActivity("user", (id || "") + ">" + inputValue.question_7, message).finally(() => {
-      setPageLoading(false);
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
       window.location =
         basename +
@@ -344,8 +340,8 @@ const QuickSearch = (props) => {
     getOrganismToGlycosyltransferases(inputValue.question_8)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -380,8 +376,8 @@ const QuickSearch = (props) => {
     getOrganismToGlycohydrolases(inputValue.question_9)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -419,8 +415,8 @@ const QuickSearch = (props) => {
     )
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +
@@ -456,8 +452,8 @@ const QuickSearch = (props) => {
     getDiseaseToGlycosyltransferases(formObject)
       .then((response) => {
         if (response.data["list_id"] !== "") {
+          setPageLoading(false);
           logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.proteinList +
                 response.data["list_id"] +

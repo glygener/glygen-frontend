@@ -48,10 +48,6 @@ const ProteinList = props => {
 
   useEffect(() => {
     setPageLoading(true);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
     setPage(1);
     logActivity("user", id);
     getProteinList(
@@ -110,7 +106,6 @@ const ProteinList = props => {
     }
     setPage(page);
     setSizePerPage(sizePerPage);
-    setPageLoading(true);
     getProteinList(
       id,
       (page - 1) * sizePerPage + 1,

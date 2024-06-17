@@ -278,6 +278,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           start={1}
       />
       {rows.map((row, index) => (
+        <>
         <SequenceRow
           key={index}
           header={false}
@@ -292,6 +293,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           start={row.start}
           selectedHighlights={selectedHighlights}
         />
+    </>
       ))}
       </div>
   );

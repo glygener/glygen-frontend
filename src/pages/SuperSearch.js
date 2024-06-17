@@ -160,15 +160,13 @@ const SuperSearch = (props) => {
 	* @param {string} currentNode - current node id.
   **/
   function goToListPage(listID, currentNode){
-	setPageLoading(true);
 	let message = "Super Search " + currentNode + " list page. query=" + JSON.stringify(queryData);
 	logActivity(
 		"user",
 		(id || "") + ">" + listID,
 		message
 	)
-	.finally(() => {
-		setPageLoading(false);
+	.finally(() => {	
 		navigate(
 			getListPageRoute(currentNode) + listID + "/sups"
 		);

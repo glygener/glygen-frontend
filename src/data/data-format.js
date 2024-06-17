@@ -9,9 +9,6 @@ export function groupOrganismEvidences(values) {
 		groupedEvidences[s.name] = {
 			taxid: s.taxid,
 			common_name: s.common_name,
-			reference_species: s.reference_species,
-			glygen_name: s.glygen_name,
-			name: s.name,
 			evidence: [],
 		};
 		for (const e of s.evidence) {
@@ -43,17 +40,16 @@ export function groupOrganismEvidencesTableView(values) {
 	let order = 0;
 	for (const s of values) {
 
-		let grEve = groupedEvidences.find(obj => obj.glygen_name == s.glygen_name);
+		let grEve = groupedEvidences.find(obj => obj.common_name == s.common_name);
 
 		if (grEve) {
 			continue;
 		}
 
-		let spArray = values.filter(obj => obj.glygen_name == s.glygen_name);
+		let spArray = values.filter(obj => obj.common_name == s.common_name);
 		order++;
 		let obj = {
 			common_name: s.common_name,
-			glygen_name: s.glygen_name,
 			evidence: [],
 			expanded_table: [],
 			species_count: spArray.length,
@@ -91,7 +87,6 @@ export function groupOrganismEvidencesTableView(values) {
 					database: e.database,
 					name: sp.name,
 					common_name: s.common_name,
-					glygen_name: s.glygen_name,
 					taxid: sp.taxid,
 					id: e.id,
 					url: e.url,

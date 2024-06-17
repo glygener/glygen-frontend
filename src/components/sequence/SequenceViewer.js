@@ -14,8 +14,7 @@ const SequenceViewer = ({
   sequenceObject,
   selectedHighlights,
   multiSequence,
-  sequenceSearchText,
-  flatDataStructure
+  sequenceSearchText
 }) => {
 
   const [sequenceData, setSequenceData] = useState();
@@ -134,12 +133,12 @@ function buildHighlightData(sequences, consensus) {
     let glycaMap = new Map();
 
     details && details.map((det) => {
-      phMap[det.uniprot_canonical_ac] = getPhosphorylationHighlightData(det.phosphorylation, flatDataStructure);
-      glycoNMap[det.uniprot_canonical_ac] = getNLinkGlycanMapHighlights(det.n_glycosylation ? det.n_glycosylation : det.glycosylation, flatDataStructure);
-      glycoOMap[det.uniprot_canonical_ac] = getOLinkGlycanMapHighlights(det.o_glycosylation ? det.o_glycosylation : det.glycosylation, flatDataStructure);
+      phMap[det.uniprot_canonical_ac] = getPhosphorylationHighlightData(det.phosphorylation);
+      glycoNMap[det.uniprot_canonical_ac] = getNLinkGlycanMapHighlights(det.glycosylation);
+      glycoOMap[det.uniprot_canonical_ac] = getOLinkGlycanMapHighlights(det.glycosylation);
       siAnMap[det.uniprot_canonical_ac] = getSequonHighlightData(det.site_annotation);
-      muMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.snv, flatDataStructure);
-      glycaMap[det.uniprot_canonical_ac] = getGlycationHighlightData(det.glycation, flatDataStructure);
+      muMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.snv);
+      glycaMap[det.uniprot_canonical_ac] = getGlycationHighlightData(det.glycation);
     });
 
     setSiteAnnotationMapHighlights(siAnMap);

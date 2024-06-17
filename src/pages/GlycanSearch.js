@@ -386,7 +386,6 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
-						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
 				} else {
@@ -498,8 +497,8 @@ const GlycanSearch = (props) => {
 			if (anchorElement) {
 				var hash = anchorElement.substr(1);
 				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Composition-Search"
-				    || "Structure-Search" || "Substructure-Search" ||  hash ===  "Tutorial") {
-					setGlyActTabKey(hash);
+				    ||  hash ===  "Tutorial") {
+					setGlyActTabKey(hash);	
 				} else {
 					setGlyActTabKey("Simple-Search");
 				}
@@ -649,7 +648,7 @@ const GlycanSearch = (props) => {
 								data.cache_info.query.organism === undefined || data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.name === org.glygen_name;
+												return initOrg.name === org.name;
 											});
 										}
 									)[0] === undefined
@@ -657,7 +656,7 @@ const GlycanSearch = (props) => {
 									: data.cache_info.query.organism.organism_list.map(
 										org => {
 											return initData.organism.find(initOrg => {
-												return initOrg.name === org.glygen_name;
+												return initOrg.name === org.name;
 											});
 										}
 									),
@@ -835,7 +834,7 @@ const GlycanSearch = (props) => {
 		var organisms = undefined;
 		if (input_organism && input_organism.length > 0) {
 			organisms = {
-				organism_list:input_organism.map(obj => { return {"glygen_name": obj.name}}),
+				organism_list: input_organism,
 				annotation_category: input_organism_annotation_cat,
 				operation: input_organism_operation
 			};
@@ -874,7 +873,7 @@ const GlycanSearch = (props) => {
 			[commonGlycanData.mass.id]: input_mass,
 			[commonGlycanData.number_monosaccharides.id]: monosaccharides,
 			[commonGlycanData.enzyme.id]: enzymes,
-			[commonGlycanData.glycan_name.id]: input_glycan_name !== "" ? input_glycan_name : undefined,
+			[commonGlycanData.glycan_name.id]: input_glycan_name,
 			[commonGlycanData.glycan_identifier.id]: glycan_identifier,
 			[commonGlycanData.organism.id]: organisms,
 			[commonGlycanData.glycan_type.id]: input_glycantype !== "" ? input_glycantype : undefined,
@@ -908,9 +907,9 @@ const GlycanSearch = (props) => {
 			if (response.data['list_id'] !== '') {
 				logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 				.finally(() => {	
-					setPageLoading(false);
 					navigate(routeConstants.glycanList + response.data['list_id']);
 				});
+				setPageLoading(false);
 			} else {
 				logActivity("user", "", "No results. " + message);
 				setPageLoading(false);
@@ -959,9 +958,9 @@ const GlycanSearch = (props) => {
 				if (response.data['list_id'] !== '') {
 					logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 					.finally(() => {	
-						setPageLoading(false);
 						navigate(routeConstants.glycanList + response.data['list_id']);
 					});;
+					setPageLoading(false);
 				} else {
 					logActivity("user", "", "No results. " + message);
 					setPageLoading(false);
@@ -1074,12 +1073,11 @@ const GlycanSearch = (props) => {
 						if (response.data['list_id'] !== '') {
 							if (dialogLoadingRef.current) {
 								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-									setDialogLoading(false);
 									navigate(routeConstants.glycanList + response.data['list_id']);
 								});
+								setDialogLoading(false);
 							} else {
 								logActivity("user", "", "User canceled job. " + message);
-								setDialogLoading(false);
 							}
 						} else {
 							logActivity("user", "", "No results. " + message);
@@ -1142,12 +1140,11 @@ const GlycanSearch = (props) => {
 							if (response.data['list_id'] !== '') {
 								if (dialogLoadingRef.current) {
 									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
-										setDialogLoading(false);
 										navigate(routeConstants.glycanList + response.data['list_id']);
 									});
+									setDialogLoading(false);
 								} else {
 									logActivity("user", "", "User canceled job. " + message);
-									setDialogLoading(false);
 								}
 							} else {
 								logActivity("user", "", "No results. " + message);

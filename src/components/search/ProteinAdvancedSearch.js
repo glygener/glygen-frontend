@@ -712,6 +712,44 @@ const ProteinAdvancedSearch = (props) => {
 						/>
 					</FormControl>
 				</Grid>
+				{/* Protein or Peptide Sequence */}
+				<Grid item xs={12} sm={10}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.sequence.tooltip.title}
+                                text={commonProteinData.sequence.tooltip.text}
+                                urlText={commonProteinData.sequence.tooltip.urlText}
+                                url={commonProteinData.sequence.tooltip.url}
+                            />
+                            {commonProteinData.sequence.name}
+						</Typography>
+						<OutlinedInput
+                            placeholder={advancedSearch.sequence.placeholder}
+							margin='dense'
+							multiline
+							rows={3}
+                            value={props.inputValue.proSequence}
+                            onChange={SequenceChange}
+                            error={props.inputValue.proSequence.length > advancedSearch.sequence.length}
+						/>
+						{props.inputValue.proSequence.length > advancedSearch.sequence.length && (
+							<FormHelperText className={"error-text"} error>
+								{advancedSearch.sequence.errorText}
+							</FormHelperText>
+						)}
+						<ExampleControl
+							exampleMap={advancedSearch.sequence.examples}
+							type={advancedSearch.sequence.examples.sequence.id}
+							setInputValue={input => {
+								proSequenceChange(input);
+							}}
+						/>
+					</FormControl>
+				</Grid>
 				{/* Pathway ID */}
 				<Grid item xs={12} sm={10}>
 					<FormControl fullWidth variant='outlined'>

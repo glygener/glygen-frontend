@@ -20,7 +20,7 @@
       },
       "organism": {
         "examples": [
-          "Human"
+          "Homo sapiens"
         ],
         "placeholder": "Enter the organism"
       },
@@ -36,7 +36,7 @@
           "Hex(5)HexNAc(4)dHex(1)",
           "P14210",
           "B4GALT1",
-          "Human"
+          "Homo sapiens"
         ],
         "placeholder": "Enter the search term"
       }

@@ -259,8 +259,6 @@ const GlycanDetail = props => {
   const [glycanEnzymeList, setGlycanEnzymeList] = useState([]);
   const [glycanMotifList, setGlycanMotifList] = useState([]);
   const [glycanResidueList, setGlycanResidueList] = useState([]);
-  const [recommendedMotifRows, setRecommendedMotifRows] = useState([]);
-  const [synonymMotifRows, setSynonymMotifRows] = useState([]);
   const [checkedResidue, setCheckedResidue] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { }
@@ -336,8 +334,6 @@ const GlycanDetail = props => {
           if (jsonData && jsonData.annotations) {
             if (jsonData.annotations.Enzyme) {
               let enzMap = new Map();
-              let enzMissing = [];
-
               for (let i = 0; i < enzyme.length; i ++) {
                 enzMap.set(enzyme[i].id, enzyme[i]);
               }
@@ -350,7 +346,6 @@ const GlycanDetail = props => {
                   let temp = {};
                   let enz = enzMap.get(glEnz[i]);
                   if (!enz) {
-                    enzMissing.push(glEnz[i]);
                     continue;
                   }
                   let tmp1 = undefined;
@@ -372,11 +367,6 @@ const GlycanDetail = props => {
                     enzList.push(temp)
                   }
                 }
-              }
-
-              if (enzMissing.length > 0) {
-                let message = "Missing enzymes in map file: " + enzMissing.join(", ");
-                logActivity("user", id, message);
               }
               setGlycanEnzymeList(enzList);
             }
@@ -457,6 +447,7 @@ const GlycanDetail = props => {
                 let message = "Missing residues in map file: " + residueMissing.join(", ");
                 logActivity("user", id, message);
               }
+
               setGlycanResidueList(resList);
             }
           }
@@ -563,13 +554,6 @@ const GlycanDetail = props => {
           let publ = data.section_stats.filter(obj => obj.table_id === "publication");
           let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
           setPublicationTotal(publStat[0].count);
-        }
-
-        if (detailDataTemp.names) {
-          let motifRecNames = detailDataTemp.names.filter(motifRec => motifRec.domain === "motifname").map(obj => obj.name);
-          let motifSynNames = detailDataTemp.names.filter(motifRec => motifRec.domain === "motifsynonym").map(obj => obj.name);
-          setRecommendedMotifRows(motifRecNames);
-          setSynonymMotifRows(motifSynNames);
         }
 
         setItemsCrossRef(getItemsCrossRefWithCategory(detailDataTemp));
@@ -849,7 +833,7 @@ const GlycanDetail = props => {
     },
 
     {
-      dataField: "tax_common_name",
+      dataField: "tax_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -857,7 +841,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {row.tax_common_name}
+          {row.tax_name}
         </>
       )
     }
@@ -892,7 +876,7 @@ const GlycanDetail = props => {
       }
     },
     {
-      dataField: "glygen_name",
+      dataField: "common_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -900,7 +884,7 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
-          {row.glygen_name}
+          {row.common_name}
           {" "}
           <DirectSearch
             text={glycanDirectSearch.organism.text}
@@ -909,7 +893,8 @@ const GlycanDetail = props => {
             fieldValue={{
               organism_list: [
                 {
-                  glygen_name: row.glygen_name,
+                  name: row.common_name,
+                  id: row.taxid,
                 }
               ],
               annotation_category: "",
@@ -1075,8 +1060,8 @@ const GlycanDetail = props => {
             {row.date})
           </div>
           <div>
-            {row.reference.map((ref, ind) => (
-              <div key={ind}>
+            {row.reference.map(ref => (
+              <>
                 <FiBookOpen />
                 <span style={{ paddingLeft: "15px" }}>
                   {ref.type}:
@@ -1093,7 +1078,7 @@ const GlycanDetail = props => {
                   fieldValue={ref.id}
                   executeSearch={glycanSearch}
                 />
-              </div>
+              </>
             ))}
           </div>
           <EvidenceList
@@ -1166,7 +1151,7 @@ const GlycanDetail = props => {
     },
 
     {
-      dataField: "tax_common_name",
+      dataField: "tax_name",
       text: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -1174,7 +1159,9 @@ const GlycanDetail = props => {
       },
       formatter: (value, row) => (
         <>
+          {row.tax_name} {"("}
           <span className="text-capitalize">{row.tax_common_name}</span>
+          {")"}
         </>
       )
     }
@@ -1557,11 +1544,11 @@ const GlycanDetail = props => {
             (id || "") + ">" + response.data["list_id"],
             message
           ).finally(() => {
-            setPageLoading(false);
             navigate(
               routeConstants.glycanList + response.data["list_id"]
             );
           });
+          setPageLoading(false);
         } else {
           let error = {
             response: {
@@ -2090,26 +2077,26 @@ const GlycanDetail = props => {
                               className="pe-0">
                               <>
                                 <span id="residues">
-                                  {glycanResidueList.map((parentObj, resParInd) => (<span key={"enSpan" + resParInd}>
+                                  {glycanResidueList.map((parentObj) => (<>
                                     <span id={"Residue." + parentObj.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + parentObj.id}></span>
-                                    {parentObj.children && parentObj.children.length > 0 && parentObj.children.map((child, chInd) => (
-                                      <span key={"chSpan" + chInd} id={"Residue." + child.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + child.id}></span>            
-                                    ))}
-                                  </span>))}
+                                    {parentObj.children && parentObj.children.length > 0 && parentObj.children.map((child) => (<>
+                                      <span id={"Residue." + child.id} glymagesvg_residues="residues" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"IUPAC." + child.id}></span>            
+                                    </>))}
+                                  </>))}
                                 </span>
 
                                 <span id="motifs">
-                                  {glycanMotifList.map((parentObj, chInd) => (
-                                    <span key={"chSpan" + chInd} id={"Motif." + parentObj.id} glymagesvg_motifs="motifs" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"MotifAlignments." + parentObj.id}></span>
-                                  ))}
+                                  {glycanMotifList.map((parentObj) => (<>
+                                    <span id={"Motif." + parentObj.id} glymagesvg_motifs="motifs" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"MotifAlignments." + parentObj.id}></span>
+                                  </>))}
                                 </span>
 
                                 <span id="enzymes">
-                                  {glycanEnzymeList.map((parentObj, enParInd) => (<span key={"enSpan" + enParInd}>
-                                    {parentObj.enz_list && parentObj.enz_list.length > 0 && parentObj.enz_list.map((child, chInd) => (
-                                      <span key={"chSpan" + chInd} id={"EnzymeUniAcc." + child.id} glymagesvg_enzymes="enzymes" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"Enzyme." + child.id}></span>            
-                                    ))}
-                                  </span>))}
+                                  {glycanEnzymeList.map((parentObj) => (<>
+                                    {parentObj.enz_list && parentObj.enz_list.length > 0 && parentObj.enz_list.map((child) => (<>
+                                      <span id={"EnzymeUniAcc." + child.id} glymagesvg_enzymes="enzymes" glymagesvg_forid="glymagesvg" glymagesvg_annotation={"Enzyme." + child.id}></span>            
+                                    </>))}
+                                  </>))}
                                 </span>
 
                                 <GlycanViewer 
@@ -2133,7 +2120,7 @@ const GlycanDetail = props => {
                               lg={8}
                               xl={8}
                               justify={"center"}
-                              className="pe-0 text-center">
+                              className="pe-0 text-center pr-1">
                                 <div style={{"width": "100%", "height": "100%", "margin": "0", "padding": "0"}}>
                                   <div className="content-cen" id="glymagesvg"
                                       glymagesvg_accession={id} 
@@ -2237,13 +2224,13 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <Row>
-                         {organismEvidence && organismEvidence.length > 0 && <ClientExpandableTable
+                         {organismEvidence && <ClientExpandableTable
                             data={organismEvidence}
                             orgExpandedRow={orgExpandedRow}
                             columns={glycoOrganismColumns}
                             expandableTableColumns={glycoOrganismExpandedColumns}
-                            defaultSortField={"common_name"}
-                            onClickTarget={"#organism"} 
+                            defaultSortField={"name"}
+                            onClickTarget={"#motif"} 
                           /> }
                         {!species && (
                           <p className="no-data-msg">{dataStatus}</p>
@@ -2281,36 +2268,17 @@ const GlycanDetail = props => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      <>
-                      {(names && names.length) ? (
-                        <ul className="list-style-none mb-0">
-                            <>
-                              {recommendedMotifRows && recommendedMotifRows.length > 0 && (
-                                <>
-                                  <strong>{glycanStrings.motif_name_recommended.name}</strong>
-                                  {recommendedMotifRows.map(nameObject => (
-                                    <li key={nameObject}>
-                                      <ul><li>{nameObject}</li></ul>
-                                    </li>
-                                  ))}
-                                </>
-                              )}
-                              {synonymMotifRows && synonymMotifRows.length > 0 && (
-                                <>
-                                  <strong>{glycanStrings.motif_name_synonym.name}</strong>
-                                  {synonymMotifRows.map(nameObject => (
-                                    <li key={nameObject}>
-                                      <ul><li>{nameObject}</li></ul>
-                                    </li>
-                                  ))}
-                                </>
-                              )}
-                            </>
+                      {names && names.length ? (
+                        <ul className="list-style-none">
+                          {names.map(nameObject => (
+                            <li key={nameObject.domain}>
+                              <b>{nameObject.domain}</b>: {nameObject.name}
+                            </li>
+                          ))}
                         </ul>
                       ) : (
                         <p>{dataStatus}</p>
                       )}
-                      </>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -2700,23 +2668,6 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.biomarkers.displayname}
                     </h4>
                     <div className="float-end">
-                      <span className="gg-download-btn-width text-end">
-                          <DownloadButton
-                            types={[
-                              {
-                                display: "Biomarkers (*.csv)",
-                                type: "biomarkers_csv",
-                                format: "csv",
-                                data: "glycan_section",
-                                section: "biomarkers",
-                              }
-                            ]}
-                            dataId={id}
-                            itemType="glycan_section"
-                            showBlueBackground={true}
-                            enable={biomarkers && biomarkers.length > 0}
-                          />
-                        </span>
                       <CardToggle cardid="biomarkers" toggle={collapsed.biomarkers} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -3049,7 +3000,7 @@ const GlycanDetail = props => {
                       {itemsCrossRef && itemsCrossRef.length ? (
                         <div>
                           {itemsCrossRef.map((dbItem, catInd) => (
-                            <AccordionMUI disableGutters={true} key={"catDiv" + catInd}
+                            <AccordionMUI disableGutters={true} 
                               expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
                               onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
                             >
@@ -3116,7 +3067,7 @@ const GlycanDetail = props => {
                       {history && history.length ? (
                         <>
                           {history.map(historyItem => (
-                            <ul className="ps-3" key={historyItem.description}>
+                            <ul className="pl-3" key={historyItem.description}>
                               <li>
                                 {capitalizeFirstLetter(historyItem.description)}{" "}
                               </li>

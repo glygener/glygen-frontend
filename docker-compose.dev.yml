@@ -6,7 +6,6 @@ services:
     build:
       args:
         - REACT_APP_ENV=dev
-        - REACT_APP_BUILD=glygen
         - REACT_APP_API=https://api.tst.glygen.org
         - REACT_APP_DOMAIN=https://glygen.ccrc.uga.edu/frontend
         # - REACT_APP_DOMAIN=http://localhost

@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
-import { getTitle, getMeta } from "../utils/head";
+import { getTitle, getMeta } from "../utils/head.js";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getJobResultList } from "../data/job.js"
-import PaginatedTable from "../components/PaginatedTable";
+import PaginatedTable from "../components/PaginatedTable.js";
 import Container from "@mui/material/Container";
-import FeedbackWidget from "../components/FeedbackWidget";
-import { logActivity } from "../data/logging";
-import PageLoader from "../components/load/PageLoader";
-import DialogAlert from "../components/alert/DialogAlert";
-import { axiosError } from "../data/axiosError";
+import FeedbackWidget from "../components/FeedbackWidget.js";
+import { logActivity } from "../data/logging.js";
+import PageLoader from "../components/load/PageLoader.js";
+import DialogAlert from "../components/alert/DialogAlert.js";
+import { axiosError } from "../data/axiosError.js";
 import Button from "react-bootstrap/Button";
 import routeConstants from "../data/json/routeConstants";
 import stringConstants from "../data/json/stringConstants";
-import BlastResultQuerySummary from "../components/BlastResultQuerySummary";
+import BlastResultQuerySummary from "../components/BlastResultQuerySummary.js";
 import { Link } from "react-router-dom";
 import { Tab, Tabs } from 'react-bootstrap';
-import LineTooltip from "../components/tooltip/LineTooltip";
-import MultiProteinAlignment from "../components/sequence/MultiProteinAlignment";
+import LineTooltip from "../components/tooltip/LineTooltip.js";
+import MultiProteinAlignment from "../components/sequence/MultiProteinAlignment.js";
 import doubleArraowIcon from "../images/icons/doubleArrowIcon.svg";
 import Image from "react-bootstrap/Image";
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -38,7 +38,7 @@ const blastSearch = stringConstants.blast_search.common;
 /**
  * Glycan blast result control.
  **/
-const BlastResult = (props) => {
+const IsoformMappingResult = (props) => {
   let { jobId } = useParams();
   const [subjectData, setSubjectData] = useState({});
   const [query, setQuery] = useState({});
@@ -336,4 +336,4 @@ const BlastResult = (props) => {
   );
 };
 
-export default BlastResult;
+export default IsoformMappingResult;

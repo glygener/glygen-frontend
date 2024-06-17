@@ -122,7 +122,6 @@ export default function Header(props) {
                 className={
                   location.pathname.includes(routeConstants.glycanSearch) ||
                   location.pathname.includes(routeConstants.proteinSearch) ||
-                  location.pathname.includes(routeConstants.biomarkerSearch) ||
                   location.pathname.includes(routeConstants.siteSearch) ||
                   location.pathname.includes(routeConstants.superSearch) ||
                   location.pathname === routeConstants.motifList
@@ -137,9 +136,6 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.proteinSearch}>
                   Protein Search
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.biomarkerSearch}>
-                  Biomarker Search
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.siteSearch}>
                   Site Search

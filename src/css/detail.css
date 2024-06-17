@@ -65,15 +65,13 @@
   background-color: white;
   color: black;
   height: 27px;
-  min-width: 27px;
+  width: 27px;
   line-height: 27px;
   -moz-border-radius: 30px;
   border-radius: 30px;
   text-align: center;
   font-size: 16px;
   margin-left: 5px;
-  padding-right: 2px;
-  padding-left: 2px;
 }
 .badge-div {
   /* margin: 0.5em 0 0; */
