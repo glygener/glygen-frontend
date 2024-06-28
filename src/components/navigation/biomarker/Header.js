@@ -119,8 +119,7 @@ export default function Header(props) {
               </NavDropdown>
               <NavDropdown
                 className={
-                  location.pathname === routeConstants.contactUs ||
-                  location.pathname === routeConstants.feedback
+                  location.pathname === routeConstants.contactUs
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
                 }
@@ -138,8 +137,6 @@ export default function Header(props) {
                 className={
                   location.pathname === routeConstants.about ||
                   location.pathname === routeConstants.howToCite ||
-                  location.pathname === routeConstants.outreach ||
-                  location.pathname === routeConstants.media ||
                   location.pathname === routeConstants.frameworks
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"

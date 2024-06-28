@@ -39,6 +39,7 @@ import {
   GRANT_DETAILS_COMMONFUND,
   NIH_COMMONFUND,
   NIH_COMMONFUND_DATAECOSYSTEM,
+  BIOMARKER_DATA,
   BIOMARKER_FAQ
 } from "../../../envVariables";
 
@@ -76,7 +77,7 @@ export default function Footer() {
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Data</h6>
               <div>
-                <a href={GLYGEN_DATA} target="_blank" rel="noopener noreferrer">
+                <a href={BIOMARKER_DATA} target="_blank" rel="noopener noreferrer">
                   Data
                 </a>
               </div>

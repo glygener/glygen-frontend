@@ -13,6 +13,7 @@ services:
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
         - REACT_APP_DATA=https://beta-data.glygen.org
         - REACT_APP_SPARQL=https://beta-sparql.glygen.org
+        - REACT_APP_GITHUB=https://github.com/glygener
         - REACT_APP_BASENAME=/
         - GENERATE_SOURCEMAP_FILES=true
         - PORT=5050
