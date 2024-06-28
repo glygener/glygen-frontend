@@ -1,0 +1,64 @@
+{
+	"relevantPapers": [
+		{
+			"title": "Relevant Papers",
+			"heading": "Modeling and integration of N-glycan biomarkers in a comprehensive biomarker data model.",
+			"authors": "Lyman DF, Bell A, Black A, Dingerdissen H, Cauley E, Gogate N, Liu D, Joseph A, Kahsay R, Crichton DJ, Mehta A, Mazumder R.",
+			"publisher": "Glycobiology. 2022 Sep 19;32(10):855-870.",
+			"pmid": "PMID",
+			"website": {
+				"name": "35925813",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/35925813"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/biomarker/35925813.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/biomarker/35925813.enw",
+			"endnotelabel": "EndNote",
+			"period": "."
+		},
+		{
+			"heading": "COVID-19 biomarkers and their overlap with comorbidities in a disease biomarker data model.",
+			"authors": "Gogate N, Lyman D, Bell A, Cauley E, Crandall KA, Joseph A, Kahsay R, Natale DA, Schriml LM, Sen S, Mazumder R.",
+			"publisher": "Brief Bioinform. 2021 Nov 5;22(6):bbab191.",
+			"pmid": "PMID",
+			"website": {
+				"name": "34015823",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/34015823"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/biomarker/34015823.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/biomarker/34015823.enw",
+			"endnotelabel": "EndNote",
+			"period": "."
+		},
+		{
+			"heading": "Analysis of Biomarker Data Towards Development of a Molecular Biomarker Ontology.",
+			"authors": "Lyman D, Natale D, Schriml L, Anton K, Crichton DC, Mazumder R.",
+			"publisher": "Proceedings of the International Conference on Biomedical Ontologies 2021 (ICBO 2021) co-located with the Workshop on Ontologies for the Behavioural and Social Sciences (OntoBess 2021) as part of the Bolzano Summer of Knowledge (BOSK 2021) Bozen-Bolzano, Italy. 2021 Sep 16-18; ceur-ws.org.",
+			"pmid": "Website",
+			"website": {
+				"name": "ceur-ws.org",
+				"url": "https://ceur-ws.org"
+			},
+			"period": "."
+		},
+		{
+			"heading": "OncoMX: A Knowledgebase for Exploring Cancer Biomarkers in the Context of Related Cancer and Healthy Data.",
+			"authors": "Dingerdissen HM, Bastian F, Vijay-Shanker K, Robinson-Rechavi M, Bell A, Gogate N, Gupta S, Holmes E, Kahsay R, Keeney J, Kincaid H, King CH, Liu D, Crichton DJ, Mazumder R.",
+			"publisher": "JCO Clin Cancer Inform. 2020 Mar;4:210-220.",
+			"pmid": "PMID",
+			"website": {
+				"name": "32142370",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/32142370"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/biomarker/32142370.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/biomarker/32142370.enw",
+			"endnotelabel": "EndNote",
+			"period": "."
+		}
+	]
+}

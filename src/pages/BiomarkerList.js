@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
+import { getTitle as getTitleBiomarker, getMeta as getMetaBiomarker } from "../utils/biomarker/head";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getBiomarkerList } from "../data";
@@ -21,6 +22,9 @@ import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
 import BiomarkerQuerySummary from "../components/BiomarkerQuerySummary";
+import {
+  GLYGEN_BUILD,
+} from "../envVariables";
 
 const BiomarkerList = props => {
   let { id } = useParams();
@@ -168,8 +172,11 @@ const BiomarkerList = props => {
   return (
     <>
       <Helmet>
-        {getTitle("biomarkerList")}
-        {getMeta("biomarkerList")}
+        {GLYGEN_BUILD === "glygen" ? getTitle("biomarkerList") :
+          getTitleBiomarker("biomarkerList")}
+
+        {GLYGEN_BUILD === "glygen" ? getMeta("biomarkerList") :
+          getMetaBiomarker("biomarkerList")}
       </Helmet>
 
       <FeedbackWidget />

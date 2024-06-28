@@ -573,7 +573,7 @@
     ]
   },
   "biomarkerHome": {
-    "title": "Biomarker Home | Informatics Resources for Glycoscience",
+    "title": "Biomarker Home | Informatics Resources for Glycoscience | glygen.org",
     "meta": [
       {
         "name": "description",
@@ -582,6 +582,19 @@
       {
         "name": "keywords",
         "content": "biomarker search"
+      }
+    ]
+  },
+  "isoformMapper": {
+    "title": "Isoform Mapper | Informatics Resources for Glycoscience | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Isoform Mapper"
       }
     ]
   }

@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
 export default function VerticalHeadingLogo(props) {
-	const { post } = props;
+	const { post, logo = true } = props;
 
 	return (
 		<div className="content-box-md" id={props.id}>
@@ -39,7 +39,7 @@ export default function VerticalHeadingLogo(props) {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={4} sm={4} md={3} lg={3}>
+				{logo && <Grid item xs={4} sm={4} md={3} lg={3}>
 					<Link
 						className="align-logo"
 						alignContent="bottom"
@@ -56,7 +56,7 @@ export default function VerticalHeadingLogo(props) {
 						/>
 						</div>
 					</Link>
-				</Grid>
+				</Grid>}
 			</Grid>
 		</div>
 	);

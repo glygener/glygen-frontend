@@ -11,6 +11,9 @@ import ContactForm from "../components/contactUs/ContactForm";
 import { logActivity } from "../data/logging";
 import Iframe from "react-iframe";
 import "../css/Responsive.css";
+import {
+	GLYGEN_BUILD
+  } from "../envVariables";
 
 const mapContainer = {
 	position: "relative",
@@ -63,7 +66,7 @@ const ContactUs = (props) => {
 					<Col sm={12} md={12} lg={6}>
 						<VerticalHeading post={vertHeadContactUs} />
 						{/* <div> */}
-						<Row style={{ paddingTop: "20px" }}>
+						{GLYGEN_BUILD === "glygen" && <Row style={{ paddingTop: "20px" }}>
 							<Col sm={12} md={6} lg={6} className="contact-univ-address">
 								<h3>
 									<span>
@@ -96,7 +99,7 @@ const ContactUs = (props) => {
 									<li>Washington, DC 20037 USA </li>
 								</ul>
 							</Col>
-						</Row>
+						</Row>}
 						{/* </div> */}
 					</Col>
 					{/* Contact Right */}
@@ -107,7 +110,7 @@ const ContactUs = (props) => {
 					</Col>
 				</Row>
 			</Container>
-			<Row style={mapContainer}>
+			{GLYGEN_BUILD === "glygen" && <Row style={mapContainer}>
 				<Col xs={12} sm={6}>
 					<Iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52966.457259584626!2d-83.38527272292191!3d33.93074668733138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f66c59c9de4d63%3A0xf492ef3dfc14c69d!2s315%20Riverbend%20Rd%2C%20Athens%2C%20GA%2030602!5e0!3m2!1sen!2sus!4v1595619413875!5m2!1sen!2sus"
@@ -142,7 +145,7 @@ const ContactUs = (props) => {
 				</Col>
 
 				{/* <GoogleMap /> */}
-			</Row>
+			</Row>}
 		</React.Fragment>
 	);
 };

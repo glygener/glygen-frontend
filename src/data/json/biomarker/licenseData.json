@@ -1,0 +1,124 @@
+{
+	"databasesLicenseData": [
+		{
+			"databases": {
+				"name": "Disease Ontology",
+				"url": "https://disease-ontology.org/resources/"
+			},
+			"licenseType": {
+				"name": "CC0 1.0",
+				"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "UniProtKB",
+				"url": "https://www.uniprot.org/help/uniprotkb"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "ChEBI",
+				"url": "https://www.ebi.ac.uk/chebi/aboutChebiForward.do"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "GlyTouCan",
+				"url": "http://code.glytoucan.org/sitePolicy/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI PubChem",
+				"url": "https://pubchem.ncbi.nlm.nih.gov/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "NCBI PubMed",
+				"url": "https://www.ncbi.nlm.nih.gov/pubmed/"
+			},
+			"licenseType": {
+				"name": "NCBI License",
+				"url": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
+			}
+		},
+		{
+			"databases": {
+				"name": "PRO",
+				"url": "http://www.obofoundry.org/ontology/pr.html"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "OpenTargets",
+				"url": "https://www.opentargets.org/"
+			},
+			"licenseType": {
+				"name": "CC0 1.0",
+				"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "GWAS",
+				"url": "https://www.ebi.ac.uk/gwas/home"
+			},
+			"licenseType": {
+				"name": "CC0 1.0",
+				"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "ClinVar",
+				"url": "https://www.ncbi.nlm.nih.gov/clinvar/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "UBERON",
+				"url": "https://obophenotype.github.io/uberon/"
+			},
+			"licenseType": {
+				"name": "CC BY 3.0",
+				"url": "https://creativecommons.org/licenses/by/3.0/"
+			}
+		},
+		{
+			"databases": {
+				"name": "LOINC",
+				"url": "https://loinc.org/"
+			},
+			"licenseType": {
+				"name": "CC BY 4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		}
+	]
+}

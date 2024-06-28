@@ -33,6 +33,7 @@ export const TWITTER = process.env.REACT_APP_TWITTER || "https://twitter.com/gly
 export const YOUTUBE =
   process.env.REACT_APP_YOUTUBE || "https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/";
 export const GITHUB = process.env.REACT_APP_GITHUB || "https://github.com/glygener";
+export const BIOMARKER_DATA  = process.env.REACT_BIOMARKER_DATA || "https://hivelab.biochemistry.gwu.edu/biomarker-partnership/data";
 export const WIKI =
   process.env.REACT_APP_GLYCOMOTIF_WIKI || "https://wiki.glygen.org/index.php/Main_Page";
 export const PINTEREST =
@@ -43,7 +44,8 @@ export const NIH_GOV = process.env.REACT_APP_NIH_GOV || "https://www.nih.gov/";
 export const GLYGEN_BASENAME = process.env.REACT_APP_BASENAME || "/";
 export const UNIPROT_BASENAME = "https://www.uniprot.org/"
 export const UNIPROT_REST_BASENAME = "https://rest.uniprot.org/"
-export const GLYGEN_FAQ = process.env.REACT_APP_GSD || "https://wiki.glygen.org/Frequently_Asked_Questions";
+export const GLYGEN_FAQ = process.env.REACT_APP_FAQ || "https://wiki.glygen.org/Frequently_Asked_Questions";
+export const BIOMARKER_FAQ = process.env.REACT_APP_BIOMARKER_FAQ || "https://hivelab.biochemistry.gwu.edu/biomarker-partnership/data/static/faq";
 export const GLYGEN_TUT_HOWT = process.env.REACT_APP_TUT_HOWT || "https://wiki.glygen.org/GlyGen_Tutorials";
 export const GLYGEN_DOC = process.env.REACT_APP_DOC || "https://wiki.glygen.org/GlyGen_Documentation";
 export const CFDE_GENE_PAGES = process.env.REACT_APP_CFDE_GENE_PAGES || "https://cfde-gene-pages.cloud/";

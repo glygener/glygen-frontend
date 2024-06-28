@@ -1,19 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logoFooter from "../../images/glygen_logos/biomarker-logoW.svg";
-import ugaLogo from "../../images/univ_logos/logo-uga.svg";
-import gwuLogo from "../../images/univ_logos/logo-gwu.svg";
+import logoFooter from "../../../images/glygen_logos/biomarker-logoW.svg";
+import ugaLogo from "../../../images/univ_logos/logo-uga.svg";
+import gwuLogo from "../../../images/univ_logos/logo-gwu.svg";
 import { Navbar, Col, Image, Row, Container as ContainerBootStrap } from "react-bootstrap";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
-import "../../App.css";
-import routeConstants from "../../data/json/routeConstants.json";
+import "../../../App.css";
+import routeConstants from "../../../data/json/routeConstants.json";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import { ReactComponent as MediaWikiIcon } from "../../images/icons/mediaWikiIcon.svg";
+import { ReactComponent as MediaWikiIcon } from "../../../images/icons/mediaWikiIcon.svg";
 import {
   GLYGEN_API,
   GLYGEN_BETA,
@@ -38,8 +38,9 @@ import {
   GLYGEN_DOC,
   GRANT_DETAILS_COMMONFUND,
   NIH_COMMONFUND,
-  NIH_COMMONFUND_DATAECOSYSTEM
-} from "../../envVariables";
+  NIH_COMMONFUND_DATAECOSYSTEM,
+  BIOMARKER_FAQ
+} from "../../../envVariables";
 
 const useStyles = makeStyles((theme) => ({
   navbarText: {
@@ -91,37 +92,6 @@ export default function Footer() {
               </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
-              <h6 className="text-uppercase">Tools</h6>
-              <div>
-                <a href={GLYCAN_SEQ_LOOKUP} target="_blank" rel="noopener noreferrer">
-                  Glycan Sequence Lookup
-                </a>
-              </div>
-              <div>
-                <a href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
-                Glycan Structure Dictionary
-                </a>
-              </div>
-              <div>
-                <a href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
-                  GlycoMotif&nbsp;Wiki
-                </a>
-              </div>
-              <div>
-                <a href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
-                  GlyGen&nbsp;Sand Box
-                </a>
-              </div>
-              <div>
-                <a href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
-                  Structure&nbsp;Browser
-                </a>
-              </div>
-              <div>
-                <Link to={routeConstants.resources}>Other Resources</Link>
-              </div>
-            </Col>
-            <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">My GlyGen</h6>
               <div>
                 <Link to={routeConstants.privacySettings}>Privacy&nbsp;Settings</Link>
@@ -139,37 +109,21 @@ export default function Footer() {
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Help</h6>
               <div>
-                <a href={GLYGEN_FAQ} target="_blank" rel="noopener noreferrer">
+                <a href={BIOMARKER_FAQ} target="_blank" rel="noopener noreferrer">
                   FAQ
-                </a>
-              </div>
-              <div>
-                <a href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
-                  Tutorials and How to
-                </a>
-              </div>
-              <div>
-                <a href={GLYGEN_DOC} target="_blank" rel="noopener noreferrer">
-                  Documentation
                 </a>
               </div>
               <div>
                 <Link to={routeConstants.contactUs}>Contact Us</Link>
               </div>
-              <div>
-                <Link to={routeConstants.feedback}>Feedback</Link>
-              </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">About</h6>
               <div>
-                <Link to={routeConstants.about}>We are GlyGen</Link>
+                <Link to={routeConstants.about}>Our Mission</Link>
               </div>
               <div>
                 <Link to={routeConstants.howToCite}>How to Cite</Link>
-              </div>
-              <div>
-                <Link to={routeConstants.media}>Media</Link>
               </div>
               <div>
                 <Link to={routeConstants.frameworks}>Frameworks</Link>
@@ -177,25 +131,8 @@ export default function Footer() {
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <div>
-                <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <TwitterIcon className="me-2" />
-                </a>
-                <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <YouTubeIcon className="me-2" />
-                </a>
                 <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <GitHubIcon className="me-2" size="14px" />
-                </a>
-                <a
-                  href={WIKI}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="media-wiki-icon"
-                >
-                  <MediaWikiIcon className="me-2" />
-                </a>
-                <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <PinterestIcon />
                 </a>
               </div>
 
@@ -237,7 +174,16 @@ export default function Footer() {
                       (CFDE)
                     </a>
                     {" "}
-                    sponsored project to develop a knowledgebase that will organize and integrate biomarker data from different public sources.
+                    sponsored project under the grant #{" "}
+                    <a
+                      href={GRANT_DETAILS_COMMONFUND}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={classes.link}
+                    >
+                      1OT2OD032092
+                    </a>{" "}
+                    to develop a knowledgebase that will organize and integrate biomarker data from different public sources.
                   </Navbar.Text>
                 </Box>
               </Col>

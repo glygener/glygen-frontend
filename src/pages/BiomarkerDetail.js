@@ -10,6 +10,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
+import { getTitle as getTitleBiomarker, getMeta as getMetaBiomarker } from "../utils/biomarker/head";
 import { Grid } from "@mui/material";
 import { Col, Row } from "react-bootstrap";
 import { FiBookOpen } from "react-icons/fi";
@@ -621,11 +622,15 @@ const BiomarkerDetail = (props) => {
             </div>
             <React.Fragment>
               <Helmet>
-                {getTitle("biomarkerDetail", {
+                {GLYGEN_BUILD === "glygen" ? getTitle("biomarkerDetail", {
+                  biomarker_id: biomarkerId ? biomarkerId : "",
+                }) :
+                getTitleBiomarker("biomarkerDetail", {
                   biomarker_id: biomarkerId ? biomarkerId : "",
                 })}
 
-                {getMeta("biomarkerDetail")}
+                {GLYGEN_BUILD === "glygen" ? getMeta("biomarkerDetail") :
+                getMetaBiomarker("biomarkerDetail")}
               </Helmet>
               <FeedbackWidget />
               <PageLoader pageLoading={pageLoading} />

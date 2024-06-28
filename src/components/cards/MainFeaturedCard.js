@@ -109,7 +109,7 @@ export default function MainFeaturedCard(props) {
                 Schedule A Demo
               </a>
             </div>}
-            <div className="btn-outline-white">
+            {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
               <a href={GLYSPACE} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
                   style={{
@@ -126,8 +126,8 @@ export default function MainFeaturedCard(props) {
                 </span>
                 GlySpace Alliance
                 </a>
-            </div>
-            <div className="btn-outline-white">
+            </div>}
+            {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
               <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
                 <span
                   style={{
@@ -144,7 +144,7 @@ export default function MainFeaturedCard(props) {
                 </span>                
                 Member of CFDE
               </a>
-            </div>
+            </div>}
           </div>
         </Grid>
         <Grid item sm={12} md={3} lg={2} className="btn-outline-white-col">
@@ -191,6 +191,24 @@ export default function MainFeaturedCard(props) {
                 Our Mission
               </Link>
             </div>
+            {GLYGEN_BUILD === "biomarker" && <div className="btn-outline-white">
+              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
+                <span
+                  style={{
+                    paddingRight: "15px",
+                    paddingLeft: "5px"
+                  }}
+                  class="pagination-centered"
+                >
+                  <Image
+                    className="img-home"
+                    src={cfdeIcon}
+                    alt={"cfde icon"}
+                  />
+                </span>                
+                CFDE
+              </a>
+            </div>}
           </div>
         </Grid>
       </Grid>

@@ -2,52 +2,53 @@ import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import MainFeaturedCard from "../components/cards/MainFeaturedCard";
-import FeaturedCard from "../components/cards/FeaturedCard";
+import MainFeaturedCard from "../../components/cards/MainFeaturedCard";
+import FeaturedCard from "../../components/cards/FeaturedCard";
 // import QuickSearchCard from '../components/cards/QuickSearchCard';
-import TryMeCard from "../components/cards/TryMeCard";
-import InfoCard from "../components/cards/InfoCard";
-import VideoCard from "../components/cards/VideoCard";
-import VersionCard from "../components/cards/VersionCard";
-import StatDBCard from "../components/cards/StatDBCard";
-import TwitterCard from "../components/cards/TwitterCard";
-import MastodonCard from "../components/cards/MastodonCard";
+import TryMeCard from "../../components/cards/TryMeCard";
+import InfoCard from "../../components/cards/InfoCard";
+import VideoCard from "../../components/cards/VideoCard";
+import VersionCard from "../../components/cards/VersionCard";
+import StatDBCard from "../../components/cards/StatDBCard";
+import TwitterCard from "../../components/cards/TwitterCard";
+import MastodonCard from "../../components/cards/MastodonCard";
 import { Row } from "react-bootstrap";
-import mainImg from "../images/home/main-featured-img.png";
-import feedback from "../images/home/feedback.svg";
-import resources from "../images/home/resources.svg";
-import proteinImg from "../images/home/glycoprotein-img.svg";
-import biomarkerImg from "../images/home/biomarker-img.svg";
-import siteSearchImg from "../images/home/protein-img.svg";
-import glycanImg from "../images/home/glycan-img.svg";
-import quickSearchImg from "../images/home/quick-search-img.svg";
-import superSearchImg from "../images/home/super-search-img.svg";
-import compositionSearchImg from "../images/home/composition-img.svg";
-import listOfMotifsImg from "../images/home/list-of-motifs-img.svg";
-import idMappingImg from "../images/home/id-mapping-img.svg";
-import gnomeBrowserImg from "../images/home/gnome-browser-img.svg";
-import apiImg from "../images/home/api-img.svg";
-import dataImg from "../images/home/data-img.svg";
-import sparqlImg from "../images/home/sparql-img.svg";
-import glygenSandBoxlImg from "../images/home/GlyGen-SandBox-img.svg";
-import glycanStructureDictionaryImg from "../images/home/Glycan-Structure-Dictionary-img.svg"
-import proteinBLASTImg from "../images/home/Protein-BLAST-img.svg"
+import mainImg from "../../images/home/main-featured-img.png";
+import feedback from "../../images/home/feedback.svg";
+import resources from "../../images/home/resources.svg";
+import proteinImg from "../../images/home/glycoprotein-img.svg";
+import biomarkerImg from "../../images/home/biomarker-img.svg";
+import siteSearchImg from "../../images/home/protein-img.svg";
+import glycanImg from "../../images/home/glycan-img.svg";
+import quickSearchImg from "../../images/home/quick-search-img.svg";
+import superSearchImg from "../../images/home/super-search-img.svg";
+import compositionSearchImg from "../../images/home/composition-img.svg";
+import listOfMotifsImg from "../../images/home/list-of-motifs-img.svg";
+import idMappingImg from "../../images/home/id-mapping-img.svg";
+import gnomeBrowserImg from "../../images/home/gnome-browser-img.svg";
+import apiImg from "../../images/home/api-img.svg";
+import dataImg from "../../images/home/data-img.svg";
+import sparqlImg from "../../images/home/sparql-img.svg";
+import glygenSandBoxlImg from "../../images/home/GlyGen-SandBox-img.svg";
+import glycanStructureDictionaryImg from "../../images/home/Glycan-Structure-Dictionary-img.svg"
+import proteinBLASTImg from "../../images/home/Protein-BLAST-img.svg"
 import Helmet from "react-helmet";
-import { getTitle, getMeta } from "../utils/head";
-import { getSystemData } from "../data";
+import { getTitle, getMeta } from "../../utils/biomarker/head";
+import { getSystemData } from "../../data";
 import {
   GLYGEN_API,
   GLYGEN_DATA,
   GLYGEN_SPARQL,
   GNOME_BROWSER,
   GLYGEN_SANDBOX,
-  GLYGEN_GSD
-} from "../envVariables";
-import routeConstants from "../data/json/routeConstants.json";
-import { logActivity } from "../data/logging";
-import { axiosError } from "../data/axiosError";
+  GLYGEN_GSD,
+  BIOMARKER_DATA
+} from "../../envVariables";
+import routeConstants from "../../data/json/routeConstants.json";
+import { logActivity } from "../../data/logging";
+import { axiosError } from "../../data/axiosError";
 // import BannerHotTopic from "../components/alert/BannerHotTopic";
-import EventAlerts from "../components/alert/EventAlerts";
+import EventAlerts from "../../components/alert/EventAlerts";
 
 const mainFeaturedCard = {
   title: "Biomarker Partnership Project",
@@ -69,7 +70,7 @@ const featuredCards = [
       "Data from the different resources can be accessed and downloaded in resource-specific formats (e.g. CSV, RDF).",
     image: dataImg,
     imageText: "Data",
-    href: GLYGEN_DATA,
+    href: BIOMARKER_DATA,
     target: "_blank",
   },
   {
@@ -134,8 +135,8 @@ export default function Home() {
   return (
     <React.Fragment>
       <Helmet>
-        {getTitle("biomarkerHome")}
-        {getMeta("biomarkerHome")}
+        {getTitle("home")}
+        {getMeta("home")}
       </Helmet>
 
       <CssBaseline />
@@ -144,7 +145,7 @@ export default function Home() {
         <EventAlerts data={homeData.events} pageLoading={pageLoading} />
         <div className="show-grid">
           <Grid container spacing={4}>
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
                 {featuredCards.map((post) => (
                   <FeaturedCard key={post.title} post={post} />
@@ -154,17 +155,11 @@ export default function Home() {
                 </Grid> */}
               </Grid>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
+            {/* <Grid item xs={12} md={4} lg={3}>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
-                <VersionCard data={homeData.version} pageLoading={pageLoading} />
-                <VideoCard post={videoCard} data={homeData.video}/>
-                <StatDBCard data={homeData.statistics} pageLoading={pageLoading} />
-                <MastodonCard />
-                <InfoCard post={resourcesCard} />
                 <InfoCard post={feedbackCard} />
-                {/* <TwitterCard /> */}
               </Grid>
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
       </Container>

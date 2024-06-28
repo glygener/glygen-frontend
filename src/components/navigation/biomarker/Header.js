@@ -1,6 +1,6 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import logo from "../../images/glygen_logos/biomarker-logoW.svg";
+import logo from "../../../images/glygen_logos/biomarker-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
 import { NavDropdown, Navbar, Nav, Row, Col, Container as ContainerBootStrap } from "react-bootstrap";
 import PersonIcon from "@mui/icons-material/Person";
@@ -11,12 +11,12 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
-import GlobalSearchControl from "../search/GlobalSearchControl";
-import UserTrackingBanner from "../alert/UserTrackingBanner";
+import GlobalSearchControl from "../../search/GlobalSearchControl";
+import UserTrackingBanner from "../../alert/UserTrackingBanner";
 import { useLocation } from "react-router-dom";
-import { ReactComponent as MediaWikiIcon } from "../../images/icons/mediaWikiIcon.svg";
-import routeConstants from "../../data/json/routeConstants.json";
-import betaWatermarkImg from "../../images/icons/beta-watermark.svg";
+import { ReactComponent as MediaWikiIcon } from "../../../images/icons/mediaWikiIcon.svg";
+import routeConstants from "../../../data/json/routeConstants.json";
+import betaWatermarkImg from "../../../images/icons/beta-watermark.svg";
 import {
   GLYGEN_API,
   GLYGEN_BETA,
@@ -27,17 +27,14 @@ import {
   GLYGEN_SANDBOX,
   GLYGEN_ENV,
   GLYCAN_SEQ_LOOKUP,
-  TWITTER,
-  YOUTUBE,
   GITHUB,
-  WIKI,
-  PINTEREST,
-  GLYGEN_GSD,
   GLYGEN_FAQ,
   GLYGEN_TUT_HOWT,
   GLYGEN_DOC,
-  CFDE_GENE_PAGES
-} from "../../envVariables";
+  CFDE_GENE_PAGES,
+  BIOMARKER_DATA,
+  BIOMARKER_FAQ
+} from "../../../envVariables";
 
 
 export default function Header(props) {
@@ -75,20 +72,8 @@ export default function Header(props) {
             </div>
             <div className="navbar-item text-end">
               <span>
-                <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <TwitterIcon className="me-3" />
-                </a>
-                <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <YouTubeIcon className="me-3" />
-                </a>
                 <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <GitHubIcon className="me-3" />
-                </a>
-                <a href={WIKI} target="_blank" rel="noopener noreferrer" className="media-wiki-icon">
-                  <MediaWikiIcon className="me-3" />
-                </a>
-                <a href={PINTEREST} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <PinterestIcon className="me-3" />
                 </a>
               </span>
            </div>
@@ -121,46 +106,16 @@ export default function Header(props) {
                   Biomarker Search
                 </NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown
-                className={
-                  location.pathname === routeConstants.resources ||
-                  location.pathname === routeConstants.blastSearch ||
-                  location.pathname === routeConstants.idMapping
-                    ? "gg-dropdown-navbar gg-dropdown-navbar-active"
-                    : "gg-dropdown-navbar"
-                }
-                title="TOOLS"
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item
-                  href={GLYCAN_SEQ_LOOKUP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Glycan Sequence Lookup
+              <NavDropdown className="gg-dropdown-navbar" title="DATA" id="basic-nav-dropdown">
+                <NavDropdown.Item href={BIOMARKER_DATA} target="_blank" rel="noopener noreferrer">
+                  Data
                 </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_GSD} target="_blank" rel="noopener noreferrer">
-                  Glycan Structure Dictionary
+                <NavDropdown.Item href={GLYGEN_API} target="_blank" rel="noopener noreferrer">
+                  API
                 </NavDropdown.Item>
-                <NavDropdown.Item href={GLYCOMOTIF_WIKI} target="_blank" rel="noopener noreferrer">
-                  GlycoMotif Wiki
+                <NavDropdown.Item href={GLYGEN_SPARQL} target="_blank" rel="noopener noreferrer">
+                  SPARQL
                 </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
-                  GlyGen Sand Box
-                </NavDropdown.Item>
-                <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
-                  Structure Browser
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
-                <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="Third Party Tools">
-                  <NavDropdown.Item href={CFDE_GENE_PAGES} target="_blank" rel="noopener noreferrer">
-                    Gene and Drug Landing Page Aggregator
-                  </NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
-              <NavDropdown.Item as={NavLink} to={routeConstants.resources}>
-                  Other Resources
-              </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className={
@@ -172,20 +127,11 @@ export default function Header(props) {
                 title="HELP"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href={GLYGEN_FAQ} target="_blank" rel="noopener noreferrer">
+                <NavDropdown.Item href={BIOMARKER_FAQ} target="_blank" rel="noopener noreferrer">
                   FAQ
-                </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
-                  Tutorials and How to
-                </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_DOC} target="_blank" rel="noopener noreferrer">
-                  Documentation
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.contactUs}>
                   Contact Us
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.feedback}>
-                  Feedback
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
@@ -202,13 +148,10 @@ export default function Header(props) {
                 id="basic-nav-dropdown"
               >
                 <NavDropdown.Item as={NavLink} to={routeConstants.about}>
-                  We are GlyGen
+                  Our Mission
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.howToCite}>
                   How to Cite
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to={routeConstants.media}>
-                  Media
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.frameworks}>
                   Frameworks

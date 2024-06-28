@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
+import { getTitle as getTitleBiomarker, getMeta as getMetaBiomarker } from "../utils/biomarker/head";
 import PageLoader from "../components/load/PageLoader";
 import TextAlert from "../components/alert/TextAlert";
 import DialogAlert from "../components/alert/DialogAlert";
@@ -20,7 +21,10 @@ import {
   getBiomarkerList,
   getBiomarkerInit
 } from "../data/biomarker";
-import FeedbackWidget from "../components/FeedbackWidget";
+import FeedbackWidget from "../components/FeedbackWidget"
+import {
+  GLYGEN_BUILD,
+} from "../envVariables";
 
 /**
  * Biomarker search component for showing protein search tabs.
@@ -396,8 +400,11 @@ const BiomarkerSearch = props => {
   return (
     <>
       <Helmet>
-        {getTitle("biomarkerSearch")}
-        {getMeta("biomarkerSearch")}
+        {GLYGEN_BUILD === "glygen" ? getTitle("biomarkerSearch") :
+          getTitleBiomarker("biomarkerSearch")}
+
+        {GLYGEN_BUILD === "glygen" ? getMeta("biomarkerSearch") :
+          getMetaBiomarker("biomarkerSearch")}
       </Helmet>
       <FeedbackWidget />
       <div className="lander">

@@ -1,6 +1,18 @@
 import { getJson, postTo } from "./api";
 import routeConstants from './json/routeConstants';
-import { GLYGEN_BASENAME } from "../envVariables";
+import { GLYGEN_BASENAME, GLYGEN_BUILD } from "../envVariables";
+
+const IDKey = getIDKey();
+
+function getIDKey() { 
+    if (GLYGEN_BUILD === "glygen") {
+        return "ID";
+    }
+
+    if (GLYGEN_BUILD === "biomarker") {
+        return "biomarkerID";
+    }
+}
 
 /**
  * This is called when the user selects to be logged.
@@ -17,8 +29,8 @@ export const logID = () => {
  */
 export const isLoggingUserActivity = () => {
     if (typeof (Storage) !== "undefined") {
-        if (localStorage.getItem("ID")) {
-            var userID = localStorage.getItem("ID");
+        if (localStorage.getItem(IDKey)) {
+            var userID = localStorage.getItem(IDKey);
             if (userID === "Anonymous")
                 return false;
             return true;    
@@ -34,7 +46,7 @@ export const isLoggingUserActivity = () => {
  * clears the localStorage i.e. it removes the stored ID.
  */
 export const clearLocalStore = () => {
-    localStorage.removeItem("ID");
+    localStorage.removeItem(IDKey);
 }
 
 /**
@@ -45,7 +57,7 @@ export const clearLocalStore = () => {
  * @param {string} message descriptive message of the log.
  */
 export const logActivity = (type, id, message) => {
-    var user = localStorage.getItem("ID");
+    var user = localStorage.getItem(IDKey);
     var pagePath = window.location.pathname;
     var curPage = GLYGEN_BASENAME === "/" ? pagePath.split("/")[1] || routeConstants.home.replace(/\//g, "") : pagePath.split("/")[2] || routeConstants.home.replace(/\//g, "");
 

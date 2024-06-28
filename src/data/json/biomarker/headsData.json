@@ -1,0 +1,184 @@
+{
+  "home": {
+    "title": "Biomarker Partnership Home | Informatics Resources for Biomarker research",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "biomarker search"
+      }
+    ]
+  },
+  "resources": {
+    "title": "Resources | Biomarker research",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  },
+  "howToCite": {
+    "title": "How To Cite | Publications and Citations | Biomarker research",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "publications, citations, how to cite."
+      }
+    ]
+  },
+  "about": {
+    "title": "About Biomarker Partnership | Mission | Vision | Team | Resource",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Mission, people, story, goal, effort, resource, funding, team, principal investigators, project managers, consultants."
+      }
+    ]
+  },
+  "contactUs": {
+    "title": "Contact Us | Get In Touch | Send Message | Share Data",
+    "meta": [
+      {
+        "name": "description",
+        "content": "We always welcome questions, comments, and suggestions regarding our website and the information we provide in general."
+      },
+      {
+        "name": "keywords",
+        "content": "Email, address, location, get in touch, send message, UGA Athens Georgia, GW Washington DC, university, technical issue, need help, request, new quick search."
+      }
+    ]
+  },
+  "disclaimer": {
+    "title": "Disclaimer | No Warranties | Limitations of Liability",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Biomarker Partnership disclaimer provides a set of statements that specify or delimit the scope of rights and obligations."
+      },
+      {
+        "name": "keywords",
+        "content": "Disclaimer, warranty, limitations of liability, external links, reasonableness, agreement."
+      }
+    ]
+  },
+  "feedback": {
+    "title": "Feedback | Your Opinion Matters | Leave Us Your Feedback",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Leave feedback and help us improve our website. We are committed to providing world-class service to you and your frank feedback is a very important part of it."
+      },
+      {
+        "name": "keywords",
+        "content": "Feedback, critique, satisfaction, service, questions, answers."
+      }
+    ]
+  },
+  "frameworks": {
+    "title": "Frameworks | Programming Libraries and Frameworks",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Programming libraries and frameworks used to develop GlyGen. React.js, HTML5, CSS3, Axios, Bootstrap, Python, ProtVista, d3.js, JavaScript, React.js, Mustache."
+      },
+      {
+        "name": "keywords",
+        "content": "Programming languages, Web Design, Web Development, Responsive website, libraries, frameworks."
+      }
+    ]
+  },
+  "license": {
+    "title": "License | Creative Commons | GNU General Public License",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Creative Commons license to all our database sets. The source code of the project is released under MIT License."
+      },
+      {
+        "name": "keywords",
+        "content": "Databases, license, license type, Creative Commons, General Public License, free to copy, Biomarker Partnership GitHub repository, source code, data, accessibility."
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy | Discloses | Data Privacy Statement",
+    "meta": [
+      {
+        "name": "description",
+        "content": "This privacy notice discloses the privacy practices for our Biomarker Partnership data and websites. Information collection, use, and sharing, user activities logging, and links."
+      },
+      {
+        "name": "keywords",
+        "content": "Privacy policy, discloses, data privacy statement, privacy practices, information collection, data use, data sharing, user activities, logging, links."
+      }
+    ]
+  },
+  "privacySettings": {
+    "title": "Biomarker Partnership Privacy Settings | User Settings | Manage Settings",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Privacy settings allow you to improve your searches by allowing GlyGen to monitor your interaction with our system."
+      },
+      {
+        "name": "keywords",
+        "content": "Manage settings, customization, privacy settings, user settings, GlyGen settings, monitor, enable, disable, allow, improve."
+      }
+    ]
+  },
+  "biomarkerSearch": {
+    "title": "Biomarker Search",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for biomarkers based on their Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      },
+      {
+        "name": "keywords",
+        "content": "Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      }
+    ]
+  },
+  "biomarkerList": {
+    "title": "Biomarker List | Summary of Your Biomarker Search",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Results of a biomarker search - a list of biomarkers conforming to the query parameters. Select the Biomarker ID from the list."
+      },
+      {
+        "name": "keywords",
+        "content": "Biomarker ID, Specimen, LOINC code, Assessed Entity Type, Biomarker Entity, Biomarker Disease, Disease ID, Pubmed ID, BEST Biomarker Role, Exposure Agent ID."
+      }
+    ]
+  },
+  "biomarkerDetail": {
+    "title": "Biomarker | Specific Details for #id",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  }
+}

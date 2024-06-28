@@ -1,0 +1,138 @@
+{
+	"pi": {
+		"heading": "Principal Investigators",
+		"people": [
+			{
+				"name": "Raja Mazumder",
+				"image": "/team/Raja-Mazumder.jpg",
+				"imageText": "Raja Mazumder image",
+				"url": "https://www.linkedin.com/in/rajamazumder",
+				"urlText": "GlyGen",
+				"urlLink": "https://www.glygen.org/"
+			},
+			{
+				"name": "Michael Tiemeyer",
+				"image": "/team/Michael-Tiemeyer.jpg",
+				"imageText": "Michael Tiemeyer image",
+				"url": "https://ccrc.uga.edu/team/michael-tiemeyer/",
+				"urlText": "GlyGen",
+				"urlLink": "https://www.glygen.org/"
+			},
+			{
+				"name": "Christophe Lambert",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Christophe Lambert image",
+				"urlText": "IDG",
+				"urlLink": "https://commonfund.nih.gov/idg"
+			},
+			{
+				"name": "Jeremy Yang",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Jeremy Yang image",
+				"urlText": "IDG",
+				"urlLink": "https://commonfund.nih.gov/idg"
+			},
+			{
+				"name": "Shankar Subramaniam",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Shankar Subramaniam image",
+				"urlText": "MW",
+				"urlLink": "https://www.metabolomicsworkbench.org/"
+			},
+			{
+				"name": "Avi Ma'ayan",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Avi Ma'ayan image",
+				"urlText": "LINCS",
+				"urlLink": "https://lincsproject.org/"
+			},
+			{
+				"name": "Jonathan Silverstein",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Jonathan Silverstein image",
+				"urlText": "SN/HuBMAP",
+				"urlLink": "https://hubmapconsortium.org/"
+			},
+			{
+				"name": "Nicola Neretti",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Nicola Neretti image",
+				"urlText": "SN/HuBMAP",
+				"urlLink": "https://hubmapconsortium.org/"
+			}
+		]
+	},
+	"project_managers": {
+		"heading": "Project Managers",
+		"people": [
+			{
+				"name": "Daniall Masood",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Daniall Masood image",
+				"urlText": "GlyGen",
+				"urlLink": "https://www.glygen.org/"
+			},
+			{
+				"name": "Sean Kim",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Sean Kim image",
+				"urlText": "GlyGen",
+				"urlLink": "https://www.glygen.org/"
+			},
+			{
+				"name": "Grace Faustino",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Grace Faustino image",
+				"urlText": "IDG",
+				"urlLink": "https://commonfund.nih.gov/idg"
+			},
+			{
+				"name": "Mano Maurya",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Mano Maurya image",
+				"urlText": "MW",
+				"urlLink": "https://www.metabolomicsworkbench.org/"
+			},
+			{
+				"name": "Sherry Jenkins",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Sherry Jenkins image",
+				"urlText": "LINCS",
+				"urlLink": "https://lincsproject.org/"
+			},
+			{
+				"name": "Jesse Helfer",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Jesse Helfer image",
+				"urlText": "SN/HuBMAP",
+				"urlLink": "https://hubmapconsortium.org/"
+			}
+		]
+	},
+	"consultants": {
+		"heading": "Consultants",
+		"people": [
+			{
+				"name": "Darren Natale",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Darren Natale image"
+			},
+			{
+				"name": "Nikolai Daraselia",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Nikolai Daraselia image"
+			}
+		]
+	},
+
+	"example": {
+		"name": "",
+		"position": "",
+		"department": "",
+		"institution": "",
+		"location": "",
+		"image": "/team/",
+		"imageText": " image",
+		"url": ""
+	}
+}

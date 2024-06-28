@@ -2,7 +2,19 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import { logID, logActivity } from "../../data/logging";
+import { GLYGEN_BUILD } from "../../envVariables";
 
+const IDKey = getIDKey();
+
+function getIDKey() { 
+    if (GLYGEN_BUILD === "glygen") {
+        return "ID";
+    }
+
+    if (GLYGEN_BUILD === "biomarker") {
+        return "biomarkerID";
+    }
+}
 /**
  * User tracking banner component.
  */
@@ -16,7 +28,7 @@ export default function UserTrackingBanner(props) {
 	const tracking = () => {
 		/* Check browser support */
 		if (typeof Storage !== "undefined") {
-			if (!localStorage.getItem("ID")) {
+			if (!localStorage.getItem(IDKey)) {
 				/* If nothing in the local storage then give the user a choice. */
 				props.setUserTrackingBannerState("display");
 			}
@@ -45,7 +57,7 @@ export default function UserTrackingBanner(props) {
 						console.log(response.data.error_code);
 					} else {
 						user_id = response.data.user;
-						localStorage.setItem("ID", user_id); //Store the ID from the webservice
+						localStorage.setItem(IDKey, user_id); //Store the ID from the webservice
 						props.setUserTrackingBannerState("track");
 						console.log(user_id);
 						logActivity("user", null, "Enabled Logging");
@@ -61,7 +73,7 @@ export default function UserTrackingBanner(props) {
 		 * Stores the ID as "Anonymous" in the localStorage of the browser.
 		 */
 		const doNotAllowLogID = () => {
-			localStorage.setItem("ID", "Anonymous");
+			localStorage.setItem(IDKey, "Anonymous");
 			props.setUserTrackingBannerState("donottrack");
 			logActivity("user", null, "Disabled Logging");
 		};

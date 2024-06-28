@@ -13,6 +13,8 @@ services:
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
         - REACT_APP_DATA=https://data.glygen.org
         - REACT_APP_SPARQL=https://sparql.glygen.org
+        - REACT_APP_GITHUB=https://github.com/clinical-biomarkers/biomarker-partnership
+        - REACT_BIOMARKER_DATA=https://hivelab.biochemistry.gwu.edu/biomarker-partnership/data
         - REACT_APP_BASENAME=/frontend
         - GENERATE_SOURCEMAP_FILES=true
         - PORT=80

@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BiomarkerRoutes from "./BiomarkerRoutes.js";
-import BiomarkerHeader from "./components/navigation/BiomarkerHeader.js";
-import BiomarkerFooter from "./components/navigation/BiomarkerFooter.js";
+import Header from "./components/navigation//biomarker/Header.js";
+import Footer from "./components/navigation/biomarker/Footer.js";
 import { ThemeProvider } from "@mui/material/styles";
 import ScrollToTopBtn from "./components/ScrollToTop.js";
 
@@ -22,7 +22,7 @@ function BiomarkerApp(props) {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <BiomarkerHeader
+        <Header
           userTrackingBannerState={userTrackingBannerState}
           setUserTrackingBannerState={setUserTrackingBannerState}
         />
@@ -31,7 +31,7 @@ function BiomarkerApp(props) {
           userTrackingBannerState={userTrackingBannerState}
           setUserTrackingBannerState={setUserTrackingBannerState}
         />
-        <BiomarkerFooter />
+        <Footer />
       </ThemeProvider>
     </div>
   );
