@@ -461,7 +461,7 @@ const BiomarkerSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <Container className="tab-content-border">
-              <h5><br></br><center>{GLYGEN_BUILD === "glygen" ? advancedSearch.message : advancedSearch.messageBiomarkers}</center></h5>
+              <h5><br></br><center>{GLYGEN_BUILD === "glygen" ? advancedSearch.message : advancedSearch.messageBiomarker}</center></h5>
                 {initData && (
                   <BiomarkerAdvancedSearch
                     searchBiomarkerAdvClick={searchBiomarkerAdvClick}

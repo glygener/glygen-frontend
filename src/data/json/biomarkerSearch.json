@@ -25,7 +25,7 @@
   "advanced_search": {
     "tabTitle": "Advanced Search",
     "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all biomarkers in GlyGen.",
-    "messageBiomarkers": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all biomarkers in Biomarker Partnership database.",
+    "messageBiomarker": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all biomarkers in Biomarker Partnership database.",
     "specimen_name": {
       "length": 100,
       "errorText": "Entry is too long - max length is 100.",
