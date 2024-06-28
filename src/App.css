@@ -62,6 +62,10 @@
 /* ========================================
         Main Attributes & Typography
 ==========================================*/
+.gg-text {
+  color: #2f78b7 !important;
+  font-weight: 600 !important;
+}
 .gg-link {
   color: #2f78b7 !important;
   font-weight: 600 !important;

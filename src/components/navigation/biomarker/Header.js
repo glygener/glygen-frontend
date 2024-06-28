@@ -60,6 +60,11 @@ export default function Header(props) {
       >
         <Container maxWidth={false}>
           <Row className="justify-content-end text-end">
+            {GLYGEN_ENV === "biom_dev" && <div className="navbar-item text-end">
+              <span className="me-4 gg-text">
+                TEST WEBSITE
+              </span>
+            </div>}
             <div className="navbar-item text-end">
               <span className="me-4">
                 <Link to={routeConstants.privacySettings} className="gg-link">
