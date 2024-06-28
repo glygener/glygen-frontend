@@ -7,7 +7,7 @@ services:
       args:
         - REACT_APP_ENV=biom_prod
         - REACT_APP_BUILD=biomarker
-        - REACT_APP_API=https://hivelab.tst.biochemistry.gwu.edu/biomarker/api
+        - REACT_APP_API=https://hivelab.biochemistry.gwu.edu/biomarker/api
         - REACT_APP_DOMAIN=https://tst.glygen.org
         # - REACT_APP_DOMAIN=http://localhost:6060
         - REACT_APP_BETA_DOMAIN=https://beta.glygen.org
