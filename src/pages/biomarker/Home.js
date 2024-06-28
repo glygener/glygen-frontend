@@ -81,16 +81,7 @@ const featuredCards = [
     imageText: "API",
     href: GLYGEN_API,
     target: "_blank",
-  },
-  {
-    title: "SPARQL",
-    description:
-      "All datasets are RDFized using standard ontologies and made accessible via a SPARQL Endpoint.",
-    image: sparqlImg,
-    imageText: "SPARQL",
-    href: GLYGEN_SPARQL,
-    target: "_blank",
-  },
+  }
 ];
 const feedbackCard = {
   title: "Your Opinion Matters",

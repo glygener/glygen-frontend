@@ -5,7 +5,6 @@ import { logID, logActivity } from "../../data/logging";
 import { GLYGEN_BUILD } from "../../envVariables";
 
 const IDKey = getIDKey();
-
 function getIDKey() { 
     if (GLYGEN_BUILD === "glygen") {
         return "ID";
@@ -15,6 +14,29 @@ function getIDKey() {
         return "biomarkerID";
     }
 }
+
+const portal = getDatabase();
+function getDatabase() { 
+    if (GLYGEN_BUILD === "glygen") {
+        return "GlyGen";
+    }
+
+    if (GLYGEN_BUILD === "biomarker") {
+        return "Biomarker Portal";
+    }
+}
+
+const section = getSection();
+function getSection() { 
+    if (GLYGEN_BUILD === "glygen") {
+        return "GlyGen";
+    }
+
+    if (GLYGEN_BUILD === "biomarker") {
+        return "Biomarker";
+    }
+}
+
 /**
  * User tracking banner component.
  */
@@ -117,9 +139,9 @@ export default function UserTrackingBanner(props) {
 			{props.userTrackingBannerState === "display" && (
 				<div className="alert gg-alert">
 					<span>
-						Do you want <strong>GlyGen</strong> to remember your searches for
+						Do you want <strong>{portal}</strong> to remember your searches for
 						your future use? This can be changed at any time in the{" "}
-						<strong>My GlyGen</strong> section.
+						<strong>My {section}</strong> section.
 					</span>
 					<br />
 					<Button
@@ -144,7 +166,7 @@ export default function UserTrackingBanner(props) {
 				<div className="alert gg-alert">
 					<span>
 						We will log your actions to improve the user experience. You can
-						always change this setting in <strong>My GlyGen</strong>.
+						always change this setting in <strong>My {section}</strong> section.
 					</span>
 					<span
 						className="close_banner"
@@ -158,7 +180,7 @@ export default function UserTrackingBanner(props) {
 				<div className="alert gg-alert">
 					<span>
 						We will not log your actions. You can always change this setting in{" "}
-						<strong>My GlyGen</strong>.
+						<strong>My {section}</strong> section.
 					</span>
 					<span
 						onClick={close}

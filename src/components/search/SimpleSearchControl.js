@@ -14,6 +14,7 @@ import "../../css/Search.css";
  * Simple search control for protein search and glycan search
  */
 export default function SimpleSearchControl(props) {
+  const { database = "GlyGen" } = props;
   /**
    * Function to set simple search term value.
    * @param {string} value - input simple search term value.
@@ -103,7 +104,7 @@ export default function SimpleSearchControl(props) {
           <em>
             "<strong>Any</strong>" 
           </em>{" "}
-           allows you to search an entire GlyGen database, including the context
+           allows you to search an entire {database} database, including the context
           match. *
         </Grid>
       </Grid>

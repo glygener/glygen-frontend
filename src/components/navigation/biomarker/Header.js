@@ -118,9 +118,6 @@ export default function Header(props) {
                 <NavDropdown.Item href={GLYGEN_API} target="_blank" rel="noopener noreferrer">
                   API
                 </NavDropdown.Item>
-                <NavDropdown.Item href={GLYGEN_SPARQL} target="_blank" rel="noopener noreferrer">
-                  SPARQL
-                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 className={

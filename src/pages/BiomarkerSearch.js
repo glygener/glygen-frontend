@@ -449,6 +449,7 @@ const BiomarkerSearch = props => {
                     setSimpleSearchTerm={setBioSimpleSearchTerm}
                     length={simpleSearch.length}
                     errorText={simpleSearch.errorText}
+                    database={GLYGEN_BUILD === "glygen" ? "GlyGen" : "Biomarker Partnership"}
                   />
                 )}
               </Container>
@@ -460,7 +461,7 @@ const BiomarkerSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <Container className="tab-content-border">
-              <h5><br></br><center>{advancedSearch.message}</center></h5>
+              <h5><br></br><center>{GLYGEN_BUILD === "glygen" ? advancedSearch.message : advancedSearch.messageBiomarkers}</center></h5>
                 {initData && (
                   <BiomarkerAdvancedSearch
                     searchBiomarkerAdvClick={searchBiomarkerAdvClick}
