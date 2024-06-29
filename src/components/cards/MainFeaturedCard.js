@@ -192,7 +192,7 @@ export default function MainFeaturedCard(props) {
               </Link>
             </div>
             {GLYGEN_BUILD === "biomarker" && <div className="btn-outline-white">
-              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
+              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-center">
                 <span
                   style={{
                     paddingRight: "15px",
