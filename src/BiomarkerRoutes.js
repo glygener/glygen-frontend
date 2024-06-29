@@ -14,7 +14,7 @@ import PrivacySettings from "./pages/biomarker/PrivacySettings";
 import Feedback from "./pages/Feedback";
 import routeConstants from "./data/json/routeConstants.json";
 import About from "./pages/biomarker/About";
-import Frameworks from "./pages/Frameworks";
+import Frameworks from "./pages/biomarker/Frameworks";
 import Media from "./pages/Media";
 import BiomarkerDetail from "./pages/BiomarkerDetail";
 
