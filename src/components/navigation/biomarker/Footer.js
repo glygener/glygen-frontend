@@ -88,7 +88,7 @@ export default function Footer() {
               </div>
             </Col>
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
-              <h6 className="text-uppercase">My Biomarker</h6>
+              <h6 className="text-uppercase">MY BIOMARKER BETA</h6>
               <div>
                 <Link to={routeConstants.privacySettings}>Privacy&nbsp;Settings</Link>
               </div>

@@ -71,7 +71,7 @@ export default function Header(props) {
                   <span>
                     <PersonIcon />
                   </span>{" "}
-                  MY BIOMARKER
+                  MY BIOMARKER BETA
                 </Link>
               </span>
             </div>

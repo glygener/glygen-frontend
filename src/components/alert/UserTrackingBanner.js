@@ -33,7 +33,7 @@ function getSection() {
     }
 
     if (GLYGEN_BUILD === "biomarker") {
-        return "Biomarker";
+        return "Biomarker BETA";
     }
 }
 
