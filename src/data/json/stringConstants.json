@@ -1706,6 +1706,30 @@
         "global_evidence_count": {
           "id": "global_evidence_count",
           "name": "Global Evidence Count"
+        },
+        "first_pmid": {
+          "id": "first_pmid",
+          "name": "First PMID"
+        },
+        "first_source": {
+          "id": "first_source",
+          "name": "First Source"
+        },
+        "generic_condition_pen": {
+          "id": "generic_condition_pen",
+          "name": "Generic Condition Pen"
+        },
+        "loinc": {
+          "id": "loinc",
+          "name": "LOINC"
+        },
+        "other_pmid": {
+          "id": "other_pmid",
+          "name": "Other PMID"
+        },
+        "other_source": {
+          "id": "other_source",
+          "name": "Other Source"
         }
       }
     },
