@@ -132,6 +132,7 @@ const BiomarkerDetail = (props) => {
   const [evidence, setEvidence] = useState("");
   const [glycanComponents, setGlycanComponents] = useState("");
   const [proteinComponents, setProteinComponents] = useState("");
+  const [biomarkerComponents, setBiomarkerComponents] = useState("");
 
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
@@ -186,14 +187,20 @@ const BiomarkerDetail = (props) => {
         setItemsCrossRef(data.crossref);
 
 
-        let glyComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "glycan").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
+        let glyComp = [];
+        let proComp = [];
+        let bioComp = []
+        if (GLYGEN_BUILD === "glygen") {
+          glyComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "glycan").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
+          proComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "protein").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code).filter(obj => obj !== undefined && obj !== "") : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
 
-        let proComp = data.biomarker_component.filter(obj => obj.assessed_entity_type === "protein").map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code).filter(obj => obj !== undefined) : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
-
-        setGlycanComponents(glyComp);
-        setProteinComponents(proComp);
-
-        setComponentTabSelected(glyComp && glyComp.length > 0 ? "glycan" : "protein");
+          setGlycanComponents(glyComp);
+          setProteinComponents(proComp);
+          setComponentTabSelected(glyComp && glyComp.length > 0 ? "glycan" : "protein");
+        } else {
+          bioComp = data.biomarker_component.map((obj) => {return {evidence : obj.evidence_source, biomarker : obj.biomarker, assessed_entity_type : obj.assessed_entity_type, assessed_biomarker_entity_id : obj.assessed_biomarker_entity_id, assessed_biomarker_entity: obj.assessed_biomarker_entity ? obj.assessed_biomarker_entity.recommended_name : "", loinc_code : obj.specimen ?  obj.specimen.map(obj => obj.loinc_code).filter(obj => obj !== undefined && obj !== "") : [], specimen_id : obj.specimen ? obj.specimen.map(obj => obj.id).filter(obj => obj !== undefined) : [], specimen : obj.specimen}})
+          setBiomarkerComponents(bioComp);
+        }
 
         if (data.condition) {
           let conditionDataTemp = conditionDataRearrangement();
@@ -260,9 +267,10 @@ const BiomarkerDetail = (props) => {
           newSidebarData = setSidebarItemState(newSidebarData, "General", true);
         }
 
-        if ((glyComp.length === 0 && proComp.glycan === 0)) {
+        if ((GLYGEN_BUILD === "glygen" && glyComp.length === 0 && proComp.glycan === 0) || (GLYGEN_BUILD === "biomarker" && bioComp.length === 0)) {
           newSidebarData = setSidebarItemState(newSidebarData, "Components", true);
         }
+
         if (!data.condition) {
           newSidebarData = setSidebarItemState(newSidebarData, "Condition", true);
         }
@@ -388,9 +396,9 @@ const BiomarkerDetail = (props) => {
       },
       formatter: (value, row) => (
         <>
-          {GLYGEN_BUILD === "glygen" ? <LineTooltip text="View protein details">
+          <LineTooltip text="View protein details">
             <Link to={routeConstants.proteinDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
-          </LineTooltip> : <span>{row.assessed_biomarker_entity_id}</span>}
+          </LineTooltip>
         </>
       ),
     },
@@ -410,6 +418,103 @@ const BiomarkerDetail = (props) => {
               <li>{obj}</li>))}
           </ul>
         </ul>
+      </>);
+      }
+    },
+    {
+      dataField: "specimen_id",
+      text:  biomarkerStrings.specimen_name.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+        <ul style={{ marginLeft: "-40px" }}>
+          <ul>
+            {row && row.specimen && row.specimen.map(obj => (
+              <li>{obj.name} ({obj.namespace}: <a href={obj.url} target="_blank" rel="noopener noreferrer">{obj.id}</a>)</li>
+            ))}
+          </ul>
+        </ul>
+      </>);
+      }
+    },
+  ];
+
+  const biomarkerColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.position + row.assessed_biomarker_entity_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "biomarker",
+      text: biomarkerStrings.biomarker.name,
+      sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+    {
+      dataField: "assessed_biomarker_entity",
+      text: biomarkerStrings.assessed_biomarker_entity.name,
+      sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+    {
+      dataField: "assessed_entity_type",
+      text: biomarkerStrings.assessed_entity_type.name,
+      sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+    {
+      dataField: "assessed_biomarker_entity_id",
+      text: biomarkerStrings.assessed_biomarker_entity_id.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <>
+          <span>{row.assessed_biomarker_entity_id}</span>
+        </>
+      ),
+    },
+    {
+      dataField: "loinc_code",
+      text: biomarkerStrings.loinc_code.name,
+      // sort: true,
+      selected: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (cell, row) => {
+        return (<>
+          <ul style={{ marginLeft: "-40px" }}>
+            <ul>
+              {row && row.loinc_code && row.loinc_code.length > 0 && row.loinc_code.map(obj => (
+                <li>{obj}</li>))}
+            </ul>
+          </ul>
       </>);
       }
     },
@@ -494,9 +599,9 @@ const BiomarkerDetail = (props) => {
       },
       formatter: (value, row) => (
         <>
-          {GLYGEN_BUILD === "glygen" ? <LineTooltip text="View glycan details">
+          <LineTooltip text="View glycan details">
             <Link to={routeConstants.glycanDetail + row.assessed_biomarker_entity_id}>{row.assessed_biomarker_entity_id}</Link>
-          </LineTooltip> : <span>{row.assessed_biomarker_entity_id}</span>}
+          </LineTooltip>
         </>
       ),
     },
@@ -668,7 +773,7 @@ const BiomarkerDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <p>
-                        {biomarkerId && (
+                        {biomarkerId ? (
                           <>
                             <div>
                               <strong>{biomarkerStrings.biomarker_id.name}: </strong>{" "}
@@ -679,6 +784,8 @@ const BiomarkerDetail = (props) => {
                                 {biomarkerCanonicalId}
                             </div>}
                           </>
+                        ) : (
+                          <p>{dataStatus}</p>
                         )}
                       </p>
                     </Card.Body>
@@ -710,7 +817,7 @@ const BiomarkerDetail = (props) => {
                     <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
-                            ((glycanComponents && glycanComponents.length > 0) || (proteinComponents && proteinComponents.length > 0)) && {
+                            ((glycanComponents && glycanComponents.length > 0) || (proteinComponents && proteinComponents.length > 0) || (biomarkerComponents && biomarkerComponents.length > 0)) && {
                               display: "Biomarker Component (*.csv)",
                               type: "biomarker_component_csv",
                               format: "csv",
@@ -722,7 +829,8 @@ const BiomarkerDetail = (props) => {
                           itemType="biomarker_section"
                           showBlueBackground={true}
                           enable={(glycanComponents && glycanComponents.length > 0) ||
-                            (proteinComponents && proteinComponents.length > 0)}
+                            (proteinComponents && proteinComponents.length > 0) || 
+                            (biomarkerComponents && biomarkerComponents.length > 0)}
                         />
                       </span>
                       <CardToggle cardid="components" toggle={collapsed.components} eventKey="0" toggleCollapse={toggleCollapse}/>
@@ -730,6 +838,7 @@ const BiomarkerDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
+                      {GLYGEN_BUILD === "glygen" ? <>
                       {((glycanComponents || proteinComponents) && !(glycanComponents.length === 0 && proteinComponents.length === 0)) && (
                         <Tabs
                           activeKey={componentTabSelected}
@@ -788,6 +897,23 @@ const BiomarkerDetail = (props) => {
                         </Tabs>
                       )}
                       {(((proteinComponents=== undefined  || proteinComponents.length === 0) && (glycanComponents === undefined || glycanComponents.length === 0))) && <p>{dataStatus}</p>}
+                      </> : <>
+                            <Container>
+                            {biomarkerComponents && biomarkerComponents.length > 0 && (
+                              <ClientServerPaginatedTable
+                                data={biomarkerComponents}
+                                columns={biomarkerColumns}
+                                onClickTarget={"#components"}
+                                defaultSortField="assessed_biomarker_entity_id"
+                                defaultSortOrder="asc"
+                                record_type={"biomarker"}
+                                record_id={id}
+                                serverPagination={false}
+                              />
+                            )}
+                             {(biomarkerComponents === undefined || biomarkerComponents.length === 0) && <p>{dataStatus}</p>}
+                          </Container>
+                      </>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

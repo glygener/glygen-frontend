@@ -1648,6 +1648,10 @@
         "id": "assessed_biomarker_entity_id",
         "name": "Assessed Entity ID"
       },
+      "assessed_entity_type": {
+        "id": "assessed_entity_type",
+        "name": "Assessed Entity Type"
+      },
       "assessed_biomarker_entity": {
         "id": "assessed_biomarker_entity",
         "shortName": "Entity Name",
