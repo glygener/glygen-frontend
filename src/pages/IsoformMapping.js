@@ -1303,7 +1303,7 @@ const IsoformMapping = (props) => {
                     </Button>
                     <Button
                       className="gg-btn-blue"
-                      disabled={inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
+                      disabled={blastError.proSequenceInput || inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
                         dataSequence.some((obj) => obj.error)
                       }
                       onClick={searchSequenceIsoformClick}
