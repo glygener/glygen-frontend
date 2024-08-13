@@ -6,7 +6,7 @@
     "errorText": "Entry is too long - max length is 100.",
     "categories": {
       "biomarker": {
-        "examples": ["AA4691-4"],
+        "examples": ["AN6278-1"],
         "placeholder": "Enter the biomarker"
       },
       "condition": {
@@ -15,7 +15,7 @@
       },
       "any": {
         "examples": [
-          "AA4686-1",
+          "AN6278-1",
           "Colorectal Cancer"
         ],
         "placeholder": "Enter the search term"
@@ -81,7 +81,7 @@
           "orderID": 100,
           "example": {
             "name": "Example",
-            "id": "AA4686-1"
+            "id": "AN6278-1"
           }
         }
       ]

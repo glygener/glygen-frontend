@@ -20,6 +20,7 @@ import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
+import DownloadFile from "../components/DownloadFile"
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -58,7 +59,6 @@ import {
 import IUPACresJson from "../data/json/glycan-viewer-residues";
 import motifListJson from "../data/json/motif_mapping";
 import enzymeJson from "../data/json/enzyme_mapping";
-
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
 const proteinStrings = stringConstants.protein.common;
@@ -965,7 +965,8 @@ const GlycanDetail = props => {
     },
     {
       dataField: "name",
-      text: glycanStrings.species_name.name,
+      // text: glycanStrings.species_name.name,
+      text: glycanStrings.scientific_name.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
@@ -1604,14 +1605,15 @@ const GlycanDetail = props => {
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (
             <>
-              {nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan" && (<AlertTitle> {id} is no longer valid Glycan ID</AlertTitle>)}
-              {nonExistent.reason.type === "never_in_glygen_current_in_glytoucan" && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
-              {nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan" && (<span>{capitalizeFirstLetter(nonExistent.reason.description)}</span>)}
-              {nonExistent.reason.type === "never_in_glygen_current_in_glytoucan" && (<span>{"Valid ID in GlyTouCan: "} 
+              {(nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan" && nonExistent.reason.type !== "discontinued_in_glygen") && (<AlertTitle> {id} is no longer valid Glycan ID</AlertTitle>)}
+              {(nonExistent.reason.type === "discontinued_in_glygen") && (<AlertTitle> The GlyTouCan accession {id} is discontinued in GlyGen</AlertTitle>)}
+              {(nonExistent.reason.type === "never_in_glygen_current_in_glytoucan") && (<AlertTitle> The GlyTouCan accession {id} does not exists in GlyGen</AlertTitle>)}
+              {(nonExistent.reason.type === "never_in_glygen_current_in_glytoucan" || nonExistent.reason.type === "discontinued_in_glygen") && (<div>{"Valid ID in GlyTouCan: "} 
                 <a href={"https://glytoucan.org/Structures/Glycans/" + id} target="_blank" rel="noopener noreferrer">
                   {id}
                 </a>
-              </span>)}
+              </div>)}
+              {(nonExistent.reason.type !== "never_in_glygen_current_in_glytoucan") && (<div>{capitalizeFirstLetter(nonExistent.reason.description)}</div>)}
               {nonExistent.reason.type === "replacement_in_glygen" && <ul>
                 <span>
                   {nonExistent.reason.replacement_id_list && (
@@ -2182,6 +2184,16 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.viewer.displayname}
                     </h4>
                     <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadFile
+                          id={id}
+                          url={GLYGEN_API + "/glycan/pdb/" + id + "/"}
+                          enable={tool_support && tool_support.pdb === "yes" }
+                          mimeType={"text/plain"}
+                          itemType={"url_file_download"}
+                          fileName={id + ".pdb"}
+                        />
+                      </span>
                       <CardToggle cardid="viewer" toggle={collapsed.viewer} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

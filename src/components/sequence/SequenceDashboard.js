@@ -39,7 +39,7 @@ const SequenceDashboard = (props) => {
                 </span>
               )}
             </div>
-            <div className="scroll">
+            <div className1="scroll">
               <h5>Site Feature</h5>
               <SequenceHighlighter
                 details={props.details}
@@ -48,6 +48,9 @@ const SequenceDashboard = (props) => {
                 setSelectedHighlights={props.setSelectedHighlights}
                 sequenceSearchText={props.sequenceSearchText}
                 setSequenceSearchText={props.setSequenceSearchText}
+                sequenceTemplateText={props.sequenceTemplateText}
+                setSequenceTemplateText={props.setSequenceTemplateText}
+                consensusMenu={props.consensusMenu}
                 showNumbers={props.showNumbers}
               />
             </div>

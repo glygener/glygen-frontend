@@ -29,9 +29,24 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
     glycation: false,
   });
   const [sequenceSearchText, setSequenceSearchText] = useState("");
+  const [sequenceTemplateText, setSequenceTemplateText] = useState("");
   const [ sequences, setSequences ] = useState([]);
   const [ multiSequences, setMultiSequences ] = useState([]);
   const [ details, setDetails  ] = useState([]);
+  const [consensusMenu, setConsesusMenu] = useState(
+    [
+      { id: "NX[ST]", name: "N-Glycan Sequon - NX[ST]" },
+      { id: "CXXXX[ST]C", name: "O-Fucose - CXXXX[ST]C" },
+      { id: "CXX[ST]CXXG", name: "O-Fucose - CXX[ST]CXXG" },
+      { id: "CXSX[PA]C", name: "O-Glucose - CXSX[PA]C" },
+      { id: "CXNTXGSFXC", name: "O-Glucose - CXNTXGSFXC"},
+      { id: "CXXXX[ST]GXXC", name:"O-GlcNAc (external) - CXXXX[ST]GXXC"},
+      { id: "CXX[ST]C", name:"O-Fucose - CXX[ST]C"},
+      { id: "WXX[WC]", name:"C-Mannose - WXX[WC]"},
+      { id: "WXXWXXW", name:"C-Mannose - WXXWXXW"},
+      { id: "WXXWXXWXXC", name:"C-Mannose - WXXWXXWXXC"},
+    ]
+  )
 
 
   useEffect(() => {
@@ -131,6 +146,9 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
           setSelectedHighlights={setSelectedHighlights}
           sequenceSearchText={sequenceSearchText}
           setSequenceSearchText={setSequenceSearchText}
+          sequenceTemplateText={sequenceTemplateText}
+          setSequenceTemplateText={setSequenceTemplateText}
+          consensusMenu={consensusMenu}
           showNumbers={true}
         />
         <Grid

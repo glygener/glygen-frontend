@@ -37,6 +37,8 @@ import MotifDetail from "./pages/MotifDetail";
 import Siteview from "./pages/Siteview";
 import IdMapping from "./pages/IdMapping";
 import IdMappingResult from "./pages/IdMappingResult";
+import IsoformMapping from "./pages/IsoformMapping";
+import IsoformMappingResult from "./pages/IsoformMappingResult";
 import SuperSearch from "./pages/SuperSearch";
 import BlastSearch from "./pages/BlastSearch";
 import BlastResult from "./pages/BlastResult"
@@ -97,6 +99,9 @@ const Routes = (props) => (
     <Route path={`${routeConstants.locusList}:id/:searchId`} element={<LocusList/>} />
     <Route path={`${routeConstants.quickSearch}:id/:questionId`} element={<QuickSearch/>} />
     <Route path={routeConstants.quickSearch} element={<QuickSearch/>} />
+    <Route path={`${routeConstants.isoformMapping}:id`} element={<IsoformMapping/>} />
+    <Route path={routeConstants.isoformMapping} element={<IsoformMapping/>} />
+    <Route path={`${routeConstants.isoformMappingResult}:jobId`} element={<IsoformMappingResult/>} />
     <Route path={`${routeConstants.idMapping}:id`} element={<IdMapping/>} />
     <Route path={routeConstants.idMapping} element={<IdMapping/>} />
     <Route path={`${routeConstants.idMappingResult}:id`} element={<IdMappingResult/>} />

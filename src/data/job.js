@@ -13,7 +13,7 @@ export const getJobInit = () => {
 
 // Forms objects and displays data in a results (list) page
 // Takes selections and inputs in search page and performs search on submit btn
-export const postNewJob = (formObject) => {
+export const postNewJob = (formObject, files) => {
   // var json = "query=" + JSON.stringify(formObject);
   let query = formObject;
   var json = {query};
@@ -22,7 +22,7 @@ export const postNewJob = (formObject) => {
     "Content-Type": "application/json",
   };
   
-  return postFormDataTo1(url, json, myHeaders);
+  return postFormDataTo1(url, json, myHeaders, files);
 };
 
 export const getJobStatus = (

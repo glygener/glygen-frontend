@@ -66,8 +66,7 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
           <span></span>
           <span></span>
         </>}
-      
-        {!multiSequence && start === 0 && <>
+          {!multiSequence && start === 0 && <>
           <span></span>
           <span><pre className="sequencePreClass">
           {space}+10{space1} +20{space1} +30{space1} +40 {space1}+50{space1}
@@ -278,6 +277,13 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           start={1}
       />
       {rows.map((row, index) => (
+        <>
+        {/* <SequenceRow
+          header={true}
+          multiSequence={multiSequence}
+          start={row.start}
+          end={row.end}
+        /> */}
         <SequenceRow
           key={index}
           header={false}
@@ -292,6 +298,7 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
           start={row.start}
           selectedHighlights={selectedHighlights}
         />
+        </>
       ))}
       </div>
   );

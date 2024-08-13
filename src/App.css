@@ -7,6 +7,7 @@
   --gg-light-blue: #afd9fd !important;
   --gg-dark-hover: #57affa !important;
   --gg-green: #60BA4B !important;
+  --gg-red: #d32f2f !important;
    /* --gg-green: #1d9901 !important; */
   /* --gg-green: #60ba4b; */
   /* --dark-blue-1: #215b9e; */
@@ -617,6 +618,10 @@ hr {
   border-color: var(--gg-blue) !important;
   -webkit-transition: all 0.5s !important;
   transition: ease-in-out 0.5s !important;
+}
+
+.gg-span-blue {
+  color: #ffffff;
 }
 
 .gg-btn-blue:hover {

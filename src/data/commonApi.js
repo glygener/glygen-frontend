@@ -1,4 +1,5 @@
-import { getJson} from "./api";
+import { getJson, getFile } from "./api";
+import { logActivity } from "./logging";
 import { replaceSpecialCharacters } from "../utils/common";
 
 /**
@@ -33,3 +34,10 @@ export const getGlobalSearch = (searchTerm) => {
     const url = `/globalsearch/search?query=${JSON.stringify(query)}`;
     return getJson(url);
 }
+
+export const getFileDownload = (id, url) => {
+    let message = "Downloading - ";
+    logActivity("user", id, message + url);
+    return getFile(url);
+    // return postToAndGetBlob(url, headers);
+  };

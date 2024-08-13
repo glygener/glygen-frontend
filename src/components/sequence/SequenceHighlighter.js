@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import SequenceDisplay from "../SequenceDisplay";
+import SelectControl from "../select/SelectControl";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Button from "react-bootstrap/Button";
 import { getPhosphorylationHighlightData, getNLinkGlycanMapHighlights, getOLinkGlycanMapHighlights,
   getSequonHighlightData, getMutationHighlightData, getGlycationHighlightData } from "../../data/sequenceHighlighter";
 import "../../css/proteinsequence.css";
+import FormControl from "@mui/material/FormControl";
+
 
 /**
  * Higlight selecter control for highlighting protein sequence sites.
@@ -29,7 +34,7 @@ const HiglightSelecter = ({ count = 0, selectedHighlights, type, label, onSelect
 /**
  * Higlight input control for highlighting protein sequence text.
  */
-const HiglightInput = ({ selectedHighlights, type, label, onSelect, className, input, onInput }) => {
+const HiglightInput = ({ selectedHighlights, type, label, onSelect, className, input, onInput, onSelectTemplate }) => {
   return (
     <label style={{marginBottom: "0.5rem"}}>
       <input
@@ -39,14 +44,71 @@ const HiglightInput = ({ selectedHighlights, type, label, onSelect, className, i
         onClick={() => onSelect(type)}
       />
       &nbsp;
-      <input
+      <OutlinedInput
         className={className}
-        type="text"
-        name="text"
+        value={input}
+        margin='dense'
         placeholder="Custom AA sequence"
-        value={input} onInput={e => onInput(e.target.value)}
+        classes={{
+          input: className
+          }}
+        onChange={(e) => {
+          if (input !==e.target.value) {
+            onInput(e.target.value);
+            onSelectTemplate("");
+          }
+
+        }}
       />
+
     </label>
+  );
+};
+
+
+/**
+ * Higlight input control for highlighting protein sequence text.
+ */
+const HiglightSelect = ({ selectedHighlights, type, label, onSelect, className, input, onInput, onSelectTemplate, inputTemplate, consensusMenu }) => {
+  return (
+    // <FormControl fullWidth>
+    <div className="pop-up">
+    <label style={{marginBottom: "0.5rem", width: "100%"}}>
+      <input
+        type="checkbox"
+        name="checkbox"
+        style={{visibility:"hidden"}}
+        // checked={selectedHighlights[type]}
+        // onClick={() => onSelect(type)}
+      />
+      &nbsp;
+      <SelectControl
+        rootClass={className}
+        className={className}
+        inputValue={inputTemplate}
+        placeholder={"Sequon / Consensus"}
+        placeholderId={""}
+        placeholderName={"Sequon / Consensus"}
+        menu={consensusMenu}
+        setInputValue={(value) => {
+          onSelectTemplate(value);
+        }}
+      />
+      &nbsp;
+      <Button
+        type="button"
+        style={{ marginLeft: "5px" }}
+        className="gg-btn-blue"
+        disabled={inputTemplate === ""}
+        onClick={() => {
+          onInput(inputTemplate)
+          onSelect(type, true);
+        }}
+      >
+        Load
+      </Button>
+    </label>
+    </div>
   );
 };
 
@@ -60,6 +122,9 @@ const SequenceHighlighter = ({
   setSelectedHighlights,
   sequenceSearchText,
   setSequenceSearchText,
+  sequenceTemplateText,
+  setSequenceTemplateText,
+  consensusMenu,
   showNumbers,
   flatDataStructure
 }) => {
@@ -70,6 +135,13 @@ const SequenceHighlighter = ({
     setSelectedHighlights({
       ...selectedHighlights,
       [type]: !selectedHighlights[type],
+    });
+  };
+
+  const handleSelectHighlightFlag = (type, flag) => {
+    setSelectedHighlights({
+      ...selectedHighlights,
+      [type]: flag,
     });
   };
 
@@ -173,7 +245,7 @@ const SequenceHighlighter = ({
               onSelect={handleSelectHighlight}
             />
           </li>
-          <li>
+          {/* <li>
             <HiglightSelecter
               count={highlightsCount["site_annotation"] ? highlightsCount["site_annotation"] : 0}
               selectedHighlights={selectedHighlights}
@@ -183,7 +255,7 @@ const SequenceHighlighter = ({
               className={"sequnce4"}
               onSelect={handleSelectHighlight}
             />
-          </li>
+          </li> */}
           <li>
             <HiglightSelecter
               count={highlightsCount["phosphorylation"] ? highlightsCount["phosphorylation"] : 0}
@@ -216,6 +288,22 @@ const SequenceHighlighter = ({
               onSelect={handleSelectHighlight}
               input={sequenceSearchText}
               onInput={setSequenceSearchText}
+              onSelectTemplate={setSequenceTemplateText}
+            />
+          </li>
+          <li>
+            <HiglightSelect
+              selectedHighlights={selectedHighlights}
+              showNumbers={showNumbers}
+              type="text_search"
+              label="User"
+              className={"sequnce8"}
+              onSelect={handleSelectHighlightFlag}
+              input={sequenceSearchText}
+              onInput={setSequenceSearchText}
+              inputTemplate={sequenceTemplateText}
+              onSelectTemplate={setSequenceTemplateText}
+              consensusMenu={consensusMenu}
             />
           </li>
         </ul>

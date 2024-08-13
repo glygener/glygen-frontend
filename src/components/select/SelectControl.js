@@ -23,7 +23,9 @@ export default function SelectControl(props) {
       <Select
         value={props.inputValue}
         displayEmpty
+        // fullWidth
         name={props.name}
+        disabled={props.disabled}
         onChange={handleChange}
         onBlur={props.onBlur}
         error={props.error}
@@ -32,6 +34,7 @@ export default function SelectControl(props) {
         variant={props.variant}
         defaultValue={props.defaultValue}
         MenuProps={{ disablePortal: true }}
+        className={props.className}
         classes={{
           select: props.rootClass ? props.rootClass : "select-menu-adv"
         }}

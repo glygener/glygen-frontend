@@ -178,7 +178,8 @@ export default function Header(props) {
                 className={
                   location.pathname === routeConstants.resources ||
                   location.pathname === routeConstants.blastSearch ||
-                  location.pathname === routeConstants.idMapping
+                  location.pathname === routeConstants.idMapping ||
+                  location.pathname === routeConstants.isoformMapping
                     ? "gg-dropdown-navbar gg-dropdown-navbar-active"
                     : "gg-dropdown-navbar"
                 }
@@ -203,6 +204,9 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
                   GlyGen Mapper
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.isoformMapping}>
+                  GlyGen Isoform Mapper
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box

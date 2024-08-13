@@ -24,13 +24,22 @@ const ThreeDViewer = props => {
           }
         };
         spec.config = [
+          [PluginConfig.Structure.SaccharideCompIdMapType, "default"],
        [PluginConfig.Structure.SaccharideCompIdMapType, "glycam"],
+       [PluginConfig.Structure.dynamicBonds, true],
       ];
         plugin.current = await createPluginUI(parentRef.current, spec);
         await loadPDBFromUrl(url, plugin.current);
     })();
-    return () => plugin.current = null;
+    // return () => plugin.current = null;
   }, [])
+
+  useEffect(() => {
+    (async () => {
+        await loadPDBFromUrl(url, plugin.current);
+    })();
+    // return () => plugin.current = null;
+  }, [url])
 
   const loadPDBFromUrl = async (url, plugin) => {
     if (plugin) {

@@ -143,6 +143,12 @@
       "text": "The Publications section contains publications where the given protein was mentioned. The publication information comes from multiple data sources that annotate the protein.",
       "title": "Publications",
       "url": "https://wiki.glygen.org/index.php/Protein_details/Publications"
+    },
+    "viewer": {
+      "urlText": "Read more...",
+      "text": "This section provides a 3D view of Protein.",
+      "title": "3D View",
+      "url": "https://wiki.glygen.org/index.php/Protein_details/Viewer"
     }
   }
 }

@@ -335,6 +335,10 @@
         "id": "species_name",
         "name": "Species"
       },
+      "scientific_name": {
+        "id": "scientific_name",
+        "name": "Scientific Name"
+      },
       "common_name": {
         "id": "common_name",
         "name": "Common Name"
@@ -1543,7 +1547,7 @@
         "shortName": "Specimen",
         "tooltip": {
           "title": "Specimen",
-          "text": ""
+          "text": "The type of sample in which a biomarker is identified (such as tissue, blood, etc.)."
         },
         "id": "specimen_name"
       },
@@ -1552,7 +1556,7 @@
         "shortName": "LOINC code",
         "tooltip": {
           "title": "LOINC code",
-          "text": ""
+          "text": "LOINC codes are assigned to lab test results. Search for biomarkers associated with lab observations using LOINC codes."
         },
         "id": "specimen_loinc_code"
       },
@@ -1561,7 +1565,7 @@
         "shortName": "Assessed Entity Type",
         "tooltip": {
           "title": "Assessed Entity Type",
-          "text": ""
+          "text": "Search for biomarkers based on what type of biological molecule the biomarker is (e.g protein, gene, metabolite)."
         },
         "id": "biomarker_entity_type"
       },
@@ -1570,7 +1574,7 @@
         "shortName": "Biomarker Entity",
         "tooltip": {
           "title": "Biomarker Entity",
-          "text": ""
+          "text": "Search for biomarkers based on the entity that is being changed (e.g IL6, BRCA2)."
         },
         "id": "biomarker_entity_name"
       },
@@ -1579,7 +1583,7 @@
         "shortName": "Biomarker ID",
         "tooltip": {
           "title": "Biomarker ID",
-          "text": ""
+          "text": "Search for biomarkers based on the unique Biomarker ID is assigned to it. Biomarker IDs are in two levels; canonical level ID is the unique entity change that makes a biomarker and the secondary ID is the unique biomarker-disease association)."
         },
         "id": "biomarker_id"
       },
@@ -1588,7 +1592,7 @@
         "shortName": "Condition",
         "tooltip": {
           "title": "Condition",
-          "text": ""
+          "text": "Search for biomarkers that are related to a specific condition."
         },
         "id": "condition_name"
       },
@@ -1597,7 +1601,7 @@
         "shortName": "Disease ID",
         "tooltip": {
           "title": "Disease ID",
-          "text": ""
+          "text": "Search for biomarkers that are related to a specific disease. Specify the disease using MONDO, DOID or MIM."
         },
         "id": "condition_id"
       },
@@ -1606,7 +1610,7 @@
         "shortName": "Disease ID",
         "tooltip": {
           "title": "Disease ID",
-          "text": ""
+          "text": "Search for biomarkers that are related to a specific disease. Specify the disease using MONDO, DOID or MIM."
         },
         "id": "disease_id"
       },
@@ -1615,7 +1619,7 @@
         "shortName": "Pubmed ID",
         "tooltip": {
           "title": "Pubmed ID",
-          "text": ""
+          "text": "A PMID is the unique identifier number used in PubMed for each article. The PMID is assigned to each article record when it enters the PubMed system."
         },
         "id": "publication_id"
       },

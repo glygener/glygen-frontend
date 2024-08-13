@@ -1,0 +1,114 @@
+{
+  "pageSubtitle": "Our Tool",
+  "pageTitle": "GlyGen",
+	"pageTitleBold": "BLAST",
+  "blast_search": {
+    "uniprot_canonical_ac": {
+      "placeholder": "Enter a UniProtKB Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          }
+        }
+      ],
+      "id": "uniprot_canonical_ac"
+    },
+    "seq": {
+      "placeholder": "MDTQGPVSQPFQQPEKPGRVRRRKTRRERNKALVGSRRPLAHHDPPVAIRDPPVVPTASKLVVITQGRLSREHRGLFNHEVKSLDVARLLSSGTLVPGSPTLPAKPSPSPGRAQEPAPRSRDKENQVPGGSGPGPPSSPELSGVGQLLAELQCQLSLPQAFPRRNLIQDARDAIVHTLQACHGCVPDLALVLRGCQPPLPGERPSCPCTPLSFVGSSSASLYASFLCARGQAWGL",
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleType": "proteinSequence",
+      "examples": {
+        "proteinSequence": {
+          "examples": [
+            "MDTQGPVSQPFQQPEKPGRVRRRKTRRERNKALVGSRRPLAHHDPPVAIRDPPVVPTASKLVVITQGRLSREHRGLFNHEVKSLDVARLLSSGTLVPGSPTLPAKPSPSPGRAQEPAPRSRDKENQVPGGSGPGPPSSPELSGVGQLLAELQCQLSLPQAFPRRNLIQDARDAIVHTLQACHGCVPDLALVLRGCQPPLPGERPSCPCTPLSFVGSSSASLYASFLCARGQAWGL"
+          ],
+          "name": "Protein Sequence Example"
+        }
+      },
+      "id": "seq"
+    },
+    "siteDetails": {
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleType": "siteDetails",
+      "examples": {
+        "siteDetails": {
+          "examples": [
+            {"id": 0, "amino_acid_position": 3, "amino_acid": "T"},
+            {"id": 1, "amino_acid_position": 8, "amino_acid": "S"}
+          ],
+          "name": "Site Details Example"
+        }
+      },
+      "id": "siteDetails"
+    },
+    "accessionSiteDetails": {
+      "errorText": "Entry is too short - min length is 20.",
+      "length": 20,
+      "exampleType": "accessionSiteDetails",
+      "examples": {
+        "accessionSiteDetails": {
+          "examples": [
+            {"id": 0, "accession": "A6NJB7-2", "amino_acid_position": 3, "amino_acid": "T"},
+            {"id": 1, "accession": "A6NJB7-2", "amino_acid_position": 8, "amino_acid": "S"},
+            {"id": 2, "accession": "P08697-2", "amino_acid_position": 36, "amino_acid": ""}
+          ],
+          "name": "Accession Site Details Example"
+        }
+      },
+      "id": "accessionSiteDetails"
+    },
+    "evalue": {
+      "step": 0.0001,
+      "min": 0.0001,
+      "id": "evalue"
+    },
+    "targetdb": {
+      "id": "targetdb",
+      "menu": {
+        "canonicalsequences_all":{
+          "id": "canonicalsequences_all", 
+          "name": "All species"
+        }, 
+        "canonicalsequences_hcv1a":{
+          "id": "canonicalsequences_hcv1a", 
+          "name": "Hepatitis C virus (isolate H)"
+        }, 
+        "canonicalsequences_mouse":{
+          "id": "canonicalsequences_mouse", 
+          "name": "Mus musculus"
+        }, 
+        "canonicalsequences_rat":{
+          "id": "canonicalsequences_rat", 
+          "name": "Rattus norvegicus"
+        }, 
+        "canonicalsequences_sarscov1":{
+          "id": "canonicalsequences_sarscov1", 
+          "name": "Severe acute respiratory syndrome-related coronavirus"
+        }, 
+        "canonicalsequences_hcv1b":{
+          "id": "canonicalsequences_hcv1b", 
+          "name": "Hepatitis C virus (isolate Japanese)"
+        }, 
+        "canonicalsequences_sarscov2":{
+          "id": "canonicalsequences_sarscov2", 
+          "name": "Severe acute respiratory syndrome coronavirus 2"
+        }, 
+        "canonicalsequences_human":{
+          "id": "canonicalsequences_human", 
+          "name": "Homo sapiens"
+        }
+      }
+    },
+    "num_alignments": {
+      "min": 1,
+      "step": 1,
+      "max": 500,
+      "id": "num_alignments"
+    }
+  }
+}

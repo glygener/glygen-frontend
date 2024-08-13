@@ -16,12 +16,14 @@ import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
 import "../css/detail.css";
 import "../css/Responsive.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import CardToggle from "../components/cards/CardToggle";
 import DownloadButton from "../components/DownloadButton";
+import DownloadFile from "../components/DownloadFile"
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -55,8 +57,6 @@ import { getProteinSearch } from "../data/protein";
 import SequenceHighlighter from "../components/sequence/SequenceHighlighter";
 import SequenceViewer from "../components/sequence/SequenceViewer";
 import CollapsibleText from "../components/CollapsibleText";
-import GetAppIcon from "@mui/icons-material/GetApp";
-import { downloadFile } from "../utils/download";
 import { postToAndGetBlob } from "../data/api";
 import CardLoader from "../components/load/CardLoader";
 import PropTypes from 'prop-types';
@@ -65,6 +65,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SelectControl from "../components/select/SelectControl";
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -87,6 +88,7 @@ const proteinDirectSearch = stringConstants.protein.direct_search;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
+  { label: stringConstants.sidebar.viewer.displayname, id: "3D-View" },
   {
     label: stringConstants.sidebar.glycosylation.displayname,
     id: "Glycosylation",
@@ -222,7 +224,7 @@ const getItemsPathway = (data) => {
 
 const getItemsCrossRefWithCategory = (data) => {
   let itemscrossRefCategory = [];
-
+  return itemscrossRefCategory;
   //check data.
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {
@@ -399,6 +401,26 @@ const ProteinDetail = (props) => {
   const [recommendedProteinRows, setRecommendedProteinRows] = useState([]);
   const [synonymProteinRows, setSynonymProteinRows] = useState([]);
   const [sequenceSearchText, setSequenceSearchText] = useState("");
+  const [sequenceTemplateText, setSequenceTemplateText] = useState("");
+  const [consensusMenu, setConsesusMenu] = useState(
+    [
+      { id: "NX[ST]", name: "N-Glycan Sequon - NX[ST]" },
+      { id: "CXXXX[ST]C", name: "O-Fucose - CXXXX[ST]C" },
+      { id: "CXX[ST]CXXG", name: "O-Fucose - CXX[ST]CXXG" },
+      { id: "CXSX[PA]C", name: "O-Glucose - CXSX[PA]C" },
+      { id: "CXNTXGSFXC", name: "O-Glucose - CXNTXGSFXC"},
+      { id: "CXXXX[ST]GXXC", name:"O-GlcNAc (external) - CXXXX[ST]GXXC"},
+      { id: "CXX[ST]C", name:"O-Fucose - CXX[ST]C"},
+      { id: "WXX[WC]", name:"C-Mannose - WXX[WC]"},
+      { id: "WXXWXXW", name:"C-Mannose - WXXWXXW"},
+      { id: "WXXWXXWXXC", name:"C-Mannose - WXXWXXWXXC"},
+    ]
+  )
+  const [structure, setStructure] = useState("");
+  const [structureUrl, setStructureUrl] = useState("");
+  const [structureType, setStructureType] = useState("");
+  const [structureMenu, setStructureMenu] = useState([]);
+  const [structureMap, setStructureMap] = useState(new Map());
   const [publicationSort, setPublicationSort] = useState("date");
   const [publicationDirection, setPublicationDirection] = useState("desc");
   const [showCategories, setShowCategories] = useState(false);
@@ -456,6 +478,9 @@ const ProteinDetail = (props) => {
         let newSidebarData = sideBarData;
         if (!detailDataTemp.uniprot || detailDataTemp.uniprot.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "General", true);
+        }
+        if (!detailDataTemp.structures || detailDataTemp.structures.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "3D-View", true);
         }
         if (!detailDataTemp.species || detailDataTemp.species.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Organism", true);
@@ -755,6 +780,52 @@ const ProteinDetail = (props) => {
 
         if (data.sequence_features) {
           setSequenceFeatures(data.sequence_features)
+        }
+
+        function sortMenu(first, second) {
+          if (first.type === second.type) {
+              if (first.start_pos === second.start_pos) {
+                if (second.end_pos > first.end_pos) {
+                  return -1;
+                } else {
+                  return 1;
+                }
+              } else if (second.start_pos < first.start_pos) {
+                return -1;
+              } else {
+                return 1;
+              }
+          } else if (first.type === "experimental") {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+
+        if (data.structures && data.structures.length > 0) {
+          let menu = data.structures.sort(sortMenu).map(item => {return {id: item.pdb_id, name: `${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})`}});
+          setStructureMenu(menu);
+
+          let structureMap = new Map();
+          for (let i = 0; i < data.structures.length; i++) {
+            structureMap.set(data.structures[i].pdb_id, {type: data.structures[i].type, url: data.structures[i].url});
+          }
+          structureMap.set("", {type: "", url: ""});
+          setStructureMap(structureMap);
+
+          if (menu.length > 0) {
+            setStructure(menu[0].id);
+            setStructureType(structureMap.get(menu[0].id).type);
+            setStructureUrl(structureMap.get(menu[0].id).url);
+          }
+        } else {
+          let menu = []
+          menu.push({id: "", name: "No structure"});
+          setStructureMenu(menu);
+          setStructureUrl("");
+          setStructureType("");
+          structureMap.set("", {type: "", url: ""});
+          setStructureMap(structureMap);
         }
 
         setPageLoading(false);
@@ -1942,14 +2013,15 @@ const ProteinDetail = (props) => {
       <Container className="tab-content-border2">
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (<>
-            {nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && (<AlertTitle> {id} is no longer valid Protein ID</AlertTitle>)}
-            {nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb" && (<AlertTitle> The UniProtKB accession {id} does not exists in GlyGen</AlertTitle>)}
-            {nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && (<span>{capitalizeFirstLetter(nonExistent.reason.description)}</span>)}
-            {nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb" && (<span>{"Valid ID in UniProtKB: "} 
+            {(nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && nonExistent.reason.type !== "discontinued_in_glygen") && (<AlertTitle> {id} is no longer valid Protein ID</AlertTitle>)}
+            {(nonExistent.reason.type === "discontinued_in_glygen") && (<AlertTitle> The UniProtKB accession {id} is discontinued in GlyGen</AlertTitle>)}
+            {(nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb") && (<AlertTitle> The UniProtKB accession {id} does not exists in GlyGen</AlertTitle>)}
+            {(nonExistent.reason.type === "never_in_glygen_current_in_uniprotkb" || nonExistent.reason.type === "discontinued_in_glygen") && (<div>{"Valid ID in UniProtKB: "} 
               <a href={"https://www.uniprot.org/uniprotkb/" + id} target="_blank" rel="noopener noreferrer">
                 {id}
               </a>
-            </span>)}
+            </div>)}
+            {(nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb") && (<div>{capitalizeFirstLetter(nonExistent.reason.description)}</div>)}
             {nonExistent.reason.type === "replacement_in_glygen" && <ul>
               <span>
                 {nonExistent.reason.replacement_id_list && (
@@ -2223,6 +2295,79 @@ const ProteinDetail = (props) => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+
+              {/*  Viewer */}
+              <Accordion
+                id="3D-View"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.protein.viewer.title}
+                        text={DetailTooltips.protein.viewer.text}
+                        urlText={DetailTooltips.protein.viewer.urlText}
+                        url={DetailTooltips.protein.viewer.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.viewer.displayname}
+                    </h4>
+    
+                    <div className="float-end">
+                    <span>
+                        <SelectControl
+                          inputValue={structure}
+                          menu={structureMenu}
+                          disabled={structureUrl === ""}
+                          setInputValue={(value) => {
+                            setStructure(value);
+                            setStructureType(structureMap.get(value).type);
+                            setStructureUrl(structureMap.get(value).url);
+                          }}
+                        />
+                      </span>
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadFile
+                          id={id}
+                          url={structureUrl}
+                          enable={structureUrl !== ""}
+                          mimeType={"text/plain"}
+                          itemType={"url_file_download"}
+                          fileName={structure +".pdb"}
+                        />
+                      </span>
+                      <CardToggle cardid="viewer" toggle={collapsed.viewer} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Row>
+                        {structureUrl !== "" ?
+                          (<div>
+                            <div style={{  height: "350px"}}>
+                              {structureUrl && <ThreeDViewer url={structureUrl} />}
+                            </div>
+                            <div className="text-muted mt-2">
+                              <strong><sup>1</sup></strong><span> 3D structure provided by {structureType === "experimental" ? <a href={"https://www.rcsb.org/"} target="_blank" rel="noopener noreferrer">PDB</a>:<a href={"https://alphafold.ebi.ac.uk/"} target="_blank" rel="noopener noreferrer">AlphaFold</a> }</span>
+                            </div>
+                            <div className="text-muted">
+                              <strong><sup>2</sup></strong><span> Displayed using <a href={"https://molstar.org/viewer-docs/"} target="_blank" rel="noopener noreferrer">Mol*</a></span>
+                            </div>
+                          </div>)
+                          : (
+                            <p className="no-data-msg">{dataStatus}</p>
+                        )}
+                      </Row>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
               {/*  Glycosylation */}
               <Accordion
                 id="Glycosylation"
@@ -2820,7 +2965,7 @@ const ProteinDetail = (props) => {
                                     n_glycosylation: sequenceFeatures.n_linked_sites,
                                     o_glycosylation: sequenceFeatures.o_linked_sites,
                                     snv: sequenceFeatures.snv_sites,
-                                    site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                    // site_annotation: sequenceFeatures.sequon_annotation_sites,
                                     phosphorylation: sequenceFeatures.phosphorylation_sites,
                                     glycation: sequenceFeatures.glycation_sites,
                                   },
@@ -2829,7 +2974,7 @@ const ProteinDetail = (props) => {
                                 multiSequence={false}
                                 selectedHighlights={selectedHighlights}
                                 sequenceSearchText={sequenceSearchText}
-                              />
+                                />
                             )}
                           </div>
                         </Grid>
@@ -2849,7 +2994,7 @@ const ProteinDetail = (props) => {
                                   n_glycosylation: sequenceFeatures.n_linked_sites,
                                   o_glycosylation: sequenceFeatures.o_linked_sites,
                                   snv: sequenceFeatures.snv_sites,
-                                  site_annotation: sequenceFeatures.sequon_annotation_sites,
+                                  // site_annotation: sequenceFeatures.sequon_annotation_sites,
                                   phosphorylation: sequenceFeatures.phosphorylation_sites,
                                   glycation: sequenceFeatures.glycation_sites,
                                 },
@@ -2860,6 +3005,9 @@ const ProteinDetail = (props) => {
                               setSelectedHighlights={setSelectedHighlights}
                               sequenceSearchText={sequenceSearchText}
                               setSequenceSearchText={setSequenceSearchText}
+                              sequenceTemplateText={sequenceTemplateText}
+                              setSequenceTemplateText={setSequenceTemplateText}
+                              consensusMenu={consensusMenu}
                             />
                           )}
                         </Grid>

@@ -80,6 +80,17 @@ export const downloadFromServer = async (
   download(serverData.data, filename, mimeType);
 };
 
+export const downloadFileFromServer = async (
+  id,
+  url,
+  mimeType,
+  fileName,
+  itemTypeResolver
+) => {
+  const serverData = await itemTypeResolver(id, url);
+  download(serverData.data, fileName, mimeType);
+};
+
 export const downloadFile = (
   data,
   fileName,

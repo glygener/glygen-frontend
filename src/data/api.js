@@ -12,6 +12,17 @@ export const getJson = (url, headers = {}) => {
   });
 };
 
+/**
+ * Gets JSON from REST api call.
+ * @param {string} url - url for REST api call.
+ * @param {string} headers - header for REST api call.
+ */
+export const getFile = (url, headers = {}) => {
+  return axios.get(url, {
+    headers
+  });
+};
+
 export const postTo = (url, headers = {}) => {
   const options = {
     method: "POST",
@@ -44,8 +55,8 @@ export const postFormDataTo = (url, formData = {}, headers = {}) => {
   return axios(options);
 };
 
-export const postFormDataTo1 = (url, formData = {}, headers = {}) => {
-  // const formDataElement = new FormData();
+export const postFormDataTo1 = (url, formData = {}, headers = {}, files) => {
+  //const formDataElement = new FormData();
 
   // Object.keys(formData).forEach(key => {
   //   formDataElement.append(key, formData[key]);
@@ -60,6 +71,7 @@ export const postFormDataTo1 = (url, formData = {}, headers = {}) => {
     method: "POST",
     headers: headers,
     data: formData,
+    files: files,
     url: GLYGEN_API + url
   };
 
