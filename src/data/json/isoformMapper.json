@@ -57,7 +57,7 @@
             {"id": 1, "accession": "A6NJB7-2", "amino_acid_position": 8, "amino_acid": "S"},
             {"id": 2, "accession": "P08697-2", "amino_acid_position": 36, "amino_acid": ""}
           ],
-          "name": "Accession Site Details Example"
+          "name": "Accession Site and Details Example"
         }
       },
       "id": "accessionSiteDetails"

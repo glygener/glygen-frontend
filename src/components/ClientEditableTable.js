@@ -24,7 +24,8 @@ const ClientEditableTable = ({
   wrapperClasses = "table-responsive",
   totalSizeText = "Results",
   tableHeader,
-  updateTable
+  updateTable,
+  validateColumnData
 }) => {
 
 
@@ -65,7 +66,7 @@ const ClientEditableTable = ({
           afterSaveCell: (oldValue, newValue, row, column) => { 
             if (row.error) {
               row.error = !errorColumns.every(
-                (err) => row[err].trim() !== ""
+                (err) => validateColumnData(err, row[err] )
               )
             }
           }

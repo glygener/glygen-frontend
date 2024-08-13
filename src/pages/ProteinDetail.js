@@ -803,7 +803,7 @@ const ProteinDetail = (props) => {
         }
 
         if (data.structures && data.structures.length > 0) {
-          let menu = data.structures.sort(sortMenu).map(item => {return {id: item.pdb_id, name: `${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})`}});
+          let menu = data.structures.sort(sortMenu).map(item => {return {id: item.pdb_id, name: `${item.type === "experimental" ? "PDB" : "AlphaFold"}: ${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})`}});
           setStructureMenu(menu);
 
           let structureMap = new Map();
