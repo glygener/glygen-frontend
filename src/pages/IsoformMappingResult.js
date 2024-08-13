@@ -216,11 +216,12 @@ const IsoformMappingResult = (props) => {
       sort: true,
       formatter: (value, row) => (
         <>
-        <LineTooltip text="View details">
-          <Link to={routeConstants.proteinDetail + value}>
-            {value}
-          </Link>
-        </LineTooltip>
+        {value !== "null" && value ? 
+          <LineTooltip text="View details">
+            <Link to={routeConstants.proteinDetail + value}>
+              {value}
+            </Link>
+          </LineTooltip> : ""}
         </>
       )
     },
