@@ -300,7 +300,7 @@ const IsoformMappingResult = (props) => {
                       onTableChange={handleTableChange}
                       defaultSortField={currentSort}
                       defaultSortOrder={currentSortOrder}
-                      wrapperClasses="table-responsive table-height"
+                      wrapperClasses="table-responsive"
                       noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                     />
                 </div>
