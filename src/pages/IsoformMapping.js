@@ -370,7 +370,7 @@ const IsoformMapping = (props) => {
 * @param {string} inputProSequence - input protein sequence value.
 **/
   function mapFields(inputMapFields) {
-    setData(inputMapFields);
+    setData([...inputMapFields]);
     // setBlastError({ proSequenceInput: false });
     // setBlastError({ proSeqSearchDisabled: false });
   }
@@ -380,7 +380,7 @@ const IsoformMapping = (props) => {
 * @param {string} inputProSequence - input protein sequence value.
 **/
   function sequenceMapFields(inputSequenceMapFields) {
-    setDataSequence(inputSequenceMapFields);
+    setDataSequence([...inputSequenceMapFields]);
     // setBlastError({ proSequenceInput: false });
     // setBlastError({ proSeqSearchDisabled: false });
   }
