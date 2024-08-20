@@ -783,23 +783,25 @@ const ProteinDetail = (props) => {
         }
 
         function sortMenu(first, second) {
-          if (first.type === second.type) {
-              if (first.start_pos === second.start_pos) {
-                if (second.end_pos > first.end_pos) {
-                  return -1;
-                } else {
-                  return 1;
-                }
-              } else if (second.start_pos < first.start_pos) {
-                return -1;
-              } else {
-                return 1;
-              }
-          } else if (first.type === "experimental") {
-            return 1;
+          let ret = 0;
+          if (first.type === "experimental" && second.type === "alphafold") {
+            ret = -1;
+          } else if (first.type === "alphafold" && second.type === "experimental") {
+            ret = 1;
           } else {
-            return -1;
+            if (first.start_pos < second.start_pos) {
+              ret = -1;
+            } else if (second.start_pos < first.start_pos) {
+              ret = 1;
+            } else {
+              if (first.end_pos > second.end_pos) {
+                ret = -1;
+              } else if (second.end_pos > first.end_pos) {
+                ret = 1;
+              }
+            }
           }
+          return ret;
         }
 
         if (data.structures && data.structures.length > 0) {
@@ -2324,6 +2326,7 @@ const ProteinDetail = (props) => {
                           inputValue={structure}
                           menu={structureMenu}
                           disabled={structureUrl === ""}
+                          sortFunction={(a, b) => {return 0 }}
                           setInputValue={(value) => {
                             setStructure(value);
                             setStructureType(structureMap.get(value).type);

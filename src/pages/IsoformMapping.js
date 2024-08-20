@@ -368,7 +368,8 @@ const IsoformMapping = (props) => {
 * @param {string} inputProSequence - input protein sequence value.
 **/
   function mapFields(inputMapFields) {
-    setData([...inputMapFields]);
+    let temp = inputMapFields.map(obj => {return {...obj}})
+    setData(temp);
   }
 
   /**
@@ -376,7 +377,8 @@ const IsoformMapping = (props) => {
 * @param {string} inputProSequence - input protein sequence value.
 **/
   function sequenceMapFields(inputSequenceMapFields) {
-    setDataSequence([...inputSequenceMapFields]);
+    let temp = inputSequenceMapFields.map(obj => {return {...obj}})
+    setDataSequence(temp);
   }
   /**
 * Function to clear all field values.

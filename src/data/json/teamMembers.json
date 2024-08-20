@@ -209,6 +209,16 @@
 					"image": "/team/Nicole-Mathias.jpg",
 					"imageText": "Nicole Mathias image",
 					"url": "https://www.linkedin.com/in/nicole-mathias-/"
+				},
+				{
+					"name": "Kate Warner",
+					"position": "Data Manager",
+					"department": "",
+					"institution": "The George Washington University",
+					"location": "Washington, DC",
+					"image": "/team/Kate-Warner.jpg",
+					"imageText": "Kate Warner image",
+					"url": "https://www.linkedin.com/in/kate-warner-a66b68a2/"
 				}
 			]
 		}
