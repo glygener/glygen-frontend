@@ -2260,6 +2260,11 @@
       "title": "Isoform Mapper Search Error - Enter maximum 1000 rows",
       "message": "Sorry, we couldn't process isoform mapper search request. Please enter maximum 1000 rows."
     },
+    "bad-row": {
+      "id": "bad-row",
+      "title": "Isoform Mapper Search Error - Bad row",
+      "message": "Sorry, we couldn't process isoform mapper search request. Please provide file in proper format."
+    },
     "querySerarchError": {
       "id": "querySerarchError",
       "title": "Query Search Error - Invalid Query Parameters",
