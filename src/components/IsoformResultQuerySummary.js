@@ -35,7 +35,7 @@ function getDateTime() {
   return dateTime;
 }
 
-const BlastResultQuerySummary = (props) => {
+const IsoformResultQuerySummary = (props) => {
   const title = "GlyGen Isoform Mapper Summary";
   const { onModifySearch, jobtype, parameters, timestamp, data } = props;
 
@@ -61,40 +61,17 @@ const BlastResultQuerySummary = (props) => {
               {data.jobtype}
             </Col>
           </Row>
-          {/* <Row className="summary-table-col">
-            <Col align="right" xs={6} sm={6} md={6} lg={6}>
-             Sequence:
-            </Col>
-            <Col align="left" xs={6} sm={6} md={6} lg={6}>
-              {data.parameters === undefined ? "" : data.parameters.seq.length > 200 ? 
-                data.parameters.seq.substring(0, 200) + "..." : data.parameters.seq
-              }
-            </Col>
-          </Row>
-          <Row className="summary-table-col">
-            <Col align="right" xs={6} sm={6} md={6} lg={6}>
-             Target DB:
-            </Col>
-            <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                {data.parameters === undefined ? "" : blastSearchJSON.targetdb.menu[data.parameters.targetdb] ? blastSearchJSON.targetdb.menu[data.parameters.targetdb].name : data.parameters.targetdb}
-            </Col>
-          </Row>
-          <Row className="summary-table-col">
-            <Col align="right" xs={6} sm={6} md={6} lg={6}>
-              E-value:
-            </Col>
-            <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                {data.parameters === undefined ? "" : data.parameters.evalue}
-            </Col>
-          </Row>         
-          <Row className="summary-table-col">
-            <Col align="right" xs={6} sm={6} md={6} lg={6}>
-              Max number of hits (Proteins):
-            </Col>
-            <Col align="left" xs={6} sm={6} md={6} lg={6}>
-                {data.parameters === undefined ? "" : data.parameters.num_alignments}
-            </Col>
-          </Row> */}
+          {data.parameters !== undefined && data.parameters.sequence !== undefined  ? 
+            <Row className="summary-table-col">
+              <Col align="right" xs={6} sm={6} md={6} lg={6}>
+              Protein Sequence:
+              </Col>
+              <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                {data.parameters.sequence.length > 200 ? 
+                  data.parameters.sequence.substring(0, 200) + "..." : data.parameters.sequence}
+              </Col>
+            </Row> 
+            : ""}
           </>)}
           <Button type="button" className="gg-btn-blue mb-3 mt-3" onClick={onModifySearch}>
             Modify Request
@@ -105,4 +82,4 @@ const BlastResultQuerySummary = (props) => {
   );
 };
 
-export default BlastResultQuerySummary;
+export default IsoformResultQuerySummary;

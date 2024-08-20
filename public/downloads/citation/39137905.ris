@@ -1,0 +1,57 @@
+Provider: Silverchair
+Database: Oxford University Press
+Content: text/plain; charset="UTF-8"
+
+TY  - JOUR
+AU  - Martinez, Karina
+AU  - Agirre, Jon
+AU  - Akune, Yukie
+AU  - Aoki-Kinoshita, Kiyoko F
+AU  - Arighi, Cecilia
+AU  - Axelsen, Kristian B
+AU  - Bolton, Evan
+AU  - Bordeleau, Emily
+AU  - Edwards, Nathan J
+AU  - Fadda, Elisa
+AU  - Feizi, Ten
+AU  - Hayes, Catherine
+AU  - Ives, Callum M
+AU  - Joshi, Hiren J
+AU  - Krishna Prasad, Khakurel
+AU  - Kossida, Sofia
+AU  - Lisacek, Frederique
+AU  - Liu, Yan
+AU  - Lütteke, Thomas
+AU  - Ma, Junfeng
+AU  - Malik, Adnan
+AU  - Martin, Maria
+AU  - Mehta, Akul Y
+AU  - Neelamegham, Sriram
+AU  - Panneerselvam, Kalpana
+AU  - Ranzinger, René
+AU  - Ricard-Blum, Sylvie
+AU  - Sanou, Gaoussou
+AU  - Shanker, Vijay
+AU  - Thomas, Paul D
+AU  - Tiemeyer, Michael
+AU  - Urban, James
+AU  - Vita, Randi
+AU  - Vora, Jeet
+AU  - Yamamoto, Yasunori
+AU  - Mazumder, Raja
+T1  - Functional implications of glycans and their curation: insights from the workshop held at the 16th Annual International Biocuration Conference in Padua, Italy
+PY  - 2024
+Y1  - 2024/02/12
+DO  - 10.1093/database/baae073
+JO  - Database
+JA  - Database (Oxford)
+VL  - 2024
+SP  - baae073
+SN  - 1758-0463
+AB  - Dynamic changes in protein glycosylation impact human health and disease progression. However, current resources that capture disease and phenotype information focus primarily on the macromolecules within the central dogma of molecular biology (DNA, RNA, proteins). To gain a better understanding of organisms, there is a need to capture the functional impact of glycans and glycosylation on biological processes. A workshop titled “Functional impact of glycans and their curation” was held in conjunction with the 16th Annual International Biocuration Conference to discuss ongoing worldwide activities related to glycan function curation. This workshop brought together subject matter experts, tool developers, and biocurators from over 20 projects and bioinformatics resources. Participants discussed four key topics for each of their resources: (i) how they curate glycan function-related data from publications and other sources, (ii) what type of data they would like to acquire, (iii) what data they currently have, and (iv) what standards they use. Their answers contributed input that provided a comprehensive overview of state-of-the-art glycan function curation and annotations. This report summarizes the outcome of discussions, including potential solutions and areas where curators, data wranglers, and text mining experts can collaborate to address current gaps in glycan and glycosylation annotations, leveraging each other’s work to improve their respective resources and encourage impactful data sharing among resources.Database URL: https://wiki.glygen.org/Glycan_Function_Workshop_2023
+Y2  - 8/14/2024
+UR  - https://doi.org/10.1093/database/baae073
+ER  - 
+
+
+

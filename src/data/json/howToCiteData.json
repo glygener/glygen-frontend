@@ -184,6 +184,24 @@
 			"ris": "/downloads/citation/30715201.ris",
 			"rislabel": "RIS",
 			"period": "."
+		},
+		{
+			"heading": "Functional implications of glycans and their curation: insights from the workshop held at the 16th Annual International Biocuration Conference in Padua, Italy.",
+			"authors": "Karina Martinez, Jon Agirre, Yukie Akune, Kiyoko F Aoki-Kinoshita, Cecilia Arighi, Kristian B Axelsen, Evan Bolton, Emily Bordeleau, Nathan J Edwards, Elisa Fadda, Ten Feizi, Catherine Hayes, Callum M Ives, Hiren J Joshi, Khakurel Krishna Prasad, Sofia Kossida, Frederique Lisacek, Yan Liu, Thomas Lütteke, Junfeng Ma, Adnan Malik, Maria Martin, Akul Y Mehta, Sriram Neelamegham, Kalpana Panneerselvam, René Ranzinger, Sylvie Ricard-Blum, Gaoussou Sanou, Vijay Shanker, Paul D Thomas, Michael Tiemeyer, James Urban, Randi Vita, Jeet Vora, Yasunori Yamamoto, Raja Mazumder.",
+			"publisher": "Database, Volume 2024, 2024.",
+			"pmid": "PMID",
+			"website": {
+				"name": "39137905",
+				"url": "https://www.ncbi.nlm.nih.gov/pubmed/39137905"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/39137905.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/39137905.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/39137905.ris",
+			"rislabel": "RIS",
+			"period": "."
 		}
 	],
 	"relatedPapers": [

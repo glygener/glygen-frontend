@@ -597,5 +597,18 @@
         "content": "Isoform Mapper"
       }
     ]
+  },
+  "isoformMapperResult": {
+    "title": "Isoform Mapper Result | Informatics Resources for Glycoscience | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Isoform Mapper Result"
+      }
+    ]
   }
 }

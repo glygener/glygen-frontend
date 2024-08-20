@@ -84,17 +84,7 @@
 					"image": "/team/Maria-Martin.png",
 					"imageText": "Maria Martin image",
 					"url": "https://www.ebi.ac.uk/about/people/maria-jesus-martin"
-				},
-				{
-					"name": "Preethi Vasudev",
-					"position": "Collaborator",
-					"department": "Protein Function Development",
-					"institution": "EMBL-EBI",
-					"location": "Hinxton, Cambridgeshire, UK",
-					"image": "/team/Preethi-Vasudev.png",
-					"imageText": "Preethi Vasudev image",
-					"url": "https://www.ebi.ac.uk/about/people/preethi-vasudev"
-				},
+				},				
 				{
 					"name": "Evan Bolton",
 					"position": "Collaborator",
@@ -181,16 +171,6 @@
 					"url": "https://www.linkedin.com/in/jeet-vora/"
 				},
 				{
-					"name": "Karina Martinez",
-					"position": "Data Manager",
-					"department": "",
-					"institution": "The George Washington University",
-					"location": "Washington, DC",
-					"image": "/team/Karina-Martinez.jpg",
-					"imageText": "Karina Martinez image",
-					"url": "https://www.linkedin.com/in/karinamartinez2/"
-				},
-				{
 					"name": "Sujeet Kulkarni",
 					"position": "Full Stack Developer",
 					"department": "",
@@ -211,36 +191,6 @@
 					"url": ""
 				},
 				{
-					"name": "Dorteja Dragovic",
-					"position": "Bioinformatics Programmer",
-					"department": "",
-					"institution": "Georgetown University",
-					"location": "Washington DC",
-					"image": "/team/Dorteja-Dragovic.jpeg",
-					"imageText": "Dorteja Dragovic image",
-					"url": ""
-				},
-				{
-					"name": "Jingyue Wu",
-					"position": "Data Manager",
-					"department": "",
-					"institution": "The George Washington University",
-					"location": "Washington DC",
-					"image": "/team/Jingyue-Wu.jpeg",
-					"imageText": "Jingyue Wu image",
-					"url": "https://www.linkedin.com/in/jingyue-wu-bab4a4195/"
-				},
-				{
-					"name": "Michelle Vesser",
-					"position": "Bioinformatics Programmer",
-					"department": "",
-					"institution": "Georgetown University",
-					"location": "Washington DC",
-					"image": "/team/Michelle-Vesser.jpeg",
-					"imageText": "Michelle Vesser image",
-					"url": "https://www.linkedin.com/in/michellevesser/"
-				},
-				{
 					"name": "Mindy Porterfield",
 					"position": "Data Curator",
 					"department": "",
@@ -249,6 +199,16 @@
 					"image": "/team/Mindy-Porterfield.png",
 					"imageText": "Mindy Porterfield image",
 					"url": "https://www.linkedin.com/in/mindyporterfield"
+				},
+				{
+					"name": "Nicole Mathias",
+					"position": "Bioinformatics Programmer",
+					"department": "",
+					"institution": "Georgetown University",
+					"location": "Washington DC",
+					"image": "/team/Nicole-Mathias.jpg",
+					"imageText": "Nicole Mathias image",
+					"url": "https://www.linkedin.com/in/nicole-mathias-/"
 				}
 			]
 		}
@@ -256,6 +216,84 @@
 	"formerMembers": {
 		"heading": "Former Members",
 		"people": [
+			{
+				"name": "Luke Johnson",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"dateLeft": "Left project Aug 2024",
+				"orderID": 202408
+			},
+			{
+				"name": "Karina Martinez",
+				"position": "Data Manager",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Karina-Martinez.jpg",
+				"imageText": "Karina Martinez image",
+				"url": "https://www.linkedin.com/in/karinamartinez2/",
+				"dateLeft": "Left project Jul 2024",
+				"orderID": 202407
+			},
+			{
+				"name": "Abdullah Abdul",
+				"position": "Bioinformatics Programmer",
+				"department": "",
+				"institution": "Georgetown University",
+				"location": "Washington DC",
+				"url": "https://www.linkedin.com/in/abdullah-abdul-m-s-621763265",
+				"dateLeft": "Left project Sept 2024",
+				"orderID": 202409
+			},
+			{
+				"name": "Dorteja Dragovic",
+				"position": "Bioinformatics Programmer",
+				"department": "",
+				"institution": "Georgetown University",
+				"location": "Washington DC",
+				"image": "/team/Dorteja-Dragovic.jpeg",
+				"imageText": "Dorteja Dragovic image",
+				"url": "",
+				"dateLeft": "Left project Aug 2023",
+				"orderID": 202308
+			},
+			{
+				"name": "Jingyue Wu",
+				"position": "Data Manager",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington DC",
+				"image": "/team/Jingyue-Wu.jpeg",
+				"imageText": "Jingyue Wu image",
+				"url": "https://www.linkedin.com/in/jingyue-wu-bab4a4195/",
+				"dateLeft": "Left project May 2024",
+				"orderID": 202405
+			},
+			{
+				"name": "Michelle Vesser",
+				"position": "Bioinformatics Programmer",
+				"department": "",
+				"institution": "Georgetown University",
+				"location": "Washington DC",
+				"image": "/team/Michelle-Vesser.jpeg",
+				"imageText": "Michelle Vesser image",
+				"url": "https://www.linkedin.com/in/michellevesser/",
+				"dateLeft": "Left project Jul 2023",
+				"orderID": 202307
+			},
+			{
+				"name": "Preethi Vasudev",
+				"position": "Collaborator",
+				"department": "Protein Function Development",
+				"institution": "EMBL-EBI",
+				"location": "Hinxton, Cambridgeshire, UK",
+				"image": "/team/Preethi-Vasudev.png",
+				"imageText": "Preethi Vasudev image",
+				"url": "https://www.ebi.ac.uk/about/people/preethi-vasudev",
+				"dateLeft": "Left project Aug 2024",
+				"orderID": 202408
+			},
 			{
 				"name": "Tianyi Wang",
 				"position": "Student",

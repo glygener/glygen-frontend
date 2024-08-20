@@ -23,6 +23,7 @@ import doubleArraowIcon from "../images/icons/doubleArrowIcon.svg";
 import Image from "react-bootstrap/Image";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import { downloadFile } from "../utils/download.js"
+import DownloadButton from "../components/DownloadButton";
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
   if (a[sortField] > b[sortField]) {
@@ -41,6 +42,7 @@ const blastSearch = stringConstants.blast_search.common;
 const IsoformMappingResult = (props) => {
   let { jobId } = useParams();
   const [query, setQuery] = useState({});
+  const [listId, setListId] = useState("");
   const [timestamp, setTimeStamp] = useState();
   const [proteinID, setProteinID] = useState("");
   const [blstActTabKey, setBlstActTabKey] = useState('Result');
@@ -54,7 +56,7 @@ const IsoformMappingResult = (props) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageContents, setPageContents] = useState([]);
-  const [currentSort, setCurrentSort] = useState("evalue");
+  const [currentSort, setCurrentSort] = useState("");
   const [currentSortOrder, setCurrentSortOrder] = useState("asc");
   const [sizePerPage, setSizePerPage] = useState(20);
   const navigate = useNavigate();
@@ -85,18 +87,6 @@ const IsoformMappingResult = (props) => {
           logActivity("user", jobId, "No results. " + message);
           setPageLoading(false);
         } else {
-          // let protArr = [];
-          // Object.keys(data.by_subject).map((protID) => {
-          //   let proObjs = data.by_subject[protID].hsp_list.filter(obj => obj.sequences === undefined);
-          //   if (proObjs !== undefined){
-          //     protArr.push(protID);
-          //   }
-          // })
-          // if (protArr.length > 0){
-          //   let message = "Protein object with no sequences array: " + protArr.join(", ");
-          //   logActivity("error", jobId, message);
-          // }
-
           function getMapping(warning, error) {
             if (warning === "" && error === "") {
               return "Mapped";
@@ -129,15 +119,17 @@ const IsoformMappingResult = (props) => {
             let message = " Isoform mapping result array with no data: " + dataArr.join(", ");
             logActivity("error", jobId, message);
           }
-          dataArr.sort(createSorter(currentSort, currentSortOrder));
           const start = (page - 1) * sizePerPage;
           const end = page * sizePerPage;
           const pageData = dataArr.slice(start, end);
           setPageContents(pageData);
           setData(dataArr);
-          setProteinID(dataArr[0] !== undefined ? dataArr[0].uniprot_ac: "" );
-          setQuery({"parameters" : data.parameters, "jobtype": data.jobtype});
-          // setTimeStamp(data.cache_info.ts);
+          if (data.query) {
+            setListId(data.list_id);
+            setQuery({"parameters" : data.query, "jobtype": data.query.jobtype});
+          } else {
+            setQuery({"parameters" : undefined, "jobtype": ""});
+          }
           setPageLoading(false);
         }
       })
@@ -153,14 +145,6 @@ const IsoformMappingResult = (props) => {
     navigate(routeConstants.isoformMapping + jobId);
   };
 
-    /**
-   * Function to set recordtype (molecule) name value.
-   * @param {string} value - input recordtype (molecule) name value.
-   **/
-     const proteinIDChange = (value) => {
-      setProteinID(value);
-    };
-
   const isoformResultColumns = [
     {
       dataField: "uniprotkb_isoform_ac",
@@ -169,11 +153,12 @@ const IsoformMappingResult = (props) => {
       selected: true,
       formatter: (value, row) => (
         <>
-        <LineTooltip text="View details">
-          <Link to={routeConstants.proteinDetail + value}>
-            {value}
-          </Link>
-        </LineTooltip>
+        {row.glygen_canonical_ac !== "" && row.glygen_canonical_ac ? 
+          <LineTooltip text="View details">
+            <Link to={routeConstants.proteinDetail + row.glygen_canonical_ac + "#Isoforms"}>
+              {value}
+            </Link>
+          </LineTooltip> : <>{value}</>}
         </>
       )
     },
@@ -216,7 +201,7 @@ const IsoformMappingResult = (props) => {
       sort: true,
       formatter: (value, row) => (
         <>
-        {value !== "null" && value ? 
+        {value !== "" && value ? 
           <LineTooltip text="View details">
             <Link to={routeConstants.proteinDetail + value}>
               {value}
@@ -250,8 +235,8 @@ const IsoformMappingResult = (props) => {
   return (
     <>
       <Helmet>
-        {getTitle("blastResult")}
-        {getMeta("blastResult")}
+        {getTitle("isoformMapperResult")}
+        {getMeta("isoformMapperResult")}
       </Helmet>
 
       <FeedbackWidget />
@@ -273,30 +258,34 @@ const IsoformMappingResult = (props) => {
             />
           )}
         </section>
-
-        {/* <Tabs
-          defaultActiveKey='Result'
-          transition={false}
-          activeKey={blstActTabKey}
-          mountOnEnter={true}
-          unmountOnExit={true}
-          onSelect={(key) => setBlstActTabKey(key)}
-          >
-						<Tab
-							eventKey='Result'
-							className='tab-content-padding'
-              title={"Result"}
-            > */}
-            <section>
+          <section>
+            <div className="text-end">
+              <DownloadButton
+                types={[
+                  {
+                    display: "Isoform Mapper List (CSV)",
+                    type: "csv",
+                    data: "isoform_mapper_list",
+                  },
+                  {
+                    display: "Isoform Mapper List (TSV)",
+                    type: "tsv",
+                    data: "isoform_mapper_list",
+                  },
+                ]}
+                dataId={listId}
+                itemType="isoform_mapping_list"
+                filters={[]}
+              />
+            </div>
               {isoformResultColumns && isoformResultColumns.length !== 0 && (
-                <div style={{padding:20, content:'center'}}>
+                <div style={{padding1:20, content:'center'}}>
                   <PaginatedTable
                       data={pageContents}
                       columns={isoformResultColumns}
                       page={page}
                       sizePerPage={sizePerPage}
                       totalSize={data.length}
-                      // totalSizeText={"High Scoring Pair (HSP) Results"}
                       onTableChange={handleTableChange}
                       defaultSortField={currentSort}
                       defaultSortOrder={currentSortOrder}
@@ -306,46 +295,6 @@ const IsoformMappingResult = (props) => {
                 </div>
               )}
             </section>
-          {/* </Tab> */}
-        {/* <Tab
-            eventKey='Alignments'
-            title={"Alignments"}
-            className='tab-content-padding'>
-          {subjectData && <MultiProteinAlignment 
-            algnData={subjectData} 
-            proteinID={proteinID}
-            proteinIDChange={proteinIDChange}
-            jobId={jobId}
-            />}
-        </Tab>
-				<Tab
-          eventKey='Text-View'
-          title={"Text View"}
-          className='tab-content-padding'>
-            <div id="contents" class = "gf-content-div">
-              <div style={{padding:20, content:'center'}}>
-                <div style={{paddingLeft:20, paddingRight:80, float: 'right'}}>
-                  <Button
-                    className={"lnk-btn"}
-                    variant="link"
-                    onClick={() => {
-                      downloadFile(text, "blast-data.txt", "text");
-                    }}                    
-                    align="bottom"
-                  >
-                    <div>
-                      <GetAppIcon /> Download
-                    </div>
-                  </Button>
-                </div>
-                <div 
-                  style={{overflow: 'scroll', paddingRight:40, content:'center', maxHeight: '600px' }}>
-                    <div><pre>{text}</pre></div>
-                  </div>
-              </div>
-            </div>
-        </Tab>
-      </Tabs> */}
       </Container>
     </>
   );

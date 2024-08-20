@@ -140,6 +140,9 @@ export default function Footer() {
                 <Link to={routeConstants.idMapping}>GlyGen&nbsp;Mapper</Link>
               </div>
               <div>
+                <Link to={routeConstants.isoformMapping}>GlyGen&nbsp;Isoform&nbsp;Mapper</Link>
+              </div>
+              <div>
                 <a href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen&nbsp;Sand Box
                 </a>

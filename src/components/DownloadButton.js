@@ -18,6 +18,7 @@ import { getIdMappingUnmappedDownload } from "../data/mapping";
 import { getBiomarkerDetailDownload, getBiomarkerSectionDownload, getBiomarkerListDownload } from "../data/biomarker";
 import { getOrthologListDownload, getLocusListDownload } from "../data/usecases";
 import { getPublicationDetailDownload, getPublicationSectionDownload } from "../data/publication";
+import { getIsoformMappingListDownload } from "../data/isoformMapping"
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { Loading } from "./load/Loading";
 
@@ -69,6 +70,8 @@ const DownloadButton = (props) => {
         return getBiomarkerDetailDownload;
       case "biomarker_section":
         return getBiomarkerSectionDownload;
+      case "isoform_mapping_list":
+        return getIsoformMappingListDownload;
       default:
     }
     return null;

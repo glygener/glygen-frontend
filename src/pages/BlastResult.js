@@ -138,7 +138,11 @@ const BlastResult = (props) => {
           setPageContents(pageData);
           setData(proDataArr);
           setProteinID(proDataArr[0] !== undefined ? proDataArr[0].uniprot_ac: "" );
-          setQuery({"parameters" : data.parameters, "jobtype": data.jobtype});
+          if (data.query) {
+            setQuery({"parameters" : data.query.parameters, "jobtype": data.query.jobtype});
+          } else {
+            setQuery({"parameters" : undefined, "jobtype": ""});
+          }
           // setTimeStamp(data.cache_info.ts);
           setPageLoading(false);
         }

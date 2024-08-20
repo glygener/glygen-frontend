@@ -13,16 +13,17 @@ export const getJobInit = () => {
 
 // Forms objects and displays data in a results (list) page
 // Takes selections and inputs in search page and performs search on submit btn
-export const postNewJob = (formObject, files) => {
-  // var json = "query=" + JSON.stringify(formObject);
-  let query = formObject;
-  var json = {query};
+export const postNewJob = (formObject, userfile) => {
   const url = `/job/addnew`;
   const myHeaders = {
     "Content-Type": "application/json",
   };
   
-  return postFormDataTo1(url, json, myHeaders, files);
+  if (userfile === undefined) {
+    return postFormDataTo1(url, formObject, myHeaders);
+  } else {
+    return postFormDataTo(url, formObject, undefined, userfile);
+  }
 };
 
 export const getJobStatus = (

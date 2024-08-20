@@ -33,12 +33,16 @@ export const postTo = (url, headers = {}) => {
   return axios(options);
 };
 
-export const postFormDataTo = (url, formData = {}, headers = {}) => {
+export const postFormDataTo = (url, formData = {}, headers = {}, userfile) => {
   const formDataElement = new FormData();
 
   Object.keys(formData).forEach(key => {
     formDataElement.append(key, formData[key]);
   });
+
+  if (userfile) {
+    formDataElement.append("userfile", userfile);
+  }
 
   const myHeaders = {
     "Content-Type": "multipart/form-data",
@@ -55,7 +59,7 @@ export const postFormDataTo = (url, formData = {}, headers = {}) => {
   return axios(options);
 };
 
-export const postFormDataTo1 = (url, formData = {}, headers = {}, files) => {
+export const postFormDataTo1 = (url, formData = {}, headers = {}) => {
   //const formDataElement = new FormData();
 
   // Object.keys(formData).forEach(key => {
@@ -71,7 +75,6 @@ export const postFormDataTo1 = (url, formData = {}, headers = {}, files) => {
     method: "POST",
     headers: headers,
     data: formData,
-    files: files,
     url: GLYGEN_API + url
   };
 

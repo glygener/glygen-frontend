@@ -1913,6 +1913,47 @@
       }
     }
   },
+  "isoform_search": {
+    "common": {
+      "query": "Isoform search query.",
+      "jobtype":{
+        "id": "jobtype"
+      },
+      "seq": {
+        "name": "Protein Sequence",
+        "shortName": "Protein Sequence",
+        "tooltip": {
+          "title": "Protein Sequence",
+          "text": "The sequence of the amino acids of the protein. Enter a Protein Sequence.",
+          "urlText": "Read more...",
+          "url": "https://www.uniprot.org/help/sequences"
+        },
+        "id": "seq"
+      },
+      "accessionSiteDetails": {
+        "name": "Enter Accession and Site Details",
+        "shortName": "Enter Accession and Site Details",
+        "tooltip": {
+          "title": "Enter Accession and Site Details",
+          "text": "",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "accessionSiteDetails"
+      },
+      "siteDetails": {
+        "name": "Enter Site Details",
+        "shortName": "Enter Site Details",
+        "tooltip": {
+          "title": "Enter Site Details",
+          "text": "",
+          "urlText": "Read more...",
+          "url": ""
+        },
+        "id": "siteDetails"
+      }
+    }
+  },
   "quick_search": {
     "question_1": {
       "text": "What are the glycosyltransferases used to add the residues contained in {0} in human?",
@@ -2203,6 +2244,21 @@
       "id": "substructureSearchError",
       "title": "Substructure Search Error - No Results Found",
       "message": "Sorry, we couldn't process substructure search request."
+    },
+    "isoformSearchError": {
+      "id": "isoformSearchError",
+      "title": "Isoform Mapper Search Error - No Results Found",
+      "message": "Sorry, we couldn't process isoform mapper search request. Please enter valid input."
+    },
+    "no-isoform-accessions-found": {
+      "id": "no-isoform-accessions-found",
+      "title": "Isoform Mapper Search Error - Enter Valid Sequence",
+      "message": "Sorry, we couldn't process isoform mapper search request. Please enter valid Sequence."
+    },
+    "row-count-exceeds-1000": {
+      "id": "row-count-exceeds-1000",
+      "title": "Isoform Mapper Search Error - Enter maximum 1000 rows",
+      "message": "Sorry, we couldn't process isoform mapper search request. Please enter maximum 1000 rows."
     },
     "querySerarchError": {
       "id": "querySerarchError",

@@ -18,7 +18,7 @@ import ClientEditableTable from "../components/ClientEditableTable";
 import "../css/Search.css";
 import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
-import blastSearchData from "../data/json/isoformMapper";
+import isoformSearchData from "../data/json/isoformMapper";
 import stringConstants from "../data/json/stringConstants";
 import routeConstants from "../data/json/routeConstants";
 import { getJobInit, postNewJob, getJobStatus, getJobDetails } from "../data/job";
@@ -27,7 +27,7 @@ import ExampleExploreControl from "../components/example/ExampleExploreControl";
 import ExampleControl2 from "../components/example/ExampleControl2";
 import ExampleControl3 from "../components/example/ExampleControl3";
 import proteinSearchData from '../data/json/proteinSearch';
-import idMappingData from "../data/json/idMapping";
+// import idMappingData from "../data/json/idMapping";
 import plusIcon from "../images/icons/plus.svg";
 import deleteIcon from "../images/icons/delete.svg";
 import { Image } from "react-bootstrap";
@@ -65,7 +65,7 @@ const IsoformMapping = (props) => {
     }
   );
 
-  const [blastError, setBlastError] = useReducer(
+  const [isoformError, setIsoformError] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       proSeqSearchDisabled: true,
@@ -283,8 +283,8 @@ const IsoformMapping = (props) => {
 
   const navigate = useNavigate();
 
-  let commonBlastSearchData = stringConstants.blast_search.common;
-  let blastJSONData = blastSearchData.blast_search;
+  let commonIsoformSearchData = stringConstants.isoform_search.common;
+  let isoformJSONData = isoformSearchData.isoform_search;
 
   const fileOnChangeHandler = () => {
     const typesFileUpload = ["text/csv"];
@@ -293,13 +293,11 @@ const IsoformMapping = (props) => {
     if (fileElem.files.length > 0) {
       const file = fileElem.files[0];
       if (fileElem && typesFileUpload.includes(file.type)) {
-        // setIdMapSearchData({ inputIdlist: "" });
         setFileUploadValidated(true);
-        // setInputIdListValidated(true);
-        // setErrorFileUpload("");
+        setErrorFileUpload("");
       } else {
-        // setFileUploadForm(null);
-        // setErrorFileUpload(idMappingData.file_upload.errorFileUpload);
+        setFileUploadForm(null);
+        setErrorFileUpload(isoformJSONData.file_upload.errorFileUpload);
         setFileUploadValidated(false);
       }
     }
@@ -311,8 +309,8 @@ const IsoformMapping = (props) => {
    **/
   function proSequenceChange(inputProSequence) {
     setInputValue({ proSequence: inputProSequence });
-    setBlastError({ proSequenceInput: false });
-    setBlastError({ proSeqSearchDisabled: false });
+    setIsoformError({ proSequenceInput: false });
+    setIsoformError({ proSeqSearchDisabled: false });
   }
 
   /**
@@ -320,17 +318,17 @@ const IsoformMapping = (props) => {
    * @param {object} event - event object.
    **/
   const SequenceChange = (event) => {
-    let proSequenceError = event.target.value.length < blastJSONData.seq.length;
+    let proSequenceError = event.target.value.length < isoformJSONData.seq.length;
     if (event.target.value.length === 0) {
       setInputValue({ proSequence: event.target.value });
-      setBlastError({ proSequenceInput: false });
-      setBlastError({ proSeqSearchDisabled: true });
+      setIsoformError({ proSequenceInput: false });
+      setIsoformError({ proSeqSearchDisabled: true });
     } else {
       setInputValue({ proSequence: event.target.value });
       if (!proSequenceError) {
-        setBlastError({ proSequenceInput: proSequenceError });
+        setIsoformError({ proSequenceInput: proSequenceError });
       }
-      setBlastError({ proSeqSearchDisabled: proSequenceError });
+      setIsoformError({ proSeqSearchDisabled: proSequenceError });
     }
   }
 
@@ -339,9 +337,9 @@ const IsoformMapping = (props) => {
    * @param {object} event - event object.
    **/
   const OnBlurSequenceChange = (event) => {
-    let proSequenceError = event.target.value.length < blastJSONData.seq.length;
-    if (event.target.value.length < blastJSONData.seq.length && event.target.value.length !== 0) {
-      setBlastError({ proSequenceInput: proSequenceError });
+    let proSequenceError = event.target.value.length < isoformJSONData.seq.length;
+    if (event.target.value.length < isoformJSONData.seq.length && event.target.value.length !== 0) {
+      setIsoformError({ proSequenceInput: proSequenceError });
     }
   }
 
@@ -361,7 +359,7 @@ const IsoformMapping = (props) => {
       amino_acid: ''
     }]);
 
-    setBlastError({ proSequenceInput: false, proSeqSearchDisabled: true });
+    setIsoformError({ proSequenceInput: false, proSeqSearchDisabled: true });
 
   };
 
@@ -371,8 +369,6 @@ const IsoformMapping = (props) => {
 **/
   function mapFields(inputMapFields) {
     setData([...inputMapFields]);
-    // setBlastError({ proSequenceInput: false });
-    // setBlastError({ proSeqSearchDisabled: false });
   }
 
   /**
@@ -381,8 +377,6 @@ const IsoformMapping = (props) => {
 **/
   function sequenceMapFields(inputSequenceMapFields) {
     setDataSequence([...inputSequenceMapFields]);
-    // setBlastError({ proSequenceInput: false });
-    // setBlastError({ proSeqSearchDisabled: false });
   }
   /**
 * Function to clear all field values.
@@ -402,7 +396,7 @@ const IsoformMapping = (props) => {
       proSequence: "",
     });
 
-    setBlastError({ proSequenceInput: false, proSeqSearchDisabled: true });
+    setIsoformError({ proSequenceInput: false, proSeqSearchDisabled: true });
 
   };
 
@@ -411,8 +405,10 @@ const IsoformMapping = (props) => {
  * Function to clear all field values.
  **/
   const clearFileMapFields = () => {
-    fileInputRef.current = ""
+    fileInputRef.current.value = "";
+    setFileUploadForm(null);
     setFileUploadValidated(false);
+    setErrorFileUpload("");
   };
 
   /**
@@ -463,45 +459,38 @@ const IsoformMapping = (props) => {
       setAlertTextInput({ show: false });
     });
     setPageLoading(false);
-    // getJobInit()
-    //   .then((response) => {
-    //     let initData = response.data;
-    //     setInitData(initData.blastp.paramlist);
-    //     if (id === undefined) setPageLoading(false);
-    //     id &&
-    //     getJobDetails(id)
-    //         .then(({ data }) => {
-    //           logActivity("user", id, "Blast search modification initiated");
-    //           setInputValue({
-    //             proSequence:
-    //               data.parameters.seq === undefined
-    //                 ? ""
-    //                 : data.parameters.seq,
-    //             targetDatabase:
-    //             data.parameters.targetdb === undefined
-    //                 ? "canonicalsequences_all"
-    //                 : data.parameters.targetdb,
-    //             eValue:
-    //             data.parameters.evalue === undefined
-    //                 ? 0.001
-    //                 : data.parameters.evalue,
-    //             maxHits:
-    //             data.parameters.num_alignments === undefined
-    //                 ? 250
-    //                 : data.parameters.num_alignments,
-    //           });
-    //           setBlastError({ proSequenceInput: false, proSeqSearchDisabled: false });
-    //           setPageLoading(false);
-    //         })
-    //         .catch(function (error) {
-    //           let message = "job details call";
-    //           axiosError(error, "", message, setPageLoading, setAlertDialogInput);
-    //         });
-    //   })
-    //   .catch(function (error) {
-    //     let message = "job init api call";
-    //     axiosError(error, "", message, setPageLoading, setAlertDialogInput);
-    //   });
+        if (id === undefined) setPageLoading(false);
+        id &&
+        getJobDetails(id)
+            .then(({ data }) => {
+              logActivity("user", id, "Isoform Mapper search modification initiated");
+              let query = data.query;
+              if (query) {
+                if (query.sequence) {
+                  if (query.intable && query.intable.length > 0) {
+                    let intable = query.intable.slice(1);
+                    intable = intable.map(temp => { return {"amino_acid_position": temp[0], "amino_acid": temp[1]} })
+                    setDataSequence(intable && intable.length > 0 ? intable : dataSequence);
+                  }
+                  setInputValue({ "proSequence" : (query.sequence ? query.sequence : "")});
+                  setGlyActTabKey('Sequence-Site-Based');
+                } else {
+                  if (query.intable && query.intable.length > 0) {
+                    let intable = query.intable.slice(1);
+                    intable = intable.map(temp => { return {"accession" : temp[0], "amino_acid_position": temp[1], "amino_acid": temp[2]} })
+                    setData(intable && intable.length > 0 ? intable : data);
+                  }
+                  setGlyActTabKey('Accession-Site-Based');
+                }
+              }
+        
+              setIsoformError({ proSequenceInput: false, proSeqSearchDisabled: false });
+              setPageLoading(false);
+            })
+            .catch(function (error) {
+              let message = "job details call";
+              axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+            });
   }, [id]);
 
   /**
@@ -530,20 +519,17 @@ const IsoformMapping = (props) => {
     }
 
     var formJson = {
-      [commonBlastSearchData.jobtype.id]: "isoform_mapper",
-      "parameters": {},
+      [commonIsoformSearchData.jobtype.id]: "isoform_mapper"
     };
 
     if (type === "accession") {
-      formJson["sequence"] = input_proSequence;
       formJson["intable"] = intable;
+      formJson["parameters"] = JSON.stringify({});
     } else if (type === "sequence") {
       formJson["sequence"] = input_proSequence;
       formJson["intable"] = intable;
-    } else if (type === "file") {
-      formJson["userfile"] = userfile;
-    }
-
+      formJson["parameters"] = JSON.stringify({});
+    } 
     return formJson;
   }
 
@@ -558,16 +544,17 @@ const IsoformMapping = (props) => {
       proSequence,
       userfile
     );
-    let message = "Isoform Search query=" + JSON.stringify(formObject);
+    let message = "Isoform Mapper Search query type=" + type;
     logActivity("user", id, "Performing Isoform Search." + message);
 
-    postNewJob(formObject, { "userfile": userfile })
+    let files = {"data": JSON.stringify(formObject)}
+    postNewJob(formObject, userfile)
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"].status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-            if (response.data["status"].result_count >= 0 && response.data["status"].result_count >= 0) {
+            if (response.data["status"].result_count > 0 && response.data["status"].result_count > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
                   navigate(routeConstants.isoformMappingResult + response.data["jobid"]);
@@ -579,7 +566,7 @@ const IsoformMapping = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setDialogLoading(false);
-              setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id });
+              setAlertTextInput({ "show": true, "id": stringConstants.errors.isoformSearchError.id });
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
@@ -594,13 +581,17 @@ const IsoformMapping = (props) => {
             let error = response.data["status"].error ? response.data["status"].error : "";
             logActivity("user", "", "No results. " + message + " " + error);
             setDialogLoading(false);
-            setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id, custom: error });
+            setAlertTextInput({ "show": true, "id": stringConstants.errors.isoformSearchError.id, custom: error });
             window.scrollTo(0, 0);
           }
         } else {
+          let errorId = stringConstants.errors.isoformSearchError.id;
+          if (response.data) {
+            errorId = response.data.error_list && response.data.error_list.length > 0 ? response.data.error_list[0].error_code : errorId;
+          }
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id });
+          setAlertTextInput({ "show": true, "id": errorId });
           window.scrollTo(0, 0);
         }
       })
@@ -615,13 +606,13 @@ const IsoformMapping = (props) => {
    * @param {string} jobID - job id.
    **/
   const isoformSearchJobStatus = (jobID) => {
-    let message = "Blast Search query=" + JSON.stringify(jobID);
+    let message = "Isoform Mapper Search query=" + JSON.stringify(jobID);
     getJobStatus(jobID)
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"];
           if (josStatus === "finished") {
-            if (response.data["result_count"] >= 0 && response.data["result_count"] >= 0) {
+            if (response.data["result_count"] > 0 && response.data["result_count"] > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
                   navigate(routeConstants.isoformMappingResult + jobID);
@@ -633,7 +624,7 @@ const IsoformMapping = (props) => {
             } else {
               logActivity("user", "", "No results. " + message);
               setDialogLoading(false);
-              setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id });
+              setAlertTextInput({ "show": true, "id": stringConstants.errors.isoformSearchError.id });
               window.scrollTo(0, 0);
             }
           } else if (josStatus === "running") {
@@ -648,13 +639,17 @@ const IsoformMapping = (props) => {
             let error = response.data["error"] ? response.data["error"] : "";
             logActivity("user", "", "No results. " + message + " " + error);
             setDialogLoading(false);
-            setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id, custom: error });
+            setAlertTextInput({ "show": true, "id": stringConstants.errors.isoformSearchError.id, custom: error });
             window.scrollTo(0, 0);
           }
         } else {
+          let errorId = stringConstants.errors.isoformSearchError.id;
+          if (response.data) {
+            errorId = response.data.error_list && response.data.error_list.length > 0 ? response.data.error_list[0].error_code : errorId;
+          }
           logActivity("user", "", "No results. " + message);
           setDialogLoading(false);
-          setAlertTextInput({ "show": true, "id": stringConstants.errors.blastSearchError.id });
+          setAlertTextInput({ "show": true, "id": errorId });
           window.scrollTo(0, 0);
         }
       })
@@ -813,10 +808,9 @@ const IsoformMapping = (props) => {
       </Helmet>
       <div className="content-box-md">
         <div className="horizontal-heading text-center">
-          <h5>{blastSearchData.pageSubtitle}</h5>
+          <h5>{isoformSearchData.pageSubtitle}</h5>
           <h2>
-            {/* {blastSearchData.pageTitle} <strong>{blastSearchData.pageTitleBold}</strong>  */}
-            {blastSearchData.pageTitle} <strong>{"Isoform Mapper"}</strong>
+            {isoformSearchData.pageTitle} <strong>{isoformSearchData.pageTitleBold}</strong> 
           </h2>
         </div>
       </div>
@@ -870,7 +864,8 @@ const IsoformMapping = (props) => {
                     <Button
                       className="gg-btn-blue"
                       disabled={!data.some((obj) => obj.accession !== "" || obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
-                        data.some((obj) => obj.error)
+                        data.some((obj) => obj.error) ||
+                        data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000
                       }
                       onClick={searchIsoformClick}
                     >
@@ -886,13 +881,10 @@ const IsoformMapping = (props) => {
                   >
                     <Typography className={'search-lbl'} gutterBottom>
                       <HelpTooltip
-                        title={initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label}
-                        text={commonBlastSearchData.seq.tooltip.text}
-                        urlText={commonBlastSearchData.seq.tooltip.urlText}
-                        url={commonBlastSearchData.seq.tooltip.url}
+                        title={commonIsoformSearchData.accessionSiteDetails.tooltip.title}
+                        text={commonIsoformSearchData.accessionSiteDetails.tooltip.text}
                       />
-                      {/* {initData && initData.length > 0 && initData.find((a) => a.id === blastJSONData.seq.id).label + " *"} */}
-                      {"Enter Accession and Site Details" + " *"}
+                      {commonIsoformSearchData.accessionSiteDetails.name + " *"}
                     </Typography>
                     <div className="gg-align-right me-1">
                       <Button
@@ -965,7 +957,19 @@ const IsoformMapping = (props) => {
                         />
                       </Button>
                     </div>
-                    <div id={"isoform_table"}>
+                    <div style={{ marginTop: "16px" }} id={"isoform_table"}>
+                      <div style={{ marginBottom: "-16px" }}>
+                        {data.some((obj) => obj.error) && (
+                          <FormHelperText className={"error-text"} error>
+                            <div>{"Enter valid UniProtKB Accession, Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                          </FormHelperText>
+                        )}
+                        {data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
+                          <FormHelperText className={"error-text"} error>
+                            <div>{"Maximum 1000 rows are allowed."}</div>
+                          </FormHelperText>
+                        )}
+                      </div>
                       <ClientEditableTable
                         data={data}
                         errorColumns={["accession", "amino_acid_position", "amino_acid"]}
@@ -981,10 +985,15 @@ const IsoformMapping = (props) => {
                             <div>{"Enter valid UniProtKB Accession, Amino Acid Position and Amino Acid values in highlighted rows."}</div>
                           </FormHelperText>
                         )}
+                        {data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
+                          <FormHelperText className={"error-text"} error>
+                            <div>{"Maximum 1000 rows are allowed."}</div>
+                          </FormHelperText>
+                        )}
                         <ExampleControl3
                           setInputValue={mapFields}
-                          type={blastJSONData.accessionSiteDetails.exampleType}
-                          exampleMap={blastJSONData.accessionSiteDetails.examples}
+                          type={isoformJSONData.accessionSiteDetails.exampleType}
+                          exampleMap={isoformJSONData.accessionSiteDetails.examples}
                         />
                       </div>
                     </div>
@@ -1000,7 +1009,8 @@ const IsoformMapping = (props) => {
                     <Button
                       className="gg-btn-blue"
                       disabled={!data.some((obj) => obj.accession !== "" || obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
-                        data.some((obj) => obj.error)
+                        data.some((obj) => obj.error) ||
+                        data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000
                       }
                       onClick={searchIsoformClick}
                     >
@@ -1011,7 +1021,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <strong>*</strong> These fields are required.
+                        <div><strong>*</strong>{"These fields are required."}</div>
+                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
                       </p>
                     </Col>
                   </Row>
@@ -1041,8 +1052,7 @@ const IsoformMapping = (props) => {
                 {/* File Upload */}
                 <Grid item xs={12} sm={10} className="pt-5">
                   <Typography className="mb-1">
-                    {/* <i>{idMappingData.file_upload.upload_text}</i> */}
-                    <i>{"Upload your own csv file with first line as header (one comma separated UniProtKB Accession *, Amino Acid Position * and Amino Acid per line)"}</i>
+                    <i>{isoformJSONData.file_upload.upload_text}</i>
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={10} className="pt-1">
@@ -1104,7 +1114,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <strong>*</strong> These fields are required.
+                        <div><strong>*</strong>{"These fields are required."}</div>
+                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
                       </p>
                     </Col>
                   </Row>
@@ -1135,8 +1146,9 @@ const IsoformMapping = (props) => {
                     </Button>
                     <Button
                       className="gg-btn-blue"
-                      disabled={blastError.proSequenceInput || inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
-                        dataSequence.some((obj) => obj.error)
+                      disabled={isoformError.proSequenceInput || inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
+                        dataSequence.some((obj) => obj.error) ||
+                        dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000
                       }
                       onClick={searchSequenceIsoformClick}
                     >
@@ -1153,35 +1165,34 @@ const IsoformMapping = (props) => {
                       fullWidth
                       variant='outlined'
                     >
-
                       <Typography className={'search-lbl'} gutterBottom>
                         <HelpTooltip
-                          title={"Protein Sequence"}
-                          text={commonBlastSearchData.seq.tooltip.text}
-                          urlText={commonBlastSearchData.seq.tooltip.urlText}
-                          url={commonBlastSearchData.seq.tooltip.url}
+                          title={commonIsoformSearchData.seq.tooltip.title}
+                          text={commonIsoformSearchData.seq.tooltip.text}
+                          urlText={commonIsoformSearchData.seq.tooltip.urlText}
+                          url={commonIsoformSearchData.seq.tooltip.url}
                         />
-                        {"Protein Sequence" + " *"}
+                        {commonIsoformSearchData.seq.name + " *"}
                       </Typography>
                       <OutlinedInput
-                        placeholder={blastJSONData.seq.placeholder}
+                        placeholder={isoformJSONData.seq.placeholder}
                         margin='dense"'
                         multiline
                         rows={5}
                         value={inputValue.proSequence}
                         onChange={SequenceChange}
                         onBlur={OnBlurSequenceChange}
-                        error={blastError.proSequenceInput}
+                        error={isoformError.proSequenceInput}
                       />
-                      {blastError.proSequenceInput && (
+                      {isoformError.proSequenceInput && (
                         <FormHelperText className={"error-text"} error>
-                          {blastJSONData.seq.errorText}
+                          {isoformJSONData.seq.errorText}
                         </FormHelperText>
                       )}
                       <ExampleControl2
                         setInputValue={proSequenceChange}
-                        type={blastJSONData.seq.exampleType}
-                        exampleMap={blastJSONData.seq.examples}
+                        type={isoformJSONData.seq.exampleType}
+                        exampleMap={isoformJSONData.seq.examples}
                       />
                     </FormControl>
                   </Grid>
@@ -1193,12 +1204,10 @@ const IsoformMapping = (props) => {
                     >
                       <Typography className={'search-lbl'} gutterBottom>
                         <HelpTooltip
-                          title={"Enter Site Details"}
-                          text={commonBlastSearchData.seq.tooltip.text}
-                          urlText={commonBlastSearchData.seq.tooltip.urlText}
-                          url={commonBlastSearchData.seq.tooltip.url}
-                        />
-                        {"Enter Site Details" + " *"}
+                        title={commonIsoformSearchData.siteDetails.tooltip.title}
+                        text={commonIsoformSearchData.siteDetails.tooltip.text}
+                      />
+                      {commonIsoformSearchData.siteDetails.name + " *"}
                       </Typography>
                       <div className="gg-align-right me-1">
                         <Button
@@ -1268,7 +1277,19 @@ const IsoformMapping = (props) => {
                         </Button>
                       </div>
 
-                      <div id={"isoform_sequence_table"}>
+                      <div style={{ marginTop: "16px" }} id={"isoform_sequence_table"}>
+                        <div style={{ marginBottom: "-16px" }}>
+                          {dataSequence.some((obj) => obj.error) && (
+                            <FormHelperText className={"error-text"} error>
+                              <div>{"Enter valid Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                            </FormHelperText>
+                          )}
+                          {dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
+                            <FormHelperText className={"error-text"} error>
+                              <div>{"Maximum 1000 rows are allowed."}</div>
+                            </FormHelperText>
+                          )}
+                        </div>
                         <ClientEditableTable
                           data={dataSequence}
                           columns={columnsSequence}
@@ -1284,10 +1305,15 @@ const IsoformMapping = (props) => {
                               <div>{"Enter valid Amino Acid Position and Amino Acid values in highlighted rows."}</div>
                             </FormHelperText>
                           )}
+                          {dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
+                            <FormHelperText className={"error-text"} error>
+                              <div>{"Maximum 1000 rows are allowed."}</div>
+                            </FormHelperText>
+                          )}
                           <ExampleControl3
                             setInputValue={sequenceMapFields}
-                            type={blastJSONData.siteDetails.exampleType}
-                            exampleMap={blastJSONData.siteDetails.examples}
+                            type={isoformJSONData.siteDetails.exampleType}
+                            exampleMap={isoformJSONData.siteDetails.examples}
                           />
                         </div>
                       </div>
@@ -1303,8 +1329,9 @@ const IsoformMapping = (props) => {
                     </Button>
                     <Button
                       className="gg-btn-blue"
-                      disabled={blastError.proSequenceInput || inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
-                        dataSequence.some((obj) => obj.error)
+                      disabled={isoformError.proSequenceInput || inputValue.proSequence.trim() === "" || !dataSequence.some((obj) => obj.amino_acid !== "" || obj.amino_acid_position !== "") ||
+                        dataSequence.some((obj) => obj.error) ||
+                        dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000
                       }
                       onClick={searchSequenceIsoformClick}
                     >
@@ -1315,7 +1342,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <strong>*</strong> These fields are required.
+                        <div><strong>*</strong>{"These fields are required."}</div>
+                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
                       </p>
                     </Col>
                   </Row>

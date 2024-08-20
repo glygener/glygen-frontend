@@ -1,21 +1,8 @@
 {
   "pageSubtitle": "Our Tool",
   "pageTitle": "GlyGen",
-	"pageTitleBold": "BLAST",
-  "blast_search": {
-    "uniprot_canonical_ac": {
-      "placeholder": "Enter a UniProtKB Accession",
-      "examples": [
-        {
-          "orderID": 100,
-          "example": {
-            "name": "Example",
-            "id": "P14210"
-          }
-        }
-      ],
-      "id": "uniprot_canonical_ac"
-    },
+	"pageTitleBold": "Isoform Mapper",
+  "isoform_search": {
     "seq": {
       "placeholder": "MDTQGPVSQPFQQPEKPGRVRRRKTRRERNKALVGSRRPLAHHDPPVAIRDPPVVPTASKLVVITQGRLSREHRGLFNHEVKSLDVARLLSSGTLVPGSPTLPAKPSPSPGRAQEPAPRSRDKENQVPGGSGPGPPSSPELSGVGQLLAELQCQLSLPQAFPRRNLIQDARDAIVHTLQACHGCVPDLALVLRGCQPPLPGERPSCPCTPLSFVGSSSASLYASFLCARGQAWGL",
       "errorText": "Entry is too short - min length is 20.",
@@ -62,53 +49,11 @@
       },
       "id": "accessionSiteDetails"
     },
-    "evalue": {
-      "step": 0.0001,
-      "min": 0.0001,
-      "id": "evalue"
-    },
-    "targetdb": {
-      "id": "targetdb",
-      "menu": {
-        "canonicalsequences_all":{
-          "id": "canonicalsequences_all", 
-          "name": "All species"
-        }, 
-        "canonicalsequences_hcv1a":{
-          "id": "canonicalsequences_hcv1a", 
-          "name": "Hepatitis C virus (isolate H)"
-        }, 
-        "canonicalsequences_mouse":{
-          "id": "canonicalsequences_mouse", 
-          "name": "Mus musculus"
-        }, 
-        "canonicalsequences_rat":{
-          "id": "canonicalsequences_rat", 
-          "name": "Rattus norvegicus"
-        }, 
-        "canonicalsequences_sarscov1":{
-          "id": "canonicalsequences_sarscov1", 
-          "name": "Severe acute respiratory syndrome-related coronavirus"
-        }, 
-        "canonicalsequences_hcv1b":{
-          "id": "canonicalsequences_hcv1b", 
-          "name": "Hepatitis C virus (isolate Japanese)"
-        }, 
-        "canonicalsequences_sarscov2":{
-          "id": "canonicalsequences_sarscov2", 
-          "name": "Severe acute respiratory syndrome coronavirus 2"
-        }, 
-        "canonicalsequences_human":{
-          "id": "canonicalsequences_human", 
-          "name": "Homo sapiens"
-        }
-      }
-    },
-    "num_alignments": {
-      "min": 1,
-      "step": 1,
-      "max": 500,
-      "id": "num_alignments"
+    "file_upload":{
+      "required": "This field is required.",
+      "upload_text": "Upload your own csv file with first line as header (one comma separated UniProtKB Accession *, Amino Acid Position * and Amino Acid per line)",
+      "errorFileUpload": "Please select accepted file type (.csv)",
+      "acceptedFileTypeText": "Accepted File Type: .csv"
     }
   }
 }
