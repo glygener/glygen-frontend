@@ -178,7 +178,7 @@
           "title": "Glycosylated Protein",
           "text": "A unique identifier assigned to a isoform chosen to be the canonical sequence in UniProt database. Enter the UniProtKB Accession for a  protein that bears your glycan.",
           "urlText": "Read more...",
-          "url": "https://www.uniprot.org/"
+          "url": "https://www.uniprot.org/help/accession_numbers"
         },
         "id": "protein_identifier"
       },
@@ -189,7 +189,7 @@
           "title": "Binding Protein",
           "text": "Search for all glycans that have been reported to bind to a protein. The UniProtKB accession is used to identify the protein.",
           "urlText": "Read more...",
-          "url": "https://www.uniprot.org/"
+          "url": "https://www.uniprot.org/help/accession_numbers"
         },
         "id": "binding_protein_id"
       },
@@ -738,7 +738,7 @@
           "title": "UniProtKB Accession",
           "text": "You can search UniProtKB Accession by single or multiple comma-separated UniProtKB Accession(s). Accession assigned to the protein isoform chosen to be the canonical sequence to which all positional annotation refers in UniProtKB database.",
           "urlText": "Read more...",
-          "url": "https://www.uniprot.org/"
+          "url": "https://www.uniprot.org/help/accession_numbers"
         },
         "id": "uniprot_canonical_ac"
       },
@@ -1216,7 +1216,7 @@
           "title": "RefSeq Accession",
           "text": "A distinct accession number format assigned to RefSeq record that begins with two characters followed by an underscore in the NCBI RefSeq database. Enter the RefSeq Accession of your protein.",
           "urlText": "Read more...",
-          "url": "https://www.ncbi.nlm.nih.gov/refseq/"
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK50679/#RefSeqFAQ.what_is_the_difference_between"
         },
         "id": "refseq_ac"
       },

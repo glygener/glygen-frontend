@@ -224,7 +224,6 @@ const getItemsPathway = (data) => {
 
 const getItemsCrossRefWithCategory = (data) => {
   let itemscrossRefCategory = [];
-  return itemscrossRefCategory;
   //check data.
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {

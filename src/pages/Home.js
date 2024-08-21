@@ -32,6 +32,7 @@ import sparqlImg from "../images/home/sparql-img.svg";
 import glygenSandBoxlImg from "../images/home/GlyGen-SandBox-img.svg";
 import glycanStructureDictionaryImg from "../images/home/Glycan-Structure-Dictionary-img.svg"
 import proteinBLASTImg from "../images/home/Protein-BLAST-img.svg"
+import isoformMapperImg from "../images/home/Isoform-Mapper-Image.svg"
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { getSystemData } from "../data";
@@ -71,11 +72,12 @@ const featuredCards = [
     to: routeConstants.proteinSearch,
   },
   {
-    title: "Biomarker Search",
-    description: "Search for biomarkers based on their entity, condition, BEST role, and annotations.",
-    image: biomarkerImg,
-    imageText: "Biomarker Search",
-    to: routeConstants.biomarkerSearch,
+    title: "GlyGen Isoform Mapper",
+    description:
+      "The GlyGen Isoform Mapper allows to find and map the amino acid and site position of a isoform protein sequence to the corresponding canonical isoform protein sequence.",
+    image: isoformMapperImg,
+    imageText: "GlyGen Sand Box",
+    href: routeConstants.isoformMapping,
   },
   {
     title: "Super Search",
@@ -93,12 +95,11 @@ const featuredCards = [
     to: routeConstants.siteSearch,
   },
   {
-    title: "GlyGen Mapper",
-    description:
-      "ID mapping related to glycan, protein / glycoprotein and based on the user input.",
-    image: idMappingImg,
-    imageText: "GlyGen Mapper",
-    to: routeConstants.idMapping,
+    title: "Biomarker Search",
+    description: "Search for biomarkers based on their entity, condition, BEST role, and annotations.",
+    image: biomarkerImg,
+    imageText: "Biomarker Search",
+    to: routeConstants.biomarkerSearch,
   },
   {
     title: "Composition Search",
@@ -154,6 +155,14 @@ const featuredCards = [
     image: proteinBLASTImg,
     imageText: "GlyGen Sand Box",
     href: routeConstants.blastSearch,
+  },
+  {
+    title: "GlyGen Mapper",
+    description:
+      "ID mapping related to glycan, protein / glycoprotein and based on the user input.",
+    image: idMappingImg,
+    imageText: "GlyGen Mapper",
+    to: routeConstants.idMapping,
   },
   {
     title: "Data",
