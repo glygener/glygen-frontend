@@ -1515,21 +1515,6 @@ const PublicationDetail = (props) => {
 
   const biomarkerColumns = [
     {
-      dataField: "evidence",
-      text: proteinStrings.evidence.name,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
-      },
-      formatter: (cell, row) => {
-        return (
-          <EvidenceList
-            key={row.biomarker_id}
-            evidences={groupEvidences(cell)}
-          />
-        );
-      }
-    },
-    {
       dataField: "biomarker_id",
       text: biomarkerStrings.biomarker_id.name,
       sort: true,
@@ -1541,6 +1526,14 @@ const PublicationDetail = (props) => {
           <Link to={routeConstants.biomarkerDetail + row.biomarker_id}>{row.biomarker_id}</Link>
         </LineTooltip>
       ),
+    },
+    {
+      dataField: "biomarker",
+      text: biomarkerStrings.biomarker.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
     },
     {
       dataField: "assessed_biomarker_entity",

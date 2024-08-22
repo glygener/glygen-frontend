@@ -1475,6 +1475,14 @@ const GlycanDetail = props => {
       ),
     },
     {
+      dataField: "biomarker",
+      text: biomarkerStrings.biomarker.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+    },
+    {
       dataField: "assessed_biomarker_entity",
       text: biomarkerStrings.assessed_biomarker_entity.name,
       sort: true,
