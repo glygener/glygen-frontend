@@ -146,12 +146,12 @@ const SequenceDisplay = ({ sequenceData, selectedHighlights }) => {
 
   return (
     <div className="highlight-display">
-      <pre className="sequencePreClass">
+      {/* <pre className="sequencePreClass">
         {space} +10{space1} +20{space1} +30{space1} +40 {space1}+50
       </pre>
       <pre className="sequencePreClass">
         {space}|{space2}|{space2}|{space2}|{space2}|
-      </pre>
+      </pre> */}
       {rows.map((row, index) => (
         <SequenceRow
           key={index}

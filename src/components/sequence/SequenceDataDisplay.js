@@ -266,16 +266,16 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
 
   return (
       <div className="aln-block">
-      <SequenceRow
+      {/* <SequenceRow
           header={true}
           multiSequence={multiSequence}
           start={0}
-      />
-        <SequenceRow
+      /> */}
+        {/* <SequenceRow
           header={true}
           multiSequence={multiSequence}
           start={1}
-      />
+      /> */}
       {rows.map((row, index) => (
         <>
         {/* <SequenceRow

@@ -161,9 +161,10 @@ const getItemsCrossRefWithCategory = (data) => {
   if (data.crossref) {
     for (let crossrefitem of data.crossref) {
       if (crossrefitem.categories === undefined) {
-        crossrefitem.categories = [
-          "Other"
-        ]
+        crossrefitem.categories = ["Other"]
+      }
+      if (crossrefitem.database === undefined) {
+        crossrefitem.database = "";
       }
       for (let category of crossrefitem.categories) {
         let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
