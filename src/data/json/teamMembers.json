@@ -219,6 +219,16 @@
 					"image": "/team/Kate-Warner.jpg",
 					"imageText": "Kate Warner image",
 					"url": "https://www.linkedin.com/in/kate-warner-a66b68a2/"
+				},
+				{
+					"name": "Urnisha Bhuiyan",
+					"position": "Data Manager",
+					"department": "",
+					"institution": "The George Washington University",
+					"location": "Washington, DC",
+					"image": "/team/Urnisha-Bhuiyan.jpg",
+					"imageText": "Urnisha Bhuiyan image",
+					"url": "https://www.linkedin.com/in/urnisha-bhuiyan/"
 				}
 			]
 		}
