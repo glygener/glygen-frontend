@@ -229,6 +229,16 @@
 					"image": "/team/Urnisha-Bhuiyan.jpg",
 					"imageText": "Urnisha Bhuiyan image",
 					"url": "https://www.linkedin.com/in/urnisha-bhuiyan/"
+				},
+				{
+					"name": "Cyrus Chun Hong Au Yeung",
+					"position": "Data Manager",
+					"department": "",
+					"institution": "The George Washington University",
+					"location": "Washington, DC",
+					"image": "/team/Cyrus-Chun-Hong-Au-Yeung.jpeg",
+					"imageText": "Cyrus Chun Hong Au Yeung image",
+					"url": "https://www.linkedin.com/in/cyrusay/"
 				}
 			]
 		}
