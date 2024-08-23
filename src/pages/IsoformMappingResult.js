@@ -35,6 +35,7 @@ const createSorter = (sortField, sortOrder) => (a, b) => {
 };
 
 const blastSearch = stringConstants.blast_search.common;
+let commonIsoformSearchData = stringConstants.isoform_search.common;
 
 /**
  * Glycan blast result control.
@@ -148,7 +149,7 @@ const IsoformMappingResult = (props) => {
   const isoformResultColumns = [
     {
       dataField: "uniprotkb_isoform_ac",
-      text: blastSearch.uniprot_canonical_ac.name,
+      text: commonIsoformSearchData.uniprotkb_accession.name,
       sort: true,
       selected: true,
       formatter: (value, row) => (
@@ -164,7 +165,7 @@ const IsoformMappingResult = (props) => {
     },
     {
       dataField: "aa_pos_isoform",
-      text: "Amino Acid Position Isoform",
+      text: commonIsoformSearchData.amino_acid_position_isoform.name,
       sort: true,
       selected: true,
       formatter: (value, row) => (
@@ -175,7 +176,7 @@ const IsoformMappingResult = (props) => {
     },
     {
       dataField: "aa_isoform_user",
-      text: "Amino Acid Isoform User",
+      text: commonIsoformSearchData.amino_acid_isoform_user.name,
       sort: true,
       selected: true,
       formatter: (value, row) => (
@@ -186,7 +187,7 @@ const IsoformMappingResult = (props) => {
     },
     {
       dataField: "aa_isoform_actual",
-      text: "Amino Acid Isoform Actual",
+      text: commonIsoformSearchData.amino_acid_isoform_actual.name,
       sort: true,
       selected: true,
       formatter: (value, row) => (
@@ -197,7 +198,7 @@ const IsoformMappingResult = (props) => {
     },
     {
       dataField: "glygen_canonical_ac",
-      text: "GlyGen Canonical Accession",
+      text: commonIsoformSearchData.glygen_canonical_accession.name,
       sort: true,
       formatter: (value, row) => (
         <>
@@ -212,22 +213,22 @@ const IsoformMappingResult = (props) => {
     },
     {
       dataField: "aa_pos_canonical",
-      text: "Amino Acid Position Canonical",
+      text: commonIsoformSearchData.amino_acid_position_canonical.name,
       sort: true,
     },
     {
       dataField: "aa_canonical",
-      text: "Amino Acid Canonical",
+      text: commonIsoformSearchData.amino_acid_canonical.name,
       sort: true,
     },
     {
       dataField: "status",
-      text: "Status",
+      text: commonIsoformSearchData.status.name,
       sort: true,
     },
     {
       dataField: "message",
-      text: "Message",
+      text: commonIsoformSearchData.message.name,
       sort: true,
     }
   ];
@@ -263,12 +264,12 @@ const IsoformMappingResult = (props) => {
               <DownloadButton
                 types={[
                   {
-                    display: "Isoform Mapper List (CSV)",
+                    display: stringConstants.download.isoform_mapper_list_csvdata.displayname,
                     type: "csv",
                     data: "isoform_mapper_list",
                   },
                   {
-                    display: "Isoform Mapper List (TSV)",
+                    display:stringConstants.download.isoform_mapper_list_tsvdata.displayname,
                     type: "tsv",
                     data: "isoform_mapper_list",
                   },

@@ -134,6 +134,10 @@ const IsoformMapping = (props) => {
     }
   );
 
+  const navigate = useNavigate();
+
+  let commonIsoformSearchData = stringConstants.isoform_search.common;
+  let isoformJSONData = isoformSearchData.isoform_search;
 
   const rowStyle = (row, rowIndex) => {
     const style = {};
@@ -189,7 +193,7 @@ const IsoformMapping = (props) => {
     },
     {
       dataField: 'accession',
-      text: 'UniProtKB Accession *',
+      text: commonIsoformSearchData.uniprotkb_accession.name + " *",
       mode: 'select',
       headerStyle: (colum, colIndex) => {
         return {
@@ -202,7 +206,7 @@ const IsoformMapping = (props) => {
         'editing-editor'
     }, {
       dataField: 'amino_acid_position',
-      text: 'Amino Acid Position *',
+      text: commonIsoformSearchData.amino_acid_position.name + " *",
       mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
@@ -215,7 +219,7 @@ const IsoformMapping = (props) => {
         'editing-editor'
     }, {
       dataField: 'amino_acid',
-      text: 'Amino Acid',
+      text: commonIsoformSearchData.amino_acid.name,
       mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
@@ -248,7 +252,7 @@ const IsoformMapping = (props) => {
       hidden: true
     }, {
       dataField: 'amino_acid_position',
-      text: 'Amino Acid Position *',
+      text: commonIsoformSearchData.amino_acid_position.name + " *",
       mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
@@ -262,7 +266,7 @@ const IsoformMapping = (props) => {
     },
     {
       dataField: 'amino_acid',
-      text: 'Amino Acid',
+      text: commonIsoformSearchData.amino_acid.name,
       mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
@@ -280,11 +284,6 @@ const IsoformMapping = (props) => {
       editable: false
     }
   ];
-
-  const navigate = useNavigate();
-
-  let commonIsoformSearchData = stringConstants.isoform_search.common;
-  let isoformJSONData = isoformSearchData.isoform_search;
 
   const fileOnChangeHandler = () => {
     const typesFileUpload = ["text/csv"];
@@ -556,7 +555,7 @@ const IsoformMapping = (props) => {
           let josStatus = response.data["status"].status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-            if (response.data["status"].result_count > 0 && response.data["status"].result_count > 0) {
+            if (response.data["status"].result_count && response.data["status"].result_count > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
                   navigate(routeConstants.isoformMappingResult + response.data["jobid"]);
@@ -614,7 +613,7 @@ const IsoformMapping = (props) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"];
           if (josStatus === "finished") {
-            if (response.data["result_count"] > 0 && response.data["result_count"] > 0) {
+            if (response.data["result_count"] && response.data["result_count"] > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + jobID, message).finally(() => {
                   navigate(routeConstants.isoformMappingResult + jobID);
@@ -963,12 +962,12 @@ const IsoformMapping = (props) => {
                       <div style={{ marginBottom: "-16px" }}>
                         {data.some((obj) => obj.error) && (
                           <FormHelperText className={"error-text"} error>
-                            <div>{"Enter valid UniProtKB Accession, Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                            <div>{isoformJSONData.accessionSiteDetails.errorText}</div>
                           </FormHelperText>
                         )}
                         {data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
                           <FormHelperText className={"error-text"} error>
-                            <div>{"Maximum 1000 rows are allowed."}</div>
+                            <div>{isoformJSONData.accessionSiteDetails.errorText1}</div>
                           </FormHelperText>
                         )}
                       </div>
@@ -984,12 +983,12 @@ const IsoformMapping = (props) => {
                       <div style={{ marginTop: "-16px" }}>
                         {data.some((obj) => obj.error) && (
                           <FormHelperText className={"error-text"} error>
-                            <div>{"Enter valid UniProtKB Accession, Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                            <div>{isoformJSONData.accessionSiteDetails.errorText}</div>
                           </FormHelperText>
                         )}
                         {data.filter(dtTemp => dtTemp.accession !== "" || dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
                           <FormHelperText className={"error-text"} error>
-                            <div>{"Maximum 1000 rows are allowed."}</div>
+                            <div>{isoformJSONData.accessionSiteDetails.errorText1}</div>
                           </FormHelperText>
                         )}
                         <ExampleControl3
@@ -1023,8 +1022,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <div><strong>*</strong>{"These fields are required."}</div>
-                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText1}</div>
                       </p>
                     </Col>
                   </Row>
@@ -1080,7 +1079,7 @@ const IsoformMapping = (props) => {
                     </div>
                   </form>
                   <Typography>
-                    <i>{"Accepted File Type: .csv"}</i>
+                    <i>{isoformJSONData.file_upload.acceptedFileTypeText}</i>
                   </Typography>
 
                   <Typography>
@@ -1116,8 +1115,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <div><strong>*</strong>{"These fields are required."}</div>
-                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText1}</div>
                       </p>
                     </Col>
                   </Row>
@@ -1283,12 +1282,12 @@ const IsoformMapping = (props) => {
                         <div style={{ marginBottom: "-16px" }}>
                           {dataSequence.some((obj) => obj.error) && (
                             <FormHelperText className={"error-text"} error>
-                              <div>{"Enter valid Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                              <div>{isoformJSONData.siteDetails.errorText}</div>
                             </FormHelperText>
                           )}
                           {dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
                             <FormHelperText className={"error-text"} error>
-                              <div>{"Maximum 1000 rows are allowed."}</div>
+                              <div>{isoformJSONData.siteDetails.errorText1}</div>
                             </FormHelperText>
                           )}
                         </div>
@@ -1304,12 +1303,12 @@ const IsoformMapping = (props) => {
                         <div style={{ marginTop: "-16px" }}>
                           {dataSequence.some((obj) => obj.error) && (
                             <FormHelperText className={"error-text"} error>
-                              <div>{"Enter valid Amino Acid Position and Amino Acid values in highlighted rows."}</div>
+                              <div>{isoformJSONData.siteDetails.errorText}</div>
                             </FormHelperText>
                           )}
                           {dataSequence.filter(dtTemp => dtTemp.amino_acid_position !== "" || dtTemp.amino_acid !== "").length > 1000 && (
                             <FormHelperText className={"error-text"} error>
-                              <div>{"Maximum 1000 rows are allowed."}</div>
+                              <div>{isoformJSONData.siteDetails.errorText1}</div>
                             </FormHelperText>
                           )}
                           <ExampleControl3
@@ -1344,8 +1343,8 @@ const IsoformMapping = (props) => {
                   <Row>
                     <Col>
                       <p className="text-muted mt-2">
-                        <div><strong>*</strong>{"These fields are required."}</div>
-                        <div><strong>*</strong>{"Maximum 1000 rows are allowed."}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText}</div>
+                        <div><strong>*</strong>{isoformSearchData.infoText1}</div>
                       </p>
                     </Col>
                   </Row>

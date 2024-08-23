@@ -1951,6 +1951,61 @@
           "url": ""
         },
         "id": "siteDetails"
+      },
+      "uniprotkb_accession": {
+        "name": "UniProtKB Accession",
+        "shortName": "UniProtKB Accession",
+        "id": "uniprotkb_accession"
+      },
+      "amino_acid_position": {
+        "name": "Amino Acid Position",
+        "shortName": "Amino Acid Position",
+        "id": "amino_acid_position"
+      },
+      "amino_acid": {
+        "name": "Amino Acid",
+        "shortName": "Amino Acid",
+        "id": "amino_acid"
+      },
+      "amino_acid_position_isoform": {
+        "name": "Amino Acid Position Isoform",
+        "shortName": "Amino Acid Position Isoform",
+        "id": "amino_acid_position_isoform"
+      },
+      "amino_acid_isoform_user": {
+        "name": "Amino Acid Isoform User",
+        "shortName": "Amino Acid Isoform User",
+        "id": "amino_acid_isoform_user"
+      },
+      "amino_acid_isoform_actual": {
+        "name": "Amino Acid Isoform Actual",
+        "shortName": "Amino Acid Isoform Actual",
+        "id": "amino_acid_isoform_actual"
+      },
+      "glygen_canonical_accession": {
+        "name": "Glygen Canonical Accession",
+        "shortName": "Glygen Canonical Accession",
+        "id": "glygen_canonical_accession"
+      },
+      "amino_acid_position_canonical": {
+        "name": "Amino Acid Position Canonical",
+        "shortName": "Amino Acid Position Canonical",
+        "id": "amino_acid_position_canonical"
+      },
+      "amino_acid_canonical": {
+        "name": "Amino Acid Canonical",
+        "shortName": "Amino Acid Canonical",
+        "id": "amino_acid_canonical"
+      },
+      "status": {
+        "name": "Status",
+        "shortName": "Status",
+        "id": "status"
+      },
+      "message": {
+        "name": "Message",
+        "shortName": "Message",
+        "id": "message"
       }
     }
   },
@@ -2690,6 +2745,16 @@
       "id": "biomarker_csvdata",
       "displayname": "Biomarker data (*.csv)",
       "tooltip": " Biomarker csvdata Information"
+    },
+    "isoform_mapper_list_csvdata": {
+      "id": "isoform_mapper_list_csvdata",
+      "displayname": "Isoform Mapper List (*.csv)",
+      "tooltip": " Isoform Mapper List csvdata Information"
+    },
+    "isoform_mapper_list_tsvdata": {
+      "id": "isoform_mapper_list_tsvdata",
+      "displayname": "Isoform Mapper List (*.tsv)",
+      "tooltip": " Isoform Mapper List tsvdata Information"
     }
   },
   "id_mapping": {

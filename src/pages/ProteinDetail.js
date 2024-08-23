@@ -827,7 +827,7 @@ const ProteinDetail = (props) => {
           }
         } else {
           let menu = []
-          menu.push({id: "", name: "No structure"});
+          menu.push({id: "", name: "No structure available"});
           setStructureMenu(menu);
           setStructureUrl("");
           setStructureType("");

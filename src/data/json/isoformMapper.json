@@ -2,6 +2,8 @@
   "pageSubtitle": "Our Tool",
   "pageTitle": "GlyGen",
 	"pageTitleBold": "Isoform Mapper",
+  "infoText": "These fields are required.",
+  "infoText1": "Maximum 1000 rows are allowed.",
   "isoform_search": {
     "seq": {
       "placeholder": "MDTQGPVSQPFQQPEKPGRVRRRKTRRERNKALVGSRRPLAHHDPPVAIRDPPVVPTASKLVVITQGRLSREHRGLFNHEVKSLDVARLLSSGTLVPGSPTLPAKPSPSPGRAQEPAPRSRDKENQVPGGSGPGPPSSPELSGVGQLLAELQCQLSLPQAFPRRNLIQDARDAIVHTLQACHGCVPDLALVLRGCQPPLPGERPSCPCTPLSFVGSSSASLYASFLCARGQAWGL",
@@ -19,8 +21,8 @@
       "id": "seq"
     },
     "siteDetails": {
-      "errorText": "Entry is too short - min length is 20.",
-      "length": 20,
+      "errorText": "Enter valid Amino Acid Position and Amino Acid values in highlighted rows.",
+      "errorText1": "Maximum 1000 rows are allowed.",
       "exampleType": "siteDetails",
       "examples": {
         "siteDetails": {
@@ -34,8 +36,8 @@
       "id": "siteDetails"
     },
     "accessionSiteDetails": {
-      "errorText": "Entry is too short - min length is 20.",
-      "length": 20,
+      "errorText": "Enter valid UniProtKB Accession, Amino Acid Position and Amino Acid values in highlighted rows.",
+      "errorText1": "Maximum 1000 rows are allowed.",
       "exampleType": "accessionSiteDetails",
       "examples": {
         "accessionSiteDetails": {
