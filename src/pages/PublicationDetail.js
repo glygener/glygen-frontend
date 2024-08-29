@@ -1819,7 +1819,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <CardLoader pageLoading={cardLoadingGly} />
+                <CardLoader pageLoading={cardLoadingRefGly} />
                 <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
@@ -1872,7 +1872,7 @@ const PublicationDetail = (props) => {
                         serverPagination={true}
                         totalDataSize={refGlyTotal}
                         setAlertDialogInput={setAlertDialogInput}
-                        setCardLoading={setCardLoadingGly}
+                        setCardLoading={setCardLoadingRefGly}
                       />
                     )}
                     {!referenced_glycans && <span>{dataStatus}</span>}
