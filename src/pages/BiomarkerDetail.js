@@ -5,6 +5,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { getBiomarkerDetail, getGlycanImageUrl } from "../data/biomarker";
 import { Tab, Tabs, Container } from "react-bootstrap";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
@@ -857,7 +858,7 @@ const BiomarkerDetail = (props) => {
                           >
                             <Container className="tab-content-padding">
                               {components && glycanComponents && glycanComponents.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={glycanComponents}
                                   columns={glycanColumns}
                                   onClickTarget={"#components"}
@@ -866,6 +867,23 @@ const BiomarkerDetail = (props) => {
                                   record_type={"glycan"}
                                   record_id={id}
                                   serverPagination={false}
+                                  viewPort={true}
+                                  title="Biomarker Component - Glycan"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Biomarker Component (*.csv)",
+                                            type: "biomarker_component_csv",
+                                            format: "csv",
+                                            data: "biomarker_section",
+                                            section: "biomarker_component",
+                                          }
+                                        ],
+                                      dataId:id,
+                                      itemType:"biomarker_section"
+                                    }
+                                  }
                                 />
                               )}
                               {(glycanComponents === undefined || glycanComponents.length === 0) && <p>{dataStatus}</p>}
@@ -880,7 +898,7 @@ const BiomarkerDetail = (props) => {
                           >
                             <Container>
                               {proteinComponents && proteinComponents.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={proteinComponents}
                                   columns={proteinColumns}
                                   onClickTarget={"#components"}
@@ -889,6 +907,23 @@ const BiomarkerDetail = (props) => {
                                   record_type={"protein"}
                                   record_id={id}
                                   serverPagination={false}
+                                  viewPort={true}
+                                  title="Biomarker Component - Protein"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Biomarker Component (*.csv)",
+                                            type: "biomarker_component_csv",
+                                            format: "csv",
+                                            data: "biomarker_section",
+                                            section: "biomarker_component",
+                                          }
+                                        ],
+                                      dataId:id,
+                                      itemType:"biomarker_section"
+                                    }
+                                  }
                                 />
                               )}
                                {(proteinComponents === undefined || proteinComponents.length === 0) && <p>{dataStatus}</p>}
@@ -900,7 +935,7 @@ const BiomarkerDetail = (props) => {
                       </> : <>
                             <Container>
                             {biomarkerComponents && biomarkerComponents.length > 0 && (
-                              <ClientServerPaginatedTable
+                              <ClientServerPaginatedTableFullScreen
                                 data={biomarkerComponents}
                                 columns={biomarkerColumns}
                                 onClickTarget={"#components"}
@@ -909,6 +944,23 @@ const BiomarkerDetail = (props) => {
                                 record_type={"biomarker"}
                                 record_id={id}
                                 serverPagination={false}
+                                viewPort={true}
+                                title="Biomarker Component"
+                                download={
+                                  {
+                                      types:[
+                                        {
+                                          display: "Biomarker Component (*.csv)",
+                                          type: "biomarker_component_csv",
+                                          format: "csv",
+                                          data: "biomarker_section",
+                                          section: "biomarker_component",
+                                        }
+                                      ],
+                                    dataId:id,
+                                    itemType:"biomarker_section"
+                                  }
+                                }
                               />
                             )}
                              {(biomarkerComponents === undefined || biomarkerComponents.length === 0) && <p>{dataStatus}</p>}

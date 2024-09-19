@@ -21,7 +21,10 @@ const ClientPaginatedTable = props => {
     onClickTarget,
     idField,
     tableHeader,
-    wrapperClasses
+    wrapperClasses,
+    viewPort,
+    setOpen,
+    open
   } = props;
 
   const [page, setPage] = useState(1);
@@ -67,6 +70,9 @@ const ClientPaginatedTable = props => {
       idField={idField}
       wrapperClasses={wrapperClasses ? wrapperClasses : "table-responsive table-height"}
       tableHeader={tableHeader}
+      viewPort={viewPort}
+      setOpen={setOpen}
+      open={open}
     />
   );
 };

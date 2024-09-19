@@ -41,6 +41,7 @@ import CardToggle from "../components/cards/CardToggle";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
@@ -822,12 +823,29 @@ const MotifDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {biomarkers && biomarkers.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={biomarkers}
                           columns={biomarkerColumns}
                           onClickTarget={"#biomarkers"}
                           defaultSortField={"biomarker_id"}
                           defaultSortOrder={"asc"}
+                          viewPort={true}
+                          title="Biomarker Component - Protein"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Biomarkers (*.csv)",
+                                    type: "biomarkers_csv",
+                                    format: "csv",
+                                    data: "motif_section",
+                                    section: "biomarkers",
+                                  }
+                                ],
+                              dataId:id,
+                              itemType:"motif_section"
+                            }
+                          }
                         />
                       )}
                       {biomarkers.length === 0 && <p>{dataStatus}</p>}

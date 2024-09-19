@@ -25,7 +25,10 @@ const ServerPaginatedTable = props => {
     setAlertDialogInput,
     currentSortOrder,
     currentSort,
-    setCardLoading
+    setCardLoading,
+    viewPort,
+    setOpen,
+    open
   } = props;
 
   const [page, setPage] = useState(1);
@@ -198,6 +201,9 @@ const handleTableChange = (
         defaultSortField={defaultSortField}
         defaultSortOrder={defaultSortOrder}
         idField={idField}
+        viewPort={viewPort}
+        setOpen={setOpen}
+        open={open}
         // noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
       />)}
       </>

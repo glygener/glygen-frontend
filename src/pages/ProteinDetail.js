@@ -16,6 +16,7 @@ import { groupEvidences, groupOrganismEvidences } from "../data/data-format";
 import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen"
 import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
 import "../css/detail.css";
 import "../css/Responsive.css";
@@ -2496,7 +2497,7 @@ const ProteinDetail = (props) => {
                               )}
                               <Container className="tab-content-padding">
                                 {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={glycosylationWithImage}
                                     columns={glycoSylationColumns}
                                     onClickTarget={"#glycosylation"}
@@ -2509,6 +2510,24 @@ const ProteinDetail = (props) => {
                                     totalDataSize={glycosylationWithImageTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingGly}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Glycosylation - Reported Sites with Glycan"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Reported Sites with Glycan (*.csv)",
+                                              type: "glycosylation_reported_with_glycans_csv",
+                                              format: "csv",
+                                              data: "protein_section",
+                                              section: "glycosylation_reported_with_glycans",
+                                            }
+                                          ],
+                                          dataId:id,
+                                          itemType:"protein_section"
+                                        }
+                                    }       
                                   />
                                 )}
                                 {!glycosylationWithImage.length && (
@@ -2532,7 +2551,7 @@ const ProteinDetail = (props) => {
                               <Container className="tab-content-padding">
                                 {glycosylationWithoutImageTotal !== undefined && glycosylationWithoutImage &&
                                   glycosylationWithoutImage.length > 0 && (
-                                    <ClientServerPaginatedTable
+                                    <ClientServerPaginatedTableFullScreen
                                       data={glycosylationWithoutImage}
                                       columns={glycoSylationColumns.filter(
                                         (column) =>
@@ -2549,6 +2568,24 @@ const ProteinDetail = (props) => {
                                       totalDataSize={glycosylationWithoutImageTotal}
                                       setAlertDialogInput={setAlertDialogInput}
                                       setCardLoading={setCardLoadingGly}
+                                      setPageLoading={setPageLoading}
+                                      viewPort={true}
+                                      title="Glycosylation - Reported Sites"
+                                      download={
+                                        {
+                                            types:[
+                                              {
+                                                display: "Reported Sites (*.csv)",
+                                                type: "glycosylation_reported_csv",
+                                                format: "csv",
+                                                data: "protein_section",
+                                                section: "glycosylation_reported",
+                                              }
+                                            ],
+                                            dataId:id,
+                                            itemType:"protein_section"
+                                        }
+                                      } 
                                     />
                                   )}
                                 {!glycosylationWithoutImage.length && (
@@ -2570,7 +2607,7 @@ const ProteinDetail = (props) => {
                               )}
                               <Container className="tab-content-padding">
                                 {glycosylationPredictedTotal !== undefined && glycosylationPredicted && glycosylationPredicted.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={glycosylationPredicted}
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
@@ -2587,6 +2624,24 @@ const ProteinDetail = (props) => {
                                     totalDataSize={glycosylationPredictedTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingGly}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Glycosylation - Predicted Only"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Predicted Only (*.csv)",
+                                              type: "glycosylation_predicted_csv",
+                                              format: "csv",
+                                              data: "protein_section",
+                                              section: "glycosylation_predicted",
+                                            }
+                                          ],
+                                          dataId:id,
+                                          itemType:"protein_section"
+                                      }
+                                    }
                                   />
                                 )}
                                 {!glycosylationPredicted.length && (
@@ -2612,7 +2667,7 @@ const ProteinDetail = (props) => {
                               )}
                               <Container className="tab-content-padding">
                                 {glycosylationAutoLitMinTotal !== undefined && glycosylationMining && glycosylationMining.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={glycosylationMining}
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
@@ -2629,6 +2684,24 @@ const ProteinDetail = (props) => {
                                     totalDataSize={glycosylationAutoLitMinTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingGly}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Glycosylation - Text Mining"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Text Mining (*.csv)",
+                                              type: "glycosylation_automatic_literature_mining_csv",
+                                              format: "csv",
+                                              data: "protein_section",
+                                              section: "glycosylation_automatic_literature_mining",
+                                            }
+                                          ],
+                                          dataId:id,
+                                          itemType:"protein_section"
+                                      }
+                                    } 
                                   />
                                 )}
                                 {!glycosylationMining.length && (
@@ -2704,7 +2777,7 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {phosphorylationTotal !== undefined && phosphorylation && phosphorylation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                         data={phosphorylation}                        
                         columns={phosphorylationColumns}
                         onClickTarget={"#phosphorylation"}
@@ -2717,6 +2790,24 @@ const ProteinDetail = (props) => {
                         totalDataSize={phosphorylationTotal}
                         setAlertDialogInput={setAlertDialogInput}
                         setCardLoading={setCardLoadingPho}
+                        setPageLoading={setPageLoading}
+                        viewPort={true}
+                        title="Phosphorylation"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Phosphorylation (*.csv)",
+                                  type: "phosphorylation_csv",
+                                  format: "csv",
+                                  data: "protein_section",
+                                  section: "phosphorylation",
+                                }
+                              ],
+                              dataId:id,
+                              itemType:"protein_section"
+                          }
+                        }
                         />
                       )}
                       {!phosphorylation && <p>{dataStatus}</p>}
@@ -2782,7 +2873,7 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycation && glycation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={glycation
                             .map((x) => ({
                               ...x,
@@ -2798,6 +2889,23 @@ const ProteinDetail = (props) => {
                           onClickTarget={"#glycation"}
                           defaultSortField={"start_pos"}
                           defaultSortOrder="asc"
+                          viewPort={true}
+                          title="Glycation"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Glycation (*.csv)",
+                                    type: "glycation_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "glycation",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!glycation && <p>{dataStatus}</p>}
@@ -3117,7 +3225,7 @@ const ProteinDetail = (props) => {
                           >
                             <Container className="tab-content-padding">
                               {mutataionWithdiseaseTotal !== undefined && mutataionWithdisease && mutataionWithdisease.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={mutataionWithdisease}
                                   columns={mutationColumns}
                                   onClickTarget={"#mutation"}
@@ -3130,6 +3238,24 @@ const ProteinDetail = (props) => {
                                   totalDataSize={mutataionWithdiseaseTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingSnv}
+                                  setPageLoading={setPageLoading}
+                                  viewPort={true}
+                                  title="SNV - Disease Associated Mutations"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Disease Associated Mutations (*.csv)",
+                                            type: "snv_disease_associated_mutations_csv",
+                                            format: "csv",
+                                            data: "protein_section",
+                                            section: "snv_disease_associated_mutations",
+                                          }
+                                        ],
+                                        dataId:id,
+                                        itemType:"protein_section"
+                                    }
+                                  }
                                 />
                               )}
                               {!mutataionWithdisease.length && <p>{dataStatus}</p>}
@@ -3145,7 +3271,7 @@ const ProteinDetail = (props) => {
                           >
                             <Container>
                               {mutataionWithoutdiseaseTotal !== undefined && mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={mutataionWithoutdisease}
                                   columns={mutationColumns.filter(
                                     (column) => column.dataField !== "disease"
@@ -3160,6 +3286,24 @@ const ProteinDetail = (props) => {
                                   totalDataSize={mutataionWithoutdiseaseTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingSnv}
+                                  setPageLoading={setPageLoading}
+                                  viewPort={true}
+                                  title="SNV - Non-disease Associated Mutations"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Non-disease Associated Mutations (*.csv)",
+                                            type: "snv_non_disease_associated_mutations_csv",
+                                            format: "csv",
+                                            data: "protein_section",
+                                            section: "snv_non_disease_associated_mutations",
+                                          }
+                                        ],
+                                        dataId:id,
+                                        itemType:"protein_section"
+                                    }
+                                  }
                                 />
                               )}
                               {!mutataionWithoutdisease.length && <p>{dataStatus}</p>}
@@ -3233,13 +3377,30 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {mutagenesis && mutagenesis.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={addIndex(mutagenesis)}
                           columns={mutagenesisColumns}
                           idField={"index"}
                           onClickTarget={"#mutagenesis"}
                           defaultSortField={"start_pos"}
                           defaultSortOrder="asc"
+                          viewPort={true}
+                          title="Mutagenesis"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Mutagenesis (*.csv)",
+                                    type: "mutagenesis_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "mutagenesis",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!mutagenesis && <p>{dataStatus}</p>}
@@ -3391,11 +3552,29 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {interactions && interactions.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={interactions}
                           columns={glycanLigandsColumns}
                           defaultSortField={"interactor_id"}
                           onClickTarget={"#glycanLigands"}
+                          viewPort={true}
+                          title="Glycan Ligands"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Glycan Ligands (*.csv)",
+                                    type: "interactions_csv",
+                                    format: "csv",
+                                    fileName: "glycan_ligands",
+                                    data: "protein_section",
+                                    section: "interactions",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!interactions && <p>{dataStatus}</p>}
@@ -3448,11 +3627,28 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {ptm_annotation && ptm_annotation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={ptmAnnotation}
                           columns={ptmAnnotationColumns}
                           onClickTarget={"#ptm_annotation"}
                           // defaultSortField={"annotation"}
+                          viewPort={true}
+                          title="PTM Annotation"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "PTM Annotation (*.csv)",
+                                    type: "ptm_annotation_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "ptm_annotation",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!ptm_annotation && <p>{dataStatus}</p>}
@@ -3507,11 +3703,28 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {pro_annotation && pro_annotation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={pro_annotation}
                           columns={proAnnotationColumns}
                           onClickTarget={"#pro_annotation"}
                           // defaultSortField={"annotation"}
+                          viewPort={true}
+                          title="Proteoform Annotation"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Proteoform Annotation (*.csv)",
+                                    type: "pro_annotation_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "pro_annotation",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!pro_annotation && <p>{dataStatus}</p>}
@@ -3615,11 +3828,28 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {synthesized_glycans && synthesized_glycans.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={synthesized_glycans}
                           columns={synthesizedGlycansColumns}
                           defaultSortField={"glytoucan_ac"}
                           onClickTarget={"#synthesized_glycans"}
+                          viewPort={true}
+                          title="Synthesized Glycans"
+                          download={
+                            {
+                                types:[
+                                    {
+                                      display: "Synthesized Glycans (*.csv)",
+                                      type: "synthesized_glycans_csv",
+                                      format: "csv",
+                                      data: "protein_section",
+                                      section: "synthesized_glycans",
+                                    }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!synthesized_glycans && <p>{dataStatus}</p>}
@@ -4054,12 +4284,29 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {biomarkers && biomarkers.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={biomarkers}
                           columns={biomarkerColumns}
                           onClickTarget={"#biomarkers"}
                           defaultSortField={"biomarker_id"}
                           defaultSortOrder={"asc"}
+                          viewPort={true}
+                          title="Biomarkers"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Biomarkers (*.csv)",
+                                    type: "biomarkers_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "biomarkers",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!biomarkers && <p>{dataStatus}</p>}
@@ -4115,11 +4362,28 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {expression_tissue && expression_tissue.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={expression_tissue.map(data => {return {...data, scorePresent: data.score, tissueName: (data.tissue ? data.tissue.name : "")}})}
                           columns={expressionTissueColumns}
                           onClickTarget={"#expression_tissue"}
                           defaultSortField={"tissue"}
+                          viewPort={true}
+                          title="Expression Tissue"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Expression Tissue (*.csv)",
+                                    type: "expression_tissue_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "expression_tissue",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!expression_tissue && <p>{dataStatus}</p>}
@@ -4175,11 +4439,28 @@ const ProteinDetail = (props) => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {expression_disease && expression_disease.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={expression_disease}
                           columns={expressionDiseaseColumns}
                           onClickTarget={"#expression_disease"}
                           defaultSortField={"disease"}
+                          viewPort={true}
+                          title="Expression Disease"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Expression Disease (*.csv)",
+                                    type: "expression_disease_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "expression_disease",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
                         />
                       )}
                       {!expression_disease && <p>{dataStatus}</p>}

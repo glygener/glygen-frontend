@@ -74,14 +74,11 @@ const Portfolio = (props) => {
 
   // initialize an Isotope object with configs
   useEffect(() => {
-    window.onload = function () {
       setIsotope(
-        new Isotope("#isotope-container", {
+        new Isotope(".isotope-container", {
           itemSelector: ".filter-item",
           layoutMode: "fitRows",
-        })
-      );
-    };
+        }));
   }, []);
 
   // handling filter key change
@@ -134,7 +131,7 @@ const Portfolio = (props) => {
         </Container>
         {/* Portfolio Items Wrapper  */}
         <section id="portfolio-wrapper">
-          <Row className="no-gutters" id="isotope-container">
+          <Row className="no-gutters isotope-container" id="isotope-container">
             {/* <LightBoxGallery className="popup-gallery" config={config}> */}
             <Col xs={12} sm={6} md={3} lg={3} className="filter-item brochure">
               <div className="text-end">

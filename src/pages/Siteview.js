@@ -8,6 +8,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
@@ -1292,9 +1293,26 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycosylation && glycosylation.length > 0 && (
-                          <ClientServerPaginatedTable
+                          <ClientServerPaginatedTableFullScreen
                             data={glycosylation}
                             columns={glycoSylationColumns}
+                            viewPort={true}
+                            title="Glycosylation"
+                            download={
+                              {
+                                  types:[
+                                    {
+                                      display: "Glycosylation (*.csv)",
+                                      type: "glycosylation_csv",
+                                      format: "csv",
+                                      data: "site_section",
+                                      section: "glycosylation",
+                                    }
+                                  ],
+                                dataId:id + "." + selectedPosition + "." + selectedPosition,
+                                itemType:"site_section"
+                              }
+                            }
                           />
                       )}
 
@@ -1350,9 +1368,26 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {phosphorylation && phosphorylation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={phosphorylation}
                           columns={phosphorylationColumns}
+                          viewPort={true}
+                          title="Phosphorylation"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Phosphorylation (*.csv)",
+                                    type: "phosphorylation_csv",
+                                    format: "csv",
+                                    data: "site_section",
+                                    section: "phosphorylation",
+                                  }
+                                ],
+                              dataId:id + "." + selectedPosition + "." + selectedPosition,
+                              itemType:"site_section"
+                            }
+                          }
                         />
                       )}
                       {(!phosphorylation || phosphorylation.length === 0) && <p>{dataStatus}</p>}
@@ -1407,9 +1442,26 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycation && glycation.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={glycation}
                           columns={glycationColumns}
+                          viewPort={true}
+                          title="Glycation"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Glycation (*.csv)",
+                                    type: "glycation_csv",
+                                    format: "csv",
+                                    data: "site_section",
+                                    section: "glycation",
+                                  }  
+                                ],
+                              dataId:id + "." + selectedPosition + "." + selectedPosition,
+                              itemType:"site_section"
+                            }
+                          }
                         />
                       )}
                       {(!glycation || glycation.length === 0) && <p>{dataStatus}</p>}
@@ -1461,9 +1513,26 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {snv && snv.length !== 0 && (
-                          <ClientServerPaginatedTable
+                          <ClientServerPaginatedTableFullScreen
                               data={snv}
                               columns={mutationColumns}
+                              viewPort={true}
+                              title="Single Nucleotide Variation"
+                              download={
+                                {
+                                    types:[
+                                      {
+                                        display: "Single Nucleotide Variation (*.csv)",
+                                        type: "snv_mutations_csv",
+                                        format: "csv",
+                                        data: "site_section",
+                                        section: "snv_mutations",
+                                      }  
+                                    ],
+                                  dataId:id + "." + selectedPosition + "." + selectedPosition,
+                                  itemType:"site_section"
+                                }
+                              }
                             />
                       )}
 
@@ -1521,9 +1590,26 @@ const Siteview = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {mutagenesis && mutagenesis.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={mutagenesis}
                           columns={mutagenesisColumns}
+                          viewPort={true}
+                          title="Mutagenesis"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Mutagenesis (*.csv)",
+                                    type: "mutagenesis_csv",
+                                    format: "csv",
+                                    data: "site_section",
+                                    section: "mutagenesis",
+                                  }  
+                                ],
+                              dataId:id + "." + selectedPosition + "." + selectedPosition,
+                              itemType:"site_section"
+                            }
+                          }
                         />
                       )}
                       {(!mutagenesis || mutagenesis.length === 0) && <p>{dataStatus}</p>}

@@ -26,6 +26,7 @@ import { Tab, Tabs, Container } from "react-bootstrap";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientExpandableTable from "../components/ClientExpandableTable"
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 import "../css/detail.css";
 import "../css/Responsive.css";
 import { Link as LinkMUI } from "@mui/material";
@@ -1791,7 +1792,7 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>               
                     {refProTotal !== undefined && referenced_proteins && referenced_proteins.length > 0 && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={referenced_proteins}
                         columns={refProtienColumns}
                         onClickTarget={"#referenced_proteins"}
@@ -1804,6 +1805,24 @@ const PublicationDetail = (props) => {
                         totalDataSize={refProTotal}
                         setAlertDialogInput={setAlertDialogInput}
                         setCardLoading={setCardLoadingRefPro}
+                        setPageLoading={setPageLoading}
+                        viewPort={true}
+                        title="Referenced Proteins"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Referenced Proteins (*.csv)",
+                                  type: "publication_section_csv",
+                                  format: "csv",   
+                                  data: "publication_section",
+                                  section: "referenced_proteins",
+                                }
+                              ],
+                             dataId:downloadId,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!referenced_proteins && <span>{dataStatus}</span>}
@@ -1819,7 +1838,7 @@ const PublicationDetail = (props) => {
               style={{ padding: "20px 0" }}
             >
               <Card>
-                <CardLoader pageLoading={cardLoadingGly} />
+                <CardLoader pageLoading={cardLoadingRefGly} />
                 <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                   <span className="gg-green d-inline">
                     <HelpTooltip
@@ -1859,7 +1878,7 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     {refGlyTotal !== undefined && referenced_glycans && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={referenced_glycans}
                         columns={refGlycansColumns}
                         onClickTarget={"#referenced-glycans"}
@@ -1872,7 +1891,25 @@ const PublicationDetail = (props) => {
                         serverPagination={true}
                         totalDataSize={refGlyTotal}
                         setAlertDialogInput={setAlertDialogInput}
-                        setCardLoading={setCardLoadingGly}
+                        setCardLoading={setCardLoadingRefGly}
+                        setPageLoading={setPageLoading}
+                        viewPort={true}
+                        title="Referenced Glycans"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Referenced Glycans (*.csv)",
+                                  type: "publication_section_csv",
+                                  format: "csv",   
+                                  data: "publication_section",
+                                  section: "referenced_glycans",
+                                }
+                              ],
+                             dataId:downloadId,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!referenced_glycans && <span>{dataStatus}</span>}
@@ -1969,7 +2006,7 @@ const PublicationDetail = (props) => {
 
                             <Container className="tab-content-padding">
                               {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={glycosylationWithImage}
                                   columns={glycoSylationColumns}
                                   onClickTarget={"#glycosylation"}
@@ -1982,6 +2019,24 @@ const PublicationDetail = (props) => {
                                   totalDataSize={glycosylationWithImageTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingGly}
+                                  setPageLoading={setPageLoading}
+                                  viewPort={true}
+                                  title="Glycosylation - Reported Sites with Glycan"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Reported Sites with Glycan (*.csv)",
+                                            type: "glycosylation_reported_with_glycans_csv",
+                                            format: "csv",
+                                            data: "publication_section",
+                                            section: "glycosylation_reported_with_glycans",
+                                          }
+                                        ],
+                                       dataId:downloadId,
+                                       itemType:"publication_section"
+                                    }
+                                  }
                                 />
                               )}
                               {!glycosylationWithImage.length && (
@@ -2002,7 +2057,7 @@ const PublicationDetail = (props) => {
                             <Container className="tab-content-padding">
                               {glycosylationWithoutImageTotal !== undefined && glycosylationWithoutImage &&
                                 glycosylationWithoutImage.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={glycosylationWithoutImage}
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
@@ -2019,6 +2074,24 @@ const PublicationDetail = (props) => {
                                     totalDataSize={glycosylationWithoutImageTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingGly}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Glycosylation - Reported Sites"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Reported Sites (*.csv)",
+                                              type: "glycosylation_reported_csv",
+                                              format: "csv",
+                                              data: "publication_section",
+                                              section: "glycosylation_reported",
+                                            }
+                                          ],
+                                         dataId:downloadId,
+                                         itemType:"publication_section"
+                                      }
+                                    }
                                   />
                                 )}
                               {!glycosylationWithoutImage.length && (
@@ -2038,7 +2111,7 @@ const PublicationDetail = (props) => {
                             )}
                             <Container className="tab-content-padding">
                               {glycosylationAutoLitMinTotal !== undefined && glycosylationMining && glycosylationMining.length > 0 && (
-                                <ClientServerPaginatedTable
+                                <ClientServerPaginatedTableFullScreen
                                   data={glycosylationMining}
                                   columns={glycoSylationColumns.filter(
                                     (column) =>
@@ -2055,6 +2128,24 @@ const PublicationDetail = (props) => {
                                   totalDataSize={glycosylationAutoLitMinTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingGly}
+                                  setPageLoading={setPageLoading}
+                                  viewPort={true}
+                                  title="Glycosylation - Text Mining"
+                                  download={
+                                    {
+                                        types:[
+                                          {
+                                            display: "Text Mining (*.csv)",
+                                            type: "glycosylation_automatic_literature_mining_csv",
+                                            format: "csv",
+                                            data: "publication_section",
+                                            section: "glycosylation_automatic_literature_mining",
+                                          }
+                                        ],
+                                       dataId:downloadId,
+                                       itemType:"publication_section"
+                                    }
+                                  }
                                 />
                               )}
                               {!glycosylationMining.length && (
@@ -2118,7 +2209,7 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     {phosphorylationTotal !== undefined && phosphorylation && phosphorylation.length !== 0 && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={phosphorylation}
                         columns={phosphorylationColumns}
                         onClickTarget={"#phosphorylation"}
@@ -2131,6 +2222,24 @@ const PublicationDetail = (props) => {
                         totalDataSize={phosphorylationTotal}
                         setAlertDialogInput={setAlertDialogInput}
                         setCardLoading={setCardLoadingPho}
+                        setPageLoading={setPageLoading}
+                        viewPort={true}
+                        title="Phosphorylation"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Phosphorylation (*.csv)",
+                                  type: "phosphorylation_csv",
+                                  format: "csv",
+                                  data: "publication_section",
+                                  section: "phosphorylation",
+                                }
+                              ],
+                             dataId:downloadId,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!phosphorylation && <span>{dataStatus}</span>}
@@ -2185,7 +2294,7 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     {glycation && glycation.length !== 0 && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={glycation
                           .map((x) => ({
                             ...x,
@@ -2201,6 +2310,23 @@ const PublicationDetail = (props) => {
                         onClickTarget={"#glycation"}
                         defaultSortField={"start_pos"}
                         defaultSortOrder="asc"
+                        viewPort={true}
+                        title="Glycation"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Glycation (*.csv)",
+                                  type: "glycation_csv",
+                                  format: "csv",
+                                  data: "publication_section",
+                                  section: "glycation",
+                                }
+                              ],
+                             dataId:downloadId,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!glycation && <span>{dataStatus}</span>}
@@ -2280,12 +2406,29 @@ const PublicationDetail = (props) => {
                         >
                           <Container className="tab-content-padding">
                             {mutataionWithdisease && mutataionWithdisease.length > 0 && (
-                              <ClientServerPaginatedTable
+                              <ClientServerPaginatedTableFullScreen
                                 data={mutataionWithdisease}
                                 columns={mutationColumns}
                                 onClickTarget={"#mutation"}
                                 defaultSortField="start_pos"
                                 defaultSortOrder="asc"
+                                viewPort={true}
+                                title="Disease Associated Mutations"
+                                download={
+                                  {
+                                      types:[
+                                        {
+                                          display: "Disease Associated Mutations (*.csv)",
+                                          type: "snv_disease_associated_mutations_csv",
+                                          format: "csv",
+                                          data: "publication_section",
+                                          section: "snv_disease_associated_mutations",
+                                        }
+                                      ],
+                                     dataId:downloadId,
+                                     itemType:"publication_section"
+                                  }
+                                }
                               />
                             )}
                             {!mutataionWithdisease.length && <span>{dataStatus}</span>}
@@ -2300,7 +2443,7 @@ const PublicationDetail = (props) => {
                         >
                           <Container className="tab-content-padding">
                             {mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && (
-                              <ClientServerPaginatedTable
+                              <ClientServerPaginatedTableFullScreen
                                 data={mutataionWithoutdisease}
                                 columns={mutationColumns.filter(
                                   (column) => column.dataField !== "disease"
@@ -2308,6 +2451,23 @@ const PublicationDetail = (props) => {
                                 onClickTarget={"#mutation"}
                                 defaultSortField="start_pos"
                                 defaultSortOrder="asc"
+                                viewPort={true}
+                                title="Non-disease Associated Mutations"
+                                download={
+                                  {
+                                      types:[
+                                        {
+                                          display: "Non-disease Associated Mutations (*.csv)",
+                                          type: "snv_non_disease_associated_mutations_csv",
+                                          format: "csv",
+                                          data: "publication_section",
+                                          section: "snv_non_disease_associated_mutations",
+                                        }
+                                      ],
+                                     dataId:downloadId,
+                                     itemType:"publication_section"
+                                  }
+                                }
                               />
                             )}
                             {!mutataionWithoutdisease.length && <span>{dataStatus}</span>}
@@ -2368,13 +2528,30 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     {mutagenesis && mutagenesis.length !== 0 && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={addIndex(mutagenesis)}
                         columns={mutagenesisColumns}
                         idField={"index"}
                         onClickTarget={"#mutagenesis"}
                         defaultSortField={"start_pos"}
                         defaultSortOrder="asc"
+                        viewPort={true}
+                        title="Mutagenesis"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Mutagenesis (*.csv)",
+                                  type: "mutagenesis_csv",
+                                  format: "csv",
+                                  data: "publication_section",
+                                  section: "mutagenesis",
+                                }
+                              ],
+                             dataId:downloadId,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!mutagenesis && <span>{dataStatus}</span>}
@@ -2428,12 +2605,29 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     {biomarkers && biomarkers.length !== 0 && (
-                      <ClientServerPaginatedTable
+                      <ClientServerPaginatedTableFullScreen
                         data={biomarkers}
                         columns={biomarkerColumns}
                         onClickTarget={"#biomarkers"}
                         defaultSortField={"biomarker_id"}
                         defaultSortOrder={"asc"}
+                        viewPort={true}
+                        title="Biomarkers"
+                        download={
+                          {
+                              types:[
+                                {
+                                  display: "Biomarkers (*.csv)",
+                                  type: "biomarkers_csv",
+                                  format: "csv",
+                                  data: "publication_section",
+                                  section: "biomarkers",
+                                }
+                              ],
+                             dataId:id,
+                             itemType:"publication_section"
+                          }
+                        }
                       />
                     )}
                     {!biomarkers && <p>{dataStatus}</p>}
@@ -2513,11 +2707,28 @@ const PublicationDetail = (props) => {
                         >
                           <Container className="tab-content-padding">
                             {expressionWithtissue && expressionWithtissue.length > 0 && (
-                              <ClientServerPaginatedTable
+                              <ClientServerPaginatedTableFullScreen
                                 data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
                                 columns={expressionTissueColumns}
                                 onClickTarget={"#expression"}
                                 defaultSortField="start_pos"
+                                viewPort={true}
+                                title="Expression - Tissue / Bodily Fluid Expression"
+                                download={
+                                  {
+                                      types:[
+                                        {
+                                          display: "Tissue / Bodily Fluid Expression (*.csv)",
+                                          type: "expression_tissue_csv",
+                                          format: "csv",
+                                          data: "publication_section",
+                                          section: "expression_tissue",
+                                        }
+                                      ],
+                                     dataId:downloadId,
+                                     itemType:"publication_section"
+                                  }
+                                }
                               />
                             )}
                             {!expressionWithtissue.length && <p>{dataStatus}</p>}
@@ -2529,11 +2740,28 @@ const PublicationDetail = (props) => {
                         >
                           <Container className="tab-content-padding">
                             {expressionWithcell && expressionWithcell.length > 0 && (
-                              <ClientServerPaginatedTable
+                              <ClientServerPaginatedTableFullScreen
                                 data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}
                                 columns={expressionCellColumns}
                                 onClickTarget={"#expression"}
                                 defaultSortField="position"
+                                viewPort={true}
+                                title="Expression - Cell / Cell Line Expression"
+                                download={
+                                  {
+                                      types:[
+                                        {
+                                          display: "Cell / Cell Line Expression (*.csv)",
+                                          type: "expression_cell_line_csv",
+                                          format: "csv",
+                                          data: "publication_section",
+                                          section: "expression_cell_line",
+                                        }
+                                      ],
+                                     dataId:downloadId,
+                                     itemType:"publication_section"
+                                  }
+                                }
                               />
                             )}
                             {!expressionWithcell.length && <p>{dataStatus}</p>}

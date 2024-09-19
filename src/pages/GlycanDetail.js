@@ -14,6 +14,7 @@ import { groupEvidences, groupOrganismEvidences, groupOrganismEvidencesTableView
 import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
+import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 import ClientExpandableTable from "../components/ClientExpandableTable"
 import CollapsibleTextTableView from "../components/CollapsibleTextTableView"
 import "../css/detail.css";
@@ -2381,12 +2382,29 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {motifs && motifs.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           idField={"name"}
                           data={motifs}
                           columns={motifColumns}
                           defaultSortField={"name"}
                           onClickTarget={"#motif"}
+                          viewPort={true}
+                          title="Motif"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Motif (*.csv)",
+                                    type: "motifs_csv",
+                                    format: "csv",
+                                    data: "glycan_section",
+                                    section: "motifs",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
                         />
                       )}
                       {!motifs && <p>{dataStatus}</p>}
@@ -2441,7 +2459,7 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycoproteinTotal !== undefined && glycoprotein && glycoprotein.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={glycoprotein}
                           columns={glycoProtienColumns}
                           defaultSortField={"uniprot_canonical_ac"}
@@ -2454,6 +2472,25 @@ const GlycanDetail = props => {
                           totalDataSize={glycoproteinTotal}
                           setAlertDialogInput={setAlertDialogInput}
                           setCardLoading={setCardLoadingGlyc}
+                          setPageLoading={setPageLoading}
+                          viewPort={true}
+                          title="Associated Protein"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Associated Protein (*.csv)",
+                                    type: "glycoprotein_csv",
+                                    format: "csv",
+                                    fileName: "associated_protein",
+                                    data: "glycan_section",
+                                    section: "glycoprotein",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
                         />
                       )}
                       {!glycoprotein.length && <p>{dataStatus}</p>}
@@ -2514,12 +2551,30 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {interactions && interactions.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           idField={"interactor_id"}
                           data={interactions}
                           columns={glycanBindingProteinColumns}
                           defaultSortField={"interactor_id"}
                           onClickTarget={"#glycanBindingProtein"}
+                          viewPort={true}
+                          title="Glycan Binding Protein"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Glycan Binding Protein (*.csv)",
+                                    type: "interactions_csv",
+                                    format: "csv",
+                                    fileName: "glycan_binding_protein",
+                                    data: "glycan_section",
+                                    section: "interactions",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
                         />
                       )}
                       {!interactions && <p>{dataStatus}</p>}
@@ -2575,12 +2630,30 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {enzyme && enzyme.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           idField={"uniprot_canonical_ac"}
                           data={enzyme}
                           columns={bioEnzymeColumns}
                           defaultSortField={"gene"}
                           onClickTarget={"#biosyntheticenzymes"}
+                          viewPort={true}
+                          title="Biosynthetic Enzymes"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Biosynthetic Enzymes (*.csv)",
+                                    type: "enzyme_csv",
+                                    format: "csv",
+                                    fileName: "biosynthetic_enzymes",
+                                    data: "glycan_section",
+                                    section: "enzyme",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
                         />
                       )}
                       {!enzyme && <p>{dataStatus}</p>}
@@ -2658,12 +2731,29 @@ const GlycanDetail = props => {
                             <Container className="tab-content-padding">
                               {subsumptionAncestor &&
                                 subsumptionAncestor.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     idField={"id"}
                                     data={subsumptionAncestor}
                                     columns={subsumptionColumns}
                                     defaultSortField={"id"}
                                     onClickTarget={"#subsumption"}
+                                    viewPort={true}
+                                    title="Subsumption - Ancestor"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Ancestor (*.csv)",
+                                              type: "subsumption_ancestor_csv",
+                                              format: "csv",
+                                              data: "glycan_section",
+                                              section: "subsumption_ancestor",
+                                            }
+                                          ],
+                                         dataId:id,
+                                         itemType:"glycan_section"
+                                      }
+                                    }
                                   />
                                 )}
                               {!subsumptionAncestor.length && (
@@ -2678,12 +2768,29 @@ const GlycanDetail = props => {
                             <Container className="tab-content-padding">
                               {subsumptionDescendant &&
                                 subsumptionDescendant.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     idField={"id"}
                                     data={subsumptionDescendant}
                                     columns={subsumptionColumns}
                                     defaultSortField={"id"}
                                     onClickTarget={"#subsumption"}
+                                    viewPort={true}
+                                    title="Subsumption - Descendant"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Descendant (*.csv)",
+                                              type: "subsumption_descendant_csv",
+                                              format: "csv",
+                                              data: "glycan_section",
+                                              section: "subsumption_descendant",
+                                            }
+                                          ],
+                                         dataId:id,
+                                         itemType:"glycan_section"
+                                      }
+                                    }
                                   />
                                 )}
                               {!subsumptionDescendant.length && (
@@ -2744,12 +2851,29 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {biomarkers && biomarkers.length !== 0 && (
-                        <ClientServerPaginatedTable
+                        <ClientServerPaginatedTableFullScreen
                           data={biomarkers}
                           columns={biomarkerColumns}
                           onClickTarget={"#biomarkers"}
                           defaultSortField={"biomarker_id"}
                           defaultSortOrder={"asc"}
+                          viewPort={true}
+                          title="Biomarkers"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Biomarkers (*.csv)",
+                                    type: "biomarkers_csv",
+                                    format: "csv",
+                                    data: "glycan_section",
+                                    section: "biomarkers",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
                         />
                       )}
                       {!biomarkers && <p>{dataStatus}</p>}
@@ -2833,7 +2957,7 @@ const GlycanDetail = props => {
                             <Container className="tab-content-padding">
                               {expressionWithtissueTotal !== undefined && expressionWithtissue &&
                                 expressionWithtissue.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={expressionWithtissue}
                                     columns={expressionTissueColumns}
                                     onClickTarget={"#expression"}
@@ -2846,6 +2970,24 @@ const GlycanDetail = props => {
                                     totalDataSize={expressionWithtissueTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingExp}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Expression - Tissue / Bodily Fluid Expression"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Tissue / Bodily Fluid Expression (*.csv)",
+                                              type: "expression_tissue_csv",
+                                              format: "csv",
+                                              data: "glycan_section",
+                                              section: "expression_tissue",
+                                            }
+                                          ],
+                                         dataId:id,
+                                         itemType:"glycan_section"
+                                      }
+                                    }
                                   />
                                 )}
                               {!expressionWithtissue.length && (
@@ -2862,7 +3004,7 @@ const GlycanDetail = props => {
                             <Container className="tab-content-padding">
                               {expressionWithcellTotal !== undefined && expressionWithcell &&
                                 expressionWithcell.length > 0 && (
-                                  <ClientServerPaginatedTable
+                                  <ClientServerPaginatedTableFullScreen
                                     data={expressionWithcell}
                                     columns={expressionCellColumns}
                                     onClickTarget={"#expression"}
@@ -2875,6 +3017,24 @@ const GlycanDetail = props => {
                                     totalDataSize={expressionWithcellTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingExp}
+                                    setPageLoading={setPageLoading}
+                                    viewPort={true}
+                                    title="Expression - Cell / Cell Line Expression"
+                                    download={
+                                      {
+                                          types:[
+                                            {
+                                              display: "Cell / Cell Line Expression (*.csv)",
+                                              type: "expression_cell_line_csv",
+                                              format: "csv",
+                                              data: "glycan_section",
+                                              section: "expression_cell_line",
+                                            }
+                                          ],
+                                         dataId:id,
+                                         itemType:"glycan_section"
+                                      }
+                                    }
                                   />
                                 )}
                               {!expressionWithcell.length && (

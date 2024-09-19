@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import Button from "react-bootstrap/Button";
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+
 import paginationFactory, {
   PaginationProvider,
   PaginationListStandalone,
@@ -27,6 +31,9 @@ const PaginatedTable = ({
   wrapperClasses = "table-responsive",
   totalSizeText = "Results",
   tableHeader,
+  viewPort,
+  setOpen,
+  open
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
@@ -84,9 +91,11 @@ const PaginatedTable = ({
     }
   }));
   const classes = useStyles();
+  const [expand, setExpand] = useState(false);
 
   return (
-    <div>
+    <div style1={{height: viewPort && expand ? window.innerHeight : undefined, width: viewPort && expand ? window.innerWidth : undefined}}>
+
       <PaginationProvider
         pagination={paginationFactory({
           ...options,
@@ -109,6 +118,13 @@ const PaginatedTable = ({
               {/* {onDownload && <button onClick={onDownload}>Download</button>} */}
               {downloadButton}
               <PaginationListStandalone {...paginationProps} />
+              {viewPort && 
+                <Button
+                  type="button"
+                  style={{ marginLeft: "10px", paddingBottom: "5px", paddingTop: "5px" }}
+                  className="gg-btn-blue"
+                  onClick={() => { setOpen(!open); setExpand(!expand); }}>{!open ? <FullscreenIcon/> : <FullscreenExitIcon/>}
+              </Button>}
             </div>
             <div style={{paddingTop:"20px"}}>
             <BootstrapTable
