@@ -74,7 +74,7 @@ const featuredCards = [
   {
     title: "GlyGen Isoform Mapper",
     description:
-      "The GlyGen Isoform Mapper allows to find and map the amino acid and site position of a isoform protein sequence to the corresponding canonical isoform protein sequence.",
+      "Map the amino acid and site position of a isoform protein sequence to the corresponding canonical isoform protein sequence.",
     image: isoformMapperImg,
     imageText: "GlyGen Isoform Mapper",
     href: routeConstants.isoformMapping,
