@@ -21,6 +21,8 @@ import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import CustomColumns from "../components/columnSelector/CustomColumns";
+import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayColumnList } from "../data/customcolumn.js";
 
 const ProteinList = props => {
   let { id } = useParams();
@@ -42,9 +44,63 @@ const ProteinList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const [listCacheId, setListCacheId] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [userSelectedColumns, setUserSelectedColumns] = useState([]);
+
+  function toggleDrawer(newOpen) {
+    setOpen(newOpen);
+  };
+  const tableId = "protein";
   const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.protein.common.unmapped;
+
+  useEffect(() => {
+    setPageLoading(true);
+    if (userSelectedColumns.length > 0) {
+      return;
+    }
+    let selColms = getUserStoredColumns(tableId);
+    if (selColms.length > 0) {
+      setUserSelectedColumns(selColms);
+      return;
+    }
+
+    getColumnList(tableId)
+    .then(({ data }) => {
+      if (data.error_code) {
+        let message = "list init api call";
+        logActivity("user", id, "No results. " + message);
+        setPageLoading(false);
+      } else {
+        let colArr = [];
+        let columns = data.columns;
+        for (let i = 0; i < columns.length; i++) {
+          let col = columns[i];
+            if (col.default || col.immutable) {
+              colArr.push({
+                "id" : col.id,
+                "label" : col.label,
+                "immutable" : col.immutable,
+                "property_name" : col.property_name,
+                "tooltip" : col.tooltip,
+                "order" : col.order
+              })
+          }
+        }
+        let sortedItems = colArr.sort((obj1, obj2) => obj1.order - obj2.order);
+        setUserSelectedColumns(sortedItems);
+        setUserStoredColumns(tableId, sortedItems);
+        setPageLoading(false);
+      }
+    })
+    .catch(function(error) {
+      let message = "list init api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+    });
+    // eslint-disable-anext-line
+  }, []);
 
   useEffect(() => {
     setPageLoading(true);
@@ -54,13 +110,16 @@ const ProteinList = props => {
     });
     setPage(1);
     logActivity("user", id);
+    let cols = userSelectedColumns.map(col => col.id);
+    getDisplayColumnList(userSelectedColumns, setSelectedColumns);
     getProteinList(
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
       "hit_score",
       "desc",
-      appliedFilters
+      appliedFilters,
+      cols
     )
       .then(({ data }) => {
         if (data.error_code) {
@@ -81,8 +140,9 @@ const ProteinList = props => {
           }
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
-          setAvailableFilters(data.filters.available);
+          data.filters && setAvailableFilters(data.filters.available);
           if (data.pagination) {
             const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
             setPage(currentPage);
@@ -99,7 +159,7 @@ const ProteinList = props => {
         axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
     // eslint-disable-next-line
-  }, [appliedFilters]);
+  }, [appliedFilters, userSelectedColumns]);
 
   const handleTableChange = (
     type,
@@ -111,20 +171,23 @@ const ProteinList = props => {
     setPage(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
+    let cols = userSelectedColumns.map(col => col.id);
     getProteinList(
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
       sortField || "hit_score",
       sortOrder,
-      appliedFilters
+      appliedFilters,
+      cols
     ).then(({ data }) => {
       // place to change values before rendering
       setData(data.results);
       setTimeStamp(data.cache_info.ts);
+      setListCacheId(data.cache_info.listcache_id);
       setPagination(data.pagination);
-      setAvailableFilters(data.filters.available);
-      setTotalSize(data.pagination.total_length);
+      data.filters && setAvailableFilters(data.filters.available);
+      data.pagination && setTotalSize(data.pagination.total_length);
       setPageLoading(false);
     });
   };
@@ -255,7 +318,8 @@ const ProteinList = props => {
             </div>
           </div>
         )}
-        <div className="sidebar-page">
+        <CustomColumns id={id} open={open} setOpen={setOpen} title={"Protein List Columns"} tableId={tableId} userSelectedColumns={userSelectedColumns} setUserSelectedColumns={setUserSelectedColumns} onClose={() => toggleDrawer(false)}/>
+        <div className="sidebar-page-outreach">
           <div class="list-mainpage-container list-mainpage-container">
             <PageLoader pageLoading={pageLoading} />
             <DialogAlert
@@ -277,7 +341,8 @@ const ProteinList = props => {
               )}
             </section>
             <section>
-              <div className="text-end">
+              <div className="text-end pb-3">
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Customize Columns</Button>
                 <DownloadButton
                   types={[
                     {
@@ -299,7 +364,7 @@ const ProteinList = props => {
                       data: "protein_list"
                     }
                   ]}
-                  dataId={id}
+                  dataId={listCacheId}
                   itemType="protein_list"
                   filters={appliedFilters}
                 />

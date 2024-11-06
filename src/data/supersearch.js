@@ -22,8 +22,8 @@ export const getSuperSearchList = (
   limit = 20,
   sort = "hit_score",
   order = "desc",
-  filters = []
-
+  filters = [],
+  columns = []
 ) => {
   const queryParams = {
     id: superSearchListId,
@@ -31,7 +31,8 @@ export const getSuperSearchList = (
     sort: sort,
     limit: limit,
     order: order,
-    filters: filters
+    filters: filters,
+    columns: columns
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/supersearch/list?query=${queryParamString}`;

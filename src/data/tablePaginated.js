@@ -21,6 +21,7 @@ export const getTableList = (
   limit = 20,
   sort = "hit_score",
   order = "desc",
+  appliedFilters
 ) => {
   const queryParams = {
     record_type:record_type,
@@ -30,6 +31,7 @@ export const getTableList = (
     limit: limit,
     order: order,
     sort: sort,
+    filters: appliedFilters
   };
   const queryParamString = JSON.stringify(queryParams);
      const url = `/pagination/page/`;
@@ -39,3 +41,16 @@ export const getTableList = (
   return postFormDataTo1(url, queryParamString, myHeaders);
 };
 
+export const getFilterInit = (
+  recordType,
+  tableId,
+  recordId
+) => {
+  const queryParams = {
+    record_type: recordType,
+    table_id: tableId,
+    record_id: recordId
+  };
+
+  return postFormDataTo1(`/pages/filter_init`, queryParams);
+};

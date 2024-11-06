@@ -18,7 +18,8 @@ export const getGlycanList = (
   limit = 20,
   sort = decodeURI("hit_score"),
   order = "desc",
-  filters = []
+  filters = [],
+  columns = []
 ) => {
   const queryParams = {
     id: glycanListId,
@@ -26,7 +27,8 @@ export const getGlycanList = (
     sort: sort,
     limit: limit,
     order: order,
-    filters: filters
+    filters: filters,
+    columns: columns
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/glycan/list?query=${queryParamString}`;

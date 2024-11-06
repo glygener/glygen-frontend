@@ -1,18 +1,7 @@
 import React from "react";
-
 import ServerPaginatedTable from "./ServerPaginatedTable";
 import ClientPaginatedTable from "./ClientPaginatedTable";
-import Dialog from '@mui/material/Dialog';
-import PropTypes from 'prop-types';
 import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import { Padding } from "@mui/icons-material";
-import Typography from '@mui/material/Typography';
-import DownloadButton from "../components/DownloadButton";
 
 const Transition = React.forwardRef(function Transition(
   props,
@@ -43,14 +32,12 @@ const ClientServerPaginatedTable = props => {
     setCardLoading,
     viewPort,
     setOpen,
-    open
+    appliedFilters,
+    setAvailableFilters,
+    setListCacheId,
+    open,
+    noDataIndication
   } = props;
-
-  // const [page, setPage] = useState(1);
-  // const [pageContents, setPageContents] = useState([]);
-  // const [currentSort, setCurrentSort] = useState(defaultSortField);
-  // const [currentSortOrder, setCurrentSortOrder] = useState(defaultSortOrder);
-  // const [sizePerPage, setSizePerPage] = useState(defaultSizePerPage);
 
   return (
     <>
@@ -58,7 +45,6 @@ const ClientServerPaginatedTable = props => {
         initData={data}
         columns={columns}
         defaultSizePerPage={defaultSizePerPage}
-        // totalSize={data.length}
         onClickTarget={onClickTarget}
         defaultSortField={defaultSortField}
         defaultSortOrder={defaultSortOrder}
@@ -76,6 +62,10 @@ const ClientServerPaginatedTable = props => {
         viewPort={viewPort}
         setOpen={setOpen}
         open={open}
+        appliedFilters={appliedFilters}
+        setAvailableFilters={setAvailableFilters}
+        setListCacheId={setListCacheId}
+        noDataIndication={noDataIndication}
       />
       : <ClientPaginatedTable
           data={data}
@@ -97,8 +87,3 @@ const ClientServerPaginatedTable = props => {
 };
 
 export default ClientServerPaginatedTable;
-
-// ClientServerPaginatedTable.propTypes = {
-// 	setAlertDialogInput: PropTypes.func,
-// 	setCardLoading: PropTypes.func
-// };

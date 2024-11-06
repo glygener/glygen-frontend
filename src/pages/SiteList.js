@@ -24,6 +24,8 @@ import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
 import ListFilter from "../components/ListFilter";
 import Button from "react-bootstrap/Button";
+import CustomColumns from "../components/columnSelector/CustomColumns";
+import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayColumnList } from "../data/customcolumn.js";
 
 const proteinStrings = stringConstants.protein.common;
 const siteStrings = stringConstants.site.common;
@@ -35,175 +37,12 @@ const siteStrings = stringConstants.site.common;
 const SiteList = (props) => {
   let { id } = useParams();
   let { searchId } = useParams();
-  const [data, setData] = useState([]);
-  const [query, setQuery] = useState([]);
-  const [timestamp, setTimeStamp] = useState();
-  const [pagination, setPagination] = useState([]);
-  // const [selectedColumns, setSelectedColumns] = useState(SITE_COLUMNS);
-  const [page, setPage] = useState(1);
-  const [sizePerPage, setSizePerPage] = useState(20);
-  const [totalSize, setTotalSize] = useState(0);
-  const [pageLoading, setPageLoading] = useState(true);
-  const [appliedFilters, setAppliedFilters] = useState([]);
-  const [availableFilters, setAvailableFilters] = useState([]);
-  const [sidebar, setSidebar] = useState(true);
-
-  const [alertDialogInput, setAlertDialogInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    { show: false, id: "" }
-  );
-
-  const [configData, setConfigData] = useState({});
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setPageLoading(true);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    logActivity("user", id);
-
-    const dataPromise = Promise.all([
-      getSiteSearchInit(),
-      getSuperSearchList(id,
-        (page - 1) * sizePerPage + 1,
-          sizePerPage,
-          "hit_score",
-          "desc",
-          appliedFilters
-        )
-    ]);
-
-    dataPromise.then(([{ data: initData }, { data }]) => {
-      if (data.error_code) {
-        let message = "list api call";
-        logActivity("user", id, "No results. " + message);
-      } else {
-        setData(data.results);
-        setQuery(data.cache_info.query);
-        setTimeStamp(data.cache_info.ts);
-        setPagination(data.pagination);
-        setAvailableFilters(data.filters.available);
-        const currentPage = ((data.pagination && data.pagination.offset > 0 ? data.pagination.offset : 1) - 1) / sizePerPage + 1;
-
-        setPage(currentPage);
-        setTotalSize((data.pagination && data.pagination.total_length > 0 ? data.pagination.total_length : 0));
-        setConfigData(initData);
-      }
-    });
-
-    dataPromise.catch(function (error) {
-      let message = "list api call";
-      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
-    });
-
-    dataPromise.finally(() => {
-      setPageLoading(false);
-    });
-  }, [appliedFilters]);
-  // useEffect(() => {
-  //   setPageLoading(true);
-  //   logActivity("user", id);
-  //   getSuperSearchList(id)
-  //     .then(({ data }) => {
-  //       if (data.error_code) {
-  //         let message = "list api call";
-  //         logActivity("user", id, "No results. " + message);
-  //         setPageLoading(false);
-  //       } else {
-  //         setData(data.results);
-  //         setQuery(data.cache_info.query);
-  //         setTimeStamp(data.cache_info.ts);
-  //         setPagination(data.pagination);
-  //         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
-  //         setPage(currentPage);
-  //         setTotalSize(data.pagination.total_length);
-  //         setPageLoading(false);
-  //       }
-  //     })
-  //     .catch(function(error) {
-  //       let message = "list api call";
-  //       axiosError(error, id, message, setPageLoading, setAlertDialogInput);
-  //     });
-  // }, []);
-
-  const handleTableChange = (
-    type,
-    { page, sizePerPage, sortField, sortOrder}
-  ) => {
-    setPage(page);
-    setSizePerPage(sizePerPage);
-    setPageLoading(true);
-    getSuperSearchList(
-      id,
-      (page - 1) * sizePerPage + 1,
-      sizePerPage,
-      sortField,
-      sortOrder,
-      appliedFilters
-    ).then(({ data }) => {
-      if (!data.error_code) {
-        setData(data.results);
-        setTimeStamp(data.cache_info.ts);
-        setPagination(data.pagination);
-        setAvailableFilters(data.filters.available);
-        setTotalSize(data.pagination.total_length);
-      }
-      setPageLoading(false);
-    });
-  };
-
-  const handleFilterChange = newFilter => {
-    console.log(newFilter);
-
-    // find if a filter exists for this type
-    const existingFilter = appliedFilters.find(
-      filter => filter.id === newFilter.id
-    );
-    // if no filter exists
-    if (
-      existingFilter &&
-      existingFilter.selected &&
-      newFilter &&
-      newFilter.selected &&
-      (newFilter.selected.length || existingFilter.selected.length)
-    ) {
-      // list of all the other filters
-      // add a new filter of this type
-      const otherFilters = appliedFilters.filter(
-        filter => filter.id !== newFilter.id
-      );
-
-      if (newFilter.selected.length) {
-        // for this existing filter, make sure we remove this option if it existed
-        setAppliedFilters([...otherFilters, newFilter]);
-      } else {
-        setAppliedFilters(otherFilters);
-      }
-    } else if (newFilter.selected.length) {
-      setAppliedFilters([...appliedFilters, newFilter]);
-    }
-  };
-
-  const handleModifySearch = () => {
-    if (searchId === "sups") {
-      navigate(routeConstants.superSearch + id);
-    } else {
-      navigate(routeConstants.siteSearch + id);
-    }
-  };
-
-  function rowStyleFormat(row, rowIdx) {
-    return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
-  }
 
   const yesNoFormater = (value, row) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
+    return value && value.length > 1 ? value.charAt(0).toUpperCase() + value.slice(1) : value;
   };
 
-  const siteColumns = [
+  const SITE_COLUMNS = [
     {
       dataField: proteinStrings.shortName,
       text: proteinStrings.uniprot_accession.name,
@@ -321,6 +160,230 @@ const SiteList = (props) => {
     },
   ];
 
+  const [data, setData] = useState([]);
+  const [query, setQuery] = useState([]);
+  const [timestamp, setTimeStamp] = useState();
+  const [pagination, setPagination] = useState([]);
+  const [selectedColumns, setSelectedColumns] = useState(SITE_COLUMNS);
+  const [page, setPage] = useState(1);
+  const [sizePerPage, setSizePerPage] = useState(20);
+  const [totalSize, setTotalSize] = useState(0);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [appliedFilters, setAppliedFilters] = useState([]);
+  const [availableFilters, setAvailableFilters] = useState([]);
+  const [sidebar, setSidebar] = useState(true);
+
+  const [alertDialogInput, setAlertDialogInput] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { show: false, id: "" }
+  );
+
+  const [configData, setConfigData] = useState({});
+  const [listCacheId, setListCacheId] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [userSelectedColumns, setUserSelectedColumns] = useState([]);
+
+  function toggleDrawer(newOpen) {
+    setOpen(newOpen);
+  };
+  const tableId = "site";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setPageLoading(true);
+    if (userSelectedColumns.length > 0) {
+      return;
+    }
+    let selColms = getUserStoredColumns(tableId);
+    if (selColms.length > 0) {
+      setUserSelectedColumns(selColms);
+      return;
+    }
+
+    getColumnList(tableId)
+    .then(({ data }) => {
+      if (data.error_code) {
+        let message = "list init api call";
+        logActivity("user", id, "No results. " + message);
+        setPageLoading(false);
+      } else {
+        let colArr = [];
+        let columns = data.columns;
+        for (let i = 0; i < columns.length; i++) {
+          let col = columns[i];
+            if (col.default || col.immutable) {
+              colArr.push({
+                "id" : col.id,
+                "label" : col.label,
+                "immutable" : col.immutable,
+                "property_name" : col.property_name,
+                "tooltip" : col.tooltip,
+                "order" : col.order
+              })
+          }
+        }
+        let sortedItems = colArr.sort((obj1, obj2) => obj1.order - obj2.order);
+        setUserSelectedColumns(sortedItems);
+        setUserStoredColumns(tableId, sortedItems);
+        setPageLoading(false);
+      }
+    })
+    .catch(function(error) {
+      let message = "list init api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+    });
+    // eslint-disable-anext-line
+  }, []);
+
+  useEffect(() => {
+    setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    logActivity("user", id);
+    let cols = userSelectedColumns.map(col => col.id);
+    getDisplayColumnList(userSelectedColumns, setSelectedColumns);
+    const dataPromise = Promise.all([
+      getSiteSearchInit(),
+      getSuperSearchList(id,
+        (page - 1) * sizePerPage + 1,
+          sizePerPage,
+          "hit_score",
+          "desc",
+          appliedFilters,
+          cols
+        )
+    ]);
+
+    dataPromise.then(([{ data: initData }, { data }]) => {
+      if (data.error_code) {
+        let message = "list api call";
+        logActivity("user", id, "No results. " + message);
+      } else {
+        setData(data.results);
+        setQuery(data.cache_info.query);
+        setTimeStamp(data.cache_info.ts);
+        setListCacheId(data.cache_info.listcache_id);
+        setPagination(data.pagination);
+        data.filters && setAvailableFilters(data.filters.available);
+        const currentPage = ((data.pagination && data.pagination.offset > 0 ? data.pagination.offset : 1) - 1) / sizePerPage + 1;
+
+        setPage(currentPage);
+        setTotalSize((data.pagination && data.pagination.total_length > 0 ? data.pagination.total_length : 0));
+        setConfigData(initData);
+      }
+    });
+
+    dataPromise.catch(function (error) {
+      let message = "list api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+    });
+
+    dataPromise.finally(() => {
+      setPageLoading(false);
+    });
+  }, [appliedFilters, userSelectedColumns]);
+  // useEffect(() => {
+  //   setPageLoading(true);
+  //   logActivity("user", id);
+  //   getSuperSearchList(id)
+  //     .then(({ data }) => {
+  //       if (data.error_code) {
+  //         let message = "list api call";
+  //         logActivity("user", id, "No results. " + message);
+  //         setPageLoading(false);
+  //       } else {
+  //         setData(data.results);
+  //         setQuery(data.cache_info.query);
+  //         setTimeStamp(data.cache_info.ts);
+  //         setPagination(data.pagination);
+  //         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
+  //         setPage(currentPage);
+  //         setTotalSize(data.pagination.total_length);
+  //         setPageLoading(false);
+  //       }
+  //     })
+  //     .catch(function(error) {
+  //       let message = "list api call";
+  //       axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+  //     });
+  // }, []);
+
+  const handleTableChange = (
+    type,
+    { page, sizePerPage, sortField, sortOrder}
+  ) => {
+    setPage(page);
+    setSizePerPage(sizePerPage);
+    setPageLoading(true);
+    let cols = userSelectedColumns.map(col => col.id);
+    getSuperSearchList(
+      id,
+      (page - 1) * sizePerPage + 1,
+      sizePerPage,
+      sortField,
+      sortOrder,
+      appliedFilters,
+      cols
+    ).then(({ data }) => {
+      if (!data.error_code) {
+        setData(data.results);
+        setTimeStamp(data.cache_info.ts);
+        setListCacheId(data.cache_info.listcache_id);
+        setPagination(data.pagination);
+        data.filters && setAvailableFilters(data.filters.available);
+        data.pagination && setTotalSize(data.pagination.total_length);
+      }
+      setPageLoading(false);
+    });
+  };
+
+  const handleFilterChange = newFilter => {
+    console.log(newFilter);
+
+    // find if a filter exists for this type
+    const existingFilter = appliedFilters.find(
+      filter => filter.id === newFilter.id
+    );
+    // if no filter exists
+    if (
+      existingFilter &&
+      existingFilter.selected &&
+      newFilter &&
+      newFilter.selected &&
+      (newFilter.selected.length || existingFilter.selected.length)
+    ) {
+      // list of all the other filters
+      // add a new filter of this type
+      const otherFilters = appliedFilters.filter(
+        filter => filter.id !== newFilter.id
+      );
+
+      if (newFilter.selected.length) {
+        // for this existing filter, make sure we remove this option if it existed
+        setAppliedFilters([...otherFilters, newFilter]);
+      } else {
+        setAppliedFilters(otherFilters);
+      }
+    } else if (newFilter.selected.length) {
+      setAppliedFilters([...appliedFilters, newFilter]);
+    }
+  };
+
+  const handleModifySearch = () => {
+    if (searchId === "sups") {
+      navigate(routeConstants.superSearch + id);
+    } else {
+      navigate(routeConstants.siteSearch + id);
+    }
+  };
+
+  function rowStyleFormat(row, rowIdx) {
+    return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
+  }
+
   return (
     <>
       <Helmet>
@@ -369,7 +432,8 @@ const SiteList = (props) => {
             </div>
           </div>
         )}
-        <div className="sidebar-page">
+        <CustomColumns id={id} open={open} setOpen={setOpen} title={"Site List Columns"} tableId={tableId} userSelectedColumns={userSelectedColumns} setUserSelectedColumns={setUserSelectedColumns} onClose={() => toggleDrawer(false)}/>
+        <div className="sidebar-page-outreach">
           <div class="list-mainpage-container list-mainpage-container">
             <PageLoader pageLoading={pageLoading} />
             <DialogAlert
@@ -390,7 +454,8 @@ const SiteList = (props) => {
               )}
             </section>
             <section>
-              <div className="text-end">
+              <div className="text-end pb-3">
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Customize Columns</Button>
                 <DownloadButton
                   types={[
                     {
@@ -406,7 +471,7 @@ const SiteList = (props) => {
                       data: "site_list",
                     },
                   ]}
-                  dataId={id}
+                  dataId={listCacheId}
                   itemType="site_list"
                   filters={appliedFilters}
                 />
@@ -416,7 +481,7 @@ const SiteList = (props) => {
                 <PaginatedTable
                   trStyle={rowStyleFormat}
                   data={data}
-                  columns={siteColumns}
+                  columns={selectedColumns}
                   page={page}
                   pagination={pagination}
                   sizePerPage={sizePerPage}

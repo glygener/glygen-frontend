@@ -2512,7 +2512,9 @@ const ProteinDetail = (props) => {
                                     setCardLoading={setCardLoadingGly}
                                     setPageLoading={setPageLoading}
                                     viewPort={true}
+                                    showFilters={true}
                                     title="Glycosylation - Reported Sites with Glycan"
+                                    noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                                     download={
                                       {
                                           types:[
@@ -2570,7 +2572,9 @@ const ProteinDetail = (props) => {
                                       setCardLoading={setCardLoadingGly}
                                       setPageLoading={setPageLoading}
                                       viewPort={true}
+                                      showFilters={true}
                                       title="Glycosylation - Reported Sites"
+                                      noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                                       download={
                                         {
                                             types:[
@@ -2626,7 +2630,9 @@ const ProteinDetail = (props) => {
                                     setCardLoading={setCardLoadingGly}
                                     setPageLoading={setPageLoading}
                                     viewPort={true}
+                                    showFilters={true}
                                     title="Glycosylation - Predicted Only"
+                                    noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                                     download={
                                       {
                                           types:[
@@ -2686,7 +2692,9 @@ const ProteinDetail = (props) => {
                                     setCardLoading={setCardLoadingGly}
                                     setPageLoading={setPageLoading}
                                     viewPort={true}
+                                    showFilters={true}
                                     title="Glycosylation - Text Mining"
+                                    noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                                     download={
                                       {
                                           types:[

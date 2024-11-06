@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 
-const CollapsibleText = (props) => {
+const CollapsibleWrapText = (props) => {
   const { text, lines = 5 } = props;
   const textRef = useRef();
   const [overflow, setOverflow] = useState(false);
@@ -23,7 +23,8 @@ const CollapsibleText = (props) => {
           display: "-webkit-box",
           WebkitLineClamp: collapsed ? lines : "unset",
           WebkitBoxOrient: "vertical",
-          overflow: "hidden"
+          overflow: "hidden",
+          wordBreak: "break-all",
         }}
       >
         {text}
@@ -41,4 +42,4 @@ const CollapsibleText = (props) => {
     </>
   );
 };
-export default CollapsibleText;
+export default CollapsibleWrapText;

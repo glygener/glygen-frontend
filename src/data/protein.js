@@ -19,7 +19,8 @@ export const getProteinList = (
   limit = 20,
   sort = "hit_score",
   order = "desc",
-  filters = []
+  filters = [],
+  columns = []
 ) => {
   const queryParams = {
     id: protienListId,
@@ -27,7 +28,8 @@ export const getProteinList = (
     limit: limit,
     order: order,
     sort: sort,
-    filters: filters
+    filters: filters,
+    columns: columns
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/protein/list?query=${queryParamString}`;

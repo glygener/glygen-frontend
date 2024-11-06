@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
 import { getTitle, getMeta } from "../utils/head";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,6 +29,9 @@ import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
+import CustomColumns from "../components/columnSelector/CustomColumns";
+import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayColumnList } from "../data/customcolumn.js";
+
 const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
@@ -160,6 +165,30 @@ const GlycanList = props => {
     }
   ];
 
+  const columnSpecDispTypes = {
+    "number_proteins":{
+      dataField: glycanStrings.number_proteins.id,
+      text: glycanStrings.number_proteins.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <div>
+          {value ? value : " "}
+          {" "}
+          {value > 0 && <DirectSearch
+            text={proteinDirectSearch.attached_glycan_id.text}
+            searchType={"protein"}
+            fieldType={proteinStrings.attached_glycan_id.id}
+            fieldValue={row.glytoucan_ac}
+            executeSearch={proteinSearch}
+          />}
+        </div>
+      )
+    },
+  };
+
   const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
@@ -177,6 +206,14 @@ const GlycanList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const [listCacheId, setListCacheId] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [userSelectedColumns, setUserSelectedColumns] = useState([]);
+
+  function toggleDrawer(newOpen) {
+    setOpen(newOpen);
+  };
+  const tableId = "glycan";
   const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.glycan.common.unmapped;
@@ -236,13 +273,61 @@ const GlycanList = props => {
 
   useEffect(() => {
     setPageLoading(true);
+    if (userSelectedColumns.length > 0) {
+      return;
+    }
+    let selColms = getUserStoredColumns(tableId);
+    if (selColms.length > 0) {
+      setUserSelectedColumns(selColms);
+      return;
+    }
+
+    getColumnList(tableId)
+    .then(({ data }) => {
+      if (data.error_code) {
+        let message = "list init api call";
+        logActivity("user", id, "No results. " + message);
+        setPageLoading(false);
+      } else {
+        let colArr = [];
+        let columns = data.columns;
+        for (let i = 0; i < columns.length; i++) {
+          let col = columns[i];
+            if (col.default || col.immutable) {
+              colArr.push({
+                "id" : col.id,
+                "label" : col.label,
+                "immutable" : col.immutable,
+                "property_name" : col.property_name,
+                "tooltip" : col.tooltip,
+                "order" : col.order
+              })
+          }
+        }
+        let sortedItems = colArr.sort((obj1, obj2) => obj1.order - obj2.order);
+        setUserSelectedColumns(sortedItems);
+        setUserStoredColumns(tableId, sortedItems);
+        setPageLoading(false);
+      }
+    })
+    .catch(function(error) {
+      let message = "list init api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+    });
+    // eslint-disable-anext-line
+  }, []);
+
+  useEffect(() => {
+    setPageLoading(true);
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
     setPage(1);
     logActivity("user", id);
-    getGlycanList(id, 1, sizePerPage, "hit_score", "desc", appliedFilters)
+    let cols = userSelectedColumns.map(col => col.id);
+    getDisplayColumnList(userSelectedColumns, setSelectedColumns, columnSpecDispTypes);
+    getGlycanList(id, 1, sizePerPage, "hit_score", "desc", appliedFilters, cols)
       .then(({ data }) => {
         if (data.error_code) {
           let message = "list api call";
@@ -271,8 +356,9 @@ const GlycanList = props => {
           setQuery(fixResidueToShortNames(data.cache_info.query));
           setParameters(data.cache_info.query.parameters);
           setTimeStamp(data.cache_info.ts);
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
-          setAvailableFilters(data.filters.available);
+          data.filters && setAvailableFilters(data.filters.available);
           if (data.pagination) {
             const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
             setPage(currentPage);
@@ -289,7 +375,7 @@ const GlycanList = props => {
         axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
     // eslint-disable-next-line
-  }, [appliedFilters]);
+  }, [appliedFilters, userSelectedColumns]);
 
   const handleTableChange = (
     type,
@@ -302,20 +388,23 @@ const GlycanList = props => {
     setPage(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
+    let cols = userSelectedColumns.map(col => col.id);
     getGlycanList(
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
       sortField || "hit_score",
       sortOrder,
-      appliedFilters
+      appliedFilters,
+      cols
     ).then(({ data }) => {
       // place to change values before rendering
       setData(data.results);
       setTimeStamp(data.cache_info.ts);
+      setListCacheId(data.cache_info.listcache_id);
       setPagination(data.pagination);
-      setAvailableFilters(data.filters.available);
-      setTotalSize(data.pagination.total_length);
+      data.filters && setAvailableFilters(data.filters.available);
+      data.pagination && setTotalSize(data.pagination.total_length);
       setPageLoading(false);
     });
   };
@@ -437,7 +526,12 @@ const GlycanList = props => {
             </div>
           </div>
         )}
-        <div className="sidebar-page">
+        {/* <Drawer open={open} onClose={() => toggleDrawer(false)}>
+          <Box sx={{ width: "600px" }} role="presentation" onClick={() => toggleDrawer(false)}>
+          </Box>
+        </Drawer> */}
+        <CustomColumns id={id} open={open} setOpen={setOpen} title={"Glycan List Columns"} tableId={tableId} userSelectedColumns={userSelectedColumns} setUserSelectedColumns={setUserSelectedColumns} onClose={() => toggleDrawer(false)}/>
+        <div className="sidebar-page-outreach">
           <div class="list-mainpage-container">
             <PageLoader pageLoading={pageLoading} />
             <DialogAlert
@@ -460,7 +554,8 @@ const GlycanList = props => {
             </section>
 
             <section>
-              <div className="text-end">
+              <div className="text-end pb-3" >
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Customize Columns</Button>
                 <DownloadButton
                   types={[
                     {
@@ -488,7 +583,7 @@ const GlycanList = props => {
                     //   data: "glycan_list"
                     // }
                   ]}
-                  dataId={id}
+                  dataId={listCacheId}
                   dataType="glycan_list"
                   filters={appliedFilters}
                 />

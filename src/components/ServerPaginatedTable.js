@@ -28,7 +28,11 @@ const ServerPaginatedTable = props => {
     setCardLoading,
     viewPort,
     setOpen,
-    open
+    open,
+    appliedFilters,
+    setAvailableFilters,
+    setListCacheId,
+    noDataIndication
   } = props;
 
   const [page, setPage] = useState(1);
@@ -61,6 +65,7 @@ useEffect(() => {
     sizePerPage,
     currentSort || defaultSortField,
     currentSortOrder || defaultSortOrder,
+    appliedFilters
   )
     .then(({ data }) => {
       if (data.error_code) {
@@ -71,7 +76,15 @@ useEffect(() => {
         if (data.query) {
           const currentPage = (data.query.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
-          setTotalSize(totalDataSize);
+          if (data.filters) {
+            setAvailableFilters && setAvailableFilters(data.filters.available);
+          }
+          if (data.cache_info) {
+            setListCacheId && setListCacheId(data.cache_info.listcache_id);
+          }
+          if (data.pagination) {
+            setTotalSize(data.pagination.total_length);
+          }
         } else {
           setPage(1);
           setTotalSize(0);
@@ -96,10 +109,6 @@ useEffect(() => {
     return;
   }
 
-  if (!currentSort || !currentSortOrder) {
-    return;
-  }
-
   logActivity("user", record_id);
 
   setCardLoading(true);
@@ -111,6 +120,7 @@ useEffect(() => {
     sizePerPage,
     currentSort,
     currentSortOrder,
+    appliedFilters
   )
     .then(({ data }) => {
       if (data.error_code) {
@@ -122,7 +132,15 @@ useEffect(() => {
           setData(data.results);
           const currentPage = (data.query.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
-          setTotalSize(totalDataSize);
+          if (data.filters) {
+            setAvailableFilters && setAvailableFilters(data.filters.available);
+          }
+          if (data.cache_info) {
+            setListCacheId && setListCacheId(data.cache_info.listcache_id);
+          }
+          if (data.pagination) {
+            setTotalSize(data.pagination.total_length);
+          }
         } else {
           setPage(1);
           setTotalSize(0);
@@ -135,7 +153,7 @@ useEffect(() => {
       axiosError(error, record_id, message, setCardLoading, setAlertDialogInput);
     });
   // eslint-disable-next-line
-}, [currentSort, currentSortOrder]);
+}, [currentSort, currentSortOrder, appliedFilters]);
 
 const handleTableChange = (
   type,
@@ -160,7 +178,8 @@ const handleTableChange = (
     (page - 1) * sizePerPage + 1,
     sizePerPage,
     sortField || currentSort,
-    sortOrder || currentSortOrder
+    sortOrder || currentSortOrder,
+    appliedFilters
   ).then(({ data }) => {
 
     if (data.error_code) {
@@ -171,7 +190,15 @@ const handleTableChange = (
         if (data.query) {
           // place to change values before rendering
           setData(data.results);
-          setTotalSize(totalDataSize);
+          if (data.filters) {
+            setAvailableFilters && setAvailableFilters(data.filters.available);
+          }
+          if (data.cache_info) {
+            setListCacheId && setListCacheId(data.cache_info.listcache_id);
+          }
+          if (data.pagination) {
+            setTotalSize(data.pagination.total_length);
+          }
         } else {
           setPage(1);
           setTotalSize(0);
@@ -204,6 +231,7 @@ const handleTableChange = (
         viewPort={viewPort}
         setOpen={setOpen}
         open={open}
+        noDataIndication={noDataIndication}
         // noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
       />)}
       </>
