@@ -73,7 +73,7 @@ const MAP_COLUMN_FIELDS = {
   "glycam": "show_more",
   "wurcs": "show_more",
   "inchi": "show_more_wrap",
-  "publication": "show_more",
+  "publication_id_list": "show_more",
   "glycoprotein": "glycoprotein",
   "names": "show_more_wrap",
   "enzyme": "glycoprotein",
