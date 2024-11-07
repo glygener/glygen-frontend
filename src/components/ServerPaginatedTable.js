@@ -109,6 +109,10 @@ useEffect(() => {
     return;
   }
 
+  if (!currentSort && !currentSortOrder) {
+    setPage(1);
+  }
+
   logActivity("user", record_id);
 
   setCardLoading(true);
@@ -130,8 +134,6 @@ useEffect(() => {
       } else {
         if (data.query) {
           setData(data.results);
-          const currentPage = (data.query.offset - 1) / sizePerPage + 1;
-          setPage(currentPage);
           if (data.filters) {
             setAvailableFilters && setAvailableFilters(data.filters.available);
           }

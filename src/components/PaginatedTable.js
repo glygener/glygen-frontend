@@ -94,7 +94,7 @@ const PaginatedTable = ({
   const [expand, setExpand] = useState(false);
 
   return (
-    <div style1={{height: viewPort && expand ? window.innerHeight : undefined, width: viewPort && expand ? window.innerWidth : undefined}}>
+    <div>
 
       <PaginationProvider
         pagination={paginationFactory({
