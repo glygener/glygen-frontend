@@ -342,7 +342,7 @@ const ProteinList = props => {
             </section>
             <section>
               <div className="text-end pb-3">
-                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Customize Columns</Button>
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Edit Columns</Button>
                 <DownloadButton
                   types={[
                     {
