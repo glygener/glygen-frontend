@@ -17,6 +17,7 @@ import { getGlycanImageUrl } from "../data/glycan";
 
 const proteinStrings = stringConstants.protein.common;
 const glycanStrings = stringConstants.glycan.common;
+const siteStrings = stringConstants.site.common;
 
 export const getColumnList = (
   tableId
@@ -107,6 +108,19 @@ const MAP_COLUMN_FIELDS = {
 const yesNoFormater = (value, row) => {
   return value && value.length > 1 ? value.charAt(0).toUpperCase() + value.slice(1) : value;
 };
+
+const getContName = (contb) => {
+  if (glycanStrings.contributions[contb])
+    return glycanStrings.contributions[contb].name;
+
+  if (proteinStrings.contributions[contb])
+    return proteinStrings.contributions[contb].name;
+
+  if (siteStrings.contributions[contb])
+    return siteStrings.contributions[contb].name;
+
+  return contb;
+}
 
 const columnDisplayTypes = {
   "glytoucan_ac":{
@@ -206,7 +220,8 @@ const columnDisplayTypes = {
           title={"Hit Score"}
           text={"Hit Score Formula"}
           formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
-          contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map((item) => {return {c:glycanStrings.contributions[item.c] ? glycanStrings.contributions[item.c].name: item.c, w: item.w, f: item.f}})}
+          contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map((item) => 
+            {return {c: getContName(item.c), w: item.w, f: item.f}})}
         />
         {row.hit_score}
       </>
