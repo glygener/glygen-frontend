@@ -76,6 +76,7 @@ const MAP_COLUMN_FIELDS = {
   "inchi": "show_more_wrap",
   "publication_id_list": "show_more_list",
   "publication": "show_more_list",
+  "pubchem_id": "list",
   "glycoprotein": "glycoprotein",
   "names": "show_more_wrap",
   "enzyme": "glycoprotein",
@@ -354,7 +355,7 @@ const columnDisplayTypes = {
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
     },
-    formatter: value => (value && (typeof value === "string" || typeof value === "number")? value : "N/A")
+    formatter: value => ((typeof value === "string" || typeof value === "number") ? value : "N/A")
   },
   "display_format":{
     dataField: "",
@@ -363,7 +364,7 @@ const columnDisplayTypes = {
     headerStyle: (colum, colIndex) => {
       return { backgroundColor: "#4B85B6", color: "white" };
     },
-    formatter: value => (value && (typeof value === "string" || typeof value === "number") ? value : "")
+    formatter: value => ((typeof value === "string" || typeof value === "number") ? value : "")
   }
 };
 

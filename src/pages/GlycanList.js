@@ -318,6 +318,9 @@ const GlycanList = props => {
   }, []);
 
   useEffect(() => {
+    if (userSelectedColumns.length === 0) {
+      return;
+    }
     setPageLoading(true);
     window.scrollTo({
       top: 0,

@@ -236,6 +236,9 @@ const SiteList = (props) => {
   }, []);
 
   useEffect(() => {
+    if (userSelectedColumns.length === 0) {
+      return;
+    }
     setPageLoading(true);
     window.scrollTo({
       top: 0,
@@ -315,6 +318,9 @@ const SiteList = (props) => {
     type,
     { page, sizePerPage, sortField, sortOrder}
   ) => {
+    if (pageLoading) {
+      return;
+    }
     setPage(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
