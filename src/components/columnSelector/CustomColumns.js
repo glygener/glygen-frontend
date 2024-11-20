@@ -36,7 +36,6 @@ const CustomColumns = props => {
   const [categories, setCategories] = useState();
   const [selectedColumns, setSelectedColumns] = useState({});
   const [items, setItems] = useState([]);
-  const [immutableItems, setImmutableItems] = useState([]);
   const [defaultColumns, setDefaultColumns] = useState({});
   const [defaultItems, setDefaultItems] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -98,24 +97,12 @@ const CustomColumns = props => {
     });
   }
 
-  const saveColumns = (itemsParam, immutableItemsParam, close = true) => {
+  const saveColumns = (itemsParam, close = true) => {
     let itemLen = itemsParam.length;
-    let immLen = immutableItemsParam.length;
-    let length = itemLen + immLen;
+    let length = itemLen;
     let itemCounter = 0;
-    let immCounter = 0;
     let colArr = [];
     for (let i = 0; length > 0; i++) {
-      if (immutableItemsParam[immCounter]) {
-        let immCol = immutableItemsParam[immCounter];
-        if (immCol.order <= (i + 1)) {
-          colArr.push({ ...immCol })
-          immCounter++;
-          length--;
-          continue;
-        }
-      }
-
       if (itemsParam[itemCounter]) {
         let itmCol = itemsParam[itemCounter];
         colArr.push({ ...itmCol })
@@ -192,7 +179,7 @@ const CustomColumns = props => {
           let dtArr = [];
           for (let i = 0; i < categories.length; i++) {
             let cat = categories[i];
-            let cols = columns.filter((col => col?.immutable === false && col?.categories.map(obj => obj.id).includes(cat.id))).sort((obj1, obj2) => obj1.order - obj2.order)
+            let cols = columns.filter(col => col?.categories.map(obj => obj.id).includes(cat.id)).sort((obj1, obj2) => obj1.order - obj2.order)
             if (cols.length > 0) {
               dtArr.push({ ...cat, "columns": [...cols] })
             }
@@ -201,7 +188,6 @@ const CustomColumns = props => {
           setColumns(columns);
           let colArr = {};
           let colItems = [];
-          let colImmutableItems = [];
           let colUserSelArr = {};
           let colUserSelItems = [];
           let columnsTemp = columns.map(obj => { return { ...obj } });
@@ -213,18 +199,7 @@ const CustomColumns = props => {
             let colUsrArr = usrSelCols.filter(usrCol => usrCol.id === col.id);
             let colUsr = colUsrArr && colUsrArr.length > 0 ? colUsrArr[0] : null;
 
-            if (col.immutable) {
-              colImmutableItems.push({
-                "id": col.id,
-                "label": col.label,
-                "immutable": col.immutable,
-                "property_name": col.property_name,
-                "tooltip": col.tooltip,
-                "order": col.order
-              })
-              continue;
-            }
-            if (col.default && !colArr[col.id]) {
+            if ((col.default || col.immutable) && !colArr[col.id]) {
               colItems.push({
                 "id": col.id,
                 "label": col.label,
@@ -245,7 +220,7 @@ const CustomColumns = props => {
               })
             }
 
-            colArr[col.id] = col.default;
+            colArr[col.id] = col.default ? col.default : col.immutable ? col.immutable : col.default;
             colUserSelArr[col.id] = colUsr ? true : false;
           }
 
@@ -254,12 +229,11 @@ const CustomColumns = props => {
             let colUserSelSortedItems = colUserSelItems.sort((obj1, obj2) => obj1.order - obj2.order);
             setItems(colUserSelSortedItems);
             setSelectedColumns(colUserSelArr);
-            saveColumns(colUserSelSortedItems, colImmutableItems, false);
+            saveColumns(colUserSelSortedItems, false);
           } else {
             setItems(sortedItems)
             setSelectedColumns(colArr);
           }
-          setImmutableItems(colImmutableItems);
           setDefaultColumns(colArr);
           setDefaultItems(sortedItems);
           setPageLoading(false);
@@ -333,7 +307,7 @@ const CustomColumns = props => {
               </Button>
               <Button
                 className='gg-btn-blue'
-                onClick={() => saveColumns(items, immutableItems)}
+                onClick={() => saveColumns(items)}
                 disabled={
                   false
                 }>
@@ -365,7 +339,7 @@ const CustomColumns = props => {
               </Button>
               <Button
                 className='gg-btn-blue'
-                onClick={() => saveColumns(items, immutableItems)}
+                onClick={() => saveColumns(items)}
                 disabled={
                   false
                 }>

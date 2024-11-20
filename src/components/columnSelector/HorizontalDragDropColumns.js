@@ -91,7 +91,7 @@ class HorizontalDragDropColumns extends Component {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           label={item.label} variant="outlined"
-                          onDelete={() => this.props.deleteItem(item.id)}
+                          onDelete={item.immutable ? undefined : () => this.props.deleteItem(item.id)}
                           style={getItemStyle(
                             snapshot.isDragging,
                             provided.draggableProps.style

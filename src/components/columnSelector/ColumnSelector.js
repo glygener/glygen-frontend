@@ -59,7 +59,7 @@ const CustomSelector = props => {
               onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
             >
               <AccordionSummary
-                style={{ backgroundColor: "#f5f8fa", height: "50px" }}
+                style={{ backgroundColor: "#f0f0f0", height: "50px" }}
                 expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"

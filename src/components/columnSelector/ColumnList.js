@@ -13,6 +13,7 @@ const ColumnList = (props) => {
               <input
                 type="checkbox"
                 name="checkbox"
+                disabled={column.immutable}
                 checked={selectedColumns[column.id]}
                 onClick={() => handleSelectHighlight(column.id)}
               />
