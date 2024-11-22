@@ -31,6 +31,14 @@ export default function SimpleSearchControl(props) {
     props.setSimpleSearchTerm(event.target.value);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (props.simpleSearchTerm.length <= props.length)
+        props.searchSimpleClick();
+    }
+  };
+
   return (
     <form
       onSubmit={event => {
@@ -38,6 +46,7 @@ export default function SimpleSearchControl(props) {
         if (props.simpleSearchTerm.length <= props.length)
           props.searchSimpleClick();
       }}
+      onKeyDown={handleKeyDown}
     >
       <Grid container spacing={3} justifyContent="center">
         <Grid item xs={12} sm={3}>

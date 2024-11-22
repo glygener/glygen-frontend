@@ -103,7 +103,8 @@ const MAP_COLUMN_FIELDS = {
   "disease":"show_more",
   "function":"show_more",
   "pathway":"show_more",
-  "snv_type":"list"
+  "snv_type":"list",
+  "interactions":"list",
 }
 
 const yesNoFormater = (value, row) => {
