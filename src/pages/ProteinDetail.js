@@ -1101,6 +1101,25 @@ const ProteinDetail = (props) => {
       },
       formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
     },
+    {
+      dataField: "mining_tool",
+      text: "Tool",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter:
+        (value, row) =>
+        value ?
+          <span>
+            {value}
+          </span>
+      : (
+        "Not Reported"
+      ),
+    },
   ];
   const glycanLigandsColumns = [
     {
@@ -2499,7 +2518,10 @@ const ProteinDetail = (props) => {
                                 {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
                                     data={glycosylationWithImage}
-                                    columns={glycoSylationColumns}
+                                    columns={glycoSylationColumns.filter(
+                                      (column) =>
+                                        column.dataField !== "mining_tool"
+                                    )}
                                     onClickTarget={"#glycosylation"}
                                     defaultSortField="start_pos"
                                     defaultSortOrder="asc"
@@ -2558,7 +2580,8 @@ const ProteinDetail = (props) => {
                                       columns={glycoSylationColumns.filter(
                                         (column) =>
                                           column.dataField !== "image" &&
-                                          column.dataField !== "glytoucan_ac"
+                                          column.dataField !== "glytoucan_ac" &&
+                                          column.dataField !== "mining_tool"
                                       )}
                                       onClickTarget={"#glycosylation"}
                                       defaultSortField="start_pos"
@@ -2616,7 +2639,8 @@ const ProteinDetail = (props) => {
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
                                         column.dataField !== "image" &&
-                                        column.dataField !== "glytoucan_ac"
+                                        column.dataField !== "glytoucan_ac" &&
+                                        column.dataField !== "mining_tool"
                                     )}
                                     onClickTarget={"#glycosylation"}
                                     defaultSortField="start_pos"

@@ -12,7 +12,8 @@ import axios from "axios";
 import { Col } from "react-bootstrap";
 import CollapsibleText from "../components/CollapsibleText";
 import CollapsibleWrapText from "../components/CollapsibleWrapText";
-import CollapsableLinkText from "../components/CollapsableLinkText"
+import CollapsableLinkText from "../components/CollapsableLinkText";
+import CollapsableExternalLinkText from "../components/CollapsableExternalLinkText"
 import { getGlycanImageUrl } from "../data/glycan";
 
 const proteinStrings = stringConstants.protein.common;
@@ -74,17 +75,20 @@ const MAP_COLUMN_FIELDS = {
   "glycam": "show_more",
   "wurcs": "show_more",
   "inchi": "show_more_wrap",
-  "publication_id_list": "show_more_list",
-  "publication": "show_more_list",
-  "pubchem_id": "list",
+  "publication_id_list": "show_more_list_with_link",
+  "publication": "show_more_list_with_link",
+  "pubchem_id": "show_more_list_with_link",
   "glycoprotein": "glycoprotein",
   "names": "show_more_wrap",
   "enzyme": "glycoprotein",
-  "composition_id": "glytoucan_ac",
+  "composition_id": "show_more_list_with_link",
   "base_composition_id": "glytoucan_ac",
   "glycoprotein_count": "number_proteins",
   "image_url": "image_url",
-  "motifs":"motifs",
+  "motifs":"show_more_list_with_link",
+  "chebi_id":"show_more_list_with_link",
+  "refseq_ac":"show_more_list_with_link",
+  "ec_number_list":"show_more_list_with_link",
   "snv":"yes_no_formater",
   "glycosylation":"yes_no_formater",
   "mutagenesis":"yes_no_formater",
@@ -306,8 +310,23 @@ const columnDisplayTypes = {
     },
     formatter: (value, row) => (
       <>
-        {value && 
+        {value &&
           <CollapsableLinkText data={value.split(";")}/>
+        }
+      </>
+    )
+  },
+  "show_more_list_with_link":{
+    dataField: "",
+    text: "",
+    sort: false,
+    headerStyle: (colum, colIndex) => {
+      return { width: "20%" };
+    },
+    formatter: (value, row) => (
+      <>
+        {value &&           
+          <CollapsableExternalLinkText data={value}/>
         }
       </>
     )
