@@ -89,6 +89,7 @@ const MAP_COLUMN_FIELDS = {
   "chebi_id":"show_more_list_with_link",
   "refseq_ac":"show_more_list_with_link",
   "ec_number_list":"show_more_list_with_link",
+  "uniprot_id":"show_more_list_with_link",
   "go_biological_process":"show_more_list",
   "go_cellular_component":"show_more_list",
   "protein_name":"show_more_list",
