@@ -105,7 +105,7 @@ const MAP_COLUMN_FIELDS = {
   "end_pos":"site",
   "gene_names_uniprotkb":"list",
   "gene_names_refseq":"list",
-  "protein_names_uniprotkb":"list",
+  "protein_names_uniprotkb":"show_more_list",
   "protein_names_refseq":"list",
   "gene_names_refseq":"list",
   "disease":"show_more",
