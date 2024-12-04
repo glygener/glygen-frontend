@@ -1091,17 +1091,6 @@ const ProteinDetail = (props) => {
       //   </LineTooltip>
     },
     {
-      dataField: "comment",
-      text: "Note",
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return {
-          width: "20%",
-        };
-      },
-      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
-    },
-    {
       dataField: "mining_tool",
       text: "Tool",
       sort: true,
@@ -1120,6 +1109,17 @@ const ProteinDetail = (props) => {
         "Not Reported"
       ),
     },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    }
   ];
   const glycanLigandsColumns = [
     {
