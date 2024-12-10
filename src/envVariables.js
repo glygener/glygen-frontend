@@ -29,7 +29,9 @@ export const GLYCOSCIENCE =
 export const NIGMS =
   process.env.REACT_APP_NIGMS || "https://www.nigms.nih.gov/";
 export const CCRC_UGA = process.env.REACT_APP_CCRC_UGA || "https://www.ccrc.uga.edu/";
-export const TWITTER = process.env.REACT_APP_TWITTER || "https://twitter.com/gly_gen";
+export const XUrl = process.env.REACT_APP_X || "https://x.com/gly_gen";
+export const BLUESKY = process.env.REACT_APP_BLUESKY || "https://bsky.app/profile/glygen.bsky.social";
+export const MSTDN = process.env.REACT_APP_MSTDN ||  "https://mstdn.science/@glygen";
 export const YOUTUBE =
   process.env.REACT_APP_YOUTUBE || "https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/";
 export const GITHUB = process.env.REACT_APP_GITHUB || "https://github.com/glygener";

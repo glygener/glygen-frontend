@@ -2,11 +2,13 @@ import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import logo from "../../images/glygen_logos/glygen-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
-import { NavDropdown, Navbar, Nav, Row, Col, Container as ContainerBootStrap } from "react-bootstrap";
+import { NavDropdown, Navbar, Nav, Row, Col, Container as ContainerBootStrap, Image } from "react-bootstrap";
 import PersonIcon from "@mui/icons-material/Person";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import BlueSkyIcon from "../../images/icons/bluesky-icon.svg";
+import MSTDNIcon from "../../images/icons/mastodon-icon.svg";
+import XIcon from '@mui/icons-material/X';
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -27,7 +29,9 @@ import {
   GLYGEN_SANDBOX,
   GLYGEN_ENV,
   GLYCAN_SEQ_LOOKUP,
-  TWITTER,
+  BLUESKY,
+  XUrl,
+  MSTDN,
   YOUTUBE,
   GITHUB,
   WIKI,
@@ -85,8 +89,14 @@ export default function Header(props) {
             </div>
             <div className="navbar-item text-end">
               <span>
-                <a href={TWITTER} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <TwitterIcon className="me-3" />
+                <a href={BLUESKY} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <Image src={BlueSkyIcon} className="me-3" style={{height:"22px", width:"22px"}}/>
+                </a>
+                <a href={MSTDN} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <Image src={MSTDNIcon} className="me-3" style={{height:"22px", width:"22px"}}/>
+                </a>
+                <a href={XUrl} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <XIcon className="me-3" style={{height:"22px", width:"22px"}}/>
                 </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="me-3" />
