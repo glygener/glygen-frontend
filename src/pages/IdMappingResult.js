@@ -55,7 +55,6 @@ const IdMappingResult = (props) => {
         if (data.error_code) {
           let message = "list api call";
           logActivity("user", id, "No results. " + message);
-          setPageLoading(false);
         } else {
           setData(
             data.results.map((row) => {
@@ -73,12 +72,11 @@ const IdMappingResult = (props) => {
           const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
           setTotalSize(data.pagination.total_length);
-          setPageLoading(false);
         }
       })
       .catch(function (error) {
-        let message = "list api call";
-        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+        let message = "id mapper list api call";
+        logActivity("error", id, message);
       });
     getMappingList(id, "unmapped", 1, 20, "input_id")
       .then(({ data }) => {
@@ -105,6 +103,10 @@ const IdMappingResult = (props) => {
   }, [id]);
 
   function handleTableChange(type, { page, sizePerPage, sortField, sortOrder }) {
+    if (pageLoading) {
+      return;
+    }
+    setPageLoading(true);
     setPage(page);
     setSizePerPage(sizePerPage);
 
@@ -117,25 +119,34 @@ const IdMappingResult = (props) => {
       sortOrder
     ).then(({ data }) => {
       // place to change values before rendering
-      // if (!data.error_code) {
-      setLegends(data.cache_info.legends);
-      setData(
-        data.results.map((row) => {
-          row.link =
-            data.cache_info.query.recordtype === "glycan"
-              ? routeConstants.glycanDetail
-              : routeConstants.proteinDetail;
-          return row;
-        })
-      );
-      setTimeStamp(data.cache_info.ts);
-      setPagination(data.pagination);
-      setTotalSize(data.pagination.total_length);
-      // }
+      if (!data.error_code) {
+        setLegends(data.cache_info.legends);
+        setData(
+          data.results.map((row) => {
+            row.link =
+              data.cache_info.query.recordtype === "glycan"
+                ? routeConstants.glycanDetail
+                : routeConstants.proteinDetail;
+            return row;
+          })
+        );
+        setTimeStamp(data.cache_info.ts);
+        setPagination(data.pagination);
+        setTotalSize(data.pagination.total_length);
+      }
+      setPageLoading(false);
+    })
+    .catch(function (error) {
+      let message = "list api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
     });
   }
 
   function handleTableChangeUnmapped(type, { page, sizePerPage, sortField, sortOrder }) {
+    if (pageLoading) {
+      return;
+    }
+    setPageLoading(true);
     setPageUnmap(page);
     setSizePerPageUnmap(sizePerPage);
 
@@ -154,6 +165,11 @@ const IdMappingResult = (props) => {
         setPaginationUnmap(data.pagination);
         setTotalSizeUnmap(data.pagination.total_length);
       }
+      setPageLoading(false);
+    })
+    .catch(function (error) {
+      let message = "list api call";
+      axiosError(error, id, message, setPageLoading, setAlertDialogInput);
     });
   }
 

@@ -217,21 +217,21 @@ const BlastSearch = (props) => {
               logActivity("user", id, "Blast search modification initiated");
               setInputValue({
                 proSequence:
-                  data.parameters.seq === undefined
+                data.query === undefined || data.query.parameters.seq === undefined
                     ? ""
-                    : data.parameters.seq,
+                    : data.query.parameters.seq,
                 targetDatabase:
-                data.parameters.targetdb === undefined
+                data.query === undefined || data.query.parameters.targetdb === undefined
                     ? "canonicalsequences_all"
-                    : data.parameters.targetdb,
+                    : data.query.parameters.targetdb,
                 eValue:
-                data.parameters.evalue === undefined
+                data.query === undefined || data.query.parameters.evalue === undefined
                     ? 0.001
-                    : data.parameters.evalue,
+                    : data.query.parameters.evalue,
                 maxHits:
-                data.parameters.num_alignments === undefined
+                data.query === undefined || data.query.parameters.num_alignments === undefined
                     ? 250
-                    : data.parameters.num_alignments,
+                    : data.query.parameters.num_alignments,
               });
               setBlastError({ proSequenceInput: false, proSeqSearchDisabled: false });
               setPageLoading(false);
