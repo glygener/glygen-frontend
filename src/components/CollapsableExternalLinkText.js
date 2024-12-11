@@ -5,7 +5,7 @@ import LineTooltip from "./tooltip/LineTooltip";
 import { Link } from "react-router-dom";
 
 const CollapsableExternalLinkText = (props) => {
-  const { routeLink, data, maxItems = 4 } = props;
+  const { routeLink, data, maxItems = 4, noLink = false} = props;
   const [open, setOpen] = useState(data.length <= maxItems);
   const displayedItems = open ? data : data.slice(0, maxItems);
 
@@ -14,11 +14,11 @@ const CollapsableExternalLinkText = (props) => {
           {displayedItems.map((val, ind) => (
             <>
               <Col className="nowrap ps-0">
-                <LineTooltip text="View details">
+                {noLink ? <span>{val.id}</span> : <LineTooltip text="View details">
                 <a href={val.url} target="_blank" rel="noopener noreferrer">
                   <>{val.id}</>
                 </a>
-                </LineTooltip> 
+                </LineTooltip>}
               </Col>
             </>
           ))}

@@ -2004,7 +2004,7 @@ const PublicationDetail = (props) => {
                               </div>
                             )}
 
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={glycosylationWithImage}
@@ -2040,7 +2040,7 @@ const PublicationDetail = (props) => {
                                 />
                               )}
                               {!glycosylationWithImage.length && (
-                                <div className="tab-content-padding">{dataStatus}</div>
+                                <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
@@ -2054,7 +2054,7 @@ const PublicationDetail = (props) => {
                                 {createGlycosylationSummaryFromSectionStat(glycosylationWithoutImageSectStat)}
                               </div>
                             )}
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {glycosylationWithoutImageTotal !== undefined && glycosylationWithoutImage &&
                                 glycosylationWithoutImage.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
@@ -2095,7 +2095,7 @@ const PublicationDetail = (props) => {
                                   />
                                 )}
                               {!glycosylationWithoutImage.length && (
-                                <div className="tab-content-padding">{dataStatus}</div>
+                                <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
@@ -2109,7 +2109,7 @@ const PublicationDetail = (props) => {
                                 {createGlycosylationSummaryFromSectionStat(glycosylationAutoLitMinSectStat)}
                               </div>
                             )}
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {glycosylationAutoLitMinTotal !== undefined && glycosylationMining && glycosylationMining.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={glycosylationMining}
@@ -2149,7 +2149,7 @@ const PublicationDetail = (props) => {
                                 />
                               )}
                               {!glycosylationMining.length && (
-                                <div className="tab-content-padding">{dataStatus}</div>
+                                <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                               )}
                             </Container>
                           </Tab>
@@ -2404,7 +2404,7 @@ const PublicationDetail = (props) => {
                           tabClassName={(!mutataionWithdisease || (mutataionWithdisease.length === 0)) ? "tab-disabled" : ""}
                           disabled={(!mutataionWithdisease || (mutataionWithdisease.length === 0))}
                         >
-                          <Container className="tab-content-padding">
+                          <Container className="tab-content-padding tab-bigscreen">
                             {mutataionWithdisease && mutataionWithdisease.length > 0 && (
                               <ClientServerPaginatedTableFullScreen
                                 data={mutataionWithdisease}
@@ -2441,7 +2441,7 @@ const PublicationDetail = (props) => {
                           tabClassName={(!mutataionWithoutdisease || (mutataionWithoutdisease.length === 0)) ? "tab-disabled" : ""}
                           disabled={(!mutataionWithoutdisease || (mutataionWithoutdisease.length === 0))}
                         >
-                          <Container className="tab-content-padding">
+                          <Container className="tab-content-padding tab-bigscreen">
                             {mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && (
                               <ClientServerPaginatedTableFullScreen
                                 data={mutataionWithoutdisease}
@@ -2705,7 +2705,7 @@ const PublicationDetail = (props) => {
                           tabClassName={(!expressionWithtissue || (expressionWithtissue.length === 0)) ? "tab-disabled" : ""}
                           disabled={(!expressionWithtissue || (expressionWithtissue.length === 0))}
                         >
-                          <Container className="tab-content-padding">
+                          <Container className="tab-content-padding tab-bigscreen">
                             {expressionWithtissue && expressionWithtissue.length > 0 && (
                               <ClientServerPaginatedTableFullScreen
                                 data={expressionWithtissue.map(data => {return {...data, tissueName: (data.tissue ? data.tissue.name : "")}})}
@@ -2738,7 +2738,7 @@ const PublicationDetail = (props) => {
                           tabClassName={(!expressionWithcell || (expressionWithcell.length === 0)) ? "tab-disabled" : ""}
                           disabled={(!expressionWithcell || (expressionWithcell.length === 0))}
                         >
-                          <Container className="tab-content-padding">
+                          <Container className="tab-content-padding tab-bigscreen">
                             {expressionWithcell && expressionWithcell.length > 0 && (
                               <ClientServerPaginatedTableFullScreen
                                 data={expressionWithcell.map(data => {return {...data, cellLineName: (data.cell_line ? data.cell_line.name : "")}})}

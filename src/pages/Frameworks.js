@@ -43,7 +43,7 @@ const Frameworks = (props) => {
 			</Helmet>
 
 			<CssBaseline />
-			<Container maxWidth="md" className="gg-frameworks-container card">
+			<Container maxWidth="md" className="gg-frameworks-container card tab-bigscreen">
 				<Row>
 					<Col sm={12} md={12} lg={12}>
 						<VerticalHeading post={vertHeadFrameworks} />

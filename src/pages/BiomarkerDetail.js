@@ -856,7 +856,7 @@ const BiomarkerDetail = (props) => {
                             tabClassName={((!glycanComponents) || (glycanComponents.length === 0)) ? "tab-disabled" : ""}
                             disabled={((!glycanComponents) || (glycanComponents.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {components && glycanComponents && glycanComponents.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={glycanComponents}
@@ -896,7 +896,7 @@ const BiomarkerDetail = (props) => {
                             tabClassName={((!proteinComponents) || (proteinComponents.length === 0)) ? "tab-disabled" : ""}
                             disabled={((!proteinComponents) || (proteinComponents.length === 0))}
                           >
-                            <Container>
+                            <Container className="tab-content-padding tab-bigscreen">
                               {proteinComponents && proteinComponents.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={proteinComponents}
@@ -933,7 +933,7 @@ const BiomarkerDetail = (props) => {
                       )}
                       {(((proteinComponents=== undefined  || proteinComponents.length === 0) && (glycanComponents === undefined || glycanComponents.length === 0))) && <p>{dataStatus}</p>}
                       </> : <>
-                            <Container>
+                            <Container className="tab-content-padding tab-bigscreen">
                             {biomarkerComponents && biomarkerComponents.length > 0 && (
                               <ClientServerPaginatedTableFullScreen
                                 data={biomarkerComponents}

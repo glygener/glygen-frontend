@@ -236,7 +236,7 @@ const Resources = () => {
       </Helmet>
 
       <CssBaseline />
-      <Row className="gg-baseline">
+      <Row className="gg-baseline text-start">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
           <Sidebar items={items} />
         </Col>

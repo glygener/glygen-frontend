@@ -60,7 +60,7 @@ const ContactUs = (props) => {
 			</Helmet>
 
 			<CssBaseline />
-			<Container maxWidth="lg" className="gg-container5">
+			<Container maxWidth="lg" className="gg-container5 tab-bigscreen">
 				<Row>
 					{/* Contact Left*/}
 					<Col sm={12} md={12} lg={6}>

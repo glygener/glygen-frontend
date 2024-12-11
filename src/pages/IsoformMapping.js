@@ -815,7 +815,7 @@ const IsoformMapping = (props) => {
           </h2>
         </div>
       </div>
-      <Container>
+      <Container className="tab-bigscreen">
         <PageLoader pageLoading={pageLoading} />
         <DialogLoader
           show={dialogLoading}
@@ -847,7 +847,7 @@ const IsoformMapping = (props) => {
               alertInput={alertTextInput}
             />
             {/* <div style={{paddingBottom: "20px"}}></div> */}
-            <Container className='tab-content-border'>
+            <Container className='tab-content-border tab-bigscreen'>
 
               {/* 1. Protein Sequence */}
               <Grid
@@ -1040,7 +1040,7 @@ const IsoformMapping = (props) => {
               alertInput={alertTextInput}
             />
             <div style={{ paddingBottom: "20px" }}></div>
-            <Container className='tab-content-border'>
+            <Container className='tab-content-border tab-bigscreen'>
 
               <Grid
                 container
@@ -1131,7 +1131,7 @@ const IsoformMapping = (props) => {
             <TextAlert
               alertInput={alertTextInput}
             />
-            <Container className='tab-content-border'>
+            <Container className='tab-content-border tab-bigscreen'>
 
               <Grid
                 container

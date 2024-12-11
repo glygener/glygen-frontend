@@ -75,8 +75,8 @@ const MAP_COLUMN_FIELDS = {
   "glycam": "show_more",
   "wurcs": "show_more",
   "inchi": "show_more_wrap",
-  "publication_id_list": "show_more_list_with_link",
-  "publication": "show_more_list_with_link",
+  "publication_id_list": "show_more_list_no_link",
+  "publication": "show_more_list_no_link",
   "pubchem_id": "show_more_list_with_link",
   "glycoprotein": "glycoprotein",
   "names": "show_more_wrap",
@@ -331,6 +331,21 @@ const columnDisplayTypes = {
       <>
         {value &&           
           <CollapsableExternalLinkText data={value}/>
+        }
+      </>
+    )
+  },
+  "show_more_list_no_link":{
+    dataField: "",
+    text: "",
+    sort: false,
+    headerStyle: (colum, colIndex) => {
+      return { width: "20%" };
+    },
+    formatter: (value, row) => (
+      <>
+        {value &&           
+          <CollapsableExternalLinkText noLink={true} data={value}/>
         }
       </>
     )

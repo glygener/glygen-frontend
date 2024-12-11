@@ -66,7 +66,7 @@ const StoryAboutUs = (props) => {
     <React.Fragment>
       {/* Top header with univ logos */}
       <section>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           <Row className="content-box-md">
             <Col>
               <VerticalHeading post={vertHeadAboutUs} />
@@ -230,7 +230,7 @@ const StoryAboutUs = (props) => {
       </section>
       {/* Funding */}
       <section className="content-box-md" style={{ paddingTop: "20px", paddingBottom: "60px" }}>
-        <Container maxWidth="lg" className="gg-container5">
+        <Container maxWidth="lg" className="gg-container5 tab-bigscreen">
           <VerticalHeading post={vertHeadFunding} />
           <Row>
             <Col md={"auto"} xl={6}>

@@ -352,7 +352,7 @@ const IdMapping = (props) => {
           </h2>
         </div>
       </div>
-      <Container className="id-mapping-content">
+      <Container className="id-mapping-content tab-bigscreen">
         <PageLoader pageLoading={pageLoading} />
         <DialogAlert
           alertInput={alertDialogInput}

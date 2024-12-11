@@ -616,73 +616,75 @@ const QuickSearch = (props) => {
         {getMeta("quickSearch")}
       </Helmet>
       <FeedbackWidget />
-      <Row className="gg-baseline">
-        <Col sm={3} md={3} lg={3} xl={3} className="sidebar-col">
-          <SidebarCategory items={items} />
-        </Col>
-        <Col sm={9} md={9} lg={9} xl={9} className="sidebar-page">
-          <Container maxWidth="md" className="sidebar-page-mb">
-            <div id="Search-Category">
-              <VerticalHeading post={vertHeadQuickSearch} style={{ margin: "0 auto" }} />
-            </div>
-            <PageLoader pageLoading={pageLoading} />
-            <DialogAlert
-              alertInput={alertDialogInput}
-              setOpen={(input) => {
-                setAlertDialogInput({ show: input });
-              }}
-            />
-            <SearchByGlycan
-              setInputValue={setInputValue}
-              inputValue={inputValue}
-              searchQuestion1={searchQuestion1}
-              searchQuestion2={searchQuestion2}
-              searchQuestion3={searchQuestion3}
-              questionId={questionId}
-              panelExpanded={panelExpanded}
-              togglePanelExpansion={togglePanelExpansion}
-              alertText={alertText}
-              id="Glycan"
-            />
-            <SearchByProtein
-              setInputValue={setInputValue}
-              inputValue={inputValue}
-              searchQuestion4={searchQuestion4}
-              searchQuestion5={searchQuestion5}
-              searchQuestion6={searchQuestion6}
-              searchQuestion7={searchQuestion7}
-              questionId={questionId}
-              panelExpanded={panelExpanded}
-              togglePanelExpansion={togglePanelExpansion}
-              alertText={alertText}
-              id="Protein"
-            />
-            <SearchByOrganism
-              setInputValue={setInputValue}
-              inputValue={inputValue}
-              glycanInitData={glycanInitData}
-              searchQuestion8={searchQuestion8}
-              searchQuestion9={searchQuestion9}
-              searchQuestion10={searchQuestion10}
-              questionId={questionId}
-              panelExpanded={panelExpanded}
-              togglePanelExpansion={togglePanelExpansion}
-              alertText={alertText}
-              id="Organism"
-            />
-            <SearchByDisease
-              setInputValue={setInputValue}
-              inputValue={inputValue}
-              searchQuestion11={searchQuestion11}
-              questionId={questionId}
-              panelExpanded={panelExpanded}
-              togglePanelExpansion={togglePanelExpansion}
-              alertText={alertText}
-              id="Disease"
-            />
-          </Container>
-        </Col>
-      </Row>
+      <Container maxWidth="lg" className="gg-container tab-bigscreen">
+        <Row className="gg-baseline">
+          <Col sm={3} md={3} lg={3} xl={3} className="sidebar-col">
+            <SidebarCategory items={items} />
+          </Col>
+          <Col sm={9} md={9} lg={9} xl={9} className="sidebar-page">
+            <Container maxWidth="md" className="sidebar-page-mb tab-bigscreen">
+              <div id="Search-Category">
+                <VerticalHeading post={vertHeadQuickSearch} style={{ margin: "0 auto" }} />
+              </div>
+              <PageLoader pageLoading={pageLoading} />
+              <DialogAlert
+                alertInput={alertDialogInput}
+                setOpen={(input) => {
+                  setAlertDialogInput({ show: input });
+                }}
+              />
+              <SearchByGlycan
+                setInputValue={setInputValue}
+                inputValue={inputValue}
+                searchQuestion1={searchQuestion1}
+                searchQuestion2={searchQuestion2}
+                searchQuestion3={searchQuestion3}
+                questionId={questionId}
+                panelExpanded={panelExpanded}
+                togglePanelExpansion={togglePanelExpansion}
+                alertText={alertText}
+                id="Glycan"
+              />
+              <SearchByProtein
+                setInputValue={setInputValue}
+                inputValue={inputValue}
+                searchQuestion4={searchQuestion4}
+                searchQuestion5={searchQuestion5}
+                searchQuestion6={searchQuestion6}
+                searchQuestion7={searchQuestion7}
+                questionId={questionId}
+                panelExpanded={panelExpanded}
+                togglePanelExpansion={togglePanelExpansion}
+                alertText={alertText}
+                id="Protein"
+              />
+              <SearchByOrganism
+                setInputValue={setInputValue}
+                inputValue={inputValue}
+                glycanInitData={glycanInitData}
+                searchQuestion8={searchQuestion8}
+                searchQuestion9={searchQuestion9}
+                searchQuestion10={searchQuestion10}
+                questionId={questionId}
+                panelExpanded={panelExpanded}
+                togglePanelExpansion={togglePanelExpansion}
+                alertText={alertText}
+                id="Organism"
+              />
+              <SearchByDisease
+                setInputValue={setInputValue}
+                inputValue={inputValue}
+                searchQuestion11={searchQuestion11}
+                questionId={questionId}
+                panelExpanded={panelExpanded}
+                togglePanelExpansion={togglePanelExpansion}
+                alertText={alertText}
+                id="Disease"
+              />
+            </Container>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

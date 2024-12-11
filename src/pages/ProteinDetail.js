@@ -2045,7 +2045,7 @@ const ProteinDetail = (props) => {
 
   if (nonExistent) {
     return (
-      <Container className="tab-content-border2">
+      <Container className="tab-content-border2 tab-bigscreen">
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (<>
             {(nonExistent.reason.type !== "never_in_glygen_current_in_uniprotkb" && nonExistent.reason.type !== "discontinued_in_glygen") && (<AlertTitle> {id} is no longer valid Protein ID</AlertTitle>)}
@@ -2514,7 +2514,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummaryFromSectionStat(glycosylationWithImageSectStat, true)}
                                 </div>
                               )}
-                              <Container className="tab-content-padding">
+                              <Container className="tab-content-padding tab-bigscreen">
                                 {glycosylationWithImageTotal !== undefined && glycosylationWithImage && glycosylationWithImage.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
                                     data={glycosylationWithImage}
@@ -2555,7 +2555,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationWithImage.length && (
-                                  <div className="tab-content-padding">{dataStatus}</div>
+                                  <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2572,7 +2572,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummaryFromSectionStat(glycosylationWithoutImageSectStat)}
                                 </div>
                               )}
-                              <Container className="tab-content-padding">
+                              <Container className="tab-content-padding tab-bigscreen">
                                 {glycosylationWithoutImageTotal !== undefined && glycosylationWithoutImage &&
                                   glycosylationWithoutImage.length > 0 && (
                                     <ClientServerPaginatedTableFullScreen
@@ -2616,7 +2616,7 @@ const ProteinDetail = (props) => {
                                     />
                                   )}
                                 {!glycosylationWithoutImage.length && (
-                                  <div className="tab-content-padding">{dataStatus}</div>
+                                  <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2632,7 +2632,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummaryFromSectionStat(glycosylationPredictedSectStat)}
                                 </div>
                               )}
-                              <Container className="tab-content-padding">
+                              <Container className="tab-content-padding tab-bigscreen">
                                 {glycosylationPredictedTotal !== undefined && glycosylationPredicted && glycosylationPredicted.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
                                     data={glycosylationPredicted}
@@ -2675,7 +2675,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationPredicted.length && (
-                                  <div className="tab-content-padding">{dataStatus}</div>
+                                  <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -2695,7 +2695,7 @@ const ProteinDetail = (props) => {
                                   {createGlycosylationSummaryFromSectionStat(glycosylationAutoLitMinSectStat)}
                                 </div>
                               )}
-                              <Container className="tab-content-padding">
+                              <Container className="tab-content-padding tab-bigscreen">
                                 {glycosylationAutoLitMinTotal !== undefined && glycosylationMining && glycosylationMining.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
                                     data={glycosylationMining}
@@ -2737,7 +2737,7 @@ const ProteinDetail = (props) => {
                                   />
                                 )}
                                 {!glycosylationMining.length && (
-                                  <div className="tab-content-padding">{dataStatus}</div>
+                                  <div className="tab-content-padding tab-bigscreen">{dataStatus}</div>
                                 )}
                               </Container>
                             </Tab>
@@ -3255,7 +3255,7 @@ const ProteinDetail = (props) => {
                             tabClassName={(!mutataionWithdisease || (mutataionWithdisease.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!mutataionWithdisease || (mutataionWithdisease.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {mutataionWithdiseaseTotal !== undefined && mutataionWithdisease && mutataionWithdisease.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={mutataionWithdisease}
@@ -3301,7 +3301,7 @@ const ProteinDetail = (props) => {
                             tabClassName={(!mutataionWithoutdisease || (mutataionWithoutdisease.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!mutataionWithoutdisease || (mutataionWithoutdisease.length === 0))}
                           >
-                            <Container>
+                            <Container className="tab-content-padding tab-bigscreen">
                               {mutataionWithoutdiseaseTotal !== undefined && mutataionWithoutdisease && mutataionWithoutdisease.length > 0 && (
                                 <ClientServerPaginatedTableFullScreen
                                   data={mutataionWithoutdisease}

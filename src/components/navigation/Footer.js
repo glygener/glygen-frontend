@@ -67,7 +67,7 @@ export default function Footer() {
   return (
     <React.Fragment>
       <div className="footer-color gg-align-center gg-footer">
-        <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center sitemap-item">
+        <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center sitemap-item tab-bigscreen">
           <Row className="text-center justify-content-center">
             <Col xs={6} md={"auto"} className="text-start sitemap-item">
               <h6 className="text-uppercase">Get Started</h6>
@@ -222,7 +222,7 @@ export default function Footer() {
                 </a>
               </div>
             </Col>
-            <Col xs={6} md={"auto"} className="text-start sitemap-item">
+            <Col xs={6} md={"auto"} className="text-center sitemap-item">
               <div>
                 <a href={BLUESKY} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <Image src={BlueSkyIcon} className="me-2" style={{height:"22px", width:"22px"}}/>
@@ -252,7 +252,7 @@ export default function Footer() {
                 </a>
               </div>
 
-              <div className="text-center5">
+              <div className="text-center">
                 <a href={CCRC_UGA} target="_blank" rel="noopener noreferrer">
                   <Image src={ugaLogo} className={classes.footerUnivLogo} />
                 </a>

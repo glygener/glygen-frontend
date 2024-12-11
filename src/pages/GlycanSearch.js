@@ -1243,7 +1243,7 @@ const GlycanSearch = (props) => {
 			</Helmet>
 			<FeedbackWidget />
 			<div className='lander'>
-				<Container>
+				<Container className='tab-bigscreen'>
 					<PageLoader pageLoading={pageLoading} />
 					<DialogLoader 
 						show={dialogLoading}
@@ -1276,7 +1276,7 @@ const GlycanSearch = (props) => {
 								alertInput={alertTextInput}
 							/>
 							<div style={{paddingBottom: "20px"}}></div>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								{initData.simple_search_category && (
 									<SimpleSearchControl
 										simpleSearchCategory={glySimpleSearchCategory}
@@ -1300,7 +1300,7 @@ const GlycanSearch = (props) => {
 							<TextAlert
 								alertInput={alertTextInput}
 							/>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 							<h5><br></br><center>{advancedSearch.message}</center></h5>
 								{initData && (
 									<GlycanAdvancedSearch
@@ -1319,7 +1319,7 @@ const GlycanSearch = (props) => {
 							<TextAlert
 								alertInput={alertTextInput}
 							/>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								{initData.composition && (
 									<CompositionSearchControl
 										compositionInitMap={initData.composition}
@@ -1341,7 +1341,7 @@ const GlycanSearch = (props) => {
 							<TextAlert
 								alertInput={alertTextInput}
 							/>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								{initData.composition && (
 									<StructureSearchControl
 										searchStructClick={searchStructClick}
@@ -1358,7 +1358,7 @@ const GlycanSearch = (props) => {
 							<TextAlert
 								alertInput={alertTextInput}
 							/>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								{initData.composition && (
 									<SubstructureSearchControl
 										searchSubStructClick={searchSubStructClick}
@@ -1372,7 +1372,7 @@ const GlycanSearch = (props) => {
 							eventKey='Tutorial'
 							title={glycanSearchData.tutorial.tabTitle}
 							className='tab-content-padding'>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								<GlycanTutorial />
 							</Container>
 						</Tab>

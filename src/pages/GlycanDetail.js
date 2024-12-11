@@ -1611,7 +1611,7 @@ const GlycanDetail = props => {
 
   if (nonExistent) {
     return (
-      <Container className="tab-content-border2">
+      <Container className="tab-content-border2 tab-bigscreen">
         <Alert className="erroralert" severity="error">
           {nonExistent.reason && nonExistent.reason.type && nonExistent.reason.type !== "invalid" ? (
             <>
@@ -2728,7 +2728,7 @@ const GlycanDetail = props => {
                             tabClassName={(!subsumptionAncestor || (subsumptionAncestor.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!subsumptionAncestor || (subsumptionAncestor.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {subsumptionAncestor &&
                                 subsumptionAncestor.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
@@ -2765,7 +2765,7 @@ const GlycanDetail = props => {
                             tabClassName={(!subsumptionDescendant || (subsumptionDescendant.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!subsumptionDescendant || (subsumptionDescendant.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {subsumptionDescendant &&
                                 subsumptionDescendant.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
@@ -2954,7 +2954,7 @@ const GlycanDetail = props => {
                             tabClassName={(!expressionWithtissue || (expressionWithtissue.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!expressionWithtissue || (expressionWithtissue.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {expressionWithtissueTotal !== undefined && expressionWithtissue &&
                                 expressionWithtissue.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen
@@ -3001,7 +3001,7 @@ const GlycanDetail = props => {
                             tabClassName={(!expressionWithcell || (expressionWithcell.length === 0)) ? "tab-disabled" : ""}
                             disabled={(!expressionWithcell || (expressionWithcell.length === 0))}
                           >
-                            <Container className="tab-content-padding">
+                            <Container className="tab-content-padding tab-bigscreen">
                               {expressionWithcellTotal !== undefined && expressionWithcell &&
                                 expressionWithcell.length > 0 && (
                                   <ClientServerPaginatedTableFullScreen

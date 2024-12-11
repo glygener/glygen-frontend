@@ -290,8 +290,8 @@ const CustomColumns = props => {
           <Grid item xs={12} sm={10}>
             <HorizontalDragDropColumns items={items} setItems={setItems} deleteItem={deleteItem} />
           </Grid>
-          <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}} item>
-            <span>*{" "}To reorder display of the columns on the list page, please drag the column name badges above.{" "}*</span>
+          <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item xs={12} sm={10}>
+            <div className="text-center">*{" "}To reorder display of the columns on the list page, please drag the column name badges above.{" "}*</div>
           </Grid>
 
           {/* Buttons Top */}

@@ -262,7 +262,7 @@ const SuperSearch = (props) => {
 			</Helmet>
 			<FeedbackWidget />
 			<div className='lander'>
-				<Container>
+				<Container className='tab-bigscreen'>
 					<PageLoader pageLoading={pageLoading} />
 					<DialogAlert
 						alertInput={alertDialogInput}
@@ -327,7 +327,7 @@ const SuperSearch = (props) => {
 							eventKey='Super-Search'
 							className='tab-content-padding'
 							title={superSearchJSONData.tabTitle}>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								<Grid
 									container
 									style={{ margin: '0  auto' }}
@@ -430,7 +430,7 @@ const SuperSearch = (props) => {
 							eventKey='Tutorial'
 							title={superSearchTutorialData.tabTitle}
 							className='tab-content-padding'>
-							<Container className='tab-content-border'>
+							<Container className='tab-content-border tab-bigscreen'>
 								<h2><center>Coming Soon...</center></h2>
 							</Container>
 						</Tab>

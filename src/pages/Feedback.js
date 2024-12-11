@@ -33,7 +33,7 @@ export default function Feedback() {
 			</Helmet>
 
 			<CssBaseline />
-			<Container maxWidth="xl" className="gg-container">
+			<Container maxWidth="xl" className="gg-container tab-bigscreen">
 				<HorizontalHeading post={horizontalHeadingFeedback} />
 				<Col>
 					<Iframe

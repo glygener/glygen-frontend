@@ -408,7 +408,7 @@ const BiomarkerSearch = props => {
       </Helmet>
       <FeedbackWidget />
       <div className="lander">
-        <Container>
+        <Container className="tab-bigscreen">
           <PageLoader pageLoading={pageLoading} />
           <DialogAlert
             alertInput={alertDialogInput}
@@ -434,7 +434,7 @@ const BiomarkerSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <div style={{ paddingBottom: "20px" }}></div>
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 {initData.simple_search_category && (
                   <SimpleSearchControl
                     simpleSearchCategory={bioSimpleSearchCategory}
@@ -460,7 +460,7 @@ const BiomarkerSearch = props => {
               title={advancedSearch.tabTitle}
             >
               <TextAlert alertInput={alertTextInput} />
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
               <h5><br></br><center>{GLYGEN_BUILD === "glygen" ? advancedSearch.message : advancedSearch.messageBiomarker}</center></h5>
                 {initData && (
                   <BiomarkerAdvancedSearch
@@ -477,7 +477,7 @@ const BiomarkerSearch = props => {
               title={biomarkerSearchData.tutorial.tabTitle}
               className="tab-content-padding"
             >
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 <h2>
                   <center>Coming Soon...</center>
                 </h2>

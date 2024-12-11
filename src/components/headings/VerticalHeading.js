@@ -13,7 +13,7 @@ export default function VerticalHeading(props) {
 			style={{ paddingBottom: "0" }}
 			className="content-box-md"
 			id={props.id}>
-			<Container maxWidth="xl">
+			<Container maxWidth="xl tab-bigscreen">
 				<Row>
 					<Col>
 						<div className="vertical-heading">

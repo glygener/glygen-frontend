@@ -77,11 +77,11 @@ const OurTalks = (props) => {
   };
   return (
     <React.Fragment>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className="tab-bigscreen">
         <VerticalHeading post={vertHeadTalks} />
       </Container>
       <section className="content-box-md about-section-bg">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           <Row className="gg-align-middle gg-align-center">
             <div className={classes.root}>
               <Row>
@@ -107,7 +107,7 @@ const OurTalks = (props) => {
                   </Tabs>
                 </Col>
               </Row>
-              <Container maxWidth="md">
+              <Container maxWidth="md" className="tab-bigscreen">
                 {/* <AutoPlaySwipeableViews
 									axis={theme.direction === "rtl" ? "x-reverse" : "x"}
 									index={value}

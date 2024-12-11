@@ -20,7 +20,7 @@ const UnivLogos = (props) => {
     <React.Fragment>
       {/* University logos */}
       <section className="content-box-lg">
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className="tab-bigscreen">
           <div className="gg-align-middle gg-align-center">
             {/* University 01 */}
             <div>

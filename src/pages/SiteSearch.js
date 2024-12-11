@@ -231,7 +231,7 @@ const SiteSearch = (props) => {
       </Helmet>
       <FeedbackWidget />
       <div className="lander">
-        <Container>
+        <Container className="tab-bigscreen">
           <PageLoader pageLoading={pageLoading} />
           <DialogAlert
             alertInput={alertDialogInput}
@@ -257,7 +257,7 @@ const SiteSearch = (props) => {
               title={siteData.site_search.tabTitle}
             >
               <TextAlert alertInput={alertTextInput} />
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
               <h5><br></br><center>{siteData.site_search.message}</center></h5>
                 <SiteSearchControl
                   siteSearchData={siteSearchData}
@@ -275,7 +275,7 @@ const SiteSearch = (props) => {
               title={siteData.tutorial.tabTitle}
               className="tab-content-padding"
             >
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 <h2>
                   <center>Coming Soon...</center>
                 </h2>

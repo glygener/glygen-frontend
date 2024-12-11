@@ -5,7 +5,7 @@ import { Row, Col, Image } from "react-bootstrap";
 const TeamMembersCard = (props) => {
 	return (
 		<React.Fragment>
-			<Container maxWidth="lg">
+			<Container maxWidth="lg" className="tab-bigscreen">
 				<h2 className="section-heading">{props.data.heading}</h2>
 				<h3>{props.data.subheading}</h3>
 

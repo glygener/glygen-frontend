@@ -79,19 +79,19 @@ const OurTeam = (props) => {
         </Paper>
       </section>
       <section className="content-box-md">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">{teamMembersData.pi.heading}</h2> */}
           <TeamMembersCard data={teamMembersData.pi} />
         </Container>
       </section>
       <section className="content-box-md about-section-bg">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">Advocates</h2> */}
           <TeamMembersCard data={teamMembersData.advocates} />
         </Container>
       </section>
       <section className="content-box-md">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           <h2 className="section-heading">{teamMembersData.collaborators.heading}</h2>
           {/* <h3>Tool Development and Data Integration</h3> */}
           <TeamMembersCard data={teamMembersData.collaborators.dataIntegration} />
@@ -120,7 +120,7 @@ const OurTeam = (props) => {
         </Container>
       </section> */}
       <section className="content-box-md about-section-bg">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">Former Members</h2> */}
           <TeamMembersCard formerMembers={true} data={{"heading": teamMembersData.formerMembers.heading, "people": teamMembersData.formerMembers.people.sort((obj1, obj2) => obj2.orderID - obj1.orderID)}} />
         </Container>

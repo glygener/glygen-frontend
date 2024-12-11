@@ -4,6 +4,12 @@
 
 /* Large Devices (Desktops & Laptops) */
 
+@media (min-width: 1400px) {
+  .tab-bigscreen {
+      max-width: 98% !important;
+  }
+}
+
 @media (min-width: 1200px) and (max-width: 1299px) {
 }
 

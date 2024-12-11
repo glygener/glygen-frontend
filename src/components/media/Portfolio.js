@@ -95,7 +95,7 @@ const Portfolio = (props) => {
   return (
     <React.Fragment>
       <section className="content-box-md" style={{marginLeft:"12px", marginRight:"12px"}}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="tab-bigscreen">
           <HorizontalHeading post={horHeadPortfolio} id="horizontal-heading-pb0" />
           <Row className="gg-align-middle5 gg-align-center">
             <Col sm={12} className="text-center">

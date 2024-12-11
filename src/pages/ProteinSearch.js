@@ -846,7 +846,7 @@ const ProteinSearch = props => {
       </Helmet>
       <FeedbackWidget />
       <div className="lander">
-        <Container>
+        <Container className="tab-bigscreen">
           <PageLoader pageLoading={pageLoading} />
           <DialogAlert
             alertInput={alertDialogInput}
@@ -872,7 +872,7 @@ const ProteinSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <div style={{ paddingBottom: "20px" }}></div>
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 {initData.simple_search_category && (
                   <SimpleSearchControl
                     simpleSearchCategory={proSimpleSearchCategory}
@@ -897,7 +897,7 @@ const ProteinSearch = props => {
               title={advancedSearch.tabTitle}
             >
               <TextAlert alertInput={alertTextInput} />
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
               <h5><br></br><center>{advancedSearch.message}</center></h5>
                 {initData && (
                   <ProteinAdvancedSearch
@@ -915,7 +915,7 @@ const ProteinSearch = props => {
               title={sequenceSearch.tabTitle}
             >
               <TextAlert alertInput={alertTextInput} />
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 {initData && (
                   <SequenceSearch
                     searchSequenceClick={searchSequenceClick}
@@ -930,7 +930,7 @@ const ProteinSearch = props => {
               title={proteinSearchData.tutorial.tabTitle}
               className="tab-content-padding"
             >
-              <Container className="tab-content-border">
+              <Container className="tab-content-border tab-bigscreen">
                 <ProteinTutorial />
               </Container>
             </Tab>

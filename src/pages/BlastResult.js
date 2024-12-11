@@ -279,25 +279,25 @@ const BlastResult = (props) => {
 							className='tab-content-padding'
               title={"Result"}
             >
-            <section>
-              {blastResultColumns && blastResultColumns.length !== 0 && (
-                <div style={{padding:20, content:'center'}}>
-                  <PaginatedTable
-                      data={pageContents}
-                      columns={blastResultColumns}
-                      page={page}
-                      sizePerPage={sizePerPage}
-                      totalSize={data.length}
-                      totalSizeText={"High Scoring Pair (HSP) Results"}
-                      onTableChange={handleTableChange}
-                      defaultSortField={currentSort}
-                      defaultSortOrder={currentSortOrder}
-                      wrapperClasses="table-responsive table-height"
-                      noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
-                    />
-                </div>
-              )}
-            </section>
+              <section>
+                {blastResultColumns && blastResultColumns.length !== 0 && (
+                  <div style={{padding:20, content:'center'}}>
+                    <PaginatedTable
+                        data={pageContents}
+                        columns={blastResultColumns}
+                        page={page}
+                        sizePerPage={sizePerPage}
+                        totalSize={data.length}
+                        totalSizeText={"High Scoring Pair (HSP) Results"}
+                        onTableChange={handleTableChange}
+                        defaultSortField={currentSort}
+                        defaultSortOrder={currentSortOrder}
+                        wrapperClasses="table-responsive table-height"
+                        noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
+                      />
+                  </div>
+                )}
+              </section>
           </Tab>
         <Tab
             eventKey='Alignments'
