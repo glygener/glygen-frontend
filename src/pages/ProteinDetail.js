@@ -667,7 +667,7 @@ const ProteinDetail = (props) => {
           let glycosylation = data.section_stats.filter(obj => obj.table_id === "glycosylation");
 
           let temp = {
-            "total_sites": glycosylation[0].table_stats.filter(obj => obj.field === "exact_sites")[0]?.count,
+            "total_sites": glycosylation[0].table_stats.filter(obj => obj.field === "total_sites")[0]?.count,
             "Nlinked": {
               "count": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
               "sites": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
