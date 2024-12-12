@@ -667,14 +667,14 @@ const ProteinDetail = (props) => {
           let glycosylation = data.section_stats.filter(obj => obj.table_id === "glycosylation");
 
           let temp = {
-            "total_sites": glycosylation[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "total_sites": glycosylation[0].table_stats.filter(obj => obj.field === "exact_sites")[0]?.count,
             "Nlinked": {
-              "count": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
-              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+              "count": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
+              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
             },
             "Olinked": {
-              "count": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
-              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+              "count": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0]?.count,
+              "sites": glycosylation[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0]?.count,
             }
           };
 
@@ -684,17 +684,17 @@ const ProteinDetail = (props) => {
           let glyWithImage = data.section_stats.filter(obj => obj.table_id === "glycosylation_reported_with_glycan");
           let glyWithImageStat = glyWithImage[0].table_stats.filter(obj => obj.field === "total");
 
-          setGlycosylationWithImageTotal(glyWithImageStat[0].count);
+          setGlycosylationWithImageTotal(glyWithImageStat[0]?.count);
 
           let temp1 = {
-            "total_sites": glyWithImage[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "total_sites": glyWithImage[0].table_stats.filter(obj => obj.field === "total_sites")[0]?.count,
             "Nlinked": {
-              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
-              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
+              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
             },
             "Olinked": {
-              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
-              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+              "count": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0]?.count,
+              "sites": glyWithImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0]?.count,
             }
           };
 
@@ -702,17 +702,17 @@ const ProteinDetail = (props) => {
 
           let glyWithoutImage = data.section_stats.filter(obj => obj.table_id === "glycosylation_reported");
           let glyWithoutImageStat = glyWithoutImage[0].table_stats.filter(obj => obj.field === "total");
-          setGlycosylationWithoutImageTotal(glyWithoutImageStat[0].count);
+          setGlycosylationWithoutImageTotal(glyWithoutImageStat[0]?.count);
 
           let temp2 = {
-            "total_sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "total_sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "total_sites")[0]?.count,
             "Nlinked": {
-              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
-              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
+              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
             },
             "Olinked": {
-              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
-              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+              "count": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0]?.count,
+              "sites": glyWithoutImage[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0]?.count,
             }
           };
 
@@ -720,17 +720,17 @@ const ProteinDetail = (props) => {
 
           let glyPred = data.section_stats.filter(obj => obj.table_id === "glycosylation_predicted");
           let glyPredStat = glyPred[0].table_stats.filter(obj => obj.field === "total");
-          setGlycosylationPredictedTotal(glyPredStat[0].count);
+          setGlycosylationPredictedTotal(glyPredStat[0]?.count);
 
           let temp3 = {
-            "total_sites": glyPred[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "total_sites": glyPred[0].table_stats.filter(obj => obj.field === "total_sites")[0]?.count,
             "Nlinked": {
-              "count": glyPred[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
-              "sites": glyPred[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+              "count": glyPred[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
+              "sites": glyPred[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
             },
             "Olinked": {
-              "count": glyPred[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
-              "sites": glyPred[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+              "count": glyPred[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0]?.count,
+              "sites": glyPred[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0]?.count,
             }
           };
 
@@ -738,17 +738,17 @@ const ProteinDetail = (props) => {
 
           let glyAutoLitMin = data.section_stats.filter(obj => obj.table_id === "glycosylation_automatic_literature_mining");
           let glyAutoLitMinStat = glyAutoLitMin[0].table_stats.filter(obj => obj.field === "total");
-          setGlycosylationAutoLitMinTotal(glyAutoLitMinStat[0].count);
+          setGlycosylationAutoLitMinTotal(glyAutoLitMinStat[0]?.count);
 
           let temp4 = {
-            "total_sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "total_sites")[0].count,
+            "total_sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "total_sites")[0]?.count,
             "Nlinked": {
-              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0].count,
-              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0].count,
+              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycans")[0]?.count,
+              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "n_linked_glycan_sites")[0]?.count,
             },
             "Olinked": {
-              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0].count,
-              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0].count,
+              "count": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycans")[0]?.count,
+              "sites": glyAutoLitMin[0].table_stats.filter(obj => obj.field === "o_linked_glycan_sites")[0]?.count,
             }
           };
 
@@ -757,19 +757,19 @@ const ProteinDetail = (props) => {
         
           let phosphoryl = data.section_stats.filter(obj => obj.table_id === "phosphorylation");
           let phosphorylStat = phosphoryl[0].table_stats.filter(obj => obj.field === "total");
-          setPhosphorylationTotal(phosphorylStat[0].count);
+          setPhosphorylationTotal(phosphorylStat[0]?.count);
   
           let publi = data.section_stats.filter(obj => obj.table_id === "publication");
           let publiStat = publi[0].table_stats.filter(obj => obj.field === "total");
-          setPublicationTotal(publiStat[0].count);  
+          setPublicationTotal(publiStat[0]?.count);  
           
           let mutaDis = data.section_stats.filter(obj => obj.table_id === "snv_disease");
           let mutaDisStat = mutaDis[0].table_stats.filter(obj => obj.field === "total");
-          setMutataionWithdiseaseTotal(mutaDisStat[0].count);
+          setMutataionWithdiseaseTotal(mutaDisStat[0]?.count);
   
           let mutaWithoutDis = data.section_stats.filter(obj => obj.table_id === "snv_non_disease");
           let mutaWithoutDisStat = mutaWithoutDis[0].table_stats.filter(obj => obj.field === "total");
-          setMutataionWithoutdiseaseTotal(mutaWithoutDisStat[0].count);
+          setMutataionWithoutdiseaseTotal(mutaWithoutDisStat[0]?.count);
         }
 
         if (data.snv) {

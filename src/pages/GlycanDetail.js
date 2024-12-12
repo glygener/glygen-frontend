@@ -552,19 +552,19 @@ const GlycanDetail = props => {
         if (data.section_stats) {
           let glycoProt = data.section_stats.filter(obj => obj.table_id === "glycoprotein");
           let glycoProtStat = glycoProt[0].table_stats.filter(obj => obj.field === "total");
-          setGlycoproteinTotal(glycoProtStat[0].count);
+          setGlycoproteinTotal(glycoProtStat[0]?.count);
 
           let expTiss = data.section_stats.filter(obj => obj.table_id === "expression_tissue");
           let expTissStat = expTiss[0].table_stats.filter(obj => obj.field === "total");
-          setExpressionWithtissueTotal(expTissStat[0].count);
+          setExpressionWithtissueTotal(expTissStat[0]?.count);
 
           let expCellLine = data.section_stats.filter(obj => obj.table_id === "expression_cell_line");
           let expCellLineStat = expCellLine[0].table_stats.filter(obj => obj.field === "total");
-          setExpressionWithcellTotal(expCellLineStat[0].count);
+          setExpressionWithcellTotal(expCellLineStat[0]?.count);
 
           let publ = data.section_stats.filter(obj => obj.table_id === "publication");
           let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
-          setPublicationTotal(publStat[0].count);
+          setPublicationTotal(publStat[0]?.count);
         }
 
         if (detailDataTemp.names) {

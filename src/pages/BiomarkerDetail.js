@@ -293,7 +293,7 @@ const BiomarkerDetail = (props) => {
         if (data.section_stats) {
           let publi = data.section_stats.filter(obj => obj.table_id === "citation");
           let publiStat = publi[0].table_stats.filter(obj => obj.field === "total");
-          setPublicationTotal(publiStat[0].count);  
+          setPublicationTotal(publiStat[0]?.count);  
         }
 
         setPageLoading(false);
