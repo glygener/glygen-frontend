@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Container from "@mui/material/Container";
 import { Row, Image, Col } from "react-bootstrap";
 import HorizontalHeading from "../../components/headings/HorizontalHeading";
@@ -58,6 +58,9 @@ const Portfolio = (props) => {
 
   // store the isotope object in one state
   const [isotope, setIsotope] = useState(null);
+  const isotopeRef = useRef(isotope);
+  isotopeRef.current = isotope;
+
   // store the filter keyword in another state
   const [filterKey, setFilterKey] = useState("*");
   // Set the active class to clicked button
@@ -79,6 +82,14 @@ const Portfolio = (props) => {
           itemSelector: ".filter-item",
           layoutMode: "fitRows",
         }));
+
+      // Need to call to trigger 'All' option selection.
+      setTimeout(() => {
+        if (isotopeRef) {
+          isotopeRef.current.arrange({ filter: `*` })
+        }
+      }, 2000);
+      
   }, []);
 
   // handling filter key change
