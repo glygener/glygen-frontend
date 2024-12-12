@@ -393,7 +393,6 @@ const ProteinDetail = (props) => {
   );
   const [selectedHighlights, setSelectedHighlights] = useState({
     mutation: false,
-    site_annotation: false,
     n_link_glycosylation: false,
     o_link_glycosylation: false,
     phosphorylation: false,
@@ -451,13 +450,15 @@ const ProteinDetail = (props) => {
     logActivity("user", id);
     setSelectedHighlights({
       mutation: "mutation" === select,
-      site_annotation: "site_annotation" === select,
       n_link_glycosylation: "n_link_glycosylation" === select,
       o_link_glycosylation: "o_link_glycosylation" === select,
       phosphorylation: "phosphorylation" === select,
       glycation: "glycation" === select,
-      text_search: false,
+      text_search: "site_annotation" === select,
     });
+
+    setSequenceSearchText(select === "site_annotation" ? "NX[ST]" : "");
+    setSequenceTemplateText(select === "site_annotation" ? "NX[ST]" : "");
 
     const getProteinDetailData = getProteinDetail(id);
 
