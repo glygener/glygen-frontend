@@ -4,7 +4,7 @@
 
 /* Large Devices (Desktops & Laptops) */
 
-@media (min-width: 1400px) {
+@media (min-width: 2000px) {
   .tab-bigscreen {
       max-width: 98% !important;
   }
