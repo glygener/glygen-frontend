@@ -111,7 +111,6 @@ const ProteinList = props => {
       top: 0,
       behavior: "smooth",
     });
-    setPage(1);
     logActivity("user", id);
     let cols = userSelectedColumns.map(col => col.id);
     getDisplayColumnList(userSelectedColumns, setSelectedColumns);
@@ -147,8 +146,6 @@ const ProteinList = props => {
           setPagination(data.pagination);
           data.filters && setAvailableFilters(data.filters.available);
           if (data.pagination) {
-            const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
-            setPage(currentPage);
             setTotalSize(data.pagination.total_length);
           } else {
             setPage(1);
@@ -217,6 +214,7 @@ const ProteinList = props => {
       newFilter.selected &&
       (newFilter.selected.length || existingFilter.selected.length)
     ) {
+      setPage(1);
       // list of all the other filters
       // add a new filter of this type
       const otherFilters = appliedFilters.filter(
@@ -230,6 +228,7 @@ const ProteinList = props => {
         setAppliedFilters(otherFilters);
       }
     } else if (newFilter.selected.length) {
+      setPage(1);
       setAppliedFilters([...appliedFilters, newFilter]);
     }
   };

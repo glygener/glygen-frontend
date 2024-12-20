@@ -54,7 +54,6 @@ const BiomarkerList = props => {
       top: 0,
       behavior: "smooth",
     });
-    setPage(1);
     logActivity("user", id);
     getBiomarkerList(
       id,
@@ -76,8 +75,6 @@ const BiomarkerList = props => {
           setPagination(data.pagination);
           setAvailableFilters(data.filters.available);
           if (data.pagination) {
-            const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
-            setPage(currentPage);
             setTotalSize(data.pagination.total_length);
           } else {
             setPage(1);
@@ -143,6 +140,7 @@ const BiomarkerList = props => {
       newFilter.selected &&
       (newFilter.selected.length || existingFilter.selected.length)
     ) {
+      setPage(1);
       // list of all the other filters
       // add a new filter of this type
       const otherFilters = appliedFilters.filter(
@@ -156,6 +154,7 @@ const BiomarkerList = props => {
         setAppliedFilters(otherFilters);
       }
     } else if (newFilter.selected.length) {
+      setPage(1);
       setAppliedFilters([...appliedFilters, newFilter]);
     }
   };

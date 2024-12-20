@@ -326,7 +326,6 @@ const GlycanList = props => {
       top: 0,
       behavior: "smooth",
     });
-    setPage(1);
     logActivity("user", id);
     let cols = userSelectedColumns.map(col => col.id);
     getDisplayColumnList(userSelectedColumns, setSelectedColumns, columnSpecDispTypes);
@@ -363,8 +362,6 @@ const GlycanList = props => {
           setPagination(data.pagination);
           data.filters && setAvailableFilters(data.filters.available);
           if (data.pagination) {
-            const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
-            setPage(currentPage);
             setTotalSize(data.pagination.total_length);
           } else {
             setPage(1);
@@ -426,6 +423,7 @@ const GlycanList = props => {
       newFilter.selected &&
       (newFilter.selected.length || existingFilter.selected.length)
     ) {
+      setPage(1);
       const otherFilters = appliedFilters.filter(
         filter => filter.id !== newFilter.id
       );
@@ -436,6 +434,7 @@ const GlycanList = props => {
         setAppliedFilters(otherFilters);
       }
     } else if (newFilter.selected.length) {
+      setPage(1);
       setAppliedFilters([...appliedFilters, newFilter]);
     }
   };

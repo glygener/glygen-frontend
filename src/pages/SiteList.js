@@ -271,9 +271,6 @@ const SiteList = (props) => {
         setListCacheId(data.cache_info.listcache_id);
         setPagination(data.pagination);
         data.filters && setAvailableFilters(data.filters.available);
-        const currentPage = ((data.pagination && data.pagination.offset > 0 ? data.pagination.offset : 1) - 1) / sizePerPage + 1;
-
-        setPage(currentPage);
         setTotalSize((data.pagination && data.pagination.total_length > 0 ? data.pagination.total_length : 0));
         setConfigData(initData);
       }
@@ -361,6 +358,7 @@ const SiteList = (props) => {
       newFilter.selected &&
       (newFilter.selected.length || existingFilter.selected.length)
     ) {
+      setPage(1);
       // list of all the other filters
       // add a new filter of this type
       const otherFilters = appliedFilters.filter(
@@ -374,6 +372,7 @@ const SiteList = (props) => {
         setAppliedFilters(otherFilters);
       }
     } else if (newFilter.selected.length) {
+      setPage(1);
       setAppliedFilters([...appliedFilters, newFilter]);
     }
   };
