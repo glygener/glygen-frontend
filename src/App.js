@@ -6,6 +6,7 @@ import BiomarkerApp from "./BiomarkerApp";
 import { createTheme } from "@mui/material/styles";
 import ReactGA from "react-ga4";
 import { GLYGEN_ENV, GLYGEN_BUILD } from "./envVariables.js";
+import GlyGenNotificationProvider from "./components/GlyGenNotificationProvider.js";
 
 function initializeReactGA() {
   if (GLYGEN_ENV === "prod" || GLYGEN_ENV === "beta") {
@@ -62,6 +63,7 @@ function App() {
 
   return (
     <div className="App">
+      <GlyGenNotificationProvider>
 
       {GLYGEN_BUILD === "glygen" && 
         <GlyGenApp 
@@ -76,6 +78,7 @@ function App() {
           userTrackingBannerState={userTrackingBannerState} 
           setUserTrackingBannerState={setUserTrackingBannerState}
       />}
+      </GlyGenNotificationProvider>
 
     </div>
   );

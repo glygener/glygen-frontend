@@ -141,6 +141,7 @@ const GlobalSearchResult = (props) => {
 									route={routeConstants.glycanList}
 									term={id}
 									routeTerm="gs"
+									routeTermGP="gsgp"
 								/>}
 							</Grid>
 							{false && <Grid item md={4}>

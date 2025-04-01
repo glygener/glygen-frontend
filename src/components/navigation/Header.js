@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState }  from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import logo from "../../images/glygen_logos/glygen-logoW.svg";
 import { Link, NavLink } from "react-router-dom";
@@ -8,11 +8,13 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import BlueSkyIcon from "../../images/icons/bluesky-icon.svg";
 import MSTDNIcon from "../../images/icons/mastodon-icon.svg";
-import XIcon from '@mui/icons-material/X';
+import WorkIcon from '@mui/icons-material/Work';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import Badge from '@mui/material/Badge';
 import GlobalSearchControl from "../search/GlobalSearchControl";
 import UserTrackingBanner from "../alert/UserTrackingBanner";
 import { useLocation } from "react-router-dom";
@@ -42,10 +44,31 @@ import {
   GLYGEN_DOC,
   CFDE_GENE_PAGES
 } from "../../envVariables";
-
+import GlyGenNotificationContext from "../../components/GlyGenNotificationContext.js";
+import { getJobCompleteValue } from "../../data/jobStoreApi"
+import { getCartCount } from "../../data/idCartApi.js"
+import LineTooltip from "../tooltip/LineTooltip.js";
+import IDCartFullScreen from "../../pages/IDCartFullScreen"
+import Button from "react-bootstrap/Button";
 
 export default function Header(props) {
   const location = useLocation();
+  const { jobComplete, totalJobs, totalCartIds, showTotalCartIdsNotification } = useContext(GlyGenNotificationContext);
+  const [jobCompleteStatus, setJobCompleteStatus] = useState(jobComplete);
+
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  useEffect(() => {
+    setJobCompleteStatus(getJobCompleteValue());
+  }, [jobComplete]);
+
+  useEffect(() => {
+    showTotalCartIdsNotification(getCartCount());
+  }, []);
 
   return (
     <React.Fragment>
@@ -95,9 +118,6 @@ export default function Header(props) {
                 <a href={MSTDN} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <Image src={MSTDNIcon} className="me-3" style={{height:"22px", width:"22px"}}/>
                 </a>
-                <a href={XUrl} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <XIcon className="me-3" style={{height:"22px", width:"22px"}}/>
-                </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="me-3" />
                 </a>
@@ -123,7 +143,7 @@ export default function Header(props) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
         <Navbar.Collapse className="gg-blue" id="basic-navbar-nav">
-          <Col xs={12} sm={12} md={12} lg={12} xl={8} className="me-5">
+          <Col xs={12} sm={12} md={12} lg={12} xl={8} className="me-3">
             <Nav>
               <Nav.Link className="gg-nav-link" as={NavLink} to={routeConstants.home}>
                 HOME
@@ -293,7 +313,28 @@ export default function Header(props) {
             </Nav>
           </Col>
           <Col xs={12} sm={12} md={12} lg={12} xl={3}>
-            <GlobalSearchControl />
+              <GlobalSearchControl />
+          </Col>
+          <Col xs={4} sm={4} md={4} lg={4} xl={1}>
+            <div style={{paddingTop:"10px", paddingLeft:"5px"}}>
+              <LineTooltip text={"View Job status"}>
+                <Link className="ms-2" to={routeConstants.jobStatus}>
+                  <Badge color={"error"} overlap1="circular" badgeContent="" variant="dot" invisible={!jobCompleteStatus} anchorOrigin={{ vertical: 'top',horizontal: 'left' }}>
+                    <Badge color={"success"} badgeContent={totalJobs} max={99}>
+                      <WorkIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                    </Badge>
+                  </Badge>
+                </Link>
+              </LineTooltip>
+              <LineTooltip text={open ? "" : "View ID cart"}>
+                <Button className="btn-white ms-3" onClick={toggleDrawer(true)}>
+                  <Badge color={"success"} badgeContent={totalCartIds} max={99}>
+                    <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                  </Badge>
+                  </Button>
+                  {open && <IDCartFullScreen open={open} setOpen={setOpen} />}
+              </LineTooltip>
+            </div>
           </Col>
         </Navbar.Collapse>
         </ContainerBootStrap>

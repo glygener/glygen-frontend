@@ -906,6 +906,15 @@ ul.office-details {
   vertical-align: inherit !important;
 }
 
+.btn-white {
+  text-decoration: none !important;
+  background-color: var(--gg-blue) !important;
+  border-width: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  vertical-align: inherit !important;
+}
+
 .lnk-btn:hover {
   color: var(--gg-dark-hover) !important;
 }
@@ -1072,6 +1081,9 @@ sub {
   margin: 0px !important;
 }
 .alert-dialog-content {
+  padding: 15px !important;
+}
+.id-cart-dialog-content {
   padding: 15px !important;
 }
 .alert-dialog-content-text {
@@ -1440,4 +1452,8 @@ sub {
   width: 100%;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+
+.header-class {
+  padding-bottom: 20px !important;
 }

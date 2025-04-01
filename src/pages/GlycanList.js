@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { getTitle, getMeta } from "../utils/head";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getGlycanList } from "../data";
 import { getGlycanImageUrl } from "../data/glycan";
@@ -31,10 +31,17 @@ import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.s
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import CustomColumns from "../components/columnSelector/CustomColumns";
 import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayColumnList } from "../data/customcolumn.js";
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import ListIDNameDialog from "../components/idcart/ListIDNameDialog";
+import { addIDsToStore } from "../data/idCartApi"
 
 const GlycanList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
+  const location = useLocation();
+  
+  const state  = location.state;
+
   let quickSearch = stringConstants.quick_search;
   const proteinDirectSearch = stringConstants.protein.direct_search;
   const proteinStrings = stringConstants.protein.common;
@@ -189,6 +196,32 @@ const GlycanList = props => {
     },
   };
 
+
+  const selectRow = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      let glycanIDs = [];
+      if (isSelect) {
+         selectedData.push(row.glytoucan_ac);
+         setSelectedData(selectedData);
+      } else {
+        glycanIDs = selectedData.filter(id => id === row.glytoucan_ac);
+        setSelectedData(glycanIDs);
+      }
+    },
+    onSelectAll: (isSelect, rows, e) => {
+      let glycanIDs = rows.map(obj => obj.glytoucan_ac);
+      if (isSelect) {
+         selectedData.push(...glycanIDs);
+         setSelectedData(selectedData);
+      } else {
+        let glyIDs = selectedData.filter(id => !glycanIDs.includes(id));
+        setSelectedData(glyIDs);
+      }
+    }
+  };
+
   const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
@@ -209,6 +242,14 @@ const GlycanList = props => {
   const [listCacheId, setListCacheId] = useState("");
   const [open, setOpen] = React.useState(false);
   const [userSelectedColumns, setUserSelectedColumns] = useState([]);
+  const {showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
+  const [selectedData, setSelectedData] = useState([]);
+  const [listIDOpen, setListIDOpen] = React.useState(false);
+  const [columns, setColumns] = useState();
+  const [searchQuery, setSearchQuery] = useState({});
+  const [jobType, setJobType] = useState();
+  const [queryType, setQueryType] = useState("");
+
 
   function toggleDrawer(newOpen) {
     setOpen(newOpen);
@@ -244,6 +285,21 @@ const GlycanList = props => {
         .catch(function (error) {
           axiosError(error, "", message, setPageLoading, setAlertDialogInput);
         });
+    };
+
+     /**
+   * Function to add glycan ids.
+   **/
+     const addGlycanIDs = () => {
+      let totalCartCount = addIDsToStore("glycanID", selectedData);
+      showTotalCartIdsNotification(totalCartCount);
+    };
+
+     /**
+   * Function to add glycan list.
+   **/
+     const addGlycanList = () => {
+      setListIDOpen(true);
     };
 
   const fixResidueToShortNames = query => {
@@ -336,6 +392,11 @@ const GlycanList = props => {
           logActivity("user", id, "No results. " + message);
           setPageLoading(false);
         } else {
+          let qur = JSON.parse(JSON.stringify(data.cache_info.query));
+          setSearchQuery(qur);
+          setJobType(qur.jobtype);
+          setColumns(data.query.columns);
+          setQueryType(searchId ? searchId : "glycanSearch");
           setData(data.results);
           setDataUnmap(
             data.cache_info.batch_info && data.cache_info.batch_info.unmapped
@@ -376,6 +437,14 @@ const GlycanList = props => {
       });
     // eslint-disable-next-line
   }, [appliedFilters, userSelectedColumns]);
+
+
+  // Use an effect to monitor the update to params
+  useEffect(() => {
+    if (state && state.appliedFilters) {
+      setAppliedFilters(state.appliedFilters);
+    }
+  }, [state]);
 
   const handleTableChange = (
     type,
@@ -445,7 +514,7 @@ const GlycanList = props => {
   const handleModifySearch = () => {
     if (searchId === "gs") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
-    } else if (searchId === "sups") {
+    } else if (searchId && searchId.includes("sups")) {
       navigate(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
@@ -486,6 +555,10 @@ const GlycanList = props => {
       </Helmet>
 
       <FeedbackWidget />
+      {listIDOpen && <ListIDNameDialog listIDOpen={listIDOpen} setListIDOpen={setListIDOpen} 
+        listId={id} listCacheId={listCacheId} type="glycanList" appliedFilters={appliedFilters}                          
+        searchQuery={searchQuery} columns={columns} queryType={queryType} totalSize={totalSize}
+      />}
       {/* <Container maxWidth="xl" className="gg-container5"> */}
       <div className="gg-baseline list-page-container">
         {availableFilters && availableFilters.length !== 0 && (
@@ -557,7 +630,11 @@ const GlycanList = props => {
 
             <section>
               <div className="text-end pb-3" >
-                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Edit Columns</Button>
+                <Button onClick={() => addGlycanList()} type="button" className="gg-btn-blue"
+                 disabled={quickSearch[searchId] !== undefined || jobType !== undefined }
+                  >Add List ID</Button>
+                <Button onClick={() => addGlycanIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Glycan IDs</Button>
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Edit Columns</Button>
                 <DownloadButton
                   types={[
                     {
@@ -602,6 +679,7 @@ const GlycanList = props => {
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
                   idField="glytoucan_ac"
+                  selectRow={selectRow}
                   noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                 />
               )}

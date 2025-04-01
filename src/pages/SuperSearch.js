@@ -158,8 +158,9 @@ const SuperSearch = (props) => {
     * Function to go to list page based on node click.
 	* @param {string} listID - list id.
 	* @param {string} currentNode - current node id.
+	* @param {string} listCode - list code.
   **/
-  function goToListPage(listID, currentNode){
+  function goToListPage(listID, currentNode, listCode){
 	setPageLoading(true);
 	let message = "Super Search " + currentNode + " list page. query=" + JSON.stringify(queryData);
 	logActivity(
@@ -170,7 +171,7 @@ const SuperSearch = (props) => {
 	.finally(() => {
 		setPageLoading(false);
 		navigate(
-			getListPageRoute(currentNode) + listID + "/sups"
+			getListPageRoute(currentNode, listID, listCode)
 		);
 	});
   }
@@ -178,14 +179,15 @@ const SuperSearch = (props) => {
   /**
     * Function to return route constant based on current node id.
 	* @param {string} currentNode - current node id.
+	 @param {string} listID - list id.
   **/
-  function getListPageRoute(currentNode) {
+  function getListPageRoute(currentNode, listID, listCode) {
 	if (currentNode === superSearchJSONData.glycan.id) {
-		return routeConstants.glycanList;
+		return routeConstants.glycanList + listID + "/sups" + "_" + listCode;
 	} else if (currentNode === superSearchJSONData.protein.id) {
-		return routeConstants.proteinList;
+		return routeConstants.proteinList + listID + "/sups" + "_" + listCode;
 	} else if (currentNode === superSearchJSONData.site.id) {
-		return routeConstants.siteList;
+		return routeConstants.siteList + listID + "/sups";
 	}
   }
 

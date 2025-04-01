@@ -53,10 +53,22 @@ export default function DialogAlert(props) {
                 <Button
                     className= "gg-btn-outline"
                     style={{ float: "right" }}
-                    onClick={() => props.setOpen(false)}
+                    onClick={() => {
+                        props.callBack && props.callBack(props.alertInput.cartType)
+                        props.setOpen(false)
+                    }}
                 >
                     Ok
                 </Button>
+                {props.callBack && <Button
+                    className= "gg-btn-outline me-3"
+                    style={{ float: "right" }}
+                    onClick={() => {
+                        props.setOpen(false)
+                    }}
+                >
+                    Cancel
+                </Button>}
             </div>
         </Dialog>
   );
@@ -64,5 +76,6 @@ export default function DialogAlert(props) {
 
 DialogAlert.propTypes = {
   alertInput: PropTypes.object,
-  setOpen: PropTypes.func
+  setOpen: PropTypes.func,
+  callBack: PropTypes.func
 };

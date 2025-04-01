@@ -44,6 +44,7 @@ import BlastSearch from "./pages/BlastSearch";
 import BlastResult from "./pages/BlastResult"
 import PublicationDetail from "./pages/PublicationDetail";
 import BiomarkerDetail from "./pages/BiomarkerDetail";
+import JobStatus from "./pages/JobStatus"
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -64,6 +65,8 @@ const Routes = (props) => (
     <Route path={`${routeConstants.siteList}:id`} element={<SiteList/>} />
     <Route path={`${routeConstants.siteSearch}:id`} element={<SiteSearch/>} />
     <Route path={routeConstants.siteSearch} element={<SiteSearch/>} />
+    
+    {/* <Route path={'/IsoformMapper/'} element={<IsoformMapper/>} /> */}
     <Route path={routeConstants.motifList} element={<MotifList/>} />
     <Route path={`${routeConstants.motifDetail}:id`} element={<MotifDetail/>} />
     <Route path={routeConstants.motifDetail} element={<MotifDetail/>} />
@@ -76,10 +79,6 @@ const Routes = (props) => (
       path={`${routeConstants.siteview}:id/:position`}
       element={<Siteview/>}
     />
-    {/* <Route
-      path={`${routeConstants.siteview}:id/:position`}
-      render={(props) => { return <Siteview {...props} position={props.match.params.position} />} }
-    /> */}
     <Route path={`${routeConstants.siteview}:id`} element={<Siteview/>} />
     <Route path={`${routeConstants.globalSearchResult}:id`} element={<GlobalSearchResult/>} />
     <Route path={routeConstants.resources} element={<Resources/>} />
@@ -123,6 +122,7 @@ const Routes = (props) => (
     <Route path={routeConstants.blastSearch} element={<BlastSearch/>} />
     <Route path={`${routeConstants.blastResult}:jobId`} element={<BlastResult/>} />
     <Route path={routeConstants.blastResult} element={<BlastResult/>} />
+    <Route path={routeConstants.jobStatus} element={<JobStatus/>} />
     <Route path={`${routeConstants.biomarkerList}:id`} element={<BiomarkerList/>} />
     <Route path={`${routeConstants.biomarkerSearch}:id`} element={<BiomarkerSearch/>} />
     <Route path={routeConstants.biomarkerSearch} element={<BiomarkerSearch/>} />

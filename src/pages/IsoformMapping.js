@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, useRef } from "react";
+import React, { useEffect, useState, useReducer, useRef, useContext } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
@@ -33,7 +33,8 @@ import deleteIcon from "../images/icons/delete.svg";
 import { Image } from "react-bootstrap";
 import IsoformSearchInputcontrol from '../components/input/IsoformSearchInputcontrol';
 import { Link } from "react-router-dom";
-
+import { addJobToStore } from "../data/jobStoreApi"
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 import {
   UNIPROT_REST_BASENAME,
 } from "../envVariables";
@@ -72,7 +73,7 @@ const IsoformMapping = (props) => {
       proSequenceInput: false,
     }
   );
-
+  const { showNotification } = useContext(GlyGenNotificationContext);
   const fileInputRef = useRef();
   const [pageLoading, setPageLoading] = React.useState(true);
   const [dialogLoading, setDialogLoading] = useState(false);
@@ -537,7 +538,7 @@ const IsoformMapping = (props) => {
   /**
    * Function to handle blast search submit.
    **/
-  const isoformSearchSubmit = (type, data, proSequence, userfile) => {
+  const isoformSearchSubmit = (type, data, proSequence, userfile, userfileb64) => {
 
     let formObject = searchJson(
       type,
@@ -555,26 +556,39 @@ const IsoformMapping = (props) => {
           let josStatus = response.data["status"].status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-            if (response.data["status"].result_count && response.data["status"].result_count > 0) {
-              if (dialogLoadingRef.current) {
-                logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
-                  navigate(routeConstants.isoformMappingResult + response.data["jobid"]);
-                });
-                setDialogLoading(false);
-              } else {
-                logActivity("user", "", "User canceled job. " + message);
-              }
-            } else {
-              logActivity("user", "", "No results. " + message);
+
+            if (dialogLoadingRef.current) {
+              let newJob = {
+                serverJobId: jobid,
+                jobType: "ISOFORM",
+                jobTypeInternal: "ISOFORM_" + type.toUpperCase(),
+                status: "finished",
+                job: formObject,
+                userfile: userfileb64
+              };
+              addJobToStore(newJob);
+              showNotification("ISOFORM_" + type.toUpperCase() + Date.now());
               setDialogLoading(false);
-              setAlertTextInput({ "show": true, "id": stringConstants.errors.isoformSearchError.id });
-              window.scrollTo(0, 0);
+              navigate(routeConstants.jobStatus);
+            } else {
+                logActivity("user", "", "User canceled job. " + message);
             }
           } else if (josStatus === "running") {
             if (dialogLoadingRef.current) {
-              setTimeout((jobID) => {
-                isoformSearchJobStatus(jobID);
-              }, 2000, jobid);
+              setDialogLoading(false);
+              let newJob = {
+                serverJobId: jobid,
+                jobType: "ISOFORM",
+                jobTypeInternal: "ISOFORM_" + type.toUpperCase(),
+                status: "running",
+                job: formObject,
+                userfile: userfileb64
+              };
+
+              addJobToStore(newJob);
+              showNotification("ISOFORM_" + type.toUpperCase() + Date.now());
+              navigate(routeConstants.jobStatus);
+
             } else {
               logActivity("user", "", "User canceled job. " + message);
             }
@@ -785,12 +799,35 @@ const IsoformMapping = (props) => {
     isoformSearchSubmit("sequence", dataSequence, inputValue.proSequence);
   };
 
+  function convertFileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+  
+      fileReader.onload = () => {
+        const base64Str = fileReader.result.split(',')[1]; 
+        resolve(base64Str);
+      };
+  
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+  
+      fileReader.readAsDataURL(file);
+    });
+  }
+
   /**
 * Function to handle click event for blast search.
 **/
   const searchFileIsoformClick = () => {
     setDialogLoading(true);
-    isoformSearchSubmit("file", undefined, undefined, fileInputRef.current.files[0]);
+
+    convertFileToBase64(fileInputRef.current.files[0])
+    .then(base64Str => {
+      isoformSearchSubmit("file", undefined, undefined, fileInputRef.current.files[0], base64Str);
+    })
+    .catch(error => {
+    });
   };
 
 

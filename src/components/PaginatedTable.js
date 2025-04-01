@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,7 +33,8 @@ const PaginatedTable = ({
   tableHeader,
   viewPort,
   setOpen,
-  open
+  open,
+  selectRow
 }) => {
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total Paginationtext">
@@ -109,6 +110,7 @@ const PaginatedTable = ({
         {({ paginationProps, paginationTableProps }) => (
           <div>
             <div>
+              <span style={{paddingTop: "5px"}}>
               <strong className="Paginationtext">Records per page {""}</strong>
               <SizePerPageDropdownStandalone
                 {...paginationProps}
@@ -117,7 +119,6 @@ const PaginatedTable = ({
               <PaginationTotalStandalone {...paginationProps} />
               {/* {onDownload && <button onClick={onDownload}>Download</button>} */}
               {downloadButton}
-              <PaginationListStandalone {...paginationProps} />
               {viewPort && 
                 <Button
                   type="button"
@@ -125,6 +126,10 @@ const PaginatedTable = ({
                   className="gg-btn-blue"
                   onClick={() => { setOpen(!open); setExpand(!expand); }}>{!open ? <FullscreenIcon/> : <FullscreenExitIcon/>}
               </Button>}
+              </span>
+              <span style={{paddingTop: "5px"}}>
+               <PaginationListStandalone {...paginationProps} />
+              </span>
             </div>
             <div style={{paddingTop:"20px"}}>
             <BootstrapTable
@@ -148,6 +153,7 @@ const PaginatedTable = ({
               noDataIndication={noDataIndication}
               rowStyle={rowStyle}
               headerClasses={tableHeader ? tableHeader : classes.tableHeader}
+              selectRow={selectRow}
             />
             </div>
             <div>

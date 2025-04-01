@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useReducer, useRef } from "react";
+import React, { useEffect, useState, useReducer, useRef, useContext } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -24,7 +24,8 @@ import { getJobInit, postNewJob, getJobStatus, getJobDetails } from "../data/job
 import { getPageData } from "../data/api";
 import ExampleExploreControl from "../components/example/ExampleExploreControl";
 import ExampleControl2 from "../components/example/ExampleControl2";
-import proteinSearchData from '../data/json/proteinSearch';
+import { addJobToStore } from "../data/jobStoreApi"
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 import {
   UNIPROT_REST_BASENAME,
 } from "../envVariables";
@@ -34,7 +35,11 @@ import {
  **/
 const BlastSearch = (props) => {
   let { id } = useParams("");
+  const location = useLocation();
+  const state  = location.state;
+
   const [initData, setInitData] = useState([]);
+  const { showNotification } = useContext(GlyGenNotificationContext);
 
   const [inputValue, setInputValue] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -173,8 +178,10 @@ const BlastSearch = (props) => {
   /**
 	 * Function to retrive protein sequence.
 	 **/
-  const retriveSequence = () => {
-    let url = UNIPROT_REST_BASENAME + "uniprotkb/" + inputValue.proUniprotAcc + ".fasta";
+  const retriveSequence = (inputProUniprotAcc) => {
+    let proUniprotAcc = inputProUniprotAcc ? inputProUniprotAcc : inputValue.proUniprotAcc;
+
+    let url = UNIPROT_REST_BASENAME + "uniprotkb/" + proUniprotAcc + ".fasta";
     getPageData(url)
     .then((response) => {
       const blob    = new Blob([response.data], {type: "text/plain"});
@@ -190,7 +197,7 @@ const BlastSearch = (props) => {
     })
     .catch(function (error) {
       let message = " - Failed to retrieve valid Protein Sequence.";
-      logActivity("user", "", "No results. " + inputValue.proUniprotAcc + message);
+      logActivity("user", "", "No results. " + proUniprotAcc + message);
       setAlertTextInput({"show": true, "id": stringConstants.errors.blastSearchUniProtAccError.id});
       window.scrollTo(0, 0);
     });
@@ -247,6 +254,15 @@ const BlastSearch = (props) => {
       });
   }, [id]);
 
+
+  // Use an effect to monitor the update to params
+  useEffect(() => {
+    if (state && state.selectedID) {
+      proUniprotAccChange(state.selectedID);
+      retriveSequence(state.selectedID);
+    }
+  }, [state]);
+
   /**
 	 * Function to return JSON query.
    * @param {string} input_proSequence - protein sequence.
@@ -297,8 +313,17 @@ const BlastSearch = (props) => {
             if (response.data["status"].result_count && response.data["status"].result_count > 0) {
               if (dialogLoadingRef.current) {
                 logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {
+                  let newJob = {
+                    serverJobId: jobid,
+                    jobType: "BLAST",
+                    jobTypeInternal: "BLAST",
+                    status: "finished",
+                    job: formObject
+                  };
+                  addJobToStore(newJob);
+                  showNotification("Blast search");
                   setDialogLoading(false);
-                  navigate(routeConstants.blastResult + response.data["jobid"]);
+                  navigate(routeConstants.jobStatus);
                 });
               } else {
                 logActivity("user", "", "User canceled job. " + message);
@@ -311,9 +336,17 @@ const BlastSearch = (props) => {
             }
           } else if (josStatus === "running") {
               if (dialogLoadingRef.current) {
-                  setTimeout((jobID) => {
-                    blastSearchJobStatus(jobID);
-                }, 2000, jobid);
+                let newJob = {
+                  serverJobId: jobid,
+                  jobType: "BLAST",
+                  jobTypeInternal: "BLAST",
+                  status: "running",
+                  job: formObject
+                };
+                addJobToStore(newJob);
+                showNotification("Blast search" + Date.now());
+                setDialogLoading(false);
+                navigate(routeConstants.jobStatus);
               } else {
                 logActivity("user", "", "User canceled job. " + message);
               }

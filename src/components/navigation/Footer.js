@@ -11,7 +11,6 @@ import "../../App.css";
 import routeConstants from "../../data/json/routeConstants.json";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import XIcon from '@mui/icons-material/X';
 import BlueSkyIcon from "../../images/icons/bluesky-icon.svg";
 import MSTDNIcon from "../../images/icons/mastodon-icon.svg";
 import PinterestIcon from "@mui/icons-material/Pinterest";
@@ -229,9 +228,6 @@ export default function Footer() {
                 </a>
                 <a href={MSTDN} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <Image src={MSTDNIcon} className="me-2" style={{height:"22px", width:"22px"}}/>
-                </a>
-                <a href={XUrl} target="_blank" rel="noopener noreferrer" className="gg-link">
-                  <XIcon className="me-2" style={{height:"22px", width:"22px"}}/>
                 </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="me-2" />

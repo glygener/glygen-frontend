@@ -23,9 +23,13 @@ const ClientEditableTable = ({
   rowStyle,
   wrapperClasses = "table-responsive",
   totalSizeText = "Results",
+  defaultSortField = "",
+  defaultSortOrder = "",
   tableHeader,
   updateTable,
-  validateColumnData
+  validateColumnData,
+  saveColumnData,
+  bordered = true
 }) => {
 
 
@@ -59,15 +63,26 @@ const ClientEditableTable = ({
         wrapperClasses={wrapperClasses}
         data={data}
         columns={columns}
+        bordered={ bordered }
+        defaultSorted={[
+          {
+            dataField: defaultSortField,
+            order: defaultSortOrder
+          }
+        ]}
         noDataIndication={noDataIndication}
         rowStyle={rowStyle}
-        headerClasses={tableHeader ? tableHeader : classes.tableHeader}
+        headerClasses={tableHeader ? classes.tableHeader + " " + tableHeader : classes.tableHeader}
         cellEdit={ cellEditFactory({ mode: 'click', blurToSave: true,
           afterSaveCell: (oldValue, newValue, row, column) => { 
             if (row.error) {
               row.error = !errorColumns.every(
                 (err) => validateColumnData(err, row[err] )
               )
+            }
+
+           if (saveColumnData) {
+              saveColumnData(oldValue, newValue, row, column)
             }
           }
          })

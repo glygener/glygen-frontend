@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { getProteinDetail } from "../data/protein";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -67,6 +67,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SelectControl from "../components/select/SelectControl";
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import { addIDsToStore } from "../data/idCartApi"
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -438,6 +440,7 @@ const ProteinDetail = (props) => {
     }
     );
   const [sequenceFeatures, setSequenceFeatures] = useState(undefined);
+  const {showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
 
 
   useEffect(() => {
@@ -1966,6 +1969,26 @@ const ProteinDetail = (props) => {
     setExpandedCategories(catArr)
   }
 
+       /**
+       * Function to add protein id to cart.
+       **/
+         const addProteinID = () => {
+
+          let organism = Object.keys(organismEvidence).map((orgEvi) => 
+          organismEvidence[orgEvi].glygen_name);
+
+          let uniprotNames = (protein_names || [])
+          .filter((x) => x.type === "recommended")
+          .map((x) => x.name);
+
+          if (uniprot && uniprot.uniprot_canonical_ac && organism && organism.length > 0 && uniprotNames && uniprotNames.length > 0) {
+            let totalCartCount = addIDsToStore("proteinID", [{uniprot_canonical_ac: uniprot.uniprot_canonical_ac, organism: organism[0], 
+              protein_name: uniprotNames[0] }]);
+            showTotalCartIdsNotification(totalCartCount);
+          }
+    
+        };
+
   const createGlycosylationSummary = (data, glycan = false) => {
     const info = {};
     // console.table(data);
@@ -2144,6 +2167,7 @@ const ProteinDetail = (props) => {
               </div>
             )}
             <div className="gg-download-btn-width text-end">
+              <Button onClick={() => addProteinID()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Protein ID</Button>
               <DownloadButton
                 types={[
                   {

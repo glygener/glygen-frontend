@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Helmet from "react-helmet";
 import Button from "react-bootstrap/Button";
 import { getTitle, getMeta } from "../utils/head";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getProteinList } from "../data";
 import { PROTEIN_COLUMNS, getUserSelectedColumns } from "../data/protein";
@@ -23,10 +23,43 @@ import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.s
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import CustomColumns from "../components/columnSelector/CustomColumns";
 import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayColumnList } from "../data/customcolumn.js";
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import ListIDNameDialog from "../components/idcart/ListIDNameDialog";
+import { addIDsToStore } from "../data/idCartApi"
 
 const ProteinList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
+  const location = useLocation();
+  
+  const state  = location.state;
+
+  const selectRow = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      let proteinIDs = [];
+      if (isSelect) {
+         selectedData.push({uniprot_canonical_ac: row.uniprot_canonical_ac, protein_name: row.protein_name, organism: row.organism });
+         setSelectedData(selectedData);
+      } else {
+        proteinIDs = selectedData.filter(obj => obj.uniprot_canonical_ac === row.uniprot_canonical_ac);
+        setSelectedData(proteinIDs);
+      }
+    },
+    onSelectAll: (isSelect, rows, e) => {
+      let proteinIDs = rows.map(obj =>  {return { "uniprot_canonical_ac": obj.uniprot_canonical_ac, "protein_name": obj.protein_name, "organism": obj.organism }});
+      if (isSelect) {
+         selectedData.push(...proteinIDs);
+         setSelectedData(selectedData);
+      } else {
+        let proteinIDs = rows.map(obj =>  obj.uniprot_canonical_ac);
+        let proIDs = selectedData.filter(obj => !proteinIDs.includes(obj.uniprot_canonical_ac));
+        setSelectedData(proIDs);
+      }
+    }
+  };
+
   let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
@@ -48,6 +81,13 @@ const ProteinList = props => {
   const [open, setOpen] = React.useState(false);
   const [userSelectedColumns, setUserSelectedColumns] = useState([]);
 
+  const {totalCartIds, showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
+  const [selectedData, setSelectedData] = useState([]);
+  const [listIDOpen, setListIDOpen] = React.useState(false);
+  const [columns, setColumns] = useState();
+  const [searchQuery, setSearchQuery] = useState();
+  const [queryType, setQueryType] = useState();
+
   function toggleDrawer(newOpen) {
     setOpen(newOpen);
   };
@@ -55,6 +95,21 @@ const ProteinList = props => {
   const navigate = useNavigate();
 
   const unmappedStrings = stringConstants.protein.common.unmapped;
+
+     /**
+     * Function to add protein ids to cart.
+     **/
+       const addProteinIDs = () => {
+        let totalCartCount = addIDsToStore("proteinID", selectedData);
+        showTotalCartIdsNotification(totalCartCount);
+      };
+  
+       /**
+     * Function to add protein list id.
+     **/
+       const addProteinList = () => {        
+        setListIDOpen(true);
+      };
 
   useEffect(() => {
     setPageLoading(true);
@@ -129,6 +184,10 @@ const ProteinList = props => {
           logActivity("user", id, "No results. " + message);
           setPageLoading(false);
         } else {
+          let qur = JSON.parse(JSON.stringify(data.cache_info.query));
+          setSearchQuery(qur);
+          setColumns(data.query.columns);
+          setQueryType(searchId ? searchId : "proteinSearch");
           setData(data.results);
           setDataUnmap(data.cache_info.batch_info && data.cache_info.batch_info.unmapped ? data.cache_info.batch_info.unmapped : []);
           if (data.cache_info.query.uniprot_canonical_ac) {
@@ -161,6 +220,13 @@ const ProteinList = props => {
     // eslint-disable-next-line
   }, [appliedFilters, userSelectedColumns]);
 
+  // Use an effect to monitor the update to params
+  useEffect(() => {
+    if (state && state.appliedFilters) {
+      setAppliedFilters(state.appliedFilters);
+    }
+  }, [state]);
+
   const handleTableChange = (
     type,
     { page, sizePerPage, sortField, sortOrder }
@@ -191,14 +257,6 @@ const ProteinList = props => {
       setPageLoading(false);
     });
   };
-  // useEffect(() => {
-  //   if (data.results && data.results.length === 0) {
-  //     setAlertDialogInput({
-  //       show: true,
-  //       id: "no-result-found"
-  //     });
-  //   }
-  // }, [data]);
 
   const handleFilterChange = newFilter => {
     console.log(newFilter);
@@ -234,9 +292,9 @@ const ProteinList = props => {
   };
 
   const handleModifySearch = () => {
-    if (searchId === "gs") {
+    if (searchId === "gs" || searchId === "gsgp") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
-    } else if (searchId === "sups") {
+    } else if (searchId && searchId.includes("sups")) {
       navigate(routeConstants.superSearch + id);
     } else if (quickSearch[searchId] !== undefined) {
       const basename = GLYGEN_BASENAME === "/" ? "" : GLYGEN_BASENAME;
@@ -280,6 +338,10 @@ const ProteinList = props => {
       </Helmet>
 
       <FeedbackWidget />
+      {listIDOpen && <ListIDNameDialog listIDOpen={listIDOpen} setListIDOpen={setListIDOpen} 
+        listId={id} listCacheId={listCacheId} type="proteinList" appliedFilters={appliedFilters}   
+        searchQuery={searchQuery} columns={columns} queryType={queryType} totalSize={totalSize}                     
+      />}
       <div className="gg-baseline list-page-container">
         {availableFilters && availableFilters.length !== 0 && (
           <div className="list-sidebar-container">
@@ -344,7 +406,11 @@ const ProteinList = props => {
             </section>
             <section>
               <div className="text-end pb-3">
-                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" >Edit Columns</Button>
+                <Button onClick={() => addProteinList()} type="button" className="gg-btn-blue"
+                   disabled={quickSearch[searchId] !== undefined}
+                  >Add List ID</Button>
+                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Protein IDs</Button>
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}} >Edit Columns</Button>
                 <DownloadButton
                   types={[
                     {
@@ -383,6 +449,7 @@ const ProteinList = props => {
                   defaultSortField="hit_score"
                   defaultSortOrder="desc"
                   idField="uniprot_canonical_ac"
+                  selectRow={selectRow}
                   noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
                 />
               )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, useRef } from 'react';
+import React, { useEffect, useReducer, useState, useRef, useContext } from 'react';
 import Helmet from 'react-helmet';
 import { getTitle, getMeta } from '../utils/head';
 import PageLoader from '../components/load/PageLoader';
@@ -21,7 +21,9 @@ import {logActivity} from '../data/logging';
 import {axiosError} from '../data/axiosError';
 import { getGlycanSearch, getGlycanSimpleSearch,  getGlycanList, getGlycanInit} from '../data/glycan';
 import FeedbackWidget from "../components/FeedbackWidget";
-import { getJobInit, postNewJob, getJobStatus, getJobDetails, getJobResultList } from "../data/job";
+import { postNewJob, getJobStatus, getJobResultList } from "../data/job";
+import { addJobToStore } from "../data/jobStoreApi"
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 
 /**
  * Glycan search component for showing glycan search tabs.
@@ -114,6 +116,7 @@ const GlycanSearch = (props) => {
 		  glycoGlyphName: "",
 		}
 	  );
+	const { showNotification } = useContext(GlyGenNotificationContext);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -1073,9 +1076,19 @@ const GlycanSearch = (props) => {
 					.then((response) => {
 						if (response.data['list_id'] !== '') {
 							if (dialogLoadingRef.current) {
-								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.data['list_id']).finally(() => {
+									let newJob = {
+										serverJobId: jobid,
+										jobType: type.toUpperCase(),
+										jobTypeInternal: type.toUpperCase(),
+										status: "finished",
+										listID: response.data['list_id'],
+										job: formObject
+									};
+									addJobToStore(newJob);
+									showNotification(type + Date.now());
 									setDialogLoading(false);
-									navigate(routeConstants.glycanList + response.data['list_id']);
+									navigate(routeConstants.jobStatus);
 								});
 							} else {
 								logActivity("user", "", "User canceled job. " + message);
@@ -1099,9 +1112,17 @@ const GlycanSearch = (props) => {
             }
           } else if (josStatus === "running") {
 			if (dialogLoadingRef.current) {
-				setTimeout((jobID) => {
-					searchJobStatus(jobID);
-				}, 2000, jobid);
+				setDialogLoading(false);
+				let newJob = {
+					serverJobId: jobid,
+					jobType: type.toUpperCase(),
+					jobTypeInternal: type.toUpperCase(),
+					status: "running",
+					job: formObject
+				};
+				addJobToStore(newJob);
+				showNotification(type + Date.now());
+				navigate(routeConstants.jobStatus);
 			} else {
 				logActivity("user", "", "User canceled job. " + message);
 			}
@@ -1141,7 +1162,7 @@ const GlycanSearch = (props) => {
 						.then((response) => {
 							if (response.data['list_id'] !== '') {
 								if (dialogLoadingRef.current) {
-									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.list_id).finally(() => {
+									logActivity("user", (id || "") + ">" + jobID, message + " " + response.jobtype + " " + response.data['list_id']).finally(() => {
 										setDialogLoading(false);
 										navigate(routeConstants.glycanList + response.data['list_id']);
 									});

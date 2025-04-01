@@ -28,6 +28,16 @@
   background: none !important;
   color: #6e9fe2 !important;
 }
+.dialog-content-navbar-nav {
+  flex-direction: inherit;
+  flex-wrap: wrap;
+} 
+
+.dialog-content-navbar-nav > .nav-item > .nav-link {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .tab-pane {
   /* margin-top: -1px !important; */
   background-color: #fff !important;
@@ -51,6 +61,10 @@
 .tab-content-padding {
   padding-top: 20px !important;
   padding-bottom: 30px !important;
+}
+.tab-content-padding-x {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 /* .tab-content-border {
 	padding: 30px;

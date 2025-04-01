@@ -59,7 +59,7 @@ export default function GlobalSearchModifiedCard(props) {
                                 <RouteLink
                                     text1={String(props.glycoproteinCount)}
                                     disabled={Number(props.glycoproteinCount) === 0}
-                                    link={routeConstants.proteinList + props.glycoproteinListId + "/" + props.routeTerm}
+                                    link={routeConstants.proteinList + props.glycoproteinListId + "/" + props.routeTermGP}
                                 />
                             </TableCell>
                         </TableRow>

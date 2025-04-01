@@ -42,6 +42,8 @@
   "publicationDetailDOI": "/publication/DOI/",
   "blastSearch": "/blast/",
   "blastResult": "/blast-result/",
+  "jobStatus": "/job-status/",
+  "IDCart": "id-cart",
   "biomarkerSearch": "/biomarker-search/",
   "biomarkerList": "/biomarker-list/",
   "biomarkerDetail": "/biomarker/",

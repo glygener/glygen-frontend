@@ -187,7 +187,7 @@ const ProteinQuerySummary = (props) => {
                 </>
               )}
 
-              {searchId && searchId === "sups" && <>{superSearchStrings.query}</>}
+              {searchId && searchId.includes("sups") && <>{superSearchStrings.query}</>}
 
               {mass && mass.min && (
                 <Row className="summary-table-col">

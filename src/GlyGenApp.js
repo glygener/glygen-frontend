@@ -6,6 +6,7 @@ import Header from "./components/navigation/Header.js";
 import Footer from "./components/navigation/Footer.js";
 import { ThemeProvider } from "@mui/material/styles";
 import ScrollToTopBtn from "./components/ScrollToTop.js";
+import GlyGenNotificationComponent from "./components/GlyGenNotificationComponent.js";
 
 
 /**
@@ -26,6 +27,7 @@ function GlyGenApp(props) {
           userTrackingBannerState={userTrackingBannerState}
           setUserTrackingBannerState={setUserTrackingBannerState}
         />
+        <GlyGenNotificationComponent />
         <ScrollToTopBtn />
         <Routes
           userTrackingBannerState={userTrackingBannerState}

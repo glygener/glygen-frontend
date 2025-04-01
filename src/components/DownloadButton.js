@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "react-bootstrap";
 import { downloadFromServer } from "../utils/download";
@@ -21,10 +21,17 @@ import { getPublicationDetailDownload, getPublicationSectionDownload } from "../
 import { getIsoformMappingListDownload } from "../data/isoformMapping"
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { Loading } from "./load/Loading";
+import stringConstants from '../data/json/stringConstants';
+import DialogAlert from "../components/alert/DialogAlert";
 
 const DownloadButton = (props) => {
-  const { types, dataId, itemType = "glycan_list" } = props;
+  const { types, dataId, itemType = "glycan_list", validations } = props;
   const [showLoading, setShowLoading] = useState(false);
+
+  const [alertDialogInput, setAlertDialogInput] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    { show: false, id: "" }
+  );
 
   const [itemTypeResolver] = useState(() => {
     switch (itemType) {
@@ -82,6 +89,12 @@ const DownloadButton = (props) => {
   // const [displayformat, setDisplayFormat] = useState(display);
   const [compressed, setCompressed] = useState(props.compressed || false);
   const handleDownload = async () => {
+
+    if (validations && dataId === undefined) {
+        (setAlertDialogInput && setAlertDialogInput({"show": true, "id": stringConstants.errors.selectIDCartDownload.id}));
+        return;
+    }
+
     setShowLoading(true);
     let fileFormat = format;
     if (!fileFormat) {
@@ -115,6 +128,12 @@ const DownloadButton = (props) => {
   return (
     <>
     {showLoading && <Loading show={showLoading} />}
+    <DialogAlert
+      alertInput={alertDialogInput}
+      setOpen={input => {
+        setAlertDialogInput({ show: input });
+      }}
+    />
     <span className="text-right">
       <Link>
       {(props.showBlueBackground) ?  

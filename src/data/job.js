@@ -37,6 +37,17 @@ export const getJobStatus = (
   return getJson(url);
 };
 
+export const getMultiJobStatus = (
+  jobidlist,
+) => {
+  const queryParams = {
+    jobidlist: jobidlist,
+  };
+  const queryParamString = JSON.stringify(queryParams);
+  const url = `/job/status_many/?query=${queryParamString}`;
+  return getJson(url);
+};
+
 
 export const getJobDetails = (
   jobId,

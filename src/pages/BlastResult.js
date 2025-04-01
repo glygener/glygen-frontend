@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { useParams, useNavigate } from "react-router-dom";
@@ -23,6 +23,8 @@ import doubleArraowIcon from "../images/icons/doubleArrowIcon.svg";
 import Image from "react-bootstrap/Image";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import { downloadFile } from "../utils/download.js"
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import { addIDsToStore } from "../data/idCartApi"
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
   if (a[sortField] > b[sortField]) {
@@ -59,7 +61,35 @@ const BlastResult = (props) => {
   const [currentSort, setCurrentSort] = useState("evalue");
   const [currentSortOrder, setCurrentSortOrder] = useState("asc");
   const [sizePerPage, setSizePerPage] = useState(20);
+  const {showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
+  const [selectedData, setSelectedData] = useState([]);
   const navigate = useNavigate();
+
+  const selectRow = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      let proteinIDs = [];
+      if (isSelect) {
+         selectedData.push({uniprot_canonical_ac: row.uniprot_canonical_ac, protein_name: row.protein_name, organism: row.glygen_name });
+         setSelectedData(selectedData);
+      } else {
+        proteinIDs = selectedData.filter(obj => obj.uniprot_canonical_ac === row.uniprot_canonical_ac);
+        setSelectedData(proteinIDs);
+      }
+    },
+    onSelectAll: (isSelect, rows, e) => {
+      let proteinIDs = rows.map(obj =>  {return { "uniprot_canonical_ac": obj.uniprot_canonical_ac, "protein_name": obj.protein_name, "organism": obj.glygen_name }});
+      if (isSelect) {
+         selectedData.push(...proteinIDs);
+         setSelectedData(selectedData);
+      } else {
+        let proteinIDs = rows.map(obj =>  obj.uniprot_canonical_ac);
+        let proIDs = selectedData.filter(obj => !proteinIDs.includes(obj.uniprot_canonical_ac));
+        setSelectedData(proIDs);
+      }
+    }
+  };
 
   const handleTableChange = (
     type,
@@ -120,6 +150,7 @@ const BlastResult = (props) => {
                 "tax_id": seqObj.tax_id,
                 "start_pos": seqObj.start_pos,
                 "end_pos": seqObj.end_pos,
+                "unique_id": data.by_subject[protID].details.uniprot_canonical_ac + " " + seqObj.start_pos + " " + seqObj.end_pos,
               }
             })
           });
@@ -154,12 +185,39 @@ const BlastResult = (props) => {
     // eslint-disable-next-line
   }, [jobId]);
 
+/**
+ * Function to add protein ids to cart.
+ **/
+  const addProteinIDs = () => {
+    let unique = uniqByKeepFirst(selectedData, it => it.uniprot_canonical_ac);
+    let totalCartCount = addIDsToStore("proteinID", unique);
+    showTotalCartIdsNotification(totalCartCount);
+  };
+
+/**
+ * Function to handle protein direct search.
+ **/
+  const addAllProteinIDs = () => {
+    let proteinIDs = data.map(obj =>  {return { "uniprot_canonical_ac": obj.uniprot_canonical_ac, "protein_name": obj.protein_name, "organism": obj.glygen_name }});
+    let unique = getUniqueIDs(proteinIDs, obj => obj.uniprot_canonical_ac);
+    let totalCartCount = addIDsToStore("proteinID", unique);
+    showTotalCartIdsNotification(totalCartCount);
+  };
+
+  function getUniqueIDs(ids, key) {
+    let idSet = new Set();
+    return ids.filter(obj => {
+        let val = key(obj);
+        return idSet.has(val) ? false : idSet.add(val);
+    });
+  }
+
 
   const handleModifySearch = () => {
     navigate(routeConstants.blastSearch + jobId);
   };
 
-    /**
+  /**
    * Function to set recordtype (molecule) name value.
    * @param {string} value - input recordtype (molecule) name value.
    **/
@@ -280,6 +338,10 @@ const BlastResult = (props) => {
               title={"Result"}
             >
               <section>
+              <div className="text-end pb-3 pe-3" >
+                <Button onClick={() => addAllProteinIDs()} type="button" className="gg-btn-blue">Add All Protein IDs</Button>
+                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "20px"}}>Add Protein IDs</Button>
+              </div>
                 {blastResultColumns && blastResultColumns.length !== 0 && (
                   <div style={{padding:20, content:'center'}}>
                     <PaginatedTable
@@ -293,6 +355,8 @@ const BlastResult = (props) => {
                         defaultSortField={currentSort}
                         defaultSortOrder={currentSortOrder}
                         wrapperClasses="table-responsive table-height"
+                        idField="unique_id"
+                        selectRow={selectRow}
                         noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                       />
                   </div>

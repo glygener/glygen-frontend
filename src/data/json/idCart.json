@@ -1,0 +1,44 @@
+{
+  "idCartMap":[
+    {
+      "toolType": "blast",
+      "toolName": "GlyGen BLAST",
+      "cartOptionSupport": [
+        "protein"
+      ],
+      "validations": [
+        "idCartSingleIDError"
+      ]
+    },
+    {
+      "toolType": "mapper",
+      "toolName": "GlyGen Mapper",
+      "cartOptionSupport": [
+        "glycan",
+        "glycanList",
+        "protein",
+        "proteinList"
+      ],
+      "validations": [
+      ]
+    }
+  ],
+  "glycan": {
+    "tabTitle": "Glycan"
+  },
+  "protein": {
+    "tabTitle": "Protein"
+  },
+  "glycan_list": {
+    "tabTitle": "Glycan List"
+  },
+  "protein_list": {
+    "tabTitle": "Protein List"
+  },
+  "placeholder": "Select Tool",
+  "placeholderId": "",
+  "placeholderName": "Select Tool",
+  "pageSubtitle": "ID Cart",
+  "pageTitle": "ID Cart",
+	"pageTitleBold": "ID Cart"
+}

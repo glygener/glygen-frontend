@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -25,8 +25,9 @@ import { sortDropdownIgnoreCase } from "../utils/common";
 
 const IdMapping = (props) => {
   let { id } = useParams("");
+  const location = useLocation();
   const [initData, setInitData] = useState({});
-
+  const state  = location.state;
   const fileInputRef = useRef();
   const [idMapSearchData, setIdMapSearchData] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -213,6 +214,15 @@ const IdMapping = (props) => {
       fileInput: false,
     });
   };
+
+    // Use an effect to monitor the update to params
+    useEffect(() => {
+      if (state && state.selectedIDs) {
+        funcInputIdlistOnChange(state.selectedIDs);
+        setInputTouched({idListInput: false});
+      }
+    }, [state]);
+
   /**
    * useEffect for retriving data from api and showing page loading effects.
    */
@@ -222,6 +232,7 @@ const IdMapping = (props) => {
     document.addEventListener("click", () => {
       setAlertTextInput({ show: false });
     });
+
     getMappingInit()
       .then((response) => {
         let initData = response.data;

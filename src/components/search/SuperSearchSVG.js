@@ -62,7 +62,7 @@ const SuperSearchSVG = (props) => {
         .on("click", function(d) {
           if (d.list_id !== "") {
             var data = select(this).select("rect").data();
-            props.goToListPage(data[0].list_id, data[0].id);
+            props.goToListPage(data[0].list_id, data[0].id, data[0].id);
           }
       });
 
@@ -210,7 +210,7 @@ const SuperSearchSVG = (props) => {
                     //go to the list page
                     .on("click", function(d) {
                       if (d.sourceListID !== "") {
-                        props.goToListPage(d.sourceListID, d.source.id);
+                        props.goToListPage(d.sourceListID, d.source.id, d.source.id + "_" + d.target.id);
                       }
                   });
                           /**
@@ -255,7 +255,7 @@ const SuperSearchSVG = (props) => {
       //go to the list page
       .on("click", function(d) {
         if (d.targetListID !== "") {
-          props.goToListPage(d.targetListID, d.target.id);
+          props.goToListPage(d.targetListID, d.target.id, d.target.id + "_" + d.source.id);
         }
       });
 

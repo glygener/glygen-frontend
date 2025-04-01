@@ -2290,6 +2290,11 @@
       "title": "Direct Search Error - No Results Found",
       "message": "Sorry, we couldn't process direct search request."
     },
+    "idCartError": {
+      "id": "idCartError",
+      "title": "ID Cart Error - No Results",
+      "message": "Sorry, we couldn't process the request."
+    },
     "structureSearchError": {
       "id": "structureSearchError",
       "title": "Structure Search Error - No Results Found",
@@ -2334,6 +2339,21 @@
       "id": "querySerarcApiError",
       "title": "Query Search Error - No Results Found",
       "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
+    },
+    "selectIDCartDownload": {
+      "id": "selectIDCartDownload",
+      "title": "ID Cart - Select Option",
+      "message": "Please select value from cart and then click on download."
+    },
+    "idCartSingleIDError": {
+      "id": "idCartSingleIDError",
+      "title": "ID Cart - Input Error",
+      "message": "Sorry, we couldn't import the data. Please select only one ID."
+    },
+    "idCartClear": {
+      "id": "idCartClear",
+      "title": "ID Cart - Clear",
+      "message": "This will remove all entries from the list. Do you want to proceed?"
     },
     "defaultTextAlert": {
       "id": "defaultTextAlert",

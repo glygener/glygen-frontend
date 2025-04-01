@@ -108,7 +108,7 @@ const GlycanQuerySummary = (props) => {
                 </>
               )}
 
-              {searchId && searchId === "sups" && <>{superSearchStrings.query}</>}
+              {searchId && searchId.includes("sups") && <>{superSearchStrings.query}</>}
 
               {composition &&
                 composition.map((compItem, index) => (

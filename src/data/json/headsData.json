@@ -610,5 +610,31 @@
         "content": "Isoform Mapper Result"
       }
     ]
+  },
+  "idCart": {
+    "title": "ID Cart | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "ID Cart"
+      }
+    ]
+  },
+  "jobStatus": {
+    "title": "Job Status | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Job Status"
+      }
+    ]
   }
 }

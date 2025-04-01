@@ -77,7 +77,7 @@ const featuredCards = [
       "Map the amino acid and site position of a isoform protein sequence to the corresponding canonical isoform protein sequence.",
     image: isoformMapperImg,
     imageText: "GlyGen Isoform Mapper",
-    href: routeConstants.isoformMapping,
+    to: routeConstants.isoformMapping,
   },
   {
     title: "Super Search",
@@ -154,7 +154,7 @@ const featuredCards = [
       "The GlyGen Protein BLAST allows to find regions of local similarity between protein sequences.",
     image: proteinBLASTImg,
     imageText: "Protein BLAST",
-    href: routeConstants.blastSearch,
+    to: routeConstants.blastSearch,
   },
   {
     title: "GlyGen Mapper",

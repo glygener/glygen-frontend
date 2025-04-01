@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { getGlycanDetail, getGlycanImageUrl, getGlycanJson } from "../data/glycan";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -60,6 +60,9 @@ import {
 import IUPACresJson from "../data/json/glycan-viewer-residues";
 import motifListJson from "../data/json/motif_mapping";
 import enzymeJson from "../data/json/enzyme_mapping";
+import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import { addIDsToStore } from "../data/idCartApi"
+
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
 const proteinStrings = stringConstants.protein.common;
@@ -293,6 +296,7 @@ const GlycanDetail = props => {
         orgArr: []
       }
       );
+      const {showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
 
   // let history;
 
@@ -1609,6 +1613,16 @@ const GlycanDetail = props => {
     setExpandedCategories(catArr)
   }
 
+  /**
+   * Function to add glycan id to cart.
+   **/
+    const addGlycanID = () => {
+    if (glytoucan && glytoucan.glytoucan_ac) {
+      let totalCartCount = addIDsToStore("glycanID", [glytoucan.glytoucan_ac]);
+      showTotalCartIdsNotification(totalCartCount);
+    }
+  };
+
   if (nonExistent) {
     return (
       <Container className="tab-content-border2 tab-bigscreen">
@@ -1696,6 +1710,8 @@ const GlycanDetail = props => {
               </div>
             )}
             <div className="text-end gg-download-btn-width">
+            <Button onClick={() => addGlycanID()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Glycan ID</Button>
+
               <DownloadButton
                 types={[
                   {
