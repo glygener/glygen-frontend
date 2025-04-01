@@ -287,7 +287,6 @@ const JobStatus = (props) => {
       setDialogLoading(true);
       let message = "Job query=" + JSON.stringify(formObject);
       logActivity("user", id, "Re-executing Job." + message);
-  
         postNewJob(formObject, userfile)
         .then((response) => {
           if (response.data["status"] && response.data["status"] !== {}) {
@@ -364,9 +363,10 @@ const JobStatus = (props) => {
         });
     };
 
-  function base64toBlob(base64) {
-    fetch(`data:application/octet-stream;base64,${base64}`).then(file => file.blob())
-    .catch ()
+  const base64toBlob = async (base64) => {
+    const response = await fetch(`data:application/octet-stream;base64,${base64}`);
+    const fileBlob = await response.blob();
+    return fileBlob;
   }
 
    /**
@@ -380,6 +380,7 @@ const JobStatus = (props) => {
           base64toBlob(jobValue.userfile).then((blob) => {
             jobSubmit(jobValue.job, jobValue.jobType, jobValue.jobTypeInternal, blob, jobValue.userfile);
           })
+          .catch ()
         } else {
           jobSubmit(jobValue.job, jobValue.jobType, jobValue.jobTypeInternal);
         }
