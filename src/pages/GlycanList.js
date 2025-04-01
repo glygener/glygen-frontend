@@ -569,7 +569,7 @@ const GlycanList = props => {
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    setAppliedFilters([]);
                   }}
                 >
                   Reset Filters
@@ -586,7 +586,7 @@ const GlycanList = props => {
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    setAppliedFilters([]);
                   }}
                 >
                   Reset Filters
