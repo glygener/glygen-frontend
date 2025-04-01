@@ -498,7 +498,7 @@ const BlastSearch = (props) => {
               &nbsp;
             </Typography>
             <div className="gg-align-right">
-              <Button className="gg-btn-blue ms-3 me-3" style={{padding : "9px 12px"}} onClick={retriveSequence} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
+              <Button className="gg-btn-blue ms-3 me-3" style={{padding : "9px 12px"}} onClick={() => retriveSequence()} disabled={inputValue.proUniprotAcc.trim().length <= 0}>
                 Retrieve Sequence
               </Button>
             </div>
