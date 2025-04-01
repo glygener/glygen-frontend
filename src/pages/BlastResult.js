@@ -189,7 +189,7 @@ const BlastResult = (props) => {
  * Function to add protein ids to cart.
  **/
   const addProteinIDs = () => {
-    let unique = uniqByKeepFirst(selectedData, it => it.uniprot_canonical_ac);
+    let unique = getUniqueIDs(selectedData, obj => obj.uniprot_canonical_ac);
     let totalCartCount = addIDsToStore("proteinID", unique);
     showTotalCartIdsNotification(totalCartCount);
   };
