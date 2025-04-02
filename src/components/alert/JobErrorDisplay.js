@@ -6,6 +6,8 @@ import { postTo } from "../../data/api";
 import { replaceSpecialCharacters } from "../../utils/common";
 import { axiosError } from "../../data/axiosError";
 import { logActivity, getUserID } from "../../data/logging";
+import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
+
 /**
  * Dialog component to show query.
  */
@@ -84,7 +86,9 @@ export default function JobErrorDisplay(props) {
                     <div>
                       Job ID: {props.jobErrorDialogInput.serverJobId}
                     </div>
-
+                    {props.jobErrorDialogInput.expired && <div>
+                        Re-execute the job using <RestartAltOutlinedIcon sx={{ color: 'text.primary' }}/> button to retrieve the results.
+                    </div>}
                     <div style={{paddingTop:20, paddingBottom:20}}>
                       {<div>
                         {props.jobErrorDialogInput.expired ? "Please find the details below," : "Please find the error below,"}
