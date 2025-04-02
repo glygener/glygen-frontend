@@ -117,6 +117,14 @@ const JobStatus = (props) => {
     );
   }
 
+  const rowStyle = (row, rowIndex) => {
+    const style = {};
+    if (row.error) {
+      style.backgroundColor = row.expired ? "#FAF0F0" : "#FDEDED";
+    }
+    return style;
+  };
+
   const columnsJob = [
     {
       dataField: 'clientJobId',
@@ -220,8 +228,8 @@ const JobStatus = (props) => {
             </div>}
             </>}
             {row.status === "error" && <>
-              <Button className={"lnk-btn"} variant="link" onClick={() => setJobError(row.serverJobId, row.jobType, row.job, row.jobTypeInternal, row.userfile, row.error)}>
-                {value}
+              <Button className={"lnk-btn"} variant="link" onClick={() => setJobError(row.serverJobId, row.jobType, row.job, row.jobTypeInternal, row.userfile, row.error, row.expired)}>
+                {row.expired ? "expired": value}
               </Button>
           </>}
         </>
@@ -262,8 +270,8 @@ const JobStatus = (props) => {
       });
   }
 
-  function setJobError(serverJobId ,jobType, job, jobTypeInternal, userfile, error) {
-    setJobErrorDialogInput({ show: true, jobType: jobType, serverJobId: serverJobId, job: job, jobTypeInternal: jobTypeInternal, userfile: userfile, error: error })
+  function setJobError(serverJobId ,jobType, job, jobTypeInternal, userfile, error, expired) {
+    setJobErrorDialogInput({ show: true, jobType: jobType, serverJobId: serverJobId, job: job, jobTypeInternal: jobTypeInternal, userfile: userfile, error: error, expired: expired })
   }
 
   /**
@@ -497,6 +505,7 @@ const JobStatus = (props) => {
               data={data}
               errorColumns={["name"]}
               columns={columnsJob}
+              rowStyle={rowStyle}
               idField={"clientJobId"}
               defaultSortField = "clientJobId"
               defaultSortOrder = "desc"

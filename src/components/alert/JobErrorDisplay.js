@@ -74,7 +74,7 @@ export default function JobErrorDisplay(props) {
             onClose={() => props.setOpen(false)} 
         >    
             <div id="contents" class = "gf-content-div">
-                <h5 className= "alert-dialog-title" style={{minWidth: '500px' }}>{"Job Error"}</h5>
+                <h5 className= "alert-dialog-title" style={{minWidth: '500px' }}>{props.jobErrorDialogInput.expired ? "Job Expired" : "Job Error"}</h5>
                 <div clas1sName="alert-dialog-content"
                     style={{padding:40, content:'center'}}
                 >
@@ -86,9 +86,9 @@ export default function JobErrorDisplay(props) {
                     </div>
 
                     <div style={{paddingTop:20, paddingBottom:20}}>
-                      <div>
-                        Please find the error below,
-                      </div>
+                      {<div>
+                        {props.jobErrorDialogInput.expired ? "Please find the details below," : "Please find the error below,"}
+                      </div>}
                       {props.jobErrorDialogInput.error && <ul>
                         <span>
                           {props.jobErrorDialogInput.error.error_list && (

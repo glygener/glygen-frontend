@@ -104,6 +104,18 @@ export const getPendingJobFromStore = (allJobs) => {
   return jobPendingQueue;
 };
 
+function getJobExpired (error) {
+  let expired = false;
+  if (error.error_list) {
+    const err = error.error_list.find((code) =>
+      code.error_code && code.error_code.includes("job-record-not-found"));
+    if (err) {
+      expired = true;
+    }
+  }
+  return expired;
+}
+
 export const updateJobStatus = (jobDataArray) => {
   let jobDataQueue = [];
   try {
@@ -123,6 +135,7 @@ export const updateJobStatus = (jobDataArray) => {
 
           if (jobDataArray[i].error) {
             jobArrays[j].error = jobDataArray[i].error;
+            jobArrays[j].expired = getJobExpired(jobDataArray[i].error);
           }
 
           if (jobDataArray[i].status === "running") {
@@ -185,10 +198,15 @@ export const deleteJob = (clientJobId) => {
         pendingJobArr = parsedValue.jobPendingQueue.filter(obj => obj.clientJobId !== clientJobId);
     }
 
-      parsedValue.jobDataQueue = updateJobArr;
-      parsedValue.jobPendingQueue = pendingJobArr;
+    parsedValue.jobDataQueue = updateJobArr;
+    parsedValue.jobPendingQueue = pendingJobArr;
 
+    if (updateJobArr.length > 0) {
       localStorage.setItem(jobStatusQueueKey, JSON.stringify(parsedValue));
+    } else {
+      localStorage.removeItem(jobStatusQueueKey);
+      localStorage.removeItem(jobCompleteKey);
+    }
 
   } catch (err) {
   }
