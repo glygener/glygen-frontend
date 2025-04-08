@@ -1385,7 +1385,7 @@ const IDCart = props => {
                       defaultSortOrder={currentGlycanSortOrder}
                       idField="glytoucan_ac"
                       selectRow={selectGlycanRow}
-                      noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
+                      noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                     />
                 </Container>
               </Tab>
@@ -1464,7 +1464,7 @@ const IDCart = props => {
                       defaultSortOrder={currentGlycanListSortOrder}
                       idField="list_cache_id"
                       selectRow={selectGlycanListRow}
-                      noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
+                      noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                     />
                 </Container>
               </Tab>
@@ -1537,7 +1537,7 @@ const IDCart = props => {
                     defaultSortOrder={currentProteinSortOrder}
                     idField="uniprot_canonical_ac"
                     selectRow={selectProteinRow}
-                    noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
+                    noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                   />
                 </Container>
               </Tab>
@@ -1617,7 +1617,7 @@ const IDCart = props => {
                     defaultSortOrder={currentProteinListSortOrder}
                     idField="list_cache_id"
                     selectRow={selectProteinListRow}
-                    noDataIndication={pageLoading ? "Fetching Data." : "No data available, please select filters."}
+                    noDataIndication={pageLoading ? "Fetching Data." : "No data available."}
                   />
                 </Container>
               </Tab>
