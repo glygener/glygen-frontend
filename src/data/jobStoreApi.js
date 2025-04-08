@@ -46,9 +46,12 @@ export const addJobToStore = (jobData) => {
           name: jobData.jobType + " " + dateTime,
           startDate: dateTime,
           status: jobData.status,
+          result_count: jobData.result_count
         };
         parsedValue.jobDataQueue.push(newJob);
-        parsedValue.jobPendingQueue.push({"serverJobId": jobData.serverJobId, "clientJobId": parsedValue.nextJobId, "jobType": jobData.jobType, "jobTypeInternal": jobData.jobTypeInternal});
+        if (jobData.status === "running") {
+          parsedValue.jobPendingQueue.push({"serverJobId": jobData.serverJobId, "clientJobId": parsedValue.nextJobId, "jobType": jobData.jobType, "jobTypeInternal": jobData.jobTypeInternal});
+        }
         parsedValue.nextJobId = parsedValue.nextJobId + 1;
     } else {
       parsedValue = {
@@ -62,8 +65,9 @@ export const addJobToStore = (jobData) => {
           name: jobData.jobType + " " + dateTime,
           startDate: dateTime,
           status: jobData.status,
+          result_count: jobData.result_count
         }],
-        "jobPendingQueue": [{"serverJobId": jobData.serverJobId, "clientJobId": 1, "jobType": jobData.jobType, "jobTypeInternal": jobData.jobTypeInternal}],
+        "jobPendingQueue": jobData.status === "running" ? [{"serverJobId": jobData.serverJobId, "clientJobId": 1, "jobType": jobData.jobType, "jobTypeInternal": jobData.jobTypeInternal}] : [],
         "nextJobId": 2
       };
     }

@@ -556,13 +556,13 @@ const IsoformMapping = (props) => {
           let josStatus = response.data["status"].status;
           let jobid = response.data["jobid"];
           if (josStatus === "finished") {
-
             if (dialogLoadingRef.current) {
               let newJob = {
                 serverJobId: jobid,
                 jobType: "ISOFORM",
                 jobTypeInternal: "ISOFORM_" + type.toUpperCase(),
                 status: "finished",
+                result_count: response.data["status"].result_count,
                 job: formObject,
                 userfile: userfileb64
               };
@@ -575,7 +575,6 @@ const IsoformMapping = (props) => {
             }
           } else if (josStatus === "running") {
             if (dialogLoadingRef.current) {
-              setDialogLoading(false);
               let newJob = {
                 serverJobId: jobid,
                 jobType: "ISOFORM",
@@ -587,6 +586,7 @@ const IsoformMapping = (props) => {
 
               addJobToStore(newJob);
               showNotification("ISOFORM_" + type.toUpperCase() + Date.now());
+              setDialogLoading(false);
               navigate(routeConstants.jobStatus);
 
             } else {

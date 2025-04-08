@@ -466,11 +466,6 @@ const GlycanDetail = props => {
               setGlycanResidueList(resList);
             }
           }
-       })
-       .catch(( error ) => {
-          let message = "Glycan JSON api call";
-          axiosError(error, id, message, undefined, undefined);
-      });
 
         let detailDataTemp = data;
         if (data.subsumption) {
@@ -597,7 +592,10 @@ const GlycanDetail = props => {
             true
           );
         }
-        if (tool_support && tool_support.pdb !== "yes") {
+        if (jsonData && jsonData.annotations === undefined) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Feature-View", true);
+        }
+        if (tool_support && tool_support.pdb === "no") {
           newSidebarData = setSidebarItemState(newSidebarData, "3D-View", true);
         }
         if (!detailDataTemp.names || detailDataTemp.names.length === 0) {
@@ -696,6 +694,12 @@ const GlycanDetail = props => {
           );
         }
         setSidebarData(newSidebarData);
+
+        })
+        .catch(( error ) => {
+          let message = "Glycan JSON api call";
+          axiosError(error, id, message, undefined, undefined);
+        });
       }
 
       setTimeout(() => {
@@ -705,7 +709,7 @@ const GlycanDetail = props => {
             .getElementById(anchorElement.substr(1))
             .scrollIntoView({ behavior: "auto" });
         }
-      }, 500);
+      }, 500)
     });
     getGlycanDetailData.catch(({ response }) => {
       if (

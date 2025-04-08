@@ -98,10 +98,10 @@ const SearchByOrganism = props => {
                         menu={
                           species_to_glycosyltransferases &&
                           species_to_glycosyltransferases.organism
-                            ? Object.keys(species_to_glycohydrolases.organism).map((org) => (
+                            ? Object.keys(species_to_glycosyltransferases.organism).map((org) => (
                              {
-                               id : species_to_glycohydrolases.organism[org].id,
-                               name : species_to_glycohydrolases.organism[org].name
+                               id : species_to_glycosyltransferases.organism[org].id,
+                               name : species_to_glycosyltransferases.organism[org].name
                              }
                            ))
                             : []

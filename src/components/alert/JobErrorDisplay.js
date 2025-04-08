@@ -86,12 +86,15 @@ export default function JobErrorDisplay(props) {
                     <div>
                       Job ID: {props.jobErrorDialogInput.serverJobId}
                     </div>
-                    {props.jobErrorDialogInput.expired && <div>
-                        Re-execute the job using <RestartAltOutlinedIcon sx={{ color: 'text.primary' }}/> button to retrieve the results.
-                    </div>}
+                    {props.jobErrorDialogInput.expired ? <div>
+                      The results of this job have been removed from the server. You can re-execute the job using <RestartAltOutlinedIcon sx={{ color: 'text.primary' }}/> button to retrieve the results.
+                    </div>: <div>
+                      The processing of the job resulted into an error. You can find the error code below. If you believe there is an error in GlyGen data processing, please use the 'Notify GlyGen' button to create a ticket for the GlyGen team.
+                      </div>}
                     <div style={{paddingTop:20, paddingBottom:20}}>
                       {<div>
-                        {props.jobErrorDialogInput.expired ? "Please find the details below," : "Please find the error below,"}
+                        {props.jobErrorDialogInput.expired ? "Please find the details below," : 
+                        "Please find the error code below,"}
                       </div>}
                       {props.jobErrorDialogInput.error && <ul>
                         <span>

@@ -32,6 +32,7 @@ import { getGlycanList, getProteinList } from "../data";
 import { getGlobalSearch } from '../data/commonApi';
 import { getSuperSearch } from '../data/supersearch';
 import IDCartAlert from "../components/alert/IDCartAlert";
+import Badge from '@mui/material/Badge';
 
 const searchErrorMsg =  "If re-execution of search fails repeatedly or record does not exist. Please delete the current cached list record and re-execute the search and save list result to cart.";
 const listErrorMsg =  "If re-execution of import fails repeatedly or record does not exist. Please re-execute the search to update the cached list results.";
@@ -1320,7 +1321,13 @@ const IDCart = props => {
               <Tab
                 eventKey="Glycan"
                 className="tab-content-padding"
-                title={idCartJson.glycan.tabTitle}
+                title={
+                 <div>
+                  <Badge sx={{marginTop: "-10px", marginLeft: "45px"}} anchorOrigin={{vertical: 'top', horizontal: 'left'}} color={"primary"} badgeContent={glycanData.length } max={99}>                                  
+                    <span style={{paddingTop: "7px", marginLeft: "-45px"}}>{idCartJson.glycan.tabTitle}</span>
+                  </Badge>
+                </div> 
+              }
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
@@ -1385,7 +1392,13 @@ const IDCart = props => {
               <Tab
                 eventKey="Glycan-List"
                 className="tab-content-padding"
-                title={idCartJson.glycan_list.tabTitle}
+                title={
+                  <div>
+                   <Badge sx={{marginTop: "-10px", marginLeft: "80px"}} anchorOrigin={{vertical: 'top', horizontal: 'left'}} color={"primary"} badgeContent={glycanListData.length } max={99}>                                  
+                    <span style={{paddingTop: "7px", marginLeft: "-80px"}}>{idCartJson.glycan_list.tabTitle}</span>
+                  </Badge>
+                 </div> 
+               }
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
@@ -1458,7 +1471,13 @@ const IDCart = props => {
               <Tab
                 eventKey="Protein"
                 className="tab-content-padding"
-                title={idCartJson.protein.tabTitle}
+                title={
+                  <div>
+                   <Badge sx={{marginTop: "-10px", marginLeft: "47px"}} anchorOrigin={{vertical: 'top', horizontal: 'left'}} color={"primary"} badgeContent={proteinData.length } max={99}>                                  
+                    <span style={{paddingTop: "7px", marginLeft: "-47px"}}>{idCartJson.protein.tabTitle}</span>
+                  </Badge>
+                 </div> 
+               }
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
@@ -1525,7 +1544,13 @@ const IDCart = props => {
               <Tab
                 eventKey="Protein-List"
                 className="tab-content-padding"
-                title={idCartJson.protein_list.tabTitle}
+                title={
+                  <div>
+                   <Badge sx={{marginTop: "-10px", marginLeft: "82px"}} anchorOrigin={{vertical: 'top', horizontal: 'left'}} color={"primary"} badgeContent={proteinListData.length } max={99}>                                  
+                    <span style={{paddingTop: "7px", marginLeft: "-82px"}}>{idCartJson.protein_list.tabTitle}</span>
+                  </Badge>
+                 </div> 
+               }
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>

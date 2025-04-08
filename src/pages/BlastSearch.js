@@ -318,6 +318,7 @@ const BlastSearch = (props) => {
                     jobType: "BLAST",
                     jobTypeInternal: "BLAST",
                     status: "finished",
+                    result_count: response.data["status"].result_count,
                     job: formObject
                   };
                   addJobToStore(newJob);

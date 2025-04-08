@@ -1082,6 +1082,7 @@ const GlycanSearch = (props) => {
 										jobType: type.toUpperCase(),
 										jobTypeInternal: type.toUpperCase(),
 										status: "finished",
+										result_count: response.data["status"].result_count,
 										listID: response.data['list_id'],
 										job: formObject
 									};

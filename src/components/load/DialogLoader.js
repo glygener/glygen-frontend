@@ -29,7 +29,8 @@ export default function DialogLoader(props) {
       <div style={{overflow: 'hidden'}}>
         <h5 className= "sups-dialog-title">{props.title}</h5>
         <div className='m-3' style={{overflow: 'hidden', textAlign:'center'}}>  
-            <h5>{"Waiting for job to start."}</h5>
+            <h5>Please wait, job submission is in progress.</h5>
+            {props.page !== "job-status" && <h5>We will transfer you to the job-status page once the job starts.</h5>}
         </div>
         <div className='m-3' style={{overflow: 'hidden' ,content:'center', height: '120px', width: '600px', opacity: '0.3'}}>    
           <Row className={"dialog-loader-row"}>

@@ -176,7 +176,6 @@ const JobStatus = (props) => {
     {
       dataField: 'startDate',
       text: "Start Date",
-      mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
           backgroundColor: "#4B85B6",
@@ -190,7 +189,6 @@ const JobStatus = (props) => {
     {
       dataField: 'status',
       text: "Status",
-      mode: 'input',
       headerStyle: (colum, colIndex) => {
         return {
           backgroundColor: "#4B85B6",
@@ -304,24 +302,24 @@ const JobStatus = (props) => {
               if (response.data["status"].result_count && response.data["status"].result_count > 0) {
                 if (dialogLoadingRef.current) {
                   logActivity("user", (id || "") + ">" + response.data["jobid"], message).finally(() => {                   
-                    setDialogLoading(false);
                     let newJob = {
                       serverJobId: jobid,
                       jobType: jobType,
                       jobTypeInternal: jobTypeInternal,
                       status: "finished",
+                      result_count: response.data["status"].result_count,
                       job: formObject,
                       userfile: userfileb64
                     };
                     addJobToStore(newJob);
                     let now = Date.now();
                     showNotification(now);
-                    setUpdateNotification(now);
-
                     let jobs = getJobStatusFromStore();
                     setData(jobs);
                     setUpdateTable(now);
-                    showTotalJobsNotification(jobs.length);  
+                    showTotalJobsNotification(jobs.length);
+                    setUpdateNotification(now);
+                    setDialogLoading(false);
                   });
                 } else {
                   logActivity("user", "", "User canceled job. " + message);
@@ -477,6 +475,7 @@ const JobStatus = (props) => {
         <DialogLoader
           show={dialogLoading}
           title={"Executing Job"}
+          page={"job-status"}
           setOpen={(input) => {
             setDialogLoading(input)
           }}

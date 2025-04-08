@@ -40,13 +40,15 @@ const GlyGenNotificationComponent = () => {
   const jobStatus = (firstMountVar) => {
     let jobObjList = getPendingJobFromStore(firstMountVar);
     let jobIDList = jobObjList.map(job => job.serverJobId);
+    jobIDList = jobIDList.filter((item, index) => jobIDList.indexOf(item) === index);
     if (jobIDList.length === 0) {
       return;
     }
     let pendingJobList = [];
-    if (firstMountVar)
+    if (firstMountVar) {
       pendingJobList = getPendingJobFromStore(false);
-
+      pendingJobList = pendingJobList.map(job => job.serverJobId);
+    }
     setApiProcessing(true);
     let message = "Job query=" + JSON.stringify(jobIDList);
     let jobStatusUpdate = [];
@@ -64,7 +66,7 @@ const GlyGenNotificationComponent = () => {
             let now = Date.now();
             if (!loc.includes(routeConstants.jobStatus)) {
               if (firstMountVar) {
-                if (pendingJobList.contains(response.jobid)) {
+                if (pendingJobList.includes(response.jobid)) {
                   setJobCompleteValue(true);
                   showJobCompleteNotification(now);
                 }
