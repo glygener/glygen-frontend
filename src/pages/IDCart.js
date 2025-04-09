@@ -398,7 +398,7 @@ const IDCart = props => {
     * @param {array} superSearchQuery - query object.
     **/
    function superSearch(type, row, queryType) {
-    let superSearchQuery = row.searchQuery;
+    let superSearchQuery = { concept_query_list : row.searchQuery.concept_query_list ? row.searchQuery.concept_query_list : [] }
     let oldListCacheId = row.list_cache_id;
     let results = queryType.split("_");
     let type1 = ""; 
