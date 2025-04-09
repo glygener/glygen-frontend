@@ -276,14 +276,14 @@ const IDCart = props => {
               20,
               "hit_score",
               "desc",
-              row.appliedFilters,
+              row.applied_filters,
               row.columns
             ).then(({ data }) => {
 
               let listCacheId = data.cache_info.listcache_id;
 
               let obj = { 
-                "name" : row.name, "appliedFilters" : row.appliedFilters, "listCacheId" : listCacheId,
+                "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject("glycanList", oldListCacheId, obj);
@@ -344,7 +344,7 @@ const IDCart = props => {
               20,
               "hit_score",
               "desc",
-              row.appliedFilters,
+              row.applied_filters,
               row.columns
             ) :
             getProteinList(
@@ -353,7 +353,7 @@ const IDCart = props => {
               20,
               "hit_score",
               "desc",
-              row.appliedFilters,
+              row.applied_filters,
               row.columns
             )
           ).then(({ data }) => {
@@ -361,7 +361,7 @@ const IDCart = props => {
               let listCacheId = data.cache_info.listcache_id;
 
               let obj = { 
-                "name" : row.name, "appliedFilters" : row.appliedFilters, "listCacheId" : listCacheId,
+                "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject(type, oldListCacheId, obj);
@@ -451,7 +451,7 @@ const IDCart = props => {
               20,
               "hit_score",
               "desc",
-              row.appliedFilters,
+              row.applied_filters,
               row.columns
             ) :
             getProteinList(
@@ -460,7 +460,7 @@ const IDCart = props => {
               20,
               "hit_score",
               "desc",
-              row.appliedFilters,
+              row.applied_filters,
               row.columns
             )
           ).then(({ data }) => {
@@ -468,7 +468,7 @@ const IDCart = props => {
             let listCacheId = data.cache_info.listcache_id;
 
             let obj = { 
-              "name" : row.name, "appliedFilters" : row.appliedFilters, "listCacheId" : listCacheId,
+              "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
               "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
             updateIDCartObject(type, oldListCacheId, obj);
@@ -530,14 +530,14 @@ const IDCart = props => {
                 20,
                 "hit_score",
                 "desc",
-                row.appliedFilters,
+                row.applied_filters,
                 row.columns
               ).then(({ data }) => {
 
                 let listCacheId = data.cache_info.listcache_id;
 
                 let obj = { 
-                  "name" : row.name, "appliedFilters" : row.appliedFilters, "listCacheId" : listCacheId,
+                  "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
                   "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
                 updateIDCartObject("proteinList", oldListCacheId, obj);
@@ -1370,7 +1370,7 @@ const IDCart = props => {
                         mimeType="csv"
                         enable={true}
                         getData={getCSVFileDataGlycan}
-                        filters={selectedGlycanListData.appliedFilters}
+                        filters={selectedGlycanListData.applied_filters}
                       />
                   </div> 
                   <PaginatedTable
@@ -1449,7 +1449,7 @@ const IDCart = props => {
                         dataId={selectedGlycanListData.list_cache_id}
                         dataType="glycan_list"
                         validations={true}
-                        filters={selectedGlycanListData.appliedFilters}
+                        filters={selectedGlycanListData.applied_filters}
                       />
                     </div> 
                     <PaginatedTable
@@ -1516,12 +1516,12 @@ const IDCart = props => {
                             type: "all",
                           }
                         ]}
-                        dataId={selectedGlycanListData.list_cache_id}
+                        dataId={selectedProteinListData.list_cache_id}
                         fileName="protein_cart"
                         mimeType="csv"
                         enable={true}
                         getData={getCSVFileDataProtein}
-                        filters={selectedGlycanListData.appliedFilters}
+                        filters={selectedProteinListData.applied_filters}
                       />
                   </div> 
 
@@ -1602,7 +1602,7 @@ const IDCart = props => {
                       dataId={selectedProteinListData.list_cache_id}
                       dataType="protein_list"
                       validations={true}
-                      filters={selectedProteinListData.appliedFilters}
+                      filters={selectedProteinListData.applied_filters}
                     />
                   </div>
                   <PaginatedTable
