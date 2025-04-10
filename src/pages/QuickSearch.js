@@ -616,7 +616,6 @@ const QuickSearch = (props) => {
         {getMeta("quickSearch")}
       </Helmet>
       <FeedbackWidget />
-      <Container maxWidth="lg" className="gg-container tab-bigscreen">
         <Row className="gg-baseline">
           <Col sm={3} md={3} lg={3} xl={3} className="sidebar-col">
             <SidebarCategory items={items} />
@@ -684,7 +683,6 @@ const QuickSearch = (props) => {
             </Container>
           </Col>
         </Row>
-      </Container>
     </>
   );
 };
