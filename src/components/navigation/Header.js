@@ -268,6 +268,9 @@ export default function Header(props) {
                 <NavDropdown.Item href={GLYGEN_FAQ} target="_blank" rel="noopener noreferrer">
                   FAQ
                 </NavDropdown.Item>
+                <NavDropdown.Item href={WIKI} target="_blank" rel="noopener noreferrer">
+                  WIKI
+                </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
                   Tutorials and How to
                 </NavDropdown.Item>

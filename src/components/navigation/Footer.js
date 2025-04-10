@@ -182,6 +182,11 @@ export default function Footer() {
                 </a>
               </div>
               <div>
+                <a href={WIKI} target="_blank" rel="noopener noreferrer">
+                  WIKI
+                </a>
+              </div>
+              <div>
                 <a href={GLYGEN_TUT_HOWT} target="_blank" rel="noopener noreferrer">
                   Tutorials and How to
                 </a>
