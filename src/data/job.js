@@ -10,9 +10,6 @@ export const getJobInit = () => {
   return postTo(url);
 };
 
-
-// Forms objects and displays data in a results (list) page
-// Takes selections and inputs in search page and performs search on submit btn
 export const postNewJob = (formObject, userfile) => {
   const url = `/job/addnew`;
   const myHeaders = {
@@ -24,6 +21,12 @@ export const postNewJob = (formObject, userfile) => {
   } else {
     return postFormDataTo(url, formObject, undefined, userfile);
   }
+};
+
+export const  postNewJobWithTimeout = async (formObject, userfile, timeOut = 5000) => {
+  let response = postNewJob(formObject, userfile);
+  await new Promise(resolve => setTimeout(resolve, timeOut));
+  return response;
 };
 
 export const getJobStatus = (

@@ -16,11 +16,11 @@ import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
 import stringConstants from "../data/json/stringConstants";
 import routeConstants from "../data/json/routeConstants";
-import { postNewJob, getJobResultList } from "../data/job";
+import { postNewJobWithTimeout, getJobResultList, postNewJob } from "../data/job";
 import deleteIcon from "../images/icons/delete.svg";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getJobStatusFromStore, getPendingJobFromStore, updateJobName, deleteJob, setJobCompleteValue, getJobValue, addJobToStore } from "../data/jobStoreApi"
+import { getJobStatusFromStore, getPendingJobFromStore, updateJobProperty, deleteJob, setJobCompleteValue, getJobValue, addJobToStore } from "../data/jobStoreApi"
 import LoadingImage from "../images/logo-loading-animated-black.svg";
 import WorkIcon from '@mui/icons-material/Work';
 import EditIcon from '@mui/icons-material/Edit';
@@ -208,7 +208,7 @@ const JobStatus = (props) => {
                   {"finished"}
                 </Link>}
               {(row.jobType === "STRUCTURE" || row.jobType === "SUBSTRUCTURE")  && row.result_count > 0  && 
-                <Button className={"lnk-btn"} variant="link" onClick={() => getListID(row.serverJobId)}>
+                <Button className={"lnk-btn"} variant="link" onClick={() => getListID(row.listID, row.clientJobId, row.serverJobId)}>
                   {"finished"}
                 </Button>}
               {(row.jobType === "ISOFORM")  && row.result_count > 0 && 
@@ -247,14 +247,19 @@ const JobStatus = (props) => {
   ];
 
 
-  function getListID(serverJobId) {
+  function getListID(listID, clientJobId, serverJobId) {
+    if (listID) {
+      navigate(routeConstants.glycanList + listID);
+      return;
+    }
     setPageLoading(true);
     let message = "JOB to List ID";
     getJobResultList(serverJobId)
       .then((response) => {
         if (response.data['list_id'] !== '') {
-            logActivity("user", (id || "") + ">" + serverJobId, message + " " + response.jobtype + " " + response.data['list_id']).finally(() => {
+            logActivity("user", (id || "") + ">" + serverJobId, message + " " + JSON.stringify(response.data["query"]) + " " + response.data['list_id']).finally(() => {
               setPageLoading(false);
+              updateJobProperty(clientJobId, "listID", response.data['list_id']);
               navigate(routeConstants.glycanList + response.data['list_id']);
             });
         } else {
@@ -293,7 +298,7 @@ const JobStatus = (props) => {
       setDialogLoading(true);
       let message = "Job query=" + JSON.stringify(formObject);
       logActivity("user", id, "Re-executing Job." + message);
-        postNewJob(formObject, userfile)
+      postNewJob(formObject, userfile)
         .then((response) => {
           if (response.data["status"] && response.data["status"] !== {}) {
             let josStatus = response.data["status"].status;
@@ -444,7 +449,7 @@ const JobStatus = (props) => {
   }, [updateNotification]);
 
   const saveColumnData = (oldValue, newValue, row, column) => {
-    updateJobName(row.clientJobId, newValue.trim() === "" ? oldValue : newValue);
+    updateJobProperty(row.clientJobId, "name", newValue.trim() === "" ? oldValue : newValue);
     setData(getJobStatusFromStore());
     let now = Date.now();
     setUpdateTable(now);

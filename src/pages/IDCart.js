@@ -134,8 +134,8 @@ const IDCart = props => {
   
       let totalCartCount = deleteID(type, id);
       showTotalCartIdsNotification(totalCartCount);
-      setUpdate(!update);
-    }
+      let now = Date.now();
+      setUpdate(now);    }
 
        /**
    * Function to delete cart entry.
@@ -144,7 +144,8 @@ const IDCart = props => {
        function clearCart(type) {
         let totalCartCount = clearCartType(type);
         showTotalCartIdsNotification(totalCartCount);
-        setUpdate(!update);
+        let now = Date.now();
+        setUpdate(now);
       }
 
       function setIDCartError(name, listErrorMsg, queryType, searchQuery, columns, applied_filters, list_id, list_cache_id, error) {
@@ -287,7 +288,8 @@ const IDCart = props => {
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject("glycanList", oldListCacheId, obj);
-              setUpdate(!update);
+              let now = Date.now();
+              setUpdate(now);
               setPageLoading(false);
             })
             .catch(function(error) {
@@ -365,7 +367,8 @@ const IDCart = props => {
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject(type, oldListCacheId, obj);
-              setUpdate(!update);
+              let now = Date.now();
+              setUpdate(now);
               setPageLoading(false);
             })
             .catch(function(error) {
@@ -472,7 +475,8 @@ const IDCart = props => {
               "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
             updateIDCartObject(type, oldListCacheId, obj);
-            setUpdate(!update);
+            let now = Date.now();
+            setUpdate(now);
             setPageLoading(false);
           })
           .catch(function(error) {
@@ -541,7 +545,8 @@ const IDCart = props => {
                   "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
                 updateIDCartObject("proteinList", oldListCacheId, obj);
-                setUpdate(!update);
+                let now = Date.now();
+                setUpdate(now);
                 setPageLoading(false);
               })
               .catch(function(error) {

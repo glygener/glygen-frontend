@@ -20,7 +20,7 @@ import { axiosError } from "../data/axiosError";
 import blastSearchData from "../data/json/blastSearch";
 import stringConstants from "../data/json/stringConstants";
 import routeConstants from "../data/json/routeConstants";
-import { getJobInit, postNewJob, getJobStatus, getJobDetails } from "../data/job";
+import { getJobInit, postNewJob, postNewJobWithTimeout, getJobStatus, getJobDetails } from "../data/job";
 import { getPageData } from "../data/api";
 import ExampleExploreControl from "../components/example/ExampleExploreControl";
 import ExampleControl2 from "../components/example/ExampleControl2";
@@ -304,7 +304,7 @@ const BlastSearch = (props) => {
     let message = "Blast Search query=" + JSON.stringify(formObject);
     logActivity("user", id, "Performing Blast Search." + message);
 
-      postNewJob(formObject)
+    postNewJob(formObject)
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
           let josStatus = response.data["status"].status;

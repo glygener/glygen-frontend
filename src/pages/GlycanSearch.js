@@ -21,7 +21,7 @@ import {logActivity} from '../data/logging';
 import {axiosError} from '../data/axiosError';
 import { getGlycanSearch, getGlycanSimpleSearch,  getGlycanList, getGlycanInit} from '../data/glycan';
 import FeedbackWidget from "../components/FeedbackWidget";
-import { postNewJob, getJobStatus, getJobResultList } from "../data/job";
+import { postNewJob, postNewJobWithTimeout, getJobStatus, getJobResultList } from "../data/job";
 import { addJobToStore } from "../data/jobStoreApi"
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 
@@ -1064,7 +1064,7 @@ const GlycanSearch = (props) => {
 		logActivity("user", id, message);
 	}
 
-      postNewJob(formObject)
+	postNewJob(formObject)
       .then((response) => {
         if (response.data["status"]) {
 		  let status = response.data["status"];
@@ -1073,17 +1073,17 @@ const GlycanSearch = (props) => {
           if (josStatus === "finished") {
             if (status["result_count"] && status["result_count"] > 0) {
 				getJobResultList(jobid)
-					.then((response) => {
-						if (response.data['list_id'] !== '') {
+					.then((responseList) => {
+						if (responseList.data['list_id'] !== '') {
 							if (dialogLoadingRef.current) {
-								logActivity("user", (id || "") + ">" + jobid, message + " " + response.jobtype + " " + response.data['list_id']).finally(() => {
+								logActivity("user", (id || "") + ">" + jobid, message + " " + responseList.data['list_id']).finally(() => {
 									let newJob = {
 										serverJobId: jobid,
 										jobType: type.toUpperCase(),
 										jobTypeInternal: type.toUpperCase(),
 										status: "finished",
 										result_count: response.data["status"].result_count,
-										listID: response.data['list_id'],
+										listID: responseList.data['list_id'],
 										job: formObject
 									};
 									addJobToStore(newJob);

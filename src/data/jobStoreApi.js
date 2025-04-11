@@ -46,7 +46,8 @@ export const addJobToStore = (jobData) => {
           name: jobData.jobType + " " + dateTime,
           startDate: dateTime,
           status: jobData.status,
-          result_count: jobData.result_count
+          result_count: jobData.result_count,
+          listID: jobData.listID
         };
         parsedValue.jobDataQueue.push(newJob);
         if (jobData.status === "running") {
@@ -65,7 +66,8 @@ export const addJobToStore = (jobData) => {
           name: jobData.jobType + " " + dateTime,
           startDate: dateTime,
           status: jobData.status,
-          result_count: jobData.result_count
+          result_count: jobData.result_count,
+          listID: jobData.listID
         }],
         "jobPendingQueue": jobData.status === "running" ? [{"serverJobId": jobData.serverJobId, "clientJobId": 1, "jobType": jobData.jobType, "jobTypeInternal": jobData.jobTypeInternal}] : [],
         "nextJobId": 2
@@ -166,7 +168,7 @@ export const updateJobStatus = (jobDataArray) => {
 };
 
 
-export const updateJobName = (clientJobId, newName) => {
+export const updateJobProperty = (clientJobId, property, newValue) => {
   let jobDataQueue = [];
   try {
     const parsedValue1 =  localStorage.getItem(jobStatusQueueKey);
@@ -175,7 +177,7 @@ export const updateJobName = (clientJobId, newName) => {
 
     if (parsedValue && parsedValue.jobDataQueue) {
       let jobArrays = parsedValue.jobDataQueue.filter(obj => obj.clientJobId === clientJobId);
-      jobArrays[0].name = newName;
+      jobArrays[0][property] = newValue;
       let noChangeJobArrays = parsedValue.jobDataQueue.filter(obj =>  obj.clientJobId !== clientJobId);
 
       updatedJobQueue.push(...jobArrays);
