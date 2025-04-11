@@ -595,7 +595,7 @@ const GlycanDetail = props => {
         if (jsonData && jsonData.annotations === undefined) {
           newSidebarData = setSidebarItemState(newSidebarData, "Feature-View", true);
         }
-        if (tool_support && tool_support.pdb === "no") {
+        if (!detailDataTemp.tool_support || (detailDataTemp.tool_support && detailDataTemp.tool_support.pdb === "no")) {
           newSidebarData = setSidebarItemState(newSidebarData, "3D-View", true);
         }
         if (!detailDataTemp.names || detailDataTemp.names.length === 0) {
