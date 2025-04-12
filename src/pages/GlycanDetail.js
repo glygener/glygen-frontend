@@ -1704,7 +1704,7 @@ const GlycanDetail = props => {
               <div className="text-end gg-download-btn-width pb-3">
                 <Button
                   type="button"
-                  className="gg-btn-blue"
+                  className="gg-btn-blue me-4"
                   onClick={() => {
                     navigate(-1);
                   }}
@@ -1714,8 +1714,7 @@ const GlycanDetail = props => {
               </div>
             )}
             <div className="text-end gg-download-btn-width">
-            <Button onClick={() => addGlycanID()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Glycan ID</Button>
-
+              <Button onClick={() => addGlycanID()} type="button" className="gg-btn-blue">Add Glycan ID</Button>
               <DownloadButton
                 types={[
                   {

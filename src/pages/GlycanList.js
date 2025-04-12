@@ -630,11 +630,11 @@ const GlycanList = props => {
 
             <section>
               <div className="text-end pb-3" >
-                <Button onClick={() => addGlycanList()} type="button" className="gg-btn-blue"
+                <Button onClick={() => addGlycanList()} type="button" className="gg-btn-blue me-4"
                  disabled={quickSearch[searchId] !== undefined || jobType !== undefined }
                   >Add List ID</Button>
-                <Button onClick={() => addGlycanIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Glycan IDs</Button>
-                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Edit Columns</Button>
+                <Button onClick={() => addGlycanIDs()} type="button" className="gg-btn-blue me-4">Add Glycan IDs</Button>
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue">Edit Columns</Button>
                 <DownloadButton
                   types={[
                     {

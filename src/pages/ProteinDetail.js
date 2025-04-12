@@ -2157,7 +2157,7 @@ const ProteinDetail = (props) => {
               <div className="text-end gg-download-btn-width pb-3">
                 <Button
                   type="button"
-                  className="gg-btn-blue"
+                  className="gg-btn-blue me-4"
                   onClick={() => {
                     navigate(-1);
                   }}
@@ -2167,7 +2167,7 @@ const ProteinDetail = (props) => {
               </div>
             )}
             <div className="gg-download-btn-width text-end">
-              <Button onClick={() => addProteinID()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Protein ID</Button>
+              <Button onClick={() => addProteinID()} type="button" className="gg-btn-blue">Add Protein ID</Button>
               <DownloadButton
                 types={[
                   {

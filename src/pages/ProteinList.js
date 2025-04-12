@@ -406,11 +406,11 @@ const ProteinList = props => {
             </section>
             <section>
               <div className="text-end pb-3">
-                <Button onClick={() => addProteinList()} type="button" className="gg-btn-blue"
+                <Button onClick={() => addProteinList()} type="button" className="gg-btn-blue me-4"
                    disabled={quickSearch[searchId] !== undefined}
                   >Add List ID</Button>
-                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}}>Add Protein IDs</Button>
-                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue" style={{marginLeft: "12px"}} >Edit Columns</Button>
+                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue me-4">Add Protein IDs</Button>
+                <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue">Edit Columns</Button>
                 <DownloadButton
                   types={[
                     {

@@ -338,9 +338,9 @@ const BlastResult = (props) => {
               title={"Result"}
             >
               <section>
-              <div className="text-end pb-3 pe-3" >
-                <Button onClick={() => addAllProteinIDs()} type="button" className="gg-btn-blue">Add All Protein IDs</Button>
-                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue" style={{marginLeft: "20px"}}>Add Protein IDs</Button>
+              <div className="text-end p-3" >
+                <Button onClick={() => addAllProteinIDs()} type="button" className="gg-btn-blue me-4">Add All Protein IDs</Button>
+                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue">Add Protein IDs</Button>
               </div>
                 {blastResultColumns && blastResultColumns.length !== 0 && (
                   <div style={{padding:20, content:'center'}}>
