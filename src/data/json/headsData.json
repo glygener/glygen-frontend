@@ -611,6 +611,19 @@
       }
     ]
   },
+  "customColumns": {
+    "title": "Custom Columns | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Custom Columns"
+      }
+    ]
+  },
   "idCart": {
     "title": "ID Cart | glygen.org",
     "meta": [

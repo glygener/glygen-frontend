@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
+import Helmet from "react-helmet";
+import { getTitle, getMeta } from "../../utils/head";
 import Dialog from '@mui/material/Dialog';
 import Slide from '@mui/material/Slide';
 import AppBar from '@mui/material/AppBar';
@@ -15,6 +17,7 @@ import { logActivity } from "../../data/logging";
 import PageLoader from "../load/PageLoader";
 import DialogAlert from "../alert/DialogAlert";
 import { axiosError } from "../../data/axiosError";
+import FeedbackWidget from "../FeedbackWidget";
 
 const Transition = React.forwardRef(function Transition(
   props,
@@ -254,104 +257,111 @@ const CustomColumns = props => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }} className="gg-blue">
-          <Toolbar>
-            <Typography
-              variant="h5"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              {title}
-            </Typography>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <PageLoader pageLoading={pageLoading} />
-        <DialogAlert
-          alertInput={alertDialogInput}
-          setOpen={input => {
-            setAlertDialogInput({ show: input });
-          }}
-        />
-        <Grid
-          container
-          style={{ margin: "0 0 0 -15px" }}
-          className="pb-4"
-          spacing={3}
-          justifyContent='center'>
-          <Grid item xs={12} sm={10}>
-            <HorizontalDragDropColumns items={items} setItems={setItems} deleteItem={deleteItem} />
-          </Grid>
-          <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item xs={12} sm={10}>
-            <div className="text-center">*{" "}To reorder display of the columns on the list page, please drag the column name badges above.{" "}*</div>
-          </Grid>
+        <Helmet>
+          {getTitle("customColumns")}
+          {getMeta("customColumns")}
+        </Helmet>
+        <FeedbackWidget />
+        <div className="alert-dialog-content">
+          <AppBar sx={{ position: 'relative' }} className="gg-blue">
+            <Toolbar>
+              <Typography
+                variant="h5"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                {title}
+              </Typography>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <PageLoader pageLoading={pageLoading} />
+          <DialogAlert
+            alertInput={alertDialogInput}
+            setOpen={input => {
+              setAlertDialogInput({ show: input });
+            }}
+          />
+          <Grid
+            container
+            style={{ margin: "0 0 0 -15px" }}
+            className="pb-3"
+            spacing={3}
+            justifyContent='center'>
+            <Grid item xs={12} sm={10}>
+              <HorizontalDragDropColumns items={items} setItems={setItems} deleteItem={deleteItem} />
+            </Grid>
+            <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item xs={12} sm={10}>
+              <div className="text-center">*{" "}To reorder display of the columns on the list page, please drag the column name badges above.{" "}*</div>
+            </Grid>
 
-          {/* Buttons Top */}
-          <Grid item xs={12} sm={10}>
-            <div className='gg-align-right pt-2 pb-2 me-1'>
-              <Button className='gg-btn-outline me-4' onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button
-                className='gg-btn-blue me-4'
-                onClick={restoreDefault}
-                disabled={
-                  false
-                }>
-                Restore Default
-              </Button>
-              <Button
-                className='gg-btn-blue'
-                onClick={() => saveColumns(items)}
-                disabled={
-                  false
-                }>
-                Save Changes
-              </Button>
-            </div>
-          </Grid>
+            {/* Buttons Top */}
+            <Grid item xs={12} sm={10}>
+              <div className='gg-align-right pt-2 pb-2 me-1'>
+                <Button className='gg-btn-outline me-4' onClick={handleClose}>
+                  Cancel
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
+                  onClick={restoreDefault}
+                  disabled={
+                    false
+                  }>
+                  Restore Default
+                </Button>
+                <Button
+                  className='gg-btn-blue'
+                  onClick={() => saveColumns(items)}
+                  disabled={
+                    false
+                  }>
+                  Save Changes
+                </Button>
+              </div>
+            </Grid>
 
-          <Grid item xs={12} sm={10}>
-            <div className1="p-4">
-              <ColumnSelector categories={categories} handleSelectHighlight={handleSelectHighlight} selectedColumns={selectedColumns} />
-            </div>
-          </Grid>
+            <Grid item xs={12} sm={10}>
+              <div className1="p-4">
+                <ColumnSelector categories={categories} handleSelectHighlight={handleSelectHighlight} selectedColumns={selectedColumns} />
+              </div>
+            </Grid>
 
-          {/* Buttons Buttom */}
-          <Grid item xs={12} sm={10}>
-            {/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
-            <div className='gg-align-right pt-3 mb-2 me-1'>
-              <Button className='gg-btn-outline me-4' onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button
-                className='gg-btn-blue me-4'
-                onClick={restoreDefault}
-                disabled={
-                  false
-                }>
-                Restore Default
-              </Button>
-              <Button
-                className='gg-btn-blue'
-                onClick={() => saveColumns(items)}
-                disabled={
-                  false
-                }>
-                Save Changes
-              </Button>
-            </div>
-            {/* </Row> */}
+            {/* Buttons Buttom */}
+            <Grid item xs={12} sm={10}>
+              {/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
+              <div className='gg-align-right pt-3 me-1'>
+                <Button className='gg-btn-outline me-4' onClick={handleClose}>
+                  Cancel
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
+                  onClick={restoreDefault}
+                  disabled={
+                    false
+                  }>
+                  Restore Default
+                </Button>
+                <Button
+                  className='gg-btn-blue'
+                  onClick={() => saveColumns(items)}
+                  disabled={
+                    false
+                  }>
+                  Save Changes
+                </Button>
+              </div>
+              {/* </Row> */}
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </Dialog>
     </>);
 };
