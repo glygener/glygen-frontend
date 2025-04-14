@@ -141,103 +141,105 @@ const ClientServerPaginatedTableFullScreen = props => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }} className="gg-blue">
-          <Toolbar>
-            <Typography
-              variant="h5"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              {title}
-            </Typography>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <div className="list-page-container" style={{ padding: "5px" }}>
-          {availableFilters && availableFilters.length !== 0 && (
-            <div className="list-sidebar-container">
-              <div className={"list-sidebar" + (sidebar ? "" : " closed")}>
-                <div className="reset-filter-btn-container">
-                  <Button
-                    type="button"
-                    className="gg-btn-blue reset-filter-btn"
-                    onClick={() => {
-                      setAppliedFilters([]);
-                    }}
-                  >
-                    Reset Filters
-                  </Button>
-                </div>
-                <ListFilter
-                  availableOptions={availableFilters}
-                  selectedOptions={appliedFilters}
-                  onFilterChange={handleFilterChange}
-                />
-                <div className="reset-filter-btn-container ">
-                  <Button
-                    type="button"
-                    className="gg-btn-blue reset-filter-btn"
-                    onClick={() => {
-                      setAppliedFilters([]);
-                    }}
-                  >
-                    Reset Filters
-                  </Button>
-                </div>
-              </div>
-              <div
-                className="list-sidebar-opener sidebar-arrow-center"
-                onClick={() => setSidebar(!sidebar)}
+        <div className="alert-dialog-content">
+          <AppBar sx={{ position: 'relative' }} className="gg-blue">
+            <Toolbar>
+              <Typography
+                variant="h5"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1 }}
               >
-                {sidebar ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-              </div>
-            </div>
-          )}
-          <div className={"sidebar-page-outreach"}>
-            <div class="list-mainpage-container list-mainpage-container">
-              <section>
-
-                <div className="text-end" style={{ paddingRight: "10px" }}>
-                  <DownloadButton {...{ ...download, dataId: listCacheId ? listCacheId : record_id }} />
+                {title}
+              </Typography>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <div className="list-page-container" style={{ padding: "5px" }}>
+            {availableFilters && availableFilters.length !== 0 && (
+              <div className="list-sidebar-container">
+                <div className={"list-sidebar" + (sidebar ? "" : " closed")}>
+                  <div className="reset-filter-btn-container">
+                    <Button
+                      type="button"
+                      className="gg-btn-blue reset-filter-btn"
+                      onClick={() => {
+                        setAppliedFilters([]);
+                      }}
+                    >
+                      Reset Filters
+                    </Button>
+                  </div>
+                  <ListFilter
+                    availableOptions={availableFilters}
+                    selectedOptions={appliedFilters}
+                    onFilterChange={handleFilterChange}
+                  />
+                  <div className="reset-filter-btn-container ">
+                    <Button
+                      type="button"
+                      className="gg-btn-blue reset-filter-btn"
+                      onClick={() => {
+                        setAppliedFilters([]);
+                      }}
+                    >
+                      Reset Filters
+                    </Button>
+                  </div>
                 </div>
-                <ClientServerPaginatedTable
-                  data={data}
-                  columns={columns}
-                  onClickTarget={onClickTarget}
-                  defaultSortField={defaultSortField}
-                  defaultSortOrder={defaultSortOrder}
-                  defaultSizePerPage={defaultSizePerPage}
-                  idField={idField}
-                  wrapperClasses={"table-responsive"}
-                  tableHeader={tableHeader}
-                  record_type={record_type}
-                  table_id={table_id}
-                  record_id={record_id}
-                  serverPagination={serverPagination}
-                  totalDataSize={totalDataSize}
-                  currentSort={currentSort}
-                  currentSortOrder={currentSortOrder}
-                  setAlertDialogInput={setAlertDialogInput}
-                  setCardLoading={setPageLoading}
-                  setPageLoading={setPageLoading}
-                  viewPort={viewPort}
-                  title={title}
-                  setOpen={setOpen}
-                  open={open}
-                  appliedFilters={appliedFilters}
-                  setAvailableFilters={setAvailableFilters}
-                  setListCacheId={showFilters ? setListCacheId : undefined}
-                  noDataIndication={noDataIndication}
-                />
-              </section>
+                <div
+                  className="list-sidebar-opener sidebar-arrow-center"
+                  onClick={() => setSidebar(!sidebar)}
+                >
+                  {sidebar ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+                </div>
+              </div>
+            )}
+            <div className={"sidebar-page-outreach"}>
+              <div class="list-mainpage-container list-mainpage-container">
+                <section>
+
+                  <div className="text-end" style={{ paddingRight: "10px" }}>
+                    <DownloadButton {...{ ...download, dataId: listCacheId ? listCacheId : record_id }} />
+                  </div>
+                  <ClientServerPaginatedTable
+                    data={data}
+                    columns={columns}
+                    onClickTarget={onClickTarget}
+                    defaultSortField={defaultSortField}
+                    defaultSortOrder={defaultSortOrder}
+                    defaultSizePerPage={defaultSizePerPage}
+                    idField={idField}
+                    wrapperClasses={"table-responsive"}
+                    tableHeader={tableHeader}
+                    record_type={record_type}
+                    table_id={table_id}
+                    record_id={record_id}
+                    serverPagination={serverPagination}
+                    totalDataSize={totalDataSize}
+                    currentSort={currentSort}
+                    currentSortOrder={currentSortOrder}
+                    setAlertDialogInput={setAlertDialogInput}
+                    setCardLoading={setPageLoading}
+                    setPageLoading={setPageLoading}
+                    viewPort={viewPort}
+                    title={title}
+                    setOpen={setOpen}
+                    open={open}
+                    appliedFilters={appliedFilters}
+                    setAvailableFilters={setAvailableFilters}
+                    setListCacheId={showFilters ? setListCacheId : undefined}
+                    noDataIndication={noDataIndication}
+                  />
+                </section>
+              </div>
             </div>
           </div>
         </div>
