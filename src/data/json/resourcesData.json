@@ -37,7 +37,7 @@
 			"category": "Database",
 			"website": {
 				"name": "GlycoStore",
-				"url": "https://www.glycostore.org/"
+				"url": "https://glycosmos.org/glycostore/uplc"
 			},
 			"description": "GlycoStore is a curated chromatographic, electrophoretic and mass-spectrometry composition database of N-, O-, glycosphingolipid (GSL) glycans and free oligosaccharides associated with a range of glycoproteins, glycolipids and biotherapeutics. This database associates glycan structures with standardized retention times (UPLC, HILIC-UPLC, CE-LIF, HILIC-HPLC, PGC-LC-ESI-MS/MS).",
 			"contains_publ": "Yes",
@@ -70,7 +70,7 @@
 			"category": "Knowledgebase",
 			"website": {
 				"name": "GlycoPOD",
-				"url": "https://jcggdb.jp/GlycoPOD/protocolListShow"
+				"url": "https://www.ncbi.nlm.nih.gov/books/NBK593839/"
 			},
 			"description": "GlycoPOD is the glycosciences protocol database. This resources contains an extensive and curated list of experimental protocols and detailed instructions on the execution of these protocols as well as the necessary reagents and hardware.",
 			"contains_publ": "Yes",

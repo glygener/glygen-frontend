@@ -294,7 +294,7 @@ const JobStatus = (props) => {
   /**
      * Function to handle blast search submit.
      **/
-    const jobSubmit = (formObject, jobType, jobTypeInternal, userfile, userfileb64) => {
+    const jobSubmit = (formObject, clientJobIdOld, nameOld, jobType, jobTypeInternal, userfile, userfileb64) => {
       setDialogLoading(true);
       let message = "Job query=" + JSON.stringify(formObject);
       logActivity("user", id, "Re-executing Job." + message);
@@ -311,12 +311,14 @@ const JobStatus = (props) => {
                       serverJobId: jobid,
                       jobType: jobType,
                       jobTypeInternal: jobTypeInternal,
+                      name: nameOld,
                       status: "finished",
                       result_count: response.data["status"].result_count,
                       job: formObject,
                       userfile: userfileb64
                     };
                     addJobToStore(newJob);
+                    deleteJob(clientJobIdOld);
                     let now = Date.now();
                     showNotification(now);
                     let jobs = getJobStatusFromStore();
@@ -341,11 +343,13 @@ const JobStatus = (props) => {
                       serverJobId: jobid,
                       jobType: jobType,
                       jobTypeInternal: jobTypeInternal,
+                      name: nameOld,
                       status: "running",
                       job: formObject,
                       userfile: userfileb64
                     };
                     addJobToStore(newJob);
+                    deleteJob(clientJobIdOld);
                     let now = Date.now();
                     showNotification(now);
                     let jobs = getJobStatusFromStore();
@@ -389,11 +393,11 @@ const JobStatus = (props) => {
       try {
         if (jobValue.jobTypeInternal === "ISOFORM_FILE" && typeof jobValue.userfile === 'string') {
           base64toBlob(jobValue.userfile).then((blob) => {
-            jobSubmit(jobValue.job, jobValue.jobType, jobValue.jobTypeInternal, blob, jobValue.userfile);
+            jobSubmit(jobValue.job, jobValue.clientJobId, jobValue.name, jobValue.jobType, jobValue.jobTypeInternal, blob, jobValue.userfile);
           })
           .catch ()
         } else {
-          jobSubmit(jobValue.job, jobValue.jobType, jobValue.jobTypeInternal);
+          jobSubmit(jobValue.job, jobValue.clientJobId, jobValue.name, jobValue.jobType, jobValue.jobTypeInternal);
         }
       } catch (er) {
       }
