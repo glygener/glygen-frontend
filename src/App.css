@@ -1457,3 +1457,23 @@ sub {
 .header-class {
   padding-bottom: 20px !important;
 }
+
+/* Footer (See more link) */
+.bsky-footer {
+  margin: 1rem auto 2rem auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.bsky-timeline {
+  height: 500px;;
+  overflow-y: auto;
+  position: relative;
+  background: var(--bg-color);
+}
+
+.bsky-body {
+  padding: 0rem 0.25rem 0rem 0.25rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

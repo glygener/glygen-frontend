@@ -10,8 +10,6 @@ import InfoCard from "../components/cards/InfoCard";
 import VideoCard from "../components/cards/VideoCard";
 import VersionCard from "../components/cards/VersionCard";
 import StatDBCard from "../components/cards/StatDBCard";
-import TwitterCard from "../components/cards/TwitterCard";
-import MastodonCard from "../components/cards/MastodonCard";
 import { Row } from "react-bootstrap";
 import mainImg from "../images/home/main-featured-img.png";
 import feedback from "../images/home/feedback.svg";
@@ -49,6 +47,7 @@ import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
 // import BannerHotTopic from "../components/alert/BannerHotTopic";
 import EventAlerts from "../components/alert/EventAlerts";
+import BlueSkyCard from "../components/cards/BlueSkyCard";
 
 const mainFeaturedCard = {
   title: "GlyGen: Computational and Informatics Resources for Glycoscience",
@@ -260,7 +259,7 @@ export default function Home() {
                 <VersionCard data={homeData.version} pageLoading={pageLoading} />
                 <VideoCard post={videoCard} data={homeData.video}/>
                 <StatDBCard data={homeData.statistics} pageLoading={pageLoading} />
-                <MastodonCard />
+                <BlueSkyCard />
                 <InfoCard post={resourcesCard} />
                 <InfoCard post={feedbackCard} />
                 {/* <TwitterCard /> */}
