@@ -298,8 +298,8 @@ const SearchByOrganism = props => {
                             ? 
                             species_to_glycoproteins.organism[props.inputValue.question_10.organism]
                               .evidence_type.map(type => ({
-                                      id: type,
-                                      name: type
+                                      id: type.id,
+                                      name: type.display
                                     }))
                             : []
                         }

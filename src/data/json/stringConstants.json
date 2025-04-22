@@ -2099,12 +2099,12 @@
       }
     },
     "question_10": {
-      "text": "What are the reported or predicted glycosylated proteins in {0}?",
+      "text": "What are the reported, predicted  or detected by literature mining glycosylated proteins in {0}?",
       "id": "question_10",
       "organism": "organism",
       "tooltip": {
         "title": "Organism",
-        "text": "Select a species to see all glycosylated proteins reported for this species in GlyGen. It is possible to filter this list using the \"Type\" field and show sites reported in papers (reported), sites prediced using prediction software (predicted) or the combined list (both)."
+        "text": "Select a species to see all glycosylated proteins reported for this species in GlyGen. It is possible to filter this list using the \"Type\" field and show sites reported in papers (reported), sites prediced using prediction software (predicted), the combined list (both) or detected by literature mining."
       }
     },
     "question_11": {
@@ -2319,6 +2319,11 @@
       "id": "row-count-exceeds-1000",
       "title": "Isoform Mapper Search Error - Enter maximum 1000 rows",
       "message": "Sorry, we couldn't process isoform mapper search request. Please enter maximum 1000 rows."
+    },
+    "non-existent-record": {
+      "id": "non-existent-record",
+      "title": "No record found",
+      "message": "Sorry, the record does not exist in GlyGen."
     },
     "bad-row": {
       "id": "bad-row",

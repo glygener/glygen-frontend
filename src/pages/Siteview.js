@@ -906,7 +906,7 @@ const Siteview = props => {
           {nonExistent.history && nonExistent.history.length ? (
             <>
               <AlertTitle>
-                This Protein <b>{id} </b>Record is Nonexistent
+                The site <b>{selectedPosition}</b> of the Protein <b>{id} </b> does not exist in GlyGen
               </AlertTitle>
               <ul>
                 {nonExistent.history.map(item => (
@@ -919,7 +919,7 @@ const Siteview = props => {
           ) : (
             <>
               <AlertTitle>
-                This Protein <b>{id} </b> Record is not valid
+                The site <b>{selectedPosition}</b> of the Protein <b>{id} </b> does not exist in GlyGen
               </AlertTitle>
             </>
           )}

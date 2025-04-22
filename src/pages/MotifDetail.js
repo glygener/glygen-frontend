@@ -18,6 +18,8 @@ import EvidenceList from "../components/EvidenceList";
 import "../css/detail.css";
 import "../css/glymagesvg.css";
 import Accordion from "react-bootstrap/Accordion";
+import { Alert, AlertTitle } from "@mui/material";
+import { Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
 import Table from "react-bootstrap/Table";
@@ -128,7 +130,7 @@ const MotifDetail = (props) => {
   const [mass, setMass] = useState([]);
   const [history, setHistory] = useState([]);
   const [itemsCrossRef, setItemsCrossRef] = useState([]);
-
+  const [nonExistent, setNonExistent] = useState(null);
   const [iupac, setIupac] = useState("");
   const [wurcs, setWurcs] = useState("");
   const [glycoct, setGlycoct] = useState("");
@@ -238,9 +240,21 @@ const MotifDetail = (props) => {
       }, 1000);
     });
     getMotifDetaildata.catch(({ response }) => {
-      let message = "motif api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-      setDataStatus("No data available.");
+      if (
+        response.data &&
+        response.data.error_list &&
+        response.data.error_list.length &&
+        response.data.error_list[0].error_code &&
+        response.data.error_list[0].error_code === "non-existent-record"
+      ) {
+        setNonExistent({
+          error_code: response.data.error_list[0].error_code,
+        });
+      } else {
+        let message = "motif api call";
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+        setDataStatus("No data available.");
+      }
     });
   }, [id]);
 
@@ -308,9 +322,9 @@ const MotifDetail = (props) => {
       }
     )
     .catch(({ response }) => {
-      let message = "motif api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-      setDataStatus("No data available.");
+        let message = "motif api call";
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+        setDataStatus("No data available.");
     });
   };
   function rowStyleFormat(row, rowIdx) {
@@ -425,6 +439,20 @@ const MotifDetail = (props) => {
       },
     }
   ];
+
+   if (nonExistent) {
+      return (
+        <Container className="tab-content-border2">
+          <Alert className="erroralert" severity="error">
+            <>
+              <AlertTitle>
+                The Motif <b>{id} </b> does not exist in GlyGen
+              </AlertTitle>
+            </>
+          </Alert>
+        </Container>
+      );
+    }
 
   return (
     <>

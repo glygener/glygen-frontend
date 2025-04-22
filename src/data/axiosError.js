@@ -20,7 +20,7 @@ export const axiosError = (error, id, msg, setPageLoading, setAlertDialogInput) 
         logActivity("error", pageId, "No data available. " + message);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.error_code}));
-    } else if (!error || !error.response) {
+    } else if (!error || !(error.data || error.response)) {
         let agent = "";
         if (navigator && navigator.userAgent) {
             agent = navigator.userAgent;
@@ -28,17 +28,17 @@ export const axiosError = (error, id, msg, setPageLoading, setAlertDialogInput) 
         logActivity("error", pageId, "Network error. " + message + ". " + agent);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": stringConstants.errors.networkError.id}));
-    } else if (error.response && !error.response.data) {
+    } else if (error.response && !error.data) {
         logActivity("error", pageId, error.response.status + " error status. " + message);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.response.status}));
-    } else if (error.response && ! error.response.data["error_list"]) {
+    } else if (error.response && ! error.data["error_list"]) {
         logActivity("error", pageId, error.response.status + " error status. " + message);
         (setPageLoading && setPageLoading(false));
         (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.response.status}));
-    } else if (error.response.data && error.response.data["error_list"]) {
-        logActivity("error", pageId, error.response.data["error_list"][0].error_code + " error code. " + message);
+    } else if (error.data && error.data["error_list"]) {
+        logActivity("error", pageId, error.data["error_list"][0].error_code + " error code. " + message);
         (setPageLoading && setPageLoading(false));
-        (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.response.data["error_list"][0].error_code}));
+        (setAlertDialogInput && setAlertDialogInput({"show": true, "id": error.data["error_list"][0].error_code}));
     }
 }

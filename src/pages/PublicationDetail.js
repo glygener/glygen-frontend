@@ -16,6 +16,7 @@ import DetailTooltips from "../data/json/pubDetailTooltips.json";
 import stringConstants from "../data/json/stringConstants";
 import DownloadButton from "../components/DownloadButton";
 import { Grid } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 import FeedbackWidget from "../components/FeedbackWidget";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
@@ -98,7 +99,7 @@ const PublicationDetail = (props) => {
   const [glycosylationWithImage, setGlycosylationWithImage] = useState([]);
   const [glycosylationWithoutImage, setGlycosylationWithoutImage] = useState([]);
   const [glycosylationTabSelected, setGlycosylationTabSelected] = useState("reported_with_glycan");
-
+  const [nonExistent, setNonExistent] = useState(null);
   const [mutataionWithdisease, setMutataionWithdisease] = useState([]);
   const [mutataionWithoutdisease, setMutataionWithoutdisease] = useState([]);
   const [mutataionTabSelected, setMutataionTabSelected] = useState("");
@@ -404,9 +405,21 @@ const PublicationDetail = (props) => {
     });
 
     getPublData.catch(({ response }) => {
-      let message = "Publication api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-      setDataStatus("No data available.");
+      if (
+          response.data &&
+          response.data.error_list &&
+          response.data.error_list.length &&
+          response.data.error_list[0].error_code &&
+          response.data.error_list[0].error_code === "non-existent-record"
+        ) {
+          setNonExistent({
+            error_code: response.data.error_list[0].error_code,
+          });
+        } else {
+          let message = "Publication api call";
+          axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+          setDataStatus("No data available.");
+        }
     });
     // eslint-disable-next-line
   }, [id, doi, publType]);
@@ -1562,6 +1575,21 @@ const PublicationDetail = (props) => {
       return -1;
     }
     return 0;
+  }
+
+
+  if (nonExistent) {
+    return (
+      <Container className="tab-content-border2">
+        <Alert className="erroralert" severity="error">
+          <>
+            <AlertTitle>
+              The publication with <b>{doi ? publType +":" + id + "/" + doi : publType + ":" + id}</b> does not exist in GlyGen
+            </AlertTitle>
+          </>
+        </Alert>
+      </Container>
+    );
   }
 
   return (

@@ -1095,7 +1095,7 @@ const ProteinDetail = (props) => {
       //   </LineTooltip>
     },
     {
-      dataField: "mining_tool",
+      dataField: "mining_tool_list",
       text: "Tool",
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -1106,9 +1106,19 @@ const ProteinDetail = (props) => {
       formatter:
         (value, row) =>
         value ?
-          <span>
-            {value}
-          </span>
+          <ul className="ps-3">
+            {value.map((tool, index) => (
+              <li key={tool.label}>
+                {tool.url ? 
+                <span className="nowrap">
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.label}</a>
+                </span> :
+                <span className="nowrap">
+                {tool.label}
+                </span> }
+          </li>
+          ))}
+            </ul>          
       : (
         "Not Reported"
       ),
@@ -1346,18 +1356,16 @@ const ProteinDetail = (props) => {
         };
       },
       formatter: (value, row) => (
-        <>
+        <ul className="ps-3">
           {value && value.map((disease, index) => (
-            <ul key={index} className="ps-3">
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
                 <span className="nowrap">
-                  (<a href={disease.recommended_name.url}>{disease.recommended_name.id}</a>){" "}
+                  (<a href={disease.recommended_name.url} target="_blank" rel="noopener noreferrer">{disease.recommended_name.id}</a>){" "}
                 </span>
               </li>
-            </ul>
           ))}
-        </>
+        </ul>
       ),
     },
     {
@@ -2545,7 +2553,7 @@ const ProteinDetail = (props) => {
                                     data={glycosylationWithImage}
                                     columns={glycoSylationColumns.filter(
                                       (column) =>
-                                        column.dataField !== "mining_tool"
+                                        column.dataField !== "mining_tool_list"
                                     )}
                                     onClickTarget={"#glycosylation"}
                                     defaultSortField="start_pos"
@@ -2606,7 +2614,7 @@ const ProteinDetail = (props) => {
                                         (column) =>
                                           column.dataField !== "image" &&
                                           column.dataField !== "glytoucan_ac" &&
-                                          column.dataField !== "mining_tool"
+                                          column.dataField !== "mining_tool_list"
                                       )}
                                       onClickTarget={"#glycosylation"}
                                       defaultSortField="start_pos"
@@ -2665,7 +2673,7 @@ const ProteinDetail = (props) => {
                                       (column) =>
                                         column.dataField !== "image" &&
                                         column.dataField !== "glytoucan_ac" &&
-                                        column.dataField !== "mining_tool"
+                                        column.dataField !== "mining_tool_list"
                                     )}
                                     onClickTarget={"#glycosylation"}
                                     defaultSortField="start_pos"

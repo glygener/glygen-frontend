@@ -21,6 +21,7 @@ import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import DownloadButton from "../components/DownloadButton";
+import { Alert, AlertTitle } from "@mui/material";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -134,7 +135,7 @@ const BiomarkerDetail = (props) => {
   const [glycanComponents, setGlycanComponents] = useState("");
   const [proteinComponents, setProteinComponents] = useState("");
   const [biomarkerComponents, setBiomarkerComponents] = useState("");
-
+  const [nonExistent, setNonExistent] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [publicationSort, setPublicationSort] = useState("date");
@@ -164,6 +165,7 @@ const BiomarkerDetail = (props) => {
   };
 
   useEffect(() => {
+    setNonExistent(null);
     setPageLoading(true);
     window.scrollTo({
       top: 0,
@@ -309,9 +311,21 @@ const BiomarkerDetail = (props) => {
       }, 1000);
     });
     getBiomarkerDetaildata.catch(({ response }) => {
-      let message = "biomarker api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-      setDataStatus("No data available.");
+      if (
+          response.data &&
+          response.data.error_list &&
+          response.data.error_list.length &&
+          response.data.error_list[0].error_code &&
+          response.data.error_list[0].error_code === "non-existent-record"
+        ) {
+          setNonExistent({
+            error_code: response.data.error_list[0].error_code,
+          });
+        } else {
+          let message = "biomarker api call";
+          axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+          setDataStatus("No data available.");
+        }
     });
   }, [id]);
 
@@ -673,6 +687,20 @@ const BiomarkerDetail = (props) => {
       }
     }
   ];
+
+    if (nonExistent) {
+      return (
+        <Container className="tab-content-border2">
+          <Alert className="erroralert" severity="error">
+            <>
+              <AlertTitle>
+                The Biomarker <b>{id} </b> does not exist in GlyGen
+              </AlertTitle>
+            </>
+          </Alert>
+        </Container>
+      );
+    }
 
   return (
     <>

@@ -79,6 +79,8 @@ const ProteinQuerySummary = (props) => {
 
   const [aminoAcidLookup, setAminoAcidLookup] = useState({});
   const [uniprotCanonicalACShowMore, setUniprotCanonicalACShowMore] = useState(true);
+  const [glycosylationEvidenceType, setGlycosylationEvidenceType] = useState(undefined);
+
 
   useEffect(() => {
     getProteinInit().then((data) => {
@@ -100,8 +102,12 @@ const ProteinQuerySummary = (props) => {
         );
 
       setAminoAcidLookup(lookup);
+      let glycoEvidence = data.data.glycosylation_evidence_type.find(obj => obj.id === glycosylation_evidence);
+      if (glycoEvidence && glycoEvidence.display) {
+        setGlycosylationEvidenceType(glycoEvidence.display);
+      }
     });
-  }, []);
+  }, [glycosylation_evidence]);
 
   return (
     <>
@@ -221,13 +227,13 @@ const ProteinQuerySummary = (props) => {
                   </Col>
                 </Row>
               )}
-              {glycosylation_evidence && (
+              {glycosylationEvidenceType && (
                 <Row className="summary-table-col">
                   <Col align="right" xs={6} sm={6} md={6} lg={6}>
                     {proteinStrings.glycosylation_evidence.name}:
                   </Col>
                   <Col xs={6} sm={6} md={6} lg={6} className="evidencetype" align="left">
-                    {glycosylation_evidence}
+                    {glycosylationEvidenceType}
                   </Col>
                 </Row>
               )}
