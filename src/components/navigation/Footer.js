@@ -183,7 +183,7 @@ export default function Footer() {
               </div>
               <div>
                 <a href={WIKI} target="_blank" rel="noopener noreferrer">
-                  WIKI
+                  GlyGen Wiki
                 </a>
               </div>
               <div>

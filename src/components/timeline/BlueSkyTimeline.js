@@ -7,7 +7,7 @@ const BlueSkyTimeline = () => {
       <bsky-embed
           username="glygen.bsky.social"
           feed="at://did:plc:dmiyosipmoozjclj27ntycyj/app.bsky.feed.generator/"
-          limit="30"
+          limit="10"
           link-target="_blank"
           link-image="true"
           custom-styles=".w-14 { width: 24px !important; } .h-14 { height: 24px !important; } .gap-2 { gap: 10px !important; display: inline !important; }"

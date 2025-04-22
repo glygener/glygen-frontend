@@ -82,7 +82,7 @@
 			"text": "What are the glycosylhydrolases in organism X?"
 		},
 		"question_10": {
-			"text": "What are the reported, predicted or detected by literature mining glycosylated proteins in organism X?",
+			"text": "What are the reported, predicted or literature mined glycosylated proteins in organism X?",
 			"labelType": "Type"
 		}
 	},

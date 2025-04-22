@@ -2099,7 +2099,7 @@
       }
     },
     "question_10": {
-      "text": "What are the reported, predicted  or detected by literature mining glycosylated proteins in {0}?",
+      "text": "What are the reported, predicted  or literature mined glycosylated proteins in {0}?",
       "id": "question_10",
       "organism": "organism",
       "tooltip": {
