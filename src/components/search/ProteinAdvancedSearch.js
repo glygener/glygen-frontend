@@ -707,7 +707,7 @@ const ProteinAdvancedSearch = (props) => {
 							placeholder={advancedSearch.glycosylation_evidence.placeholder}
 							placeholderId={advancedSearch.glycosylation_evidence.placeholderId}
 							placeholderName={advancedSearch.glycosylation_evidence.placeholderName}
-							menu={props.initData.glycosylation_evidence_type.map(type => ({name:type.display, id:type.id}))}
+							menu={props.initData.glycosylation_evidence_type ? props.initData.glycosylation_evidence_type.map(type => ({name:type.display, id:type.id})) : []}
 							sortFunction={(a, b) => {return 0 }}
 							setInputValue={proGlyEvidenceOnChange}
 						/>

@@ -102,9 +102,11 @@ const ProteinQuerySummary = (props) => {
         );
 
       setAminoAcidLookup(lookup);
-      let glycoEvidence = data.data.glycosylation_evidence_type.find(obj => obj.id === glycosylation_evidence);
-      if (glycoEvidence && glycoEvidence.display) {
-        setGlycosylationEvidenceType(glycoEvidence.display);
+      if (data.data.glycosylation_evidence_type) {
+        let glycoEvidence = data.data.glycosylation_evidence_type.find(obj => obj.id === glycosylation_evidence);
+        if (glycoEvidence && glycoEvidence.display) {
+          setGlycosylationEvidenceType(glycoEvidence.display);
+        }
       }
     });
   }, [glycosylation_evidence]);
