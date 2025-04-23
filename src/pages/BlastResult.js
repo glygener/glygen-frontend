@@ -71,8 +71,11 @@ const BlastResult = (props) => {
     onSelect: (row, isSelect, rowIndex, e) => {
       let proteinIDs = [];
       if (isSelect) {
-         selectedData.push({uniprot_canonical_ac: row.uniprot_canonical_ac, protein_name: row.protein_name, organism: row.glygen_name });
-         setSelectedData(selectedData);
+        proteinIDs = selectedData.map(obj => obj.uniprot_canonical_ac);
+        if (!proteinIDs.includes(row.uniprot_canonical_ac)) {
+          selectedData.push({uniprot_canonical_ac: row.uniprot_canonical_ac, protein_name: row.protein_name, organism: row.glygen_name });
+          setSelectedData(selectedData);
+        }
       } else {
         proteinIDs = selectedData.filter(obj => obj.uniprot_canonical_ac === row.uniprot_canonical_ac);
         setSelectedData(proteinIDs);

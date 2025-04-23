@@ -203,8 +203,10 @@ const GlycanList = props => {
     onSelect: (row, isSelect, rowIndex, e) => {
       let glycanIDs = [];
       if (isSelect) {
-         selectedData.push(row.glytoucan_ac);
-         setSelectedData(selectedData);
+        if (!selectedData.includes(row.glytoucan_ac)) {
+          selectedData.push(row.glytoucan_ac);
+          setSelectedData(selectedData);
+        }
       } else {
         glycanIDs = selectedData.filter(id => id === row.glytoucan_ac);
         setSelectedData(glycanIDs);
