@@ -1882,6 +1882,7 @@ const ProteinDetail = (props) => {
     }),
     {
       general: true,
+      viewer: true,
       names_synonyms: true,
       phosphorylation: true,
       glycation: true,
@@ -1932,7 +1933,7 @@ const ProteinDetail = (props) => {
   }
   const showAlignmentOptions = detailData.orthologs
     ? detailData.orthologs.find((orth) =>
-        orth.evidence.find((evid) => ["MGI", "OMA"].includes(evid.database))
+        orth.evidence.find((evid) => ["MGI", "OMA", "AGR"].includes(evid.database))
       )
     : false;
 

@@ -32,6 +32,7 @@ const LocusList = props => {
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(LOCUS_COLUMNS);
+  const [listCacheId, setListCacheId] = useState("");
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState(0);
@@ -47,6 +48,10 @@ const LocusList = props => {
    */
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     getGeneLocusList(id)
       .then(({ data }) => {
@@ -58,6 +63,7 @@ const LocusList = props => {
           setData(data.results);
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
           const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
@@ -94,6 +100,7 @@ const LocusList = props => {
       if (!data.error_code) {
         setData(data.results);
         setTimeStamp(data.cache_info.ts);
+        setListCacheId(data.cache_info.listcache_id);
         setPagination(data.pagination);
         setTotalSize(data.pagination.total_length);
       }
@@ -174,7 +181,7 @@ const LocusList = props => {
                   data: "genelocus_list"
                 }
               ]}
-              dataId={id}
+              dataId={listCacheId}
               itemType="locus_list"
             />
           </div>

@@ -194,6 +194,10 @@ const SiteList = (props) => {
     if (userSelectedColumns.length > 0) {
       return;
     }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     let selColms = getUserStoredColumns(tableId);
     if (selColms.length > 0) {
       setUserSelectedColumns(selColms);

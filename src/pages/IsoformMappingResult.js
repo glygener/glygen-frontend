@@ -80,6 +80,10 @@ const IsoformMappingResult = (props) => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", jobId);
     getJobResultList(jobId)
       .then(({ data }) => {

@@ -219,6 +219,10 @@ export default function Home() {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity();
     getSystemData()
       .then((response) => {

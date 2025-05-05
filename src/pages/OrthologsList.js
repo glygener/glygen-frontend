@@ -32,6 +32,7 @@ const OrthologsList = props => {
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(ORTHOLOGS_COLUMNS);
+  const [listCacheId, setListCacheId] = useState("");
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState(0);
@@ -47,6 +48,10 @@ const OrthologsList = props => {
    */
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     getOrthologsList(id)
       .then(({ data }) => {
@@ -58,7 +63,7 @@ const OrthologsList = props => {
           setData(data.results);
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
-
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
           const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
@@ -96,6 +101,7 @@ const OrthologsList = props => {
         setData(data.results);
         setPagination(data.pagination);
         setTimeStamp(data.cache_info.ts);
+        setListCacheId(data.cache_info.listcache_id);
         setTotalSize(data.pagination.total_length);
       }
     });

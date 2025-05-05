@@ -67,6 +67,10 @@ const GlobalSearchResult = (props) => {
 	 */
     useEffect(() => {
 		setPageLoading(true);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		  });
 		logActivity();
 		getGlobalSearch(id).then(({ data }) => {
 		logActivity("user", (id || ""), "Global search term=" + id);

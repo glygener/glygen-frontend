@@ -207,7 +207,8 @@ const ClientServerPaginatedTableFullScreen = props => {
                 <section>
 
                   <div className="text-end" style={{ paddingRight: "10px" }}>
-                    <DownloadButton {...{ ...download, dataId: listCacheId ? listCacheId : record_id }} />
+                    {showFilters ? <DownloadButton {...{ ...download, dataId: listCacheId ? listCacheId : record_id }} /> :
+                    <DownloadButton { ...download } />}
                   </div>
                   <ClientServerPaginatedTable
                     data={data}

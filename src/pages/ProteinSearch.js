@@ -243,6 +243,10 @@ const ProteinSearch = props => {
    */
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity();
 		var qryObjOut = {
 			logMessage : "",

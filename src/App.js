@@ -58,7 +58,6 @@ const theme = createTheme({
  */
 function App() {
   initializeReactGA();
-  pageProofer(document, "script");
   const [userTrackingBannerState, setUserTrackingBannerState] = useState("none");
 
   return (

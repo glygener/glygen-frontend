@@ -49,6 +49,10 @@ const IdMappingResult = (props) => {
 
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity("user", id);
     getMappingList(id, "mapped")
       .then(({ data }) => {

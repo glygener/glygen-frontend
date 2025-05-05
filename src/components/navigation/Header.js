@@ -48,7 +48,7 @@ import GlyGenNotificationContext from "../../components/GlyGenNotificationContex
 import { getJobCompleteValue } from "../../data/jobStoreApi"
 import { getCartCount } from "../../data/idCartApi.js"
 import LineTooltip from "../tooltip/LineTooltip.js";
-import IDCartFullScreen from "../../pages/IDCartFullScreen"
+import IDCartFullScreen from "../idcart/IDCartFullScreen"
 import Button from "react-bootstrap/Button";
 
 export default function Header(props) {

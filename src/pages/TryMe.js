@@ -17,6 +17,10 @@ const TryMe = (props) => {
 		h2textBottomStrongAfter: "Try Me",
 	};
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		  });
 		logActivity();
 	}, []);
 

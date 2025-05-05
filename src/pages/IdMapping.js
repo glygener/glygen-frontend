@@ -228,6 +228,10 @@ const IdMapping = (props) => {
    */
   useEffect(() => {
     setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity();
     document.addEventListener("click", () => {
       setAlertTextInput({ show: false });

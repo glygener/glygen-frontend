@@ -1,37 +1,37 @@
 import React, { useEffect, useReducer, useState, useContext } from "react";
 import Helmet from "react-helmet";
-import { getTitle, getMeta } from "../utils/head";
-import PageLoader from "../components/load/PageLoader";
+import { getTitle, getMeta } from "../../utils/head.js";
+import PageLoader from "../load/PageLoader.js";
 import Button from "react-bootstrap/Button";
-import TextAlert from "../components/alert/TextAlert";
-import DialogAlert from "../components/alert/DialogAlert";
+import TextAlert from "../alert/TextAlert.js";
+import DialogAlert from "../alert/DialogAlert.js";
 import { Tab, Tabs, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../css/Search.css";
-import stringConstants from "../data/json/stringConstants";
-import routeConstants from "../data/json/routeConstants";
-import { logActivity } from "../data/logging";
-import { axiosError } from "../data/axiosError";
-import FeedbackWidget from "../components/FeedbackWidget";
-import LineTooltip from "../components/tooltip/LineTooltip";
-import { getGlycanImageUrl } from "../data/glycan";
-import PaginatedTable from "../components/PaginatedTable";
-import deleteIcon from "../images/icons/delete.svg";
+import "../../css/Search.css";
+import stringConstants from "../../data/json/stringConstants";
+import routeConstants from "../../data/json/routeConstants";
+import { logActivity } from "../../data/logging.js";
+import { axiosError } from "../../data/axiosError.js";
+import FeedbackWidget from "../FeedbackWidget.js";
+import LineTooltip from "../tooltip/LineTooltip.js";
+import { getGlycanImageUrl } from "../../data/glycan.js";
+import PaginatedTable from "../PaginatedTable.js";
+import deleteIcon from "../../images/icons/delete.svg";
 import { Image } from "react-bootstrap";
-import { getIDsFromStore, deleteID, updateIDCartObject, clearCartType } from "../data/idCartApi"
-import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
-import SelectControl from "../components/select/SelectControl";
-import { getCartList } from "../data/cart"
-import idCartJson from "../data/json/idCart";
-import DownloadButton from "../components/DownloadButton";
-import DownloadFileMenu from "../components/DownloadFileMenu";
+import { getIDsFromStore, deleteID, updateIDCartObject, clearCartType } from "../../data/idCartApi.js"
+import GlyGenNotificationContext from "../GlyGenNotificationContext.js";
+import SelectControl from "../select/SelectControl.js";
+import { getCartList } from "../../data/cart.js"
+import idCartJson from "../../data/json/idCart";
+import DownloadButton from "../DownloadButton.js";
+import DownloadFileMenu from "../DownloadFileMenu.js";
 import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
-import { getGlycanSearch, getGlycanSimpleSearch } from "../data/glycan";
-import { getProteinSearch, getProteinSimpleSearch } from "../data/protein";
-import { getGlycanList, getProteinList } from "../data";
-import { getGlobalSearch } from '../data/commonApi';
-import { getSuperSearch } from '../data/supersearch';
-import IDCartAlert from "../components/alert/IDCartAlert";
+import { getGlycanSearch, getGlycanSimpleSearch } from "../../data/glycan.js";
+import { getProteinSearch, getProteinSimpleSearch } from "../../data/protein.js";
+import { getGlycanList, getProteinList } from "../../data/index.js";
+import { getGlobalSearch } from '../../data/commonApi.js';
+import { getSuperSearch } from '../../data/supersearch.js';
+import IDCartAlert from "../alert/IDCartAlert.js";
 import Badge from '@mui/material/Badge';
 
 const searchErrorMsg =  "If re-execution of search fails repeatedly or record does not exist. Please delete the current cached list record and re-execute the search and save list result to cart.";
@@ -130,12 +130,31 @@ const IDCart = props => {
    * Function to delete cart entry.
    * @param {number} id - id number.
    **/
-    function deleteIDFromStore(type, id) {
-  
+    function deleteIDFromStore(e, type, id) {
+      e.preventDefault();
+
+      if (type === "glycanID") {
+        let glycanIDs = selectedGlycanData.filter(glid => glid !== id);
+        setSelectedGlycanData(glycanIDs);
+        setSelectedGlycanRows(glycanIDs);
+      } else if (type === "glycanList") {
+        setSelectedGlycanListData("");
+        setSelectedGlycanListRows([]);
+      } else if (type === "proteinID") {
+        let proteinIDs = selectedProteinData.filter(obj => obj.uniprot_canonical_ac !== id);
+        setSelectedProteinData(proteinIDs);
+        let selRows = selectedProteinRows.filter(ind =>ind !== id);
+        setSelectedProteinRows(selRows);
+      } else if (type === "proteinList") {
+        setSelectedProteinListData("");
+        setSelectedProteinListRows([]);
+      }
+
       let totalCartCount = deleteID(type, id);
       showTotalCartIdsNotification(totalCartCount);
       let now = Date.now();
-      setUpdate(now);    }
+      setUpdate(now);
+    }
 
        /**
    * Function to delete cart entry.
@@ -196,7 +215,7 @@ const IDCart = props => {
     return (
       <Button
         className='gg-btn-outline mb-1 mt-1'
-        onClick={() => deleteIDFromStore("glycanID", row.glytoucan_ac)}
+        onClick={(e) => deleteIDFromStore(e, "glycanID", row.glytoucan_ac)}
       >
         <Image
           src={deleteIcon}
@@ -210,7 +229,7 @@ const IDCart = props => {
     return (
       <Button
         className='gg-btn-outline mb-1 mt-1'
-        onClick={() => deleteIDFromStore("glycanList", row.list_cache_id)}
+        onClick={(e) => deleteIDFromStore(e, "glycanList", row.list_cache_id)}
       >
         <Image
           src={deleteIcon}
@@ -224,7 +243,7 @@ const IDCart = props => {
     return (
       <Button
         className='gg-btn-outline mb-1 mt-1'
-        onClick={() => deleteIDFromStore("proteinID", row.uniprot_canonical_ac)}
+        onClick={(e) => deleteIDFromStore(e, "proteinID", row.uniprot_canonical_ac)}
       >
         <Image
           src={deleteIcon}
@@ -238,7 +257,7 @@ const IDCart = props => {
     return (
       <Button
         className='gg-btn-outline mb-1 mt-1'
-        onClick={() => deleteIDFromStore("proteinList", row.list_cache_id)}
+        onClick={(e) => deleteIDFromStore(e, "proteinList", row.list_cache_id)}
       >
         <Image
           src={deleteIcon}
@@ -617,6 +636,8 @@ const IDCart = props => {
     hideSelectAll: false,
     selected: selectedGlycanRows,
     onSelect: (row, isSelect, rowIndex, e) => {
+     if (e.defaultPrevented)
+       return;
       let glycanIDs = [];
       if (isSelect) {
          selectedGlycanData.push(row.glytoucan_ac);
@@ -703,10 +724,10 @@ const IDCart = props => {
     hideSelectAll: true,
     selected: selectedGlycanListRows,
     onSelect: (row, isSelect, rowIndex, e) => {
-
+      if (e.defaultPrevented)
+        return;
       let glycanIDs = [];
       if (isSelect) {
-        
         setSelectedGlycanListData({"applied_filters" : row.applied_filters, "list_cache_id" : row.list_cache_id,
           "list_id" : row.list_id, "name": row.name, "queryType": row.queryType, "searchQuery": row.searchQuery, "columns": row.columns });
         setSelectedGlycanListRows([row.list_cache_id]);
@@ -780,6 +801,8 @@ const IDCart = props => {
     hideSelectAll: false,
     selected: selectedProteinRows,
     onSelect: (row, isSelect, rowIndex, e) => {
+      if (e.defaultPrevented)
+        return;
       let proteinIDs = [];
       if (isSelect) {
          selectedProteinData.push({ uniprot_canonical_ac:row.uniprot_canonical_ac, organism:row.organism, protein_name:row.protein_name } );
@@ -952,6 +975,8 @@ const IDCart = props => {
     hideSelectAll: true,
     selected: selectedProteinListRows,
     onSelect: (row, isSelect, rowIndex, e) => {
+      if (e.defaultPrevented)
+        return;
       let proteinIDs = [];
       if (isSelect) {
         setSelectedProteinListData({"applied_filters" : row.applied_filters, "list_cache_id" : row.list_cache_id,

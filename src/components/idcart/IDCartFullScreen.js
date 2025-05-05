@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from "react-bootstrap/Button";
-import { logActivity } from "../data/logging";
+import { logActivity } from "../../data/logging";
 import IDCart from "./IDCart";
 import { useNavigate} from 'react-router-dom';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';

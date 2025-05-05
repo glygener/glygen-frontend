@@ -64,6 +64,10 @@ const SuperSearch = (props) => {
   */
   useEffect(() => {
 	setPageLoading(true);
+	window.scrollTo({
+		top: 0,
+		behavior: "smooth",
+	  });
 	logActivity();
 	getSuperSearchInit().then((response) => {
 		var initData = response.data;

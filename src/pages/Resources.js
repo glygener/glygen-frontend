@@ -223,6 +223,10 @@ const Resources = () => {
   ];
   const classes = useStyles();
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     logActivity();
   }, []);
 
