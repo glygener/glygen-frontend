@@ -208,7 +208,7 @@ const GlycanList = props => {
           setSelectedData(selectedData);
         }
       } else {
-        glycanIDs = selectedData.filter(id => id === row.glytoucan_ac);
+        glycanIDs = selectedData.filter(id => id !== row.glytoucan_ac);
         setSelectedData(glycanIDs);
       }
     },

@@ -46,7 +46,7 @@ const ProteinList = props => {
           setSelectedData(selectedData);
          }
       } else {
-        proteinIDs = selectedData.filter(obj => obj.uniprot_canonical_ac === row.uniprot_canonical_ac);
+        proteinIDs = selectedData.filter(obj => obj.uniprot_canonical_ac !== row.uniprot_canonical_ac);
         setSelectedData(proteinIDs);
       }
     },
