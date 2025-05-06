@@ -161,6 +161,20 @@ const IDCart = props => {
    * @param {number} id - id number.
    **/
        function clearCart(type) {
+        if (type === "glycanID") {
+          setSelectedGlycanData([]);
+          setSelectedGlycanRows([]);
+        } else if (type === "glycanList") {
+          setSelectedGlycanListData("");
+          setSelectedGlycanListRows([]);
+        } else if (type === "proteinID") {
+          setSelectedProteinData([]);
+          setSelectedProteinRows([]);
+        } else if (type === "proteinList") {
+          setSelectedProteinListData("");
+          setSelectedProteinListRows([]);
+        }
+
         let totalCartCount = clearCartType(type);
         showTotalCartIdsNotification(totalCartCount);
         let now = Date.now();
