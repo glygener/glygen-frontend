@@ -34,6 +34,7 @@ import { getColumnList, getUserStoredColumns, setUserStoredColumns, getDisplayCo
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 import ListIDNameDialog from "../components/idcart/ListIDNameDialog";
 import { addIDsToStore } from "../data/idCartApi"
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const GlycanList = props => {
   let { id } = useParams();
@@ -633,9 +634,12 @@ const GlycanList = props => {
             <section>
               <div className="text-end pb-3" >
                 <Button onClick={() => addGlycanList()} type="button" className="gg-btn-blue me-4"
-                 disabled={quickSearch[searchId] !== undefined || jobType !== undefined }
-                  >Add List ID</Button>
-                <Button onClick={() => addGlycanIDs()} type="button" className="gg-btn-blue me-4">Add Glycan IDs</Button>
+                 disabled={quickSearch[searchId] !== undefined || jobType !== undefined }>
+                  Add All To <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                  </Button>
+                <Button onClick={() => addGlycanIDs()} type="button" className="gg-btn-blue me-4">    
+                  Add Selected To <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                </Button>
                 <Button onClick={() => toggleDrawer(true)} type="button" className="gg-btn-blue">Edit Columns</Button>
                 <DownloadButton
                   types={[

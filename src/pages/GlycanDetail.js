@@ -62,6 +62,8 @@ import motifListJson from "../data/json/motif_mapping";
 import enzymeJson from "../data/json/enzyme_mapping";
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 import { addIDsToStore } from "../data/idCartApi"
+import CollapsableTextArray from "../components/CollapsableTextArray";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
@@ -1498,6 +1500,15 @@ const GlycanDetail = props => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
+    },
+    {
+      dataField: "condition",
+      text: biomarkerStrings.condition.name,
+      sort: false,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => <CollapsableTextArray data={value.name_list ? value.name_list : []} lines={5} />,
     }
   ];
 
@@ -1714,7 +1725,9 @@ const GlycanDetail = props => {
               </div>
             )}
             <div className="text-end gg-download-btn-width">
-              <Button onClick={() => addGlycanID()} type="button" className="gg-btn-blue">Add Glycan ID</Button>
+              <Button onClick={() => addGlycanID()} type="button" className="gg-btn-blue">
+                Add To <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+              </Button>
               <DownloadButton
                 types={[
                   {

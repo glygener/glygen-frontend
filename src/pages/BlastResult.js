@@ -25,6 +25,7 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import { downloadFile } from "../utils/download.js"
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
 import { addIDsToStore } from "../data/idCartApi"
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
   if (a[sortField] > b[sortField]) {
@@ -346,8 +347,12 @@ const BlastResult = (props) => {
             >
               <section>
               <div className="text-end p-3" >
-                <Button onClick={() => addAllProteinIDs()} type="button" className="gg-btn-blue me-4">Add All Protein IDs</Button>
-                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue">Add Protein IDs</Button>
+                <Button onClick={() => addAllProteinIDs()} type="button" className="gg-btn-blue me-4">
+                  Add All To <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                </Button>
+                <Button onClick={() => addProteinIDs()} type="button" className="gg-btn-blue">
+                  Add Selected To <ShoppingCartIcon sx={{ color: "white", paddingLeft1: "20px" }}/>
+                </Button>
               </div>
                 {blastResultColumns && blastResultColumns.length !== 0 && (
                   <div style={{padding:20, content:'center'}}>
