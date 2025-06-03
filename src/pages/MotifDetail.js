@@ -140,6 +140,7 @@ const MotifDetail = (props) => {
   const [motifName, setMotifName] = useState([]);
   const [motifSynonym, setMotifSynonym] = useState([]);
   const [classification, setClassification] = useState([]);
+  const [sideBarData, setSidebarData] = useState(items);
   const [motifKeywords, setMotifKeywords] = useState([]);
   const [motifDictionary, setMotifDictionary] = useState();
   const [reducingEnd, setReducingEnd] = useState([]);
@@ -171,6 +172,15 @@ const MotifDetail = (props) => {
       return timeout * parseInt(inpuPageSize/50);
     }
   }
+
+  const setSidebarItemState = (items, itemId, disabledState) => {
+    return items.map(item => {
+      return {
+        ...item,
+        disabled: item.id === itemId ? disabledState : item.disabled
+      };
+    });
+  };
 
   useEffect(() => {
     setPageLoading(true);
@@ -222,6 +232,31 @@ const MotifDetail = (props) => {
            dictionary = temp;
          }
         setMotifDictionary(dictionary);
+
+        let newSidebarData = items;
+        if (!data.motif || !data.motif.accession || data.motif.accession.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "General", true);
+        }
+        if (!data.results || data.results.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Glycans-With-This-Motif", true);
+        }
+        if (!data.biomarkers || data.biomarkers.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Biomarkers", true);
+        }
+        if (!data.iupac && !data.wurcs && !data.glycoct && !data.inchi && !data.glycam && !data.smiles_isomeric) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Digital-Sequence", true);
+        }
+        if (!data.crossref || data.crossref.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Cross-References", true);
+        }
+        if (!data.history || data.history.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "History", true);
+        }
+        if (!data.publication || data.publication.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Publications", true);
+        }
+        setSidebarData(newSidebarData);
+
         setPagination(data.pagination);
         const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
         setPage(currentPage);
@@ -458,7 +493,7 @@ const MotifDetail = (props) => {
     <>
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
-          <Sidebar items={items} />
+          <Sidebar items={sideBarData} />
         </Col>
 
         <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
