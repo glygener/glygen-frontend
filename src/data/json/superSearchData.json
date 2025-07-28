@@ -12,6 +12,9 @@
     "site": {
       "id": "site"
     },
+    "disease": {
+      "id": "disease"
+    },
     "query_select": {
       "placeholder": "Select sample super search query",
       "placeholderName": "",

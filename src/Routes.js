@@ -131,6 +131,7 @@ const Routes = (props) => (
     <Route path={routeConstants.biomarkerSearch} element={<BiomarkerSearch/>} />
     <Route path={`${routeConstants.biomarkerDetail}:id`} element={<BiomarkerDetail/>} />
 
+    <Route path={`${routeConstants.diseaseList}:id/:searchId`} element={<DiseaseList/>} />
     <Route path={`${routeConstants.diseaseList}:id`} element={<DiseaseList/>} />
     <Route path={`${routeConstants.diseaseSearch}:id`} element={<DiseaseSearch/>} />
     <Route path={routeConstants.diseaseSearch} element={<DiseaseSearch/>} />

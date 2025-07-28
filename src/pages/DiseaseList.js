@@ -28,7 +28,6 @@ import {
 const DiseaseList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
-  let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
@@ -162,7 +161,11 @@ const DiseaseList = props => {
   };
 
   const handleModifySearch = () => {
+    if (searchId && searchId.includes("sups")) {
+      navigate(routeConstants.superSearch + id);
+    } else {
       navigate(routeConstants.diseaseSearch + id);
+    }
   };
 
   function rowStyleFormat(rowIdx) {
@@ -232,7 +235,6 @@ const DiseaseList = props => {
               {query && (
                 <DiseaseQuerySummary
                   data={query}
-                  question={quickSearch[searchId]}
                   searchId={searchId}
                   timestamp={timestamp}
                   dataUnmap={dataUnmap}

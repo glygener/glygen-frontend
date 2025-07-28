@@ -192,6 +192,8 @@ const SuperSearch = (props) => {
 		return routeConstants.proteinList + listID + "/sups" + "_" + listCode;
 	} else if (currentNode === superSearchJSONData.site.id) {
 		return routeConstants.siteList + listID + "/sups";
+	} else if (currentNode === superSearchJSONData.disease.id) {
+		return routeConstants.diseaseList + listID + "/sups";
 	}
   }
 

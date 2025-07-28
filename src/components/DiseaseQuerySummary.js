@@ -7,6 +7,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "../css/detail.css";
 
+const superSearchStrings = stringConstants.super_search.common;
+
 function getDateTime() {
   var now = new Date();
   var year = now.getFullYear();
@@ -38,7 +40,7 @@ function getDateTime() {
 const DiseaseQuerySummary = (props) => {
   const title = "Disease Search Summary";
 
-  const { data, onModifySearch, timestamp } = props;
+  const { data, onModifySearch, timestamp, searchId } = props;
   const diseaseStrings = stringConstants.disease.common;
 
   const {
@@ -77,6 +79,9 @@ const DiseaseQuerySummary = (props) => {
           </Card.Text>
           <Row>
             <Col>
+
+              {searchId && searchId.includes("sups") && <>{superSearchStrings.query}</>}
+
               {disease_id && (
                 <Row className="summary-table-col">
                   <Col align="right" xs={6} sm={6} md={6} lg={6}>
