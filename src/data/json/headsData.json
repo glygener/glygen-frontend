@@ -649,5 +649,44 @@
         "content": "Job Status"
       }
     ]
+  },
+  "diseaseSearch": {
+    "title": "Disease Search | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Search for disease based on their Disease ID, Disease Name, Biomarker ID, Biomarker Type, Protein ID, Glycan ID."
+      },
+      {
+        "name": "keywords",
+        "content": "Disease ID, Disease Name, Biomarker ID, Biomarker Type, Protein ID, Glycan ID."
+      }
+    ]
+  },
+    "diseaseList": {
+    "title": "Disease List | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  },
+    "diseaseDetail": {
+    "title": "Disease Detail | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
   }
 }

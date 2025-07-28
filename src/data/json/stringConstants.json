@@ -1583,7 +1583,7 @@
         "shortName": "Biomarker ID",
         "tooltip": {
           "title": "Biomarker ID",
-          "text": "Search for biomarkers based on the unique Biomarker ID is assigned to it. Biomarker IDs are in two levels; canonical level ID is the unique entity change that makes a biomarker and the secondary ID is the unique biomarker-disease association)."
+          "text": "Search for biomarkers based on the unique Biomarker ID is assigned to it. Biomarker IDs are in two levels; canonical level ID is the unique entity change that makes a biomarker and the secondary ID is the unique biomarker-disease association."
         },
         "id": "biomarker_id"
       },
@@ -1751,6 +1751,194 @@
       "query_type": {
         "id": "query_type",
         "name": "biomarker_search_simple"
+      }
+    }
+  },
+   "disease": {
+    "common": {
+      "operation": {
+        "id": "operation"
+      },
+      "search_type": {
+        "name": "Search Type",
+        "shortName": "Search Type",
+        "tooltip": {
+          "title": "",
+          "text": ""
+        },
+        "id": "search_type"
+      },
+      "biomarker_type": {
+        "name": "Biomarker Type",
+        "shortName": "Biomarker Type",
+        "tooltip": {
+          "title": "Biomarker Type",
+          "text": "Search for biomarkers based on biomarker type (e.g prognostic)."
+        },
+        "id": "biomarker_type"
+      },
+      "biomarker_id": {
+        "name": "Biomarker ID",
+        "shortName": "Biomarker ID",
+        "tooltip": {
+          "title": "Biomarker ID",
+          "text": "Search for diseases based on the Biomarker ID. Biomarker IDs are in two levels; canonical level ID is the unique entity change that makes a biomarker and the secondary ID is the unique biomarker-disease association."
+        },
+        "id": "biomarker_id"
+      },
+      "disease_id": {
+        "name": "Disease ID",
+        "shortName": "Disease ID",
+        "tooltip": {
+          "title": "Disease ID",
+          "text": "Search for diseases based on Disease ID. Specify the disease using MONDO, DOID or MIM."
+        },
+        "id": "disease_id"
+      },
+      "recommended_name": {
+        "name": "Recommended Name",
+        "shortName": "Recommended Name",
+        "tooltip": {
+          "title": "Recommended Name",
+          "text": "."
+        },
+        "id": "recommended_name"
+      },
+      "description": {
+        "name": "Description",
+        "shortName": "Description",
+        "tooltip": {
+          "title": "Description",
+          "text": "."
+        },
+        "id": "description"
+      },
+      "disease_name": {
+        "name": "Disease Name",
+        "shortName": "Disease Name",
+        "tooltip": {
+          "title": "Disease Name",
+          "text": "Search for diseases based on Disease Name."
+        },
+        "id": "disease_name"
+      },
+      "gene_name": {
+        "name": "Gene Name",
+        "shortName": "Gene Name",
+        "tooltip": {
+          "title": "Gene Name",
+          "text": ""
+        },
+        "id": "gene_name"
+      },
+      "protein_id": {
+        "name": "Protein ID",
+        "shortName": "Protein ID",
+        "tooltip": {
+          "title": "Protein ID",
+          "text": ""
+        },
+        "id": "protein_id"
+      },
+      "refseq_id": {
+        "name": "RefSeq ID",
+        "shortName": "RefSeq ID",
+        "tooltip": {
+          "title": "RefSeq ID",
+          "text": ""
+        },
+        "id": "refseq_id"
+      },
+      "protein_name": {
+        "name": "Protein Name",
+        "shortName": "Protein Name",
+        "tooltip": {
+          "title": "Protein Name",
+          "text": ""
+        },
+        "id": "protein_name"
+      },
+      "glycan_id": {
+        "name": "Glycan ID",
+        "shortName": "Glycan ID",
+        "tooltip": {
+          "title": "Glycan ID",
+          "text": ""
+        },
+        "id": "glycan_id"
+      },
+      "glycan_name": {
+        "name": "Glycan Name",
+        "shortName": "Glycan Name",
+        "tooltip": {
+          "title": "Glycan Name",
+          "text": ""
+        },
+        "id": "glycan_name"
+      },
+      "tax_id": {
+        "name": "Tax Id",
+        "shortName": "Tax Id",
+        "tooltip": {
+          "title": "Tax Id",
+          "text": ""
+        },
+        "id": "tax_id"
+      },
+      "tax_name": {
+        "name": "Tax Name",
+        "shortName": "Tax Name",
+        "tooltip": {
+          "title": "Tax Name",
+          "text": ""
+        },
+        "id": "tax_name"
+      },
+      "organism": {
+        "name": "Organism",
+        "shortName": "Organism",
+        "tooltip": {
+          "title": "Organism",
+          "text": ""
+        },
+        "id": "organism"
+      },
+      "term": {
+        "id": "term"
+      },
+      "term_category": {
+        "id": "term_category",
+        "name": "Category"
+      },
+      "contributions": {
+        "disease_exact_match": {
+          "id": "disease_exact_match",
+          "name": "Disease Exact Match"
+        },
+        "protein_count": {
+          "id": "protein_count",
+          "name": "Protein Count"
+        },
+        "glycan_count": {
+          "id": "glycan_count",
+          "name": "Glycan Count"
+        },
+        "other_source": {
+          "id": "other_source",
+          "name": "Other Source"
+        }
+      }
+    },
+    "advanced_search": {
+      "query_type": {
+        "id": "query_type",
+        "name": "search_disease"
+      }
+    },
+    "simple_search": {
+      "query_type": {
+        "id": "query_type",
+        "name": "disease_search_simple"
       }
     }
   },
@@ -2627,6 +2815,24 @@
       "displayname": "Biomarker Description",
       "tooltip": "Biomarker Description information",
       "name": "Biomarker Description "
+    },
+    "hierarchy": {
+      "id": "hierarchy",
+      "displayname": "Hierarchy",
+      "tooltip": "Hierarchy information",
+      "name": "Hierarchy"
+    },
+    "proteins": {
+      "id": "proteins",
+      "displayname": "Proteins",
+      "tooltip": "Proteins information",
+      "name": "Proteins"
+    },
+    "glycans_disease": {
+      "id": "glycans",
+      "displayname": "Glycans",
+      "tooltip": "Glycans information",
+      "name": "Glycans"
     },
     "biomarkers": {
       "id": "biomarkers",

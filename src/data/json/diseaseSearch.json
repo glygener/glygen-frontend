@@ -1,0 +1,208 @@
+{
+  "pageTitle": "Disease Search",
+  "simple_search": {
+    "tabTitle": "Simple Search",
+    "length": 100,
+    "errorText": "Entry is too long - max length is 100.",
+    "categories": {
+      "biomarker": {
+        "examples": ["AN6278-5"],
+        "placeholder": "Enter the biomarker"
+      },
+      "disease": {
+        "examples": ["Colorectal Cancer", "DOID:9256", "MONDO:0005575", "MIM:114500"],
+        "placeholder": "Enter the disease name"
+      },
+      "glycan": {
+        "examples": ["G36521AS"],
+        "placeholder": "Enter the glycan"
+      },
+      "protein": {
+        "examples": ["Signal transducer and activator", "P14210", "Hepatocyte growth factor"],
+        "placeholder": "Enter the protein"
+      },
+      "organism": {
+        "examples": ["Human"],
+        "placeholder": "Enter the organism"
+      },
+      "any": {
+        "examples": [
+          "increased N-glycan level",
+          "AN6278-5",
+          "Colorectal Cancer",
+          "DOID:9256",
+          "G36521AS",
+          "Human"
+        ],
+        "placeholder": "Enter the search term"
+      }
+    }
+  },
+  "advanced_search": {
+    "tabTitle": "Advanced Search",
+    "message": "Please enter search criteria for one OR multiple of the following fields. You can also perform a search without filling any field, which will result in a list of all diseases in GlyGen.",
+    "biomarker_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "biomarker_id",
+      "placeholder": "Enter the Biomarker ID",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "AN6278-5"
+          }
+        }
+      ]
+    },
+    "refseq_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "refseq_ac",
+      "placeholder": "Enter the RefSeq Accession of your protein",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "NP_000592"
+          }
+        }
+      ]
+    },
+    "biomarker_type": {
+      "placeholder": "Select Biomarker Type",
+      "placeholderId": "",
+      "placeholderName": ""
+    },
+    "disease_id": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "disease_id",
+      "placeholder": "Enter the Disease ID",
+      "examples": {
+        "disease_id": {
+          "id": "disease_id",
+          "examples": [
+            "DOID:9256",
+            "MONDO:0005575",
+            "MIM:114500"
+          ]
+        }
+      }
+    },
+    "disease_name": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "disease_name",
+      "placeholder": "Enter the Disease Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "colorectal cancer"
+          }
+        }
+      ]
+    },
+     "search_type": {
+      "placeholderName": "Hierarchy",
+      "placeholderId": "hierarchy",
+      "menu": [
+        {
+            "name": "Hierarchy",
+            "id": "hierarchy"
+        },
+        {
+            "name": "Exact",
+            "id": "exact"
+        }
+      ]
+    },
+    "organism": {
+      "placeholder": "Select Organism",
+      "placeholderName": "All",
+      "placeholderId": ""
+    },
+    "uniprot_canonical_ac": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "uniprot_canonical_ac",
+      "placeholder": "Enter a UniProtKB Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P14210"
+          }
+        }
+      ]
+    },
+    "glycan_identifier": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "glytoucan_ac",
+      "placeholder": "Enter a GlyTouCan Accession",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "G36521AS"
+          }
+        }
+      ]
+    },
+    "glycan_name": {
+      "length": 100,
+      "errorText": "Entry is too long - max length is 100.",
+      "typeahedID": "glycan_name",
+      "placeholder": "Enter the Glycan Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "HexNAc0Hex0dHex0NeuAc0NeuGc1Pent0S0P0KDN0HexA0"
+          }
+        }
+      ]
+    },
+    "protein_name": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "protein_name",
+      "placeholder": "Enter the Protein Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "Hepatocyte growth factor"
+          }
+        }
+      ]
+    },
+    "gene_name": {
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
+      "typeahedID": "gene_name",
+      "placeholder": "Enter the Gene Name",
+      "examples": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "HGF"
+          }
+        }
+      ]
+    }
+  },
+  "tutorial": {
+    "tabTitle": "Tutorial"
+  }
+}

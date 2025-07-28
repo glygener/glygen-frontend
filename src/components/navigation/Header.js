@@ -171,6 +171,9 @@ export default function Header(props) {
                 <NavDropdown.Item as={NavLink} to={routeConstants.biomarkerSearch}>
                   Biomarker Search
                 </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to={routeConstants.diseaseSearch}>
+                  Disease Search
+                </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.siteSearch}>
                   Site Search
                 </NavDropdown.Item>

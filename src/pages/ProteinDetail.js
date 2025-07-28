@@ -1135,7 +1135,6 @@ const ProteinDetail = (props) => {
           <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
         </LineTooltip>
       ),
-      //testing
     },
     {
       dataField: "image",
@@ -1457,7 +1456,7 @@ const ProteinDetail = (props) => {
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
                 <span className="nowrap">
-                  (<a href={disease.recommended_name.url} target="_blank" rel="noopener noreferrer">{disease.recommended_name.id}</a>){" "}
+                  (<Link to={routeConstants.diseaseDetail + "/" + disease.recommended_name.id}>{disease.recommended_name.id}</Link>){" "}
                 </span>
               </li>
           ))}
@@ -1647,7 +1646,7 @@ const ProteinDetail = (props) => {
                 <li key={disease.recommended_name.id}>
                   {disease.recommended_name.name}{" "}
                   <span className="nowrap">
-                    (<a href={disease.recommended_name.url} target="_blank" rel="noopener noreferrer">{disease.recommended_name.id}</a>){" "}
+                    (<Link to={routeConstants.diseaseDetail + disease.recommended_name.id}>{disease.recommended_name.id}</Link>){" "}
                   </span>
                 </li>
               </ul>
@@ -1683,6 +1682,71 @@ const ProteinDetail = (props) => {
       },
     },
   ];
+
+  const diseaseColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "25%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList key={row.disease} evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "recommended_name",
+      text: stringConstants.sidebar.disease.displayname,
+      defaultSortField: "disease",
+      headerStyle: (column, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "16%",
+        };
+      },
+      formatter: (value, row) =>
+        value ? (
+          <>
+            {value.name}{" "}
+            <span className="nowrap">
+              (<Link to={routeConstants.diseaseDetail + value.id}>{value.id}</Link>){" "}
+            </span>
+          </>
+        ) : (
+          "N/A"
+        ),
+    },
+
+    {
+      dataField: "recommended_name",
+      text: "Description",
+      // sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "15%",
+        };
+      },
+     formatter: (value, row) =>
+        value ? (
+          <>
+            <span className="nowrap">
+              {value.description}{" "}
+            </span>
+          </>
+        ) : (
+          "N/A"
+        )
+    }
+  ];
+
   const ptmAnnotationColumns = [
     {
       dataField: "evidence",
@@ -2716,9 +2780,9 @@ const ProteinDetail = (props) => {
                                   {/* </div>
                                   <div className="Glycosummary"> */}
                                    {glycosylationWithImageSectStat.fuzzy_sites > 0 && <div className="ms-3">
-                                    <i><strong>Not Reported:</strong>{" "}
+                                    "Not Reported":{" "}
                                     {createGlycosylationSummaryFromSectionStaNoSiteData(glycosylationWithImageSectStat, true)}
-                                    </i></div>}
+                                    </div>}
                                   </div>
                                 </div>
                               )}
@@ -4351,128 +4415,55 @@ const ProteinDetail = (props) => {
                       {stringConstants.sidebar.disease.displayname}
                     </h4>
                     <div className="float-end">
+                      <span>
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Disease (*.csv)",
+                              type: "disease_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "disease",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={biomarkers && biomarkers.length > 0}
+                        />
+                      </span>
                       <CardToggle cardid="disease" toggle={collapsed.disease} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
-                    <Card.Body className="card-padding-zero">
-                      <Table hover fluid="true">
-                        {diseaseData && diseaseData.length > 0 && (
-                          <tbody className="table-body">
-                            {diseaseData.map((thisDisease, indDis) => (
-                              <tr className="table-row" key={"dis" + indDis}>
-                                <td>
-                                  <div className="mb-3">
-                                    <Grid item xs={12}>
-                                      <div>
-                                        <div className="mb-3">
-                                          <strong> {proteinStrings.name.name}: </strong>{" "}
-                                          {thisDisease.recommended_name.name} (
-                                          <a
-                                            href={thisDisease.recommended_name.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {thisDisease.recommended_name.id}
-                                          </a>
-                                          )
-                                          <DirectSearch
-                                            text={proteinDirectSearch.disease_id.text}
-                                            searchType={"protein"}
-                                            fieldType={proteinStrings.disease_id.id}
-                                            fieldValue={thisDisease.recommended_name.id}
-                                            executeSearch={proteinSearch}
-                                          />
-                                          <EvidenceList
-                                            inline={true}
-                                            evidences={groupEvidences(thisDisease.evidence)}
-                                          />
-                                        </div>
-                                        {thisDisease.recommended_name.description && (
-                                          <div className="mb-3">
-                                            <strong> {proteinStrings.description.name}: </strong>
-                                            {thisDisease.recommended_name.description}{" "}
-                                          </div>
-                                        )}
-                                        {thisDisease.synonyms && thisDisease.synonyms.length && (
-                                          <div className="mb-3">
-                                            <strong> {proteinStrings.synonyms.name}: </strong>
-                                            <ul style={{ marginLeft: "-40px" }}>
-                                              <ul>
-                                                {thisDisease.synonyms
-                                                  .slice(
-                                                    0,
-                                                    thisDisease.synShowMore
-                                                      ? thisDisease.synShortLen
-                                                      : thisDisease.synLen
-                                                  )
-                                                  .map((synonyms, indSyn) => (
-                                                    <li key={"syn" + indSyn}>
-                                                      {" "}
-                                                      {synonyms.name}{" "}
-                                                      {synonyms.resource &&
-                                                        synonyms.resource.length !== 0 && (
-                                                          <>
-                                                            {" "}
-                                                            [
-                                                            {synonyms.resource.map(
-                                                              (res, ind, arr) => {
-                                                                return (
-                                                                  <span key={"spn" + ind}>
-                                                                    <a
-                                                                      href={res.url}
-                                                                      target="_blank"
-                                                                      rel="noopener noreferrer"
-                                                                    >
-                                                                      {res.id}
-                                                                    </a>
-                                                                    {ind < arr.length - 1
-                                                                      ? ", "
-                                                                      : ""}
-                                                                  </span>
-                                                                );
-                                                              }
-                                                            )}
-                                                            ]
-                                                          </>
-                                                        )}
-                                                    </li>
-                                                  ))}
-                                              </ul>
-                                              {thisDisease.synBtnDisplay && (
-                                                <Button
-                                                  style={{
-                                                    marginLeft: "20px",
-                                                    marginTop: "5px",
-                                                  }}
-                                                  className={"lnk-btn"}
-                                                  variant="link"
-                                                  onClick={() => {
-                                                    setDiseaseDataSynonyms(
-                                                      thisDisease.recommended_name.name
-                                                    );
-                                                  }}
-                                                >
-                                                  {thisDisease.synShowMore
-                                                    ? "Show More..."
-                                                    : "Show Less..."}
-                                                </Button>
-                                              )}
-                                            </ul>
-                                          </div>
-                                        )}
-                                      </div>
-                                    </Grid>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        )}
-                      </Table>
-                      {diseaseData && diseaseData.length === 0 && (
-                        <p className="no-data-msg-publication">{dataStatus}</p>
+                    <Card.Body className1="card-padding-zero">
+
+                    {diseaseData && diseaseData.length !== 0 && (
+                        <ClientServerPaginatedTableFullScreen
+                          data={diseaseData}
+                          columns={diseaseColumns}
+                          onClickTarget={"#disease"}
+                          defaultSortField={"disease"}
+                          viewPort={true}
+                          title="Protein Component - Disease"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Disease (*.csv)",
+                                    type: "disease_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "disease",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
+                        />
                       )}
+                      {diseaseData && diseaseData.length === 0 && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

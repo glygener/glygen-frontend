@@ -16,6 +16,7 @@ import { getMotifListDownload, getMotifDetailDownload, getMotifSectionDownload }
 import { getIdMappingMappedDownload } from "../data/mapping";
 import { getIdMappingUnmappedDownload } from "../data/mapping";
 import { getBiomarkerDetailDownload, getBiomarkerSectionDownload, getBiomarkerListDownload } from "../data/biomarker";
+import { getDiseaseDetailDownload, getDiseaseSectionDownload, getDiseaseListDownload } from "../data/disease";
 import { getOrthologListDownload, getLocusListDownload } from "../data/usecases";
 import { getPublicationDetailDownload, getPublicationSectionDownload } from "../data/publication";
 import { getIsoformMappingListDownload } from "../data/isoformMapping"
@@ -77,6 +78,12 @@ const DownloadButton = (props) => {
         return getBiomarkerDetailDownload;
       case "biomarker_section":
         return getBiomarkerSectionDownload;
+      case "disease_list":
+        return getDiseaseListDownload;
+      case "disease_detail":
+        return getDiseaseDetailDownload;
+      case "disease_section":
+        return getDiseaseSectionDownload;
       case "isoform_mapping_list":
         return getIsoformMappingListDownload;
       default:

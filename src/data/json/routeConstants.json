@@ -47,6 +47,9 @@
   "biomarkerSearch": "/biomarker-search/",
   "biomarkerList": "/biomarker-list/",
   "biomarkerDetail": "/biomarker/",
+  "diseaseSearch": "/disease-search/",
+  "diseaseList": "/disease-list/",
+  "diseaseDetail": "/disease/",
   "home": "/home/",
   "default": "/"
 }

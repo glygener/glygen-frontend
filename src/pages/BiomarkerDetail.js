@@ -1032,98 +1032,23 @@ const BiomarkerDetail = (props) => {
                             {conditionData.map((thisCondition, indDis) => (
                               <tr className="table-row" key={"dis" + indDis}>
                                 <td>
-                                  <div className="mb-3">
+                                  <div className1="mb-3">
                                     <Grid item xs={12}>
                                       <div>
-                                        <div className="mb-3">
+                                        <div className1="mb-3">
                                           <strong> {proteinStrings.name.name}: </strong>{" "}
                                           {thisCondition.recommended_name.name} (
-                                          <a
-                                            href={thisCondition.recommended_name.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                          <Link
+                                            to={routeConstants.diseaseDetail + thisCondition.recommended_name.id}
                                           >
                                             {thisCondition.recommended_name.id}
-                                          </a>
+                                          </Link>
                                           )
                                           <EvidenceList
                                             inline={true}
                                             evidences={groupEvidences(thisCondition.evidence)}
                                           />
                                         </div>
-                                        {thisCondition.recommended_name.description && (
-                                          <div className="mb-3">
-                                            <strong> {proteinStrings.description.name}: </strong>
-                                            {thisCondition.recommended_name.description}{" "}
-                                          </div>
-                                        )}
-                                        {thisCondition.synonyms && thisCondition.synonyms.length > 0 && (
-                                          <div className="mb-3">
-                                            <strong> {proteinStrings.synonyms.name}: </strong>
-                                            <ul style={{ marginLeft: "-40px" }}>
-                                              <ul>
-                                                {thisCondition.synonyms
-                                                  .slice(
-                                                    0,
-                                                    thisCondition.synShowMore
-                                                      ? thisCondition.synShortLen
-                                                      : thisCondition.synLen
-                                                  )
-                                                  .map((synonyms, indSyn) => (
-                                                    <li key={"syn" + indSyn}>
-                                                      {" "}
-                                                      {synonyms.name}{" "}
-                                                      {synonyms.resource &&
-                                                        synonyms.resource.length !== 0 && (
-                                                          <>
-                                                            {" "}
-                                                            [
-                                                            {synonyms.resource.map(
-                                                              (res, ind, arr) => {
-                                                                return (
-                                                                  <span key={"spn" + ind}>
-                                                                    <a
-                                                                      href={res.url}
-                                                                      target="_blank"
-                                                                      rel="noopener noreferrer"
-                                                                    >
-                                                                      {res.id}
-                                                                    </a>
-                                                                    {ind < arr.length - 1
-                                                                      ? ", "
-                                                                      : ""}
-                                                                  </span>
-                                                                );
-                                                              }
-                                                            )}
-                                                            ]
-                                                          </>
-                                                        )}
-                                                    </li>
-                                                  ))}
-                                              </ul>
-                                              {thisCondition.synBtnDisplay && (
-                                                <Button
-                                                  style={{
-                                                    marginLeft: "20px",
-                                                    marginTop: "5px",
-                                                  }}
-                                                  className={"lnk-btn"}
-                                                  variant="link"
-                                                  onClick={() => {
-                                                    setConditionDataSynonyms(
-                                                      thisCondition.recommended_name.name
-                                                    );
-                                                  }}
-                                                >
-                                                  {thisCondition.synShowMore
-                                                    ? "Show More..."
-                                                    : "Show Less..."}
-                                                </Button>
-                                              )}
-                                            </ul>
-                                          </div>
-                                        )}
                                       </div>
                                     </Grid>
                                   </div>
@@ -1333,10 +1258,10 @@ const BiomarkerDetail = (props) => {
                           <ul className="list-style-none">
                             {itemsCrossRef.map((crossRef, index) => (
                               <li key={`${crossRef.database}-${index}`}>
-                                <CollapsableReference
+                                {crossRef.database && crossRef.links && <CollapsableReference
                                   database={crossRef.database}
                                   links={crossRef.links}
-                                />
+                                />}
                               </li>
                             ))}
                           </ul>

@@ -1,0 +1,40 @@
+{
+  "disease": {
+    "general": {
+      "urlText1": "Read more...",
+      "text": "The General section provides identifying information about the biomarker.",
+      "title": "General",
+      "url": ""
+    },
+    "hierarchy": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Hierarchy",
+      "url": ""
+    },
+    "proteins": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Proteins",
+      "url": ""
+    },
+    "glycans": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Glycans",
+      "url": ""
+    },
+    "biomarkers": {
+      "urlText1": "Read more...",
+      "text": "",
+      "title": "Biomarkers",
+      "url": ""
+    },
+    "cross_references": {
+      "urlText1": "Read more...",
+      "text": "The Cross References section provides a list of database entries and links for the biomarker in other databases.",
+      "title": "Cross References",
+      "url": ""
+    }
+  }
+}

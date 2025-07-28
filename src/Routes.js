@@ -45,6 +45,9 @@ import BlastResult from "./pages/BlastResult"
 import PublicationDetail from "./pages/PublicationDetail";
 import BiomarkerDetail from "./pages/BiomarkerDetail";
 import JobStatus from "./pages/JobStatus"
+import DiseaseSearch from "./pages/DiseaseSearch";
+import DiseaseList from "./pages/DiseaseList";
+import DiseaseDetail from "./pages/DiseaseDetail";
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -98,12 +101,12 @@ const Routes = (props) => (
     <Route path={`${routeConstants.locusList}:id/:searchId`} element={<LocusList/>} />
     <Route path={`${routeConstants.quickSearch}:id/:questionId`} element={<QuickSearch/>} />
     <Route path={routeConstants.quickSearch} element={<QuickSearch/>} />
-    <Route path={`${routeConstants.isoformMapping}:id`} element={<IsoformMapping/>} />
-    <Route path={routeConstants.isoformMapping} element={<IsoformMapping/>} />
-    <Route path={`${routeConstants.isoformMappingResult}:jobId`} element={<IsoformMappingResult/>} />
     <Route path={`${routeConstants.idMapping}:id`} element={<IdMapping/>} />
     <Route path={routeConstants.idMapping} element={<IdMapping/>} />
     <Route path={`${routeConstants.idMappingResult}:id`} element={<IdMappingResult/>} />
+    <Route path={`${routeConstants.isoformMapping}:id`} element={<IsoformMapping/>} />
+    <Route path={routeConstants.isoformMapping} element={<IsoformMapping/>} />
+    <Route path={`${routeConstants.isoformMappingResult}:jobId`} element={<IsoformMappingResult/>} />
     <Route path={routeConstants.idMappingResult} element={<idMappingResult/>} />
     <Route path={`${routeConstants.superSearch}:id/:searchId`} element={<SuperSearch/>} />
     <Route path={`${routeConstants.superSearch}:id`} element={<SuperSearch/>} />
@@ -127,7 +130,12 @@ const Routes = (props) => (
     <Route path={`${routeConstants.biomarkerSearch}:id`} element={<BiomarkerSearch/>} />
     <Route path={routeConstants.biomarkerSearch} element={<BiomarkerSearch/>} />
     <Route path={`${routeConstants.biomarkerDetail}:id`} element={<BiomarkerDetail/>} />
-    {/* Keep path='/' at the bottom */}
+
+    <Route path={`${routeConstants.diseaseList}:id`} element={<DiseaseList/>} />
+    <Route path={`${routeConstants.diseaseSearch}:id`} element={<DiseaseSearch/>} />
+    <Route path={routeConstants.diseaseSearch} element={<DiseaseSearch/>} />
+    <Route path={`${routeConstants.diseaseDetail}:id`} element={<DiseaseDetail/>} />
+
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />
   </Switch>
