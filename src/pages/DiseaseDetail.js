@@ -597,7 +597,7 @@ const nodeTemplate = (node, options) => {
         },
       },
       {
-      dataField: "spcies",
+      dataField: "species",
       text: "Organism",
       sort: true,
       selected: true,
