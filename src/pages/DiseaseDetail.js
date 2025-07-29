@@ -161,6 +161,7 @@ const DiseaseDetail = (props) => {
   useEffect(() => {
     setNonExistent(null);
     setPageLoading(true);
+    setNodes();
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -575,6 +576,13 @@ const nodeTemplate = (node, options) => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
+      formatter: (value, row) => (
+        <>
+          <LineTooltip text="View glycan details">
+            <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+          </LineTooltip>
+        </>
+      ),
     },
     {
         dataField: "glytoucan_ac",
@@ -624,7 +632,7 @@ const nodeTemplate = (node, options) => {
           <Alert className="erroralert" severity="error">
             <>
               <AlertTitle>
-                The Biomarker <b>{id} </b> does not exist in GlyGen
+                The Disease <b>{id} </b> does not exist in GlyGen
               </AlertTitle>
             </>
           </Alert>

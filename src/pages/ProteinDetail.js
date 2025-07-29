@@ -1456,7 +1456,7 @@ const ProteinDetail = (props) => {
               <li key={disease.recommended_name.id}>
                 {disease.recommended_name.name}{" "}
                 <span className="nowrap">
-                  (<Link to={routeConstants.diseaseDetail + "/" + disease.recommended_name.id}>{disease.recommended_name.id}</Link>){" "}
+                  (<Link to={routeConstants.diseaseDetail + disease.recommended_name.id}>{disease.recommended_name.id}</Link>){" "}
                 </span>
               </li>
           ))}
