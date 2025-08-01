@@ -141,6 +141,21 @@
         }
       ]
     },
+    "protein_id": {
+      "length": 10000,
+      "errorText": "Entry is too long - max length is 10000.",
+      "typeahedID": "protein_id",
+      "placeholder": "Enter a Protein ID",
+      "examples": {
+        "protein_id": {
+          "id": "protein_id",
+          "examples": [
+            "P14210",
+            "NP_000592"
+          ]
+        }
+      }
+    },
     "glycan_identifier": {
       "length": 10000,
       "errorText": "Entry is too long - max length is 10000.",

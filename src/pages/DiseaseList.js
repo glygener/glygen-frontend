@@ -5,7 +5,7 @@ import { getTitle, getMeta } from "../utils/head";
 import { getTitle as getTitleBiomarker, getMeta as getMetaBiomarker } from "../utils/biomarker/head";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { DISEASE_COLUMNS, getDiseaseList } from "../data/disease";
+import { getDiseaseList } from "../data/disease";
 import PaginatedTable from "../components/PaginatedTable";
 import DownloadButton from "../components/DownloadButton";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -21,13 +21,112 @@ import ListFilter from "../components/ListFilter";
 import { ReactComponent as ArrowRightIcon } from "../images/icons/arrowRightIcon.svg";
 import { ReactComponent as ArrowLeftIcon } from "../images/icons/arrowLeftIcon.svg";
 import DiseaseQuerySummary from "../components/DiseaseQuerySummary";
+import DirectSearch from "../components/search/DirectSearch.js";
+import { getProteinSearch } from '../data/protein.js';
+import LineTooltip from "../components/tooltip/LineTooltip";
+import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
+import CollapsableTextArray from "../components/CollapsableTextArray";
+import { Link } from "react-router-dom";
 import {
   GLYGEN_BUILD,
 } from "../envVariables";
 
+const diseaseStrings = stringConstants.disease.common;
+const proteinStrings = stringConstants.protein.common;
+
+
+
 const DiseaseList = props => {
   let { id } = useParams();
   let { searchId } = useParams();
+
+  const DISEASE_COLUMNS = [
+    {
+      dataField: diseaseStrings.disease_id.id,
+      text: diseaseStrings.disease_id.name,
+      sort: true,
+      selected: true,
+      headerStyle: HeaderwithsameStyle,
+      formatter: (value, row) => (
+        <LineTooltip text="View details">
+          <Link to={routeConstants.diseaseDetail + row.disease_id}>
+            {row.disease_id}
+          </Link>
+        </LineTooltip>
+      )
+    },
+    {
+      dataField: "recommended_name",
+      text: "Recommended Name",
+      sort: true,
+      headerStyle: HeaderwithsameStyle
+    },
+    {
+      dataField: "glycan_count",
+      text: "Glycan Count",
+      sort: true,
+      headerStyle: HeaderwithsameStyle
+    },
+    {
+      dataField: "protein_count",
+      text: "Protein Count",
+      sort: true,
+      headerStyle: HeaderwithsameStyle,
+            formatter: (value, row) => (
+          <div>
+            {row.protein_count}
+            {" "}
+            {row.protein_count > 0 && 
+              <DirectSearch
+                text={"Find all proteins / glycoproteins with the same disease."}
+                searchType={"protein"}
+                fieldType={"disease_id"}
+                fieldValue={row.disease_id}
+                executeSearch={proteinSearch}
+              />
+            }
+          </div>
+        )
+    },
+    {
+      dataField: proteinStrings.hit_score.id,
+      text: proteinStrings.hit_score.name,
+      sort: true,
+      headerStyle: HeaderwithsameStyle,
+      formatter: (value, row) => (
+        <>
+          <HitScoreTooltip
+            title={"Hit Score"}
+            text={"Hit Score Formula"}
+            formula={"0.1 + ∑ (Weight + 0.01 * Frequency)"}
+            contributions={row.score_info && row.score_info.contributions && row.score_info.contributions.map(item => {
+              return {
+                c: diseaseStrings.contributions[item.c]
+                  ? diseaseStrings.contributions[item.c].name
+                  : item.c,
+                w: item.w,
+                f: item.f
+              };
+            })}
+          />
+          {row.hit_score}
+        </>
+      )
+    },
+    {
+      dataField: "synonyms",
+      text: "Synonyms",
+      headerStyle: (colum, colIndex) => {
+        return { width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+          <CollapsableTextArray data={value.map(obj => obj.name + " (" +obj.id + ")")} maxItems={5} />
+        </>
+      )
+    },
+  ];
+
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
@@ -47,6 +146,40 @@ const DiseaseList = props => {
   );
   const navigate = useNavigate();
 
+function HeaderwithsameStyle(colum, colIndex) {
+  return { backgroundColor: "#4B85B6", color: "white" };
+}
+
+ /**
+   * Function to handle protein direct search.
+   **/
+  const proteinSearch = (formObject) => {
+
+    setPageLoading(true);
+    logActivity("user", "", "Performing Direct Search");
+    let message = "Direct Search query=" + JSON.stringify(formObject);
+    getProteinSearch(formObject)
+      .then((response) => {
+        if (response.data["list_id"] !== "") {
+          logActivity("user", (id || "") + ">" + response.data["list_id"], message).finally(() => {
+            setPageLoading(false);
+            navigate(routeConstants.proteinList + response.data["list_id"]);
+          });
+        } else {
+          let error = {
+            response: {
+              status: stringConstants.errors.defaultDialogAlert.id,
+            },
+          };
+          axiosError(error, "", "No results. " + message, setPageLoading, setAlertDialogInput);
+        }
+      })
+      .catch(function (error) {
+        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+      });
+  };
+
+
   useEffect(() => {
     setPageLoading(true);
     window.scrollTo({
@@ -64,7 +197,7 @@ const DiseaseList = props => {
     )
       .then(({ data }) => {
         if (data.error_code) {
-          let message = "list api call";
+          let message = "direct search api call";
           logActivity("user", id, "No results. " + message);
           setPageLoading(false);
         } else {
@@ -84,7 +217,7 @@ const DiseaseList = props => {
         }
       })
       .catch(function(error) {
-        let message = "list api call";
+        let message = "direct search api call";
         axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
     // eslint-disable-next-line

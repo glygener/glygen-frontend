@@ -632,7 +632,7 @@ const nodeTemplate = (node, options) => {
           <Alert className="erroralert" severity="error">
             <>
               <AlertTitle>
-                The Disease <b>{id} </b> does not exist in GlyGen
+                The Disease ID: <b>{id} </b> does not exist in GlyGen
               </AlertTitle>
             </>
           </Alert>

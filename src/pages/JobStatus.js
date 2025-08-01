@@ -152,7 +152,21 @@ const JobStatus = (props) => {
         };
       },
       editable: false
-    }, {
+    }, 
+    {
+      dataField: 'serverJobId',
+      text: 'Job Id',
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "10%"
+        };
+      },
+      selected: true,
+      editable: false
+    },
+    {
       dataField: 'name',
       text: "Name",
       mode: 'input',
@@ -160,7 +174,7 @@ const JobStatus = (props) => {
         return {
           backgroundColor: "#4B85B6",
           color: "white",
-          width: "50%"
+          width: "40%"
         };
       },
       editorClasses: (cell, row, rowIndex, colIndex) =>

@@ -1501,7 +1501,7 @@ sub {
 
 .p-tree .p-tree-container .p-treenode {
   padding: 0.05rem !important;
-  padding-left: 0.5rem !important;
+  padding-left: 1.5rem !important;
   outline: 0 none;
 }
 

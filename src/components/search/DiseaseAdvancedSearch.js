@@ -359,33 +359,6 @@ const DiseaseAdvancedSearch = (props) => {
 						/>
 					</FormControl>
 				</Grid>
-				{/* RefSeq ID */}
-				<Grid item xs={12} sm={10}>
-					<FormControl fullWidth variant='outlined'>
-						<Typography
-							className={'search-lbl'}
-							gutterBottom
-						>
-							<HelpTooltip
-                                title={commonDiseaseData.refseq_id.tooltip.title}
-                                text={commonDiseaseData.refseq_id.tooltip.text}
-                            />
-                            {commonDiseaseData.refseq_id.name}
-						</Typography>
-						<AutoTextInput
-							inputValue={props.inputValue.disRefSeqId}
-                            setInputValue={disRefSeqIdChange}
-                            placeholder={advancedSearch.refseq_id.placeholder}
-							typeahedID={advancedSearch.refseq_id.typeahedID}
-							length={advancedSearch.refseq_id.length}
-							errorText={advancedSearch.refseq_id.errorText}
-						/>
-                        <ExampleExploreControl
-							setInputValue={disRefSeqIdChange}
-							inputValue={advancedSearch.refseq_id.examples}
-						/>
-					</FormControl>
-				</Grid>
 				{/* Protein ID */}
 				<Grid item xs={12} sm={10}>
 					<FormControl fullWidth variant='outlined'>
@@ -402,14 +375,15 @@ const DiseaseAdvancedSearch = (props) => {
 						<AutoTextInput
 							inputValue={props.inputValue.disProteinId}
                             setInputValue={disProteinIdChange}
-                            placeholder={advancedSearch.uniprot_canonical_ac.placeholder}
-							typeahedID={advancedSearch.uniprot_canonical_ac.typeahedID}
-							length={advancedSearch.uniprot_canonical_ac.length}
-							errorText={advancedSearch.uniprot_canonical_ac.errorText}
+                            placeholder={advancedSearch.protein_id.placeholder}
+							typeahedID={advancedSearch.protein_id.typeahedID}
+							length={advancedSearch.protein_id.length}
+							errorText={advancedSearch.protein_id.errorText}
 						/>
-                        <ExampleExploreControl
+						<ExampleControl
+							exampleMap={advancedSearch.protein_id.examples}
+							type={advancedSearch.protein_id.examples.protein_id.id}
 							setInputValue={disProteinIdChange}
-							inputValue={advancedSearch.uniprot_canonical_ac.examples}
 						/>
 					</FormControl>
 				</Grid>				
