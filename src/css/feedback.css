@@ -23,7 +23,7 @@
 .sidebar-contact {
   z-index: 80;
   position: fixed;
-  top: 30% !important;
+  top: 15% !important;
   /* top: -50%; */
   right: -380px;
   /* transform: translateY(-50%); */
@@ -42,7 +42,7 @@
 .sequence-dashboard {
   z-index: 80;
   position: fixed;
-  top: 45% !important;
+  top: 30% !important;
   /* top: 50%; */
   /* left: 100%; */
   right: -380px;
