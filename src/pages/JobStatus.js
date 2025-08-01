@@ -155,7 +155,7 @@ const JobStatus = (props) => {
     }, 
     {
       dataField: 'serverJobId',
-      text: 'Job Id',
+      text: 'Job ID',
       headerStyle: (colum, colIndex) => {
         return {
           backgroundColor: "#4B85B6",
