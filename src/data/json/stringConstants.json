@@ -2972,6 +2972,16 @@
       "displayname": "Biomarker data (*.json)",
       "tooltip": " Biomarker jsondata Information"
     },
+    "disease_csvdata": {
+      "id": "disease_csvdata",
+      "displayname": "Disease data (*.csv)",
+      "tooltip": " Disease csvdata Information"
+    },
+    "disease_jsondata": {
+      "id": "disease_jsondata",
+      "displayname": "Disease data (*.json)",
+      "tooltip": " Disease jsondata Information"
+    },
     "biomarker_csvdata": {
       "id": "biomarker_csvdata",
       "displayname": "Biomarker data (*.csv)",

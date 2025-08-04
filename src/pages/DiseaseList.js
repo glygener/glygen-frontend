@@ -381,13 +381,13 @@ function HeaderwithsameStyle(colum, colIndex) {
                   types={[
                     {
                       display:
-                        stringConstants.download.biomarker_csvdata.displayname,
+                        stringConstants.download.disease_csvdata.displayname,
                       type: "csv",
                       data: "disease_list"
                     },
                     {
                       display:
-                        stringConstants.download.biomarker_jsondata.displayname,
+                        stringConstants.download.disease_jsondata.displayname,
                       type: "json",
                       data: "disease_list"
                     }
