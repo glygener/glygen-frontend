@@ -345,7 +345,7 @@ const columnDisplayTypes = {
     formatter: (value, row) => (
       <>
         {value &&           
-          <CollapsableExternalLinkText noLink={true} data={value}/>
+          <CollapsableExternalLinkText noLink={true} data={typeof value === "string" ? value.split(";") : value}/>
         }
       </>
     )

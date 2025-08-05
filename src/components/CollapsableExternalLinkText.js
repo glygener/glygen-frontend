@@ -11,7 +11,7 @@ const CollapsableExternalLinkText = (props) => {
 
   return (
     <>
-          {displayedItems.map((val, ind) => (
+          {displayedItems && displayedItems.map((val, ind) => (
             <>
               <Col className="nowrap ps-0">
                 {noLink ? <span>{val.id}</span> : <LineTooltip text="View details">

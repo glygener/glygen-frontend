@@ -426,6 +426,22 @@ const nodeTemplate = (node, options) => {
 
   const proteinColumns = [
     {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.interactor_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
       dataField: "uniprot_canonical_ac",
       text: "UniProtKB Accession",
       sort: true,
@@ -514,6 +530,22 @@ const nodeTemplate = (node, options) => {
 
   const biomarkerColumns = [
     {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.interactor_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
       dataField: "biomarker_id",
       text: "Biomarker Id",
       sort: true,
@@ -568,6 +600,22 @@ const nodeTemplate = (node, options) => {
   ];
 
   const glycanColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            key={row.interactor_id}
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
     {
       dataField: "glytoucan_ac",
       text: "Glycan ID",
