@@ -194,7 +194,8 @@ const DiseaseDetail = (props) => {
         	function mapData(response) {
 						let obj = {
 							key: response.id,
-							label: response.label,
+              name: response.label,
+              label: response.label + " (" + response.id + ")",
 							url: routeConstants.diseaseDetail + response.id,
 							children: null,
 							style: { "padding": ".005rem !important", "paddingLeft": "1.05rem !important" }
@@ -214,7 +215,8 @@ const DiseaseDetail = (props) => {
 					let dataNodes = [];
           let obj = {
             key: data.disease_id,
-            label: data.recommended_name.name,
+            name: data.recommended_name.name,
+            label: data.recommended_name.name + " (" + data.disease_id + ")",
             url: routeConstants.diseaseDetail + data.disease_id,
             children: [],
             style: { "padding": ".005rem !important", "paddingLeft": "1.05rem !important" }
@@ -381,7 +383,7 @@ const getItemsCrossRef = data => {
 };
 
 const nodeTemplate = (node, options) => {
-  let label = <>{node.label}</>;
+  let label = <>{node.name}</>;
   let link = undefined;
   if (node.url) {
       link = <Link to={node.url} className="text-700 hover:text-primary">{node.key}</Link>;
