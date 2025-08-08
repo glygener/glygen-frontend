@@ -13,7 +13,8 @@ import { Col } from "react-bootstrap";
 import CollapsibleText from "../components/CollapsibleText";
 import CollapsibleWrapText from "../components/CollapsibleWrapText";
 import CollapsableLinkText from "../components/CollapsableLinkText";
-import CollapsableExternalLinkText from "../components/CollapsableExternalLinkText"
+import CollapsableExternalLinkText from "../components/CollapsableExternalLinkText";
+import CollapsableInternalLinkText from "../components/CollapsableInternalLinkText";
 import { getGlycanImageUrl } from "../data/glycan";
 
 const proteinStrings = stringConstants.protein.common;
@@ -78,10 +79,13 @@ const MAP_COLUMN_FIELDS = {
   "publication_id_list": "show_more_list",
   "publication": "show_more_list_no_link",
   "pubchem_id": "show_more_list_with_link",
+  "pubchem_compound_id": "show_more_list_with_link",
+  "pubchem_substance_id": "show_more_list_with_link",
+  "pubchem_id": "show_more_list_with_link",
   "glycoprotein": "glycoprotein",
   "names": "show_more_wrap",
   "enzyme": "glycoprotein",
-  "composition_id": "show_more_list_with_link",
+  "composition_id": "composition_id",
   "base_composition_id": "glytoucan_ac",
   "glycoprotein_count": "number_proteins",
   "image_url": "image_url",
@@ -320,6 +324,21 @@ const columnDisplayTypes = {
       </>
     )
   },
+  "composition_id":{
+    dataField: "",
+    text: "",
+    sort: false,
+    headerStyle: (colum, colIndex) => {
+      return { width: "20%" };
+    },
+    formatter: (value, row) => (
+      <>
+        {value &&           
+          <CollapsableInternalLinkText data={value} type={typeof value} routeLink={routeConstants.glycanDetail}/>
+        }
+      </>
+    )
+  },
   "show_more_list_with_link":{
     dataField: "",
     text: "",
@@ -345,7 +364,7 @@ const columnDisplayTypes = {
     formatter: (value, row) => (
       <>
         {value &&           
-          <CollapsableExternalLinkText noLink={true} data={typeof value === "string" ? value.split(";") : value}/>
+          <CollapsableInternalLinkText noLink={true} type={typeof value} data={typeof value === "string" ? value.split(";") : value}/>
         }
       </>
     )

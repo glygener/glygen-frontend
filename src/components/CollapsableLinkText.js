@@ -16,7 +16,7 @@ const CollapsableLinkText = (props) => {
               {routeLink ? 
                 <Col className="nowrap ps-0">
                   <LineTooltip text="View details">
-                    <Link to={routeLink + val}>
+                    <Link to={routeLink + val.trim()}>
                       <span
                         style={{
                           display: "-webkit-box",
@@ -24,7 +24,7 @@ const CollapsableLinkText = (props) => {
                           overflow: "hidden"
                         }}
                       >
-                        {val}
+                        {val.trim()}
                       </span>
                     </Link>
                   </LineTooltip> 

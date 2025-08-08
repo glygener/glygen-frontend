@@ -3,27 +3,29 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import LineTooltip from "./tooltip/LineTooltip";
 import { Link } from "react-router-dom";
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import UserPermissionExternalLink from "./alert/UserPermissionExternalLink";
 
-const CollapsableExternalLinkText = (props) => {
-  const { routeLink, data, maxItems = 4, noLink = false} = props;
+const CollapsableInternalLinkText = (props) => {
+  const { routeLink, data, maxItems = 4, noLink = false, type} = props;
   const [open, setOpen] = useState(data.length <= maxItems);
   const displayedItems = open ? data : data.slice(0, maxItems);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [url, setUrl] = useState();
 
   return (
     <>
-          {openDialog && <UserPermissionExternalLink openDialog={openDialog} url={url} setOpenDialog={setOpenDialog} setUrl={setUrl}/>}
-
           {displayedItems && displayedItems.map((val, ind) => (
             <>
               <Col className="nowrap ps-0">
-                {noLink ? <span>{val.id}</span> : <LineTooltip text="View details">
-                  <Button className={"lnk-btn"} variant="link" onClick={() => { setOpenDialog(true); setUrl(val.url) } }>
-                    <>{val.id}{" "}<OpenInNewIcon/></>
-                  </Button>
+                {noLink ? <span>{type === "string" ? val.trim() : val.id}</span> : <LineTooltip text="View details">
+                  <Link to={routeLink + (type === "string" ? val.trim() : val.id)}>
+                    <span
+                      style={{
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {type === "string" ? val.trim() : val.id}
+                    </span>
+                  </Link>
                 </LineTooltip>}
               </Col>
             </>
@@ -45,4 +47,4 @@ const CollapsableExternalLinkText = (props) => {
     </>
   );
 };
-export default CollapsableExternalLinkText;
+export default CollapsableInternalLinkText;
