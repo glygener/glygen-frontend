@@ -25,6 +25,11 @@ import { Alert, AlertTitle } from "@mui/material";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import AccordionMUI from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DetailTooltips from "../data/json/biomarkerDetailTooltips.json";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -118,6 +123,76 @@ const getItemsCrossRef = data => {
   return itemscrossRef;
 };
 
+
+const getItemsCrossRefWithCategory = (data) => {
+  let itemscrossRefCategory = [];
+  //check data.
+  if (data.crossref) {
+    for (let crossrefitem of data.crossref) {
+      if (crossrefitem.categories === undefined) {
+        crossrefitem.categories = ["Other"];
+      }
+      if (crossrefitem.database === undefined) {
+        crossrefitem.database = "";
+      }
+      for (let category of crossrefitem.categories) {
+        let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
+        if (!categoryItem) {
+          categoryItem = {
+            category : category,
+            database : []
+          }
+          itemscrossRefCategory.push(categoryItem);
+        }
+        let databaseItem = categoryItem.database.filter(item => item.database === crossrefitem.database)[0];
+        if (!databaseItem) {
+          databaseItem = {
+            database: crossrefitem.database,
+            links: [
+              {
+                url: crossrefitem.url,
+                id: crossrefitem.id,
+              },
+            ]
+          }
+          categoryItem.database.push(databaseItem);
+        } else {
+          databaseItem.links.push({
+            url: crossrefitem.url,
+            id: crossrefitem.id,
+          });
+        }
+      }
+    }
+
+    for (let crossrefitem of itemscrossRefCategory) {
+      crossrefitem.database.sort(function (a, b) {
+          if (a.database.toLowerCase() > b.database.toLowerCase()) {
+            return 1;
+          }
+          if (b.database.toLowerCase() > a.database.toLowerCase()) {
+            return -1;
+          }
+          return 0;
+        });
+    }
+    
+    itemscrossRefCategory.sort(function (a, b) {
+      if (a.category === "Other") return 1;
+      if (b.category === "Other") return -1;
+      if (a.category.toLowerCase() > b.category.toLowerCase()) {
+        return 1;
+      }
+      if (b.category.toLowerCase() > a.category.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  return itemscrossRefCategory;
+};
+
 const BiomarkerDetail = (props) => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -145,6 +220,15 @@ const BiomarkerDetail = (props) => {
   const [sideBarData, setSidebarData] = useState(items);
   const [conditionData, setConditionData] = useState([]);
   const [exposureAgentData, setExposureAgentData] = useState([]);
+  const [showCategories, setShowCategories] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useReducer(
+    (state, newState) => ({
+      ...state, 
+      ...newState,
+    }),{
+      catInd: [0]
+    }
+  );
 
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -163,6 +247,19 @@ const BiomarkerDetail = (props) => {
       };
     });
   };
+
+  function handleCategories(event, expanded, catInd) {
+    let catArr = expandedCategories;
+    if (expanded) {
+      catArr.catInd.push(catInd);
+    } else {
+      const ind = catArr.catInd.indexOf(catInd);
+      if (ind > -1) {
+        catArr.catInd.splice(ind, 1);
+      }
+    }
+    setExpandedCategories(catArr)
+  }
 
   useEffect(() => {
     setNonExistent(null);
@@ -187,7 +284,7 @@ const BiomarkerDetail = (props) => {
         setComponents(data.biomarker_component);
         setBiomarkerId(data.biomarker_id);
         setBiomarkerCanonicalId(data.biomarker_canonical_id);
-        setItemsCrossRef(data.crossref);
+        setItemsCrossRef(getItemsCrossRefWithCategory(data));
 
 
         let glyComp = [];
@@ -1226,8 +1323,8 @@ const BiomarkerDetail = (props) => {
                 </Card>
               </Accordion>
 
-               {/* Cross References */}
-               <Accordion
+              {/* Cross References */}
+              <Accordion
                 id="Cross-References"
                 defaultActiveKey="0"
                 className="panel-width"
@@ -1248,6 +1345,16 @@ const BiomarkerDetail = (props) => {
                       {stringConstants.sidebar.cross_ref.displayname}
                     </h4>
                     <div className="float-end">
+                      <Button
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                        type="button"
+                        className="gg-btn-blue"
+                        onClick={() => {setShowCategories(!showCategories); setExpandedCategories({catInd:[]})}}
+                      >
+                        {showCategories ? "Hide All" : "Show All"}
+                      </Button>
                       <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
@@ -1255,16 +1362,34 @@ const BiomarkerDetail = (props) => {
                     <Card.Body>
                       {itemsCrossRef && itemsCrossRef.length ? (
                         <div>
-                          <ul className="list-style-none">
-                            {itemsCrossRef.map((crossRef, index) => (
-                              <li key={`${crossRef.database}-${index}`}>
-                                {crossRef.database && crossRef.links && <CollapsableReference
-                                  database={crossRef.database}
-                                  links={crossRef.links}
-                                />}
-                              </li>
-                            ))}
-                          </ul>
+                          {itemsCrossRef.map((dbItem, catInd) => (
+                            <AccordionMUI disableGutters={true} 
+                              key={catInd}
+                              expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
+                              onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
+                            >
+                              <AccordionSummary
+                                style={{backgroundColor: "#f5f8fa", height: "50px"}}
+                                expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                              >
+                                <Typography className="gg-blue-color">{dbItem.category}</Typography>
+                              </AccordionSummary>
+                              <AccordionDetails style={{paddingBottom: "0px"}}>
+                                <ul className="list-style-none">
+                                  {dbItem.database.map((crossRef, dbInd) => (
+                                    <li key={dbInd}>
+                                      <CollapsableReference
+                                        database={crossRef.database}
+                                        links={crossRef.links}
+                                      />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionDetails>
+                            </AccordionMUI>
+                          ))}
                         </div>
                       ) : (
                         <p>{dataStatus}</p>
