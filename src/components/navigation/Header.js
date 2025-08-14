@@ -152,6 +152,7 @@ export default function Header(props) {
                 className={
                   location.pathname.includes(routeConstants.glycanSearch) ||
                   location.pathname.includes(routeConstants.proteinSearch) ||
+                  location.pathname.includes(routeConstants.diseaseSearch) ||
                   location.pathname.includes(routeConstants.biomarkerSearch) ||
                   location.pathname.includes(routeConstants.siteSearch) ||
                   location.pathname.includes(routeConstants.superSearch) ||

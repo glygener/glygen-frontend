@@ -18,6 +18,7 @@ import proteinImg from "../images/home/glycoprotein-img.svg";
 import biomarkerImg from "../images/home/biomarker-img.svg";
 import siteSearchImg from "../images/home/protein-img.svg";
 import glycanImg from "../images/home/glycan-img.svg";
+import diseaseImg from "../images/home/disease-img.svg";
 import quickSearchImg from "../images/home/quick-search-img.svg";
 import superSearchImg from "../images/home/super-search-img.svg";
 import compositionSearchImg from "../images/home/composition-img.svg";
@@ -69,6 +70,13 @@ const featuredCards = [
     image: proteinImg,
     imageText: "Protein Search",
     to: routeConstants.proteinSearch,
+  },
+    {
+    title: "Disease Search",
+    description: "Search for diseases based on their IDs, name, and association with glycans, proteins and biomarkers.",
+    image: diseaseImg,
+    imageText: "Disease Search",
+    to: routeConstants.diseaseSearch,
   },
   {
     title: "GlyGen Isoform Mapper",

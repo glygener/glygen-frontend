@@ -126,16 +126,6 @@ const DiseaseDetail = (props) => {
       };
     });
   };
-
-   const [showCategories, setShowCategories] = useState(false);
-   const [expandedCategories, setExpandedCategories] = useReducer(
-      (state, newState) => ({
-        ...state, 
-        ...newState,
-      }),{
-        catInd: [0]
-      }
-    );
   
       const onSelect = (event) => {
 		setMetadata(event.node.data);
@@ -197,6 +187,7 @@ const DiseaseDetail = (props) => {
               name: response.label,
               label: response.label + " (" + response.id + ")",
 							url: routeConstants.diseaseDetail + response.id,
+              link_status: response.link_status,
 							children: null,
 							style: { "padding": ".005rem !important", "paddingLeft": "1.05rem !important" }
 						};
@@ -218,6 +209,7 @@ const DiseaseDetail = (props) => {
             name: data.recommended_name.name,
             label: data.recommended_name.name + " (" + data.disease_id + ")",
             url: routeConstants.diseaseDetail + data.disease_id,
+            link_status: data.link_status,
             children: [],
             style: { "padding": ".005rem !important", "paddingLeft": "1.05rem !important" }
           };
@@ -339,11 +331,11 @@ const DiseaseDetail = (props) => {
           response.data.error_list[0].error_code &&
           response.data.error_list[0].error_code === "non-existent-record"
         ) {
-          setNonExistent({
-            error_code: response.data.error_list[0].error_code,
-          });
+          setNonExistent(
+            response.data
+          );
         } else {
-          let message = "biomarker api call";
+          let message = "disease api call";
           axiosError(response, id, message, setPageLoading, setAlertDialogInput);
           setDataStatus("No data available.");
         }
@@ -385,8 +377,10 @@ const getItemsCrossRef = data => {
 const nodeTemplate = (node, options) => {
   let label = <>{node.name}</>;
   let link = undefined;
-  if (node.url) {
+  if (node.url && node.link_status) {
       link = <Link to={node.url} className="text-700 hover:text-primary">{node.key}</Link>;
+  } else {
+      link = <span>{node.key}</span>;
   }
 
   return <span className={options.className}>{label} {" "} ({link})</span>;
@@ -680,11 +674,44 @@ const nodeTemplate = (node, options) => {
       return (
         <Container className="tab-content-border2">
           <Alert className="erroralert" severity="error">
-            <>
-              <AlertTitle>
-                The Disease ID: <b>{id} </b> does not exist in GlyGen
-              </AlertTitle>
-            </>
+            {nonExistent.recommended_id_list || nonExistent.unlinked_id_in ? (
+              <>
+
+                {nonExistent.unlinked_id_in && <div>{<AlertTitle> The disease ID: {id} is a valid ID in GlyGen but does not have any associated data. The associated IDs are listed below,</AlertTitle>}</div>}
+                {nonExistent.unlinked_id_in && <ul>
+                  <span>
+                    {nonExistent.unlinked_id_in.map((repID) =>
+                      <li>
+                        {" "}{"Go to Disease ID: "}
+                        <Link to={`${routeConstants.diseaseDetail}${repID}`}>
+                          {repID}
+                        </Link>
+                      </li>
+                    )}
+                  </span>
+                </ul>}
+
+                {nonExistent.recommended_id_list && <div>{<AlertTitle> The disease ID: {id} is a synonym of below recommended IDs in GlyGen. The recommended IDs are listed below,</AlertTitle>}</div>}
+                {nonExistent.recommended_id_list && <ul>
+                  <span>
+                    {nonExistent.recommended_id_list.map((repID) =>
+                      <li>
+                        {" "}{"Go to Disease ID: "}
+                        <Link to={`${routeConstants.diseaseDetail}${repID}`}>
+                          {repID}
+                        </Link>
+                      </li>
+                    )}
+                  </span>
+                </ul>}
+              </>
+              ) : (
+              <>
+                <AlertTitle>
+                  The Disease ID: <b>{id} </b> does not exist in GlyGen
+                </AlertTitle>
+              </>
+            )}
           </Alert>
         </Container>
       );
@@ -1197,16 +1224,6 @@ const nodeTemplate = (node, options) => {
                       {stringConstants.sidebar.cross_ref.displayname}
                     </h4>
                     <div className="float-end">
-                      <Button
-                          style={{
-                            marginLeft: "10px",
-                          }}
-                          type="button"
-                          className="gg-btn-blue"
-                          onClick={() => {setShowCategories(!showCategories); setExpandedCategories({catInd:[]})}}
-                        >
-                          {showCategories ? "Hide All" : "Show All"}
-                      </Button>
                       <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
