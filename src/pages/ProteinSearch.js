@@ -731,6 +731,7 @@ const ProteinSearch = props => {
             message
           ).finally(() => {
             setPageLoading(false);
+            console.log("Protein Search: "+Date.now());
             navigate(
               routeConstants.proteinList + response.data["list_id"]
             );

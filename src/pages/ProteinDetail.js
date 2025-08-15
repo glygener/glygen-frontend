@@ -947,6 +947,7 @@ const ProteinDetail = (props) => {
           document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
         }
       }, 1000);
+      console.log("Protein Detail: "+Date.now());
     });
 
     getProteinDetailData.catch(({ response }) => {

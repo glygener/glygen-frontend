@@ -2,12 +2,13 @@ import { getJson, postToAndGetBlob, glycanImageUrl, glycanSvgUrl, glycanJsonUrl,
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import Button from "react-bootstrap/Button";
 import routeConstants from "./json/routeConstants";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import HitScoreTooltip from "../components/tooltip/HitScoreTooltip";
 import stringConstants from "./json/stringConstants";
 import { logActivity } from "./logging";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Col } from "react-bootstrap";
 import CollapsibleText from "../components/CollapsibleText";
@@ -20,6 +21,21 @@ import { getGlycanImageUrl } from "../data/glycan";
 const proteinStrings = stringConstants.protein.common;
 const glycanStrings = stringConstants.glycan.common;
 const siteStrings = stringConstants.site.common;
+
+function LinkButton(props) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("Protein List Navigation: "+Date.now());
+    navigate(props.url);
+  };
+
+  return (
+    <Button className={"lnk-btn"} variant="link" onClick={handleClick}>
+     {props.id}
+    </Button>
+  );
+}
 
 export const getColumnList = (
   tableId
@@ -196,9 +212,10 @@ const columnDisplayTypes = {
     },
     formatter: (value, row) => (
       <LineTooltip text="View details">
-        <Link to={routeConstants.proteinDetail + value}>
+        {/* <Link to={routeConstants.proteinDetail + value}>
           {value}
-        </Link>
+        </Link> */}
+         <LinkButton url={routeConstants.proteinDetail + value} id={value}/>
       </LineTooltip>
     )
   },
