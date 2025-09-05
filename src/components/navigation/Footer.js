@@ -11,6 +11,7 @@ import "../../App.css";
 import routeConstants from "../../data/json/routeConstants.json";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import BlueSkyIcon from "../../images/icons/bluesky-icon.svg";
 import MSTDNIcon from "../../images/icons/mastodon-icon.svg";
 import PinterestIcon from "@mui/icons-material/Pinterest";
@@ -29,6 +30,7 @@ import {
   CCRC_UGA,
   SMHS_GWU,
   BLUESKY,
+  LINKEDIN,
   XUrl,
   MSTDN,
   YOUTUBE,
@@ -145,6 +147,9 @@ export default function Footer() {
               <div>
                 <Link to={routeConstants.idMapping}>GlyGen&nbsp;Mapper</Link>
               </div>
+              {/* <div>
+                <Link to={routeConstants.batchRetrieval}>GlyGen&nbsp;Batch&nbsp;Retrieval</Link>
+              </div> */}
               <div>
                 <Link to={routeConstants.isoformMapping}>GlyGen&nbsp;Isoform&nbsp;Mapper</Link>
               </div>
@@ -236,6 +241,9 @@ export default function Footer() {
                 </a>
                 <a href={MSTDN} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <Image src={MSTDNIcon} className="me-2" style={{height:"22px", width:"22px"}}/>
+                </a>
+                <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <LinkedInIcon className="me-2" />
                 </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="me-2" />

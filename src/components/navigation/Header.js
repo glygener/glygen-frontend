@@ -9,6 +9,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import BlueSkyIcon from "../../images/icons/bluesky-icon.svg";
 import MSTDNIcon from "../../images/icons/mastodon-icon.svg";
 import WorkIcon from '@mui/icons-material/Work';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Container from "@mui/material/Container";
@@ -32,6 +33,7 @@ import {
   GLYGEN_ENV,
   GLYCAN_SEQ_LOOKUP,
   BLUESKY,
+  LINKEDIN,
   XUrl,
   MSTDN,
   YOUTUBE,
@@ -117,6 +119,9 @@ export default function Header(props) {
                 </a>
                 <a href={MSTDN} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <Image src={MSTDNIcon} className="me-3" style={{height:"22px", width:"22px"}}/>
+                </a>
+                <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="gg-link">
+                  <LinkedInIcon src={LinkedInIcon} className="me-3"/>
                 </a>
                 <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="gg-link">
                   <YouTubeIcon className="me-3" />
@@ -239,6 +244,9 @@ export default function Header(props) {
                 <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
                   GlyGen Mapper
                 </NavDropdown.Item>
+                {/* <NavDropdown.Item as={NavLink} to={routeConstants.batchRetrieval}>
+                  GlyGen Batch Retrieval 
+                </NavDropdown.Item> */}
                 <NavDropdown.Item as={NavLink} to={routeConstants.isoformMapping}>
                   GlyGen Isoform Mapper
                 </NavDropdown.Item>

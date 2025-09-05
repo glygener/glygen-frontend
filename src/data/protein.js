@@ -1,6 +1,6 @@
 import { getJson, postToAndGetBlob, postFormDataTo1 } from "./api";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -12,6 +12,22 @@ import { logActivity } from "../data/logging";
 // import { positions } from "@material-ui/system";
 
 const proteinStrings = stringConstants.protein.common;
+
+function LinkButton(props) {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // Simulate a successful login
+    console.log(Date.now());
+    navigate(props.url);
+  };
+
+  return (
+    <button onClick={handleLogin}>
+     {/* {props.id} */}
+    </button>
+  );
+}
 
 export const getProteinList = (
   protienListId,
@@ -140,6 +156,8 @@ export const PROTEIN_COLUMNS = [
         <Link to={routeConstants.proteinDetail + row.uniprot_canonical_ac}>
           {row.uniprot_canonical_ac}
         </Link>
+
+        {/* <LinkButton url={routeConstants.proteinDetail + row.uniprot_canonical_ac} id={row.uniprot_canonical_ac} /> */}
       </LineTooltip>
     )
   },

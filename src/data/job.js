@@ -64,10 +64,12 @@ export const getJobDetails = (
 };
 
 export const getJobResultList = (
-  jobId,
+  jobId, page = undefined, sizePerPage = undefined
 ) => {
   const queryParams = {
     jobid: parseInt(jobId),
+    offset: page ? parseInt(page) : undefined,
+    limit: sizePerPage ? parseInt(sizePerPage) : undefined
   };
   const queryParamString = JSON.stringify(queryParams);
   const url = `/job/results/?query=${queryParamString}`;

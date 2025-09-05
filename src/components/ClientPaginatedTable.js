@@ -3,9 +3,16 @@ import React, { useState, useEffect } from "react";
 import PaginatedTable from "./PaginatedTable";
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
-  if (a[sortField] > b[sortField]) {
+  let sortFieldArr = sortField.split(".");
+  let val1 = a;
+  let val2 = b;
+  for (let i = 0; i < sortFieldArr.length; i++) {
+    val1 = val1[sortFieldArr[i]];
+    val2 = val2[sortFieldArr[i]];
+  }
+  if (val1 > val2) {
     return sortOrder === "asc" ? 1 : -1;
-  } else if (a[sortField] < b[sortField]) {
+  } else if (val1 < val2) {
     return sortOrder === "asc" ? -1 : 1;
   }
   return 0;

@@ -32,6 +32,7 @@ export const CCRC_UGA = process.env.REACT_APP_CCRC_UGA || "https://www.ccrc.uga.
 export const XUrl = process.env.REACT_APP_X || "https://x.com/gly_gen";
 export const BLUESKY = process.env.REACT_APP_BLUESKY || "https://bsky.app/profile/glygen.bsky.social";
 export const MSTDN = process.env.REACT_APP_MSTDN ||  "https://mstdn.science/@glygen";
+export const LINKEDIN = process.env.REACT_APP_LINKEDIN || "https://www.linkedin.com/company/glygen/"
 export const YOUTUBE =
   process.env.REACT_APP_YOUTUBE || "https://www.youtube.com/channel/UCqfvlu86I7n71iqCG5yx8bg/";
 export const GITHUB = process.env.REACT_APP_GITHUB || "https://github.com/glygener";

@@ -31,6 +31,7 @@ const BiomarkerList = props => {
   let { searchId } = useParams();
   let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState([]);
+  const [listCacheId, setListCacheId] = useState("");
   const [query, setQuery] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [timestamp, setTimeStamp] = useState();
@@ -72,6 +73,7 @@ const BiomarkerList = props => {
           setData(data.results);
           setQuery(data.cache_info.query);
           setTimeStamp(data.cache_info.ts);
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
           setAvailableFilters(data.filters.available);
           if (data.pagination) {
@@ -111,6 +113,7 @@ const BiomarkerList = props => {
       // place to change values before rendering
       setData(data.results);
       setTimeStamp(data.cache_info.ts);
+      setListCacheId(data.cache_info.listcache_id);
       setPagination(data.pagination);
       setAvailableFilters(data.filters.available);
       setTotalSize(data.pagination.total_length);
@@ -257,7 +260,7 @@ const BiomarkerList = props => {
                       data: "biomarker_list"
                     }
                   ]}
-                  dataId={id}
+                  dataId={listCacheId}
                   itemType="biomarker_list"
                   filters={appliedFilters}
                 />

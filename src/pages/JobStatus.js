@@ -229,6 +229,10 @@ const JobStatus = (props) => {
                 <Link to={routeConstants.isoformMappingResult + row.serverJobId}>
                   {"finished"}
                 </Link>}
+                {row.jobType === "BATCH_RETRIEVAL" && row.result_count > 0 && 
+                <Link to={routeConstants.batchRetrievalResult + row.serverJobId}>
+                  {"finished"}
+                </Link>}
             </LineTooltip>
             {row.result_count === 0 && 
               <div>
@@ -405,7 +409,7 @@ const JobStatus = (props) => {
    function restartJob(clientJobId) {
     let jobValue = getJobValue(clientJobId);
       try {
-        if (jobValue.jobTypeInternal === "ISOFORM_FILE" && typeof jobValue.userfile === 'string') {
+        if ((jobValue.jobTypeInternal === "ISOFORM_FILE" || jobValue.jobTypeInternal === "BATCH_RETRIEVAL") && typeof jobValue.userfile === 'string') {
           base64toBlob(jobValue.userfile).then((blob) => {
             jobSubmit(jobValue.job, jobValue.clientJobId, jobValue.name, jobValue.jobType, jobValue.jobTypeInternal, blob, jobValue.userfile);
           })

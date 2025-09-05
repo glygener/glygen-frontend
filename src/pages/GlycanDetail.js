@@ -1502,13 +1502,20 @@ const GlycanDetail = props => {
       },
     },
     {
-      dataField: "condition",
+      dataField: "condition.recommended_name.name",
       text: biomarkerStrings.condition.name,
-      sort: false,
+      sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
-      formatter: (value, row) => <CollapsableTextArray data={value.name_list ? value.name_list : []} lines={5} />,
+      formatter: (value, row) => (
+          <>
+          {value && <span>{value}
+          {" ("}<LineTooltip text="View disease details">
+            <Link to={routeConstants.diseaseDetail + row.condition.recommended_name.id}>{row.condition.recommended_name.id}</Link>
+          </LineTooltip>{")"}</span>}
+        </>
+      )
     }
   ];
 

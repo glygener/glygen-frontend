@@ -216,7 +216,7 @@ const ProteinList = props => {
           }
           setPageLoading(false);
         }
-          console.log("Protein List Load: "+Date.now());
+          // console.log("Protein List Load: "+Date.now());
       })
       .catch(function(error) {
         let message = "list api call";

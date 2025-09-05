@@ -624,6 +624,19 @@
       }
     ]
   },
+  "customColumnsData": {
+    "title": "Custom Columns Data | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": "Custom Columns Data"
+      }
+    ]
+  },
   "idCart": {
     "title": "ID Cart | glygen.org",
     "meta": [
@@ -678,6 +691,19 @@
   },
     "diseaseDetail": {
     "title": "Disease Detail | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  },
+  "batchRetrieval": {
+    "title": "Batch Retrieval | glygen.org",
     "meta": [
       {
         "name": "description",

@@ -432,6 +432,7 @@ const ProteinDetail = (props) => {
   )
   const [structure, setStructure] = useState("");
   const [structureUrl, setStructureUrl] = useState("");
+  const [structureExternalUrl, setStructureExternalUrl] = useState("");
   const [structureType, setStructureType] = useState("");
   const [structureMenu, setStructureMenu] = useState([]);
   const [structureMap, setStructureMap] = useState(new Map());
@@ -916,23 +917,25 @@ const ProteinDetail = (props) => {
 
           let structureMap = new Map();
           for (let i = 0; i < data.structures.length; i++) {
-            structureMap.set(data.structures[i].pdb_id, {type: data.structures[i].type, url: data.structures[i].url});
+            structureMap.set(data.structures[i].pdb_id, {type: data.structures[i].type, url: data.structures[i].url, url_external:  data.structures[i].url_external});
           }
-          structureMap.set("", {type: "", url: ""});
+          structureMap.set("", {type: "", url: "", url_external: ""});
           setStructureMap(structureMap);
 
           if (menu.length > 0) {
             setStructure(menu[0].id);
             setStructureType(structureMap.get(menu[0].id).type);
             setStructureUrl(structureMap.get(menu[0].id).url);
+            setStructureExternalUrl(structureMap.get(menu[0].id).url_external);
           }
         } else {
           let menu = []
           menu.push({id: "", name: "No structure available"});
           setStructureMenu(menu);
           setStructureUrl("");
+          setStructureExternalUrl("");
           setStructureType("");
-          structureMap.set("", {type: "", url: ""});
+          structureMap.set("", {type: "", url: "", url_external: ""});
           setStructureMap(structureMap);
         }
 
@@ -947,7 +950,7 @@ const ProteinDetail = (props) => {
           document.getElementById(anchorElement.substr(1)).scrollIntoView({ behavior: "auto" });
         }
       }, 1000);
-      console.log("Protein Detail: "+Date.now());
+      // console.log("Protein Detail: "+Date.now());
     });
 
     getProteinDetailData.catch(({ response }) => {
@@ -2030,13 +2033,20 @@ const ProteinDetail = (props) => {
       },
     },
     {
-      dataField: "condition",
+      dataField: "condition.recommended_name.name",
       text: biomarkerStrings.condition.name,
-      sort: false,
+      sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };
       },
-      formatter: (value, row) => <CollapsableTextArray data={value.name_list ? value.name_list : []} lines={5} />,
+      formatter: (value, row) => (
+          <>
+          {value && <span>{value}
+          {" ("}<LineTooltip text="View disease details">
+            <Link to={routeConstants.diseaseDetail + row.condition.recommended_name.id}>{row.condition.recommended_name.id}</Link>
+          </LineTooltip>{")"}</span>}
+        </>
+      )
     }
   ];
 
@@ -2629,6 +2639,7 @@ const ProteinDetail = (props) => {
                             setStructure(value);
                             setStructureType(structureMap.get(value).type);
                             setStructureUrl(structureMap.get(value).url);
+                            setStructureExternalUrl(structureMap.get(value).url_external);
                           }}
                         />
                       </span>
@@ -2654,7 +2665,7 @@ const ProteinDetail = (props) => {
                               {structureUrl && <ThreeDViewer url={structureUrl} />}
                             </div>
                             <div className="text-muted mt-2">
-                              <strong><sup>1</sup></strong><span> 3D structure provided by {structureType === "experimental" ? <a href={"https://www.rcsb.org/"} target="_blank" rel="noopener noreferrer">PDB</a>:<a href={"https://alphafold.ebi.ac.uk/"} target="_blank" rel="noopener noreferrer">AlphaFold</a> }</span>
+                              <strong><sup>1</sup></strong><span> 3D structure provided by {structureType === "experimental" ? "PDB (View on PDB: ":"AlphaFold (View on AlphaFold: "}<a href={structureExternalUrl} target="_blank" rel="noopener noreferrer">{structure}</a>)</span>
                             </div>
                             <div className="text-muted">
                               <strong><sup>2</sup></strong><span> Displayed using <a href={"https://molstar.org/viewer-docs/"} target="_blank" rel="noopener noreferrer">Mol*</a></span>
@@ -4430,7 +4441,7 @@ const ProteinDetail = (props) => {
                           dataId={id}
                           itemType="protein_section"
                           showBlueBackground={true}
-                          enable={biomarkers && biomarkers.length > 0}
+                          enable={diseaseData && diseaseData.length > 0}
                         />
                       </span>
                       <CardToggle cardid="disease" toggle={collapsed.disease} eventKey="0" toggleCollapse={toggleCollapse}/>

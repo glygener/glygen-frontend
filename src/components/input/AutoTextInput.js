@@ -57,6 +57,7 @@ export default function AutoTextInput(props) {
 				autoHighlight={true}
 				inputValue={props.inputValue}
 				onInputChange={handleChange}
+				disabled={props.disabled}
 				onBlur={props.onBlur}
 				onClose={(event, reason) => setOptions([])}
 				renderInput={(params) => (
