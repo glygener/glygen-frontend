@@ -903,11 +903,15 @@ const BiomarkerDetail = (props) => {
                           <>
                             <div>
                               <strong>{biomarkerStrings.biomarker_id.name}: </strong>{" "}
+                              <a href={"https://biomarkerkb.org/biomarker/" + biomarkerId} target="_blank" rel="noopener noreferrer">
                                 {biomarkerId}
+                              </a>
                             </div>
                             {biomarkerCanonicalId && <div>
                               <strong>{biomarkerStrings.biomarker_canonical_id.name}: </strong>{" "}
+                              <a href={"https://biomarkerkb.org/canonical/" + biomarkerCanonicalId} target="_blank" rel="noopener noreferrer">
                                 {biomarkerCanonicalId}
+                              </a>
                             </div>}
                           </>
                         ) : (
