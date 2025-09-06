@@ -48,6 +48,8 @@ import JobStatus from "./pages/JobStatus"
 import DiseaseSearch from "./pages/DiseaseSearch";
 import DiseaseList from "./pages/DiseaseList";
 import DiseaseDetail from "./pages/DiseaseDetail";
+import BatchRetrieval from "./pages/BatchRetrieval";
+import BatchRetrievalResult from "./pages/BatchRetrievalResult"
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -103,6 +105,9 @@ const Routes = (props) => (
     <Route path={routeConstants.quickSearch} element={<QuickSearch/>} />
     <Route path={`${routeConstants.idMapping}:id`} element={<IdMapping/>} />
     <Route path={routeConstants.idMapping} element={<IdMapping/>} />
+    <Route path={`${routeConstants.batchRetrieval}:id`} element={<BatchRetrieval/>} />
+    <Route path={`${routeConstants.batchRetrieval}`} element={<BatchRetrieval/>} />
+    <Route path={`${routeConstants.batchRetrievalResult}:jobId`} element={<BatchRetrievalResult/>} />
     <Route path={`${routeConstants.idMappingResult}:id`} element={<IdMappingResult/>} />
     <Route path={`${routeConstants.isoformMapping}:id`} element={<IsoformMapping/>} />
     <Route path={routeConstants.isoformMapping} element={<IsoformMapping/>} />

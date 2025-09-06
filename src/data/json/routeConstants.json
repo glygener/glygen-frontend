@@ -50,6 +50,8 @@
   "diseaseSearch": "/disease-search/",
   "diseaseList": "/disease-list/",
   "diseaseDetail": "/disease/",
+  "batchRetrieval": "/batch-retrieval/",
+  "batchRetrievalResult": "/batch-retrieval-result/",
   "home": "/home/",
   "default": "/"
 }

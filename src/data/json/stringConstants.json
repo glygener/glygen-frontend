@@ -2498,6 +2498,11 @@
       "title": "Isoform Mapper Search Error - No Results Found",
       "message": "Sorry, we couldn't process isoform mapper search request. Please enter valid input."
     },
+    "batchRetrievalError": {
+      "id": "batchRetrievalError",
+      "title": "Batch Retrieval Error - No Results Found",
+      "message": "Sorry, we couldn't process batch retrieval request. Please enter valid input."
+    },
     "no-isoform-accessions-found": {
       "id": "no-isoform-accessions-found",
       "title": "Isoform Mapper Search Error - Enter Valid Sequence",
@@ -2982,6 +2987,11 @@
       "displayname": "Disease data (*.json)",
       "tooltip": " Disease jsondata Information"
     },
+    "batch_retrieval_csvdata": {
+      "id": "batch_retrieval_csvdata",
+      "displayname": "Batch Retrieval data (*.csv)",
+      "tooltip": " Batch Retrieval csvdata Information"
+    },
     "biomarker_csvdata": {
       "id": "biomarker_csvdata",
       "displayname": "Biomarker data (*.csv)",
@@ -3058,6 +3068,48 @@
           "shortName": "reason",
           "name": "Reason Not Mapped"
         }
+      }
+    }
+  },
+  "batch_retrieval": {
+    "common": {
+      "jobtype":{
+        "id": "jobtype"
+      },
+      "columns_result_table": {
+        "name": "Add Columns To Result Table",
+        "tooltip": {
+          "title": "Add Columns To Result Table",
+          "text": ""
+        },
+        "id": "columns_result_table"
+      },
+      "input_namespace": {
+        "name": "Input Namespace",
+        "tooltip": {
+          "title": "Input Namespace",
+          "text": ""
+        },
+        "id": "input_namespace"
+      },
+      "filters_selected_columns": {
+        "name": "Add Filters To Selected Columns",
+        "tooltip": {
+          "title": "Add Filters To Selected Columns",
+          "text": ""
+        },
+        "id": "filters_selected_columns"
+      },
+      "input_idlist": {
+        "name": "Enter IDs",
+        "tooltip": {
+          "title": "Enter IDs",
+          "text": "Takes the input or text file (csv, txt, etc.) and the dropdowns information and performs the mapping."
+        },
+        "id": "input_idlist"
+      },
+      "userfile": {
+        "id": "userfile"
       }
     }
   }
