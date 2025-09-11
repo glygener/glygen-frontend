@@ -349,6 +349,7 @@ const Siteview = props => {
         response.data.error_list[0].error_code &&
         response.data.error_list[0].error_code === "non-existent-record"
       ) {
+        setPageLoading(false);
         setNonExistent({
           error_code: response.data.error_list[0].error_code,
           history: response.data.history

@@ -658,7 +658,7 @@ const BatchRetrieval = (props) => {
         "id": obj.id,
         "label": obj.label,
         "filter_type": obj.operationEnumValue,
-        "filter": obj.value,
+        "filter": obj.value !== undefined && obj.value !== "" ? obj.value : undefined,
         "output_type": obj.outputTypeValue,
         "order": obj.order
       }

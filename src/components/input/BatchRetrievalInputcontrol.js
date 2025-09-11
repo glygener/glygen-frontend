@@ -95,6 +95,7 @@ const BatchRetrievalInputcontrol = (props) => {
 								menu={props.query.operationEnum ? props.query.operationEnum.map((value)=> { return {id:value, name:value}}) :[]}
 								setInputValue={(input)=>{
 									props.query.error && input === "none" && props.batchRetrievalUpdateQuery(props.query.order, "error", false);
+									input === "none" && props.batchRetrievalUpdateQuery(props.query.order, "value", "");
 									props.batchRetrievalUpdateQuery(props.query.order, "operationEnumValue", input)}}
 							/>
 						</FormControl>

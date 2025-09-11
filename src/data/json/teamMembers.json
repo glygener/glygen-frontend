@@ -38,25 +38,24 @@
 				"url": "https://www.medschool.umaryland.edu/profiles/Schriml-Lynn/"
 			},
 			{
-				"name": "Michael Cherry",
-				"position": "",
-				"department": "Cherry Lab",
-				"institution": "The Stanford University",
-				"location": "Palo Alto, CA",
-				"image": "/team/Michael-Cherry.jpg",
-				"imageText": "Michael-Cherry image",
-				"url": "https://cherrylab.stanford.edu/"
-			},
-			{
 				"name": "Rebekah Gundry",
 				"position": "",
 				"department": "Gundry Lab",
 				"institution": "University of Nebraska Medical Center",
 				"location": "Omaha, NE",
 				"image": "/team/Rebekah-Gundry.jpeg",
-				"image1": "/team/Michael-Cherry.jpg",
 				"imageText": "Rebekah-Gundry image",
 				"url": "https://www.gundrylab.com/"
+			},
+			{
+				"name": "Paul D. Thomas",
+				"position": "",
+				"department": "Gene Ontology Consortium",
+				"institution": "University of Southern California",
+				"location": "Los Angeles, California",
+				"image": "/team/Paul-Thomas.jpg",
+				"imageText": "Paul-Thomas image",
+				"url": "https://sites.google.com/usc.edu/thomaslab/dr-thomas"
 			}
 		]
 	},
@@ -256,6 +255,18 @@
 	"formerMembers": {
 		"heading": "Former Members",
 		"people": [
+			{
+				"name": "Michael Cherry",
+				"position": "",
+				"department": "Cherry Lab",
+				"institution": "The Stanford University",
+				"location": "Palo Alto, CA",
+				"image": "/team/Michael-Cherry.jpg",
+				"imageText": "Michael-Cherry image",
+				"url": "https://cherrylab.stanford.edu/",
+				"dateLeft": "Left project Mar 2025",
+				"orderID": 202409
+			},
 			{
 				"name": "Luke Johnson",
 				"department": "",
