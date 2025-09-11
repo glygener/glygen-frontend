@@ -144,7 +144,7 @@ const BatchRetrieval = (props) => {
   }
 
   const fileOnChangeHandler = () => {
-    const typesFileUpload = ["text/plain"];
+    const typesFileUpload = ["text/csv"];
     const fileElem = fileInputRef.current;
 
     if (fileElem.files.length > 0) {
@@ -225,6 +225,7 @@ const BatchRetrieval = (props) => {
       operationEnum: curfield.operationEnum,
       categories: curfield.categories,
       typeaheadID: curfield.typeaheadID,
+      fieldList: curfield.fieldList,
       outputType: curfield.outputType,
       fieldType: "string",
       outputTypeValue: "id",
@@ -351,6 +352,7 @@ const BatchRetrieval = (props) => {
           operationEnum: columnList[i].oplist,
           categories: columnList[i].categories,
           typeaheadID: columnList[i].typeaheadID,
+          fieldList: columnList[i].fieldList,
           outputType: columnList[i].outputType,
           fieldType: "string",
           outputTypeValue: "id",
@@ -419,6 +421,7 @@ const BatchRetrieval = (props) => {
               oplist: data[cols[i]].oplist ? [...data[cols[i]].oplist] : [],
               categories: data[cols[i]].categories ? [...data[cols[i]].categories] : [],
               typeaheadID: data[cols[i]].typeahead,
+              fieldList: data[cols[i]].field_list,
               outputType: data[cols[i]].output_type ? [...data[cols[i]].output_type] : [],
               order: i + 1,
               tooltip: "",
@@ -465,7 +468,8 @@ const BatchRetrieval = (props) => {
                 colummsTemp[i].operationEnum = columnsJSON[colummsTemp[i].id].oplist;
                 colummsTemp[i].outputType = columnsJSON[colummsTemp[i].id].output_type;
                 colummsTemp[i].value = colummsTemp[i].filter ? colummsTemp[i].filter : "";
-                colummsTemp[i].typeaheadID = columnsJSON[colummsTemp[i].id].typeaheadID;
+                colummsTemp[i].typeaheadID = columnsJSON[colummsTemp[i].id].typeahead;
+                colummsTemp[i].fieldList = columnsJSON[colummsTemp[i].id].field_list;
                 colummsTemp[i].tooltip = "";
                 colummsTemp[i].maxlength = 100;
                 colummsTemp[i].error = false;
@@ -499,18 +503,31 @@ const BatchRetrieval = (props) => {
    * @param {string} input_proSequence - protein sequence.
    * @param {string} input_data - input data.
    * @param {string} columns - input data.
-   * @param {string} userfile - input data.
    **/
   function searchJson(
     input_inputnamespace,
     input_data,
-    columns,
+    columns
   ) {
+
+    var acclist = input_data;
+    if (acclist) {
+      acclist = acclist.replace(/\s+/g, ",");
+      acclist = acclist.replace(/\\n+/g, ",");
+      acclist = acclist.replace(/,+/g, ",");
+      var index = acclist.lastIndexOf(",");
+      if (index > -1 && index + 1 === acclist.length) {
+        acclist = acclist.substr(0, index);
+      }
+      
+      acclist = acclist.split(",");
+    }
+
     var formJson = {
       [commonBatchRetrievalData.jobtype.id]: "batch_retrieval",
       "parameters": {
         "inputnamespace": input_inputnamespace,
-        "acclist": input_data === undefined || input_data.length === 0 ? undefined : input_data,
+        "acclist": acclist === undefined || acclist.length === 0 ? undefined : acclist,
         "columns": columns
       }
     };
@@ -521,16 +538,15 @@ const BatchRetrieval = (props) => {
   /**
    * Function to handle blast search submit.
    **/
-  const blastRetrievalSubmit = (type, inputnamespace, columns, data, userfile, userfileb64) => {
+  const blastRetrievalSubmit = (type, inputnamespace, data, columns, userfile, userfileb64) => {
 
     let formObject = searchJson(
       inputnamespace,
-      columns,
       data,
+      columns
     );
     let message = "Batch Retrieval query";
     logActivity("user", id, "Performing " + message);
-
     postNewJob(formObject, userfile)
       .then((response) => {
         if (response.data["status"] && response.data["status"] !== {}) {
@@ -642,16 +658,14 @@ const BatchRetrieval = (props) => {
         "id": obj.id,
         "label": obj.label,
         "filter_type": obj.operationEnumValue,
-        "filter": obj.filter,
+        "filter": obj.value,
         "output_type": obj.outputTypeValue,
         "order": obj.order
       }
     });
-
-    let acclist = batchRetrievalData.inputIdlist.replace(/,$/, '').split(",");
     
-    if (acclist && acclist.length > 0) {
-      blastRetrievalSubmit("acclist", batchRetrievalData.inputNamespace, acclist, columns, undefined, undefined);
+    if (batchRetrievalData.inputIdlist) {
+      blastRetrievalSubmit("acclist", batchRetrievalData.inputNamespace, batchRetrievalData.inputIdlist, columns, undefined, undefined);
     } else {
       convertFileToBase64(fileInputRef.current.files[0])
         .then(base64Str => {

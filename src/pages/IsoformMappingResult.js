@@ -278,7 +278,7 @@ const IsoformMappingResult = (props) => {
                     data: "isoform_mapper_list",
                   },
                 ]}
-                dataId={listId}
+                dataId={jobId}
                 itemType="isoform_mapping_list"
                 filters={[]}
               />

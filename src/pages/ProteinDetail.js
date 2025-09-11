@@ -1503,25 +1503,25 @@ const ProteinDetail = (props) => {
         }
         return a - b; // desc
       },
-      // formatter: (value, row) => (
-      //   <LineTooltip text="View siteview details">
-      //     <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
-      //       {row.start_pos}
-      //     </Link>
-      //   </LineTooltip>
-      // )
+      formatter: (value, row) => (
+        <>{row.start_pos === row.end_pos ? <LineTooltip text="View siteview details">
+          <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
+            {row.start_pos}
+          </Link>
+        </LineTooltip> : <span>{row.start_pos}</span>}</>
+      )
     },
     {
       dataField: "end_pos",
       text: proteinStrings.endpos.name,
       sort: true,
-      // formatter: (value, row) => (
-      //   <LineTooltip text="View siteview details">
-      //     <Link to={`${routeConstants.siteview}${id}/${row.end_pos}`}>
-      //       {row.end_pos}
-      //     </Link>
-      //   </LineTooltip>
-      // )
+      formatter: (value, row) => (
+        <>{row.start_pos === row.end_pos ? <LineTooltip text="View siteview details">
+          <Link to={`${routeConstants.siteview}${id}/${row.end_pos}`}>
+            {row.end_pos}
+          </Link>
+        </LineTooltip> : <span>{row.end_pos}</span>}</>
+      )
     },
     {
       dataField: "sequence",

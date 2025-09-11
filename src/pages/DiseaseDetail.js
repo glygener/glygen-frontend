@@ -691,7 +691,7 @@ const nodeTemplate = (node, options) => {
                   </span>
                 </ul>}
 
-                {nonExistent.recommended_id_list && <div>{<AlertTitle> The disease ID: {id} is a synonym of below recommended IDs in GlyGen. The recommended IDs are listed below,</AlertTitle>}</div>}
+                {nonExistent.recommended_id_list && <div>{<AlertTitle> The disease ID: {id} is a synonym of IDs in GlyGen. The recommended IDs are listed below,</AlertTitle>}</div>}
                 {nonExistent.recommended_id_list && <ul>
                   <span>
                     {nonExistent.recommended_id_list.map((repID) =>

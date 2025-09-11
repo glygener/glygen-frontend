@@ -36,11 +36,11 @@ export default function AutoTextInput(props) {
 		}
 
 		if (props.inputValue) {
-			getTypeahed(props.typeahedID, props.inputValue).then((response) => inputValueRef.current.trim() !== '' ? setOptions(response.data) : setOptions([]));
+			getTypeahed(props.typeahedID, props.fieldList, props.inputValue).then((response) => inputValueRef.current.trim() !== '' ? setOptions(response.data) : setOptions([]));
 		}
 
 		return;
-	}, [props.inputValue, props.typeahedID]);
+	}, [props.inputValue, props.typeahedID, props.fieldList]);
 
 	return (
 		<>
@@ -83,6 +83,7 @@ AutoTextInput.propTypes = {
 	inputValue: PropTypes.string,
 	placeholder: PropTypes.string,
 	typeahedID: PropTypes.string,
+	fieldList: PropTypes.array,
 	errorText: PropTypes.string,
 	length: PropTypes.number,
 	required: PropTypes.bool,

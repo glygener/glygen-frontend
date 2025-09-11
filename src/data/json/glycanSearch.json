@@ -14,7 +14,7 @@
       "glycan": {
         "examples": [
           "G17689DH",
-          "Hex(5)HexNAc(4)dHex(1)"
+          "HexNAc(4)Hex(5)dHex(1)NeuAc(2)"
         ],
         "placeholder": "Enter the GlyTouCan Accession"
       },
@@ -33,7 +33,7 @@
       "any": {
         "examples": [
           "G17689DH",
-          "Hex(5)HexNAc(4)dHex(1)",
+          "HexNAc(4)Hex(5)dHex(1)NeuAc(2)",
           "P14210",
           "B4GALT1",
           "Human"

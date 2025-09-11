@@ -37,7 +37,11 @@ export const postFormDataTo = (url, formData = {}, headers = {}, userfile) => {
   const formDataElement = new FormData();
 
   Object.keys(formData).forEach(key => {
-    formDataElement.append(key, formData[key]);
+    if (key === "parameters") {
+      formDataElement.append(key, JSON.stringify(formData[key]));
+    } else {
+      formDataElement.append(key, formData[key]);
+    }
   });
 
   if (userfile) {

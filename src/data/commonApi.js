@@ -8,8 +8,13 @@ import { replaceSpecialCharacters } from "../utils/common";
  * @param {string} inputValue - user input.
  * @param {string} limit - total array size.
  */
-export const getTypeahed = (typeahedID, inputValue, limit=100) => {
-    const url = `/typeahead/typeahead?query={"field":"${typeahedID}","value":"${inputValue}","limit":${limit}}`;
+export const getTypeahed = (typeahedID, fieldList, inputValue, limit=100) => {
+    let url = "";
+    if (fieldList && fieldList.length > 0) {
+        url = `/typeahead/typeahead?query={"field_list":${JSON.stringify(fieldList)},"value":"${inputValue}","limit":${limit}}`;
+    } else {
+        url = `/typeahead/typeahead?query={"field":"${typeahedID}","value":"${inputValue}","limit":${limit}}`;
+    }
     return getJson(url);
 }
 

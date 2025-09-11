@@ -442,7 +442,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Glycan Name */}
-				<Grid item xs={12} sm={10}>
+				{/* <Grid item xs={12} sm={10}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -467,7 +467,7 @@ const DiseaseAdvancedSearch = (props) => {
 								inputValue={advancedSearch.glycan_name.examples}
 							/>
 					</FormControl>
-				</Grid>								
+				</Grid>	*/}
 				{/* Buttons Buttom */}
 				<Grid item xs={12} sm={10}>
 					<div className='gg-align-right pt-3 mb-2 me-1'>

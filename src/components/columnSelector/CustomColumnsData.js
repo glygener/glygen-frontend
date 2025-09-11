@@ -78,6 +78,7 @@ const CustomColumnsData = props => {
       "order": order,
       "oplist": col.oplist,
       "categories": col.categories,
+      "fieldList": col.fieldList,
       "typeaheadID": col.typeaheadID,
       "outputType": col.outputType
     });
@@ -206,6 +207,7 @@ const CustomColumnsData = props => {
           "oplist": col.oplist,
           "categories": col.categories,
           "typeaheadID": col.typeaheadID,
+          "fieldList": col.fieldList,
           "outputType": col.outputType
         })
       }
@@ -220,6 +222,7 @@ const CustomColumnsData = props => {
           "oplist": col.oplist,
           "categories": col.categories,
           "typeaheadID": col.typeaheadID,
+          "fieldList": col.fieldList,
           "outputType": col.outputType
         })
       }

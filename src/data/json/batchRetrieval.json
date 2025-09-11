@@ -28,7 +28,7 @@
     },
     "file_upload": {
       "required": "This field is required.",
-      "upload_text": "Upload your own csv file with first line as header (one comma separated UniProtKB Accession *, Amino Acid Position * and Amino Acid per line)",
+      "upload_text": "Upload your own csv file with one ID per line",
       "errorFileUpload": "Please select accepted file type (.csv)",
       "acceptedFileTypeText": "Accepted File Type: .csv"
     }

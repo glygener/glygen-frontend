@@ -135,7 +135,7 @@ const BatchRetrievalInputcontrol = (props) => {
 									</FormHelperText>
 								)}								
 							</>}
-							{(!props.query.typeaheadID || props.query.typeaheadID === "") && props.query.fieldType === "string" && <>
+							{((!props.query.typeaheadID || props.query.typeaheadID === "") && (!props.query.fieldList || props.query.fieldList.length === 0)) && props.query.fieldType === "string" && <>
 								<OutlinedInput
 									className={'svg-input'}
 									classes={{
@@ -165,7 +165,7 @@ const BatchRetrievalInputcontrol = (props) => {
 										</FormHelperText>
 									)}								
 							</>}
-							{props.query.typeaheadID && props.query.typeaheadID !== "" && props.query.fieldType === "string" && <>
+							{((props.query.typeaheadID && props.query.typeaheadID !== "") || (props.query.fieldList && props.query.fieldList.length > 0)) && props.query.fieldType === "string" && <>
 								<AutoTextInput
 									inputValue={props.query.value}
 									setInputValue={(value)=>{
@@ -177,6 +177,7 @@ const BatchRetrievalInputcontrol = (props) => {
 									error={props.query.error}
 									placeholder={superSearchTextData.placeholder}
 									typeahedID={props.query.typeaheadID}
+									fieldList={props.query.fieldList}
 									length={props.query.maxlength}
 									errorText={superSearchTextData.errorText1 + props.query.maxlength + "."}
 								/>
