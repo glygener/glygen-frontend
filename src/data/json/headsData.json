@@ -714,5 +714,18 @@
         "content": ""
       }
     ]
+  },
+  "batchRetrievalResult": {
+    "title": "Batch Retrieval Result | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": ""
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
   }
 }

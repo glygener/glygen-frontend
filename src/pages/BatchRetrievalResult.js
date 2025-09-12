@@ -154,8 +154,8 @@ const BatchRetrievalResult = (props) => {
   return (
     <>
       <Helmet>
-        {getTitle("blastResult")}
-        {getMeta("blastResult")}
+        {getTitle("batchRetrievalResult")}
+        {getMeta("batchRetrievalResult")}
       </Helmet>
 
       <FeedbackWidget />
