@@ -84,7 +84,7 @@ const featuredCards = [
     description:
       "Enrich tables of proteins/genes with additional information from GlyGen and annotate them.",
     image: batchRetrievalImg,
-    imageText: "GlyGen  Batch Retrieval",
+    imageText: "GlyGen Batch Retrieval",
     to: routeConstants.batchRetrieval,
   },
   {
