@@ -3104,7 +3104,7 @@
         "name": "Enter IDs",
         "tooltip": {
           "title": "Enter IDs",
-          "text": "Takes the input or text file (csv, txt, etc.) and the dropdowns information and performs the mapping."
+          "text": "Takes the input or text file (csv, txt, etc.)."
         },
         "id": "input_idlist"
       },
