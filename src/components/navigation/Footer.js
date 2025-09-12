@@ -147,9 +147,9 @@ export default function Footer() {
               <div>
                 <Link to={routeConstants.idMapping}>GlyGen&nbsp;Mapper</Link>
               </div>
-              {/* <div>
+              <div>
                 <Link to={routeConstants.batchRetrieval}>GlyGen&nbsp;Batch&nbsp;Retrieval</Link>
-              </div> */}
+              </div>
               <div>
                 <Link to={routeConstants.isoformMapping}>GlyGen&nbsp;Isoform&nbsp;Mapper</Link>
               </div>

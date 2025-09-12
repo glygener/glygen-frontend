@@ -104,11 +104,11 @@ const BatchRetrievalResult = (props) => {
               text: "UniProtKB",
               headerStyle: HeaderwithsameStyle,
               formatter: (value, row) => (
-                <LineTooltip text="View details">
-                  <Link to={routeConstants.proteinDetail + row.record_id}>
-                    {row.record_id}
-                  </Link>
-                </LineTooltip>
+                <>
+                  {value && 
+                    <CollapsableLinkText data={value.split(";")} routeLink={routeConstants.proteinDetail}/>
+                  }
+                </>
               )
             }
           ];

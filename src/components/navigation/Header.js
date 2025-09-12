@@ -244,9 +244,9 @@ export default function Header(props) {
                 <NavDropdown.Item as={NavLink} to={routeConstants.idMapping}>
                   GlyGen Mapper
                 </NavDropdown.Item>
-                {/* <NavDropdown.Item as={NavLink} to={routeConstants.batchRetrieval}>
+                <NavDropdown.Item as={NavLink} to={routeConstants.batchRetrieval}>
                   GlyGen Batch Retrieval 
-                </NavDropdown.Item> */}
+                </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to={routeConstants.isoformMapping}>
                   GlyGen Isoform Mapper
                 </NavDropdown.Item>

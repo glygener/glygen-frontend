@@ -19,6 +19,7 @@ import biomarkerImg from "../images/home/biomarker-img.svg";
 import siteSearchImg from "../images/home/protein-img.svg";
 import glycanImg from "../images/home/glycan-img.svg";
 import diseaseImg from "../images/home/disease-img.svg";
+import batchRetrievalImg from "../images/home/batch-retrieval.svg";
 import quickSearchImg from "../images/home/quick-search-img.svg";
 import superSearchImg from "../images/home/super-search-img.svg";
 import compositionSearchImg from "../images/home/composition-img.svg";
@@ -77,6 +78,14 @@ const featuredCards = [
     image: diseaseImg,
     imageText: "Disease Search",
     to: routeConstants.diseaseSearch,
+  },
+  {
+    title: "GlyGen Batch Retrieval",
+    description:
+      "Enrich tables of proteins/genes with additional information from GlyGen and annotate them.",
+    image: batchRetrievalImg,
+    imageText: "GlyGen  Batch Retrieval",
+    to: routeConstants.batchRetrieval,
   },
   {
     title: "GlyGen Isoform Mapper",
