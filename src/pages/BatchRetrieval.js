@@ -867,10 +867,10 @@ const BatchRetrieval = (props) => {
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
-                title={commonBatchRetrievalData.columns_result_table.tooltip.title}
-                text={commonBatchRetrievalData.columns_result_table.tooltip.text}
+                title={commonBatchRetrievalData.filters_selected_columns.tooltip.title}
+                text={commonBatchRetrievalData.filters_selected_columns.tooltip.text}
               />
-              {commonBatchRetrievalData.columns_result_table.name}
+              {commonBatchRetrievalData.filters_selected_columns.name}
             </Typography>
             <div className1="pb-3" >
               <AccordionMUI disableGutters={true} key={"catDiv"}
