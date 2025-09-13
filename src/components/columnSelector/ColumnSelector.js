@@ -51,7 +51,7 @@ const CustomSelector = props => {
   return (
     <>
 
-      {categories && categories.length && (
+      {categories && categories.length > 0 && (
         <div>
           {categories.map((category, catInd) => (
             <AccordionMUI disableGutters={true} key={"catDiv" + catInd}
