@@ -854,7 +854,7 @@ const BatchRetrieval = (props) => {
                 title={commonBatchRetrievalData.columns_result_table.tooltip.title}
                 text={commonBatchRetrievalData.columns_result_table.tooltip.text}
               />
-              {commonBatchRetrievalData.columns_result_table.name}
+              {commonBatchRetrievalData.columns_result_table.name + " *"}
             </Typography>
             <CustomColumnsData columns={columnsData} saveColumnsToQuery={saveColumnsToQuery} categories={categoriesData} open={open} setOpen={setOpen} title={"Batch Retrieval Columns"} tableId={tableId} userSelectedColumns={userSelectedColumns} setUserSelectedColumns={setUserSelectedColumns} onClose={() => toggleDrawer(false)} />
             <div className="pb-3" >
@@ -870,7 +870,7 @@ const BatchRetrieval = (props) => {
                 title={commonBatchRetrievalData.filters_selected_columns.tooltip.title}
                 text={commonBatchRetrievalData.filters_selected_columns.tooltip.text}
               />
-              {commonBatchRetrievalData.filters_selected_columns.name}
+              {commonBatchRetrievalData.filters_selected_columns.name + " *"}
             </Typography>
             <div className1="pb-3" >
               <AccordionMUI disableGutters={true} key={"catDiv"}
