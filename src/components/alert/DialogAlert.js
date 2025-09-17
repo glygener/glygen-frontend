@@ -58,7 +58,7 @@ export default function DialogAlert(props) {
                         props.setOpen(false)
                     }}
                 >
-                    Ok
+                    OK
                 </Button>
                 {props.callBack && <Button
                     className= "gg-btn-outline me-3"

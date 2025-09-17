@@ -124,7 +124,7 @@ export default function JobErrorDisplay(props) {
                           style={{marginLeft: "20px", float: "right" }}
                           onClick={() => props.setOpen(false)}
                         >
-                            Ok
+                            OK
                         </Button>
                         <Button
                           className= "gg-btn-outline"
