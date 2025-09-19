@@ -32,6 +32,7 @@ import BatchRetrievalInputcontrol from "../components/input/BatchRetrievalInputc
 import { sortByOrder } from '../utils/common';
 import { addJobToStore } from "../data/jobStoreApi"
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import { Link } from "react-router-dom";
 
 const BatchRetrieval = (props) => {
   let { id } = useParams("");
@@ -845,6 +846,17 @@ const BatchRetrieval = (props) => {
         </form>
         <Typography>
           <i>{batchRetrievalJSONData.file_upload.acceptedFileTypeText}</i>
+        </Typography>
+        <Typography>
+          <i>{"Sample file: "}
+            <Link
+              to={"/downloads/sample/batch_retrieval_example.csv"}
+              target="_blank"
+              download
+            >
+              {"batch_retrieval_example.csv"}
+            </Link>{"."}
+          </i>
         </Typography>
 
         <Grid item xs={12} sm={12} md={12} className="pt-3">
