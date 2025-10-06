@@ -606,7 +606,6 @@ useEffect(() => {
   };
 
     setPageLoading(true);
-    setData(data);
     let formattedData = setupProtvista(data);
 
     if (nGlycanWithImage.current) {
