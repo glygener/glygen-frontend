@@ -90,7 +90,7 @@ export default function UserPermissionExternalLink(props) {
           style={{ float: "right" }}
           onClick={() => navigateAndClose(true)}
         >
-          Ok
+          OK
         </Button>
         <Button
           className="gg-btn-outline me-3"

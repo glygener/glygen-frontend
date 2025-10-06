@@ -25,7 +25,7 @@ export default function UserPermission(props) {
           style={{ float: "right" }}
           onClick={() => props.setOpen(true)}
         >
-          Ok
+          OK
         </Button>
         <Button
           className="gg-btn-outline me-3"

@@ -2226,7 +2226,7 @@ const ProteinDetail = (props) => {
 
   const createGlycosylationSummaryFromSectionStat = (sectStat, glycan = false) => {
     
-    let totalSites = sectStat.exact_sites;
+    let totalSites = sectStat.exact_sites ? sectStat.exact_sites : 0;
     let info = {};
 
     if (sectStat.Nlinked.count > 0 || sectStat.Nlinked.sites > 0) {

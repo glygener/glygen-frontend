@@ -124,9 +124,10 @@ const BatchRetrievalResult = (props) => {
                 formatter: (value, row) => (
                   <>
                     {value && typeof value === "string" ?
-                      <CollapsableLinkText data={value.split(";")}/> :
-                      <span>{value}</span>
-                    }
+                      <CollapsableLinkText data={value.split(";")}/>
+                    : typeof value === "boolean" ?
+                      <span>{value === true ? "Yes" : "No"}</span>
+                    : <span>{value}</span>}
                   </>
                 )
             })
