@@ -1,5 +1,5 @@
 # base image
-FROM node:18.12.1-alpine as build
+FROM node:24.9.0-alpine3.21 as build
 
 # set working directory
 WORKDIR /app
