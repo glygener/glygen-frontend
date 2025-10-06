@@ -21,7 +21,8 @@ import deleteIcon from "../images/icons/delete.svg";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getJobStatusFromStore, getPendingJobFromStore, updateJobProperty, deleteJob, setJobCompleteValue, getJobValue, addJobToStore } from "../data/jobStoreApi"
-import LoadingImage from "../images/logo-loading-animated-black.svg";
+import  styles from "../css/loadImageBlackSVG.css";
+import { ReactComponent as LoadingImage }  from "../images/logo-loading-animated-black.svg";
 import WorkIcon from '@mui/icons-material/Work';
 import EditIcon from '@mui/icons-material/Edit';
 import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
@@ -213,7 +214,7 @@ const JobStatus = (props) => {
       formatter: (value, row) => (
          <>
           {row.status === "running" && <>
-              <span>{value}</span><img src={LoadingImage} alt="loadingImage" style={{paddingLeft:"20px", width:"50px", height:"38px"}} />
+              <span>{value}</span><span className={styles.container}><LoadingImage style={{paddingLeft:"20px", width:"50px", height:"38px"}} /></span>
           </>}
           {row.status === "finished" && <>
             <LineTooltip text="View results">

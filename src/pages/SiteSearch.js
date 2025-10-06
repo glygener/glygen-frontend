@@ -18,7 +18,7 @@ import siteData from "../data/json/siteData";
 import { logActivity } from "../data/logging";
 import { axiosError } from "../data/axiosError";
 import FeedbackWidget from "../components/FeedbackWidget";
-import * as routeConstants from "../data/json/routeConstants";
+import routeConstants from "../data/json/routeConstants";
 import stringConstants from "../data/json/stringConstants";
 
 /**

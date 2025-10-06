@@ -2,23 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    version="1.0"
    width="280"
    height="72.375"
    viewBox="0 0 303.044 72.375"
    id="svg2"
-   xml:space="preserve"><metadata
-   id="metadata3085"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-   id="defs56" />
-	
+   xml:space="preserve">
+   <defs id="defs56" />
 		<g
    id="g3178"><path
      d="m 96.098691,48.652273 c -2.642119,-4.816911 -7.148756,-6.734099 -12.380324,-6.734099 -7.614167,0 -13.675048,5.386704 -13.675048,14.50436 0,9.271836 5.697937,14.503404 13.93361,14.503404 5.28328,0 9.789917,-2.900681 12.275941,-7.303893 l -5.801361,-2.952393 c -1.295682,3.108488 -3.263625,4.041226 -5.749649,4.041226 -4.299788,0 -6.26773,-3.5739 -6.26773,-8.287386 0,-4.714444 1.657668,-8.288343 6.26773,-8.288343 1.243012,0 3.729994,0.673218 5.179855,3.781706 l 6.216976,-3.264582 z"

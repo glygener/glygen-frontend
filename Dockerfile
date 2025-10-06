@@ -18,6 +18,9 @@ RUN npm install react-html-parser@2.0.2 --silent --legacy-peer-deps
 RUN npm install react-magnific-popup@1.0.1 --silent --legacy-peer-deps
 RUN npm install react-router-sitemap@1.2.0 --silent --legacy-peer-deps
 RUN npm install react-swipeable-views@0.14.0 --silent --legacy-peer-deps
+RUN npm install react-copy-to-clipboard@5.1.0 --save --legacy-peer-deps
+RUN npm install react-beautiful-dnd@13.1.1 --save --legacy-peer-deps
+RUN npm install react-swipeable-views-utils@0.14.1 --save --legacy-peer-deps
 
 # set env variables
 ARG REACT_APP_BUILD

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
 import { createPluginUI } from "molstar/lib/mol-plugin-ui/index";
+import { renderReact18 } from 'molstar/lib/mol-plugin-ui/react18';
 import { PluginConfig } from 'molstar/lib/mol-plugin/config';
 import "molstar/build/viewer/molstar.css";
 import { ColorNames } from 'molstar/lib/mol-util/color/names';
@@ -28,7 +29,13 @@ const ThreeDViewer = props => {
        [PluginConfig.Structure.SaccharideCompIdMapType, "glycam"],
        [PluginConfig.Structure.dynamicBonds, true],
       ];
-        plugin.current = await createPluginUI(parentRef.current, spec);
+        plugin.current = await createPluginUI(//parentRef.current, renderReact18, spec
+          {
+            target: parentRef.current,
+            spec: spec,
+            render: renderReact18
+          }
+        );
         await loadPDBFromUrl(url, plugin.current);
     })();
     // return () => plugin.current = null;

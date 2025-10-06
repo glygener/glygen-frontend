@@ -106,16 +106,16 @@
 
 #glycotrack,
 #glycotrack1 {
-  height: 60px;
+  height: 60px !important;
 }
 .sizefor {
   font-size: 24px;
 }
 .nav-glycosylation {
-  height: 60px;
+  height: 60px !important;
 }
 .nav-combinetrack {
-  height: 80px;
+  height: 80px !important;
   /* padding-top: 10px; */
 }
 .nav-links {
@@ -135,7 +135,7 @@
   border-bottom: 1px solid rgb(166, 166, 169);
 }
 .emptytrack {
-  height: 80px;
+  height: 80px !important;
 }
 .highlight {
   background-color: rgb(243, 240, 211);

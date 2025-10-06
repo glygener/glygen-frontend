@@ -6,11 +6,11 @@ import { getTitle, getMeta } from "../utils/head";
 import ProtvistaSidebar from "../components/navigation/ProtvistaSidebar";
 import "d3";
 import { NavLink } from "react-router-dom";
-import ProtvistaManager from "protvista-manager";
+import NightingaleManager from "@nightingale-elements/nightingale-manager";
 import ProtvistaTooltip from "protvista-tooltip";
-import ProtvistaNavigation from "protvista-navigation";
-import ProtvistaSequence from "protvista-sequence";
-import ProtvistaTrack from "protvista-track";
+import NightingaleSequence from "@nightingale-elements/nightingale-sequence";
+import NightingaleTrack from "@nightingale-elements/nightingale-track";
+import NightingaleNavigation from "@nightingale-elements/nightingale-navigation";
 import routeConstants from "../data/json/routeConstants";
 import Button from "react-bootstrap/Button";
 import { Col, Row } from "react-bootstrap";
@@ -23,16 +23,23 @@ import { axiosError } from "../data/axiosError";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 
-window.customElements.define("protvista-manager", ProtvistaManager);
-window.customElements.define("protvista-navigation", ProtvistaNavigation);
-window.customElements.define("protvista-sequence", ProtvistaSequence);
-window.customElements.define("protvista-track", ProtvistaTrack);
-window.customElements.define("protvista-tooltip", ProtvistaTooltip);
+if (!customElements.get('nightingale-manager')) {
+  window.customElements.define("nightingale-manager", NightingaleManager);
+}
+if (!customElements.get('nightingale-navigation')) {
+  window.customElements.define("nightingale-navigation", NightingaleNavigation);
+}
+if (!customElements.get('nightingale-sequence')) {
+  window.customElements.define("nightingale-sequence", NightingaleSequence);
+}
+if (!customElements.get('nightingale-track')) {
+  window.customElements.define("nightingale-track", NightingaleTrack);
+}
 
 const ProtVista = () => {
   let { id, Protvistadisplay } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -40,6 +47,61 @@ const ProtVista = () => {
   );
   const [nGlycanWithImageState, setNGlycanWithImageState] = useState();
 
+
+  const [expanded, setExpanded] = useState(false);
+  const [highlighted, setHighlighted] = useState(null);
+
+  const nGlycanWithImage = useRef(null);
+  const nGlycanWithoutImage = useRef(null);
+  const oGlycanWithImage = useRef(null);
+  const oGlycanWithoutImage = useRef(null);
+  const nSequon = useRef(null);
+  const phosphorylationData = useRef(null);
+  const glycationData = useRef(null);
+  const mutationsData = useRef(null);
+  const mutagenesisData = useRef(null);
+  const allTrack = useRef(null);
+
+  const [tracksShown, setTracksShown] = useReducer(
+    (state, newState) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      mutation: true,
+    }
+  );
+
+ 
+
+useEffect(() => {
+    setPageLoading(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    logActivity("user", id);
+    const getData = getProteinDetail(id, true);
+    getData.then(({ data }) => {
+      if (data.code) {
+        let message = "Protvista Detail api call";
+        logActivity("user", id, "No results. " + message);
+        setPageLoading(false);
+      } else { 
+        setData(data);
+        setPageLoading(false);
+      }
+    });
+
+    getData.catch(({ response }) => {
+      let message = "ProtVista Detail api call";
+      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
+    });
+
+    // eslint-disable-next-line
+  }, [id]);
+
+  useEffect(() => {
   function setupProtvista(data) {
     var glycos = [
       {
@@ -197,7 +259,7 @@ const ProtVista = () => {
                   glyco.glytoucan_ac +
                   "' /><br/><br/><span className=marker>Click marker show more</span>",
               });
-            } else {
+            } else { 
               glycos[2].residues.push({
                 start: glyco.start_pos,
                 end: glyco.end_pos,
@@ -452,7 +514,7 @@ const ProtVista = () => {
       let mutagenesisCombined = [];
       var combinedMutagenesisResiduesMap = {};
       for (let v of mutagenesisS.residues) {
-        if (!combinedMutagenesisResiduesMap[v.start + ":" + v.end]) {
+        if (!combinedMutagenesisResiduesMap[v.start + ":" + v.end]) { 
           v["count"] = 1;
           combinedMutagenesisResiduesMap[v.start + ":" + v.end] = v;
         } else {
@@ -484,30 +546,6 @@ const ProtVista = () => {
     };
   }
 
-  const [expanded, setExpanded] = useState(false);
-  const [highlighted, setHighlighted] = useState(null);
-
-  const nGlycanWithImage = useRef(null);
-  const nGlycanWithoutImage = useRef(null);
-  const oGlycanWithImage = useRef(null);
-  const oGlycanWithoutImage = useRef(null);
-  const nSequon = useRef(null);
-  const phosphorylationData = useRef(null);
-  const glycationData = useRef(null);
-  const mutationsData = useRef(null);
-  const mutagenesisData = useRef(null);
-  const allTrack = useRef(null);
-
-  const [tracksShown, setTracksShown] = useReducer(
-    (state, newState) => ({
-      ...state,
-      ...newState,
-    }),
-    {
-      mutation: true,
-    }
-  );
-
   const addTooltipToReference = (ref) => {
     let currentTooltip;
     ref.current &&
@@ -518,21 +556,20 @@ const ProtVista = () => {
           if (event.detail.feature.click !== "block") {
             if (currentTooltip) {
               document.body.removeChild(currentTooltip);
-              currentTooltip = null;
+              currentTooltip = null; 
             }
             const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
             navigate(route);
           } else {
             return;
-          }
-        }
+          } 
+        } 
         if (eventtype === "mouseover") {
           if (currentTooltip) {
             document.body.removeChild(currentTooltip);
             currentTooltip = null;
-          }
-
-          currentTooltip = document.createElement("protvista-tooltip");
+          } 
+          currentTooltip = document.createElement("div");
           // set attributes
           currentTooltip.title = feature.title;
           currentTooltip.visible = true;
@@ -568,102 +605,82 @@ const ProtVista = () => {
       });
   };
 
-  useEffect(() => {
     setPageLoading(true);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    logActivity("user", id);
-    const getData = getProteinDetail(id, true);
-    getData.then(({ data }) => {
-      if (data.code) {
-        let message = "Protvista Detail api call";
-        logActivity("user", id, "No results. " + message);
-        setPageLoading(false);
-      } else {
-        setData(data);
-        setPageLoading(false);
-        let formattedData = setupProtvista(data);
+    setData(data);
+    let formattedData = setupProtvista(data);
 
-        if (nGlycanWithImage.current) {
-          nGlycanWithImage.current.data = formattedData.nGlycanWithImage;
-        }
+    if (nGlycanWithImage.current) {
+      nGlycanWithImage.current.data = formattedData.nGlycanWithImage;
+    }
 
-        setNGlycanWithImageState(formattedData.nGlycanWithImage);
+    setNGlycanWithImageState(formattedData.nGlycanWithImage);
 
-        if (nGlycanWithoutImage.current) {
-          nGlycanWithoutImage.current.data = formattedData.nGlycanWithoutImage;
-        }
-        if (oGlycanWithImage.current) {
-          oGlycanWithImage.current.data = formattedData.oGlycanWithImage;
-        }
-        if (oGlycanWithoutImage.current) {
-          oGlycanWithoutImage.current.data = formattedData.oGlycanWithoutImage;
-        }
-        if (nSequon.current) {
-          nSequon.current.data = formattedData.nSequon;
-        }
+    if (nGlycanWithoutImage.current) {
+      nGlycanWithoutImage.current.data = formattedData.nGlycanWithoutImage;
+    }
+    if (oGlycanWithImage.current) {
+      oGlycanWithImage.current.data = formattedData.oGlycanWithImage;
+    }
+    if (oGlycanWithoutImage.current) {
+      oGlycanWithoutImage.current.data = formattedData.oGlycanWithoutImage;
+    }
+    if (nSequon.current) {
+      nSequon.current.data = formattedData.nSequon;
+    }
 
-        if (allTrack && allTrack.current) {
-          allTrack.current.data = [
-            ...formattedData.nGlycanWithImage,
-            ...formattedData.nGlycanWithoutImage,
-            ...formattedData.oGlycanWithImage,
-            ...formattedData.oGlycanWithoutImage,
-            ...formattedData.nSequon,
-          ];
-        }
+    if (allTrack && allTrack.current) {
+      allTrack.current.data = [
+        ...formattedData.nGlycanWithImage,
+        ...formattedData.nGlycanWithoutImage,
+        ...formattedData.oGlycanWithImage,
+        ...formattedData.oGlycanWithoutImage,
+        ...formattedData.nSequon,
+      ];
+    }
 
-        if (phosphorylationData.current) {
-          phosphorylationData.current.data = formattedData.phosphorylationData;
+    if (phosphorylationData.current) {
+      phosphorylationData.current.data = formattedData.phosphorylationData;
 
-          setTracksShown({
-            phosphorylationData: formattedData.phosphorylationData.length > 0,
-          });
-        }
-        if (glycationData.current) {
-          glycationData.current.data = formattedData.glycationData;
+      setTracksShown({
+        phosphorylationData: formattedData.phosphorylationData.length > 0,
+      });
+    }
+    if (glycationData.current) {
+      glycationData.current.data = formattedData.glycationData;
 
-          setTracksShown({
-            glycationData: formattedData.glycationData.length > 0,
-          });
-        }
-        if (mutationsData.current) {
-          mutationsData.current.data = formattedData.mutationsData;
+      setTracksShown({
+        glycationData: formattedData.glycationData.length > 0,
+      });
+    }
+    if (mutationsData.current) {
+      mutationsData.current.data = formattedData.mutationsData;
 
-          setTracksShown({
-            mutation: formattedData.mutationsData.length > 0,
-          });
-        }
-        if (mutagenesisData.current) {
-          mutagenesisData.current.data = formattedData.mutagenesisData;
+      setTracksShown({
+        mutation: formattedData.mutationsData.length > 0,
+      });
+    }
+    if (mutagenesisData.current) {
+      mutagenesisData.current.data = formattedData.mutagenesisData;
 
-          setTracksShown({
-            mutagenesisData: formattedData.mutagenesisData.length > 0,
-          });
-        }
+      setTracksShown({
+        mutagenesisData: formattedData.mutagenesisData.length > 0,
+      });
+    }
 
-        addTooltipToReference(allTrack);
-        addTooltipToReference(nGlycanWithImage);
-        addTooltipToReference(nGlycanWithoutImage);
-        addTooltipToReference(oGlycanWithImage);
-        addTooltipToReference(oGlycanWithoutImage);
-        addTooltipToReference(nSequon);
-        addTooltipToReference(phosphorylationData);
-        addTooltipToReference(glycationData);
-        addTooltipToReference(mutationsData);
-        addTooltipToReference(mutagenesisData);
-      }
-    });
-
-    getData.catch(({ response }) => {
-      let message = "ProtVista Detail api call";
-      axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-    });
+    addTooltipToReference(allTrack);
+    addTooltipToReference(nGlycanWithImage);
+    addTooltipToReference(nGlycanWithoutImage);
+    addTooltipToReference(oGlycanWithImage);
+    addTooltipToReference(oGlycanWithoutImage);
+    addTooltipToReference(nSequon);
+    addTooltipToReference(phosphorylationData);
+    addTooltipToReference(glycationData);
+    addTooltipToReference(mutationsData);
+    addTooltipToReference(mutagenesisData);
+    setPageLoading(false);
 
     // eslint-disable-next-line
-  }, []);
+  }, [data]);
 
   return (
     <>
@@ -718,47 +735,58 @@ const ProtVista = () => {
 
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
-              <protvista-manager
-                attributes="length displaystart displayend highlightstart highlightend variantfilters"
+              <nightingale-manager
+                width={"800"}
+                reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
                 id="manager"
               >
-                <protvista-navigation
+                <nightingale-navigation
+                  id="navigation"
                   class={`nav-track glycotrack`}
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   highlightStart={1}
                   highlightEnd={data.sequence.length}
-                  rulerstart={1}
-                />
-
-                <protvista-sequence
+                  ruler-start={1}
+                  show-highlight
+                  width={"1000"}
+                  height="60"
+                /> 
+                <nightingale-sequence
                   id="seq1"
                   class="nav-track"
                   length={data.sequence.length}
                   sequence={data.sequence.sequence}
-                />
+                  //  width={"1000"}
+                  height="60"
+                /> 
                 {/* Blank Track */}
-                <protvista-track
+                 <nightingale-track
                   class={`nav-track glycotrack emptytrack` + (expanded ? "" : " hidden")}
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track nav-combinetrack hover-style glycotrack1` +
                     (expanded ? " hidden" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={allTrack}
+                  width={"800"}
+                  height={expanded ? "0": "80"}
+                  id="id-nightingale-track"
                 />
-                <div style={{"line-height": 0}}>
-                <protvista-track
+              <nightingale-overlay for="root"></nightingale-overlay> 
+                <nightingale-track 
                   id="ptrack1"
                   class={
                     `nav-track glycotrack ` +
@@ -766,101 +794,115 @@ const ProtVista = () => {
                     (highlighted === "Ntrack_withImage" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={nGlycanWithImage}
+                  width={"800"}
+                  height="60"
                 />
-                </div>
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack ` +
                     (expanded ? "" : " hidden") +
                     (highlighted === "Ntrack_withoutImage" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={nGlycanWithoutImage}
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack` +
                     (expanded ? "" : " hidden") +
                     (highlighted === "Otrack_withImage" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={oGlycanWithImage}
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack` +
                     (expanded ? "" : " hidden") +
                     (highlighted === "Otrack_withoutImage" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={oGlycanWithoutImage}
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack` +
                     (expanded ? "" : " hidden") +
                     (highlighted === "SEQUON" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={nSequon}
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack` + (highlighted === "phosphorylation" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={phosphorylationData}
+                  width={"800"}
+                  height="60"
                 />
-                <protvista-track
+                <nightingale-track
                   class={`nav-track glycotrack` + (highlighted === "glycation" ? " highlight" : "")}
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={glycationData}
+                  width={"800"}
+                  height="60"
                 />
 
-                {/* {tracksShown.mutation && ( */}
-                <protvista-track
+                <nightingale-track
                   class={`nav-track glycotrack` + (highlighted === "mutation" ? " highlight" : "")}
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={mutationsData}
+                  width={"800"}
+                  height="60"
                 />
-                {/* )} */}
-                <protvista-track
+                <nightingale-track
                   class={
                     `nav-track glycotrack` + (highlighted === "mutagenesis" ? " highlight" : "")
                   }
                   length={data.sequence.length}
-                  displaystart={1}
-                  displayend={data.sequence.length}
+                  display-start={1}
+                  display-end={data.sequence.length}
                   layout="non-overlapping"
                   ref={mutagenesisData}
+                  width={"800"}
+                  height="60"
                 />
-                {/* )} */}
-              </protvista-manager>
+              </nightingale-manager>
             )}
           </Col>
         </Row>

@@ -80,10 +80,10 @@ export default function MainFeaturedCard(props) {
         {/* <Grid item sm={ 12 } lg={ 8 }> */}
         <Grid item sm={12} md={5} lg={6} className="text-left me-3">
           <div className={classes.mainFeaturedCardContent} style={{ letterSpacing: "1px" }}>
-            <Typography component="h5" variant="h6" color="inherit" gutterBottom>
+            <Typography component="h5" variant="h6" color="#fff" gutterBottom>
               {post.title}
             </Typography>
-            <Typography component="h6" color="inherit" paragraph>
+            <Typography component="h6" color="#fff" paragraph>
               {post.description}
             </Typography>
           </div>

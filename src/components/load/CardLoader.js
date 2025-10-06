@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "../../css/loadImageSVG.css";
 // import LoadingImage from "../../images/page_loading.gif";
-import LoadingImage from "../../images/logo-loading-animated.svg";
+import { ReactComponent as LoadingImage } from "../../images/logo-loading-animated.svg";
 import Fade from "@mui/material/Fade";
 import { Row } from "react-bootstrap";
 
@@ -13,7 +14,9 @@ export default function CardLoader(props) {
     <Fade in={props.pageLoading}>
       <div className={"card-loader-overlay"}>
         <Row className={"card-loader-row"}>
-          <img src={LoadingImage} alt="loadingImage" className={"card-loader-image"} />
+          <div className={styles.container}>
+            <LoadingImage className={"card-loader-image"} />
+          </div>
         </Row>
       </div>
     </Fade>

@@ -1,26 +1,4 @@
-<svg height="160" width="160" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
-	<style type="text/css" >
-		<![CDATA[
-			.logo_class {
-			  transform-origin: 50% 50% 0px;
-			  animation-name: animlogo;
-			  animation-duration: 1s;
-			  animation-timing-function: linear;
-			  animation-iteration-count: infinite;
-			}
-
-			@keyframes animlogo {
-			  50% {
-				transform: rotate3d(0, 1, 0, -180deg);
-			  }
-			  100% {
-				transform: rotate3d(0, 0, 1, 360deg);
-			  }
-			}
-		]]>
-	</style>
-	
+<svg height="160" width="160" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">	
 	<!-- ## you can remove this rect - it's just here to orient the developere ## -->
 	<!-- <rect style="stroke:rgb(200,200,200); fill:rgb(255,255,255);" x="0" y="0" width="180" height="180"></rect> -->
 

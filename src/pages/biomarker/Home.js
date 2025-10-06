@@ -10,7 +10,6 @@ import InfoCard from "../../components/cards/InfoCard";
 import VideoCard from "../../components/cards/VideoCard";
 import VersionCard from "../../components/cards/VersionCard";
 import StatDBCard from "../../components/cards/StatDBCard";
-import TwitterCard from "../../components/cards/TwitterCard";
 import MastodonCard from "../../components/cards/MastodonCard";
 import { Row } from "react-bootstrap";
 import mainImg from "../../images/home/main-featured-img.png";
