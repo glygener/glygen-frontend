@@ -749,7 +749,7 @@ useEffect(() => {
                   highlightEnd={data.sequence.length}
                   ruler-start={1}
                   show-highlight
-                  width={"1000"}
+                  width={"800"}
                   height="60"
                 /> 
                 <nightingale-sequence
@@ -757,7 +757,7 @@ useEffect(() => {
                   class="nav-track"
                   length={data.sequence.length}
                   sequence={data.sequence.sequence}
-                  //  width={"1000"}
+                   width={"800"}
                   height="60"
                 /> 
                 {/* Blank Track */}
