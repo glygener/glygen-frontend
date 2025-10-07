@@ -745,13 +745,10 @@ useEffect(() => {
                 <nightingale-navigation
                   id="navigation"
                   class={`nav-track glycotrack`}
-                  length={data.sequence.length}
+                  length={data.sequence.length * 1.4}
                   display-start={1}
                   display-end={data.sequence.length}
-                  highlightStart={1}
-                  highlightEnd={data.sequence.length}
                   ruler-start={1}
-                  show-highlight
                   width={"800"}
                   height="60"
                 /> 
