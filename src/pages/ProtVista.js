@@ -35,6 +35,9 @@ if (!customElements.get('nightingale-sequence')) {
 if (!customElements.get('nightingale-track')) {
   window.customElements.define("nightingale-track", NightingaleTrack);
 }
+if (!customElements.get('protvista-tooltip')) {
+  window.customElements.define("protvista-tooltip", ProtvistaTooltip);
+}
 
 const ProtVista = () => {
   let { id, Protvistadisplay } = useParams();
@@ -550,9 +553,8 @@ useEffect(() => {
     let currentTooltip;
     ref.current &&
       ref.current.addEventListener("change", (event) => {
-        const { eventtype, feature, coords } = event.detail;
-
-        if (eventtype === "click") {
+        const { eventType, feature, coords } = event.detail;
+        if (eventType === "click") {
           if (event.detail.feature.click !== "block") {
             if (currentTooltip) {
               document.body.removeChild(currentTooltip);
@@ -564,12 +566,12 @@ useEffect(() => {
             return;
           } 
         } 
-        if (eventtype === "mouseover") {
+        if (eventType === "mouseover") {
           if (currentTooltip) {
             document.body.removeChild(currentTooltip);
             currentTooltip = null;
           } 
-          currentTooltip = document.createElement("div");
+          currentTooltip = document.createElement("protvista-tooltip");
           // set attributes
           currentTooltip.title = feature.title;
           currentTooltip.visible = true;
@@ -596,7 +598,7 @@ useEffect(() => {
 
           closeButton.addEventListener("click", onCloseButton);
           currentTooltip.appendChild(closeButton);
-        } else if (eventtype === "mouseout") {
+        } else if (eventType === "mouseout") {
           if (currentTooltip) {
             document.body.removeChild(currentTooltip);
             currentTooltip = null;
@@ -736,6 +738,7 @@ useEffect(() => {
             {data && data.sequence && data.sequence.length && (
               <nightingale-manager
                 width={"800"}
+                class={`nav-track`}
                 reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
                 id="manager"
               >
@@ -768,7 +771,7 @@ useEffect(() => {
                   display-end={data.sequence.length}
                   layout="non-overlapping"
                   width={"800"}
-                  height="60"
+                  height="80"
                 />
                 <nightingale-track
                   class={
