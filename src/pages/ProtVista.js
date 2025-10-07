@@ -757,7 +757,7 @@ useEffect(() => {
                   class="nav-track"
                   length={data.sequence.length}
                   sequence={data.sequence.sequence}
-                   width={"800"}
+                  width={"800"}
                   height="60"
                 /> 
                 {/* Blank Track */}
