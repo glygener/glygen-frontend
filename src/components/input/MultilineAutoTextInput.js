@@ -65,7 +65,7 @@ export default function MultilineAutoTextInput(props) {
         return (
           <li {...props}>
             <Grid container alignItems="center">
-              <Grid item xs>
+              <Grid item>
                 <span>{option}</span>
               </Grid>
             </Grid>

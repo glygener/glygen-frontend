@@ -58,7 +58,7 @@ const SiteSearchControl = props => {
         {initData && (
           <>
             {/* Buttons Top */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               <div className="gg-align-right pt-2 pb-2 me-1">
                 <Button className="gg-btn-outline me-4" onClick={clearSite}>
                   Clear Fields
@@ -76,7 +76,7 @@ const SiteSearchControl = props => {
             </Grid>
 
             {/* Amino Acid */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               <FormControl fullWidth variant="outlined">
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
@@ -105,10 +105,10 @@ const SiteSearchControl = props => {
             </Grid>
 
             {/* annotation */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               <FormControl fullWidth>
                 <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={9} sm={9}>
+                  <Grid item size={{ xs: 9, sm: 9 }}>
                     <Typography className={"search-lbl"} gutterBottom>
                       <HelpTooltip
                         title={siteStrings.annotation.tooltip.title}
@@ -125,7 +125,7 @@ const SiteSearchControl = props => {
                       setInputValue={(input) => setSiteSearchData({annotations: input})}
                     ></MultiselectTextInput>
                   </Grid>
-                  <Grid item xs={3} sm={3}>
+                  <Grid item size={{ xs: 3, sm: 3 }}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
@@ -142,10 +142,10 @@ const SiteSearchControl = props => {
             </Grid>
 
             {/* Neighbors */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               {/* <FormControl fullWidth> */}
                 <Grid container spacing={2} style={{paddingBottom:"0px"}} alignItems="center">
-                  <Grid item xs={6} sm={6} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 6, sm: 6 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       <HelpTooltip
                         title={siteStrings.neighbors.tooltip.title}
@@ -173,7 +173,7 @@ const SiteSearchControl = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={3} sm={3} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 3, sm: 3 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
@@ -213,7 +213,7 @@ const SiteSearchControl = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={3} sm={3} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 3, sm: 3 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
@@ -237,10 +237,10 @@ const SiteSearchControl = props => {
             </Grid>
 
             {/* Pattern */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               {/* <FormControl fullWidth> */}
                 <Grid container spacing={2} style={{paddingBottom:"0px"}} alignItems="center">
-                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 4, sm: 4 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       <HelpTooltip
                         title={siteStrings.pattern.tooltip.title}
@@ -261,7 +261,7 @@ const SiteSearchControl = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 4, sm: 4 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
@@ -304,7 +304,7 @@ const SiteSearchControl = props => {
                       />
                     {/* </FormControl> */}
                   </Grid>
-                  <Grid item xs={4} sm={4} style={{paddingBottom:"0px"}}>
+                  <Grid item size={{ xs: 4, sm: 4 }} style={{paddingBottom:"0px"}}>
                     <Typography className={"search-lbl"} gutterBottom>
                       &nbsp;
                     </Typography>
@@ -363,7 +363,7 @@ const SiteSearchControl = props => {
              </Grid>
 
             {/* Buttons Buttom */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size={{ xs: 12, sm: 10 }}>
               <div className="gg-align-right pt-3 mb-2 me-1">
                 <Button className="gg-btn-outline me-4" onClick={clearSite}>
                   Clear Fields

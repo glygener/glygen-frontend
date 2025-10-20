@@ -728,7 +728,7 @@ const nodeTemplate = (node, options) => {
           <div className="sidebar-page-mb">
             <div className="content-box-md">
               <Row>
-                <Grid item xs={12} sm={12} className="text-center">
+                <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
                   <div className="horizontal-heading">
                     <h5>Look At</h5>
                     <h2>
@@ -840,7 +840,7 @@ const nodeTemplate = (node, options) => {
 
                              {synonyms && synonyms.length > 0 && (
                                   <div className="mb-3">
-                                    <Grid item xs={12}>
+                                    <Grid item size= {{ xs: 12 }}>
                                       <div>
                                         {synonyms.map((thisDisease, indDis) => (
                                           <div className="mb-3">

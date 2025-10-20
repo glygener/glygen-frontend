@@ -134,7 +134,7 @@ const StructureSearchControl = (props) => {
         justifyContent="center"
       >
           {/*  Buttons */}
-          <Grid item xs={12} sm={10}>
+          <Grid item size={{ xs: 12, sm: 10 }}>
             <div  className="gg-align-right pt-3 mb-2 me-1">
               <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                 Clear Fields
@@ -154,7 +154,7 @@ const StructureSearchControl = (props) => {
           </Grid>
 
          {/* Sequence Type */}
-         <Grid item xs={12} sm={10} className="pt-3">
+         <Grid item size={{ xs: 12, sm: 10 }} className="pt-3">
           <FormControl
             fullWidth
             variant="outlined"
@@ -176,7 +176,7 @@ const StructureSearchControl = (props) => {
         </Grid>
 
         {/* Sequence */}
-				<Grid item xs={12} sm={10} className="pt-3">
+				<Grid item size={{ xs: 12, sm: 10 }} className="pt-3">
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -212,7 +212,7 @@ const StructureSearchControl = (props) => {
 				</Grid>
 
           {/* "Restrict To */}   
-          <Grid item xs={12} sm={10} className="pt-3">
+          <Grid item size={{ xs: 12, sm: 10 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -231,13 +231,13 @@ const StructureSearchControl = (props) => {
                   onChange={restrictToChange}
                   value={props.inputValue.restrictTo}
                 >
-                  <Grid item xs={4} sm={3}>
+                  <Grid item size={{ xs: 4, sm: 3 }}>
                     <div><Radio value={glycanStructSearchData.align.substructure.id} color="primary"/>{glycanStructSearchData.align.substructure.name}</div>
                   </Grid>
-                  <Grid item xs={4} sm={3}>
+                  <Grid item size={{ xs: 4, sm: 3 }}>
                     <div><Radio value={glycanStructSearchData.align.core.id} color="primary"/> {glycanStructSearchData.align.core.name}</div>
                   </Grid>
-                  <Grid item xs={4} sm={3}>
+                  <Grid item size={{ xs: 4, sm: 3 }}>
                     <div><Radio value={glycanStructSearchData.align.nonreducingend.id} color="primary"/> {glycanStructSearchData.align.nonreducingend.name}</div>
                   </Grid>
               </RadioGroup>
@@ -245,7 +245,7 @@ const StructureSearchControl = (props) => {
           </Grid>
 
         {/*  Buttons */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <div  className="gg-align-right pt-3 mb-2 me-1">
             <div>
               {props.inputValue.seqType === "GlycoCT" && (<Button
@@ -271,7 +271,7 @@ const StructureSearchControl = (props) => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
         <Row>
           <Col>
             <div className="text-muted mt-2">

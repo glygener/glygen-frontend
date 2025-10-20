@@ -1,11 +1,12 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import Container from "@mui/material/Container";
 import { Row, Col } from "react-bootstrap";
 import VerticalHeading from "../../components/headings/VerticalHeading";
 import "../../css/Media.css";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
-import { makeStyles, useTheme } from "@mui/styles";
+import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -19,6 +20,20 @@ import letterTemplateSvg from "../../images/media/portfolio/letter-template/lett
 import letterTemplateDocx from "../../images/media/portfolio/letter-template/letter-template.docx";
 import letterTemplate2Svg from "../../images/media/portfolio/letter-template/letter-template-2.svg";
 import letterTemplate2Docx from "../../images/media/portfolio/letter-template/letter-template-2.docx";
+
+const PREFIX = 'ForMembers';
+
+const classes = {
+    root: `${PREFIX}-root`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')({
+	[`& .${classes.root}`]: {
+		flexGrow: 1,
+		width: "100%",
+	},
+});
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -54,15 +69,8 @@ function a11yProps(index) {
 	};
 }
 
-const useStyles = makeStyles({
-	root: {
-		flexGrow: 1,
-		width: "100%",
-	},
-});
-
 const ForMembers = (props) => {
-	const classes = useStyles();
+
 	const theme = useTheme();
 	const [value, setValue] = React.useState(0);
 
@@ -80,11 +88,11 @@ const ForMembers = (props) => {
 		h2textBottomStrongBefore: "Members",
 	};
 	return (
-		<React.Fragment>
-			<Container maxWidth="lg" className="tab-bigscreen">
+        <Root>
+            <Container maxWidth="lg" className="tab-bigscreen">
 				<VerticalHeading post={vertHeadTalks} />
 			</Container>
-			<section className="content-box-md about-section-bg">
+            <section className="content-box-md about-section-bg">
 				<Container maxWidth="lg" className="tab-bigscreen">
 					<Row className="gg-align-middle gg-align-center">
 						<div className={classes.root}>
@@ -399,7 +407,7 @@ const ForMembers = (props) => {
 					</Row>
 				</Container>
 			</section>
-		</React.Fragment>
-	);
+        </Root>
+    );
 };
 export default ForMembers;

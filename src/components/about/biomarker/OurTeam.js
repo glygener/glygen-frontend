@@ -1,23 +1,37 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { Image } from "react-bootstrap";
-import { makeStyles } from "@mui/styles";
 import teamBgImg from "../../../images/about/team-bg.jpg";
 import teamMembersData from "../../../data/json/biomarker/teamMembers";
 import TeamMembersCard from "./TeamMembersCard";
 
-const useStyles = makeStyles((theme) => ({
-  mainFeaturedCard: {
+const PREFIX = 'OurTeam';
+
+const classes = {
+  mainFeaturedCard: `${PREFIX}-mainFeaturedCard`,
+  overlay: `${PREFIX}-overlay`,
+  mainFeaturedCardContent: `${PREFIX}-mainFeaturedCardContent`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.mainFeaturedCard}`]: {
     position: "relative",
     backgroundColor: theme.palette.grey[800],
     color: "white",
     backgroundSize: "cover",
     background: "no-repeat fixed center",
   },
-  overlay: {
+
+  [`& .${classes.overlay}`]: {
     position: "absolute",
     top: 0,
     bottom: 0,
@@ -25,20 +39,21 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     backgroundColor: "rgba(94, 144, 186, 0.5)",
   },
-  mainFeaturedCardContent: {
+
+  [`& .${classes.mainFeaturedCardContent}`]: {
     position: "relative",
     textAlign: "center",
     padding: theme.spacing(6),
     [theme.breakpoints.up("md")]: {
       padding: theme.spacing(8),
     },
-  },
+  }
 }));
 
 const OurTeam = (props) => {
-  const classes = useStyles();
+
   return (
-    <React.Fragment>
+    <Root>
       {/* Team members image-background  */}
       <section>
         <Paper
@@ -48,7 +63,7 @@ const OurTeam = (props) => {
           {<Image style={{ display: "none" }} src={teamBgImg} alt="team background image" />}
           <div className={classes.overlay} />
           <Grid container>
-            <Grid item sm={12} md={12}>
+            <Grid item size= {{ sm: 12, md: 12 }}>
               <div className={classes.mainFeaturedCardContent}>
                 <Typography
                   style={{ fontWeight: "200" }}
@@ -93,8 +108,7 @@ const OurTeam = (props) => {
           <TeamMembersCard data={teamMembersData.consultants} />
         </Container>
       </section>
-      
-    </React.Fragment>
+    </Root>
   );
 };
 export default OurTeam;

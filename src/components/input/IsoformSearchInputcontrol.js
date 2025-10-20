@@ -57,7 +57,7 @@ const SuperSearchInputcontrol = (props) => {
 		<>
 			{/* <div className1={'svg-input-container'}> */}
 				{/* <Grid container justifyContent1="center"> */}
-					<Grid item xs={4} sm={4} style1={{width: "350px"}}  className={'me-3'} className1={'svg-input-item'}>
+					<Grid item size= {{ xs: 4, sm: 4 }} style1={{width: "350px"}}  className={'me-3'} className1={'svg-input-item'}>
 
 						{props.query.fieldType === "" &&
 							<FormControl 
@@ -76,7 +76,7 @@ const SuperSearchInputcontrol = (props) => {
 							</FormControl>
 						}
 					</Grid>
-					<Grid item xs={4} sm={4} style1={{width: "350px"}} className={'me-3'} className1={'svg-input-item'}>
+					<Grid item size= {{ xs: 4, sm: 4 }} style1={{width: "350px"}} className={'me-3'} className1={'svg-input-item'}>
 						{props.query.selectEnum.length === 0 && 
 						<FormControl 
 							variant='outlined' 
@@ -96,7 +96,7 @@ const SuperSearchInputcontrol = (props) => {
 						</FormControl>
 						}
 					</Grid>
-					<Grid item xs={2} sm={2} style1={{width: "240px"}}>
+					<Grid item size= {{ xs: 2, sm: 2 }} style1={{width: "240px"}}>
 						<Button 
 							className='gg-btn-outline me-3 mb-3' 
 							style={{padding : "8px 12px"}}

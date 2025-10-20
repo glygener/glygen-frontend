@@ -12,7 +12,7 @@ import nigmsImg from "../../images/about/logo-NIGMS.svg"
 import glycosciImg from "../../images/about/logo-Glycoscience.svg";
 import cfdeIcon from "../../images/about/logo-CFDE.svg"
 import WorldMapImg from "../about/WorldMapImg";
-import Hidden from "@mui/material/Hidden";
+import Box from '@mui/material/Box';
 import { GRANT_DETAILS, GLYCOSCIENCE, CCRC_UGA, SMHS_GWU, NIH_GOV, NIGMS, GRANT_DETAILS_OLD, GRANT_DETAILS_COMMONFUND, NIH_COMMONFUND_DATAECOSYSTEM } from "../../envVariables";
 
 const ourMissionImd = {
@@ -174,9 +174,9 @@ const StoryAboutUs = (props) => {
               </p>
             </Col>
             <Col xs={12} md={12} xl={6} className="gg-align-middle gg-align-center">
-              <Hidden xsDown>
+              <Box sx={{ display: { xs: "none", sm: "block" } }}>
                 <WorldMapImg />
-              </Hidden>
+              </Box>
             </Col>
           </Row>
         </Container>

@@ -134,7 +134,7 @@ const GlobalSearchResult = (props) => {
 						container
 						style={{ margin: '0  auto' }}
 						justifyContent='center'>
-							<Grid item md={4}>
+							<Grid item size= {{ md: 4 }}>
 								{globalSearchData.other_matches && <GlobalSearchModifiedCard
 									glycanCount={globalSearchData.other_matches.glycan.all.count}
 									glycanListId={globalSearchData.other_matches.glycan.all.list_id}
@@ -148,7 +148,7 @@ const GlobalSearchResult = (props) => {
 									routeTermGP="gsgp"
 								/>}
 							</Grid>
-							{false && <Grid item md={4}>
+							{false && <Grid item size={{ md: 4 }}>
 								{globalSearchData.other_matches && <GlobalSearchCard
 									cardTitle="Glycan(s)"
 									route={routeConstants.glycanList}
@@ -162,7 +162,7 @@ const GlobalSearchResult = (props) => {
 										.map((searchItem)  => {return {name: glycanGlobalSearch[searchItem] ? glycanGlobalSearch[searchItem].name : searchItem, count: globalSearchData.other_matches.glycan[searchItem].count, list_id : globalSearchData.other_matches.glycan[searchItem].list_id}})}
 								/>}
 							</Grid>}
-							{false && <Grid item md={6}>
+							{false && <Grid item size= {{ md: 6 }}>
 								{globalSearchData.other_matches && proteinKeyList.length > 0 && <GlobalSearchDualCard
 									cardTitle1="Protein(s)"
 									cardTitle2="Glycoprotein(s)"

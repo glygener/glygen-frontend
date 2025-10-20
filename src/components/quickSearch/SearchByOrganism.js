@@ -65,8 +65,8 @@ const SearchByOrganism = props => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className={"ms-2"}>
-                <Grid container xs={12} sm={12}>
-                  <Grid item xs={12} sm={12}>
+                <Grid container size= {{ xs: 12, sm: 12 }}>
+                  <Grid item size= {{ xs: 12, sm: 12 }}>
                     <TextAlert
                       alertInput={
                         props.alertText.question === quickSearch.question_8.id
@@ -75,7 +75,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={7} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 7 }} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"search-lbl"} gutterBottom>
                         <HelpTooltip
@@ -112,7 +112,7 @@ const SearchByOrganism = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={2} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 2 }} className="quick-search-control">
                     <Typography gutterBottom>&nbsp;</Typography>
                     <Button
                       className="gg-btn-blue"
@@ -144,8 +144,8 @@ const SearchByOrganism = props => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className={"ms-2"}>
-                <Grid container xs={12} sm={12}>
-                  <Grid item xs={12} sm={12}>
+                <Grid container size= {{ xs: 12, sm: 12 }}>
+                  <Grid item size= {{ xs: 12, sm: 12 }}>
                     <TextAlert
                       alertInput={
                         props.alertText.question === quickSearch.question_9.id
@@ -154,7 +154,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={7} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 7 }} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"search-lbl"} gutterBottom>
                         <HelpTooltip
@@ -191,7 +191,7 @@ const SearchByOrganism = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={2} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 2 }} className="quick-search-control">
                     <Typography gutterBottom>&nbsp;</Typography>
                     <Button
                       className="gg-btn-blue"
@@ -223,8 +223,8 @@ const SearchByOrganism = props => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className={"ms-2"}>
-                <Grid container xs={12} sm={12}>
-                  <Grid item xs={12} sm={12}>
+                <Grid container size= {{ xs: 12, sm: 12 }}>
+                  <Grid item size= {{ xs: 12, sm: 12 }}>
                     <TextAlert
                       alertInput={
                         props.alertText.question === quickSearch.question_10.id
@@ -233,7 +233,7 @@ const SearchByOrganism = props => {
                       }
                     />
                   </Grid>
-                  <Grid item xs={12} sm={7} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 7 }} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"search-lbl"} gutterBottom>
                         <HelpTooltip
@@ -275,7 +275,7 @@ const SearchByOrganism = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={3} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 3 }} className="quick-search-control">
                     <FormControl fullWidth variant="outlined">
                       <Typography className={"qs-search-lbl"} gutterBottom>
                         {searchByOrganism.question_10.labelType}
@@ -314,7 +314,7 @@ const SearchByOrganism = props => {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={2} className="quick-search-control">
+                  <Grid item size= {{ xs: 12, sm: 2 }} className="quick-search-control">
                     <Typography gutterBottom>&nbsp;</Typography>
                     <Button
                       className="gg-btn-blue"
@@ -327,7 +327,7 @@ const SearchByOrganism = props => {
                       Search
                     </Button>
                   </Grid>
-                  <Grid item xs={12} sm={12}>
+                  <Grid item size= {{ xs: 12, sm: 12 }}>
                     <Typography align="left" className="small-text">
                       ** Select both options{" "}
                       <strong>Organism</strong> and{" "}

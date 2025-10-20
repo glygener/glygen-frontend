@@ -296,15 +296,15 @@ const CustomColumns = props => {
             className="pb-3"
             spacing={3}
             justifyContent='center'>
-            <Grid item xs={12} sm={10}>
+            <Grid item size= {{ xs: 12, sm: 10 }}>
               <HorizontalDragDropColumns items={items} setItems={setItems} deleteItem={deleteItem} />
             </Grid>
-            <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item xs={12} sm={10}>
+            <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item size= {{ xs: 12, sm: 10 }}>
               <div className="text-center">*{" "}To reorder display of the columns on the list page, please drag the column name badges above.{" "}*</div>
             </Grid>
 
             {/* Buttons Top */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size= {{ xs: 12, sm: 10 }}>
               <div className='gg-align-right pt-2 pb-2 me-1'>
                 <Button className='gg-btn-outline me-4' onClick={handleClose}>
                   Cancel
@@ -328,14 +328,14 @@ const CustomColumns = props => {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={10}>
+            <Grid item size= {{ xs: 12, sm: 10 }}>
               <div className1="p-4">
                 <ColumnSelector categories={categories} handleSelectHighlight={handleSelectHighlight} selectedColumns={selectedColumns} />
               </div>
             </Grid>
 
             {/* Buttons Buttom */}
-            <Grid item xs={12} sm={10}>
+            <Grid item size= {{ xs: 12, sm: 10 }}>
               {/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
               <div className='gg-align-right pt-3 me-1'>
                 <Button className='gg-btn-outline me-4' onClick={handleClose}>

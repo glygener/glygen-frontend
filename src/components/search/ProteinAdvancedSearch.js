@@ -306,7 +306,7 @@ const ProteinAdvancedSearch = (props) => {
 				spacing={3}
 				justifyContent='center'>
 				{/* Buttons Top */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<div className='gg-align-right pt-2 pb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearProtein}>
 							Clear Fields
@@ -324,7 +324,7 @@ const ProteinAdvancedSearch = (props) => {
 					</div>
 				</Grid>
 				{/* Protein Id */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography className={'search-lbl'} gutterBottom>
 							<HelpTooltip
@@ -351,7 +351,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* RefSeq Accession */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -380,7 +380,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Chemical Mass */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth>
 						<Typography className={'search-lbl'} gutterBottom>
 							<HelpTooltip
@@ -403,7 +403,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Organism */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -426,7 +426,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Protein Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -455,7 +455,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Gene Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -484,7 +484,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/*  GO Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -513,7 +513,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* GO ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -542,7 +542,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Bound Glycan */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -571,7 +571,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Glycosylation  Type */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -598,7 +598,7 @@ const ProteinAdvancedSearch = (props) => {
 				{/* Glycosylation  Subtype */}
 				{props.inputValue.proGlycosylationType !== advancedSearch.glycosylation_type.placeholderId 
 				 && props.initData.glycosylation_types[props.inputValue.proGlycosylationType].length > 0
-				 && <Grid item xs={12} sm={10}>
+				 && <Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -621,7 +621,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>}
 				{/* Covalently Attached Glycan */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -650,10 +650,10 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Glycosylated Amino Acid */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth>
 						<Grid container spacing={2} alignItems='center'>
-							<Grid item xs={9} sm={9}>
+							<Grid item size={{ xs: 9, sm: 9 }}>
 								<Typography
 									className={'search-lbl'}
 									gutterBottom
@@ -671,7 +671,7 @@ const ProteinAdvancedSearch = (props) => {
 									placeholder={advancedSearch.aa_list.placeholder}
 								/>
 							</Grid>
-							<Grid item xs={3} sm={3}>
+							<Grid item size={{ xs: 3, sm: 3 }}>
                                 <Typography className={'search-lbl'} gutterBottom>
 									&nbsp;
 								</Typography>
@@ -690,7 +690,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Glycosylation Evidence Type */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -714,7 +714,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Pathway ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -746,7 +746,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Disease Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -775,7 +775,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Disease ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -804,7 +804,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Pubmed ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -834,7 +834,7 @@ const ProteinAdvancedSearch = (props) => {
 				</Grid>
 				
 				{/* Biomarker Disease */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -863,7 +863,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Biomarker Type */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -886,7 +886,7 @@ const ProteinAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Buttons Buttom */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					{/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
 					<div className='gg-align-right pt-3 mb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearProtein}>

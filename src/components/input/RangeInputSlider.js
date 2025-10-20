@@ -104,7 +104,7 @@ export default function RangeInputSlider(props) {
 						/>
 					</FormControl>
 				</Grid>
-				<Grid item xs>
+				<Grid item size="grow">
 					<Slider
 						value={props.inputValueSlider}
 						step={props.step}

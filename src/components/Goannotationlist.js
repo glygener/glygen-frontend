@@ -55,12 +55,12 @@ const Goannotationlist = ({ goannotations }) => {
     <Grid container>
       {formattedGoannotation.map(group => (
         <>
-          <Grid item xs={9}>
+          <Grid item size={{ xs: 9 }}>
             {group.goannotation.map(func => (
               <p>{func.annotation}</p>
             ))}
           </Grid>
-          <Grid item xs={3}>
+          <Grid item size={{ xs: 3 }}>
             <EvidenceList evidences={group.evidence} />
           </Grid>
         </>

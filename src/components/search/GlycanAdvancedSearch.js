@@ -369,7 +369,7 @@ const GlycanAdvancedSearch = props => {
         justifyContent="center"
       >
         {/* Buttons Top */}
-        <Grid className="gg-align-right" item xs={12} sm={10}>
+        <Grid className="gg-align-right" item size={{ xs: 12, sm: 10 }}>
           <div className="gg-align-right pt-2 pb-2 me-1">
           {/* <ButtonGroup className="text-end"> */}
             <Button className="gg-btn-outline me-4" onClick={clearGlycan}>
@@ -390,10 +390,10 @@ const GlycanAdvancedSearch = props => {
           </div>
         </Grid>
         {/* Glycan Id */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={9}>
+              <Grid item size={{ xs: 12, sm: 9 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
                     title={commonGlycanData.glycan_identifier.tooltip.title}
@@ -418,7 +418,7 @@ const GlycanAdvancedSearch = props => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={3}>
+              <Grid item size={{ xs: 12, sm: 3 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   &nbsp;
                 </Typography>
@@ -435,7 +435,7 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Glycan ID Namespace */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -458,10 +458,10 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Monoisotopic Mass */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={9}>
+              <Grid item size={{ xs: 12, sm: 9 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
                     title={commonGlycanData.mass.tooltip.title}
@@ -481,7 +481,7 @@ const GlycanAdvancedSearch = props => {
                 />
               </Grid>
               {/* Mass Type */}
-              <Grid item xs={12} sm={3}>
+              <Grid item size={{ xs: 12, sm: 3 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   &nbsp;
                 </Typography>
@@ -509,10 +509,10 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* No of Sugars */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={9}>
+              <Grid item size={{ xs: 12, sm: 9 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
                     title={
@@ -537,10 +537,10 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* Organisms */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth>
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={6} sm={6}>
+              <Grid item size={{ xs: 6, sm: 6 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   <HelpTooltip
                     title={commonGlycanData.organism.tooltip.title}
@@ -558,7 +558,7 @@ const GlycanAdvancedSearch = props => {
                 }
               </Grid>
               {/* Subsumption */}
-              <Grid item xs={3} sm={3}>
+              <Grid item size={{ xs: 3, sm: 3 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   &nbsp;
                 </Typography>
@@ -570,7 +570,7 @@ const GlycanAdvancedSearch = props => {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={3} sm={3}>
+              <Grid item size={{ xs: 3, sm: 3 }}>
                 <Typography className={"search-lbl"} gutterBottom>
                   &nbsp;
                 </Typography>
@@ -586,7 +586,7 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* Glycan Type */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -610,7 +610,7 @@ const GlycanAdvancedSearch = props => {
         {/* Glycan Subtype */}
 
         {!props.inputValue.glySubTypeIsHidden && (
-          <Grid item xs={12} sm={10}>
+          <Grid item size={{ xs: 12, sm: 10 }}>
             <FormControl fullWidth variant="outlined">
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
@@ -637,7 +637,7 @@ const GlycanAdvancedSearch = props => {
           </Grid>
         )}
         {/* Glycan Name */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -664,7 +664,7 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Glycosylated Protein */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -691,7 +691,7 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Binding Protein */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -717,7 +717,7 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* Glycan Motif */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -743,7 +743,7 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* Biosynthetic Enzyme */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -769,7 +769,7 @@ const GlycanAdvancedSearch = props => {
           </FormControl>
         </Grid>
         {/* Pubmed ID */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -796,7 +796,7 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Biomarker Disease */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -825,7 +825,7 @@ const GlycanAdvancedSearch = props => {
 					</FormControl>
 				</Grid>
 				{/* Biomarker Type */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -849,7 +849,7 @@ const GlycanAdvancedSearch = props => {
 				</Grid>
 
         {/* Buttons Buttom */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs: 12, sm: 10 }}>
           {/* <Row className="gg-align-right pt-3 mb-2 me-1"> */}
           <div className="gg-align-right pt-3 mb-2 me-1">
           {/* <ButtonGroup> */}

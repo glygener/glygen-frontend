@@ -25,7 +25,7 @@ import Button from "react-bootstrap/Button";
 import { FiBookOpen } from "react-icons/fi";
 import { Tab, Tabs, Container } from "react-bootstrap";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
-import ClientExpandableTable from "../components/ClientExpandableTable"
+import ClientExpandableTableNew from "../components/ClientExpandableTableNew"
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
 import "../css/detail.css";
@@ -568,43 +568,52 @@ const PublicationDetail = (props) => {
 
   const glycoOrganismColumns = [
     {
-      dataField: "evidence",
-      text: proteinStrings.evidence.name,
+      id: "evidence",
+      header: proteinStrings.evidence.name,
       // sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },
-      formatter: (cell, row) => {
+      Cell: ({ renderedCellValue, row }) => {
         return (
           <EvidenceList
             key={row.position + row.uniprot_canonical_ac}
-            evidences={cell}
+            evidences={row.original.evidence}
           />
         );
       }
     },
     {
-      dataField: "common_name",
-      text: glycanStrings.organism.shortName,
+      id: "glygen_name",
+      header: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
-      formatter: (value, row) => (
+      Cell: ({ renderedCellValue, row }) => (
         <>
-          {row.common_name}
+          {row.original.glygen_name}
         </>
       )
     },
     {
-      dataField: "details",
-      text: glycanStrings.details.name,
+      id: "details",
+      header: glycanStrings.details.name,
       // sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "35%" };
       },
-      formatter: (value, row) => (<>
-          {row.annotation_count && row.species_count && <CollapsibleTextTableView text={`${row.annotation_count} annotations and ${row.species_count} Species`} id={row.common_name} handleCallback={expandCloseTableRow} />}
+      Cell: ({ renderedCellValue, row }) => (<>
+          {row.original.annotation_count && row.original.species_count &&
+            <span
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
+              {`${row.original.annotation_count} annotations and ${row.original.species_count} Species`} 
+            </span>}
         </>)
     }
   ];
@@ -1629,7 +1638,7 @@ const PublicationDetail = (props) => {
           <div className="sidebar-page-mb">
             <div>
               <Row>
-                <Grid item xs={12} sm={12} className="text-center mt-4">
+                <Grid item size= {{ xs: 12, sm: 12 }} className="text-center mt-4">
                   <div className="horizontal-heading">
                     <h5>Look At</h5>
                     <h2>
@@ -1773,14 +1782,17 @@ const PublicationDetail = (props) => {
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                     <Row>
-                        {organismEvidence && organismEvidence.length > 0 && <ClientExpandableTable
-                          data={organismEvidence}
-                          orgExpandedRow={orgExpandedRow}
-                          columns={glycoOrganismColumns}
-                          expandableTableColumns={glycoOrganismExpandedColumns}
-                          defaultSortField={"common_name"}
-                          onClickTarget={"#publication"} 
-                        /> }
+                        {organismEvidence && organismEvidence.length > 0 && 
+                          <ClientExpandableTableNew
+                            data={organismEvidence}
+                            orgExpandedRow={orgExpandedRow}
+                            columns={glycoOrganismColumns}
+                            expandableTableColumns={glycoOrganismExpandedColumns}
+                            defaultSortField={"common_name"}
+                            onClickTarget={"#organism"} 
+                         />
+                        
+                        }
                       {!species && (
                         <p className="no-data-msg">{dataStatus}</p>
                       )}

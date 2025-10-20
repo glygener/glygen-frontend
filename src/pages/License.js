@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,7 +7,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col, Image } from "react-bootstrap";
 import { Link } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import BootstrapTable from "react-bootstrap-table-next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -16,6 +16,32 @@ import creativecommonsLicenseIcon from "../images/license/CreativeCommons_logo_t
 import SidebarPages from "../components/sidebar/SidebarPages";
 import { logActivity } from "../data/logging";
 import { CCRC_UGA, GITHUB } from "../envVariables";
+const PREFIX = 'License';
+
+const classes = {
+  tableHeader: `${PREFIX}-tableHeader`,
+  licenseIcons: `${PREFIX}-licenseIcons`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.tableHeader}`]: {
+    backgroundColor: "#4B85B6",
+    color: theme.palette.common.white,
+    height: "50px",
+  },
+
+  [`& .${classes.licenseIcons}`]: {
+    width: "70%",
+    verticalAlign: "middle",
+    paddingTop: "15%",
+  }
+}));
+
 const License = () => {
   const vertHeadDisclaimer = {
     h5VerticalText: "to know",
@@ -23,19 +49,7 @@ const License = () => {
     h2textBottom: "With",
     h2textBottomStrongAfter: "License",
   };
-  const useStyles = makeStyles((theme) => ({
-    tableHeader: {
-      backgroundColor: "#4B85B6",
-      color: theme.palette.common.white,
-      height: "50px",
-    },
-    licenseIcons: {
-      width: "70%",
-      verticalAlign: "middle",
-      paddingTop: "15%",
-    },
-  }));
-  const classes = useStyles();
+
   const databasesLicenseCols = [
     {
       dataField: "databases",
@@ -77,7 +91,7 @@ const License = () => {
   }, []);
 
   return (
-    <>
+    <Root>
       <Helmet>
         {/* <title>{head.license.title}</title>
 				{getMeta(head.license)} */}
@@ -88,7 +102,6 @@ const License = () => {
         {getTitle("license")}
         {getMeta("license")}
       </Helmet>
-
       <CssBaseline />
       <Row className="gg-baseline">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
@@ -170,7 +183,7 @@ const License = () => {
         </Col>
       </Row>
       {/* </Container> */}
-    </>
+    </Root>
   );
 };
 export default License;

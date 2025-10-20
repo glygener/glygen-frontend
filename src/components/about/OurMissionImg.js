@@ -1,13 +1,25 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import missionBgImg from "../../images/about/about-mission.png";
 
-const useStyles = makeStyles((theme) => ({
-	mainFeaturedCard: {
+const PREFIX = 'OurMissionImg';
+
+const classes = {
+    mainFeaturedCard: `${PREFIX}-mainFeaturedCard`,
+    overlay: `${PREFIX}-overlay`,
+    mainFeaturedCardContent: `${PREFIX}-mainFeaturedCardContent`
+};
+
+const StyledPaper = styled(Paper)((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.mainFeaturedCard}`]: {
 		position: "relative",
 		backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
@@ -15,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 	},
-	overlay: {
+
+    [`& .${classes.overlay}`]: {
 		position: "absolute",
 		top: 0,
 		bottom: 0,
@@ -23,34 +36,35 @@ const useStyles = makeStyles((theme) => ({
 		left: 0,
 		backgroundColor: "rgba(0,0,0,.3)",
 	},
-	mainFeaturedCardContent: {
+
+    [`& .${classes.mainFeaturedCardContent}`]: {
 		position: "relative",
 		textAlign: "center",
 		padding: theme.spacing(6),
 		[theme.breakpoints.up("md")]: {
 			padding: theme.spacing(12),
 		},
-	},
+	}
 }));
 
 export default function OurMissionImg(props) {
-	const classes = useStyles();
+
 	const { post } = props;
 
 	return (
-		<Paper
+        <StyledPaper
 			className={classes.mainFeaturedCard}
 			style={{ backgroundImage: `url(${missionBgImg})` }}>
-			{
+            {
 				<img
 					style={{ display: "none" }}
 					src={missionBgImg}
 					alt="our mission background img"
 				/>
 			}
-			<div className={classes.overlay} />
-			<Grid container>
-				<Grid item sm={12} md={12}>
+            <div className={classes.overlay} />
+            <Grid container>
+				<Grid item size= {{ sm: 12, md: 12 }}>
 					<div className={classes.mainFeaturedCardContent}>
 						<Typography
 							style={{ fontWeight: "200" }}
@@ -73,8 +87,8 @@ export default function OurMissionImg(props) {
 					</div>
 				</Grid>
 			</Grid>
-		</Paper>
-	);
+        </StyledPaper>
+    );
 }
 
 OurMissionImg.propTypes = {

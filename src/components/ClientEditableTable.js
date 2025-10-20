@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import BootstrapTable from "react-bootstrap-table-next";
-import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import paginationFactory, {
@@ -10,6 +10,24 @@ import paginationFactory, {
   SizePerPageDropdownStandalone
 } from "react-bootstrap-table2-paginator";
 import cellEditFactory from 'react-bootstrap-table2-editor';
+
+const PREFIX = 'ClientEditableTable';
+
+const classes = {
+  tableHeader: `${PREFIX}-tableHeader`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.tableHeader}`]: {
+    backgroundColor: "#4B85B6",
+    color: theme.palette.common.white,
+    height: "50px",
+  }
+}));
 
 const ClientEditableTable = ({
   data,
@@ -31,28 +49,19 @@ const ClientEditableTable = ({
   saveColumnData,
   bordered = true
 }) => {
-
-
   const handleTableChange = (type, values) => {
     // if (onClickTarget) {
     //   scrollToElement(onClickTarget);
     // }
     onTableChange(type, values);
   };
-  const useStyles = makeStyles(theme => ({
-    tableHeader: {
-      backgroundColor: "#4B85B6",
-      color: theme.palette.common.white,
-      height: "50px",
-    }
-  }));
-  const classes = useStyles();
 
-	useEffect(() => {
-	}, [updateTable]);
+
+  useEffect(() => {
+  }, [updateTable]);
 
   return (
-    <div>
+    <Root>
       <div style={{paddingTop:"20px"}}>
       <BootstrapTable
         keyField="id"
@@ -89,7 +98,7 @@ const ClientEditableTable = ({
         }
       />
       </div>
-    </div>
+    </Root>
   );
 };
 

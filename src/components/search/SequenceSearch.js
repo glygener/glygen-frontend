@@ -73,7 +73,7 @@ const SequenceSearch = (props) => {
 				spacing={3}
 				justifyContent='center'>
 				{/* Buttons Top */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<div className='gg-align-right pt-2 pb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearSequence}>
 							Clear Fields
@@ -91,7 +91,7 @@ const SequenceSearch = (props) => {
 					</div>
 				</Grid>
 				{/* Protein or Peptide Sequence */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -129,7 +129,7 @@ const SequenceSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Buttons Buttom */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					{/* <Row className='gg-align-right pt-3 mb-2 mr-1'> */}
 					<div className='gg-align-right pt-3 mb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearSequence}>

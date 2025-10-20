@@ -898,7 +898,7 @@ const IsoformMapping = (props) => {
                 justifyContent="center"
               >
                 {/*  Buttons */}
-                <Grid item xs={12} sm={10}>
+                <Grid item size= {{ xs: 12, sm: 10 }}>
                   <div className="gg-align-right pt-5">
                     <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                       Clear Fields
@@ -916,7 +916,7 @@ const IsoformMapping = (props) => {
                   </div>
                 </Grid>
 
-                {data && <Grid item xs={12} sm={10}>
+                {data && <Grid item size= {{ xs: 12, sm: 10 }}>
                   <FormControl
                     fullWidth
                     variant='outlined'
@@ -1043,7 +1043,7 @@ const IsoformMapping = (props) => {
                 </Grid>}
 
                 {/*  Buttons */}
-                <Grid item xs={12} sm={10}>
+                <Grid item size= {{ xs: 12, sm: 10 }}>
                   <div className="gg-align-right pt-5">
                     <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                       Clear Fields
@@ -1092,12 +1092,12 @@ const IsoformMapping = (props) => {
               >
 
                 {/* File Upload */}
-                <Grid item xs={12} sm={10} className="pt-5">
+                <Grid item size= {{ xs: 12, sm: 10 }} className="pt-5">
                   <Typography className="mb-1">
                     <i>{isoformJSONData.file_upload.upload_text}</i>
                   </Typography>
                 </Grid>
-                <Grid item xs={12} sm={10} className="pt-1">
+                <Grid item size= {{ xs: 12, sm: 10 }} className="pt-1">
                   <form>
                     <label>
                       <input
@@ -1138,7 +1138,7 @@ const IsoformMapping = (props) => {
 
 
                 {/*  Buttons */}
-                <Grid item xs={12} sm={10}>
+                <Grid item size= {{ xs: 12, sm: 10 }}>
                   <div className="gg-align-right pt-5">
                     <Button className="gg-btn-outline me-4" onClick={clearFileMapFields}>
                       Clear Fields
@@ -1181,7 +1181,7 @@ const IsoformMapping = (props) => {
                 justifyContent="center"
               >
                 {/*  Buttons */}
-                <Grid item xs={12} sm={10}>
+                <Grid item size= {{ xs: 12, sm: 10 }}>
                   <div className="gg-align-right pt-5">
                     <Button className="gg-btn-outline me-4" onClick={clearSequenceMapFields}>
                       Clear Fields
@@ -1199,7 +1199,7 @@ const IsoformMapping = (props) => {
                   </div>
                 </Grid>
 
-                {data && <Grid item xs={12} sm={10}>
+                {data && <Grid item size= {{ xs: 12, sm: 10 }}>
 
                   <Grid item className={'mb-3'}>
                     {/* 1. Protein Sequence */}
@@ -1364,7 +1364,7 @@ const IsoformMapping = (props) => {
                 </Grid>}
 
                 {/*  Buttons */}
-                <Grid item xs={12} sm={10}>
+                <Grid item size= {{ xs: 12, sm: 10 }}>
                   <div className="gg-align-right pt-5">
                     <Button className="gg-btn-outline me-4" onClick={clearSequenceMapFields}>
                       Clear Fields

@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 // import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -20,24 +20,36 @@ import {
 	getBiosynthesisEnzymeToGlycans,
 } from "../../data/usecases";
 import { useNavigate } from "react-router-dom";
-// import { Container } from 'react-bootstrap';
-// import Container from "@mui/material/Container";
-// import questions from "../../data/json/questions.json";
+const PREFIX = 'TryMeCard';
 
-const useStyles = makeStyles((theme) => ({
-	cardAction: {
+const classes = {
+    cardAction: `${PREFIX}-cardAction`,
+    cardTitle: `${PREFIX}-cardTitle`,
+    cardDetails: `${PREFIX}-cardDetails`,
+    selected: `${PREFIX}-selected`
+};
+
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.cardAction}`]: {
 		display: "inline-flex",
 	},
-	cardTitle: {
+
+    [`& .${classes.cardTitle}`]: {
 		textAlign: "center",
 		paddingBottom: "8px",
 	},
-	cardDetails: {
+
+    [`& .${classes.cardDetails}`]: {
 		flex: 1,
 	},
-	selected: {
+
+    [`& .${classes.selected}`]: {
 		color: "#2F78B7",
-	},
+	}
 }));
 
 /**
@@ -46,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TryMeCard(props) {
 	let quickSearch = stringConstants.quick_search;
 
-	const classes = useStyles();
+
 	const navigate = useNavigate();
 
 	const [pageLoading, setPageLoading] = useState(false);
@@ -179,8 +191,8 @@ export default function TryMeCard(props) {
 	}, []);
 
 	return (
-		<div id={props.id}>
-			<Grid item xs={12} sm={12} md={12} lg={12}>
+        <Root id={props.id}>
+            <Grid item size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
 				<PageLoader pageLoading={pageLoading} />
 				<DialogAlert
 					alertInput={alertDialogInput}
@@ -244,8 +256,8 @@ export default function TryMeCard(props) {
 					</div>
 				</Card>
 			</Grid>
-		</div>
-	);
+        </Root>
+    );
 }
 
 TryMeCard.propTypes = {

@@ -124,7 +124,7 @@ const StructureSearchControl = (props) => {
         justifyContent="center"
       >
           {/*  Buttons */}
-          <Grid item xs={12} sm={10}>
+          <Grid item size={{ xs:12, sm:10 }}>
             <div  className="gg-align-right pt-3 mb-2 me-1">
               <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                 Clear Fields
@@ -144,7 +144,7 @@ const StructureSearchControl = (props) => {
           </Grid>
 
          {/* Sequence Type */}
-         <Grid item xs={12} sm={10} className="pt-3">
+         <Grid item size={{ xs:12, sm:10 }} className="pt-3">
           <FormControl
             fullWidth
             variant="outlined"
@@ -166,7 +166,7 @@ const StructureSearchControl = (props) => {
         </Grid>
 
         {/* Sequence */}
-				<Grid item xs={12} sm={10} className="pt-3">
+				<Grid item size={{ xs:12, sm:10 }} className="pt-3">
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -202,7 +202,7 @@ const StructureSearchControl = (props) => {
 				</Grid>
 
         {/*  Buttons */}
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs:12, sm:10 }}>
           <div  className="gg-align-right pt-3 mb-2 me-1">
               {props.inputValue.seqType === "GlycoCT" && (<Button
                 className="gg-btn-blue me-4"
@@ -226,7 +226,7 @@ const StructureSearchControl = (props) => {
               </Button>
           </div>
         </Grid>
-        <Grid item xs={12} sm={10}>
+        <Grid item size={{ xs:12, sm:10 }}>
           <Row>
             <Col>
               <div className="text-muted mt-2">

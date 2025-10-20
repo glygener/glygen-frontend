@@ -378,7 +378,7 @@ const IdMapping = (props) => {
         <TextAlert alertInput={alertTextInput} />
 
         {/* 1 recordtype Select Molecule */}
-        <Grid item xs={12} sm={12} md={12}>
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }}>
           <FormControl
             fullWidth
             variant="outlined"
@@ -420,7 +420,7 @@ const IdMapping = (props) => {
         {/* 2 From ID / To ID */}
         <Grid container className="select-type">
           {/* input_namespace From ID Type */}
-          <Grid item xs={12} sm={12} md={5} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 5 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -482,7 +482,7 @@ const IdMapping = (props) => {
             )}
           </Grid>
           {/* output_namespace To ID Type */}
-          <Grid item xs={12} sm={12} md={5} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 5 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -541,7 +541,7 @@ const IdMapping = (props) => {
           </Grid>
         </Grid>
         {/* 3 Enter IDs */}
-        <Grid item xs={12} sm={12} md={12} className="pt-3">
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }} className="pt-3">
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <span>3.</span>{" "}
@@ -637,7 +637,7 @@ const IdMapping = (props) => {
           <i>{idMappingData.file_upload.acceptedFileTypeText}</i>
         </Typography>
         {/*  Buttons */}
-        <Grid item xs={12} sm={12}>
+        <Grid item size= {{ xs: 12, sm: 12 }}>
           <div className="gg-align-center pt-5">
             <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
               Clear Fields

@@ -2383,7 +2383,7 @@ const ProteinDetail = (props) => {
           <div className="sidebar-page-mb">
             <div className="content-box-md">
               <Row>
-                <Grid item xs={12} sm={12} className="text-center">
+                <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
                   <div className="horizontal-heading">
                     <h5>Look At</h5>
                     <h2>
@@ -4223,7 +4223,7 @@ const ProteinDetail = (props) => {
                         {isoforms && (
                           <Grid container className="table-body">
                             {isoforms.map((isoformsS, isoformIndex) => (
-                              <Grid item xs={12} key={isoformIndex}>
+                              <Grid item size= {{ xs: 12 }} key={isoformIndex}>
                                 <div>
                                   <strong>{proteinStrings.isoform_acc.name}: </strong>
 
@@ -4334,7 +4334,7 @@ const ProteinDetail = (props) => {
                       {orthologs && (
                         <Grid container classorthologs_ac="table-body">
                           {orthologs.map((orthologsS, orthologsSuniprot_canonical_ac) => (
-                            <Grid item xs={12} key={orthologsSuniprot_canonical_ac}>
+                            <Grid item size={{ xs: 12 }} key={orthologsSuniprot_canonical_ac}>
                               <div>
                                 <strong>UniProtKB Homolog Accession: </strong>
                                 <Link

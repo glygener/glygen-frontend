@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -9,25 +9,41 @@ import { getDateMMDDYYYY } from "../../utils/common";
 import { Link } from "@mui/material";
 import CardLoader from "../load/CardLoader";
 
-const useStyles = makeStyles((theme) => ({
-	cardAction: {
+const PREFIX = 'VersionCard';
+
+const classes = {
+    cardAction: `${PREFIX}-cardAction`,
+    card: `${PREFIX}-card`,
+    cardTitle: `${PREFIX}-cardTitle`,
+    cardDetails: `${PREFIX}-cardDetails`
+};
+
+const StyledGrid = styled(Grid)((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.cardAction}`]: {
 		display: "inline-flex",
 	},
-	card: {
+
+    [`& .${classes.card}`]: {
 		// display: 'flex'
 		// maxWidth: 345
 		// width: '100%'
 	},
-	cardTitle: {
+
+    [`& .${classes.cardTitle}`]: {
 		textAlign: "center",
 	},
-	cardDetails: {
+
+    [`& .${classes.cardDetails}`]: {
 		flex: 1,
-	},
+	}
 }));
 
 export default function VersionCard(props) {
-	const classes = useStyles();
+
 	const [versionData, setVersionData] = useState({});
 
 	useEffect(() => {
@@ -44,8 +60,8 @@ export default function VersionCard(props) {
 	}, [props.data]);
 
 	return (
-		<Grid item xs={12} sm={6} md={12}>
-			<Card className="card">
+        <StyledGrid item size={{ xs: 12, sm: 6, md: 12 }}>
+            <Card className="card">
 				<CardLoader pageLoading={props.pageLoading} />
 				<div className={classes.cardDetails}>
 					<CardContent>
@@ -92,8 +108,8 @@ export default function VersionCard(props) {
 					</CardContent>
 				</div>
 			</Card>
-		</Grid>
-	);
+        </StyledGrid>
+    );
 }
 
 VersionCard.propTypes = {

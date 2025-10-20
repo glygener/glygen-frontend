@@ -1,4 +1,5 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import logoFooter from "../../images/glygen_logos/glygen-logoW-top.svg";
 import ugaLogo from "../../images/univ_logos/logo-uga.svg";
@@ -6,7 +7,6 @@ import gwuLogo from "../../images/univ_logos/logo-gwu.svg";
 import { Navbar, Col, Image, Row, Container as ContainerBootStrap } from "react-bootstrap";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import { makeStyles } from "@mui/styles";
 import "../../App.css";
 import routeConstants from "../../data/json/routeConstants.json";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -45,28 +45,45 @@ import {
   NIH_COMMONFUND
 } from "../../envVariables";
 
-const useStyles = makeStyles((theme) => ({
-  navbarText: {
+const PREFIX = 'Footer';
+
+const classes = {
+  navbarText: `${PREFIX}-navbarText`,
+  link: `${PREFIX}-link`,
+  univLogo: `${PREFIX}-univLogo`,
+  footerUnivLogo: `${PREFIX}-footerUnivLogo`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.navbarText}`]: {
     color: "#fff !important",
   },
-  link: {
+
+  [`& .${classes.link}`]: {
     color: "#afd9fd !important",
     "&:hover": {
       color: "#57affa !important",
     },
   },
-  univLogo: {
+
+  [`& .${classes.univLogo}`]: {
     padding: "10px",
   },
-  footerUnivLogo: {
+
+  [`& .${classes.footerUnivLogo}`]: {
     padding: "20px 10px 0 10px",
-  },
+  }
 }));
 
 export default function Footer() {
-  const classes = useStyles();
+
   return (
-    <React.Fragment>
+    <Root>
       <div className="footer-color gg-align-center gg-footer">
         <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center sitemap-item tab-bigscreen">
           <Row className="text-center justify-content-center">
@@ -335,6 +352,6 @@ export default function Footer() {
           </Row>
         </ContainerBootStrap>
       </div>
-    </React.Fragment>
+    </Root>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -6,17 +7,29 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { withStyles } from "@mui/styles";
-const styles = theme => ({
-  root: {
+const PREFIX = 'ProtvistaNav';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  nested: `${PREFIX}-nested`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
     width: "100%",
     maxWidth: 360,
     background: theme.palette.background.paper
   },
-  nested: {
+
+  [`& .${classes.nested}`]: {
     paddingLeft: theme.spacing.unit * 4
   }
-});
+}));
+
 function getItems() {
   var json = {
     list: [
@@ -64,9 +77,9 @@ class ProtvistaNav extends React.Component {
   };
   render() {
     const items = getItems();
-    const { classes } = this.props;
+    const { } = this.props;
     return (
-      <div>
+      <Root>
         {items.list.map(list => {
           return (
             <List className={classes.root} key={list.id} subheader={list.title}>
@@ -127,11 +140,11 @@ class ProtvistaNav extends React.Component {
             </List>
           );
         })}
-      </div>
+      </Root>
     );
   }
 }
 ProtvistaNav.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withStyles(styles)(ProtvistaNav);
+export default (ProtvistaNav);

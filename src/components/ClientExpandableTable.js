@@ -1,9 +1,34 @@
 import React, { useEffect } from "react";
+import { styled } from '@mui/material/styles';
+import ReactDOM from "react-dom";
 import BootstrapTable from "react-bootstrap-table-next";
-import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "../App.css";
+
+const PREFIX = 'ClientExpandableTable';
+
+const classes = {
+  tableHeader: `${PREFIX}-tableHeader`,
+  extableHeader: `${PREFIX}-extableHeader`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.tableHeader}`]: {
+    backgroundColor: "#4B85B6",
+    color: theme.palette.common.white,
+    height: "50px",
+  },
+
+  [`& .${classes.extableHeader}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.white,
+  }
+}));
 
 const ClientExpandableTable = ({
   data,
@@ -22,22 +47,10 @@ const ClientExpandableTable = ({
   expandableTableColumns
 }) => {
 
-  const useStyles = makeStyles(theme => ({
-    tableHeader: {
-      backgroundColor: "#4B85B6",
-      color: theme.palette.common.white,
-      height: "50px",
-    },
-    extableHeader: {
-      backgroundColor: theme.palette.common.white,
-      color: theme.palette.common.white,
-    }
-  }));
-  const classes = useStyles();
 
   const expandRow = {
     renderer: row => (
-      <div>
+      <Root>
         <div style={{paddingTop:"15px"}}>
           <BootstrapTable
             keyField="order"
@@ -53,7 +66,7 @@ const ClientExpandableTable = ({
             headerClasses={tableHeader ? tableHeader : classes.tableHeader}
           />
         </div>
-      </div>
+      </Root>
     ),
     // className: "expandable-table expandable-table-no-hover",
     showExpandColumn: false,

@@ -141,7 +141,7 @@ const ProteinAlignment = () => {
           <div className="sidebar-page-mb">
             <div className="content-box-md">
               <Row>
-                <Grid item xs={12} sm={12} className="text-center">
+                <Grid item size={{ xs: 12, sm: 12 }} className="text-center">
                   <div className="horizontal-heading">
                     <h5>Look At</h5>
                     <h2>

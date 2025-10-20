@@ -341,7 +341,7 @@ const SuperSearch = (props) => {
 									style={{ margin: '0  auto' }}
 									spacing={3}
 									justify='center'>
-									<Grid item xs={12} sm={12}>
+									<Grid item size={{ xs: 12, sm: 12 }}>
 									<h5><br></br><center>{superSearchData.super_search.message}</center></h5>
 										{svgData.length !== 0 && <SuperSearchSVG 
 											svgData={svgData} 
@@ -352,7 +352,7 @@ const SuperSearch = (props) => {
 									</Grid>
 
 									{/* Buttons */}
-									<Grid item xs={12} sm={12}>
+									<Grid item size={{ xs: 12, sm: 12 }}>
 										<div className="gg-align-right btn-supsearch-top me-5 pe-2 mb-2">
 											<LineTooltip text={superSearchStringCommonData.enable_debug.tooltip.text}>
 												<Button className="gg-btn-outline mt-4 me-4" 
@@ -405,7 +405,7 @@ const SuperSearch = (props) => {
 									</Grid>
 
 									{/* Buttons */}
-									{enableDebug && <Grid item xs={12} sm={12}>
+									{enableDebug && <Grid item size={{ xs: 12, sm: 12 }}>
 										<Row className="mt-2 me-5 ms-4 pe-2 ps-4">
 											<div className="pe-4">										
 												<OutlinedInput

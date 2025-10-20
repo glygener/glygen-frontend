@@ -469,7 +469,7 @@ const BlastSearch = (props) => {
         {/* 3 Threshold */}
         <Grid container className="select-type">
           {/* input_namespace From ID Type */}
-          <Grid item xs={12} sm={12} md={9} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 9 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -498,7 +498,7 @@ const BlastSearch = (props) => {
             </FormControl>
           </Grid>
           {/* output_namespace To ID Type */}
-          <Grid item xs={12} sm={12} md={3} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 3 }} className="pt-3">
             <Typography className={"search-lbl"} gutterBottom>
               &nbsp;
             </Typography>
@@ -510,7 +510,7 @@ const BlastSearch = (props) => {
           </Grid>
         </Grid>
         {/* 1. Protein Sequence */}
-				<Grid item  xs={12} sm={12} md={12}>
+				<Grid item size={{ xs: 12, sm: 12, md: 12 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -548,7 +548,7 @@ const BlastSearch = (props) => {
 				</Grid>
 
         {/* targetdb */}
-        <Grid item xs={12} sm={12} md={12}>
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }}>
           <FormControl
             fullWidth
             variant="outlined"
@@ -571,7 +571,7 @@ const BlastSearch = (props) => {
         {/* evalue */}
         <Grid container className="select-type">
           {/* input_namespace From ID Type */}
-          <Grid item xs={12} sm={12} md={5} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 5 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -612,7 +612,7 @@ const BlastSearch = (props) => {
             </FormControl>
           </Grid>
           {/* num_alignments */}
-          <Grid item xs={12} sm={12} md={5} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 5 }} className="pt-3">
               <Typography className={"search-lbl"} gutterBottom>
                 <HelpTooltip
                   title={commonBlastSearchData.num_alignments.tooltip.title}
@@ -652,7 +652,7 @@ const BlastSearch = (props) => {
           </Grid>
         </Grid>
         {/*  Buttons */}
-        <Grid item xs={12} sm={12}>
+        <Grid item size= {{ xs: 12, sm: 12 }}>
           <div className="gg-align-center pt-5">
             <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
               Clear Fields

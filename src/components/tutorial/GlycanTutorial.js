@@ -44,7 +44,7 @@ export default function GlycanTutorial(props) {
 				<HorizontalHeading post={horHeadSimpleOne} />
 			</div>
 			<Grid container spacing={3} justifyCenter="center">
-				<Grid item xs={12} sm={6}>
+				<Grid item size={{ xs: 12, sm: 6 }}>
 					<Iframe
 						src="//www.slideshare.net/slideshow/embed_code/key/1Gk9i2RWn1D9wV"
 						width="100%"
@@ -85,7 +85,7 @@ export default function GlycanTutorial(props) {
 						</strong>{" "}
 					</div>
 				</Grid>
-				<Grid item xs={12} sm={6} className="tutorial-text-middle">
+				<Grid item size={{ xs: 12, sm: 6 }} className="tutorial-text-middle">
 					<div className="tutorial-text-middle">
 						<Typography>
 							You can search for glycans by specifying their GlyTouCan accession
@@ -105,7 +105,7 @@ export default function GlycanTutorial(props) {
 				<HorizontalHeading post={horHeadAdvancedeOne} />
 			</div>
 			<Grid container spacing={3} justify="center">
-				<Grid item xs={12} sm={6} className="tutorial-text-middle">
+				<Grid item size={{ xs: 12, sm: 6 }} className="tutorial-text-middle">
 					<div className="tutorial-text-middle">
 						<Typography>
 							You can search for glycans by specifying their chemical features of
@@ -120,7 +120,7 @@ export default function GlycanTutorial(props) {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item size={{ xs: 12, sm: 6 }}>
 					<Iframe
 						src="//www.slideshare.net/slideshow/embed_code/key/2taO0glBKuZWQx"
 						width="100%"
@@ -167,7 +167,7 @@ export default function GlycanTutorial(props) {
 			<VerticalHeading post={vertHeadAdvancedeOne} />
 			{/* </div> */}
 			<Grid container spacing={3} justify="center">
-				<Grid item xs={12} sm={6}>
+				<Grid item size={{ xs: 12, sm: 6 }}>
 					<Iframe
 						width="100%"
 						height="305"
@@ -193,7 +193,7 @@ export default function GlycanTutorial(props) {
 						from <strong>GlyGen</strong>{" "}
 					</div>
 				</Grid>
-				<Grid item xs={12} sm={6} className="tutorial-text-middle">
+				<Grid item size={{ xs: 12, sm: 6 }} className="tutorial-text-middle">
 					<div className="tutorial-text-middle">
 						<Typography>
 							This tutorial describes how to initiate the exploration of GlyGen
@@ -213,7 +213,7 @@ export default function GlycanTutorial(props) {
 			<VerticalHeading post={vertHeadAdvancedeTwo} />
 			{/* </div> */}
 			<Grid container spacing={3} justify="center">
-				<Grid item xs={12} sm={6} className="tutorial-text-middle">
+				<Grid item size={{ xs: 12, sm: 6 }} className="tutorial-text-middle">
 					<div className="tutorial-text-middle">
 						<Typography>
 							This tutorial illustrates how to search for a glycan or collection
@@ -227,7 +227,7 @@ export default function GlycanTutorial(props) {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item size={{ xs: 12, sm: 6 }}>
 					<Iframe
 						src="https://www.youtube.com/embed/7TEjBsolbRY?rel=0"
 						width="100%"

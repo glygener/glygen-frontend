@@ -1,19 +1,31 @@
 import React, { useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
 // import Container from '@mui/material/Container';
 import VerticalHeading from "../components/headings/VerticalHeading";
 import { Row, Col } from "react-bootstrap";
-import { makeStyles } from "@mui/styles";
 import SidebarPages from "../components/sidebar/SidebarPages";
 import { logActivity } from "../data/logging";
 
-const useStyles = makeStyles((theme) => ({
-	heading: {
+const PREFIX = 'Disclaimer';
+
+const classes = {
+    heading: `${PREFIX}-heading`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`& .${classes.heading}`]: {
 		color: "#2f78b7",
-	},
+	}
 }));
+
 const Disclaimer = (props) => {
 	const vertHeadDisclaimer = {
 		h5VerticalText: "to know",
@@ -21,7 +33,7 @@ const Disclaimer = (props) => {
 		h2textBottom: "With",
 		h2textBottomStrongAfter: "Disclaimer",
 	};
-	const classes = useStyles();
+
 	useEffect(() => {
 		window.scrollTo({
 			top: 0,
@@ -31,20 +43,19 @@ const Disclaimer = (props) => {
 	}, []);
 
 	return (
-		<>
-			<Helmet>
+        <Root>
+            <Helmet>
 				{/* <title>{head.disclaimer.title}</title>
 				{getMeta(head.disclaimer)} */}
 				{getTitle("disclaimer")}
 				{getMeta("disclaimer")}
 			</Helmet>
-
-			<CssBaseline />
-			{/* <Container
+            <CssBaseline />
+            {/* <Container
 				maxWidth='md'
 				className='card'
 				style={{ marginTop: '20px', marginBottom: '20px' }}> */}
-			<Row className="gg-baseline">
+            <Row className="gg-baseline">
 				<Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
 					<SidebarPages />
 				</Col>
@@ -106,8 +117,8 @@ const Disclaimer = (props) => {
 					</div>
 				</Col>
 			</Row>
-			{/* </Container> */}
-		</>
-	);
+            {/* </Container> */}
+        </Root>
+    );
 };
 export default Disclaimer;

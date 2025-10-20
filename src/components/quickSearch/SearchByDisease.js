@@ -50,8 +50,8 @@ const SearchByGlycan = props => {
               </AccordionSummary>
               <form className="ms-2" onSubmit={(event) => {event.preventDefault(); if (props.inputValue.question_11.length <= searchByDisease.common.length) props.searchQuestion11()}}>
                 <AccordionDetails>
-                  <Grid container xs={12} sm={12}>
-                    <Grid item xs={12} sm={12}>
+                  <Grid container size= {{ xs: 12, sm: 12 }}>
+                    <Grid item size= {{ xs: 12, sm: 12 }}>
                       <TextAlert
                         alertInput={
                           props.alertText.question === quickSearch.question_11.id
@@ -61,7 +61,7 @@ const SearchByGlycan = props => {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={7} className="quick-search-control">
+                    <Grid item size= {{ xs: 12, sm: 7 }} className="quick-search-control">
                       <FormControl fullWidth variant="outlined">
                         <Typography className="search-lbl" gutterBottom>
                           <HelpTooltip
@@ -91,7 +91,7 @@ const SearchByGlycan = props => {
                         />
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={2} className="quick-search-control">
+                    <Grid item size= {{ xs: 12, sm: 2 }} className="quick-search-control">
                       <Typography gutterBottom>&nbsp;</Typography>
                       <Button
                         className="gg-btn-blue"

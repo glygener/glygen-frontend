@@ -907,6 +907,20 @@ ul.office-details {
   vertical-align: inherit !important;
 }
 
+.lnk-btn-show-more {
+  text-decoration: none !important;
+  background-color: "inherit" !important;
+  color: var(--gg-blue);
+  border-width: 0 !important;
+  padding: 0 !important;
+  font-size: 18px !important;
+  vertical-align: inherit !important;
+}
+
+.lnk-btn-show-more:hover {
+  color: var(--gg-dark-hover) !important;
+}
+
 .btn-white {
   text-decoration: none !important;
   background-color: var(--gg-blue) !important;

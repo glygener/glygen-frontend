@@ -36,10 +36,10 @@ const HelpTooltip = (props) => {
 								style={{ margin: '0  auto' }}
 								spacing={1}
 							>
-								<Grid item xs={8} sm={8}>
+								<Grid item size= {{ xs: 8, sm: 8 }}>
 									{value.imageTitle}
 								</Grid>
-								<Grid item xs={3} sm={3}>
+								<Grid item size= {{ xs: 3, sm: 3 }}>
 									<Image
 										src={GLYGEN_DOMAIN + value.imagePath}
 										style={{ width: "20px", height: "20px"}}

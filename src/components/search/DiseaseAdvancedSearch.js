@@ -175,7 +175,7 @@ const DiseaseAdvancedSearch = (props) => {
 				spacing={3}
 				justifyContent='center'>
 				{/* Buttons Top */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<div className='gg-align-right pt-2 pb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearDisease}>
 							Clear Fields
@@ -193,7 +193,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</div>
 				</Grid>
 				{/* Disease ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant="outlined">
 						<Typography className={"search-lbl"} gutterBottom>
 						<HelpTooltip
@@ -219,10 +219,10 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Disease Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant="outlined">
 						<Grid container spacing={2}>
-							<Grid item xs={12} sm={9}>
+							<Grid item size={{ xs: 12, sm: 9 }}>
 								<Typography className={"search-lbl"} gutterBottom>
 								<HelpTooltip
 									title={commonDiseaseData.disease_name.tooltip.title}
@@ -244,7 +244,7 @@ const DiseaseAdvancedSearch = (props) => {
 										/>
 							</Grid>
 
-							<Grid item xs={12} sm={3}>
+							<Grid item size={{ xs: 12, sm: 3 }}>
 								<Typography className={"search-lbl"} gutterBottom>
 								&nbsp;
 								</Typography>
@@ -260,7 +260,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Organism */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -283,7 +283,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Biomarker ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -310,7 +310,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Biomarker Type */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -333,7 +333,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/*  Gene Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -360,7 +360,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Protein ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -388,7 +388,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>				
 				{/* Protein Name */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -415,7 +415,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>
 				{/* Glycan ID */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -469,7 +469,7 @@ const DiseaseAdvancedSearch = (props) => {
 					</FormControl>
 				</Grid>	*/}
 				{/* Buttons Buttom */}
-				<Grid item xs={12} sm={10}>
+				<Grid item size={{ xs: 12, sm: 10 }}>
 					<div className='gg-align-right pt-3 mb-2 me-1'>
 						<Button className='gg-btn-outline me-4' onClick={clearDisease}>
 							Clear Fields

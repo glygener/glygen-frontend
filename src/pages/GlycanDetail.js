@@ -15,7 +15,7 @@ import EvidenceList from "../components/EvidenceList";
 import ClientPaginatedTable from "../components/ClientPaginatedTable";
 import ClientServerPaginatedTable from "../components/ClientServerPaginatedTable";
 import ClientServerPaginatedTableFullScreen from "../components/ClientServerPaginatedTableFullScreen";
-import ClientExpandableTable from "../components/ClientExpandableTable"
+import ClientExpandableTableNew from "../components/ClientExpandableTableNew"
 import CollapsibleTextTableView from "../components/CollapsibleTextTableView"
 import "../css/detail.css";
 import Accordion from "react-bootstrap/Accordion";
@@ -888,31 +888,31 @@ const GlycanDetail = props => {
 
   const glycoOrganismColumns = [
     {
-      dataField: "evidence",
-      text: proteinStrings.evidence.name,
+      id: "evidence",
+      header: proteinStrings.evidence.name,
       // sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },
-      formatter: (cell, row) => {
+      Cell: ({ renderedCellValue, row }) => {
         return (
           <EvidenceList
             key={row.position + row.uniprot_canonical_ac}
-            evidences={cell}
+            evidences={row.original.evidence}
           />
         );
       }
     },
     {
-      dataField: "glygen_name",
-      text: glycanStrings.organism.shortName,
+      id: "glygen_name",
+      header: glycanStrings.organism.shortName,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
-      formatter: (value, row) => (
+      Cell: ({ renderedCellValue, row }) => (
         <>
-          {row.glygen_name}
+          {row.original.glygen_name}
           {" "}
           <DirectSearch
             text={glycanDirectSearch.organism.text}
@@ -921,7 +921,7 @@ const GlycanDetail = props => {
             fieldValue={{
               organism_list: [
                 {
-                  glygen_name: row.glygen_name,
+                  glygen_name: row.original.glygen_name,
                 }
               ],
               annotation_category: "",
@@ -933,14 +933,23 @@ const GlycanDetail = props => {
       )
     },
     {
-      dataField: "details",
-      text: glycanStrings.details.name,
+      id: "details",
+      header: glycanStrings.details.name,
       // sort: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "35%" };
       },
-      formatter: (value, row) => (<>
-          {row.annotation_count && row.species_count && <CollapsibleTextTableView text={`${row.annotation_count} annotations and ${row.species_count} Species`} id={row.common_name} handleCallback={expandCloseTableRow} />}
+      Cell: ({ renderedCellValue, row }) => (<>
+          {row.original.annotation_count && row.original.species_count && 
+            <span
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
+              {`${row.original.annotation_count} annotations and ${row.original.species_count} Species`} 
+            </span>}
         </>)
     }
   ];
@@ -966,7 +975,7 @@ const GlycanDetail = props => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
-      formatter: (value, row) => (
+       formatter: (value, row) => (
         <>
           {row.url ? <LinkMUI href={row.url} target="_blank" rel="noopener noreferrer">
                 {value}
@@ -983,7 +992,7 @@ const GlycanDetail = props => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
-      formatter: (value, row) => (
+       formatter: (value, row) => (
         <>
           {value}
         </>
@@ -996,7 +1005,7 @@ const GlycanDetail = props => {
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
       },
-      formatter: (value, row) => (
+       ormatter: (value, row) => (
         <>
           {value}
         </>
@@ -1700,7 +1709,7 @@ const GlycanDetail = props => {
           <div className="sidebar-page-mb">
             <div className="content-box-md">
               <Row>
-                <Grid item xs={12} sm={12} className="text-center">
+                <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
                   <div className="horizontal-heading">
                     <h5>Look At</h5>
                     <h2>
@@ -2298,14 +2307,16 @@ const GlycanDetail = props => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <Row>
-                         {organismEvidence && organismEvidence.length > 0 && <ClientExpandableTable
-                            data={organismEvidence}
-                            orgExpandedRow={orgExpandedRow}
-                            columns={glycoOrganismColumns}
-                            expandableTableColumns={glycoOrganismExpandedColumns}
-                            defaultSortField={"common_name"}
-                            onClickTarget={"#organism"} 
-                          /> }
+                         {organismEvidence && organismEvidence.length > 0 && 
+                          <ClientExpandableTableNew
+                              data={organismEvidence}
+                              orgExpandedRow={orgExpandedRow}
+                              columns={glycoOrganismColumns}
+                              expandableTableColumns={glycoOrganismExpandedColumns}
+                              defaultSortField={"common_name"}
+                              onClickTarget={"#organism"} 
+                          />
+                          }
                         {!species && (
                           <p className="no-data-msg">{dataStatus}</p>
                         )}

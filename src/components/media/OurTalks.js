@@ -1,10 +1,11 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import Container from "@mui/material/Container";
 import { Row, Col } from "react-bootstrap";
 import VerticalHeading from "../../components/headings/VerticalHeading";
 import "../../css/Media.css";
 import PropTypes from "prop-types";
-import { makeStyles, useTheme } from "@mui/styles";
+import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -19,6 +20,20 @@ import lifeScience2018Pdf from "../../images/media/slides/6-Life_science_worksho
 import commonFund2020Pdf from "../../images/media/slides/GlyGen-NIH-Common-Fund-2020.pdf";
 import asbmbTools2021Pdf from "../../images/media/slides/ASBMB_2021_GlyGen_Tools.pdf";
 import asbmbSuperSearch2021Pdf from "../../images/media/slides/ASBMB_2021_GlyGen_SuperSearch.pdf";
+const PREFIX = 'OurTalks';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')({
+  [`& .${classes.root}`]: {
+    flexGrow: 1,
+    width: "100%",
+  },
+});
+
 // const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function TabPanel(props) {
@@ -54,15 +69,8 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-  },
-});
-
 const OurTalks = (props) => {
-  const classes = useStyles();
+
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -76,7 +84,7 @@ const OurTalks = (props) => {
     h2textBottom: "About GlyGen",
   };
   return (
-    <React.Fragment>
+    <Root>
       <Container maxWidth="lg" className="tab-bigscreen">
         <VerticalHeading post={vertHeadTalks} />
       </Container>
@@ -631,7 +639,7 @@ const OurTalks = (props) => {
           </Row>
         </Container>
       </section>
-    </React.Fragment>
+    </Root>
   );
 };
 export default OurTalks;

@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import { Dialog } from "@mui/material";
 import { Checkbox } from "@mui/material";
-import { withStyles } from "@mui/styles";
-const BlueCheckbox = withStyles({
-  root: {
+const PREFIX = 'UserPermissionExternalLink';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  checked: `${PREFIX}-checked`
+};
+
+const StyledDialog = styled(Dialog)({
+  [`& .${classes.root}`]: {
     color: "#979797",
     "&$checked": {
       color: "#2f78b7"
     }
   },
-  checked: {}
-})(props => <Checkbox color="default" {...props} />);
+  [`& .${classes.checked}`]: {}
+});
+
+const BlueCheckbox = (props => <Checkbox {...props} />);
 
 /**
  * Dialog alert component to ask user permission.
@@ -64,7 +73,7 @@ export default function UserPermissionExternalLink(props) {
     }, []);
 
   return (
-    <Dialog
+    <StyledDialog
       open={props.openDialog}
       classes={{
         paper: "alert-dialog",
@@ -78,11 +87,14 @@ export default function UserPermissionExternalLink(props) {
         <div className="alert-dialog-content-text">{"You are about to leave GlyGen and go to an external resource."}</div>
         <div className="alert-dialog-content-text">
          <BlueCheckbox
-            checked={selection}
-            onChange={handleOptionChange}
-            size="small"
-            className="pt-1 pb-1"
-          />
+           checked={selection}
+           onChange={handleOptionChange}
+           size="small"
+           className="pt-1 pb-1"
+           classes={{
+             root: classes.root,
+             checked: classes.checked
+           }} />
           {"Don't show this message again."}
         </div>
         <Button
@@ -100,7 +112,7 @@ export default function UserPermissionExternalLink(props) {
           Cancel
         </Button>
       </div>
-    </Dialog>
+    </StyledDialog>
   );
 }
 

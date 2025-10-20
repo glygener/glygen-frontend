@@ -12,7 +12,7 @@ export default function VerticalHeadingLogo(props) {
 	return (
 		<div className="content-box-md" id={props.id}>
 			<Grid container alignItems="center" maxWidth="lg" className="vert-head-logo-container">
-				<Grid item xs={8} sm={8} md={9} lg={9}>
+				<Grid item size= {{ xs: 8, sm: 8, md: 9, lg: 9 }}>
 					<div className="vertical-heading">
 						<Typography variant="h5">{post.h5VerticalText}</Typography>
 						<Typography variant="h2">
@@ -39,7 +39,7 @@ export default function VerticalHeadingLogo(props) {
 						</Typography>
 					</div>
 				</Grid>
-				{logo && <Grid item xs={4} sm={4} md={3} lg={3}>
+				{logo && <Grid item size= {{ xs: 4, sm: 4, md: 3, lg: 3 }}>
 					<Link
 						className="align-logo"
 						alignContent="bottom"

@@ -12,7 +12,7 @@ export default function HorizontalHeading(props) {
 		<div className="content-box-md" id={props.id}>
 			<Container maxWidth="xl">
 				<Row>
-					<Grid item xs={12} sm={12} md={12} lg={12} className="text-center">
+					<Grid item size= {{ xs: 12, sm: 12, md: 12, lg: 12 }} className="text-center">
 						<div className="horizontal-heading">
 							<h5>{post.h5VerticalText}</h5>
 							<h2>

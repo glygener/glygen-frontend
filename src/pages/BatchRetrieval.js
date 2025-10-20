@@ -710,7 +710,7 @@ const BatchRetrieval = (props) => {
 
         {/* input_namespace ID Type */}
         <Grid container className="select-type">
-          <Grid item xs={12} sm={12} md={12} className="pt-3">
+          <Grid item size= {{ xs: 12, sm: 12, md: 12 }} className="pt-3">
             <FormControl
               fullWidth
               variant="outlined"
@@ -758,7 +758,7 @@ const BatchRetrieval = (props) => {
 
         </Grid>
         {/* Enter IDs */}
-        <Grid item xs={12} sm={12} md={12} className="pt-3">
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }} className="pt-3">
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -859,7 +859,7 @@ const BatchRetrieval = (props) => {
           </i>
         </Typography>
 
-        <Grid item xs={12} sm={12} md={12} className="pt-3">
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }} className="pt-3">
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -875,7 +875,7 @@ const BatchRetrieval = (props) => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={12} className1="pt-3">
+        <Grid item size= {{ xs: 12, sm: 12, md: 12 }} className1="pt-3">
           <FormControl fullWidth variant="outlined">
             <Typography className={"search-lbl"} gutterBottom>
               <HelpTooltip
@@ -901,27 +901,27 @@ const BatchRetrieval = (props) => {
                 <AccordionDetails style={{ paddingBottom: "0px" }}>
                   <div className="pt-2 pb-3" textAlign="center">
                     <Grid container justifyContent="center">
-                      <Grid item xs={3.1} sm={3.1} md={3.1} style={{ paddingRight: "16px" }} >
+                      <Grid item size= {{ xs: 3.1, sm: 3.1, md: 3.1 }} style={{ paddingRight: "16px" }} >
                         <Typography className={"comp-search-label-header"} gutterBottom align="center">
                           Column Name
                         </Typography>
                       </Grid>
-                      <Grid item xs={1.3} sm={1.3} md={1.3} style={{ paddingRight: "16px" }}>
+                      <Grid item size= {{ xs: 1.3, sm: 1.3, md: 1.3 }} style={{ paddingRight: "16px" }}>
                         <Typography className={"comp-search-label-header"} gutterBottom align="center">
                           Output
                         </Typography>
                       </Grid>
-                      <Grid item xs={1.6} sm={1.6} md={1.6} style={{ paddingRight: "16px" }}>
+                      <Grid item size= {{ xs: 1.6, sm: 1.6, md: 1.6 }} style={{ paddingRight: "16px" }}>
                         <Typography className={"comp-search-label-header"} gutterBottom align="center">
                           Filter
                         </Typography>
                       </Grid>
-                      <Grid item xs={3.1} sm={3.1} md={3.1} style={{ paddingRight: "16px" }}>
+                      <Grid item size= {{ xs: 3.1, sm: 3.1, md: 3.1 }} style={{ paddingRight: "16px" }}>
                         <Typography className={"comp-search-label-header"} gutterBottom align="center">
                           Filter Value
                         </Typography>
                       </Grid>
-                      <Grid item xs={2.9} sm={2.9} md={2.9} style={{ paddingRight: "16px" }}>
+                      <Grid item size= {{ xs: 2.9, sm: 2.9, md: 2.9 }} style={{ paddingRight: "16px" }}>
                         <Typography className={"comp-search-label-header"} gutterBottom align="center">
                           Actions
                         </Typography>
@@ -949,7 +949,7 @@ const BatchRetrieval = (props) => {
         </Grid>
 
         {/*  Buttons */}
-        <Grid item xs={12} sm={12}>
+        <Grid item size = {{ xs: 12, sm: 12 }}>
           <div className="gg-align-center pt-5">
             <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
               Clear Fields

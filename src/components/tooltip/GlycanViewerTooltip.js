@@ -33,7 +33,7 @@ const GlycanViewerTooltip = (props) => {
 						spacing={1}
 					>
 						{props.type === "residue" && <>
-							<Grid item xs={9} sm={9}>
+							<Grid item size= {{ xs: 9, sm: 9 }}>
 								<div>{props.title}{" "}({props.id})</div>
 								{props.pubChemCompound && <div>{"PubChem Compound: "}
 									<a href={props.pubChemUrl + props.pubChemCompound} target="_blank" rel="noopener noreferrer">
@@ -46,7 +46,7 @@ const GlycanViewerTooltip = (props) => {
 									</a>{"."}
 								</div>}
 							</Grid>
-							{props.imagePath && <Grid item xs={3} sm={3}>	
+							{props.imagePath && <Grid item size= {{ xs: 3, sm: 3 }}>	
 								<Image
 									src={GLYGEN_DOMAIN + props.imagePath}
 									style={{ width: "140px", height: "85px"}}
@@ -54,7 +54,7 @@ const GlycanViewerTooltip = (props) => {
 							</Grid>}
 						</>}
 						{props.type === "enzyme" && <>
-							<Grid style={{ paddingBottom: "10px" }} item xs={12} sm={12}>
+							<Grid style={{ paddingBottom: "10px" }} item size= {{ xs: 12, sm: 12 }}>
 								<div>{`See enzyme ${props.title} on Protein Details (`}
 									<a href={props.url} target="_blank" rel="noopener noreferrer">
 										{props.id}
@@ -63,7 +63,7 @@ const GlycanViewerTooltip = (props) => {
 							</Grid>	
 						</>}
 						{props.type === "motif" && <>
-							<Grid style={{ paddingBottom: "10px" }} item xs={12} sm={12}>
+							<Grid style={{ paddingBottom: "10px" }} item size= {{ xs: 12, sm: 12 }}>
 								<div>{"See motif details on "}
 									<a href={props.url} target="_blank" rel="noopener noreferrer">
 										{"GlyGen"}

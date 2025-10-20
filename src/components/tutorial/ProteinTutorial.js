@@ -20,7 +20,7 @@ export default function ProteinTutorial(props) {
         <HorizontalHeading post={horHeadSimpleOne} />
       </div>
       <Grid container spacing={3} justifyCenter="center">
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           <Iframe
             src="//www.slideshare.net/slideshow/embed_code/key/NFd39OszUyFZwi"
             width="100%"
@@ -60,7 +60,7 @@ export default function ProteinTutorial(props) {
             </strong>{" "}
           </div>
         </Grid>
-        <Grid item xs={12} sm={6} className="tutorial-text-middle">
+        <Grid item size={{ xs: 12, sm: 6 }} className="tutorial-text-middle">
           <div className="tutorial-text-middle">
             <Typography>
               You can search for proteins by specifying their UniProtKB Accession numbers, their

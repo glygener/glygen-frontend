@@ -265,17 +265,17 @@ export default function Home() {
         <EventAlerts data={homeData.events} pageLoading={pageLoading} />
         <div className="show-grid">
           <Grid container spacing={4}>
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item size={{ xs: 12, md: 8, lg:9 }}>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
                 {featuredCards.map((post) => (
                   <FeaturedCard key={post.title} post={post} />
                 ))}
-                <Grid item xs={12} sm={12}>
+                <Grid item size={{ xs: 12, sm: 12 }}>
                   <TryMeCard id="try-me" />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
+            <Grid item size={{ xs: 12, md: 4, lg:3 }}>
               <Grid container spacing={4} style={{ justifyContent: "center" }}>
                 <VersionCard data={homeData.version} pageLoading={pageLoading} />
                 <VideoCard post={videoCard} data={homeData.video}/>

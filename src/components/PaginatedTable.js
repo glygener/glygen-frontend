@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import BootstrapTable from "react-bootstrap-table-next";
-import { makeStyles } from "@mui/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Button from "react-bootstrap/Button";
@@ -13,6 +13,24 @@ import paginationFactory, {
   PaginationTotalStandalone,
   SizePerPageDropdownStandalone
 } from "react-bootstrap-table2-paginator";
+
+const PREFIX = 'PaginatedTable';
+
+const classes = {
+  tableHeader: `${PREFIX}-tableHeader`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.tableHeader}`]: {
+    backgroundColor: "#4B85B6",
+    color: theme.palette.common.white,
+    height: "50px",
+  }
+}));
 
 const PaginatedTable = ({
   data,
@@ -84,19 +102,11 @@ const PaginatedTable = ({
     // }
     onTableChange(type, values);
   };
-  const useStyles = makeStyles(theme => ({
-    tableHeader: {
-      backgroundColor: "#4B85B6",
-      color: theme.palette.common.white,
-      height: "50px",
-    }
-  }));
-  const classes = useStyles();
+
   const [expand, setExpand] = useState(false);
 
   return (
-    <div>
-
+    <Root>
       <PaginationProvider
         pagination={paginationFactory({
           ...options,
@@ -163,7 +173,7 @@ const PaginatedTable = ({
           </div>
         )}
       </PaginationProvider>
-    </div>
+    </Root>
   );
 };
 

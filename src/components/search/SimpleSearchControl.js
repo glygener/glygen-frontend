@@ -49,7 +49,7 @@ export default function SimpleSearchControl(props) {
       onKeyDown={handleKeyDown}
     >
       <Grid container spacing={3} justifyContent="center">
-        <Grid item xs={12} sm={3}>
+        <Grid item size={{ xs: 12, sm: 3 }}>
           <FormControl variant="outlined" fullWidth>
             <InputLabel className={"select-lbl-inline"}>
               {props.simpleSearchCategoryLabel}
@@ -66,7 +66,7 @@ export default function SimpleSearchControl(props) {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           <OutlinedInput
             fullWidth
             required
@@ -93,7 +93,7 @@ export default function SimpleSearchControl(props) {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item size={{ xs: 12, sm: 2 }}>
           <Button
             className="gg-btn-blue gg-btn-simple-search"
             disabled={

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,18 +9,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import resourcesData from "../data/json/resourcesData";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
 import "../css/Responsive.css";
 import Sidebar from "../components/navigation/Sidebar";
 import { Row, Col } from "react-bootstrap";
 import { logActivity } from "../data/logging";
 import routeConstants from "../data/json/routeConstants.json";
 
-const useStyles = makeStyles((theme) => ({
-  tableHeader: {
+const PREFIX = 'Resources';
+
+const classes = {
+  tableHeader: `${PREFIX}-tableHeader`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.tableHeader}`]: {
     backgroundColor: "#4B85B6",
     color: "white",
-  },
+  }
 }));
 
 const verticalHeadingData = {
@@ -221,7 +232,7 @@ const Resources = () => {
       sort: true,
     },
   ];
-  const classes = useStyles();
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -231,14 +242,13 @@ const Resources = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <Root>
       <Helmet>
         {/* <title>{head.resources.title}</title>
 				{getMeta(head.resources)} */}
         {getTitle("resources")}
         {getMeta("resources")}
       </Helmet>
-
       <CssBaseline />
       <Row className="gg-baseline text-start">
         <Col sm={12} md={12} lg={12} xl={3} className="sidebar-col">
@@ -335,7 +345,7 @@ const Resources = () => {
         </Col>
       </Row>
       {/* </Container> */}
-    </React.Fragment>
+    </Root>
   );
 };
 

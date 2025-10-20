@@ -1,6 +1,6 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 // import CardActionArea from "@mui/material/CardActionArea";
@@ -11,23 +11,39 @@ import Divider from "@mui/material/Divider";
 import { GLYGEN_BASENAME } from "../../envVariables";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  cardAction: {
+const PREFIX = 'FeaturedCard';
+
+const classes = {
+  cardAction: `${PREFIX}-cardAction`,
+  cardDetails: `${PREFIX}-cardDetails`,
+  cardMedia: `${PREFIX}-cardMedia`,
+  divider: `${PREFIX}-divider`
+};
+
+const StyledGrid = styled(Grid)((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.cardAction}`]: {
     cursor: "pointer !important",
   },
-  cardDetails: {
-    flex: 1,
+
+  [`& .${classes.cardDetails}`]: {
+    flex: 4,
   },
-  cardMedia: {
+
+  [`& .${classes.cardMedia}`]: {
     margin: "0 auto",
   },
-  divider: {
+
+  [`& .${classes.divider}`]: {
     margin: theme.spacing(2, 1),
-  },
+  }
 }));
 
 export default function FeaturedCard(props) {
-  const classes = useStyles();
+
   const { post } = props;
 
   function CardFeatured(props) {
@@ -56,7 +72,7 @@ export default function FeaturedCard(props) {
   }
 
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4}>
+    <StyledGrid item size={{ xs: 12, sm: 6, lg:4 }}>
       {post.to && (
         <Link
           to={post.to}
@@ -75,7 +91,7 @@ export default function FeaturedCard(props) {
           <CardFeatured />
         </a>
       )}
-    </Grid>
+    </StyledGrid>
   );
 }
 

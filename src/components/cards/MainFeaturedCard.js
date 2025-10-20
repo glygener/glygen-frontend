@@ -1,6 +1,6 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -21,8 +21,21 @@ import {
 } from "../../envVariables";
 
 
-const useStyles = makeStyles((theme) => ({
-  mainFeaturedCard: {
+const PREFIX = 'MainFeaturedCard';
+
+const classes = {
+  mainFeaturedCard: `${PREFIX}-mainFeaturedCard`,
+  overlay: `${PREFIX}-overlay`,
+  mainFeaturedCardContent: `${PREFIX}-mainFeaturedCardContent`,
+  mainFeaturedCardButtons: `${PREFIX}-mainFeaturedCardButtons`
+};
+
+const StyledPaper = styled(Paper)((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.mainFeaturedCard}`]: {
     position: "relative",
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
@@ -32,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
   },
-  overlay: {
+
+  [`& .${classes.overlay}`]: {
     position: "absolute",
     top: 0,
     bottom: 0,
@@ -40,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     backgroundColor: "rgba(0,0,0,.4)",
   },
-  mainFeaturedCardContent: {
+
+  [`& .${classes.mainFeaturedCardContent}`]: {
     position: "relative",
     textAlign: "center",
     padding: theme.spacing(2),
@@ -49,15 +64,7 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "left",
     },
   },
-  mainFeaturedCardButtons: {
-    position: "relative",
-    textAlign: "center",
-    padding: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
-      padding: theme.spacing(3, 4),
-      textAlign: "right",
-    },
-  },
+
   // linkText: {
   // 	color: "#ffffff !important",
   // 	fontWeight: "600",
@@ -65,20 +72,30 @@ const useStyles = makeStyles((theme) => ({
   // 		color: "#57affa",
   // 	},
   // },
+  [`& .${classes.mainFeaturedCardButtons}`]: {
+    position: "relative",
+    textAlign: "center",
+    padding: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(3, 4),
+      textAlign: "right",
+    },
+  }
 }));
+
 export default function MainFeaturedCard(props) {
-  const classes = useStyles();
+
   const { post } = props;
   const demoForm = "https://docs.google.com/forms/d/e/1FAIpQLSdUwz7SiTD9f0uEieTjHIqBllY5OTfEa0G1SiitQmrbMVEhUw/viewform";
 
   return (
-    <Paper className={classes.mainFeaturedCard} style={{ backgroundImage: `url(${post.image})` }}>
+    <StyledPaper className={classes.mainFeaturedCard} style={{ backgroundImage: `url(${post.image})` }}>
       {<img style={{ display: "none" }} src={post.image} alt={post.imageText} />}
       <div className={classes.overlay} />
       {/* <Grid container className="gg-align-center"> */}
       <Grid container>
         {/* <Grid item sm={ 12 } lg={ 8 }> */}
-        <Grid item sm={12} md={5} lg={6} className="text-left me-3">
+        <Grid item size= {{ sm:12, md:5, lg:6 }} className="text-left me-3">
           <div className={classes.mainFeaturedCardContent} style={{ letterSpacing: "1px" }}>
             <Typography component="h5" variant="h6" color="#fff" gutterBottom>
               {post.title}
@@ -89,7 +106,7 @@ export default function MainFeaturedCard(props) {
           </div>
         </Grid>
         {/* <Grid item sm={12} md={2} lg={2} className="text-right"></Grid> */}
-        <Grid item sm={12} md={3} lg={3} className="btn-outline-white-col">
+        <Grid item size= {{ sm:12, md:3, lg:3 }} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
           {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
               <a href={demoForm} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-blue text-start">
@@ -147,7 +164,7 @@ export default function MainFeaturedCard(props) {
             </div>}
           </div>
         </Grid>
-        <Grid item sm={12} md={3} lg={2} className="btn-outline-white-col">
+        <Grid item size= {{ sm: 12, md: 3, lg: 2 }} className="btn-outline-white-col">
           <div className={classes.mainFeaturedCardButtons}>
             <div className="btn-outline-white">
               <Link to={routeConstants.howToCite} className="gg-btn-outline-blue">
@@ -212,7 +229,7 @@ export default function MainFeaturedCard(props) {
           </div>
         </Grid>
       </Grid>
-    </Paper>
+    </StyledPaper>
   );
 }
 
@@ -233,7 +250,7 @@ MainFeaturedCard.propTypes = {
 // import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 // import routeConstants from "../../data/json/routeConstants.json";
 
-// const useStyles = makeStyles((theme) => ({
+
 // 	mainFeaturedCard: {
 // 		position: "relative",
 // 		backgroundColor: theme.palette.grey[800],
@@ -270,7 +287,7 @@ MainFeaturedCard.propTypes = {
 // 	},
 // }));
 // export default function MainFeaturedCard(props) {
-// 	const classes = useStyles();
+
 // 	const { post } = props;
 
 // 	return (
@@ -373,7 +390,7 @@ MainFeaturedCard.propTypes = {
 // import quoteIcon from "../../images/icons/quote-open-outline-white.svg";
 // import routeConstants from "../../data/json/routeConstants.json";
 
-// const useStyles = makeStyles((theme) => ({
+
 // 	mainFeaturedCard: {
 // 		position: "relative",
 // 		backgroundColor: theme.palette.grey[800],
@@ -410,7 +427,7 @@ MainFeaturedCard.propTypes = {
 // 	},
 // }));
 // export default function MainFeaturedCard(props) {
-// 	const classes = useStyles();
+
 // 	const { post } = props;
 
 // 	return (

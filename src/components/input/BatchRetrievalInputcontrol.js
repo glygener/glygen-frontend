@@ -56,7 +56,7 @@ const BatchRetrievalInputcontrol = (props) => {
 		<>
 			<div className={'svg-input-container'}>
 				<Grid container justifyContent="center">
-					<Grid item xs={3.1} sm={3.1} md={3.1} className={'svg-input-item'}>
+					<Grid item size= {{ xs: 3.1, sm: 3.1, md: 3.1 }} className={'svg-input-item'}>
 						<FormControl 
 							variant='outlined' 
 							fullWidth
@@ -73,7 +73,7 @@ const BatchRetrievalInputcontrol = (props) => {
 								/>
 						</FormControl>
 					</Grid>
-					<Grid item xs={1.3} sm={1.3} md={1.3} className={'svg-input-item'}>
+					<Grid item size= {{ xs: 1.3, sm: 1.3, md: 1.3 }} className={'svg-input-item'}>
 						<FormControl 
 							variant='outlined' 
 							fullWidth
@@ -85,7 +85,7 @@ const BatchRetrievalInputcontrol = (props) => {
 							/>
 						</FormControl>
 					</Grid>
-					<Grid item xs={1.6} sm={1.6} md={1.6} className={'svg-input-item'}>
+					<Grid item size= {{ xs: 1.6, sm: 1.6, md: 1.6 }} className={'svg-input-item'}>
 						<FormControl 
 							variant='outlined' 
 							fullWidth
@@ -100,7 +100,7 @@ const BatchRetrievalInputcontrol = (props) => {
 							/>
 						</FormControl>
 					</Grid>
-					<Grid item xs={3.1} sm={3.1} md={3.1} className={'svg-input-item'}>
+					<Grid item size= {{ xs: 3.1, sm: 3.1, md: 3.1 }} className={'svg-input-item'}>
 						{(!props.query.selectEnum || props.query.selectEnum.length === 0) && 
 						<FormControl 
 							variant='outlined' 
@@ -229,7 +229,7 @@ const BatchRetrievalInputcontrol = (props) => {
 							</FormControl>
 						}
 					</Grid>
-					<Grid item xs={2.9} sm={2.9} md={2.9}>
+					<Grid item size= {{ xs: 2.9, sm: 2.9, md: 2.9 }}>
 						<Button 
 							className='gg-btn-outline me-3 mb-3' 
 							style={{padding : "8px 12px"}}
