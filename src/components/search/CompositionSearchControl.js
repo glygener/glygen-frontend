@@ -554,22 +554,22 @@ export default function CompositionSearchControl(props) {
         </div>
       </Row>
       <Grid container style={{ margin: "0 0 0 -12px" }} spacing={2} justifyContent="center">
-        <Grid item size={{ xs:4, sm:4, md:4, xs:4 }}>
+        <Grid item sx={{pt: 2}} size={{ xs:4, sm:4, md:4, xs:4 }}>
           <Typography className={"comp-search-label-header"} gutterBottom>
             Residue
           </Typography>
         </Grid>
-        <Grid item size={{ xs:4, sm:3, md:2 }}>
+        <Grid item sx={{pt: 2}} size={{ xs:4, sm:3, md:2 }}>
           <Typography className={"comp-search-label-header"} gutterBottom align="center">
             Contains
           </Typography>
         </Grid>
-        <Grid item size={{ xs:2 }}>
+        <Grid item sx={{pt: 2}} size={{ xs:2 }}>
           <Typography className={"comp-search-label-header"} gutterBottom align="center">
             Min
           </Typography>
         </Grid>
-        <Grid item size={{ xs:2 }}>
+        <Grid item sx={{pt: 2}} size={{ xs:2 }}>
           <Typography className={"comp-search-label-header"} gutterBottom align="center">
             Max
           </Typography>
@@ -584,7 +584,7 @@ export default function CompositionSearchControl(props) {
             spacing={2}
             justifyContent="center"
           >
-            <Grid item size={{ xs:12, sm:4 }}>
+            <Grid item sx={{pt: 2}} size={{ xs:12, sm:4 }}>
               <Typography className={"search-lbl"}>
                 <HelpTooltip
                   title={key.tooltip.title}
@@ -599,7 +599,7 @@ export default function CompositionSearchControl(props) {
                 {ReactHtmlParser(key.subtext)}
               </Typography>
             </Grid>
-            <Grid item size={{ xs:6, sm:3, md:2 }}>
+            <Grid item sx={{pt: 2}} size={{ xs:6, sm:3, md:2 }}>
               <FormControl fullWidth>
                 <SelectControl
                   inputValue={props.inputValue[key.residue].selectValue}
@@ -620,7 +620,7 @@ export default function CompositionSearchControl(props) {
                 />
               </FormControl>
             </Grid>
-            <Grid item size={{ xs:3, sm:2 }}>
+            <Grid item sx={{pt: 2}} size={{ xs:3, sm:2 }}>
               <FormControl fullWidth>
                 <OutlinedInput
                   variant="outlined"
@@ -659,7 +659,7 @@ export default function CompositionSearchControl(props) {
                 />
               </FormControl>
             </Grid>
-            <Grid item size={{ xs:3, sm:2 }}>
+            <Grid item sx={{pt: 2}} size={{ xs:3, sm:2 }}>
               <FormControl fullWidth>
                 <OutlinedInput
                   variant="outlined"

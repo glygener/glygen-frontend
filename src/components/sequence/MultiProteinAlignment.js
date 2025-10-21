@@ -156,7 +156,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
           style={{ margin: '0  auto' }}
           spacing={3}
           jus1tify='center'>
-          <Grid item size= {{ xs: 7, sm: 7, md: 7 }}>
+          <Grid item sx={{pl: 3, pt: 3}} size= {{ xs: 7, sm: 7, md: 7 }} >
             <FormControl
               fullWidth
               variant="outlined"
@@ -176,7 +176,7 @@ const MultiProteinAlignment = ({algnData, proteinID, proteinIDChange, jobId}) =>
               />
             </FormControl>
           </Grid>
-          <Grid item size= {{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item sx={{pl: 3, pt: 3}} size= {{ xs: 12, sm: 12, md: 12 }}>
             {multiSequences && multiSequences.sort((obj1, obj2) => {
               if (obj1.evalue === obj2.evalue) {
                 return obj2.identities_val - obj1.identities_val;

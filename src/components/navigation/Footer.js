@@ -295,7 +295,7 @@ export default function Footer() {
       </div>
       <div className="gg-blue gg-align-center">
         <ContainerBootStrap maxWidth="xl" className="justify-content-center text-center">
-          <Row className="justify-content-center mt-1 mb-1">
+          <Row className="justify-content-center pt-1 pb-1">
             <Col md={"auto"}>
               <Navbar.Brand href={routeConstants.home}>
                 <img

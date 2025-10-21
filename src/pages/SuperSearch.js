@@ -335,7 +335,7 @@ const SuperSearch = (props) => {
 							eventKey='Super-Search'
 							className='tab-content-padding'
 							title={superSearchJSONData.tabTitle}>
-							<Container className='tab-content-border tab-bigscreen'>
+							<Container className='tab-bigscreen'>
 								<Grid
 									container
 									style={{ margin: '0  auto' }}
@@ -438,7 +438,7 @@ const SuperSearch = (props) => {
 							eventKey='Tutorial'
 							title={superSearchTutorialData.tabTitle}
 							className='tab-content-padding'>
-							<Container className='tab-content-border tab-bigscreen'>
+							<Container className='tab-bigscreen'>
 								<h2><center>Coming Soon...</center></h2>
 							</Container>
 						</Tab>

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Container from "@mui/material/Container";
 import VerticalHeading from "../../components/headings/VerticalHeading";
 import { Row, Col } from "react-bootstrap";
-import BootstrapSwitchButton from "bootstrap-switch-button-react";
+// import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { useState } from "react";
 import { logActivity, isLoggingUserActivity } from "../../data/logging";
 
@@ -86,7 +86,7 @@ const PrivacySettings = (props) => {
 								</Col>
 
 								<Col sm={3} className="text-right">
-									<BootstrapSwitchButton
+									{/* <BootstrapSwitchButton
 										width={70}
 										onlabel="On"
 										offlabel="Off"
@@ -97,7 +97,7 @@ const PrivacySettings = (props) => {
 											setEnabled(checked);
 											checked ? props.setUserTrackingBannerState("track") : props.setUserTrackingBannerState("donottrack");
 										}}
-									/>
+									/> */}
 								</Col>
 							</Row>
 						</Col>

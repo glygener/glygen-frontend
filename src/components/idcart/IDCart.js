@@ -1375,7 +1375,7 @@ const IDCart = props => {
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
-                <Container className="tab-content-border tab-bigscreen">
+                <Container className="tab-bigscreen">
                   <div className="text-end pb-3" >
                     <span className="pe-3" >
                       <SelectControl
@@ -1446,7 +1446,7 @@ const IDCart = props => {
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
-                <Container className="tab-content-border tab-bigscreen">
+                <Container className="tab-bigscreen">
                   <div className="text-end pb-3" >
                         <span className="pe-3" >
                           <SelectControl
@@ -1525,7 +1525,7 @@ const IDCart = props => {
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
-                <Container className="tab-content-border tab-bigscreen">
+                <Container className="tab-bigscreen">
 
                 <div className="text-end pb-3" >
                     <span className="pe-3" >
@@ -1598,7 +1598,7 @@ const IDCart = props => {
               >
                 <TextAlert alertInput={alertTextInput} />
                 <div style={{ paddingBottom: "20px" }}></div>
-                <Container className="tab-content-border tab-bigscreen">
+                <Container className="tab-bigscreen">
                   <div className="text-end pb-3" >
                     <span className="pe-3" >
                       <SelectControl

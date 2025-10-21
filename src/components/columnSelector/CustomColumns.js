@@ -296,7 +296,7 @@ const CustomColumns = props => {
             className="pb-3"
             spacing={3}
             justifyContent='center'>
-            <Grid item size= {{ xs: 12, sm: 10 }}>
+            <Grid item sx={{pt: 3}} size= {{ xs: 12, sm: 10 }}>
               <HorizontalDragDropColumns items={items} setItems={setItems} deleteItem={deleteItem} />
             </Grid>
             <Grid className={"small-text"} style={{paddingTop: "0px", paddingLeft: "20px", paddingRight: "20px"}}  item size= {{ xs: 12, sm: 10 }}>

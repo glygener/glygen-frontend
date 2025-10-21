@@ -4,7 +4,6 @@ import { getProteinDetail } from "../data/protein";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
 import ProtvistaSidebar from "../components/navigation/ProtvistaSidebar";
-import "d3";
 import { NavLink } from "react-router-dom";
 import NightingaleManager from "@nightingale-elements/nightingale-manager";
 import ProtvistaTooltip from "protvista-tooltip";
