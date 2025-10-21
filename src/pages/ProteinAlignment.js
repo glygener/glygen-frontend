@@ -140,20 +140,18 @@ const ProteinAlignment = () => {
         <Col sm={12} md={12} lg={12} xl={9} className="sidebar-page">
           <div className="sidebar-page-mb">
             <div className="content-box-md">
-              <Row>
-                <Grid item size={{ xs: 12, sm: 12 }} className="text-center">
-                  <div className="horizontal-heading">
-                    <h5>Look At</h5>
-                    <h2>
-                      {" "}
-                      <span>
-                        {isIsoform ? "Isoform" : "Homolog"} Alignment for Protein{" "}
-                        <strong className="nowrap">{id}</strong>
-                      </span>
-                    </h2>
-                  </div>
-                </Grid>
-              </Row>
+              <Grid item size={{ xs: 12, sm: 12 }} className="text-center">
+                <div className="horizontal-heading">
+                  <h5>Look At</h5>
+                  <h2>
+                    {" "}
+                    <span>
+                      {isIsoform ? "Isoform" : "Homolog"} Alignment for Protein{" "}
+                      <strong className="nowrap">{id}</strong>
+                    </span>
+                  </h2>
+                </div>
+              </Grid>
             </div>
             <React.Fragment>
               <Helmet>

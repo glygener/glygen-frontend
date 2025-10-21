@@ -685,9 +685,9 @@ const BatchRetrieval = (props) => {
       </Helmet>
       <div className="content-box-md">
         <div className="horizontal-heading text-center">
-          <h5>{batchRetrievalJSONData.pageSubtitle}</h5>
+          <h5>{batchRetrieval.pageSubtitle}</h5>
           <h2>
-            {batchRetrievalJSONData.pageTitle} <strong>{batchRetrievalJSONData.pageTitleBold}</strong>
+            {batchRetrieval.pageTitle} <strong>{batchRetrieval.pageTitleBold}</strong>
           </h2>
         </div>
       </div>
