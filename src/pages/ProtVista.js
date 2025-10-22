@@ -685,19 +685,17 @@ useEffect(() => {
   return (
     <>
       <div className="content-box-md">
-        <Row>
-          <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
-            <div className="horizontal-heading">
-              <h5>Look At</h5>
-              <h2>
-                {" "}
-                <span>
-                  ProtVista View of Protein <strong className="nowrap">{id}</strong>
-                </span>
-              </h2>
-            </div>
-          </Grid>
-        </Row>
+        <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
+          <div className="horizontal-heading">
+            <h5>Look At</h5>
+            <h2>
+              {" "}
+              <span>
+                ProtVista View of Protein <strong className="nowrap">{id}</strong>
+              </span>
+            </h2>
+          </div>
+        </Grid>
       </div>
       <Helmet>
         {getTitle("protvista", {
@@ -735,308 +733,310 @@ useEffect(() => {
 
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
-              <nightingale-manager
-                width={"800"}
-                class={`nav-track`}
-                reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
-                id="manager"
-              >
-                <nightingale-navigation
-                  id="navigation"
-                  class={`nav-track glycotrack`}
-                  length={data.sequence.length * 1.4}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  ruler-start={1}
-                  width={"800"}
-                  height="60"
-                /> 
-                <nightingale-sequence
-                  id="seq1"
-                  class="nav-track"
-                  length={data.sequence.length}
-                  sequence={data.sequence.sequence}
-                  width={"800"}
-                  height="60"
-                /> 
-                {/* Blank Track */}
-                 <nightingale-track
-                  class={`nav-track glycotrack emptytrack` + (expanded ? "" : " hidden")}
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  width={"800"}
-                  height="80"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track nav-combinetrack hover-style glycotrack1` +
-                    (expanded ? " hidden" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={allTrack}
-                  width={"800"}
-                  height={expanded ? "0": "80"}
-                  id="id-nightingale-track"
-                />
-              <nightingale-overlay for="root"></nightingale-overlay> 
-                <nightingale-track 
-                  id="ptrack1"
-                  class={
-                    `nav-track glycotrack ` +
-                    (expanded ? "" : " hidden") +
-                    (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={nGlycanWithImage}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack ` +
-                    (expanded ? "" : " hidden") +
-                    (highlighted === "Ntrack_withoutImage" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={nGlycanWithoutImage}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack` +
-                    (expanded ? "" : " hidden") +
-                    (highlighted === "Otrack_withImage" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={oGlycanWithImage}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack` +
-                    (expanded ? "" : " hidden") +
-                    (highlighted === "Otrack_withoutImage" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={oGlycanWithoutImage}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack` +
-                    (expanded ? "" : " hidden") +
-                    (highlighted === "SEQUON" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={nSequon}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack` + (highlighted === "phosphorylation" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={phosphorylationData}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={`nav-track glycotrack` + (highlighted === "glycation" ? " highlight" : "")}
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={glycationData}
-                  width={"800"}
-                  height="60"
-                />
+              <div style={{height: expanded ? "740px" : "440px"}}>
+                <nightingale-manager
+                  width={data.sequence.length}
+                  class={`nav-track-manager`}
+                  reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
+                  id="manager"
+                >
+                  <nightingale-navigation
+                    id="navigation"
+                    class={`nav-track glycotrack`}
+                    length={data.sequence.length * 1.4}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    ruler-start={1}
+                    width={data.sequence.length}
+                    height="60"
+                  /> 
+                  <nightingale-sequence
+                    id="seq1"
+                    class="nav-track"
+                    length={data.sequence.length}
+                    sequence={data.sequence.sequence}
+                    width={data.sequence.length}
+                    height="60"
+                  /> 
+                  {/* Blank Track */}
+                  <nightingale-track
+                    class={`nav-track glycotrack emptytrack` + (expanded ? "" : " hidden")}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    width={data.sequence.length}
+                    height="80"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track nav-combinetrack hover-style glycotrack1` +
+                      (expanded ? " hidden" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={allTrack}
+                    width={data.sequence.length}
+                    height={expanded ? "0": "80"}
+                    id="id-nightingale-track"
+                  />
+                <nightingale-overlay for="root"></nightingale-overlay> 
+                  <nightingale-track 
+                    id="ptrack1"
+                    class={
+                      `nav-track glycotrack ` +
+                      (expanded ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={nGlycanWithImage}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack ` +
+                      (expanded ? "" : " hidden") +
+                      (highlighted === "Ntrack_withoutImage" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={nGlycanWithoutImage}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` +
+                      (expanded ? "" : " hidden") +
+                      (highlighted === "Otrack_withImage" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={oGlycanWithImage}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` +
+                      (expanded ? "" : " hidden") +
+                      (highlighted === "Otrack_withoutImage" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={oGlycanWithoutImage}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` +
+                      (expanded ? "" : " hidden") +
+                      (highlighted === "SEQUON" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={nSequon}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` + (highlighted === "phosphorylation" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={phosphorylationData}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={`nav-track glycotrack` + (highlighted === "glycation" ? " highlight" : "")}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={glycationData}
+                    width={data.sequence.length}
+                    height="60"
+                  />
 
-                <nightingale-track
-                  class={`nav-track glycotrack` + (highlighted === "mutation" ? " highlight" : "")}
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={mutationsData}
-                  width={"800"}
-                  height="60"
-                />
-                <nightingale-track
-                  class={
-                    `nav-track glycotrack` + (highlighted === "mutagenesis" ? " highlight" : "")
-                  }
-                  length={data.sequence.length}
-                  display-start={1}
-                  display-end={data.sequence.length}
-                  layout="non-overlapping"
-                  ref={mutagenesisData}
-                  width={"800"}
-                  height="60"
-                />
-              </nightingale-manager>
+                  <nightingale-track
+                    class={`nav-track glycotrack` + (highlighted === "mutation" ? " highlight" : "")}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={mutationsData}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` + (highlighted === "mutagenesis" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={mutagenesisData}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                </nightingale-manager>
+              </div>
             )}
           </Col>
         </Row>
-        <div className="icons-content">
-          <ol className="legendlists nowrap">
-            <span
-              className="super1 hover"
-              onMouseEnter={() => setHighlighted("Ntrack_withImage")}
-            >
-              <Row> 
-                <Col sm={3} md={3}>
-                  &#9679;
-                  <span className="superx">
-                    <>N-Glycan</>
-                  </span>
-                </Col>
-                <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>N-Glycan with range (peptide)</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span
-              className="super2 hover"
-              onMouseEnter={() => setHighlighted("Ntrack_withoutImage")}
-            >
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9650;
-                  <span className="superx">
-                    <>N-Glycan-Site</>
-                  </span>
-                </Col>
-                <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>N-Glycan-Site with range (peptide)</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span
-                className="super3 hover"
-                onMouseEnter={() => setHighlighted("Otrack_withImage")}
-            >
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9679;
-                  <span className="superx">
-                    <>O-Glycan</>
-                  </span>
+          <div className="icons-content">
+            <ol className="legendlists nowrap">
+              <span
+                className="super1 hover"
+                onMouseEnter={() => setHighlighted("Ntrack_withImage")}
+              >
+                <Row> 
+                  <Col sm={3} md={3}>
+                    &#9679;
+                    <span className="superx">
+                      <>N-Glycan</>
+                    </span>
                   </Col>
                   <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>O-Glycan with range (peptide)</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span
-              className="super4 hover"
-              onMouseEnter={() => setHighlighted("Otrack_withoutImage")}
-            >
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9650;
-                  <span className="superx">
-                    <>O-Glycan-Site</>
-                  </span>
+                    &#9646;
+                    <span className="superx">
+                      <>N-Glycan with range (peptide)</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                className="super2 hover"
+                onMouseEnter={() => setHighlighted("Ntrack_withoutImage")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9650;
+                    <span className="superx">
+                      <>N-Glycan-Site</>
+                    </span>
                   </Col>
                   <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>O-Glycan-Site with range (peptide)</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span className="super6 hover" onMouseEnter={() => setHighlighted("SEQUON")}>
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>N-Glycan-Sequon</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span
-                className="super8 hover"
-                onMouseEnter={() => setHighlighted("phosphorylation")}
-            >
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9679;
-                  <span className="superx">
-                    <>Phosphorylation</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span className="super9 hover" onMouseEnter={() => setHighlighted("glycation")}>
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9679;
-                  <span className="superx">
-                    <>Glycation</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span className="super5 hover" onMouseEnter={() => setHighlighted("mutation")}>
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9670;
-                  <span className="superx">
-                    <>Single Nucleotide Variation</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-            <span className="super7 hover" onMouseEnter={() => setHighlighted("mutagenesis")}>
-              <Row>
-                <Col sm={3} md={3}>
-                  &#9646;
-                  <span className="superx">
-                    <>Mutagenesis</>
-                  </span>
-                </Col>
-              </Row>
-            </span>
-          </ol>
-        </div>
+                    &#9646;
+                    <span className="superx">
+                      <>N-Glycan-Site with range (peptide)</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                  className="super3 hover"
+                  onMouseEnter={() => setHighlighted("Otrack_withImage")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9679;
+                    <span className="superx">
+                      <>O-Glycan</>
+                    </span>
+                    </Col>
+                    <Col sm={3} md={3}>
+                    &#9646;
+                    <span className="superx">
+                      <>O-Glycan with range (peptide)</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                className="super4 hover"
+                onMouseEnter={() => setHighlighted("Otrack_withoutImage")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9650;
+                    <span className="superx">
+                      <>O-Glycan-Site</>
+                    </span>
+                    </Col>
+                    <Col sm={3} md={3}>
+                    &#9646;
+                    <span className="superx">
+                      <>O-Glycan-Site with range (peptide)</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span className="super6 hover" onMouseEnter={() => setHighlighted("SEQUON")}>
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9646;
+                    <span className="superx">
+                      <>N-Glycan-Sequon</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                  className="super8 hover"
+                  onMouseEnter={() => setHighlighted("phosphorylation")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9679;
+                    <span className="superx">
+                      <>Phosphorylation</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span className="super9 hover" onMouseEnter={() => setHighlighted("glycation")}>
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9679;
+                    <span className="superx">
+                      <>Glycation</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span className="super5 hover" onMouseEnter={() => setHighlighted("mutation")}>
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9670;
+                    <span className="superx">
+                      <>Single Nucleotide Variation</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span className="super7 hover" onMouseEnter={() => setHighlighted("mutagenesis")}>
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9646;
+                    <span className="superx">
+                      <>Mutagenesis</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+            </ol>
+          </div>
       </div>
     </>
   );

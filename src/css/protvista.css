@@ -26,11 +26,19 @@
   background-color: #e6e6e6;
 }
 .nav-track {
+  height: 60px;
+  border-bottom: 1px solid rgb(166, 166, 169);
+}
+.nav-track-manager {
   height: 61px;
   border-bottom: 1px solid rgb(166, 166, 169);
 }
 
 .nav-track > .container {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.nav-track-manager > .container {
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
