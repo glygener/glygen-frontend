@@ -440,7 +440,7 @@ const DiseaseSearch = props => {
             >
               <TextAlert alertInput={alertTextInput} />
               <div style={{ paddingBottom: "20px" }}></div>
-              <Container className="tab-content-border tab-bigscreen">
+              <Container className="tab-bigscreen">
                 {initData.simple_search_category && (
                   <SimpleSearchControl
                     simpleSearchCategory={disSimpleSearchCategory}
@@ -483,7 +483,7 @@ const DiseaseSearch = props => {
               title={diseaseSearchData.tutorial.tabTitle}
               className="tab-content-padding"
             >
-              <Container className="tab-content-border tab-bigscreen">
+              <Container className="tab-bigscreen">
                 <h2>
                   <center>Coming Soon...</center>
                 </h2>

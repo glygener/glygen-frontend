@@ -1302,7 +1302,7 @@ const GlycanSearch = (props) => {
 								alertInput={alertTextInput}
 							/>
 							<div style={{paddingBottom: "20px"}}></div>
-							<Container className='tab-content-border tab-bigscreen'>
+							<Container className='tab-bigscreen'>
 								{initData.simple_search_category && (
 									<SimpleSearchControl
 										simpleSearchCategory={glySimpleSearchCategory}
@@ -1398,7 +1398,7 @@ const GlycanSearch = (props) => {
 							eventKey='Tutorial'
 							title={glycanSearchData.tutorial.tabTitle}
 							className='tab-content-padding'>
-							<Container className='tab-content-border tab-bigscreen'>
+							<Container className='tab-bigscreen'>
 								<GlycanTutorial />
 							</Container>
 						</Tab>

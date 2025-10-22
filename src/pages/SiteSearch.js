@@ -279,7 +279,7 @@ const SiteSearch = (props) => {
               title={siteData.tutorial.tabTitle}
               className="tab-content-padding"
             >
-              <Container className="tab-content-border tab-bigscreen">
+              <Container className="tab-bigscreen">
                 <h2>
                   <center>Coming Soon...</center>
                 </h2>
