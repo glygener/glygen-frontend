@@ -132,7 +132,7 @@ const ExpandableTable = props => {
     },
     renderDetailPanel: ({ row }) => (
 
-        <Box sx={{ textAlign: 'center' }}>
+        <Box>
           <Root>
             <div style={{paddingTop:"15px", fontSize: '18px'}}>
               <BootstrapTable
