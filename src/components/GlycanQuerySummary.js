@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import stringConstants from "../data/json/stringConstants";
 import glycanSearchData from "../data/json/glycanSearch";
 import Button from "react-bootstrap/Button";
+import Radio from '@mui/material/Radio';
 import LineTooltip from "../components/tooltip/LineTooltip";
 
 const glycanStrings = stringConstants.glycan.common;
@@ -42,7 +43,7 @@ function getDateTime() {
 const GlycanQuerySummary = (props) => {
   const title = "Glycan Search Summary";
 
-  const { data, onModifySearch, timestamp, searchId, dataUnmap, parameters } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap, parameters, aIQueryAssistant } = props;
 
   const executionTime = timestamp ? getDateTime(timestamp) : "";
   const {
@@ -68,6 +69,12 @@ const GlycanQuerySummary = (props) => {
 
   const [glycanIdentifierShowMore, setGlycanIdentifierShowMore] = useState(true);
 
+  const [selectedQueryType, setSelectedQueryType] = React.useState("Advanced-Search");
+
+  const handleQueryTypeChange = (event) => {
+    setSelectedQueryType(event.target.value);
+  };
+
   const formatOrganisms = (organism) => {
     if (organism.organism_list) {
       const organismNames = organism.organism_list.map((item) => item.glygen_name);
@@ -92,6 +99,32 @@ const GlycanQuerySummary = (props) => {
           </Card.Text>
           <Row>
             <Col>
+              {aIQueryAssistant && (
+                <Row className="summary-table-col" sm={12}>
+                  <div align="center">
+                    <Radio
+                      style={{marginTop:"-5px"}}
+                      checked={selectedQueryType === "AI-Query-Assistant"}
+                      onChange={handleQueryTypeChange}
+                      value="AI-Query-Assistant"
+                      name="query-type-radio-buttons"
+                    />
+                    <strong><i>User Query</i></strong>
+                  </div>
+                  <div align="center">{aIQueryAssistant}</div>
+                  <p/>
+                  <div align="center">
+                    <Radio
+                      style={{marginTop:"-5px"}}
+                      checked={selectedQueryType === "Advanced-Search"}
+                      onChange={handleQueryTypeChange}
+                      value="Advanced-Search"
+                      name="query-type-radio-buttons"
+                    />
+                    <strong><i>Internal Query</i></strong>
+                  </div>
+                </Row>
+              )}
               {props.question && data.uniprot_canonical_ac && (
                 <>
                   {props.question.text.split("{0}")[0]}
@@ -411,7 +444,7 @@ const GlycanQuerySummary = (props) => {
             >
               Update Results
             </Button>
-            <Button type="button" className="gg-btn-blue" onClick={onModifySearch}>
+            <Button type="button" className="gg-btn-blue" onClick={() => onModifySearch(selectedQueryType)}>
               Modify Search
             </Button>
           </div>

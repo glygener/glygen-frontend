@@ -223,6 +223,22 @@
       ]
     }
   },
+  "ai_query_assistant": {
+    "tabTitle": "AI Query Assistant",
+    "ai_query_assistant": {
+      "length": 2500,
+      "errorText": "Entry is too long - max length is 2500.",
+      "placeholder": "Enter a natural language search question.",
+      "examples": {
+        "ai_query_assistant": {
+          "id": "ai_query_assistant",
+          "examples": [
+            "Can you show me some n-linked glycans"
+          ]
+        }
+      }
+    }
+  },
   "composition_search": {
     "tabTitle": "Composition Search",
     "contains": [

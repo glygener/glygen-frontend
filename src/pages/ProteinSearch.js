@@ -7,7 +7,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import ProteinAdvancedSearch from "../components/search/ProteinAdvancedSearch";
 import SequenceSearch from "../components/search/SequenceSearch";
 import SimpleSearchControl from "../components/search/SimpleSearchControl";
-import { Tab, Tabs, Container } from "react-bootstrap";
+import { Tab, Tabs, Container, Image } from "react-bootstrap";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "../css/Search.css";
 import proteinSearchData from "../data/json/proteinSearch";
@@ -19,10 +19,13 @@ import {
   getProteinSearch,
   getProteinSimpleSearch,
   getProteinList,
-  getProteinInit
+  getProteinInit,
+  getProteinAIQueryAssistant
 } from "../data/protein";
 import FeedbackWidget from "../components/FeedbackWidget";
 import ProteinTutorial from "../components/tutorial/ProteinTutorial";
+import starBetaIcon from "../images/icons/star-beta.svg";
+import AIQueryAssistant from "../components/search/AIQueryAssistant";
 
 /**
  * Protein search component for showing protein search tabs.
@@ -32,6 +35,7 @@ const ProteinSearch = props => {
   const [initData, setInitData] = useState({});
   const [proSimpleSearchCategory, setProSimpleSearchCategory] = useState("any");
   const [proSimpleSearchTerm, setProSimpleSearchTerm] = useState("");
+  const [proAIQueryAssistantQuestion, setProAIQueryAssistantQuestion] = useState("");
   const [proAdvSearchData, setProAdvSearchData] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -105,6 +109,7 @@ const ProteinSearch = props => {
 
   let simpleSearch = proteinSearchData.simple_search;
   let advancedSearch = proteinSearchData.advanced_search;
+  let aIQueryAssistant = proteinSearchData.ai_query_assistant;
   let sequenceSearch = proteinSearchData.sequence_search;
   let querySearch = proteinSearchData.query_search;
   let proteinData = stringConstants.protein;
@@ -328,6 +333,14 @@ const ProteinSearch = props => {
                   data.cache_info.query.term ? data.cache_info.query.term : ""
                 );
                 setProActTabKey("Simple-Search");
+                setPageLoading(false);
+              } else if (data.cache_info.query.ai_query && hash === "AI-Query-Assistant") {
+                setProAIQueryAssistantQuestion(
+                data.cache_info.query.ai_query
+                  ? data.cache_info.query.ai_query
+                  : ""
+                );
+                setProActTabKey("AI-Query-Assistant");
                 setPageLoading(false);
               } else {
                 setProAdvSearchData({
@@ -816,6 +829,84 @@ const ProteinSearch = props => {
       });
   };
 
+    /**
+   * Function to handle protein AI Query Assistant.
+   **/
+  const proteinAIQueryAssistant = () => {
+    var formjsonSimple = {
+      [proteinData.ai_query_assistant.query_type.id]:
+      proAIQueryAssistantQuestion
+    };
+    logActivity("user", id, "Performing Protein AI Query Assistant");
+    let message = "Protein AI Query Assistant query=" + JSON.stringify(formjsonSimple);
+    getProteinAIQueryAssistant(formjsonSimple)
+      .then(response => {
+        if (response.data["error"]) {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+    } else if (response.data["parsed_parameters"] && response.data["parsed_parameters"]["error"]) {
+      logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+    }  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
+      let formObject = response.data["mapped_parameters"];
+      // formObject.ai_query = response.data["original_query"];
+      logActivity("user", id, "Protein AI Query Performing Advanced Search");
+      let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
+      getProteinSearch(formObject)
+        .then((response) => {
+          if (response.data['list_id'] !== '') {
+            logActivity("user", (id || "") + ">" + response.data['list_id'], message)
+            .finally(() => {	
+              setPageLoading(false);
+              navigate(routeConstants.proteinList + response.data['list_id']);
+            });;
+          } else {
+            logActivity("user", "", "No results. " + message);
+            setPageLoading(false);
+            setAlertTextInput({"show": true, "id": stringConstants.errors.advSerarchError.id});
+            window.scrollTo(0, 0);
+          }
+        })
+        .catch(function (error) {
+          axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        });
+
+    } else {
+      logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+    }
+      })
+      .catch(function(error) {
+        let errorMsg = error?.response?.data?.error;
+        if (errorMsg && stringConstants.errors[errorMsg.error_msg]) {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: errorMsg.error_msg
+          });
+          window.scrollTo(0, 0);
+        } else {
+          axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        }
+      });
+  };
+
   /**
    * Function to handle click event for protein peptide search.
    **/
@@ -842,6 +933,15 @@ const ProteinSearch = props => {
     setPageLoading(true);
     proteinSimpleSearch();
   };
+
+  /**
+   * Function to handle click event for protein AI Query Assistant.
+   **/
+    const aIQueryAssistantClick = () => {
+      setSearchStarted(true);
+      setPageLoading(true);
+      proteinAIQueryAssistant();
+    };
 
   return (
     <>
@@ -914,6 +1014,30 @@ const ProteinSearch = props => {
                 )}
               </Container>
             </Tab>
+            {false && <Tab
+							eventKey="AI-Query-Assistant"
+							className="tab-content-padding"
+							title={
+								<div>
+									<span>{aIQueryAssistant.tabTitle}{" "}
+									</span>
+									<Image style={{marginTop:"-5px"}} width="34px" src={starBetaIcon} alt="star beta icon" />
+								</div> 
+							}
+							>
+							<TextAlert alertInput={alertTextInput} />
+							<Container className="tab-content-border">
+								{initData && (
+								<AIQueryAssistant
+									aIQueryAssistantClick={aIQueryAssistantClick}
+									inputValue={proAIQueryAssistantQuestion}
+									setInputValue={setProAIQueryAssistantQuestion}
+                  commonData={commonProteinData} 
+									aIQueryAssistant={aIQueryAssistant}
+								/>
+								)}
+							</Container>
+						</Tab>}
             <Tab
               eventKey="Sequence-Search"
               className="tab-content-padding"

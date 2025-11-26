@@ -349,6 +349,17 @@
       "motif_name_synonym": {
         "name": "Motif Name (Synonyms)"
       },
+      "ai_query_assistant": {
+        "name": "AI Query Assistant",
+        "shortName": "AI Query Assistant",
+        "tooltip": {
+          "title": "AI Query Assistant",
+          "text": "The AI Query Assistant (AQA) leverages a Large Language Model (LLM) to interpret natural language query and convert it into an API-compatible search query. It then executes this query using our advanced search engine and displays the results. Additionally, it generates a prefilled advanced search form that you can access by clicking the Modify Search button. This allows you to see how the LLM interpreted your input and make further adjustments to refine your search.",
+          "urlText": "",
+          "url": ""
+        },
+        "id": "ai_query_assistant"
+      },
       "composition": {
         "id": "composition",
         "hex": {
@@ -691,6 +702,12 @@
       "query_type": {
         "id": "query_type",
         "name": "glycan_search_simple"
+      }
+    },
+    "ai_query_assistant": {
+      "query_type": {
+        "id": "query",
+        "name": "query"
       }
     },
     "structure_search": {
@@ -1256,6 +1273,17 @@
         "shortName": "Annotation",
         "tooltip": " site annotation Information for selected Protein accession"
       },
+      "ai_query_assistant": {
+        "name": "AI Query Assistant",
+        "shortName": "AI Query Assistant",
+        "tooltip": {
+          "title": "AI Query Assistant",
+          "text": "The AI Query Assistant (AQA) leverages a Large Language Model (LLM) to interpret natural language query and convert it into an API-compatible search query. It then executes this query using our advanced search engine and displays the results. Additionally, it generates a prefilled advanced search form that you can access by clicking the Modify Search button. This allows you to see how the LLM interpreted your input and make further adjustments to refine your search.",
+          "urlText": "",
+          "url": ""
+        },
+        "id": "ai_query_assistant"
+      },
       "term": {
         "id": "term"
       },
@@ -1364,6 +1392,12 @@
       "query_type": {
         "id": "query_type",
         "name": "protein_search_simple"
+      },
+      "ai_query_assistant": {
+        "query_type": {
+          "id": "query",
+          "name": "query"
+        }
       }
     },
     "direct_search": {
@@ -2552,6 +2586,36 @@
       "id": "idCartClear",
       "title": "ID Cart - Clear",
       "message": "This will remove all entries from the list. Do you want to proceed?"
+    },
+    "non-protein-related-query": {
+      "id": "non-protein-related-query",
+      "title": "AI Query Assistant Error - Non protein related query",
+      "message": "This is a non protein related query. Please enter a valid protein question and try again."
+    },
+    "non-glycan-related-query": {
+      "id": "non-glycan-related-query",
+      "title": "AI Query Assistant Error - Non glycan related query",
+      "message": "This is a non glycan related query. Please enter a valid glycan question and try again."
+    },
+    "llm-key-error": {
+      "id": "llm-key-error",
+      "title": "AI Query Assistant Error - llm key",
+      "message": "Sorry, we couldn't process your query. Please try after some time."
+    },
+    "unable-to-parse-query-using-llm": {
+      "id": "unable-to-parse-query-using-llm",
+      "title": "AI Query Assistant Error - Unable to parse query",
+      "message": "Sorry, we couldn't process your query. Please rephrase your question and try again."
+    },
+    "rate-limit-exceeded": {
+      "id": "rate-limit-exceeded",
+      "title": "AI Query Assistant Error - Rate limit exceeded",
+      "message": "Sorry, we couldn't process your query. Please try after some time."
+    },
+    "aiQueryAssistantError": {
+      "id": "aiQueryAssistantError",
+      "title": "AI Query Assistant Error - No Results Found",
+      "message": "Sorry, we couldn't find any data matching your input. Please change your search term and try again."
     },
     "defaultTextAlert": {
       "id": "defaultTextAlert",

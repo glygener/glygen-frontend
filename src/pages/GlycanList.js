@@ -228,6 +228,7 @@ const GlycanList = props => {
   const [data, setData] = useState([]);
   const [dataUnmap, setDataUnmap] = useState([]);
   const [query, setQuery] = useState([]);
+  const [aIQueryAssistant, setAIQueryAssistant] = useState();
   const [parameters, setParameters] = useState(undefined);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
@@ -420,6 +421,7 @@ const GlycanList = props => {
                 : "";
           }
           setQuery(fixResidueToShortNames(data.cache_info.query));
+          setAIQueryAssistant(data.cache_info.query.ai_query);
           setParameters(data.cache_info.query.parameters);
           setTimeStamp(data.cache_info.ts);
           setListCacheId(data.cache_info.listcache_id);
@@ -514,7 +516,7 @@ const GlycanList = props => {
   function rowStyleFormat(row, rowIdx) {
     return { backgroundColor: rowIdx % 2 === 0 ? "red" : "blue" };
   }
-  const handleModifySearch = () => {
+  const handleModifySearch = (hash) => {
     if (searchId === "gs") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId && searchId.includes("sups")) {
@@ -530,7 +532,11 @@ const GlycanList = props => {
         "#" +
         quickSearch[searchId].id;
     } else {
-      navigate(routeConstants.glycanSearch + id);
+        if (hash === "AI-Query-Assistant") {
+          navigate(routeConstants.glycanSearch + id + "#" + hash);
+        } else {
+          navigate(routeConstants.glycanSearch + id);
+        }
     }
   };
 
@@ -622,6 +628,7 @@ const GlycanList = props => {
             <section className="content-box-md">
               <GlycanQuerySummary
                 data={query}
+                aIQueryAssistant={aIQueryAssistant}
                 parameters={parameters}
                 question={quickSearch[searchId]}
                 searchId={searchId}

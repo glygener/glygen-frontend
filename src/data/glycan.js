@@ -1,4 +1,4 @@
-import { getJson, postToAndGetBlob, glycanImageUrl, glycanSvgUrl, glycanJsonUrl } from "./api";
+import { getJson, postToAndGetBlob, glycanImageUrl, glycanSvgUrl, glycanJsonUrl, postFormDataTo1 } from "./api";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
@@ -71,6 +71,17 @@ export const getGlycanDetail = accessionId => {
   const url = `/glycan/detail/${accessionId}/?query=${queryParamString}`;
 
   return getJson(url);
+};
+
+/**
+ * Gets JSON for glycan natural language search.
+ * @param {object} formObject - glycan natural language search JSON query object.
+ */
+export const getGlycanAIQueryAssistant = formObject => {
+  var json = "query=" + JSON.stringify(formObject);
+  const url = "/ai/glycan_search"; // + json;
+  let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  'xyz123abc456def'}
+  return postFormDataTo1(url, formObject, headers);
 };
 
 // const headerSortingClasses = (column, sortOrder, isLastSorting, colIndex) =>

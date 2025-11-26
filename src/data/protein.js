@@ -57,6 +57,17 @@ export const getProteinsiteDetail = (protienId, position) => {
   return getJson(url);
 };
 
+/**
+ * Gets JSON for protein natural language search.
+ * @param {object} formObject - protein natural language search JSON query object.
+ */
+export const getProteinAIQueryAssistant = formObject => {
+  var json = "query=" + JSON.stringify(formObject);
+  const url = "/ai/protein_search"; // + json;
+  let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  'xyz123abc456def'}
+  return postFormDataTo1(url, formObject, headers);
+};
+
 export const getProteinDetail = (accessionId, noPagination) => {
 
   let url = '';

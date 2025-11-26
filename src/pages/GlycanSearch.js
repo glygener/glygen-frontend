@@ -11,7 +11,7 @@ import SimpleSearchControl from '../components/search/SimpleSearchControl';
 import GlycanTutorial from '../components/tutorial/GlycanTutorial';
 import StructureSearchControl from '../components/search/StructureSearchControl';
 import SubstructureSearchControl from '../components/search/SubstructureSearchControl';
-import { Tab, Tabs, Container } from 'react-bootstrap';
+import { Tab, Tabs, Container, Image } from 'react-bootstrap';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import '../css/Search.css';
 import glycanSearchData from '../data/json/glycanSearch';
@@ -19,11 +19,13 @@ import stringConstants from '../data/json/stringConstants';
 import routeConstants from '../data/json/routeConstants';
 import {logActivity} from '../data/logging';
 import {axiosError} from '../data/axiosError';
-import { getGlycanSearch, getGlycanSimpleSearch,  getGlycanList, getGlycanInit} from '../data/glycan';
+import { getGlycanSearch, getGlycanSimpleSearch,  getGlycanList, getGlycanInit, getGlycanAIQueryAssistant} from '../data/glycan';
 import FeedbackWidget from "../components/FeedbackWidget";
 import { postNewJob, postNewJobWithTimeout, getJobStatus, getJobResultList } from "../data/job";
 import { addJobToStore } from "../data/jobStoreApi"
 import GlyGenNotificationContext from "../components/GlyGenNotificationContext.js";
+import starBetaIcon from "../images/icons/star-beta.svg";
+import AIQueryAssistant from "../components/search/AIQueryAssistant";
 
 /**
  * Glycan search component for showing glycan search tabs.
@@ -48,6 +50,7 @@ const GlycanSearch = (props) => {
 
 	const [glySimpleSearchCategory, setGlySimpleSearchCategory] = useState('any');
 	const [glySimpleSearchTerm, setGlySimpleSearchTerm] = useState('');
+	const [glyAIQueryAssistantQuestion, setGlyAIQueryAssistantQuestion] = useState("");
 	const [glyAdvSearchData, setGlyAdvSearchData] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
 		{
@@ -123,6 +126,7 @@ const GlycanSearch = (props) => {
 
 	let simpleSearch = glycanSearchData.simple_search;
 	let advancedSearch = glycanSearchData.advanced_search;
+	let aIQueryAssistant = glycanSearchData.ai_query_assistant;
 	let querySearch = glycanSearchData.query_search;
 	let compositionSearch = glycanSearchData.composition_search;
 	let glycanData = stringConstants.glycan;
@@ -572,6 +576,14 @@ const GlycanSearch = (props) => {
 						);
 						setGlySimpleSearchTerm(data.cache_info.query.term ? data.cache_info.query.term : '');
 						setGlyActTabKey("Simple-Search");
+						setPageLoading(false);
+					}  else if (data.cache_info.query.ai_query && hash === "AI-Query-Assistant") {
+						setGlyAIQueryAssistantQuestion(
+						data.cache_info.query.ai_query
+							? data.cache_info.query.ai_query
+							: ""
+						);
+						setGlyActTabKey("AI-Query-Assistant");
 						setPageLoading(false);
 					} else {
 						setGlyAdvSearchData({
@@ -1218,6 +1230,84 @@ const GlycanSearch = (props) => {
       });
   };
 
+   /**
+   * Function to handle biomarker AI Query Assistant.
+   **/
+  const glycanAIQueryAssistant = () => {
+    var formjsonSimple = {
+      [glycanData.ai_query_assistant.query_type.id]:
+      glyAIQueryAssistantQuestion
+    };
+    logActivity("user", id, "Performing Glycan AI Query Assistant");
+    let message = "Glycan AI Query Assistant query=" + JSON.stringify(formjsonSimple);
+    getGlycanAIQueryAssistant(formjsonSimple)
+      .then(response => {
+        if (response.data["error"]) {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+		} else if (response.data["parsed_parameters"] && response.data["parsed_parameters"]["error"]) {
+		  logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+		}  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
+			let formObject = response.data["mapped_parameters"];
+			// formObject.ai_query = response.data["original_query"];
+			logActivity("user", id, "Glycan AI Query Performing Advanced Search");
+			let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
+			getGlycanSearch(formObject)
+				.then((response) => {
+					if (response.data['list_id'] !== '') {
+						logActivity("user", (id || "") + ">" + response.data['list_id'], message)
+						.finally(() => {	
+							setPageLoading(false);
+							navigate(routeConstants.glycanList + response.data['list_id']);
+						});;
+					} else {
+						logActivity("user", "", "No results. " + message);
+						setPageLoading(false);
+						setAlertTextInput({"show": true, "id": stringConstants.errors.advSerarchError.id});
+						window.scrollTo(0, 0);
+					}
+				})
+				.catch(function (error) {
+					axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+				});
+
+		} else {
+		  logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: stringConstants.errors.aiQueryAssistantError.id
+          });
+          window.scrollTo(0, 0);
+		}
+      })
+      .catch(function(error) {
+        let errorMsg = error?.response?.data?.error;
+        if (errorMsg && stringConstants.errors[errorMsg.error_msg]) {
+          logActivity("user", "", "No results. " + message);
+          setPageLoading(false);
+          setAlertTextInput({
+            show: true,
+            id: errorMsg.error_msg
+          });
+          window.scrollTo(0, 0);
+        } else {
+          axiosError(error, "", message, setPageLoading, setAlertDialogInput);
+        }
+      });
+  };
+
   /**
    * Function to handle click event for structure search.
    **/
@@ -1260,6 +1350,15 @@ const GlycanSearch = (props) => {
 		setPageLoading(true);
 		glycanSimpleSearch();
 	};
+
+	/**
+   * Function to handle click event for glycan AI Query Assistant.
+   **/
+    const aIQueryAssistantClick = () => {
+      setSearchStarted(true);
+      setPageLoading(true);
+      glycanAIQueryAssistant();
+    };
 
 	return (
 		<>
@@ -1335,6 +1434,30 @@ const GlycanSearch = (props) => {
 										initData={initData}
 										setGlyAdvSearchData={setGlyAdvSearchData}
 									/>
+								)}
+							</Container>
+						</Tab>
+						<Tab
+							eventKey="AI-Query-Assistant"
+							className="tab-content-padding"
+							title={
+								<div>
+									<span>{aIQueryAssistant.tabTitle}{" "}
+									</span>
+									<Image style={{marginTop:"-5px"}} width="34px" src={starBetaIcon} alt="star beta icon" />
+								</div> 
+							}
+							>
+							<TextAlert alertInput={alertTextInput} />
+							<Container className="tab-content-border">
+								{initData && (
+								<AIQueryAssistant
+									aIQueryAssistantClick={aIQueryAssistantClick}
+									inputValue={glyAIQueryAssistantQuestion}
+									setInputValue={setGlyAIQueryAssistantQuestion}
+									commonData={commonGlycanData} 
+									aIQueryAssistant={aIQueryAssistant}
+								/>
 								)}
 							</Container>
 						</Tab>
