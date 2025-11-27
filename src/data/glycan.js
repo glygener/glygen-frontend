@@ -79,7 +79,7 @@ export const getGlycanDetail = accessionId => {
  */
 export const getGlycanAIQueryAssistant = formObject => {
   var json = "query=" + JSON.stringify(formObject);
-  const url = "/ai/glycan_search"; // + json;
+  const url = "/ai/search/glycan"; // + json;
   let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  'xyz123abc456def'}
   return postFormDataTo1(url, formObject, headers);
 };

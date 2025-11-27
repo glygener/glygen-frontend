@@ -119,6 +119,10 @@ const GlycanSearch = (props) => {
 		  glycoGlyphName: "",
 		}
 	  );
+
+	const [aiSearchToken, setAISearchToken] = useState(true);
+	const [aiSearchStatus, setAISearchStatus] = useState(true);
+
 	const { showNotification } = useContext(GlyGenNotificationContext);
 
 	const navigate = useNavigate();
@@ -466,6 +470,10 @@ const GlycanSearch = (props) => {
 				glyAdvSearchValError: [false, false, false, false, false, false, false],
 			});
 
+			if (initData.ai_search) {
+				setAISearchToken(initData.ai_search.token)
+				setAISearchStatus(initData.ai_search.status)
+			}
 			let compositionData = initData.composition;
 			let compStateData = {};
 			let compositionSearchData = glycanData.common.composition;
