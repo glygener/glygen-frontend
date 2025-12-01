@@ -1268,7 +1268,7 @@ const GlycanSearch = (props) => {
           window.scrollTo(0, 0);
 		}  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
 			let formObject = response.data["mapped_parameters"];
-			// formObject.ai_query = response.data["original_query"];
+			formObject.ai_query = response.data["original_query"];
 			logActivity("user", id, "Glycan AI Query Performing Advanced Search");
 			let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
 			getGlycanSearch(formObject)
@@ -1445,7 +1445,7 @@ const GlycanSearch = (props) => {
 								)}
 							</Container>
 						</Tab>
-						<Tab
+						{aiSearchStatus && <Tab
 							eventKey="AI-Query-Assistant"
 							className="tab-content-padding"
 							title={
@@ -1468,7 +1468,7 @@ const GlycanSearch = (props) => {
 								/>
 								)}
 							</Container>
-						</Tab>
+						</Tab>}
 						<Tab
 							eventKey='Composition-Search'
 							title={compositionSearch.tabTitle}

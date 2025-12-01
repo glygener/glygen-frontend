@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { getProteinInit } from "../data/protein";
+import Radio from '@mui/material/Radio';
 import "../css/detail.css";
 
 function getDateTime() {
@@ -41,7 +42,7 @@ const ProteinQuerySummary = (props) => {
   const title = "Protein Search Summary";
   // let quickSearch = stringConstants.quick_search;
 
-  const { data, onModifySearch, timestamp, searchId, dataUnmap } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap, aIQueryAssistant } = props;
   const proteinStrings = stringConstants.protein.common;
   const superSearchStrings = stringConstants.super_search.common;
 
@@ -80,6 +81,11 @@ const ProteinQuerySummary = (props) => {
   const [aminoAcidLookup, setAminoAcidLookup] = useState({});
   const [uniprotCanonicalACShowMore, setUniprotCanonicalACShowMore] = useState(true);
   const [glycosylationEvidenceType, setGlycosylationEvidenceType] = useState(undefined);
+  const [selectedQueryType, setSelectedQueryType] = React.useState("Advanced-Search");
+  
+  const handleQueryTypeChange = (event) => {
+    setSelectedQueryType(event.target.value);
+  };
 
 
   useEffect(() => {
@@ -124,6 +130,32 @@ const ProteinQuerySummary = (props) => {
           </Card.Text>
           <Row>
             <Col>
+              {aIQueryAssistant && (
+                <Row className="summary-table-col" sm={12}>
+                  <div align="center">
+                    <Radio
+                      style={{marginTop:"-5px"}}
+                      checked={selectedQueryType === "AI-Query-Assistant"}
+                      onChange={handleQueryTypeChange}
+                      value="AI-Query-Assistant"
+                      name="query-type-radio-buttons"
+                    />
+                    <strong><i>User Query</i></strong>
+                  </div>
+                  <div align="center">{aIQueryAssistant}</div>
+                  <p/>
+                  <div align="center">
+                    <Radio
+                      style={{marginTop:"-5px"}}
+                      checked={selectedQueryType === "Advanced-Search"}
+                      onChange={handleQueryTypeChange}
+                      value="Advanced-Search"
+                      name="query-type-radio-buttons"
+                    />
+                    <strong><i>Internal Query</i></strong>
+                  </div>
+                </Row>
+              )}
               {props.question && data.glytoucan_ac && (
                 <>
                   {props.question.text.split("{0}")[0]}

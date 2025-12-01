@@ -103,6 +103,10 @@ const items = [
     id: "Biomarkers"
   },
   {
+    label: stringConstants.sidebar.tissue.displayname,
+    id: "Tissue"
+  },
+  {
     label: stringConstants.sidebar.expression.displayname,
     id: "Expression"
   },
@@ -263,6 +267,7 @@ const GlycanDetail = props => {
   const [cardLoadingPub, setCardLoadingPub] = useState(false);
   const [cardLoadingGlyc, setCardLoadingGlyc] = useState(false);
   const [glycanJSON, setGlycanJSON] = useState({});
+  const [tissue, setTissue] = useState([]);
   const [glycanEnzymeList, setGlycanEnzymeList] = useState([]);
   const [glycanMotifList, setGlycanMotifList] = useState([]);
   const [glycanResidueList, setGlycanResidueList] = useState([]);
@@ -542,6 +547,10 @@ const GlycanDetail = props => {
             .sort(function(res1, res2) {
               return parseInt(res1.orderID) - parseInt(res2.orderID);
             });
+        }
+
+        if (detailDataTemp.tissue) {
+            setTissue(detailDataTemp.tissue);
         }
 
         if (detailDataTemp.publication) {
@@ -1411,6 +1420,52 @@ const GlycanDetail = props => {
       ),
     }
   ];
+  const tissueColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList
+            evidences={groupEvidences(cell)}
+          />
+        );
+      }
+    },
+    {
+      dataField: "species.glygen_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+        {row.species && (<span className="nowrap">
+          {row.species.glygen_name}
+          </span>)}
+        </>
+      )
+    },
+    {
+      dataField: "tissue.name",
+      text: "Tissue / Bodily Fluid",
+      sort: true,
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white" };
+      },
+      formatter: (value, row) => (
+        <>
+          {row.tissue && (<span className="nowrap">
+            {row.tissue.name}{" "} ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
+          </span>)}
+        </>
+      ),
+    }
+  ];
   const motifColumns = [
     {
       dataField: "image",
@@ -1545,6 +1600,7 @@ const GlycanDetail = props => {
       glycoprotein: true,
       glycanBindingProtein: true,
       bioEnzyme: true,
+      tissue: true,
       subsumption: true,
       biomarkers: true,
       expression: true,
@@ -2925,6 +2981,86 @@ const GlycanDetail = props => {
                         />
                       )}
                       {!biomarkers && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* Tissue */}
+              <Accordion
+                id="Tissue"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.glycan.tissue.title}
+                        text={DetailTooltips.glycan.tissue.text}
+                        urlText={
+                          DetailTooltips.glycan.tissue.urlText
+                        }
+                        url={DetailTooltips.glycan.tissue.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.tissue.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Tissue (*.csv)",
+                              type: "tissue_csv",
+                              format: "csv",
+                              fileName: "tissue",
+                              data: "glycan_section",
+                              section: "tissue",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="glycan_section"
+                          showBlueBackground={true}
+                          enable={tissue && tissue.length > 0}
+                        />
+                      </span>
+                      <CardToggle cardid="tissue" toggle={collapsed.tissue} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {tissue && tissue.length !== 0 && (
+                        <ClientServerPaginatedTableFullScreen
+                          idField={"tissue.name"}
+                          data={tissue}
+                          columns={tissueColumns}
+                          defaultSortField={"tissue.name"}
+                          onClickTarget={"#tissue"}
+                          viewPort={true}
+                          title="Tissue"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Tissue (*.csv)",
+                                    type: "tissue_csv",
+                                    format: "csv",
+                                    fileName: "tissue",
+                                    data: "glycan_section",
+                                    section: "tissue",
+                                  }
+                                ],
+                               dataId:id,
+                               itemType:"glycan_section"
+                            }
+                          }
+                        />
+                      )}
+                      {!tissue && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

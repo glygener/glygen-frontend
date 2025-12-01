@@ -1392,12 +1392,12 @@
       "query_type": {
         "id": "query_type",
         "name": "protein_search_simple"
-      },
-      "ai_query_assistant": {
-        "query_type": {
-          "id": "query",
-          "name": "query"
-        }
+      }
+    },
+    "ai_query_assistant": {
+      "query_type": {
+        "id": "query",
+        "name": "query"
       }
     },
     "direct_search": {
@@ -2607,6 +2607,11 @@
       "title": "AI Query Assistant Error - Unable to parse query",
       "message": "Sorry, we couldn't process your query. Please rephrase your question and try again."
     },
+    "unable-to-map-query-using-llm": {
+      "id": "unable-to-map-query-using-llm",
+      "title": "AI Query Assistant Error - Unable to map parsed query",
+      "message": "Sorry, we couldn't process your query. Unable to map query, please rephrase your question and try again."
+    },
     "rate-limit-exceeded": {
       "id": "rate-limit-exceeded",
       "title": "AI Query Assistant Error - Rate limit exceeded",
@@ -2678,6 +2683,11 @@
       "id": "Subsumption",
       "displayname": "Subsumption",
       "tooltip": " subsumption Information for selected accession"
+    },
+    "tissue": {
+      "id": "tissue",
+      "displayname": "Tissue",
+      "tooltip": "Tissue Information for selected accession"
     },
     "expression": {
       "id": "expression",

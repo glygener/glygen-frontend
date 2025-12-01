@@ -92,6 +92,9 @@ const ProteinSearch = props => {
 		}
 	  );
 
+  const [aiSearchToken, setAISearchToken] = useState(true);
+  const [aiSearchStatus, setAISearchStatus] = useState(true);
+
   const [proActTabKey, setProActTabKey] = useState("Simple-Search");
   const [pageLoading, setPageLoading] = useState(true);
   const [searchStarted, setSearchStarted] = useState(false);
@@ -282,6 +285,11 @@ const ProteinSearch = props => {
             Math.ceil(initData.protein_mass.max)
           ]
         });
+
+        if (initData.ai_search) {
+          setAISearchToken(initData.ai_search.token)
+          setAISearchStatus(initData.ai_search.status)
+        }
 
         setInitData(initData);
         const anchorElement = location.hash;
@@ -859,7 +867,7 @@ const ProteinSearch = props => {
           window.scrollTo(0, 0);
     }  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
       let formObject = response.data["mapped_parameters"];
-      // formObject.ai_query = response.data["original_query"];
+      formObject.ai_query = response.data["original_query"];
       logActivity("user", id, "Protein AI Query Performing Advanced Search");
       let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
       getProteinSearch(formObject)
@@ -1014,7 +1022,7 @@ const ProteinSearch = props => {
                 )}
               </Container>
             </Tab>
-            {false && <Tab
+            {aiSearchStatus && <Tab
 							eventKey="AI-Query-Assistant"
 							className="tab-content-padding"
 							title={

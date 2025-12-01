@@ -67,6 +67,7 @@ const ProteinList = props => {
   let quickSearch = stringConstants.quick_search;
   const [data, setData] = useState([]);
   const [query, setQuery] = useState([]);
+  const [aIQueryAssistant, setAIQueryAssistant] = useState();
   const [dataUnmap, setDataUnmap] = useState([]);
   const [timestamp, setTimeStamp] = useState();
   const [pagination, setPagination] = useState([]);
@@ -204,6 +205,7 @@ const ProteinList = props => {
                 : "";
           }
           setQuery(data.cache_info.query);
+          setAIQueryAssistant(data.cache_info.query.ai_query);
           setTimeStamp(data.cache_info.ts);
           setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
@@ -296,7 +298,7 @@ const ProteinList = props => {
     }
   };
 
-  const handleModifySearch = () => {
+  const handleModifySearch = (hash) => {
     if (searchId === "gs" || searchId === "gsgp") {
       window.location = routeConstants.globalSearchResult + encodeURIComponent(query.term);
     } else if (searchId && searchId.includes("sups")) {
@@ -312,7 +314,11 @@ const ProteinList = props => {
         "#" +
         quickSearch[searchId].id;
     } else {
-      navigate(routeConstants.proteinSearch + id);
+        if (hash === "AI-Query-Assistant") {
+          navigate(routeConstants.proteinSearch + id + "#" + hash);
+        } else {
+          navigate(routeConstants.proteinSearch + id);
+        }
     }
   };
 
@@ -401,6 +407,7 @@ const ProteinList = props => {
               {query && (
                 <ProteinQuerySummary
                   data={query}
+                  aIQueryAssistant={aIQueryAssistant}
                   question={quickSearch[searchId]}
                   searchId={searchId}
                   timestamp={timestamp}

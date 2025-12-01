@@ -63,7 +63,7 @@ export const getProteinsiteDetail = (protienId, position) => {
  */
 export const getProteinAIQueryAssistant = formObject => {
   var json = "query=" + JSON.stringify(formObject);
-  const url = "/ai/protein_search"; // + json;
+  const url = "/ai/search/protein"; // + json;
   let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  'xyz123abc456def'}
   return postFormDataTo1(url, formObject, headers);
 };

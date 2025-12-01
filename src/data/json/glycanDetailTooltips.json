@@ -18,6 +18,12 @@
       "title": "Biomarkers",
       "url": "https://wiki.glygen.org/index.php/Glycan_details/Biomarkers"
     },
+    "tissue": {
+      "urlText": "Read more...",
+      "text": "The Tissue section contains information of the glycan within tissues.",
+      "title": "Tissue",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/Tissue"
+    },
     "expression": {
       "urlText": "Read more...",
       "text": "The Expression section contains information on the expression of the glycan within tissues and cell lines.",
