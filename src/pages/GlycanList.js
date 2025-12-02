@@ -635,6 +635,9 @@ const GlycanList = props => {
                 timestamp={timestamp}
                 dataUnmap={dataUnmap}
                 onModifySearch={handleModifySearch}
+                setPageLoading={setPageLoading}
+                searchQuery={searchQuery}
+                listID={id}
               />
             </section>
 

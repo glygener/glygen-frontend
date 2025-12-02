@@ -8,6 +8,7 @@ import glycanSearchData from "../data/json/glycanSearch";
 import Button from "react-bootstrap/Button";
 import Radio from '@mui/material/Radio';
 import LineTooltip from "../components/tooltip/LineTooltip";
+import NotifyGlyGen from "../components/alert/NotifyGlyGen";
 
 const glycanStrings = stringConstants.glycan.common;
 const advancedSearch = glycanSearchData.advanced_search;
@@ -43,7 +44,7 @@ function getDateTime() {
 const GlycanQuerySummary = (props) => {
   const title = "Glycan Search Summary";
 
-  const { data, onModifySearch, timestamp, searchId, dataUnmap, parameters, aIQueryAssistant } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap, parameters, aIQueryAssistant, setPageLoading, listID, searchQuery } = props;
 
   const executionTime = timestamp ? getDateTime(timestamp) : "";
   const {
@@ -123,7 +124,7 @@ const GlycanQuerySummary = (props) => {
                     />
                     <strong><i>Internal Query</i></strong>
                   </div>
-                </Row>
+               </Row>
               )}
               {props.question && data.uniprot_canonical_ac && (
                 <>
@@ -434,6 +435,15 @@ const GlycanQuerySummary = (props) => {
               )}
             </Col>
           </Row>
+
+          {aIQueryAssistant &&
+            <NotifyGlyGen
+              search={"Glycan AI Search"}
+              query={searchQuery}
+              listID={listID}
+              setPageLoading={setPageLoading}
+            />
+          }
           <div className="pb-3 pt-3">
             <Button
               type="button"
