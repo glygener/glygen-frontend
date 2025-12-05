@@ -52,7 +52,7 @@ export default function JobErrorDisplay(props) {
         };
         postTo(url, myHeaders)
           .then((response) => {
-            logActivity("user", "", "Message sent from contact us page.");
+            logActivity("user", "", "Message sent from notify glygen job page.");
             setContactUsResponseMessage("We have received your message.");
             props.setPageLoading(false);
           })
@@ -60,7 +60,7 @@ export default function JobErrorDisplay(props) {
             setContactUsErrorMessage(
               "Oops, something went wrong! We did not receive your message. Please try again later."
             );
-            axiosError(error, "", "Contact us api call.", props.setPageLoading);
+            axiosError(error, "", "Notify api call.", props.setPageLoading);
           });
     
       };

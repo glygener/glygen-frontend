@@ -48,7 +48,7 @@ export default function NotifyGlyGen(props) {
         };
         postTo(url, myHeaders)
           .then((response) => {
-            logActivity("user", "", "Message sent from contact us page.");
+            logActivity("user", "", "Message sent from notify glygen ai page.");
             setContactUsResponseMessage("We have received your message.");
             props.setPageLoading(false);
           })
@@ -56,7 +56,7 @@ export default function NotifyGlyGen(props) {
             setContactUsErrorMessage(
               "Oops, something went wrong! We did not receive your message. Please try again later."
             );
-            axiosError(error, "", "notify api call.", props.setPageLoading);
+            axiosError(error, "", "Notify api call.", props.setPageLoading);
           });
     
       };
