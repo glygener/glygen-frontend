@@ -395,7 +395,8 @@ const ProteinSearch = props => {
                           name: advancedSearch.organism.placeholderName
                         }
                       : {
-                          id: data.cache_info.query.organism.id,
+                          id: initData.organism.filter(org => org.name === data.cache_info.query.organism.name) ? 
+                              initData.organism.filter(org => org.name === data.cache_info.query.organism.name)[0].id : "",
                           name: data.cache_info.query.organism.name
                         },
                   proteinName:
@@ -845,7 +846,7 @@ const ProteinSearch = props => {
       [proteinData.ai_query_assistant.query_type.id]:
       proAIQueryAssistantQuestion
     };
-    logActivity("user", id, "Performing Protein AI Query Assistant");
+    logActivity("user", id, "Performing Protein AI Query Assistant query");
     let message = "Protein AI Query Assistant query=" + JSON.stringify(formjsonSimple);
     getProteinAIQueryAssistant(formjsonSimple, aiSearchToken)
       .then(response => {

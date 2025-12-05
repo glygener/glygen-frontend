@@ -481,7 +481,7 @@ const ProteinQuerySummary = (props) => {
             >
               Update Results
             </Button>
-            <Button type="button" className="gg-btn-blue" onClick={onModifySearch}>
+            <Button type="button" className="gg-btn-blue" onClick={() => onModifySearch(selectedQueryType)}>
               Modify Search
             </Button>
           </div>

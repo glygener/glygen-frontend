@@ -1246,7 +1246,7 @@ const GlycanSearch = (props) => {
       [glycanData.ai_query_assistant.query_type.id]:
       glyAIQueryAssistantQuestion
     };
-    logActivity("user", id, "Performing Glycan AI Query Assistant");
+    logActivity("user", id, "Performing Glycan AI Query Assistant query");
     let message = "Glycan AI Query Assistant query=" + JSON.stringify(formjsonSimple);
     getGlycanAIQueryAssistant(formjsonSimple, aiSearchToken)
       .then(response => {
