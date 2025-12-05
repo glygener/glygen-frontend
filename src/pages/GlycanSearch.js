@@ -587,9 +587,9 @@ const GlycanSearch = (props) => {
 						setPageLoading(false);
 					}  else if (data.cache_info.query.ai_query && hash === "AI-Query-Assistant") {
 						setGlyAIQueryAssistantQuestion(
-						data.cache_info.query.ai_query
-							? data.cache_info.query.ai_query
-							: ""
+							data.cache_info.query.ai_query
+								? data.cache_info.query.ai_query
+								: ""
 						);
 						setGlyActTabKey("AI-Query-Assistant");
 						setPageLoading(false);
@@ -1239,7 +1239,7 @@ const GlycanSearch = (props) => {
   };
 
    /**
-   * Function to handle biomarker AI Query Assistant.
+   * Function to handle glycan AI Query Assistant.
    **/
   const glycanAIQueryAssistant = () => {
     var formjsonSimple = {
@@ -1248,7 +1248,7 @@ const GlycanSearch = (props) => {
     };
     logActivity("user", id, "Performing Glycan AI Query Assistant");
     let message = "Glycan AI Query Assistant query=" + JSON.stringify(formjsonSimple);
-    getGlycanAIQueryAssistant(formjsonSimple)
+    getGlycanAIQueryAssistant(formjsonSimple, aiSearchToken)
       .then(response => {
         if (response.data["error"]) {
           logActivity("user", "", "No results. " + message);
@@ -1289,7 +1289,6 @@ const GlycanSearch = (props) => {
 				.catch(function (error) {
 					axiosError(error, "", message, setPageLoading, setAlertDialogInput);
 				});
-
 		} else {
 		  logActivity("user", "", "No results. " + message);
           setPageLoading(false);

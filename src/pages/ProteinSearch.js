@@ -847,7 +847,7 @@ const ProteinSearch = props => {
     };
     logActivity("user", id, "Performing Protein AI Query Assistant");
     let message = "Protein AI Query Assistant query=" + JSON.stringify(formjsonSimple);
-    getProteinAIQueryAssistant(formjsonSimple)
+    getProteinAIQueryAssistant(formjsonSimple, aiSearchToken)
       .then(response => {
         if (response.data["error"]) {
           logActivity("user", "", "No results. " + message);
@@ -888,7 +888,6 @@ const ProteinSearch = props => {
         .catch(function (error) {
           axiosError(error, "", message, setPageLoading, setAlertDialogInput);
         });
-
     } else {
       logActivity("user", "", "No results. " + message);
           setPageLoading(false);

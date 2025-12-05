@@ -77,10 +77,10 @@ export const getGlycanDetail = accessionId => {
  * Gets JSON for glycan natural language search.
  * @param {object} formObject - glycan natural language search JSON query object.
  */
-export const getGlycanAIQueryAssistant = formObject => {
+export const getGlycanAIQueryAssistant = (formObject, aiSearchToken) => {
   var json = "query=" + JSON.stringify(formObject);
-  const url = "/ai/search/glycan"; // + json;
-  let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  'xyz123abc456def'}
+  const url = "/ai/search/glycan";
+  let headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + aiSearchToken}
   return postFormDataTo1(url, formObject, headers);
 };
 

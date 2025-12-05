@@ -79,7 +79,7 @@ export default function NotifyGlyGen(props) {
                     variant="success"
                     onClick={(e) => handleSubmit(e)}
                   >
-                    Notify GlyGen
+                    Notify Us If AI Got It Wrong
                   </Button>
                 </div>
               </div>

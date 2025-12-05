@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { getProteinInit } from "../data/protein";
 import Radio from '@mui/material/Radio';
+import NotifyGlyGen from "../components/alert/NotifyGlyGen";
 import "../css/detail.css";
 
 function getDateTime() {
@@ -42,7 +43,7 @@ const ProteinQuerySummary = (props) => {
   const title = "Protein Search Summary";
   // let quickSearch = stringConstants.quick_search;
 
-  const { data, onModifySearch, timestamp, searchId, dataUnmap, aIQueryAssistant } = props;
+  const { data, onModifySearch, timestamp, searchId, dataUnmap, aIQueryAssistant, setPageLoading, listID, searchQuery } = props;
   const proteinStrings = stringConstants.protein.common;
   const superSearchStrings = stringConstants.super_search.common;
 
@@ -460,6 +461,16 @@ const ProteinQuerySummary = (props) => {
               )}
             </Col>
           </Row>
+
+          {aIQueryAssistant &&
+            <NotifyGlyGen
+              search={"Protein AI Search"}
+              query={searchQuery}
+              listID={listID}
+              setPageLoading={setPageLoading}
+            />
+          }
+
           <div className="pb-3 pt-3">
             <Button
               type="button"
