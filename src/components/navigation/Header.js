@@ -30,6 +30,7 @@ import {
   GNOME_BROWSER,
   GLYCOMOTIF_WIKI,
   GLYGEN_SANDBOX,
+  GLYTABLEMAKER,
   GLYGEN_ENV,
   GLYCAN_SEQ_LOOKUP,
   BLUESKY,
@@ -252,6 +253,9 @@ export default function Header(props) {
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen Sand Box
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYTABLEMAKER} target="_blank" rel="noopener noreferrer">
+                  GlyTableMaker
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser

@@ -1,0 +1,29 @@
+%0 Journal Article
+%A Kahsay, Robel
+%A Bhuiyan, Urnisha
+%A Au, Cyrus Chun Hong
+%A Edwards, Nathan
+%A Johnson, Luke
+%A Kulkarni, Sujeet
+%A Martinez, Karina
+%A Ranzinger, Rene
+%A Vijay-Shanker, K
+%A Vora, Jeet
+%A Warner, Kate
+%A Tiemeyer, Michael
+%A Mazumder, Raja
+%T GlycoSiteMiner: an ML/AI-assisted literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts
+%B Glycobiology
+%D 2025
+%R 10.1093/glycob/cwaf030
+%1 cwaf030
+%J Glycobiology
+%V 35
+%N 7
+%@ 1460-2423
+%X Over 50% of human proteins are estimated to be glycosylated, making glycosylation one of the most common post-translational modifications (PTMs) of proteins. A glycoinformatics resource such as the GlyGen knowledgebase, consisting of experimentally verified sequence-specific glycosylation sites, is critical for advancing research in glycobiology. Unfortunately, most experimental studies report glycosylation sites in free text format in scientific literature, mentioning gene names and amino acid positions without providing protein sequence identifiers, making it difficult to mine reported sites that can be mapped onto specific protein sequences. We have developed GlycoSiteMiner, which is an automated literature mining-based pipeline that extracts experimentally verified protein sequence-specific glycosylation sites from PubMed abstracts. The pipeline employs ML/AI algorithms to filter out incorrectly identified sites and has been applied to 33 million PubMed abstracts, identifying 1118 new sequence-specific glycosylation sites that were not previously present in the GlyGen resource.
+%[ 12/8/2025
+%U https://doi.org/10.1093/glycob/cwaf030
+
+
+

@@ -24,6 +24,7 @@ import {
   GNOME_BROWSER,
   GLYCOMOTIF_WIKI,
   GLYGEN_SANDBOX,
+  GLYTABLEMAKER,
   GLYCAN_SEQ_LOOKUP,
   GRANT_DETAILS,
   NIGMS,
@@ -173,6 +174,11 @@ export default function Footer() {
               <div>
                 <a href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
                   GlyGen&nbsp;Sand Box
+                </a>
+              </div>
+              <div>
+                <a href={GLYTABLEMAKER} target="_blank" rel="noopener noreferrer">
+                  GlyTableMaker
                 </a>
               </div>
               <div>

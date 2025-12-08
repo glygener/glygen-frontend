@@ -23,6 +23,24 @@
 	],
 	"ourPapers": [
 		{
+			"heading": "GlycoSiteMiner: an ML/AI-assisted literature mining-based pipeline for extracting glycosylation sites from PubMed abstractsGlycoSiteMiner: an ML/AI-assisted literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts.",
+			"authors": "Robel Kahsay, Urnisha Bhuiyan, Cyrus Chun Hong Au, Nathan Edwards, Luke Johnson, Sujeet Kulkarni, Karina Martinez, Rene Ranzinger, K Vijay-Shanker, Jeet Vora, Kate Warner, Michael Tiemeyer, Raja Mazumder.",
+			"publisher": "Glycobiology. 2025.",
+			"pmid": "PMID:",
+			"website": {
+				"name": "40401984",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/40401984"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/40401984.bibtex",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/40401984.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/40401984.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
 			"heading": "The Glycan Structure Dictionary -a  dictionary describing commonly used glycan structure terms.",
 			"authors": "Jeet Vora, Rahi Navelkar, K.Vijay-Shanker, Nathan Edwards, Xiying Ding, Tianyi Wang, Peng Su, Karen Ross, Frederique Lisacek, Catherine Hayes, Karina Martinez, Robel Kahsay, Rene Ranzinger, Michael Tiemeyer, Raja Mazumder.",
 			"publisher": "Glycobiology. 2023.",
