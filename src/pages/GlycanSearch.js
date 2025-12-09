@@ -516,7 +516,7 @@ const GlycanSearch = (props) => {
 			const anchorElement = location.hash;
 			if (anchorElement) {
 				var hash = anchorElement.substr(1);
-				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "Composition-Search"
+				if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "AI-Query-Assistant" || hash ===  "Composition-Search"
 				    || "Structure-Search" || "Substructure-Search" ||  hash ===  "Tutorial") {
 					setGlyActTabKey(hash);
 				} else {

@@ -295,7 +295,7 @@ const ProteinSearch = props => {
         const anchorElement = location.hash;
         if (anchorElement) {
           var hash = anchorElement.substr(1);
-          if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash === "Sequence-Search" || hash ===  "Tutorial") {
+          if (hash ===  "Simple-Search" || hash ===  "Advanced-Search" || hash ===  "AI-Query-Assistant" || hash === "Sequence-Search" || hash ===  "Tutorial") {
             setProActTabKey(hash);	
           } else {
             setProActTabKey("Simple-Search");
