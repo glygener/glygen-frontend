@@ -58,3 +58,6 @@ export const GLYSPACE = process.env.REACT_APP_GLYSPACE || "http://www.glyspace.o
 export const GRANT_DETAILS_COMMONFUND =
   process.env.REACT_APP_GRANT_DETAILS_COMMONFUND || "https://reporter.nih.gov/project-details/10397274";
 export const GLYTABLEMAKER = "https://glygen.ccrc.uga.edu/tablemaker/";
+export const GLYCAN_IMAGE_EXTRACTOR = "https://extractor.glyomics.org/";
+export const GLYMAGE = "https://glymage.glyomics.org/";
+export const SEQUENCE_FORMAT_COVERTER = "https://converter.glyomics.org/";

@@ -31,6 +31,9 @@ import {
   GLYCOMOTIF_WIKI,
   GLYGEN_SANDBOX,
   GLYTABLEMAKER,
+  GLYCAN_IMAGE_EXTRACTOR,
+  GLYMAGE,
+  SEQUENCE_FORMAT_COVERTER,
   GLYGEN_ENV,
   GLYCAN_SEQ_LOOKUP,
   BLUESKY,
@@ -260,11 +263,20 @@ export default function Header(props) {
                 <NavDropdown.Item href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure Browser
                 </NavDropdown.Item>
+                <NavDropdown.Item href={GLYCAN_IMAGE_EXTRACTOR} target="_blank" rel="noopener noreferrer">
+                  Glycan Image Extractor
+                </NavDropdown.Item>
+                <NavDropdown.Item href={GLYMAGE} target="_blank" rel="noopener noreferrer">
+                  Glymage
+                </NavDropdown.Item>
+                <NavDropdown.Item href={SEQUENCE_FORMAT_COVERTER} target="_blank" rel="noopener noreferrer">
+                  Sequence Format Converter
+                </NavDropdown.Item>
                 <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
                 <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="Third Party Tools">
                   <NavDropdown.Item href={CFDE_GENE_PAGES} target="_blank" rel="noopener noreferrer">
                     Gene and Drug Landing Page Aggregator
-                  </NavDropdown.Item>
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
               <NavDropdown.Item as={NavLink} to={routeConstants.resources}>

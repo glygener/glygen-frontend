@@ -25,6 +25,9 @@ import {
   GLYCOMOTIF_WIKI,
   GLYGEN_SANDBOX,
   GLYTABLEMAKER,
+  GLYCAN_IMAGE_EXTRACTOR,
+  GLYMAGE,
+  SEQUENCE_FORMAT_COVERTER,
   GLYCAN_SEQ_LOOKUP,
   GRANT_DETAILS,
   NIGMS,
@@ -184,6 +187,21 @@ export default function Footer() {
               <div>
                 <a href={GNOME_BROWSER} target="_blank" rel="noopener noreferrer">
                   Structure&nbsp;Browser
+                </a>
+              </div>
+              <div>
+                <a href={GLYCAN_IMAGE_EXTRACTOR} target="_blank" rel="noopener noreferrer">
+                  Glycan Image Extractor
+                </a>
+              </div>
+              <div>
+                <a href={GLYMAGE} target="_blank" rel="noopener noreferrer">
+                  Glymage
+                </a>
+              </div>
+              <div>
+                <a href={SEQUENCE_FORMAT_COVERTER} target="_blank" rel="noopener noreferrer">
+                  Sequence Format Converter
                 </a>
               </div>
               <div>
