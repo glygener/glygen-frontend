@@ -212,10 +212,10 @@ const columnDisplayTypes = {
     },
     formatter: (value, row) => (
       <LineTooltip text="View details">
-        {/* <Link to={routeConstants.proteinDetail + value}>
+        <Link to={routeConstants.proteinDetail + value}>
           {value}
-        </Link> */}
-         <LinkButton url={routeConstants.proteinDetail + value} id={value}/>
+        </Link>
+         {/* <LinkButton url={routeConstants.proteinDetail + value} id={value}/> */}
       </LineTooltip>
     )
   },

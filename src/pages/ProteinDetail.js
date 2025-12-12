@@ -2388,7 +2388,7 @@ const ProteinDetail = (props) => {
                   <h2>
                     {" "}
                     <span>
-                      Details for <span>{keywords ? "Glycoprotein" : "Protein"}</span>
+                      Details for <span>{keywords && keywords.length > 0 && keywords.includes("glycoprotein")? "Glycoprotein" : "Protein"}</span>
                       <strong className="nowrap">
                         {uniprot && uniprot.uniprot_canonical_ac && (
                           <> {uniprot.uniprot_canonical_ac}</>

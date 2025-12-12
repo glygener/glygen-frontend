@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import SelectControl from "../components/select/SelectControl";
 import HelpTooltip from "../components/tooltip/HelpTooltip";
 import PageLoader from "../components/load/PageLoader";
+import FeedbackWidget from "../components/FeedbackWidget.js";
 import DialogAlert from "../components/alert/DialogAlert";
 import TextAlert from "../components/alert/TextAlert";
 import "../css/Search.css";
@@ -683,6 +684,7 @@ const BatchRetrieval = (props) => {
         {getTitle("batchRetrieval")}
         {getMeta("batchRetrieval")}
       </Helmet>
+      <FeedbackWidget />
       <div className="content-box-md">
         <div className="horizontal-heading text-center">
           <h5>{batchRetrieval.pageSubtitle}</h5>
