@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import PaginatedTable from "./PaginatedTable";
 
 const createSorter = (sortField, sortOrder) => (a, b) => {
+  if (sortField === null || sortField == undefined)
+    return 0;
   let sortFieldArr = sortField.split(".");
   let val1 = a;
   let val2 = b;
