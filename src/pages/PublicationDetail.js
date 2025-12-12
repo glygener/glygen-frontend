@@ -1677,7 +1677,7 @@ const PublicationDetail = (props) => {
                     data: "publication_detail",
                   },
                 ]}
-                dataId={id}
+                dataId={downloadId}
                 itemType="publication_detail"
               />
             </div>
