@@ -2617,6 +2617,11 @@
       "title": "AI Query Assistant Error - Rate limit exceeded",
       "message": "Sorry, we couldn't process your query. Please try after some time."
     },
+    "query_length_too_long": {
+      "id": "query_length_too_long",
+      "title": "AI Query Assistant Error - Query length too long",
+      "message": "Sorry, we couldn't process your query. Please enter a smaller query and try again."
+    },
     "aiQueryAssistantError": {
       "id": "aiQueryAssistantError",
       "title": "AI Query Assistant Error - No Results Found",

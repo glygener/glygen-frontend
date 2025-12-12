@@ -383,8 +383,8 @@
   "ai_query_assistant": {
     "tabTitle": "AI Query Assistant",
     "ai_query_assistant": {
-      "length": 2500,
-      "errorText": "Entry is too long - max length is 2500.",
+      "length": 1000,
+      "errorText": "Entry is too long - max length is 1000.",
       "placeholder": "Enter a natural language search question.",
       "examples": {
         "ai_query_assistant": {
