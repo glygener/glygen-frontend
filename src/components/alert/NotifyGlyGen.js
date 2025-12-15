@@ -39,7 +39,7 @@ export default function NotifyGlyGen(props) {
         let message =  JSON.stringify({"search": props.search, "query": props.query, "listID": props.listID});
         const formData = {
           user: getUserID(),
-          subject: "JOB: " + props.search + ": " + props.listID,
+          subject: props.search + ": " + props.listID,
           message: escape(replaceSpecialCharacters(message)),
         };
         const url = `/auth/notify?query=${JSON.stringify(formData)}`;
