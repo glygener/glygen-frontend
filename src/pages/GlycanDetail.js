@@ -654,6 +654,16 @@ const GlycanDetail = props => {
           );
         }
         if (
+          !detailDataTemp.tissue || 
+          detailDataTemp.tissue.length === 0
+        ) {
+          newSidebarData = setSidebarItemState(
+            newSidebarData, 
+            "Tissue", 
+            true
+          );
+        }
+        if (
           !detailDataTemp.expression ||
           detailDataTemp.expression.length === 0
         ) {
