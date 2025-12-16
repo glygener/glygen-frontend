@@ -754,6 +754,8 @@ const GlycanDetail = props => {
     composition,
     motifs,
     iupac,
+    iupac_compact,
+    iupac_condensed,
     glycam,
     byonic,
     smiles_isomeric,
@@ -3274,6 +3276,40 @@ const GlycanDetail = props => {
                               </Col>
                             </Row>
                             <span className="text-overflow">{iupac} </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {iupac_compact ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                {" "}
+                                <strong>{glycanStrings.iupac_compact.name}</strong>
+                              </Col>{" "}
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={iupac_compact} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{iupac_compact} </span>
+                          </>
+                        ) : (
+                          <span> </span>
+                        )}
+
+                        {iupac_condensed ? (
+                          <>
+                            <Row>
+                              <Col xs={6} sm={6}>
+                                {" "}
+                                <strong>{glycanStrings.iupac_condensed.name}</strong>
+                              </Col>{" "}
+                              <Col xs={6} sm={6} style={{ textAlign: "right" }}>
+                                <ReactCopyClipboard value={iupac_condensed} />
+                              </Col>
+                            </Row>
+                            <span className="text-overflow">{iupac_condensed} </span>
                           </>
                         ) : (
                           <span> </span>

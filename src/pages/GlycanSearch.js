@@ -104,7 +104,7 @@ const GlycanSearch = (props) => {
 	const [structSearchData, setStructSearchData] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
 		{
-		  seqType: "GlycoCT",
+		  seqType: "auto",
 		  glySequence: "",
 		  glycoGlyphName: "",
 		}
@@ -113,7 +113,7 @@ const GlycanSearch = (props) => {
 	const [subStructSearchData, setSubStructSearchData] = useReducer(
 		(state, newState) => ({ ...state, ...newState }),
 		{
-		  seqType: "GlycoCT",
+		  seqType: "auto",
 		  glySequence: "",
 		  restrictTo: "substructure",
 		  glycoGlyphName: "",
@@ -565,13 +565,13 @@ const GlycanSearch = (props) => {
 					} else if (data.cache_info.search_type === glycanData.structure_search.query_type.name) {
 						if (data.cache_info.query.parameters && data.cache_info.query.parameters.align === "wholeglycan") {
 							setStructSearchData({
-								seqType: data.cache_info.query.parameters.seq && data.cache_info.query.parameters.seq.startsWith("WURCS") ? "WURCS" : "GlycoCT",
+								seqType: "auto",
 								glySequence: data.cache_info.query.parameters.seq ? data.cache_info.query.parameters.seq : ''
 							});
 							setGlyActTabKey("Structure-Search");
 						} else if (data.cache_info.query.parameters) {
 							setSubStructSearchData({
-								seqType: data.cache_info.query.parameters.seq && data.cache_info.query.parameters.seq.startsWith("WURCS") ? "WURCS" : "GlycoCT",
+								seqType: "auto",
 								glySequence: data.cache_info.query.parameters.seq ? data.cache_info.query.parameters.seq : '',
 								restrictTo: data.cache_info.query.parameters.align ? data.cache_info.query.parameters.align : 'substructure',
 							});

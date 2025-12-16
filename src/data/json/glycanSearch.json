@@ -953,22 +953,18 @@
     },
     "seq": {
       "errorText": "Entry is too short - min length is 20.",
+      "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dglc-HEX-1:5\n4s:n-acetyl\n5b:b-dman-HEX-1:5\n6b:a-dman-HEX-1:5\n7b:b-dglc-HEX-1:5\n8s:n-acetyl\n9b:b-dgal-HEX-1:5\n10b:a-dgro-dgal-NON-2:6|1:a|2:keto|3:d\n11s:n-acetyl\n12b:a-dman-HEX-1:5\n13b:b-dglc-HEX-1:5\n14s:n-acetyl\n15b:b-dgal-HEX-1:5\n16b:a-dgro-dgal-NON-2:6|1:a|2:keto|3:d\n17s:n-acetyl\n18b:a-lgal-HEX-1:5|6:d\nLIN\n1:1d(2+1)2n\n2:1o(4+1)3d\n3:3d(2+1)4n\n4:3o(4+1)5d\n5:5o(3+1)6d\n6:6o(2+1)7d\n7:7d(2+1)8n\n8:7o(4+1)9d\n9:9o(3+2)10d\n10:10d(5+1)11n\n11:5o(6+1)12d\n12:12o(2+1)13d\n13:13d(2+1)14n\n14:13o(4+1)15d\n15:15o(3+2)16d\n16:16d(5+1)17n\n17:1o(6+1)18d",
       "length": 20,
-      "exampleMap":  {
-        "GlycoCT": {
-          "examples": [
-            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
-          ],
-          "name": "GlycoCT Example",
-          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
+      "exampleMap":  [
+        {
+          "key": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dglc-HEX-1:5\n4s:n-acetyl\n5b:b-dman-HEX-1:5\n6b:a-dman-HEX-1:5\n7b:b-dglc-HEX-1:5\n8s:n-acetyl\n9b:b-dgal-HEX-1:5\n10b:a-dgro-dgal-NON-2:6|1:a|2:keto|3:d\n11s:n-acetyl\n12b:a-dman-HEX-1:5\n13b:b-dglc-HEX-1:5\n14s:n-acetyl\n15b:b-dgal-HEX-1:5\n16b:a-dgro-dgal-NON-2:6|1:a|2:keto|3:d\n17s:n-acetyl\n18b:a-lgal-HEX-1:5|6:d\nLIN\n1:1d(2+1)2n\n2:1o(4+1)3d\n3:3d(2+1)4n\n4:3o(4+1)5d\n5:5o(3+1)6d\n6:6o(2+1)7d\n7:7d(2+1)8n\n8:7o(4+1)9d\n9:9o(3+2)10d\n10:10d(5+1)11n\n11:5o(6+1)12d\n12:12o(2+1)13d\n13:13d(2+1)14n\n14:13o(4+1)15d\n15:15o(3+2)16d\n16:16d(5+1)17n\n17:1o(6+1)18d",
+          "name": "GlycoCT Example"
         },
-        "WURCS": { 
-          "examples": [
-            "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
-          ],
-          "name": "WURCS Example",
-          "placeholder": "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
-        }}
+        { 
+          "key": "WURCS=2.0/6,12,11/[a2122h-1b_1-5_2*NCC/3=O][a1122h-1b_1-5][a1122h-1a_1-5][a2112h-1b_1-5][Aad21122h-2a_2-6_5*NCC/3=O][a1221m-1a_1-5]/1-1-2-3-1-4-5-3-1-4-5-6/a4-b1_a6-l1_b4-c1_c3-d1_c6-h1_d2-e1_e4-f1_f3-g2_h2-i1_i4-j1_j3-k2",
+          "name": "WURCS Example"
+        }
+      ]
     }
   },
   "substructure_search": {
@@ -978,23 +974,18 @@
     },
     "seq": {
       "errorText": "Entry is too short - min length is 20.",
+      "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d",
       "length": 20,
-      "exampleMap":  {
-        "GlycoCT": {
-          "examples": [
-            "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
-          ],
-          "name": "GlycoCT Example",
-          "placeholder": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d"
+      "exampleMap":  [
+        {
+          "key": "RES\n1b:b-dglc-HEX-1:5\n2s:n-acetyl\n3b:b-dgal-HEX-1:5\nLIN\n1:1d(2+1)2n\n2:1o(3+1)3d",
+          "name": "GlycoCT Example"
         },
-        "WURCS": { 
-          "examples": [
-            "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
-          ],
-          "name": "WURCS Example",
-          "placeholder": "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1"
+        { 
+          "key": "WURCS=2.0/2,2,1/[a2122h-1b_1-5_2*NCC/3=O][a2112h-1b_1-5]/1-2/a3-b1",
+          "name": "WURCS Example"
         }
-      }
+      ]
     },
     "align": {
       "substructure": {

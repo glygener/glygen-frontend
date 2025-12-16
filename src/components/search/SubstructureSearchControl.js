@@ -9,6 +9,7 @@ import SelectControl from "../select/SelectControl";
 import HelpTooltip from "../tooltip/HelpTooltip";
 import "../../css/Search.css";
 import ExampleControl2 from "../example/ExampleControl2";
+import ExampleControl4 from "../example/ExampleControl4";
 import glycanSearchData from "../../data/json/glycanSearch";
 import stringConstants from "../../data/json/stringConstants";
 import Radio from '@mui/material/Radio';
@@ -105,7 +106,7 @@ const StructureSearchControl = (props) => {
 	 **/
   const clearMapFields = () => {
     props.setInputValue({
-      seqType: "GlycoCT",
+      seqType: "auto",
       glySequence: "",
       restrictTo: "substructure",
       glycoGlyphName: ""
@@ -153,28 +154,6 @@ const StructureSearchControl = (props) => {
             </div>
           </Grid>
 
-         {/* Sequence Type */}
-         <Grid item size={{ xs: 12, sm: 10 }} className="pt-3">
-          <FormControl
-            fullWidth
-            variant="outlined"
-          >
-            <Typography className={"search-lbl"} gutterBottom>
-              <HelpTooltip
-                title={commonStructSearchData.seq_type.tooltip.title}
-                text={commonStructSearchData.seq_type.tooltip.text}
-              />
-              {commonStructSearchData.seq_type.name + " *"}
-            </Typography>
-            <SelectControl
-              inputValue={props.inputValue.seqType}
-              setInputValue={sequenceTypeOnChange}
-              menu={glycanStructSearchData.seq_type.menu}
-              required={true}
-            />
-          </FormControl>
-        </Grid>
-
         {/* Sequence */}
 				<Grid item size={{ xs: 12, sm: 10 }} className="pt-3">
 					<FormControl
@@ -189,7 +168,7 @@ const StructureSearchControl = (props) => {
               {commonStructSearchData.seq.name + " *"}{<sup>,1</sup>}
 						</Typography>
 						<OutlinedInput
-              placeholder={glycanStructSearchData.seq.exampleMap[props.inputValue.seqType].placeholder}
+              placeholder={glycanStructSearchData.seq.placeholder}
 							margin='dense"'
 							multiline
 							rows={5}
@@ -203,9 +182,8 @@ const StructureSearchControl = (props) => {
 								{glycanStructSearchData.seq.errorText}
 							</FormHelperText>
 						)}
-            <ExampleControl2
+            <ExampleControl4
 							setInputValue={glySequenceChange}
-              type={props.inputValue.seqType}
 							exampleMap={glycanStructSearchData.seq.exampleMap}
 						/>
 					</FormControl>
@@ -248,12 +226,12 @@ const StructureSearchControl = (props) => {
         <Grid item size={{ xs: 12, sm: 10 }}>
           <div  className="gg-align-right pt-3 mb-2 me-1">
             <div>
-              {props.inputValue.seqType === "GlycoCT" && (<Button
+              <Button
                 className="gg-btn-blue me-4"
                 onClick={() => setGlycoGlyphDialog(true)}	
               >
                 Draw Glycan
-              </Button>)}
+              </Button>
               <Button className="gg-btn-outline me-4" onClick={clearMapFields}>
                 Clear Fields
               </Button>

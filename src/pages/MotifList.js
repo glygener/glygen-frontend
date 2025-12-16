@@ -321,7 +321,7 @@ const MotifList = props => {
           {motifListColumns && motifListColumns.length !== 0 && (
             <PaginatedTable
               trStyle={rowStyleFormat}
-              data={data.slice((page-1) * sizePerPage, page * sizePerPage )}
+              data={data}
               columns={motifListColumns}
               page={page}
               pagination={pagination}

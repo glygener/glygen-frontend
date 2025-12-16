@@ -268,6 +268,28 @@
         },
         "id": "iupac"
       },
+      "iupac_compact": {
+        "name": "IUPAC Compact",
+        "shortName": "IUPAC Compact",
+        "tooltip": {
+          "title": "IUPAC Compact",
+          "text": "A IUPAC Compact is the unique identifier number used in IUPAC Key for each article. ",
+          "urlText": "Read more...",
+          "url": "https://"
+        },
+        "id": "iupac_compact"
+      },
+      "iupac_condensed": {
+        "name": "IUPAC Condensed",
+        "shortName": "IUPAC Condensed",
+        "tooltip": {
+          "title": "IUPAC ",
+          "text": "A IUPAC Condensed is the unique identifier number used in IUPAC Key for each article. ",
+          "urlText": "Read more...",
+          "url": "https://"
+        },
+        "id": "iupac_condensed"
+      },
       "WURCS": {
         "name": "WURCS ",
         "shortName": "WURCS ",
