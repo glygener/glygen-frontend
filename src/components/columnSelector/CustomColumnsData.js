@@ -37,11 +37,11 @@ const CustomColumnsData = props => {
   } = props;
 
   const [categories, setCategories] = useState();
-  const [selectedColumns, setSelectedColumns] = useState([]);
+  const [selectedColumns, setSelectedColumns] = useState({});
   const [items, setItems] = useState([]);
-  const [defaultColumns, setDefaultColumns] = useState([]);
   const [defaultItems, setDefaultItems] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [sortedColumns, setSortedColumns] = useState([]);
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -155,10 +155,82 @@ const CustomColumnsData = props => {
   }
 
   const restoreDefault = () => {
-    setItems(defaultItems)
 
-    Object.keys(selectedColumns).map(type => { selectedColumns[type] = false } )
-    setSelectedColumns(selectedColumns);
+    let sortedItems = [];
+
+    setItems([])
+    setSelectedColumns({})
+    let selColmns = {};
+    for (let i = 0; i < columns.length; i++) {
+      let col = columns[i];
+      selColmns[col.id] = false;
+    }
+
+    let newItems = [...defaultItems]
+    for (let i = 0; i < newItems.length; i++) {
+      let col = newItems[i];
+      selColmns[col.id] = true;
+      sortedItems.push({
+        "id": col.id,
+        "label": col.label,
+        "immutable": col.immutable,
+        "property_name": col.property_name,
+        "tooltip": col.tooltip,
+        "order": i + 1,
+        "oplist": col.oplist,
+        "categories": col.categories,
+        "fieldList": col.fieldList,
+        "typeaheadID": col.typeaheadID,
+        "outputType": col.outputType
+      });
+    }
+
+    setItems(sortedItems);
+    setSelectedColumns(selColmns);
+  }
+
+  const selectAll = () => {
+    let sortedItems = [];
+    let selColmns = {};
+
+    let columnsTemp = [...sortedColumns];
+
+    for (let i = 0; i < columnsTemp.length; i++) {
+      let col = columnsTemp[i];
+      selColmns[col.id] = true;
+      sortedItems.push({
+        "id": col.id,
+        "label": col.label,
+        "immutable": col.immutable,
+        "property_name": col.property_name,
+        "tooltip": col.tooltip,
+        "order": i + 1,
+        "oplist": col.oplist,
+        "categories": col.categories,
+        "fieldList": col.fieldList,
+        "typeaheadID": col.typeaheadID,
+        "outputType": col.outputType
+      });
+    }
+
+    setSelectedColumns(selColmns);
+    setItems(sortedItems);
+
+    setTimeout(() => {
+      let element = document.getElementById("drag-drop-list");
+      element.scrollLeft = element.scrollWidth - element.clientWidth;
+    }, 500);
+  }
+
+  const clearAll = () => {
+    setItems([]);
+
+    let selColmns = {};
+    for (let i = 0; i < columns.length; i++) {
+      let col = columns[i];
+      selColmns[col.id] = false;
+    }
+    setSelectedColumns(selColmns);
   }
 
   useEffect(() => {
@@ -172,6 +244,7 @@ const CustomColumnsData = props => {
 
     let categories = props.categories;
     let columns = props.columns;
+    let sorColumns = []
 
     let dtArr = [];
     for (let i = 0; i < categories.length; i++) {
@@ -179,10 +252,12 @@ const CustomColumnsData = props => {
       let cols = columns.filter(col => col?.categories.map(obj => obj.id).includes(cat.id)).sort((obj1, obj2) => obj1.order - obj2.order)
       if (cols.length > 0) {
         dtArr.push({ ...cat, "columns": [...cols] })
+        sorColumns.push(...cols)
       }
     }
     setCategories(dtArr);
     setColumns(columns);
+    setSortedColumns(sorColumns);
     let colArr = {};
     let colItems = [];
     let colUserSelArr = {};
@@ -236,13 +311,14 @@ const CustomColumnsData = props => {
       let colUserSelSortedItems = colUserSelItems.sort((obj1, obj2) => obj1.order - obj2.order);
       setItems(colUserSelSortedItems);
       setSelectedColumns(colUserSelArr);
+      setDefaultItems([...colUserSelSortedItems]);
       saveColumns(colUserSelSortedItems, false);
     } else {
       setItems(sortedItems)
       setSelectedColumns(colArr);
+      setDefaultItems([]);
     }
-    setDefaultColumns(colArr);
-    setDefaultItems(sortedItems);
+
 
     // eslint-disable-next-line
   }, [open]);
@@ -308,6 +384,22 @@ const CustomColumnsData = props => {
                 </Button>
                 <Button
                   className='gg-btn-blue me-4'
+                  onClick={selectAll}
+                  disabled={
+                    false
+                  }>
+                  Select All
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
+                  onClick={clearAll}
+                  disabled={
+                    false
+                  }>
+                  Clear All
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
                   onClick={restoreDefault}
                   disabled={
                     false
@@ -337,6 +429,22 @@ const CustomColumnsData = props => {
               <div className='gg-align-right pt-3 me-1'>
                 <Button className='gg-btn-outline me-4' onClick={handleClose}>
                   Cancel
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
+                  onClick={selectAll}
+                  disabled={
+                    false
+                  }>
+                  Select All
+                </Button>
+                <Button
+                  className='gg-btn-blue me-4'
+                  onClick={clearAll}
+                  disabled={
+                    false
+                  }>
+                  Clear All
                 </Button>
                 <Button
                   className='gg-btn-blue me-4'
