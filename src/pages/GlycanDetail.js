@@ -267,7 +267,7 @@ const GlycanDetail = props => {
   const [cardLoadingPub, setCardLoadingPub] = useState(false);
   const [cardLoadingGlyc, setCardLoadingGlyc] = useState(false);
   const [glycanJSON, setGlycanJSON] = useState({});
-  const [tissue, setTissue] = useState([]);
+  const [tissue, setTissue] = useState(undefined);
   const [glycanEnzymeList, setGlycanEnzymeList] = useState([]);
   const [glycanMotifList, setGlycanMotifList] = useState([]);
   const [glycanResidueList, setGlycanResidueList] = useState([]);

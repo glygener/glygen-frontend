@@ -97,7 +97,7 @@ const PublicationDetail = (props) => {
 
   const [expressionTabSelected, setExpressionTabSelected] = useState("");
   const [expressionWithtissue, setExpressionWithtissue] = useState([]);
-  const [tissue, setTissue] = useState([]);
+  const [tissue, setTissue] = useState(undefined);
   const [expressionWithcell, setExpressionWithcell] = useState([]);
   const [detailData, setDetailData] = useState({});
   const [glycosylationMining, setGlycosylationMining] = useState([]);
