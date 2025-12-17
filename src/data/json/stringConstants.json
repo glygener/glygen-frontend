@@ -200,7 +200,7 @@
           "title": "Glycan Motif",
           "text": "A “motif” refers to a substructure that appears in multiple glycans including O and N glycans. Enter a Glycan Motif comprising part of your glycan(s).",
           "urlText": "Read more...",
-          "url": "https://www.uniprot.org/help/carbohyd"
+          "url": "https://glycomotif.glyomics.org/glycomotif/GlycoMotif"
         },
         "id": "glycan_motif"
       },

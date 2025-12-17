@@ -108,14 +108,25 @@ export default function SimpleSearchControl(props) {
       </Grid>
       <br />
       <Grid container spacing={3} justifyContent="center">
-        <Grid className={"small-text"} item>
-          *{" "}Category{" "}
-          <em>
-            "<strong>Any</strong>" 
-          </em>{" "}
-           allows you to search an entire {database} database, including the context
-          match. *
-        </Grid>
+        {props.simple_search_category !== undefined &&
+              props.simple_search_category.length > 0 && 
+              props.simple_search_category.find(obj => obj.id === props.simpleSearchCategory).message ?
+          <Grid className={"small-text"} item>
+            *{" "}Category{" "}
+            <em>
+              "<strong>{props.simpleSearchCategory}</strong>"
+            </em><strong>{":"}</strong>{" "}
+              {props.simple_search_category.find(obj => obj.id === props.simpleSearchCategory).message}
+            {" *"}
+          </Grid> :
+          <Grid className={"small-text"} item>
+            *{" "}Category{" "}
+            <em>
+              "<strong>Any</strong>" 
+            </em>{" "}
+            allows you to search an entire {database} database, including the context
+            match. *
+          </Grid>}
       </Grid>
     </form>
   );
