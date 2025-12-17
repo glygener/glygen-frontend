@@ -113,9 +113,7 @@ export default function SimpleSearchControl(props) {
               props.simple_search_category.find(obj => obj.id === props.simpleSearchCategory).message ?
           <Grid className={"small-text"} item>
             *{" "}Category{" "}
-            <em>
-              "<strong>{props.simpleSearchCategory}</strong>"
-            </em><strong>{":"}</strong>{" "}
+              <strong>{props.simpleSearchCategory}{":"}</strong>{" "}
               {props.simple_search_category.find(obj => obj.id === props.simpleSearchCategory).message}
             {" *"}
           </Grid> :
