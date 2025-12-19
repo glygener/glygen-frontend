@@ -394,7 +394,6 @@ const ProteinAdvancedSearch = (props) => {
 							min={props.inputValue.proMassRange[0]}
 							max={props.inputValue.proMassRange[1]}
 							inputClass='pro-rng-input'
-							labelDisplay='off'
 							inputValue={props.inputValue.proMassInput}
 							setInputValue={proMassInputChange}
 							inputValueSlider={props.inputValue.proMass}
