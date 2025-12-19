@@ -52,7 +52,8 @@ import { axiosError } from "../data/axiosError";
 import LineTooltip from "../components/tooltip/LineTooltip";
 import { Alert, AlertTitle } from "@mui/material";
 import CollapsableReference from "../components/CollapsableReference";
-import CollapsibleDirectSearchReference from "../components/CollapsibleDirectSearchReference"
+import CollapsibleDirectSearchReference from "../components/CollapsibleDirectSearchReference";
+import CollapsibleEvidenceArray from "../components/CollapsibleEvidenceArray";
 import DirectSearch from "../components/search/DirectSearch.js";
 import { getProteinSearch } from "../data/protein";
 import SequenceHighlighter from "../components/sequence/SequenceHighlighter";
@@ -408,14 +409,15 @@ const ProteinDetail = (props) => {
     glycation: false,
     text_search: false,
   });
-  const [geneNames, setGeneNames] = useState([]);
-  const [recommendedGeneRows, setRecommendedGeneRows] = useState([]);
-  const [synonymGeneRows, setSynonymGeneRows] = useState([]);
-  const [proteinNames, setProteinNames] = useState([]);
-  const [recommendedProteinRows, setRecommendedProteinRows] = useState([]);
-  const [synonymProteinRows, setSynonymProteinRows] = useState([]);
+
   const [sequenceSearchText, setSequenceSearchText] = useState("");
   const [sequenceTemplateText, setSequenceTemplateText] = useState("");
+  const [geneNamesRec, setGeneNamesRec] = useState([]);
+  const [geneNamesSyn, setGeneNamesSyn] = useState([]);
+  const [proteinNamesRec, setProteinNamesRec] = useState([]);
+  const [proteinNamesSyn, setProteinNamesSyn] = useState([]);
+  const [enzymeAnnotation, setEnzymeAnnotation] = useState([]);
+
   const [consensusMenu, setConsesusMenu] = useState(
     [
       { id: "NX[ST]", name: "N-Glycan Sequon - NX[ST]" },
@@ -622,21 +624,32 @@ const ProteinDetail = (props) => {
         }
 
         if (data.gene_names) {
-          let geneNamesTemp = formatNamesData(data.gene_names);
-          setGeneNames(geneNamesTemp);
-          setRecommendedGeneRows(
-            geneNamesTemp.map(getRecommendedRows).filter((arg) => arg !== null)
-          );
-          setSynonymGeneRows(geneNamesTemp.map(getSynonymRows).filter((arg) => arg !== null));
+          let geneNamesRecTemp = formatNamesDataBasedOnType(data.gene_names, "recommended");
+          let geneNamesSynTemp = formatNamesDataBasedOnType(data.gene_names, "synonym");
+
+          setGeneNamesRec(geneNamesRecTemp);
+          setGeneNamesSyn(geneNamesSynTemp)
         }
 
         if (data.protein_names) {
-          let proteinNamesTemp = formatNamesData(data.protein_names);
-          setProteinNames(proteinNamesTemp);
-          setRecommendedProteinRows(
-            proteinNamesTemp.map(getRecommendedRows).filter((arg) => arg !== null)
-          );
-          setSynonymProteinRows(proteinNamesTemp.map(getSynonymRows).filter((arg) => arg !== null));
+          
+          let enzyme_annotation = [];
+          if (data.enzyme_annotation && data.enzyme_annotation.length > 0) {
+            enzyme_annotation = data.enzyme_annotation.map(obj => obj.ec_number);
+          }
+
+          let protein_names = data.protein_names.filter(obj => !enzyme_annotation.includes(obj.name))
+
+          let proteinNamesRecTemp = formatNamesDataBasedOnType(protein_names, "recommended");
+          let proteinNamesSynTemp = formatNamesDataBasedOnType(protein_names, "synonym");
+
+          setProteinNamesRec(proteinNamesRecTemp);
+          setProteinNamesSyn(proteinNamesSynTemp)
+        }
+
+        if (data.enzyme_annotation) {
+          let enzyme_annotation = data.enzyme_annotation.map(obj => {return {name: obj.ec_number, ...obj}});
+          setEnzymeAnnotation(enzyme_annotation);
         }
 
         if (data.glycosylation) {
@@ -1047,6 +1060,27 @@ const ProteinDetail = (props) => {
           resource,
           url,
           links: [{ name, type, url }],
+        });
+      }
+    });
+    return items;
+  }
+
+function formatNamesDataBasedOnType(data, type) {
+    let items = [];
+    data.filter(obj => obj.type === type).forEach(({ resource, name, type, id, url }) => {
+      let found = false;
+      for (let resourceItem of items) {
+        if (resourceItem.name === name) {
+          found = true;
+          resourceItem.evidence.push({ database: resource, id: id, url: url });
+        }
+      }
+      if (!found) {
+        items.push({
+          type: type,
+          name: name,
+          evidence: [{ database: resource, id: id, url: url }],
         });
       }
     });
@@ -3254,41 +3288,60 @@ const ProteinDetail = (props) => {
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      {(geneNames && geneNames.length) || (proteinNames && proteinNames.length) ? (
+                      {(geneNamesRec && geneNamesRec.length) || (geneNamesSyn && geneNamesSyn.length) || (proteinNamesRec && proteinNamesRec.length)  
+                        || (proteinNamesSyn && proteinNamesSyn.length) || (enzymeAnnotation && enzymeAnnotation.length) ? (
                         <ul className="list-style-none mb-0">
-                          {geneNames && geneNames.length ? (
+                          {(geneNamesRec && geneNamesRec.length) || (geneNamesSyn && geneNamesSyn.length) ? (
                             <>
-                              {recommendedGeneRows && recommendedGeneRows.length > 0 && (
+                              {geneNamesRec && geneNamesRec.length > 0 && (
                                 <li>
-                                  <strong>{proteinStrings.gene_name_recommended.name}</strong>
-                                  <ul>{recommendedGeneRows}</ul>
+                                  <CollapsibleEvidenceArray
+                                    title={proteinStrings.gene_name_recommended.name}
+                                    names={geneNamesRec}
+                                  />
                                 </li>
                               )}
-                              {synonymGeneRows && synonymGeneRows.length > 0 && (
+                              {geneNamesSyn && geneNamesSyn.length > 0 && (
                                 <li>
-                                  <strong>{proteinStrings.gene_name_synonym.name}</strong>
-                                  <ul>{synonymGeneRows}</ul>
+                                  <CollapsibleEvidenceArray
+                                    title={proteinStrings.gene_name_synonym.name}
+                                    names={geneNamesSyn}
+                                  />
                                 </li>
                               )}
                             </>
                           ) : (
                             <> {""}</>
                           )}
-                          {proteinNames && proteinNames.length ? (
+                          {(proteinNamesRec && proteinNamesRec.length) || (proteinNamesSyn && proteinNamesSyn.length) ? (
                             <>
-                              {recommendedProteinRows && recommendedProteinRows.length > 0 && (
+                              {proteinNamesRec && proteinNamesRec.length > 0 && (
                                 <li>
-                                  <strong>{proteinStrings.protein_name_recommended.name}</strong>
-                                  <ul>{recommendedProteinRows}</ul>
+                                  <CollapsibleEvidenceArray
+                                    title={proteinStrings.protein_name_recommended.name}
+                                    names={proteinNamesRec}
+                                  />
                                 </li>
                               )}
-                              {synonymProteinRows && synonymProteinRows.length > 0 && (
+                              {proteinNamesSyn && proteinNamesSyn.length > 0 && (
                                 <li>
-                                  <strong>{proteinStrings.protein_name_synonym.name}</strong>
-                                  <ul>{synonymProteinRows}</ul>
+                                  <CollapsibleEvidenceArray
+                                    title={proteinStrings.protein_name_synonym.name}
+                                    names={proteinNamesSyn}
+                                  />
                                 </li>
                               )}
                             </>
+                          ) : (
+                            <> {""}</>
+                          )}
+                          {(enzymeAnnotation && enzymeAnnotation.length) ? (
+                            <li>
+                              <CollapsibleEvidenceArray
+                                title={proteinStrings.enzyme_annotation.name}
+                                names={enzymeAnnotation}
+                              />
+                            </li>
                           ) : (
                             <> {""}</>
                           )}

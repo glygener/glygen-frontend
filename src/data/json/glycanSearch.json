@@ -153,6 +153,10 @@
           "example": {
             "name": "Example",
             "id": "Lewis x"
+          },
+          "explore": {
+            "url": "https://glycomotif.glyomics.org/glycomotif/GM",
+            "id": "Glycan Motif list"
           }
         }
       ]

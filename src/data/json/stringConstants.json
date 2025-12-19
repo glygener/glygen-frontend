@@ -876,6 +876,9 @@
       "protein_name_synonym": {
         "name": "Protein Name (Synonyms)"
       },
+      "enzyme_annotation": {
+        "name": "EC Number"
+      },
       "go_term": {
         "name": "GO Name",
         "shortName": "GO Name",

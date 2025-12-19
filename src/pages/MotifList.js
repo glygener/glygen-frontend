@@ -33,6 +33,7 @@ const MotifList = props => {
   const [data, setData] = useState([]);
   // const [query, setQuery] = useState([]);
   const [pagination, setPagination] = useState([]);
+  const [listCacheId, setListCacheId] = useState();
   // const [motifListColumns, setMotifListColumns] = useState(MOTIF_LIST_COLUMNS);
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(150);
@@ -60,6 +61,7 @@ const MotifList = props => {
         } else {
           setData(data.results);
           // setQuery(data.cache_info.query);
+          setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
           const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
           setPage(currentPage);
@@ -71,17 +73,23 @@ const MotifList = props => {
         let message = "list api call";
         axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
-  }, [id, sizePerPage]);
+  }, []);
 
   const handleTableChange = (
     type,
     { page, sizePerPage, sortField, sortOrder }
   ) => {
+
+    if (pageLoading) {
+      return;
+    }
+
     setPage(page);
     setSizePerPage(sizePerPage);
+    setPageLoading(true);
 
     getMotifList(
-      id,
+      listCacheId,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
       sortField,
@@ -92,9 +100,13 @@ const MotifList = props => {
       setData(data.results);
       // setQuery(data.cache_info.query);
       setPagination(data.pagination);
-
+      setListCacheId(data.cache_info.listcache_id);
+      const currentPage = (data.pagination.offset - 1) / sizePerPage + 1;
+      setPage(currentPage);
+      setTotalSize(data.pagination.total_length);
       //   setSizePerPage()
       setTotalSize(data.pagination.total_length);
+      setPageLoading(false);
     });
   };
 
@@ -313,7 +325,7 @@ const MotifList = props => {
                   data: "motif_list"
                 }
               ]}
-              dataId={""}
+              dataId={listCacheId}
               itemType="motif_list"
             />
           </div>

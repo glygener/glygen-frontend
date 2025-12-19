@@ -44,7 +44,7 @@ const ExampleExploreControl = (props) => {
 					)}
 					{obj.explore && (
 						<Col>
-							<div className="text-right">
+							<div className="text-end">
 								Explore{" "}
 								<a
 									href={obj.explore.url}
