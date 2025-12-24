@@ -390,7 +390,7 @@
         "ai_query_assistant": {
           "id": "ai_query_assistant",
           "examples": [
-            "Can you show me some diagnostic protein biomarkers"
+            "Can you show me some protein biomarkers that can diagnose covid-19"
           ]
         }
       }
