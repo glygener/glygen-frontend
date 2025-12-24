@@ -166,7 +166,7 @@ const MotifDetail = (props) => {
 
   function getTimeoutValue(inpuPageSize) {
     let timeout = 3000;
-    if (inpuPageSize < 50) {
+    if (inpuPageSize <= 50) {
       return timeout;
     } else {
       return timeout * parseInt(inpuPageSize/50);
@@ -343,8 +343,11 @@ const MotifDetail = (props) => {
         }
         setMotifDictionary(dictionary);
         setTotalSize(data.pagination.total_length);
-        glymagesvgInit();
         setPageLoading(false);
+
+        setTimeout(() => {
+          glymagesvgInit();
+        }, 500);
 
         setTimeout(() => {
           if (!motifOnRef.current) {
