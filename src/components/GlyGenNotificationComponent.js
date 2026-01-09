@@ -62,6 +62,7 @@ const GlyGenNotificationComponent = () => {
           jobStatusUpdate.push({"jobId": response.jobid, "status": jobStatus, "result_count": response.result_count})
 
           if (jobStatus === "finished") {
+            // JOB processing complete notification - finished case
             let loc = window.location + "";
             let now = Date.now();
             if (!loc.includes(routeConstants.jobStatus)) {
@@ -82,11 +83,39 @@ const GlyGenNotificationComponent = () => {
             logActivity("user", "", "No results. " + message + " " + error);
             window.scrollTo(0, 0);
             jobStatusUpdate.push({"jobId": response.jobid, "status": "error", "error": response});
+            // JOB processing complete notification - error case
+            let loc = window.location + "";
+            let now = Date.now();
+            if (!loc.includes(routeConstants.jobStatus)) {
+              if (firstMountVar) {
+                if (pendingJobList.includes(response.jobid)) {
+                  setJobCompleteValue(true);
+                  showJobCompleteNotification(now);
+                }
+              } else {
+                setJobCompleteValue(true);
+                showJobCompleteNotification(now);
+              }
+            }
           }
         }  else {
           logActivity("user", "", "No results. " + message);
           window.scrollTo(0, 0);
           jobStatusUpdate.push({"jobId": response.jobid, "status": "error", "error": response});
+          // JOB processing complete notification - error case
+          let loc = window.location + "";
+          let now = Date.now();
+          if (!loc.includes(routeConstants.jobStatus)) {
+            if (firstMountVar) {
+              if (pendingJobList.includes(response.jobid)) {
+                setJobCompleteValue(true);
+                showJobCompleteNotification(now);
+              }
+            } else {
+              setJobCompleteValue(true);
+              showJobCompleteNotification(now);
+            }
+          }
         }
       }
         updateJobStatus(jobStatusUpdate);

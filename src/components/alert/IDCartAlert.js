@@ -38,7 +38,7 @@ export default function IDCartAlert(props) {
         setContactUsResponseMessage("");
         setContactUsErrorMessage("");
         let message =  JSON.stringify({"error": props.idCartErrorDialogInput.error, "searchQuery":  props.idCartErrorDialogInput.searchQuery,
-        "columns":  props.idCartErrorDialogInput.columns, "applied_filters":  props.idCartErrorDialogInput.applied_filters,
+        "columns":  props.idCartErrorDialogInput.columns, "applied_filters":  props.idCartErrorDialogInput.applied_filters, "ai_query":  props.idCartErrorDialogInput.ai_query,
         "list_id": props.idCartErrorDialogInput.list_id, "list_cache_id": props.idCartErrorDialogInput.list_cache_id});
 
         const formData = {

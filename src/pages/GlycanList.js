@@ -421,7 +421,6 @@ const GlycanList = props => {
                 : "";
           }
           setQuery(fixResidueToShortNames(data.cache_info.query));
-          setAIQueryAssistant(data.cache_info.query.ai_query);
           setParameters(data.cache_info.query.parameters);
           setTimeStamp(data.cache_info.ts);
           setListCacheId(data.cache_info.listcache_id);
@@ -448,6 +447,10 @@ const GlycanList = props => {
   useEffect(() => {
     if (state && state.appliedFilters) {
       setAppliedFilters(state.appliedFilters);
+    }
+
+    if (state && state.aiQuery) {
+      setAIQueryAssistant(state.aiQuery);
     }
   }, [state]);
 
@@ -533,7 +536,7 @@ const GlycanList = props => {
         quickSearch[searchId].id;
     } else {
         if (hash === "AI-Query-Assistant") {
-          navigate(routeConstants.glycanSearch + id + "#" + hash);
+          navigate(routeConstants.glycanSearch + id + "#" + hash, { state:{aiQuery: aIQueryAssistant} });
         } else {
           navigate(routeConstants.glycanSearch + id);
         }
@@ -565,7 +568,7 @@ const GlycanList = props => {
 
       <FeedbackWidget />
       {listIDOpen && <ListIDNameDialog listIDOpen={listIDOpen} setListIDOpen={setListIDOpen} 
-        listId={id} listCacheId={listCacheId} type="glycanList" appliedFilters={appliedFilters}                          
+        listId={id} listCacheId={listCacheId} type="glycanList" appliedFilters={appliedFilters} aiQuery={aIQueryAssistant}                      
         searchQuery={searchQuery} columns={columns} queryType={queryType} totalSize={totalSize}
       />}
       {/* <Container maxWidth="xl" className="gg-container5"> */}

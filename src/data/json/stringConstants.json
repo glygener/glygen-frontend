@@ -2545,12 +2545,12 @@
     "structureSearchError": {
       "id": "structureSearchError",
       "title": "Structure Search Error - No Results Found",
-      "message": "Sorry, we couldn't process structure search request."
+      "message": "Sorry, we were unable to process the requested structure search."
     },
     "substructureSearchError": {
       "id": "substructureSearchError",
       "title": "Substructure Search Error - No Results Found",
-      "message": "Sorry, we couldn't process substructure search request."
+      "message": "Sorry, we were unable to process the requested substructure search."
     },
     "isoformSearchError": {
       "id": "isoformSearchError",

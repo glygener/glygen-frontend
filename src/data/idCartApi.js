@@ -26,11 +26,22 @@ export const addIDsToStore = (type, idList) => {
     let parsedValue = JSON.parse(parsedValue1);
     if (parsedValue && parsedValue.idCart[type]) {
         let cartList =  parsedValue.idCart[type];
-        let uniqueList = getUniqueList(type, idList, cartList);
-        parsedValue.idCart[type].push(...uniqueList);
-        parsedValue.idCart.idCartCount += uniqueList.length;
+        if (type === "glycanList" || type === "proteinList") {
+          let newCartObj = idList[0];
+          let lenBefore = cartList.length;
+          let cartIDList = cartList.filter(obj => newCartObj.listCacheId !== obj.listCacheId);
+          cartIDList.push(newCartObj);
+          let lenAfter = cartIDList.length;
+          parsedValue.idCart[type] = [];
+          parsedValue.idCart[type].push(...cartIDList);
+          parsedValue.idCart.idCartCount += lenAfter - lenBefore;
+        } else {
+          let uniqueList = getUniqueList(type, idList, cartList);
+          parsedValue.idCart[type].push(...uniqueList);
+          parsedValue.idCart.idCartCount += uniqueList.length;
+        }
     } else if (parsedValue && parsedValue.idCart) {
-      parsedValue.idCart[type] = [];
+       parsedValue.idCart[type] = [];
        parsedValue.idCart[type].push(...idList);
        parsedValue.idCart.idCartCount += idList.length;
     } else {

@@ -205,7 +205,6 @@ const ProteinList = props => {
                 : "";
           }
           setQuery(data.cache_info.query);
-          setAIQueryAssistant(data.cache_info.query.ai_query);
           setTimeStamp(data.cache_info.ts);
           setListCacheId(data.cache_info.listcache_id);
           setPagination(data.pagination);
@@ -231,6 +230,10 @@ const ProteinList = props => {
   useEffect(() => {
     if (state && state.appliedFilters) {
       setAppliedFilters(state.appliedFilters);
+    }
+
+    if (state && state.aiQuery) {
+      setAIQueryAssistant(state.aiQuery);
     }
   }, [state]);
 
@@ -315,7 +318,7 @@ const ProteinList = props => {
         quickSearch[searchId].id;
     } else {
         if (hash === "AI-Query-Assistant") {
-          navigate(routeConstants.proteinSearch + id + "#" + hash);
+          navigate(routeConstants.proteinSearch + id + "#" + hash, { state:{aiQuery: aIQueryAssistant} });
         } else {
           navigate(routeConstants.proteinSearch + id);
         }
@@ -350,7 +353,7 @@ const ProteinList = props => {
 
       <FeedbackWidget />
       {listIDOpen && <ListIDNameDialog listIDOpen={listIDOpen} setListIDOpen={setListIDOpen} 
-        listId={id} listCacheId={listCacheId} type="proteinList" appliedFilters={appliedFilters}   
+        listId={id} listCacheId={listCacheId} type="proteinList" appliedFilters={appliedFilters} aiQuery={aIQueryAssistant} 
         searchQuery={searchQuery} columns={columns} queryType={queryType} totalSize={totalSize}                     
       />}
       <div className="gg-baseline list-page-container">

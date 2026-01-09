@@ -127,6 +127,7 @@ const GlycanSearch = (props) => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
+	const state  = location.state;
 
 	let simpleSearch = glycanSearchData.simple_search;
 	let advancedSearch = glycanSearchData.advanced_search;
@@ -585,10 +586,10 @@ const GlycanSearch = (props) => {
 						setGlySimpleSearchTerm(data.cache_info.query.term ? data.cache_info.query.term : '');
 						setGlyActTabKey("Simple-Search");
 						setPageLoading(false);
-					}  else if (data.cache_info.query.ai_query && hash === "AI-Query-Assistant") {
+					}  else if (state && hash === "AI-Query-Assistant") {
 						setGlyAIQueryAssistantQuestion(
-							data.cache_info.query.ai_query
-								? data.cache_info.query.ai_query
+							state.aiQuery
+								? state.aiQuery
 								: ""
 						);
 						setGlyActTabKey("AI-Query-Assistant");
@@ -1152,10 +1153,10 @@ const GlycanSearch = (props) => {
 				logActivity("user", "", "User canceled job. " + message);
 			}
           } else {
-			let error = status.error ? status.error === "Motif is too big" ? "Structure is too big" : status.error : "";
+			let error = status.error ? status.error === "Motif is too big" ? "Structure is too big. " : status.error + ". ": "";
 			logActivity("user", "", "No results. " + message + " " + error);
 			setDialogLoading(false);
-			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + ". Please enter valid input."});
+			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter valid input."});
 			window.scrollTo(0, 0);
 		  }
         }  else {
@@ -1220,10 +1221,10 @@ const GlycanSearch = (props) => {
 					logActivity("user", "", "User canceled job. " + message);
 				}
 			}  else {
-				let error = response.data["error"] ? response.data["error"] === "Motif is too big" ?  "Structure is too big" : response.data["error"] : "";
+				let error = response.data["error"] ? response.data["error"] === "Motif is too big" ?  "Structure is too big. " : response.data["error"] + ". " : "";
 				logActivity("error", "", "No results. " + message + " " + error);
 				setDialogLoading(false);
-				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error  + ". Please enter valid input."});
+				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter valid input."});
 				window.scrollTo(0, 0);
 			}  
 		} else {
@@ -1268,7 +1269,7 @@ const GlycanSearch = (props) => {
           window.scrollTo(0, 0);
 		}  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
 			let formObject = response.data["mapped_parameters"];
-			formObject.ai_query = response.data["original_query"];
+			let ai_query = response.data["original_query"];
 			logActivity("user", id, "Glycan AI Query Performing Advanced Search");
 			let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
 			getGlycanSearch(formObject)
@@ -1277,7 +1278,7 @@ const GlycanSearch = (props) => {
 						logActivity("user", (id || "") + ">" + response.data['list_id'], message)
 						.finally(() => {	
 							setPageLoading(false);
-							navigate(routeConstants.glycanList + response.data['list_id']);
+							navigate(routeConstants.glycanList + response.data['list_id'], { state:{aiQuery: ai_query} });
 						});;
 					} else {
 						logActivity("user", "", "No results. " + message);

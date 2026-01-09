@@ -181,9 +181,9 @@ const IDCart = props => {
         setUpdate(now);
       }
 
-      function setIDCartError(name, listErrorMsg, queryType, searchQuery, columns, applied_filters, list_id, list_cache_id, error) {
+      function setIDCartError(name, listErrorMsg, queryType, searchQuery, columns, applied_filters, ai_query, list_id, list_cache_id, error) {
         setPageLoading(false);
-        setIDCartErrorDialogInput({ show: true, name: name, message: listErrorMsg, queryType: queryType, searchQuery: searchQuery, columns: columns, applied_filters: applied_filters, list_id: list_id, list_cache_id: list_cache_id, error: error })
+        setIDCartErrorDialogInput({ show: true, name: name, message: listErrorMsg, queryType: queryType, searchQuery: searchQuery, columns: columns, applied_filters: applied_filters, ai_query: ai_query, list_id: list_id, list_cache_id: list_cache_id, error: error })
       }
 
     
@@ -221,7 +221,7 @@ const IDCart = props => {
             }
           })
           .catch(function(error) {
-            setIDCartError(row.name, listErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+            setIDCartError(row.name, listErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
           });
       };
 
@@ -317,7 +317,7 @@ const IDCart = props => {
               let listCacheId = data.cache_info.listcache_id;
 
               let obj = { 
-                "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
+                "name" : row.name, "appliedFilters" : row.applied_filters, "aiQuery" : row.ai_query, "listCacheId" : listCacheId,
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject("glycanList", oldListCacheId, obj);
@@ -326,7 +326,7 @@ const IDCart = props => {
               setPageLoading(false);
             })
             .catch(function(error) {
-              setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+              setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
             });
 
         } else {
@@ -345,7 +345,7 @@ const IDCart = props => {
         }
       })
       .catch(function(error) {
-        setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+        setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
       });
   };
 
@@ -396,7 +396,7 @@ const IDCart = props => {
               let listCacheId = data.cache_info.listcache_id;
 
               let obj = { 
-                "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
+                "name" : row.name, "appliedFilters" : row.applied_filters, "aiQuery" : row.ai_query, "listCacheId" : listCacheId,
                 "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
               updateIDCartObject(type, oldListCacheId, obj);
@@ -405,7 +405,7 @@ const IDCart = props => {
               setPageLoading(false);
             })
             .catch(function(error) {
-              setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+              setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
             });
 
         } else {             
@@ -425,7 +425,7 @@ const IDCart = props => {
        }
     )
     .catch(function(error) {
-      setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+      setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
     });
   };
 
@@ -504,7 +504,7 @@ const IDCart = props => {
             let listCacheId = data.cache_info.listcache_id;
 
             let obj = { 
-              "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
+              "name" : row.name, "appliedFilters" : row.applied_filters, "aiQuery": row.ai_query, "listCacheId" : listCacheId,
               "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
             updateIDCartObject(type, oldListCacheId, obj);
@@ -513,7 +513,7 @@ const IDCart = props => {
             setPageLoading(false);
           })
           .catch(function(error) {
-            setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+            setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
           });
 
         } else {
@@ -533,7 +533,7 @@ const IDCart = props => {
 
       })
       .catch(function (error) {
-        setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+        setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
       });
     }
   }
@@ -574,7 +574,7 @@ const IDCart = props => {
                 let listCacheId = data.cache_info.listcache_id;
 
                 let obj = { 
-                  "name" : row.name, "appliedFilters" : row.applied_filters, "listCacheId" : listCacheId,
+                  "name" : row.name, "appliedFilters" : row.applied_filters, "aiQuery": row.ai_query, "listCacheId" : listCacheId,
                   "listId" : listId, searchQuery: row.searchQuery, columns : row.columns, queryType : row.queryType, totalSize : data.pagination.total_length } 
 
                 updateIDCartObject("proteinList", oldListCacheId, obj);
@@ -583,7 +583,7 @@ const IDCart = props => {
                 setPageLoading(false);
               })
               .catch(function(error) {
-                setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+                setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
               });
 
           } else {
@@ -602,7 +602,7 @@ const IDCart = props => {
           }
         })
         .catch(function(error) {
-          setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
+          setIDCartError(row.name, searchErrorMsg, row.queryType, row.searchQuery, row.columns, row.applied_filters, row.ai_query, row.list_id, row.list_cache_id, error.response ? error.response.data : error);
         });
     };
 
@@ -740,9 +740,8 @@ const IDCart = props => {
     onSelect: (row, isSelect, rowIndex, e) => {
       if (e.defaultPrevented)
         return;
-      let glycanIDs = [];
       if (isSelect) {
-        setSelectedGlycanListData({"applied_filters" : row.applied_filters, "list_cache_id" : row.list_cache_id,
+        setSelectedGlycanListData({"applied_filters" : row.applied_filters, "ai_query": row.ai_query, "list_cache_id" : row.list_cache_id,
           "list_id" : row.list_id, "name": row.name, "queryType": row.queryType, "searchQuery": row.searchQuery, "columns": row.columns });
         setSelectedGlycanListRows([row.list_cache_id]);
       } else {
@@ -880,7 +879,7 @@ const IDCart = props => {
         <LineTooltip text="View glycan list page">
           <Button className={"lnk-btn"} variant="link" onClick={() => {
             props.handleClose();
-            navigate(routeConstants.glycanList + value + "/" + row.queryType, { state:{appliedFilters: row.applied_filters} })
+            navigate(routeConstants.glycanList + value + "/" + row.queryType, { state:{appliedFilters: row.applied_filters, aiQuery: row.ai_query} })
           }}>
             {value}
           </Button>
@@ -948,7 +947,7 @@ const IDCart = props => {
         <LineTooltip text="View protein list page">
           <Button className={"lnk-btn"} variant="link" onClick={() => {
             props.handleClose();
-            navigate(routeConstants.proteinList + value + "/" + row.queryType, { state:{appliedFilters: row.applied_filters} })
+            navigate(routeConstants.proteinList + value + "/" + row.queryType, { state:{appliedFilters: row.applied_filters, aiQuery: row.ai_query} })
           }}>
             {value}
           </Button>
@@ -991,9 +990,8 @@ const IDCart = props => {
     onSelect: (row, isSelect, rowIndex, e) => {
       if (e.defaultPrevented)
         return;
-      let proteinIDs = [];
       if (isSelect) {
-        setSelectedProteinListData({"applied_filters" : row.applied_filters, "list_cache_id" : row.list_cache_id,
+        setSelectedProteinListData({"applied_filters" : row.applied_filters, "ai_query" : row.ai_query, "list_cache_id" : row.list_cache_id,
           "list_id" : row.list_id, "name": row.name, "queryType": row.queryType, "searchQuery": row.searchQuery, "columns": row.columns });
 
         setSelectedProteinListRows([row.list_cache_id]);
@@ -1073,7 +1071,7 @@ const IDCart = props => {
     let glyListDt = [];
     if (idCart.glycanList) {
       glyListDt = idCart.glycanList.map(obj =>  { return { 
-        "name" : obj.name, "applied_filters" : obj.appliedFilters, "list_cache_id" : obj.listCacheId,
+        "name" : obj.name, "applied_filters" : obj.appliedFilters, "ai_query" : obj.aiQuery, "list_cache_id" : obj.listCacheId,
         "list_id" : obj.listId, searchQuery: obj.searchQuery, columns:obj.columns, queryType:obj.queryType, totalSize:obj.totalSize } });
     }
     setGlycanListData(glyListDt);
@@ -1113,7 +1111,7 @@ const IDCart = props => {
     let proListDt = [];
     if (idCart.proteinList) {
       proListDt = idCart.proteinList.map(obj =>  { return { 
-        "name" : obj.name, "applied_filters" : obj.appliedFilters, "list_cache_id" : obj.listCacheId,
+        "name" : obj.name, "applied_filters" : obj.appliedFilters, "ai_query" : obj.aiQuery, "list_cache_id" : obj.listCacheId,
         "list_id" : obj.listId, searchQuery: obj.searchQuery, columns:obj.columns, queryType:obj.queryType, totalSize:obj.totalSize } });
     }
     setProteinListData(proListDt);

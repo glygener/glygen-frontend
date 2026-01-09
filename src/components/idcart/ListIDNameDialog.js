@@ -76,7 +76,7 @@ export default function ListIDNameDialog(props) {
                                 disabled={listIDName === ""}
                                 onClick={() => {
                                     let totalCartCount = addIDsToStore(props.type, [{name:listIDName, listId:props.listId, 
-                                        listCacheId:props.listCacheId, appliedFilters:props.appliedFilters,
+                                        listCacheId:props.listCacheId, appliedFilters:props.appliedFilters, aiQuery: props.aiQuery,
                                         searchQuery:props.searchQuery, queryType:props.queryType, 
                                         columns:props.columns, totalSize:props.totalSize}]);
                                     showTotalCartIdsNotification(totalCartCount);

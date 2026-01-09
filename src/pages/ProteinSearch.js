@@ -109,6 +109,7 @@ const ProteinSearch = props => {
 
   const navigate = useNavigate();
 	const location = useLocation();
+  const state  = location.state;
 
   let simpleSearch = proteinSearchData.simple_search;
   let advancedSearch = proteinSearchData.advanced_search;
@@ -342,10 +343,10 @@ const ProteinSearch = props => {
                 );
                 setProActTabKey("Simple-Search");
                 setPageLoading(false);
-              } else if (data.cache_info.query.ai_query && hash === "AI-Query-Assistant") {
+              } else if (state && hash === "AI-Query-Assistant") {
                 setProAIQueryAssistantQuestion(
-                data.cache_info.query.ai_query
-                  ? data.cache_info.query.ai_query
+                state.aiQuery
+                  ? state.aiQuery
                   : ""
                 );
                 setProActTabKey("AI-Query-Assistant");
@@ -868,7 +869,7 @@ const ProteinSearch = props => {
           window.scrollTo(0, 0);
     }  else if (response.data["parsed_parameters"] && response.data["mapped_parameters"]) {
       let formObject = response.data["mapped_parameters"];
-      formObject.ai_query = response.data["original_query"];
+      let ai_query = response.data["original_query"];
       logActivity("user", id, "Protein AI Query Performing Advanced Search");
       let message = "AI Query Assistant Advanced Search query=" + JSON.stringify(formObject);
       getProteinSearch(formObject)
@@ -877,7 +878,7 @@ const ProteinSearch = props => {
             logActivity("user", (id || "") + ">" + response.data['list_id'], message)
             .finally(() => {	
               setPageLoading(false);
-              navigate(routeConstants.proteinList + response.data['list_id']);
+              navigate(routeConstants.proteinList + response.data['list_id'], { state:{aiQuery: ai_query} });
             });;
           } else {
             logActivity("user", "", "No results. " + message);
