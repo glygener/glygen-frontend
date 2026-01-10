@@ -440,6 +440,7 @@ const GlycanQuerySummary = (props) => {
             <NotifyGlyGen
               search={"Glycan AI Search"}
               query={searchQuery}
+              aiQuery={aIQueryAssistant}
               listID={listID}
               setPageLoading={setPageLoading}
             />

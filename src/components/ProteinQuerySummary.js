@@ -466,6 +466,7 @@ const ProteinQuerySummary = (props) => {
             <NotifyGlyGen
               search={"Protein AI Search"}
               query={searchQuery}
+              aiQuery={aIQueryAssistant}
               listID={listID}
               setPageLoading={setPageLoading}
             />

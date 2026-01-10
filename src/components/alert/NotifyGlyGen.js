@@ -36,7 +36,7 @@ export default function NotifyGlyGen(props) {
         e.preventDefault();
         setContactUsResponseMessage("");
         setContactUsErrorMessage("");
-        let message =  JSON.stringify({"search": props.search, "query": props.query, "listID": props.listID});
+        let message =  JSON.stringify({"search": props.search, "query": props.query, "aiQuery": props.aiQuery, "listID": props.listID});
         const formData = {
           user: getUserID(),
           subject: props.search + ": " + props.listID,
