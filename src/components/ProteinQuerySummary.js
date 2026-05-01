@@ -70,7 +70,8 @@ const ProteinQuerySummary = (props) => {
     disease_id,
     attached_glycan_id,
     binding_glycan_id,
-    biomarker
+    biomarker,
+    poi_type
   } = data;
 
   const executionTime = timestamp ? getDateTime(timestamp) : "";
@@ -456,6 +457,16 @@ const ProteinQuerySummary = (props) => {
                   </Col>
                   <Col align="left" xs={6} sm={6} md={6} lg={6}>
                     {biomarker.type.charAt(0).toUpperCase() + biomarker.type.slice(1)}
+                  </Col>
+                </Row>
+              )}
+              {poi_type && (
+                <Row className="summary-table-col">
+                  <Col align="right" xs={6} sm={6} md={6} lg={6}>
+                    {proteinStrings.poi_type.name}:
+                  </Col>
+                  <Col align="left" xs={6} sm={6} md={6} lg={6}>
+                    {poi_type.charAt(0).toUpperCase() + poi_type.slice(1)}
                   </Col>
                 </Row>
               )}

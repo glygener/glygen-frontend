@@ -1090,6 +1090,15 @@
         },
         "id": "biomarker_type"
       },
+      "poi_type": {
+        "name": "Protein of Interest",
+        "shortName": "Protein of Interest",
+        "tooltip": {
+          "title": "Protein of Interest",
+          "text": ""
+        },
+        "id": "poi_type"
+      },
       "biomarker": {
         "name": "Biomarker",
         "shortName": "Biomarker",

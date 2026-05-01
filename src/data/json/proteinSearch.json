@@ -364,6 +364,11 @@
       "placeholderName": "",
       "placeholderId": ""
     },
+    "poi_type": {
+      "placeholder": "Select Protein of Interest",
+      "placeholderName": "",
+      "placeholderId": ""
+    },
     "biomarker_disease": {
       "length": 1000,
       "errorText": "Entry is too long - max length is 1000.",

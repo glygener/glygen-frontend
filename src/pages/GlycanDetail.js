@@ -7,6 +7,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Sidebar from "../components/navigation/Sidebar";
 import Helmet from "react-helmet";
 import { getTitle, getMeta } from "../utils/head";
+import { sortByOrder } from "../utils/common";
 import { Grid } from "@mui/material";
 import { Col, Row, Image } from "react-bootstrap";
 import { FiBookOpen } from "react-icons/fi";
@@ -48,6 +49,7 @@ import { getGlycanSearch } from "../data/glycan";
 import CardToggle from "../components/cards/CardToggle";
 import ThreeDViewer from "../components/viewer/ThreeDViewer.js";
 import GlycanViewer from "../components/viewer/GlycanViewer.js";
+import SelectControl from "../components/select/SelectControl";
 import CardLoader from "../components/load/CardLoader";
 import AccordionMUI from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -101,10 +103,6 @@ const items = [
   {
     label: stringConstants.sidebar.biomarkers.displayname,
     id: "Biomarkers"
-  },
-  {
-    label: stringConstants.sidebar.tissue.displayname,
-    id: "Tissue"
   },
   {
     label: stringConstants.sidebar.expression.displayname,
@@ -257,6 +255,12 @@ const GlycanDetail = props => {
   const [subsumptionTabSelected, setSubsumptionTabSelected] = useState([
     "ancestor"
   ]);
+  const [structure, setStructure] = useState("");
+  const [structureUrl, setStructureUrl] = useState("");
+  const [structureExternalUrl, setStructureExternalUrl] = useState("");
+  const [structureType, setStructureType] = useState("");
+  const [structureMenu, setStructureMenu] = useState([]);
+  const [structureMap, setStructureMap] = useState(new Map());
   const [publicationSort, setPublicationSort] = useState("date");
   const [publicationDirection, setPublicationDirection] = useState("desc");
   const [glycoproteinTotal, setGlycoproteinTotal] = useState(undefined);
@@ -549,10 +553,6 @@ const GlycanDetail = props => {
             });
         }
 
-        if (detailDataTemp.tissue) {
-            setTissue(detailDataTemp.tissue);
-        }
-
         if (detailDataTemp.publication) {
           detailDataTemp.publication = detailDataTemp.publication.sort(
             (a, b) => parseInt(b.date) - parseInt(a.date)
@@ -582,6 +582,37 @@ const GlycanDetail = props => {
           let motifSynNames = detailDataTemp.names.filter(motifRec => motifRec.domain === "motifsynonym").map(obj => obj.name);
           setRecommendedMotifRows(motifRecNames);
           setSynonymMotifRows(motifSynNames);
+        }
+
+        if (detailDataTemp.structures && detailDataTemp.structures.length > 0) {
+          let structures = detailDataTemp.structures[0];
+          if (structures.length > 0) {
+            let menu = structures.sort(sortByOrder).map(item => {return {id: item.type + "_" + item.structure_id, name: `${item.method} (${item.structure_id})`}});
+            setStructureMenu(menu);
+
+            let structureMap = new Map();
+            for (let i = 0; i < structures.length; i++) {
+              structureMap.set(structures[i].type + "_" + structures[i].structure_id, {type: structures[i].type, url: structures[i].url, url_external: structures[i].url_external});
+            }
+            structureMap.set("", {type: "", url: "", url_external: ""});
+            setStructureMap(structureMap);
+
+            if (menu.length > 0) {
+              setStructure(menu[0].id);
+              setStructureType(structureMap.get(menu[0].id).type);
+              setStructureUrl(structureMap.get(menu[0].id).url);
+              setStructureExternalUrl(structureMap.get(menu[0].id).url_external);
+            }
+          }
+        } else {
+          let menu = []
+          menu.push({id: "", name: "No structure available"});
+          setStructureMenu(menu);
+          setStructureUrl("");
+          setStructureExternalUrl("");
+          setStructureType("");
+          structureMap.set("", {type: "", url: "", url_external: ""});
+          setStructureMap(structureMap);
         }
 
         setItemsCrossRef(getItemsCrossRefWithCategory(detailDataTemp));
@@ -650,16 +681,6 @@ const GlycanDetail = props => {
           newSidebarData = setSidebarItemState(
             newSidebarData,
             "Subsumption",
-            true
-          );
-        }
-        if (
-          !detailDataTemp.tissue || 
-          detailDataTemp.tissue.length === 0
-        ) {
-          newSidebarData = setSidebarItemState(
-            newSidebarData, 
-            "Tissue", 
             true
           );
         }
@@ -1292,7 +1313,6 @@ const GlycanDetail = props => {
         );
       }
     },
-
     {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_canonical_ac.name,
@@ -1370,7 +1390,21 @@ const GlycanDetail = props => {
         );
       }
     },
-
+    {
+      dataField: "species.glygen_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+        {row.species && (<span className="nowrap">
+          {row.species.glygen_name}
+          </span>)}
+        </>
+      )
+    },
     {
       dataField: "uniprot_canonical_ac",
       text: proteinStrings.uniprot_canonical_ac.name,
@@ -1427,52 +1461,6 @@ const GlycanDetail = props => {
         <>
           {row.tissue && (<span className="nowrap">
             {row.tissue.name}{" "} ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid expression details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
-          </span>)}
-        </>
-      ),
-    }
-  ];
-  const tissueColumns = [
-    {
-      dataField: "evidence",
-      text: proteinStrings.evidence.name,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
-      },
-      formatter: (cell, row) => {
-        return (
-          <EvidenceList
-            evidences={groupEvidences(cell)}
-          />
-        );
-      }
-    },
-    {
-      dataField: "species.glygen_name",
-      text: glycanStrings.organism.shortName,
-      sort: true,
-      headerStyle: (colum, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
-      },
-      formatter: (value, row) => (
-        <>
-        {row.species && (<span className="nowrap">
-          {row.species.glygen_name}
-          </span>)}
-        </>
-      )
-    },
-    {
-      dataField: "tissue.name",
-      text: "Tissue / Bodily Fluid",
-      sort: true,
-      headerStyle: (column, colIndex) => {
-        return { backgroundColor: "#4B85B6", color: "white" };
-      },
-      formatter: (value, row) => (
-        <>
-          {row.tissue && (<span className="nowrap">
-            {row.tissue.name}{" "} ({row.tissue.namespace}: <LineTooltip text="View tissue / bodily fluid details"><a href={row.tissue.url} target="_blank" rel="noopener noreferrer">{row.tissue.id}</a></LineTooltip>)
           </span>)}
         </>
       ),
@@ -2308,14 +2296,28 @@ const GlycanDetail = props => {
                       {stringConstants.sidebar.viewer.displayname}
                     </h4>
                     <div className="float-end">
+                      <span>
+                        <SelectControl
+                          inputValue={structure}
+                          menu={structureMenu}
+                          disabled={structureUrl === ""}
+                          sortFunction={(a, b) => {return 0 }}
+                          setInputValue={(value) => {
+                            setStructure(value);
+                            setStructureType(structureMap.get(value).type);
+                            setStructureUrl(structureMap.get(value).url);
+                            setStructureExternalUrl(structureMap.get(value).url_external);
+                          }}
+                        />
+                      </span>
                       <span className="gg-download-btn-width text-end">
                         <DownloadFile
                           id={id}
-                          url={GLYGEN_API + "/glycan/pdb/" + id + "/"}
-                          enable={tool_support && tool_support.pdb === "yes" }
+                          url={structureUrl}
+                          enable={structureUrl !== ""}
                           mimeType={"text/plain"}
                           itemType={"url_file_download"}
-                          fileName={id + ".pdb"}
+                          fileName={structure +".pdb"}
                         />
                       </span>
                       <CardToggle cardid="viewer" toggle={collapsed.viewer} eventKey="0" toggleCollapse={toggleCollapse}/>
@@ -2327,10 +2329,10 @@ const GlycanDetail = props => {
                         {tool_support && tool_support.pdb === "yes" ?
                           (<div>
                             <div style={{  height: "350px"}}>
-                              <ThreeDViewer url={GLYGEN_API + "/glycan/pdb/" + id + "/"} />
+                              {structureUrl && <ThreeDViewer url={structureUrl} />}
                             </div>
                             <div className="text-muted mt-2">
-                              <strong><sup>1</sup></strong><span> 3D structure generated by <a href={"https://glycam.org/"} target="_blank" rel="noopener noreferrer">GLYCAM</a></span>
+                              <strong><sup>1</sup></strong><span> 3D structure generated by <a href={structureExternalUrl} target="_blank" rel="noopener noreferrer">{structureType === "glycam" ? "GLYCAM" : "Glycoshape"}</a></span>
                             </div>
                             <div className="text-muted">
                               <strong><sup>2</sup></strong><span> Displayed using <a href={"https://molstar.org/viewer-docs/"} target="_blank" rel="noopener noreferrer">Mol*</a></span>
@@ -2993,86 +2995,6 @@ const GlycanDetail = props => {
                         />
                       )}
                       {!biomarkers && <p>{dataStatus}</p>}
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
-
-              {/* Tissue */}
-              <Accordion
-                id="Tissue"
-                defaultActiveKey="0"
-                className="panel-width"
-                style={{ padding: "20px 0" }}
-              >
-                <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
-                    <span className="gg-green d-inline">
-                      <HelpTooltip
-                        title={DetailTooltips.glycan.tissue.title}
-                        text={DetailTooltips.glycan.tissue.text}
-                        urlText={
-                          DetailTooltips.glycan.tissue.urlText
-                        }
-                        url={DetailTooltips.glycan.tissue.url}
-                        helpIcon="gg-helpicon-detail"
-                      />
-                    </span>
-                    <h4 className="gg-green d-inline">
-                      {stringConstants.sidebar.tissue.displayname}
-                    </h4>
-                    <div className="float-end">
-                      <span className="gg-download-btn-width text-end">
-                        <DownloadButton
-                          types={[
-                            {
-                              display: "Tissue (*.csv)",
-                              type: "tissue_csv",
-                              format: "csv",
-                              fileName: "tissue",
-                              data: "glycan_section",
-                              section: "tissue",
-                            }
-                          ]}
-                          dataId={id}
-                          itemType="glycan_section"
-                          showBlueBackground={true}
-                          enable={tissue && tissue.length > 0}
-                        />
-                      </span>
-                      <CardToggle cardid="tissue" toggle={collapsed.tissue} eventKey="0" toggleCollapse={toggleCollapse}/>
-                    </div>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body>
-                      {tissue && tissue.length !== 0 && (
-                        <ClientServerPaginatedTableFullScreen
-                          idField={"tissue.name"}
-                          data={tissue}
-                          columns={tissueColumns}
-                          defaultSortField={"tissue.name"}
-                          onClickTarget={"#tissue"}
-                          viewPort={true}
-                          title="Tissue"
-                          download={
-                            {
-                                types:[
-                                  {
-                                    display: "Tissue (*.csv)",
-                                    type: "tissue_csv",
-                                    format: "csv",
-                                    fileName: "tissue",
-                                    data: "glycan_section",
-                                    section: "tissue",
-                                  }
-                                ],
-                               dataId:id,
-                               itemType:"glycan_section"
-                            }
-                          }
-                        />
-                      )}
-                      {!tissue && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
