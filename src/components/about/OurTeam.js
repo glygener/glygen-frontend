@@ -93,19 +93,19 @@ const OurTeam = (props) => {
           </Grid>
         </Paper>
       </section>
-      <section className="content-box-md">
+      <section className="content-box-md about-section-bg">
         <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">{teamMembersData.pi.heading}</h2> */}
           <TeamMembersCard data={teamMembersData.pi} />
         </Container>
       </section>
-      <section className="content-box-md about-section-bg">
+      <section className="content-box-md">
         <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">Advocates</h2> */}
           <TeamMembersCard data={teamMembersData.advocates} />
         </Container>
       </section>
-      <section className="content-box-md">
+      <section className="content-box-md about-section-bg">
         <Container maxWidth="lg" className="tab-bigscreen">
           <h2 className="section-heading">{teamMembersData.collaborators.heading}</h2>
           {/* <h3>Tool Development and Data Integration</h3> */}
@@ -134,6 +134,11 @@ const OurTeam = (props) => {
           <TeamMembersCard data={teamMembersData.otherMembers} />
         </Container>
       </section> */}
+      <section className="content-box-md">
+        <Container maxWidth="lg">
+          <TeamMembersCard data={teamMembersData.epi} />
+        </Container>
+      </section> 
       <section className="content-box-md about-section-bg">
         <Container maxWidth="lg" className="tab-bigscreen">
           {/* <h2 className="section-heading">Former Members</h2> */}
