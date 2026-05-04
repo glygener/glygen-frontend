@@ -488,8 +488,8 @@ const ProteinSearch = props => {
                   proProteinOfInterest:
                     data.cache_info.query.poi_type === undefined
                   ? {
-                      id: advancedSearch.protein_of_interest.placeholderId,
-                      name: advancedSearch.protein_of_interest.placeholderName
+                      id: advancedSearch.poi_type.placeholderId,
+                      name: advancedSearch.poi_type.placeholderName
                     }
                   : {
                       id: data.cache_info.query.poi_type,
