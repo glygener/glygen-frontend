@@ -25,7 +25,7 @@ const ExampleExploreControl = (props) => {
 					key={obj.orderID}
 					// className={ "small-text" }
 				>
-					{obj.example && (
+					{obj.example && obj.example.id && obj.example.id.length > 0 && (
 						<Col>
 							<div>
 								{obj.example.name}{" "}

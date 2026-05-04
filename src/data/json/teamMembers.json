@@ -240,16 +240,6 @@
 					"url": "https://www.linkedin.com/in/cyrusay/"
 				},
 				{
-					"name": "Rehma Malik",
-					"position": "Science and Social Media Outreach Manager",
-					"department": "",
-					"institution": "The George Washington University",
-					"location": "Washington, DC",
-					"image": "/team/Pic_Default.jpg",
-					"imageText": "Rehma Malik image",
-					"url": ""
-				},
-				{
 					"name": "Shovan Bhowmik",
 					"position": "Bioinformatics Programmer",
 					"department": "",
@@ -282,6 +272,18 @@
 	"formerMembers": {
 		"heading": "Former Members",
 		"people": [
+			{
+				"name": "Rehma Malik",
+				"position": "Science and Social Media Outreach Manager",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Rehma Malik image",
+				"url": "",
+				"dateLeft": "Left project Mar 2026",
+				"orderID": 202603
+			},
 			{
 				"name": "Swathi Murali Srinivasan",
 				"position": "Science and Social Media Outreach Manager",
