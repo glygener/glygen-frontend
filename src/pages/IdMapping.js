@@ -506,11 +506,11 @@ const IdMapping = (props) => {
                   idMapSearchData.recordType === "any" || idMapSearchData.inputNamespace === "any"
                     ? []
                     : [
-                        ...Object.keys(initData[idMapSearchData.recordType].namespace).map(
+                        ...initData[idMapSearchData.recordType].namespace[idMapSearchData.inputNamespace].target_list.map(
                           (toId) => {
                             return {
-                              id: toId,
-                              name: toId,
+                              id: toId.target,
+                              name: toId.target,
                             };
                           }
                         ),
