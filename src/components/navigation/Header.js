@@ -255,7 +255,7 @@ export default function Header(props) {
                   GlyGen Isoform Mapper
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
-                  GlyGen Sand Box
+                  GlyGen SandBox
                 </NavDropdown.Item>
                 <NavDropdown.Item href={GLYTABLEMAKER} target="_blank" rel="noopener noreferrer">
                   GlyTableMaker

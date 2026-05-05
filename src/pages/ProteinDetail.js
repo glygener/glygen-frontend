@@ -624,8 +624,8 @@ const ProteinDetail = (props) => {
         }
 
         if (data.gene_names) {
-          let geneNamesRecTemp = formatNamesDataBasedOnType(data.gene_names, "recommended");
-          let geneNamesSynTemp = formatNamesDataBasedOnType(data.gene_names, "synonym");
+          let geneNamesRecTemp = formatNamesDataBasedOnTypeWithEvidence(data.gene_names, "recommended");
+          let geneNamesSynTemp = formatNamesDataBasedOnTypeWithEvidence(data.gene_names, "synonym");
 
           setGeneNamesRec(geneNamesRecTemp);
           setGeneNamesSyn(geneNamesSynTemp)
@@ -640,8 +640,8 @@ const ProteinDetail = (props) => {
 
           let protein_names = data.protein_names.filter(obj => !enzyme_annotation.includes(obj.name))
 
-          let proteinNamesRecTemp = formatNamesDataBasedOnType(protein_names, "recommended");
-          let proteinNamesSynTemp = formatNamesDataBasedOnType(protein_names, "synonym");
+          let proteinNamesRecTemp = formatNamesDataBasedOnTypeWithEvidence(protein_names, "recommended");
+          let proteinNamesSynTemp = formatNamesDataBasedOnTypeWithEvidence(protein_names, "synonym");
 
           setProteinNamesRec(proteinNamesRecTemp);
           setProteinNamesSyn(proteinNamesSynTemp)
@@ -1084,6 +1084,12 @@ function formatNamesDataBasedOnType(data, type) {
         });
       }
     });
+    return items;
+  }
+
+  function formatNamesDataBasedOnTypeWithEvidence(data, type) {
+    let items = [];
+    items = data.filter(obj => obj.type === type);
     return items;
   }
 
