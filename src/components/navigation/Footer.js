@@ -176,7 +176,7 @@ export default function Footer() {
               </div>
               <div>
                 <a href={GLYGEN_SANDBOX} target="_blank" rel="noopener noreferrer">
-                  GlyGen&nbsp;SandBox
+                  GlyGen&nbsp;Sandbox
                 </a>
               </div>
               <div>
