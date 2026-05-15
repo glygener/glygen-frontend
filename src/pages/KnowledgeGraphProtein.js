@@ -21,7 +21,7 @@ import MotifNodeDisplay from "../components/graph/MotifNodeDisplay";
 import OrganismNodeDisplay from "../components/graph/OrganismNodeDisplay";
 import BiomarkerNodeDisplay from "../components/graph/BiomarkerNodeDisplay";
 import ProteinNodeDisplay from "../components/graph/ProteinNodeDisplay";
-import { sortByWeight } from "../utils/common";
+import { sortByOrder, sortByWeight } from "../utils/common";
 import { getTitle, getMeta } from "../utils/head";
 import Helmet from "react-helmet";
 import FeedbackWidget from "../components/FeedbackWidget";
@@ -194,8 +194,10 @@ export function KnowledgeGraphProtein() {
                       details: glycan
                     }
                   }
-                  graphData.nodes.push(glyNode);
-                  glSet.add(glycan.glytoucan_ac);
+                  if (!glSet.has(glyNodeId)){
+                    graphData.nodes.push(glyNode);
+                    glSet.add(glyNodeId);
+                  }
                   let glyToSi = { data: { source: siteNodeId, target: glyNodeId, label: "has_saccharide", type: "glycan" } }
                   graphData.edges.push(glyToSi);
                 }
@@ -501,7 +503,6 @@ export function KnowledgeGraphProtein() {
     let nodes = defaultKnowGraphData.nodes.filter(node => node.data.type === "protein")
     graphData.nodes.push(nodes[0])
     let byOrderKnowGraphData = JSON.parse(JSON.stringify(defaultKnowGraphData));
-    byOrderKnowGraphData.nodes = byOrderKnowGraphData.nodes.filter(node => node.data.order <= inputValueSlider || inputValueSlider === 50)
     let nodeFlNodes = [];
 
     for (let i = 0; i < appliedFilters.length; i++) {
@@ -517,18 +518,26 @@ export function KnowledgeGraphProtein() {
 
     let siteFlNodes = [];
     let nonSiteNodes = nodeFlNodes.filter(node => node.data.type !== "site")
-    graphData.nodes.push(...nonSiteNodes)
+    // reordering non site nodes and filtering them based on slider value.
+    nonSiteNodes = nonSiteNodes.filter(node => node.data.order <= inputValueSlider || inputValueSlider === maxValueSlider)
+    graphData.nodes.push(...nonSiteNodes)    
+    let siteNodes = nodeFlNodes.filter(node => node.data.type === "site")
     for (let i = 0; i < appliedFilters.length; i++) {
       if (appliedFilters[i] && appliedFilters[i].selected && appliedFilters[i].selected.length > 0) {
         if (appliedFilters[i].id === "site_type") {
           for (let j = 0; j < appliedFilters[i].selected.length; j++) {
-            let nodes = nodeFlNodes.filter(node => node.data.type === "site" && node.data.site.includes(appliedFilters[i].selected[j]))
+            let nodes = siteNodes.filter(node => node.data.site.includes(appliedFilters[i].selected[j]))
             siteFlNodes.push(...nodes)
           }
         }
       }
     }
+    // removing duplicate site nodes.
+    siteFlNodes = siteFlNodes.filter((node, index, self) => index === self.findIndex((nd) => nd.data.id === node.data.id));
+    // reordering site nodes and filtering them based on slider value.
+    siteFlNodes = siteFlNodes.sort(sortByOrder).filter((node, index) => (index + 1) <= inputValueSlider || inputValueSlider === maxValueSlider)
     graphData.nodes.push(...siteFlNodes)
+
     function checkEdgeNodes(nodes, sourceId, targetId) {
       let src = nodes.find(node => node.data.id === sourceId);
       let trg = nodes.find(node => node.data.id === targetId);
@@ -556,8 +565,6 @@ export function KnowledgeGraphProtein() {
       layoutCurrent.run();
 
     }
-
-
   }, [appliedFilters, inputValueSlider]);
 
   const disableSiteNodeDependentFilters = disable => {
