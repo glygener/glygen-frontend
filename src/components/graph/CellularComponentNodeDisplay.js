@@ -61,9 +61,9 @@ function addCommas(nStr) {
 }
 
 /**
- * Cellular Location Node display component.
+ * Cellular Component Node display component.
  */
-const CellularLocationNodeDisplay = (props) => {
+const CellularComponentNodeDisplay = (props) => {
   const [detailData, setDetailData] = useState({});
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const CellularLocationNodeDisplay = (props) => {
   return (
     <>
       <Dialog
-        open={props.nodeType === "cellular-location"}
+        open={props.nodeType === "cellular-component"}
         classes={{
           paper: "alert-dialog",
         }}
@@ -97,13 +97,13 @@ const CellularLocationNodeDisplay = (props) => {
         onClose={() => props.setNodeType("")}
       >
         <div className="gf-content-div">
-          <h5 className="sups-dialog-title" style={{ width: '800px' }}>{"Cellular Location : " + name}</h5>
+          <h5 className="sups-dialog-title" style={{ width: '800px' }}>{"Cellular Component : " + name}</h5>
           <div
             style={{ paddingRight: 40, paddingLeft: 40, content: 'center', width: '800px' }}
           >
             <p><span id='display'></span></p>
             <div style={{ padding: '20px', overflow: 'scroll', content: 'center', maxHeight: '300px', width: '720px' }}>
-              {props.nodeType === "cellular-location" && <div>
+              {props.nodeType === "cellular-component" && <div>
                 <div>
                   <div>
                     <strong>
@@ -141,8 +141,8 @@ const CellularLocationNodeDisplay = (props) => {
   );
 };
 
-export default CellularLocationNodeDisplay;
+export default CellularComponentNodeDisplay;
 
-CellularLocationNodeDisplay.propTypes = {
+CellularComponentNodeDisplay.propTypes = {
   nodeType: PropTypes.string,
 };

@@ -78,9 +78,9 @@
       "order": 6,
       "disabled": false
     },
-    "cellular-location": {
-      "id": "cellular-location",
-      "label": "Cellular Location",
+    "cellular-component": {
+      "id": "cellular-component",
+      "label": "Cellular Component",
       "order": 7,
       "disabled": false
     },

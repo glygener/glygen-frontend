@@ -12,7 +12,7 @@ import { Col, Row } from "react-bootstrap";
 import { getProteinGraph } from "../data/protein";
 import "../css/graph.css";
 import MolecularFunctionNodeDisplay from "../components/graph/MolecularFunctionNodeDisplay";
-import CellularLocationNodeDisplay from "../components/graph/CellularLocationNodeDisplay";
+import CellularLocationNodeDisplay from "../components/graph/CellularComponentNodeDisplay";
 import BiologicalProcessNodeDisplay from "../components/graph/BiologicalProcessNodeDisplay";
 import DiseaseNodeDisplay from "../components/graph/DiseaseNodeDisplay";
 import GlycanNodeDisplay from "../components/graph/GlycanNodeDisplay";
@@ -133,308 +133,322 @@ export function KnowledgeGraphProtein() {
           let maxNodeCount = 0;
           const glSet = new Set();
 
-          api_response.sites = api_response.sites.sort(sortByWeight);
-          for (let i = 0; i < api_response.sites.length; i++) {
-            let siteN = api_response.sites[i];
-            let siteNodeId = siteN.site_lbl + "-" + siteN.uniprot_canonical_ac;
-            let siteFilters = [];
+          if (api_response.sites) {
+            api_response.sites = api_response.sites.sort(sortByWeight);
+            for (let i = 0; i < api_response.sites.length; i++) {
+              let siteN = api_response.sites[i];
+              let siteNodeId = siteN.site_lbl + "-" + siteN.uniprot_canonical_ac;
+              let siteFilters = [];
 
-            if (siteN.glycans && siteN.glycans.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Found on glycosylates", type: "site" } }
-              graphData.edges.push(glyToSi);
-              glycosylationCount += 1;
-              siteFilters.push("glycosylation")
-            }
-
-            if (siteN.mutagenesis && siteN.mutagenesis.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Mutagenesis", type: "site" } }
-              graphData.edges.push(glyToSi);
-              mutagenesisCount += 1;
-              siteFilters.push("mutagenesis")
-            }
-
-            if (siteN.phosphorylation && siteN.phosphorylation.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Phosphorylation", type: "site" } }
-              graphData.edges.push(glyToSi);
-              phosphorylationCount += 1;
-              siteFilters.push("phosphorylation")
-            }
-
-            if (siteN.snv && siteN.snv.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "SNV", type: "site" } }
-              graphData.edges.push(glyToSi);
-              snvCount += 1;
-              siteFilters.push("snv")
-            }
-
-            let siteNode = {
-              data: {
-                id: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, label: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, type: "site", site: siteFilters, "level": 150,
-                weight: siteN.weight,
-                order: i + 1,
-                details: siteN,
-                proteinData: {
-                  uniprot_canonical_ac: siteN.uniprot_canonical_ac,
-                }
+              if (siteN.glycans && siteN.glycans.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Found on glycosylates", type: "site" } }
+                graphData.edges.push(glyToSi);
+                glycosylationCount += 1;
+                siteFilters.push("glycosylation")
               }
-            }
-            graphData.nodes.push(siteNode);
 
-            if (siteN.glycans) {
-              siteN.glycans = siteN.glycans.sort(sortByWeight);
-              for (let i = 0; i < siteN.glycans.length; i++) {
-                let glycan = siteN.glycans[i];
-                let glyNodeId = glycan.glytoucan_ac;
-                let glyNode = {
-                  data: {
-                    id: glycan.glytoucan_ac, label: glycan.glytoucan_ac, type: "glycan", "level": 100,
-                    weight: glycan.weight,
-                    order: i + 1,
-                    details: glycan
+              if (siteN.mutagenesis && siteN.mutagenesis.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Mutagenesis", type: "site" } }
+                graphData.edges.push(glyToSi);
+                mutagenesisCount += 1;
+                siteFilters.push("mutagenesis")
+              }
+
+              if (siteN.phosphorylation && siteN.phosphorylation.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Phosphorylation", type: "site" } }
+                graphData.edges.push(glyToSi);
+                phosphorylationCount += 1;
+                siteFilters.push("phosphorylation")
+              }
+
+              if (siteN.snv && siteN.snv.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "SNV", type: "site" } }
+                graphData.edges.push(glyToSi);
+                snvCount += 1;
+                siteFilters.push("snv")
+              }
+
+              let siteNode = {
+                data: {
+                  id: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, label: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, type: "site", site: siteFilters, "level": 150,
+                  weight: siteN.weight,
+                  order: i + 1,
+                  details: siteN,
+                  proteinData: {
+                    uniprot_canonical_ac: siteN.uniprot_canonical_ac,
                   }
                 }
-                graphData.nodes.push(glyNode);
-                glSet.add(glycan.glytoucan_ac);
-                let glyToSi = { data: { source: siteNodeId, target: glyNodeId, label: "has_saccharide", type: "glycan" } }
-                graphData.edges.push(glyToSi);
+              }
+              graphData.nodes.push(siteNode);
+
+              if (siteN.glycans) {
+                siteN.glycans = siteN.glycans.sort(sortByWeight);
+                for (let i = 0; i < siteN.glycans.length; i++) {
+                  let glycan = siteN.glycans[i];
+                  let glyNodeId = glycan.glytoucan_ac;
+                  let glyNode = {
+                    data: {
+                      id: glycan.glytoucan_ac, label: glycan.glytoucan_ac, type: "glycan", "level": 100,
+                      weight: glycan.weight,
+                      order: i + 1,
+                      details: glycan
+                    }
+                  }
+                  graphData.nodes.push(glyNode);
+                  glSet.add(glycan.glytoucan_ac);
+                  let glyToSi = { data: { source: siteNodeId, target: glyNodeId, label: "has_saccharide", type: "glycan" } }
+                  graphData.edges.push(glyToSi);
+                }
               }
             }
-          }
-          glycanCount += glSet.size;
-          if (glycanCount > 0) {
-            let filterOp = outreachTypes["glycan"];
-            filterOp.count = glycanCount;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("glycan");
-          }
+            glycanCount += glSet.size;
+            if (glycanCount > 0) {
+              let filterOp = outreachTypes["glycan"];
+              filterOp.count = glycanCount;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("glycan");
+            }
 
-          if (glycanCount > maxNodeCount) {
-            maxNodeCount = glycanCount;
-          }
+            if (glycanCount > maxNodeCount) {
+              maxNodeCount = glycanCount;
+            }
 
-          if (api_response.sites.length > 0) {
-            let filterOp = outreachTypes["site"];
-            filterOp.count = api_response.sites.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("site");
-          }
+            if (api_response.sites.length > 0) {
+              let filterOp = outreachTypes["site"];
+              filterOp.count = api_response.sites.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("site");
+            }
 
-          if (api_response.sites.length > maxNodeCount) {
-            maxNodeCount = api_response.sites.length;
-          }
+            if (api_response.sites.length > maxNodeCount) {
+              maxNodeCount = api_response.sites.length;
+            }
 
-          if (glycosylationCount > 0) {
-            let filterOp = siteTypes["glycosylation"];
-            filterOp.count = glycosylationCount;
-            siteTypeArray.push(filterOp);
-            applFilters[1].selected.push("glycosylation");
-          }
+            if (glycosylationCount > 0) {
+              let filterOp = siteTypes["glycosylation"];
+              filterOp.count = glycosylationCount;
+              siteTypeArray.push(filterOp);
+              applFilters[1].selected.push("glycosylation");
+            }
 
-          if (mutagenesisCount > 0) {
-            let filterOp = siteTypes["mutagenesis"];
-            filterOp.count = mutagenesisCount;
-            siteTypeArray.push(filterOp);
-            applFilters[1].selected.push("mutagenesis");
-          }
+            if (mutagenesisCount > 0) {
+              let filterOp = siteTypes["mutagenesis"];
+              filterOp.count = mutagenesisCount;
+              siteTypeArray.push(filterOp);
+              applFilters[1].selected.push("mutagenesis");
+            }
 
-          if (phosphorylationCount > 0) {
-            let filterOp = siteTypes["phosphorylation"];
-            filterOp.count = phosphorylationCount;
-            siteTypeArray.push(filterOp);
-            applFilters[1].selected.push("phosphorylation");
-          }
+            if (phosphorylationCount > 0) {
+              let filterOp = siteTypes["phosphorylation"];
+              filterOp.count = phosphorylationCount;
+              siteTypeArray.push(filterOp);
+              applFilters[1].selected.push("phosphorylation");
+            }
 
-          if (snvCount > 0) {
-            let filterOp = siteTypes["snv"];
-            filterOp.count = snvCount;
-            siteTypeArray.push(filterOp);
-            applFilters[1].selected.push("snv");
+            if (snvCount > 0) {
+              let filterOp = siteTypes["snv"];
+              filterOp.count = snvCount;
+              siteTypeArray.push(filterOp);
+              applFilters[1].selected.push("snv");
+            }
           }
 
           // adding enzyme/protein nodes.
           // adding edges between enzyme/protein nodes and central glycan nodes.
 
-          api_response.binding_glycans = api_response.binding_glycans.sort(sortByWeight);
-          for (let i = 0; i < api_response.binding_glycans.length; i++) {
-            let glycan = api_response.binding_glycans[i];
-            let glyNodeId = glycan.interactor_id;
-            let glyNode = {
-              data: {
-                id: glycan.interactor_id, label: glycan.interactor_id, type: "binding-glycan", "level": 200,
-                weight: glycan.weight,
-                order: i + 1,
-                details: glycan
+          if (api_response.binding_glycans) {
+            api_response.binding_glycans = api_response.binding_glycans.sort(sortByWeight);
+            for (let i = 0; i < api_response.binding_glycans.length; i++) {
+              let glycan = api_response.binding_glycans[i];
+              let glyNodeId = glycan.interactor_id;
+              let glyNode = {
+                data: {
+                  id: glycan.interactor_id, label: glycan.interactor_id, type: "binding-glycan", "level": 200,
+                  weight: glycan.weight,
+                  order: i + 1,
+                  details: glycan
+                }
               }
+              graphData.nodes.push(glyNode);
+              let proToGly = { data: { source: centralNodeId, target: glyNodeId, label: "bound_to", type: "binding-glycan" } }
+              graphData.edges.push(proToGly);
             }
-            graphData.nodes.push(glyNode);
-            let proToGly = { data: { source: centralNodeId, target: glyNodeId, label: "bound_to", type: "binding-glycan" } }
-            graphData.edges.push(proToGly);
-          }
 
-          if (api_response.binding_glycans.length > maxNodeCount) {
-            maxNodeCount = api_response.binding_glycans.length;
-          }
+            if (api_response.binding_glycans.length > maxNodeCount) {
+              maxNodeCount = api_response.binding_glycans.length;
+            }
 
-          if (api_response.binding_glycans.length > 0) {
-            let filterOp = outreachTypes["binding-glycan"];
-            filterOp.count = api_response.binding_glycans.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("binding-glycan");
+            if (api_response.binding_glycans.length > 0) {
+              let filterOp = outreachTypes["binding-glycan"];
+              filterOp.count = api_response.binding_glycans.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("binding-glycan");
+            }
           }
 
           // adding molecular function nodes.
           // adding edges between molecular function nodes and central protein nodes.
 
-          api_response.molecular_function = api_response.molecular_function.sort(sortByWeight);
-          for (let i = 0; i < api_response.molecular_function.length; i++) {
-            let molF = api_response.molecular_function[i];
-            let molFNodeId = molF.id;
-            let molFNode = {
-              data: {
-                id: molF.id, label: molF.name, type: "molecular-function", "level": 200,
-                weight: molF.weight,
-                order: i + 1,
-                details: molF,
+          if (api_response.molecular_function) {
+            api_response.molecular_function = api_response.molecular_function.sort(sortByWeight);
+            for (let i = 0; i < api_response.molecular_function.length; i++) {
+              let molF = api_response.molecular_function[i];
+              let molFNodeId = molF.id;
+              let molFNode = {
+                data: {
+                  id: molF.id, label: molF.name, type: "molecular-function", "level": 200,
+                  weight: molF.weight,
+                  order: i + 1,
+                  details: molF,
+                }
               }
+              graphData.nodes.push(molFNode);
+              let proToMolF = { data: { source: centralNodeId, target: molFNodeId, label: "enables", type: "molecular-function" } }
+              graphData.edges.push(proToMolF);
             }
-            graphData.nodes.push(molFNode);
-            let proToMolF = { data: { source: centralNodeId, target: molFNodeId, label: "enables", type: "molecular-function" } }
-            graphData.edges.push(proToMolF);
-          }
 
-          if (api_response.molecular_function.length > maxNodeCount) {
-            maxNodeCount = api_response.molecular_function.length;
-          }
+            if (api_response.molecular_function.length > maxNodeCount) {
+              maxNodeCount = api_response.molecular_function.length;
+            }
 
-          if (api_response.molecular_function.length > 0) {
-            let filterOp = outreachTypes["molecular-function"];
-            filterOp.count = api_response.molecular_function.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("molecular-function");
+            if (api_response.molecular_function.length > 0) {
+              let filterOp = outreachTypes["molecular-function"];
+              filterOp.count = api_response.molecular_function.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("molecular-function");
+            }
           }
 
           // adding cellular function nodes.
           // adding edges between cellular function nodes and central protein nodes.
 
-          api_response.cellular_component = api_response.cellular_component.sort(sortByWeight);
-          for (let i = 0; i < api_response.cellular_component.length; i++) {
-            let celC = api_response.cellular_component[i];
-            let celCNodeId = celC.id;
-            let celCNode = {
-              data: {
-                id: celC.id, label: celC.name, type: "cellular-location", "level": 200,
-                weight: celC.weight,
-                order: i + 1,
-                details: celC,
+          if (api_response.cellular_component) {
+            api_response.cellular_component = api_response.cellular_component.sort(sortByWeight);
+            for (let i = 0; i < api_response.cellular_component.length; i++) {
+              let celC = api_response.cellular_component[i];
+              let celCNodeId = celC.id;
+              let celCNode = {
+                data: {
+                  id: celC.id, label: celC.name, type: "cellular-component", "level": 200,
+                  weight: celC.weight,
+                  order: i + 1,
+                  details: celC,
+                }
               }
+              graphData.nodes.push(celCNode);
+              let proToCelC = { data: { source: centralNodeId, target: celCNodeId, label: "located_in", type: "cellular-component" } }
+              graphData.edges.push(proToCelC);
             }
-            graphData.nodes.push(celCNode);
-            let proToCelC = { data: { source: centralNodeId, target: celCNodeId, label: "located_in", type: "cellular-location" } }
-            graphData.edges.push(proToCelC);
-          }
 
-          if (api_response.cellular_component.length > maxNodeCount) {
-            maxNodeCount = api_response.cellular_component.length;
-          }
+            if (api_response.cellular_component.length > maxNodeCount) {
+              maxNodeCount = api_response.cellular_component.length;
+            }
 
-          if (api_response.cellular_component.length > 0) {
-            let filterOp = outreachTypes["cellular-location"];
-            filterOp.count = api_response.cellular_component.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("cellular-location");
+            if (api_response.cellular_component.length > 0) {
+              let filterOp = outreachTypes["cellular-component"];
+              filterOp.count = api_response.cellular_component.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("cellular-component");
+            }
           }
 
           // adding organism nodes.
           // adding edges between organism nodes and central glycan nodes.
 
-          api_response.biological_process = api_response.biological_process.sort(sortByWeight);
-          for (let i = 0; i < api_response.biological_process.length; i++) {
-            let bioP = api_response.biological_process[i];
-            let bioPNodeId = bioP.id;
-            let bioPNode = {
-              data: {
-                id: bioP.id, label: bioP.name, type: "biological-process", "level": 200,
-                weight: bioP.weight,
-                order: i + 1,
-                details: bioP,
+          if (api_response.biological_process) {
+            api_response.biological_process = api_response.biological_process.sort(sortByWeight);
+            for (let i = 0; i < api_response.biological_process.length; i++) {
+              let bioP = api_response.biological_process[i];
+              let bioPNodeId = bioP.id;
+              let bioPNode = {
+                data: {
+                  id: bioP.id, label: bioP.name, type: "biological-process", "level": 200,
+                  weight: bioP.weight,
+                  order: i + 1,
+                  details: bioP,
+                }
               }
+              graphData.nodes.push(bioPNode);
+              let glyToBioP = { data: { source: centralNodeId, target: bioPNodeId, label: "involved_in", type: "biological-process" } }
+              graphData.edges.push(glyToBioP);
             }
-            graphData.nodes.push(bioPNode);
-            let glyToBioP = { data: { source: centralNodeId, target: bioPNodeId, label: "involved_in", type: "biological-process" } }
-            graphData.edges.push(glyToBioP);
-          }
 
-          if (api_response.biological_process.length > maxNodeCount) {
-            maxNodeCount = api_response.biological_process.length;
-          }
+            if (api_response.biological_process.length > maxNodeCount) {
+              maxNodeCount = api_response.biological_process.length;
+            }
 
-          if (api_response.biological_process.length > 0) {
-            let filterOp = outreachTypes["biological-process"];
-            filterOp.count = api_response.biological_process.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("biological-process");
+            if (api_response.biological_process.length > 0) {
+              let filterOp = outreachTypes["biological-process"];
+              filterOp.count = api_response.biological_process.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("biological-process");
+            }
           }
 
           // adding disease nodes.
           // adding edges between disease nodes and central glycan nodes.
 
-          api_response.disease = api_response.disease.sort(sortByWeight);
-          for (let i = 0; i < api_response.disease.length; i++) {
-            let disease = api_response.disease[i];
-            let disNodeId = disease.disease_id;
-            let disNode = {
-              data: {
-                id: disease.disease_id, label: disease.name, type: "disease", "level": 200,
-                weight: disease.weight,
-                order: i + 1,
-                details: disease,
+          if (api_response.disease) {
+            api_response.disease = api_response.disease.sort(sortByWeight);
+            for (let i = 0; i < api_response.disease.length; i++) {
+              let disease = api_response.disease[i];
+              let disNodeId = disease.disease_id;
+              let disNode = {
+                data: {
+                  id: disease.disease_id, label: disease.name, type: "disease", "level": 200,
+                  weight: disease.weight,
+                  order: i + 1,
+                  details: disease,
+                }
               }
+              graphData.nodes.push(disNode);
+              let proToDis = { data: { source: centralNodeId, target: disNodeId, label: "is_marker_for", type: "disease" } }
+              graphData.edges.push(proToDis);
             }
-            graphData.nodes.push(disNode);
-            let proToDis = { data: { source: centralNodeId, target: disNodeId, label: "is_marker_for", type: "disease" } }
-            graphData.edges.push(proToDis);
-          }
 
-          if (api_response.disease.length > maxNodeCount) {
-            maxNodeCount = api_response.disease.length;
-          }
+            if (api_response.disease.length > maxNodeCount) {
+              maxNodeCount = api_response.disease.length;
+            }
 
-          if (api_response.disease.length > 0) {
-            let filterOp = outreachTypes["disease"];
-            filterOp.count = api_response.disease.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("disease");
+            if (api_response.disease.length > 0) {
+              let filterOp = outreachTypes["disease"];
+              filterOp.count = api_response.disease.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("disease");
+            }
           }
 
           // adding biomarker nodes.
           // adding edges between biomarker nodes and central glycan nodes.
 
-          api_response.biomarkers = api_response.biomarkers.sort(sortByWeight);
-          for (let i = 0; i < api_response.biomarkers.length; i++) {
-            let bioN = api_response.biomarkers[i];
-            let bioNodeId = bioN.biomarker_id;
-            let bioNode = {
-              data: {
-                id: bioN.biomarker_id, label: bioN.biomarker_id, type: "biomarker", "level": 200,
-                weight: bioN.weight,
-                order: i + 1,
-                details: bioN,
+          if (api_response.biomarkers) {
+            api_response.biomarkers = api_response.biomarkers.sort(sortByWeight);
+            for (let i = 0; i < api_response.biomarkers.length; i++) {
+              let bioN = api_response.biomarkers[i];
+              let bioNodeId = bioN.biomarker_id;
+              let bioNode = {
+                data: {
+                  id: bioN.biomarker_id, label: bioN.biomarker_id, type: "biomarker", "level": 200,
+                  weight: bioN.weight,
+                  order: i + 1,
+                  details: bioN,
+                }
               }
+              graphData.nodes.push(bioNode);
+              let proToBio = { data: { source: centralNodeId, target: bioNodeId, label: "biomarker_in", type: "biomarker" } }
+              graphData.edges.push(proToBio);
             }
-            graphData.nodes.push(bioNode);
-            let proToBio = { data: { source: centralNodeId, target: bioNodeId, label: "biomarker_in", type: "biomarker" } }
-            graphData.edges.push(proToBio);
-          }
 
-          if (api_response.biomarkers.length > maxNodeCount) {
-            maxNodeCount = api_response.biomarkers.length;
-          }
+            if (api_response.biomarkers.length > maxNodeCount) {
+              maxNodeCount = api_response.biomarkers.length;
+            }
 
-          if (api_response.biomarkers.length > 0) {
-            let filterOp = outreachTypes["biomarker"];
-            filterOp.count = api_response.biomarkers.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("biomarker");
+            if (api_response.biomarkers.length > 0) {
+              let filterOp = outreachTypes["biomarker"];
+              filterOp.count = api_response.biomarkers.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("biomarker");
+            }
           }
 
           let elements = CytoscapeComponent.normalizeElements(graphData)
@@ -470,20 +484,9 @@ export function KnowledgeGraphProtein() {
         }
       }
     })
-      .catch(({ response }) => {
-        if (
-          response && response.data &&
-          response.data.error_list &&
-          response.data.error_list.length &&
-          response.data.error_list[0].error_code &&
-          response.data.error_list[0].error_code === "non-existent-record"
-        ) {
-
-          setPageLoading(false);
-        } else {
-          let message = "Knowledge Graph api call";
-          axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-        }
+      .catch(function (error) {
+        let message = "Protein Knowledge Graph api call";
+        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
 
   }, []);
@@ -551,7 +554,7 @@ export function KnowledgeGraphProtein() {
       cy.add(elements)
       const layoutCurrent = cy.layout(layout);
       layoutCurrent.run();
-      
+
     }
 
 
@@ -667,7 +670,7 @@ export function KnowledgeGraphProtein() {
       }
     },
     {
-      selector: "node[type='cellular-location']",
+      selector: "node[type='cellular-component']",
       style: {
         backgroundColor: "#8834a7",
       }
@@ -856,7 +859,7 @@ export function KnowledgeGraphProtein() {
 
                 <Col sm={6} md={6} style={{ flexDirection: "column", overflow: "scroll !important" }}>
                   <div className="sidebar-page-outreach">
-                    <div class="list-mainpage-container">
+                    <div className="list-mainpage-container">
                       {elements && <CytoscapeComponent
                         elements={elements}
                         style={{ width: "100%", height: height }}
@@ -893,141 +896,141 @@ export function KnowledgeGraphProtein() {
                 </Col>
 
                 <Col sm={2} md={2}>
-                    <div className="icons-content pt-1">
-                      <ol className="legendlists nowrap">
-                        <span
-                          className="protein"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>
-                                  Protein</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="organism"
-                        ></span>
-                        <span
-                          className="site"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Site</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="glycan"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>
-                                  Glycan</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="disease"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Disease</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="biomarker"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Biomarker</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span className="binding_glycan">
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Bound Glycan</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="molecular_function"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Molecular Function</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="cellular_location"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Cellular Location</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                        <span
-                          className="biological_process"
-                        >
-                          <Row>
-                            <Col sm={2} md={2}>
-                              &#9679;
-                              <span className="superx">
-                                <>Biological Process</>
-                              </span>
-                            </Col>
-                          </Row>
-                        </span>
-                      </ol>
-                    </div>
-                    <div>
-                      <ol className="legendlists nowrap">
+                  <div className="icons-content pt-1">
+                    <ol className="legendlists nowrap">
+                      <span
+                        className="protein"
+                      >
                         <Row>
                           <Col sm={2} md={2}>
-                            <Button
-                              className='gg-btn-outline'
-                              onClick={() => {
-                                const cy = myCyRef.current;
-                                if (cy) {
-                                  const layoutCurrent = cy.layout(layout);
-                                  layoutCurrent.run();
-                                }
-                              }}
-                            >
-                              Reset&nbsp;Zoom&nbsp;<RestartAltOutlinedIcon sx={{ color: 'text.primary' }} />
-                            </Button>
+                            &#9679;
+                            <span className="superx">
+                              <>
+                                Protein</>
+                            </span>
                           </Col>
                         </Row>
-                      </ol>
-                    </div>
+                      </span>
+                      <span
+                        className="organism"
+                      ></span>
+                      <span
+                        className="site"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Site</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="glycan"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>
+                                Glycan</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="disease"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Disease</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="biomarker"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Biomarker</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span className="binding_glycan">
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Bound Glycan</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="molecular_function"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Molecular Function</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="cellular_component"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Cellular Component</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                      <span
+                        className="biological_process"
+                      >
+                        <Row>
+                          <Col sm={2} md={2}>
+                            &#9679;
+                            <span className="superx">
+                              <>Biological Process</>
+                            </span>
+                          </Col>
+                        </Row>
+                      </span>
+                    </ol>
+                  </div>
+                  <div>
+                    <ol className="legendlists nowrap">
+                      <Row>
+                        <Col sm={2} md={2}>
+                          <Button
+                            className='gg-btn-outline'
+                            onClick={() => {
+                              const cy = myCyRef.current;
+                              if (cy) {
+                                const layoutCurrent = cy.layout(layout);
+                                layoutCurrent.run();
+                              }
+                            }}
+                          >
+                            Reset&nbsp;Zoom&nbsp;<RestartAltOutlinedIcon sx={{ color: 'text.primary' }} />
+                          </Button>
+                        </Col>
+                      </Row>
+                    </ol>
+                  </div>
                 </Col>
               </Row>
             </div>

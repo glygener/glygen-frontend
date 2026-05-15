@@ -113,205 +113,216 @@ export function KnowledgeGraphGlycan() {
           // adding site nodes.
           // adding edges between site node and central glycan nodes.
 
-          api_response.sites = api_response.sites.sort(sortByWeight);
-          for (let i = 0; i < api_response.sites.length; i++) {
-            let siteN = api_response.sites[i];
-            let siteNodeId = siteN.site_lbl + "-" + siteN.uniprot_canonical_ac;
-            let siteNode = {
-              data: {
-                id: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, label: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, type: "site",
-                weight: siteN.weight,
-                order: i + 1,
-                details: siteN,
+          if (api_response.sites) {
+            api_response.sites = api_response.sites.sort(sortByWeight);
+            for (let i = 0; i < api_response.sites.length; i++) {
+              let siteN = api_response.sites[i];
+              let siteNodeId = siteN.site_lbl + "-" + siteN.uniprot_canonical_ac;
+              let siteNode = {
+                data: {
+                  id: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, label: siteN.site_lbl + "-" + siteN.uniprot_canonical_ac, type: "site",
+                  weight: siteN.weight,
+                  order: i + 1,
+                  details: siteN,
+                }
+              }
+
+              graphData.nodes.push(siteNode);
+
+              if (siteN.glycoprotein && siteN.glycoprotein.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Found on glycosylates", type: "site" } }
+                graphData.edges.push(glyToSi);
+              }
+
+              if (siteN.snv && siteN.snv.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "SNV", type: "site" } }
+                graphData.edges.push(glyToSi);
+              }
+
+              if (siteN.phosphorylation && siteN.phosphorylation.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Phosphorylation", type: "site" } }
+                graphData.edges.push(glyToSi);
+              }
+
+              if (siteN.mutagenesis && siteN.mutagenesis.length > 0) {
+                let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Mutagenesis", type: "site" } }
+                graphData.edges.push(glyToSi);
               }
             }
 
-            graphData.nodes.push(siteNode);
-
-            if (siteN.glycoprotein && siteN.glycoprotein.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Found on glycosylates", type: "site" } }
-              graphData.edges.push(glyToSi);
+            if (api_response.sites.length > maxNodeCount) {
+              maxNodeCount = api_response.sites.length;
             }
 
-            if (siteN.snv && siteN.snv.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "SNV", type: "site" } }
-              graphData.edges.push(glyToSi);
+            if (api_response.sites.length > 0) {
+              let filterOp = outreachTypes["site"];
+              filterOp.count = api_response.sites.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("site");
             }
-
-            if (siteN.phosphorylation && siteN.phosphorylation.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Phosphorylation", type: "site" } }
-              graphData.edges.push(glyToSi);
-            }
-
-            if (siteN.mutagenesis && siteN.mutagenesis.length > 0) {
-              let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Mutagenesis", type: "site" } }
-              graphData.edges.push(glyToSi);
-            }
-          }
-
-          if (api_response.sites.length > maxNodeCount) {
-            maxNodeCount = api_response.sites.length;
-          }
-
-          if (api_response.sites.length > 0) {
-            let filterOp = outreachTypes["site"];
-            filterOp.count = api_response.sites.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("site");
           }
 
           // adding enzyme/protein nodes.
           // adding edges between enzyme/protein nodes and central glycan nodes.
 
-          api_response.enzyme = api_response.enzyme.sort(sortByWeight);
-          for (let i = 0; i < api_response.enzyme.length; i++) {
-            let enzN = api_response.enzyme[i];
-            let enzymeNodeId = enzN.uniprot_canonical_ac;
-            let enzymeNode = {
-              data: {
-                id: enzN.uniprot_canonical_ac, label: enzN.uniprot_canonical_ac, type: "enzyme",
-                weight: enzN.weight,
-                order: i + 1,
-                details: enzN
+          if (api_response.enzyme) {
+            api_response.enzyme = api_response.enzyme.sort(sortByWeight);
+            for (let i = 0; i < api_response.enzyme.length; i++) {
+              let enzN = api_response.enzyme[i];
+              let enzymeNodeId = enzN.uniprot_canonical_ac;
+              let enzymeNode = {
+                data: {
+                  id: enzN.uniprot_canonical_ac, label: enzN.uniprot_canonical_ac, type: "enzyme",
+                  weight: enzN.weight,
+                  order: i + 1,
+                  details: enzN
+                }
               }
+              graphData.nodes.push(enzymeNode);
+              let glyToSi = { data: { source: centralNodeId, target: enzymeNodeId, label: "synthesized_by", type: "enzyme" } }
+              graphData.edges.push(glyToSi);
             }
-            graphData.nodes.push(enzymeNode);
-            let glyToSi = { data: { source: centralNodeId, target: enzymeNodeId, label: "synthesized_by", type: "enzyme" } }
-            graphData.edges.push(glyToSi);
-          }
 
-          if (api_response.enzyme.length > maxNodeCount) {
-            maxNodeCount = api_response.enzyme.length;
-          }
+            if (api_response.enzyme.length > maxNodeCount) {
+              maxNodeCount = api_response.enzyme.length;
+            }
 
-          if (api_response.enzyme.length > 0) {
-            let filterOp = outreachTypes["enzyme"];
-            filterOp.count = api_response.enzyme.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("enzyme");
+            if (api_response.enzyme.length > 0) {
+              let filterOp = outreachTypes["enzyme"];
+              filterOp.count = api_response.enzyme.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("enzyme");
+            }
           }
 
           // adding binding protein nodes.
           // adding edges between binding protein nodes and central glycan nodes.
 
-          api_response.binding_proteins = api_response.binding_proteins.sort(sortByWeight);
-          for (let i = 0; i < api_response.binding_proteins.length; i++) {
-            let binN = api_response.binding_proteins[i];
-            let binNodeId = binN.uniprot_canonical_ac;
-            let enzymeNode = {
-              data: {
-                id: binN.uniprot_canonical_ac, label: binN.uniprot_canonical_ac, type: "binding-protein",
-                weight: binN.weight,
-                order: i + 1,
-                details: binN,
+          if (api_response.binding_proteins) {
+            api_response.binding_proteins = api_response.binding_proteins.sort(sortByWeight);
+            for (let i = 0; i < api_response.binding_proteins.length; i++) {
+              let binN = api_response.binding_proteins[i];
+              let binNodeId = binN.uniprot_canonical_ac;
+              let enzymeNode = {
+                data: {
+                  id: binN.uniprot_canonical_ac, label: binN.uniprot_canonical_ac, type: "binding-protein",
+                  weight: binN.weight,
+                  order: i + 1,
+                  details: binN,
+                }
               }
+              graphData.nodes.push(enzymeNode);
+              let glyToBin = { data: { source: centralNodeId, target: binNodeId, label: "bound_to", type: "binding-protein" } }
+              graphData.edges.push(glyToBin);
             }
-            graphData.nodes.push(enzymeNode);
-            let glyToBin = { data: { source: centralNodeId, target: binNodeId, label: "bound_to", type: "binding-protein" } }
-            graphData.edges.push(glyToBin);
-          }
 
-          if (api_response.binding_proteins.length > maxNodeCount) {
-            maxNodeCount = api_response.binding_proteins.length;
-          }
+            if (api_response.binding_proteins.length > maxNodeCount) {
+              maxNodeCount = api_response.binding_proteins.length;
+            }
 
-          if (api_response.binding_proteins.length > 0) {
-            let filterOp = outreachTypes["binding-protein"];
-            filterOp.count = api_response.binding_proteins.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("binding-protein");
+            if (api_response.binding_proteins.length > 0) {
+              let filterOp = outreachTypes["binding-protein"];
+              filterOp.count = api_response.binding_proteins.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("binding-protein");
+            }
           }
 
           // adding organism nodes.
           // adding edges between organism nodes and central glycan nodes.
 
-          api_response.species = api_response.species.sort(sortByWeight);
-          for (let i = 0; i < api_response.species.length; i++) {
-            let orgN = api_response.species[i];
-            let orgNodeId = orgN.glygen_name;
-            let orgNode = {
-              data: {
-                id: orgN.glygen_name, label: orgN.glygen_name, type: "organism",
-                weight: orgN.weight,
-                order: i + 1,
-                details: orgN,
+          if (api_response.species) {
+            api_response.species = api_response.species.sort(sortByWeight);
+            for (let i = 0; i < api_response.species.length; i++) {
+              let orgN = api_response.species[i];
+              let orgNodeId = orgN.glygen_name;
+              let orgNode = {
+                data: {
+                  id: orgN.glygen_name, label: orgN.glygen_name, type: "organism",
+                  weight: orgN.weight,
+                  order: i + 1,
+                  details: orgN,
+                }
               }
+              graphData.nodes.push(orgNode);
+              let glyToOrg = { data: { source: centralNodeId, target: orgNodeId, label: "has_taxon", type: "organism" } }
+              graphData.edges.push(glyToOrg);
             }
-            graphData.nodes.push(orgNode);
-            let glyToOrg = { data: { source: centralNodeId, target: orgNodeId, label: "has_taxon", type: "organism" } }
-            graphData.edges.push(glyToOrg);
-          }
 
-          if (api_response.species.length > maxNodeCount) {
-            maxNodeCount = api_response.species.length;
-          }
+            if (api_response.species.length > maxNodeCount) {
+              maxNodeCount = api_response.species.length;
+            }
 
-          if (api_response.species.length > 0) {
-            let filterOp = outreachTypes["organism"];
-            filterOp.count = api_response.species.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("organism");
+            if (api_response.species.length > 0) {
+              let filterOp = outreachTypes["organism"];
+              filterOp.count = api_response.species.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("organism");
+            }
           }
-
           // adding motif nodes.
           // adding edges between motif nodes and central glycan nodes.
 
-          api_response.motifs = api_response.motifs.sort(sortByWeight);
-          for (let i = 0; i < api_response.motifs.length; i++) {
-            let motN = api_response.motifs[i];
-            let motNodeId = motN.id;
-            let motNode = {
-              data: {
-                id: motN.id, label: motN.name, type: "motif",
-                weight: motN.weight,
-                order: i + 1,
-                details: motN,
+          if (api_response.motifs) {
+            api_response.motifs = api_response.motifs.sort(sortByWeight);
+            for (let i = 0; i < api_response.motifs.length; i++) {
+              let motN = api_response.motifs[i];
+              let motNodeId = motN.id;
+              let motNode = {
+                data: {
+                  id: motN.id, label: motN.name, type: "motif",
+                  weight: motN.weight,
+                  order: i + 1,
+                  details: motN,
+                }
               }
+              graphData.nodes.push(motNode);
+              let glyToMot = { data: { source: centralNodeId, target: motNodeId, label: "has_motif", type: "motif" } }
+              graphData.edges.push(glyToMot);
             }
-            graphData.nodes.push(motNode);
-            let glyToMot = { data: { source: centralNodeId, target: motNodeId, label: "has_motif", type: "motif" } }
-            graphData.edges.push(glyToMot);
-          }
 
-          if (api_response.motifs.length > maxNodeCount) {
-            maxNodeCount = api_response.motifs.length;
-          }
+            if (api_response.motifs.length > maxNodeCount) {
+              maxNodeCount = api_response.motifs.length;
+            }
 
-          if (api_response.motifs.length > 0) {
-            let filterOp = outreachTypes["motif"];
-            filterOp.count = api_response.motifs.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("motif");
+            if (api_response.motifs.length > 0) {
+              let filterOp = outreachTypes["motif"];
+              filterOp.count = api_response.motifs.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("motif");
+            }
           }
 
           // adding biomarker nodes.
           // adding edges between biomarker nodes and central glycan nodes.
-          api_response.biomarkers = api_response.biomarkers.sort(sortByWeight);
-          for (let i = 0; i < api_response.biomarkers.length; i++) {
-            let bioN = api_response.biomarkers[i];
-            let bioNodeId = bioN.biomarker_id;
-            let bioNode = {
-              data: {
-                id: bioN.biomarker_id, label: bioN.biomarker_id, type: "biomarker",
-                weight: bioN.weight,
-                order: i + 1,
-                details: bioN,
+          if (api_response.biomarkers) {
+            api_response.biomarkers = api_response.biomarkers.sort(sortByWeight);
+            for (let i = 0; i < api_response.biomarkers.length; i++) {
+              let bioN = api_response.biomarkers[i];
+              let bioNodeId = bioN.biomarker_id;
+              let bioNode = {
+                data: {
+                  id: bioN.biomarker_id, label: bioN.biomarker_id, type: "biomarker",
+                  weight: bioN.weight,
+                  order: i + 1,
+                  details: bioN,
+                }
               }
+              graphData.nodes.push(bioNode);
+              let glyToBio = { data: { source: centralNodeId, target: bioNodeId, label: "biomarker_in", type: "biomarker" } }
+              graphData.edges.push(glyToBio);
             }
-            graphData.nodes.push(bioNode);
-            let glyToBio = { data: { source: centralNodeId, target: bioNodeId, label: "biomarker_in", type: "biomarker" } }
-            graphData.edges.push(glyToBio);
-          }
 
-          if (api_response.biomarkers.length > maxNodeCount) {
-            maxNodeCount = api_response.biomarkers.length;
-          }
+            if (api_response.biomarkers.length > maxNodeCount) {
+              maxNodeCount = api_response.biomarkers.length;
+            }
 
-          if (api_response.biomarkers.length > 0) {
-            let filterOp = outreachTypes["biomarker"];
-            filterOp.count = api_response.biomarkers.length;
-            nodeTypeArray.push(filterOp);
-            applFilters[0].selected.push("biomarker");
+            if (api_response.biomarkers.length > 0) {
+              let filterOp = outreachTypes["biomarker"];
+              filterOp.count = api_response.biomarkers.length;
+              nodeTypeArray.push(filterOp);
+              applFilters[0].selected.push("biomarker");
+            }
           }
 
           let elements = CytoscapeComponent.normalizeElements(graphData)
@@ -342,20 +353,9 @@ export function KnowledgeGraphGlycan() {
         }
       }
     })
-      .catch(({ response }) => {
-        if (
-          response && response.data &&
-          response.data.error_list &&
-          response.data.error_list.length &&
-          response.data.error_list[0].error_code &&
-          response.data.error_list[0].error_code === "non-existent-record"
-        ) {
-
-          setPageLoading(false);
-        } else {
-          let message = "Knowledge Graph api call";
-          axiosError(response, id, message, setPageLoading, setAlertDialogInput);
-        }
+      .catch(function (error) {
+        let message = "Glycan Knowledge Graph api call";
+        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
       });
 
   }, []);
