@@ -31,8 +31,6 @@ import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 
-var spread = require('cytoscape-spread');
-
 export function KnowledgeGraphProtein() {
   let { id } = useParams();
   const [appliedFilters, setAppliedFilters] = useState([]);
