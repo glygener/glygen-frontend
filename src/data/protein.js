@@ -89,6 +89,12 @@ export const getProteinDetail = (accessionId, noPagination) => {
  
   return getJson(url);
 };
+
+export const getProteinGraph = accessionId => {
+  const url = `/protein/graph/${accessionId}/`;
+  return getJson(url);
+};
+
 export const getProteinDetailDownload = (id, format, compressed, type, headers) => {
   let message = "downloaded successfully ";
   logActivity("user", id, format, compressed, "No results. " + message);

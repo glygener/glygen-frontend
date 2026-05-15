@@ -1,0 +1,94 @@
+{    
+  "site_type": {
+    "glycosylation": {
+      "id": "glycosylation",
+      "label": "Glycosylation",
+      "order": 1,
+      "disabled": false
+    },
+    "mutagenesis": {
+      "id": "mutagenesis",
+      "label": "Mutagenesis",
+      "order": 2,
+       "disabled": false
+    },
+    "phosphorylation": {
+      "id": "phosphorylation",
+      "label": "Phosphorylation",
+      "order": 3,
+      "disabled": false
+    },
+    "snv": {
+      "id": "snv",
+      "label": "SNV",
+      "order": 4,
+      "disabled": false
+    }
+  },
+  "filters": [
+    {
+      "id": "node_type",
+      "label": "Node Type",
+      "order": 1,
+      "tooltip": "",
+      "options": []
+    },
+    {
+      "id": "site_type",
+      "label": "Site Type",
+      "order": 2,
+      "tooltip": "",
+      "options": []
+    }
+  ],
+  "node_type": {
+    "site": {
+      "id": "site",
+      "label": "Site",
+      "order": 1,
+      "disabled": false
+    },
+    "glycan": {
+      "id": "glycan",
+      "label": "Glycan",
+      "order": 2,
+      "disabled": false
+    },
+    "disease": {
+      "id": "disease",
+      "label": "Disease",
+      "order": 3,
+      "disabled": false
+    },
+    "biomarker": {
+      "id": "biomarker",
+      "label": "Biomarker",
+      "order": 4,
+      "disabled": false
+    },
+    "binding-glycan": {
+      "id": "binding-glycan",
+      "label": "Bound Glycan",
+      "order": 5,
+      "imagePath": "workshop.png"
+    },
+    "molecular-function": {
+      "id": "molecular-function",
+      "label": "Molecular Function",
+      "order": 6,
+      "disabled": false
+    },
+    "cellular-location": {
+      "id": "cellular-location",
+      "label": "Cellular Location",
+      "order": 7,
+      "disabled": false
+    },
+    "biological-process": {
+      "id": "biological-process",
+      "label": "Biological Process",
+      "order": 8,
+      "disabled": false
+    }
+  }
+}

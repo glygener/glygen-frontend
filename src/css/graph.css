@@ -1,0 +1,90 @@
+/* circle */
+.glycan {
+  color: #ee1144;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.protein {
+  color: #c91e9f;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.site {
+  color: #d15c94;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.motif {
+  color: #76a64a;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.organism {
+  color: #4aa683;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.biomarker {
+  color: #a6644a;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.bound_protein {
+  color: #08552f;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.synthesizing_enzyme {
+  color: #8834a7;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.disease {
+  color: #c84714;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.binding_glycan {
+  color: #08552f;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.molecular_function {
+  color: #76a64a;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.cellular_location {
+  color: #8834a7;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* circle */
+.biological_process {
+  color: #b085bf;
+  font-size: 20px;
+  cursor: pointer;
+}

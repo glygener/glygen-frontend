@@ -73,6 +73,11 @@ export const getGlycanDetail = accessionId => {
   return getJson(url);
 };
 
+export const getGlycanGraph = accessionId => {
+  const url = `/glycan/graph/${accessionId}/`;
+  return getJson(url);
+};
+
 /**
  * Gets JSON for glycan natural language search.
  * @param {object} formObject - glycan natural language search JSON query object.

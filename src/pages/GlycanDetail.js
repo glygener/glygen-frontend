@@ -1635,12 +1635,21 @@ const GlycanDetail = props => {
   }
 
   /**
-   * Redirect and opens glytoucan_ac in a sand box
+   * Redirect and opens glytoucan_ac in a sandbox
    * @param {object} glytoucan_ac- glytoucan accession ID.
    **/
   function handleOpenSandbox(glytoucan_ac) {
     var url =
       "https://sandbox.glyomics.org/explore.html?" + glytoucan_ac;
+    window.open(url);
+  }
+
+  /**
+   *  opens glytoucan_ac in graph view
+   * @param {object} glytoucan_ac- glytoucan accession ID.
+   **/
+  function handleOpenGraphView(glytoucan_ac) {
+    var url = routeConstants.knowledgeGraphGlycan + glytoucan_ac;
     window.open(url);
   }
 
@@ -1867,6 +1876,32 @@ const GlycanDetail = props => {
                         <Button
                           type="button"
                           className="gg-btn-blue"
+                          style={{
+                            height: "42px"
+                          }}
+                          disabled={
+                            tool_support && tool_support.graph_view === "yes"
+                              ? false
+                              : true
+                          }
+                          onClick={() => {
+                            handleOpenGraphView(
+                              glytoucan && glytoucan.glytoucan_ac
+                            );
+                          }}
+                        >
+                          <span>
+                          </span>
+                          Graph View
+                        </Button>
+                      </span>
+                      <span>
+                        <Button
+                          type="button"
+                          className="gg-btn-blue"
+                          style={{
+                            marginLeft: "10px"
+                          }}
                           disabled={
                             tool_support && tool_support.sandbox === "yes"
                               ? false
@@ -1885,7 +1920,7 @@ const GlycanDetail = props => {
                               alt="Sand Box"
                             />
                           </span>
-                          Sand Box
+                          Sandbox
                         </Button>
                       </span>
                       {(!tool_support) || (tool_support.gnome_glygen_nglycans === "no" && tool_support.gnome_glygen_oglycans === "no") ? (<span>
