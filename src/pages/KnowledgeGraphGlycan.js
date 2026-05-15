@@ -450,10 +450,9 @@ export function KnowledgeGraphGlycan() {
         "overlay-padding": "6px",
         "z-index": "10",
         //text props
-        // "text-outline-color": "#4a56a6",
-        // "text-outline-width": "1px",
-        // color: "white",
-        color: "black",
+        "text-outline-color": "#4a56a6",
+        "text-outline-width": "1px",
+        color: "white",
         fontSize: 10,
       },
     },
