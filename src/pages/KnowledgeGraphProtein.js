@@ -116,7 +116,7 @@ export function KnowledgeGraphProtein() {
           graphData.nodes.push(plNode);
 
           let nodeTypeArray = [];
-          let outreachTypes = proteinKnowledgegraphJSON.node_type;
+          let nodeTypes = proteinKnowledgegraphJSON.node_type;
           let applFilters = [{ "id": "node_type", "operator": "OR", "selected": [] }, { "id": "site_type", "operator": "OR", "selected": [] }];
 
           let siteTypeArray = [];
@@ -205,7 +205,7 @@ export function KnowledgeGraphProtein() {
             }
             glycanCount += glSet.size;
             if (glycanCount > 0) {
-              let filterOp = outreachTypes["glycan"];
+              let filterOp = nodeTypes["glycan"];
               filterOp.count = glycanCount;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("glycan");
@@ -216,7 +216,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.sites.length > 0) {
-              let filterOp = outreachTypes["site"];
+              let filterOp = nodeTypes["site"];
               filterOp.count = api_response.sites.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("site");
@@ -281,7 +281,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.binding_glycans.length > 0) {
-              let filterOp = outreachTypes["binding-glycan"];
+              let filterOp = nodeTypes["binding-glycan"];
               filterOp.count = api_response.binding_glycans.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("binding-glycan");
@@ -314,7 +314,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.molecular_function.length > 0) {
-              let filterOp = outreachTypes["molecular-function"];
+              let filterOp = nodeTypes["molecular-function"];
               filterOp.count = api_response.molecular_function.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("molecular-function");
@@ -347,7 +347,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.cellular_component.length > 0) {
-              let filterOp = outreachTypes["cellular-component"];
+              let filterOp = nodeTypes["cellular-component"];
               filterOp.count = api_response.cellular_component.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("cellular-component");
@@ -380,7 +380,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.biological_process.length > 0) {
-              let filterOp = outreachTypes["biological-process"];
+              let filterOp = nodeTypes["biological-process"];
               filterOp.count = api_response.biological_process.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("biological-process");
@@ -413,7 +413,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.disease.length > 0) {
-              let filterOp = outreachTypes["disease"];
+              let filterOp = nodeTypes["disease"];
               filterOp.count = api_response.disease.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("disease");
@@ -446,7 +446,7 @@ export function KnowledgeGraphProtein() {
             }
 
             if (api_response.biomarkers.length > 0) {
-              let filterOp = outreachTypes["biomarker"];
+              let filterOp = nodeTypes["biomarker"];
               filterOp.count = api_response.biomarkers.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("biomarker");

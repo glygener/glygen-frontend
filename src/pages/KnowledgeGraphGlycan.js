@@ -105,7 +105,7 @@ export function KnowledgeGraphGlycan() {
           graphData.nodes.push(glNode);
 
           let nodeTypeArray = [];
-          let outreachTypes = glycanKnowledgegraphJSON.node_type;
+          let nodeTypes = glycanKnowledgegraphJSON.node_type;
           let applFilters = [{ "id": "node_type", "operator": "OR", "selected": [] }];
           let maxNodeCount = 0;
           let siteNodeCount = 0;
@@ -155,7 +155,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.sites.length > 0) {
-              let filterOp = outreachTypes["site"];
+              let filterOp = nodeTypes["site"];
               filterOp.count = api_response.sites.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("site");
@@ -188,7 +188,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.enzyme.length > 0) {
-              let filterOp = outreachTypes["enzyme"];
+              let filterOp = nodeTypes["enzyme"];
               filterOp.count = api_response.enzyme.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("enzyme");
@@ -221,7 +221,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.binding_proteins.length > 0) {
-              let filterOp = outreachTypes["binding-protein"];
+              let filterOp = nodeTypes["binding-protein"];
               filterOp.count = api_response.binding_proteins.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("binding-protein");
@@ -254,7 +254,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.species.length > 0) {
-              let filterOp = outreachTypes["organism"];
+              let filterOp = nodeTypes["organism"];
               filterOp.count = api_response.species.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("organism");
@@ -286,7 +286,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.motifs.length > 0) {
-              let filterOp = outreachTypes["motif"];
+              let filterOp = nodeTypes["motif"];
               filterOp.count = api_response.motifs.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("motif");
@@ -318,7 +318,7 @@ export function KnowledgeGraphGlycan() {
             }
 
             if (api_response.biomarkers.length > 0) {
-              let filterOp = outreachTypes["biomarker"];
+              let filterOp = nodeTypes["biomarker"];
               filterOp.count = api_response.biomarkers.length;
               nodeTypeArray.push(filterOp);
               applFilters[0].selected.push("biomarker");
