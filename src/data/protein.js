@@ -53,7 +53,9 @@ export const getProteinList = (
 };
 
 export const getProteinsiteDetail = (protienId, position) => {
-  const url = `/site/detail/${protienId}.${position}.${position}`;
+  const queryParams = {"paginated_tables":[{"table_id": "publication", "offset":1, "limit":200, "sort": "date", "order":"desc"}]}
+  const queryParamString = JSON.stringify(queryParams);
+  const url = `/site/detail/${protienId}.${position}.${position}/?query=${queryParamString}`;
   return getJson(url);
 };
 

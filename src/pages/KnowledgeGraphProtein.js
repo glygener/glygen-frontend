@@ -140,7 +140,7 @@ export function KnowledgeGraphProtein() {
               let siteNodeId = siteN.site_lbl + "-" + siteN.uniprot_canonical_ac;
               let siteFilters = [];
 
-              if (siteN.glycans && siteN.glycans.length > 0) {
+              if (siteN.glycosylation && siteN.glycosylation.length > 0) {
                 let glyToSi = { data: { source: centralNodeId, target: siteNodeId, label: "Found on glycosylates", type: "site" } }
                 graphData.edges.push(glyToSi);
                 glycosylationCount += 1;

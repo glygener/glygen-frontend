@@ -43,6 +43,13 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import CollapsibleText from "../components/CollapsibleText";
 import FormControl from "@mui/material/FormControl";
 import CardToggle from "../components/cards/CardToggle";
+import AccordionMUI from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import CollapsableReference from "../components/CollapsableReference";
+import Typography from '@mui/material/Typography';
+import CardLoader from "../components/load/CardLoader";
+import { FiBookOpen } from "react-icons/fi";
 
 function addCommas(nStr) {
   nStr += "";
@@ -83,6 +90,21 @@ const items = [
     label: stringConstants.sidebar.mutagenesis.displayname, 
     id: "Mutagenesis" 
   },
+  {
+    label: stringConstants.sidebar.snv.displayname,
+    id: "Single-Nucleotide-Variation",
+  },
+  { 
+    label: stringConstants.sidebar.mutagenesis.displayname, 
+    id: "Mutagenesis" 
+  },
+    {
+      label: stringConstants.sidebar.cross_ref.displayname,
+      id: "Cross-References"
+    },  
+    { label: stringConstants.sidebar.publication.displayname,
+      id: "Publications"
+    }
 ];
 
 const sortByPosition = function(a, b) {
@@ -280,6 +302,76 @@ const SequenceLocationViewer = ({
   );
 };
 
+
+const getItemsCrossRefWithCategory = (data) => {
+  let itemscrossRefCategory = [];
+  //check data.
+  if (data.crossref) {
+    for (let crossrefitem of data.crossref) {
+      if (crossrefitem.categories === undefined) {
+        crossrefitem.categories = ["Other"]
+      }
+      if (crossrefitem.database === undefined) {
+        crossrefitem.database = "";
+      }
+      for (let category of crossrefitem.categories) {
+        let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
+        if (!categoryItem) {
+          categoryItem = {
+            category : category,
+            database : []
+          }
+          itemscrossRefCategory.push(categoryItem);
+        }
+        let databaseItem = categoryItem.database.filter(item => item.database === crossrefitem.database)[0];
+        if (!databaseItem) {
+          databaseItem = {
+            database: crossrefitem.database,
+            links: [
+              {
+                url: crossrefitem.url,
+                id: crossrefitem.id,
+              },
+            ]
+          }
+          categoryItem.database.push(databaseItem);
+        } else {
+          databaseItem.links.push({
+            url: crossrefitem.url,
+            id: crossrefitem.id,
+          });
+        }
+      }
+    }
+
+    for (let crossrefitem of itemscrossRefCategory) {
+      crossrefitem.database.sort(function (a, b) {
+          if (a.database.toLowerCase() > b.database.toLowerCase()) {
+            return 1;
+          }
+          if (b.database.toLowerCase() > a.database.toLowerCase()) {
+            return -1;
+          }
+          return 0;
+        });
+    }
+    
+    itemscrossRefCategory.sort(function (a, b) {
+      if (a.category === "Other") return 1;
+      if (b.category === "Other") return -1;
+      if (a.category.toLowerCase() > b.category.toLowerCase()) {
+        return 1;
+      }
+      if (b.category.toLowerCase() > a.category.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  return itemscrossRefCategory;
+};
+
 const Siteview = props => {
   let { id, position } = useParams();
 
@@ -291,6 +383,21 @@ const Siteview = props => {
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [sideBarData, setSidebarData] = useState(items);
+  const [publicationSort, setPublicationSort] = useState("date");
+  const [publicationDirection, setPublicationDirection] = useState("desc");
+  const [publicationTotal, setPublicationTotal] = useState(undefined);
+  const [itemsCrossRef, setItemsCrossRef] = useState([]);
+  const [showCategories, setShowCategories] = useState(false);
+  const [cardLoadingPub, setCardLoadingPub] = useState(false);
+
+  const [expandedCategories, setExpandedCategories] = useReducer(
+    (state, newState) => ({
+      ...state, 
+      ...newState,
+    }),{
+      catInd: [0]
+    }
+  );
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -312,7 +419,15 @@ const Siteview = props => {
         setPageLoading(false);
         setDataStatus("No data available.");
       } else {
+        setItemsCrossRef(getItemsCrossRefWithCategory(data));
         setDetailData(data);
+
+        if (data.section_stats) {
+          let publ = data.section_stats.filter(obj => obj.table_id === "publication");
+          let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
+          setPublicationTotal(publStat[0]?.count);
+        }
+
         setPageLoading(false);
         setDataStatus("No data available.");
         let newSidebarData = items;
@@ -336,6 +451,12 @@ const Siteview = props => {
         }
         if (!data.mutagenesis || data.mutagenesis.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Mutagenesis", true);
+        }
+        if (!data.crossref || data.crossref.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Cross-References", true);
+        }
+        if (!data.publication || data.publication.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Publications", true);
         }
         setSidebarData(newSidebarData);
       }
@@ -848,6 +969,49 @@ const Siteview = props => {
     },
   ];
 
+  const paperColumns = [
+      {
+        headerStyle: (colum, colIndex) => {
+          return { display: "none" };
+        },
+        formatter: (cell, row) => {
+          return (
+            <div>
+            <div>
+              <h5 style={{ marginBottom: "3px" }}>
+                <strong>{row.title}</strong>{" "}
+              </h5>
+            </div>
+            <div>{row.authors}</div>
+            <div>
+              {row.journal} <span>&nbsp;</span>(
+              {row.date})
+            </div>
+            <div>
+              {row.reference.map((ref, ind) => (
+                <div key={ind}>
+                  <FiBookOpen />
+                  <span style={{ paddingLeft: "15px" }}>
+                    {ref.type}:
+                  </span>{" "}
+                  <Link
+                    to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
+                  >
+                    <>{ref.id}</>
+                  </Link>{" "}
+                </div>
+              ))}
+            </div>
+            <EvidenceList
+              inline={true}
+              evidences={groupEvidences(row.evidence)}
+            />
+          </div>
+          );
+        }
+      }
+    ];
+
   const {
     uniprot,
     mass,
@@ -860,7 +1024,8 @@ const Siteview = props => {
     snv,
     mutagenesis,
     phosphorylation,
-    glycation
+    glycation,
+    publication
   } = detailData;
 
   const setSidebarItemState = (items, itemId, disabledState) => {
@@ -896,6 +1061,22 @@ const Siteview = props => {
 
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
+  }
+
+    /**
+   * Function to handle on change event for category accordian.
+   **/
+  function handleCategories(event, expanded, catInd) {
+    let catArr = expandedCategories;
+    if (expanded) {
+      catArr.catInd.push(catInd);
+    } else {
+      const ind = catArr.catInd.indexOf(catInd);
+      if (ind > -1) {
+        catArr.catInd.splice(ind, 1);
+      }
+    }
+    setExpandedCategories(catArr)
   }
 
   // ===================================== //
@@ -1612,6 +1793,165 @@ const Siteview = props => {
                         />
                       )}
                       {(!mutagenesis || mutagenesis.length === 0) && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* Cross References */}
+              <Accordion
+                id="Cross-References"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.site.cross_references.title}
+                        text={DetailTooltips.site.cross_references.text}
+                        urlText={DetailTooltips.site.cross_references.urlText}
+                        url={DetailTooltips.site.cross_references.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.cross_ref.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <Button
+                          style={{
+                            marginLeft: "10px",
+                          }}
+                          type="button"
+                          className="gg-btn-blue"
+                          onClick={() => {setShowCategories(!showCategories); setExpandedCategories({catInd:[]})}}
+                        >
+                          {showCategories ? "Hide All" : "Show All"}
+                      </Button>
+                      <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {itemsCrossRef && itemsCrossRef.length ? (
+                        <div>
+                          {itemsCrossRef.map((dbItem, catInd) => (
+                            <AccordionMUI disableGutters={true} key={"catDiv" + catInd}
+                              expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)} 
+                              onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
+                            >
+                              <AccordionSummary
+                                style={{backgroundColor: "#f5f8fa", height: "50px"}}
+                                expandIcon={<ExpandMoreIcon className="gg-blue-color"/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                              >
+                                <Typography className="gg-blue-color">{dbItem.category}</Typography>
+                              </AccordionSummary>
+                              <AccordionDetails style={{paddingBottom: "0px"}}>
+                                <ul className="list-style-none">
+                                  {dbItem.database.map((crossRef, dbInd) => (
+                                    <li key={dbInd}>
+                                      <CollapsableReference
+                                        database={crossRef.database}
+                                        links={crossRef.links}
+                                      />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionDetails>
+                            </AccordionMUI>
+                          ))}
+                        </div>
+                      ) : (
+                        <span>{dataStatus}</span>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* publication */}
+              <Accordion
+                id="Publications"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <CardLoader pageLoading={cardLoadingPub} />
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.site.publications.title}
+                        text={DetailTooltips.site.publications.text}
+                        urlText={DetailTooltips.site.publications.urlText}
+                        url={DetailTooltips.site.publications.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.publication.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <span className="Sorted">Sort By</span>
+                      <select
+                        className="select-dropdown pt-0 pubselect"
+                        value={publicationSort}
+                        onChange={event =>
+                          setPublicationSort(event.target.value)
+                        }
+                      >
+                        <option value="title">Title</option>
+                        <option value="date">Date</option>
+                        <option value="journal">Journal</option>
+                        <option value="authors">Author List</option>
+                      </select>{" "}
+                      <select
+                        className="select-dropdown pt-0"
+                        value={publicationDirection}
+                        onChange={event =>
+                          setPublicationDirection(event.target.value)
+                        }
+                      >
+                        <option value="asc">Asc</option>
+                        <option value="desc">Desc</option>
+                      </select>
+                       <CardToggle cardid="publication" toggle={collapsed.publication} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse
+                    eventKey="0"
+                    out={(collapsed.publication = "false")}
+                  >
+                    <Card.Body className="card-padding-zero">
+                      <div className="m-3">
+                        {publicationTotal !== undefined && publication && publication.length > 0 && <ClientServerPaginatedTable
+                              data={publication}
+                              columns={paperColumns}
+                              tableHeader={'paper-table-header'}
+                              wrapperClasses={"table-responsive table-height-auto"}
+                              defaultSizePerPage={200}
+                              defaultSortField={"date"}
+                              defaultSortOrder={"desc"}
+                              record_type={"site"}
+                              table_id={"publication"}
+                              record_id={id + "." + selectedPosition}
+                              serverPagination={true}
+                              totalDataSize={publicationTotal}
+                              currentSort={publicationSort}
+                              currentSortOrder={publicationDirection}
+                              setAlertDialogInput={setAlertDialogInput}
+                              setCardLoading={setCardLoadingPub}
+                          />}
+                       </div>
+                      {!publication || publication.length == 0 && (
+                        <p className="no-data-msg-publication">
+                          {dataStatus}
+                        </p>
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

@@ -162,7 +162,6 @@ const mutationColumns = [
     },
     formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
   },
-
   {
     dataField: "chr_id",
     text: "Genomic Locus",
@@ -307,86 +306,6 @@ const mutagenesisColumns = [
   },
 ];
 
-const glycoSylationColumns = [
-  {
-    dataField: "evidence",
-    text: proteinStrings.evidence.name,
-
-    headerStyle: (colum, colIndex) => {
-      return {
-        backgroundColor: "#4B85B6",
-        color: "white",
-        width: "25%",
-      };
-    },
-    formatter: (cell, row) => {
-      return (
-        <EvidenceList key={row.glytoucan_ac} evidences={groupEvidences(cell)} />
-      );
-    },
-  },
-  {
-    dataField: "classification",
-    text: proteinStrings.type.name,
-    sort: false,
-    headerStyle: (colum, colIndex) => {
-      return {
-        backgroundColor: "#4B85B6",
-        color: "white",
-      };
-    },
-    formatter: (value, row) => (
-      <div>
-        {row.classification && row.classification.length > 0 && value.map(classification => (
-          <div>
-            {classification.type ? classification.type.name : ""}  {"/"} {classification.subtype ? classification.subtype.name : ""}
-          </div>
-        ))}
-      </div>
-    )
-  },
-  {
-    dataField: "glytoucan_ac",
-    text: proteinStrings.glytoucan_ac.shortName,
-    defaultSortField: "glytoucan_ac",
-    sort: true,
-    headerStyle: (column, colIndex) => {
-      return {
-        backgroundColor: "#4B85B6",
-        color: "white",
-        width: "15%",
-      };
-    },
-    formatter: (value, row) =>
-      value ? (
-        <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.glytoucan_ac} target="_blank" rel="noopener noreferrer">{row.glytoucan_ac}</Link>
-        </LineTooltip>
-      ) : (
-        "Not Reported"
-      ),
-  },
-  {
-    dataField: "image",
-    text: glycanStrings.glycan_image.name,
-    sort: false,
-    formatter: (value, row) => row.glytoucan_ac ? (
-      <div className="img-wrapper">
-        <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
-      </div>) : (<></>
-    ),
-    headerStyle: (colum, colIndex) => {
-      return {
-        textAlign: "left",
-        backgroundColor: "#4B85B6",
-        color: "white",
-        whiteSpace: "nowrap",
-      };
-    },
-  }
-];
-
-
 /**
  * Site Node display component.
  */
@@ -395,14 +314,39 @@ const SiteNodeDisplay = (props) => {
   const [protDetailData, setProtDetailData] = useState({});
   const [dataStatus, setDataStatus] = useState("No Data Available.");
   const [glycosylation, setGlycosylation] = useState(undefined);
+  const [glycosylationPredicted, setGlycosylationPredicted] = useState([]);
+  const [glycosylationMining, setGlycosylationMining] = useState([]);
+  const [glycosylationWithImage, setGlycosylationWithImage] = useState([]);
+  const [glycosylationWithoutImage, setGlycosylationWithoutImage] = useState([]);
 
   useEffect(() => {
     if (props.nodeData === undefined)
       return
     let detailDataTemp = props.nodeData.details;
     let nodeData = props.nodeData;
+
+    if (detailDataTemp.glycosylation  && detailDataTemp.glycosylation.length > 0) {
+      const mapOfGlycosylationCategories = detailDataTemp.glycosylation.reduce((collection, item) => {
+        const category = item.site_category;
+
+        return {
+          ...collection,
+          [category]: [...(collection[category] || []), item],
+        };
+      }, {});
+
+      const withImage = mapOfGlycosylationCategories.reported_with_glycan || [];
+      const withoutImage = mapOfGlycosylationCategories.reported || [];
+      const predicted = mapOfGlycosylationCategories.predicted || [];
+      const mining = mapOfGlycosylationCategories.automatic_literature_mining || [];
+      setGlycosylationWithImage(withImage);
+      setGlycosylationWithoutImage(withoutImage);
+      setGlycosylationPredicted(predicted);
+      setGlycosylationMining(mining);
+    }
+
     setDetailData(detailDataTemp)
-    if (detailDataTemp.glycoprotein) {
+    if (detailDataTemp.glycoprotein && detailDataTemp.glycoprotein.length > 0) {
       setProtDetailData(detailDataTemp.glycoprotein[0])
       setGlycosylation("Yes")
     } else if (props.nodeData.proteinData) {
@@ -442,6 +386,142 @@ const SiteNodeDisplay = (props) => {
 
   const organismEvidence = groupOrganismEvidences(species);
 
+  const glycoSylationColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "25%",
+        };
+      },
+      formatter: (cell, row) => {
+        return (
+          <EvidenceList key={row.start_pos + row.glytoucan_ac} evidences={groupEvidences(cell)} />
+        );
+      },
+    },
+    {
+      dataField: "type",
+      text: proteinStrings.type.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+    },
+    {
+      dataField: "glytoucan_ac",
+      text: proteinStrings.glytoucan_ac.shortName,
+      defaultSortField: "glytoucan_ac",
+      sort: true,
+      headerStyle: (column, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "15%",
+        };
+      },
+      formatter: (value, row) => (
+        <LineTooltip text="View glycan details">
+          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+        </LineTooltip>
+      ),
+    },
+    {
+      dataField: "image",
+      text: glycanStrings.glycan_image.name,
+      sort: false,
+      formatter: (value, row) => (
+        <div className="img-wrapper">
+          <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
+        </div>
+      ),
+      headerStyle: (colum, colIndex) => {
+        return {
+          textAlign: "left",
+          backgroundColor: "#4B85B6",
+          color: "white",
+          whiteSpace: "nowrap",
+        };
+      },
+    },
+    {
+      dataField: "start_pos",
+      text: proteinStrings.residue.name,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+      formatter: (value, row) =>
+        value ? (row.start_pos !== row.end_pos ? (
+          <span>
+            {row.start_aa}
+            {row.start_pos}
+            {" to "}
+            {row.end_aa}
+            {row.end_pos}
+          </span>
+        ) : (<LineTooltip text="View siteview details">
+          <Link to={`${routeConstants.siteview}${uniprot_canonical_ac}/${row.start_pos}`}>
+            {row.residue}
+            {row.start_pos}
+          </Link>
+        </LineTooltip>)
+        ) : (
+          "Not Reported"
+        ),
+    },
+    {
+      dataField: "mining_tool_list",
+      text: "Tool",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter:
+        (value, row) =>
+          value ?
+            <ul className="ps-3">
+              {value.map((tool, index) => (
+                <li key={tool.label}>
+                  {tool.url ?
+                    <span className="nowrap">
+                      <a href={tool.url} target="_blank" rel="noopener noreferrer">{tool.label}</a>
+                    </span> :
+                    <span className="nowrap">
+                      {tool.label}
+                    </span>}
+                </li>
+              ))}
+            </ul>
+            : (
+              "Not Reported"
+            ),
+    },
+    {
+      dataField: "comment",
+      text: "Note",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    }
+  ];
+
   return (
     <>
       <Dialog
@@ -455,7 +535,7 @@ const SiteNodeDisplay = (props) => {
         onClose={() => props.setNodeType("")}
       >
         {props.nodeType === "site" && <div className="gf-content-div">
-          <h5 className="sups-dialog-title" style={{ width: '1000px' }}>{"Site : "} {start_pos}  {start_pos !== end_pos ? " - " + end_pos : ""}</h5>
+          <h5 className="sups-dialog-title" style={{ width: '1000px' }}>{"Site : "} {start_pos !== end_pos ? start_pos + " - " + end_pos : site_lbl}</h5>
           <div
             style={{ paddingRight: 40, paddingLeft: 40, content: 'center', width: '1000px' }}
           >
@@ -503,7 +583,7 @@ const SiteNodeDisplay = (props) => {
                         </>
                       )}
 
-                       {glycosylation && (
+                      {glycosylation && (
                         <>
                           <span key={gene_name}>
                             <div>
@@ -564,8 +644,6 @@ const SiteNodeDisplay = (props) => {
                             <strong>{proteinStrings.chemical_mass.name}: </strong>
                             {addCommas(chemical_mass)} Da{" "}
                           </div>}
-
-
                         </>
                       )}
                       <div>
@@ -607,40 +685,142 @@ const SiteNodeDisplay = (props) => {
                   </Card>
                 </div>
 
-
-                {/*  Glycosylation */}
-                {glycans && glycans.length > 0 && <div style={{ paddingTop: "20px" }}>
+                {/*  Glycosylation - Reported Sites with Glycan */}
+                {glycosylationWithImage && glycosylationWithImage.length > 0 && (<div style={{ paddingTop: "20px" }}>
                   <Card>
                     <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                       <span className="gg-green d-inline">
-
                         <HelpTooltip
-                          title={DetailTooltips.site.glycosylation.title}
-                          text={DetailTooltips.site.glycosylation.text}
-                          urlText={DetailTooltips.site.glycosylation.urlText}
-                          url={DetailTooltips.site.glycosylation.url}
+                          title={DetailTooltips.site.glycosylation_with_glycans.title}
+                          text={DetailTooltips.site.glycosylation_with_glycans.text}
+                          urlText={DetailTooltips.site.glycosylation_with_glycans.urlText}
+                          url={DetailTooltips.site.glycosylation_with_glycans.url}
                           helpIcon="gg-helpicon-detail"
                         />
                       </span>
                       <h4 className="gg-green d-inline">
-                        {stringConstants.sidebar.glycosylation.displayname}
+                        {stringConstants.sidebar.glycosylation_with_glycans.displayname}
                       </h4>
                     </Card.Header>
                     <Card.Body>
-                      {glycans && glycans.length > 0 && (
-                        <ClientPaginatedTable
-                          data={glycans}
-                          columns={glycoSylationColumns}
-                          viewPort={false}
-                          title="Glycosylation"
-                        />
-                      )}
-
-                      {(!glycans || glycans.length === 0) && <p>{dataStatus}</p>}
+                      <ClientPaginatedTable
+                        data={glycosylationWithImage}
+                        columns={glycoSylationColumns.filter(
+                          (column) =>
+                            column.dataField !== "mining_tool_list"
+                        )}
+                        defaultSortField="start_pos"
+                        defaultSortOrder="asc"
+                        viewPort={false}
+                        title="Glycosylation - Reported Sites with Glycan"
+                      />
                     </Card.Body>
                   </Card>
-                </div>}
+                </div>)}
 
+                {/*  Glycosylation - Reported Sites */}
+                {glycosylationWithoutImage && glycosylationWithoutImage.length > 0 && (<div style={{ paddingTop: "20px" }}>
+                  <Card>
+                    <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
+                      <span className="gg-green d-inline">
+                        <HelpTooltip
+                          title={DetailTooltips.site.glycosylation_reported.title}
+                          text={DetailTooltips.site.glycosylation_reported.text}
+                          urlText={DetailTooltips.site.glycosylation_reported.urlText}
+                          url={DetailTooltips.site.glycosylation_reported.url}
+                          helpIcon="gg-helpicon-detail"
+                        />
+                      </span>
+                      <h4 className="gg-green d-inline">
+                        {stringConstants.sidebar.glycosylation_reported.displayname}
+                      </h4>
+                    </Card.Header>
+                    <Card.Body>
+                      <ClientPaginatedTable
+                        data={glycosylationWithoutImage}
+                        columns={glycoSylationColumns.filter(
+                          (column) =>
+                            column.dataField !== "image" &&
+                            column.dataField !== "glytoucan_ac" &&
+                            column.dataField !== "mining_tool_list"
+                        )}
+                        defaultSortField="start_pos"
+                        defaultSortOrder="asc"
+                        viewPort={false}
+                        title="Glycosylation - Reported Sites"
+                      />
+                    </Card.Body>
+                  </Card>
+                </div>)}
+
+                {/*  Glycosylation - Predicted Only */}
+                {glycosylationPredicted && glycosylationPredicted.length > 0 && (<div style={{ paddingTop: "20px" }}>
+                  <Card>
+                    <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
+                      <span className="gg-green d-inline">
+                        <HelpTooltip
+                          title={DetailTooltips.site.glycosylation_predicted.title}
+                          text={DetailTooltips.site.glycosylation_predicted.text}
+                          urlText={DetailTooltips.site.glycosylation_predicted.urlText}
+                          url={DetailTooltips.site.glycosylation_predicted.url}
+                          helpIcon="gg-helpicon-detail"
+                        />
+                      </span>
+                      <h4 className="gg-green d-inline">
+                        {stringConstants.sidebar.glycosylation_predicted.displayname}
+                      </h4>
+                    </Card.Header>
+                    <Card.Body>
+                      <ClientPaginatedTable
+                        data={glycosylationPredicted}
+                        columns={glycoSylationColumns.filter(
+                          (column) =>
+                            column.dataField !== "image" &&
+                            column.dataField !== "glytoucan_ac" &&
+                            column.dataField !== "mining_tool_list"
+                        )}
+                        defaultSortField="start_pos"
+                        defaultSortOrder="asc"
+                        viewPort={false}
+                        title="Glycosylation - Predicted Only"
+                      />
+                    </Card.Body>
+                  </Card>
+                </div>)}
+
+                {/*  Glycosylation - Text Mining */}
+                {glycosylationMining && glycosylationMining.length > 0 && (<div style={{ paddingTop: "20px" }}>
+                  <Card>
+                    <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
+                      <span className="gg-green d-inline">
+                        <HelpTooltip
+                          title={DetailTooltips.site.glycosylation_mining.title}
+                          text={DetailTooltips.site.glycosylation_mining.text}
+                          urlText={DetailTooltips.site.glycosylation_mining.urlText}
+                          url={DetailTooltips.site.glycosylation_mining.url}
+                          helpIcon="gg-helpicon-detail"
+                        />
+                      </span>
+                      <h4 className="gg-green d-inline">
+                        {stringConstants.sidebar.glycosylation_mining.displayname}
+                      </h4>
+                    </Card.Header>
+                    <Card.Body>
+                      <ClientPaginatedTable
+                        data={glycosylationMining}
+                        columns={glycoSylationColumns.filter(
+                          (column) =>
+                            column.dataField !== "image" &&
+                            column.dataField !== "glytoucan_ac"
+                        )}
+                        defaultSortField="start_pos"
+                        defaultSortOrder="asc"
+                        viewPort={false}
+                        title="Glycosylation - Text Mining"
+                      />
+                    </Card.Body>
+                  </Card>
+                </div>)}
 
                 {/* Phosphorylation */}
                 {phosphorylation && phosphorylation.length > 0 && <div style={{ paddingTop: "20px" }}>
@@ -660,15 +840,12 @@ const SiteNodeDisplay = (props) => {
                       </h4>
                     </Card.Header>
                     <Card.Body>
-                      {phosphorylation && phosphorylation.length !== 0 && (
-                        <ClientPaginatedTable
-                          data={phosphorylation}
-                          columns={phosphorylationColumns}
-                          viewPort={false}
-                          title="Phosphorylation"
-                        />
-                      )}
-                      {(!phosphorylation || phosphorylation.length === 0) && <p>{dataStatus}</p>}
+                      <ClientPaginatedTable
+                        data={phosphorylation}
+                        columns={phosphorylationColumns}
+                        viewPort={false}
+                        title="Phosphorylation"
+                      />
                     </Card.Body>
                   </Card>
                 </div>}
@@ -689,16 +866,12 @@ const SiteNodeDisplay = (props) => {
                       <h4 className="gg-green d-inline">{stringConstants.sidebar.snv.displayname}</h4>
                     </Card.Header>
                     <Card.Body>
-                      {snv && snv.length !== 0 && (
-                        <ClientPaginatedTable
-                          data={snv}
-                          columns={mutationColumns}
-                          viewPort={false}
-                          title="Single Nucleotide Variation"
-                        />
-                      )}
-
-                      {(!snv || snv.length === 0) && <p>{dataStatus}</p>}
+                      <ClientPaginatedTable
+                        data={snv}
+                        columns={mutationColumns}
+                        viewPort={false}
+                        title="Single Nucleotide Variation"
+                      />
                     </Card.Body>
                   </Card>
                 </div>}
@@ -722,15 +895,12 @@ const SiteNodeDisplay = (props) => {
                       </h4>
                     </Card.Header>
                     <Card.Body>
-                      {mutagenesis && mutagenesis.length !== 0 && (
-                        <ClientPaginatedTable
-                          data={mutagenesis}
-                          columns={mutagenesisColumns}
-                          viewPort={false}
-                          title="Mutagenesis"
-                        />
-                      )}
-                      {(!mutagenesis || mutagenesis.length === 0) && <p>{dataStatus}</p>}
+                      <ClientPaginatedTable
+                        data={mutagenesis}
+                        columns={mutagenesisColumns}
+                        viewPort={false}
+                        title="Mutagenesis"
+                      />
                     </Card.Body>
                   </Card>
                 </div>}
