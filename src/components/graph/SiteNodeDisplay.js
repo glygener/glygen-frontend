@@ -325,7 +325,7 @@ const SiteNodeDisplay = (props) => {
     let detailDataTemp = props.nodeData.details;
     let nodeData = props.nodeData;
 
-    if (detailDataTemp.glycosylation  && detailDataTemp.glycosylation.length > 0) {
+    if (detailDataTemp.glycosylation && detailDataTemp.glycosylation.length > 0) {
       const mapOfGlycosylationCategories = detailDataTemp.glycosylation.reduce((collection, item) => {
         const category = item.site_category;
 
@@ -429,7 +429,7 @@ const SiteNodeDisplay = (props) => {
       },
       formatter: (value, row) => (
         <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+          <Link to={routeConstants.glycanDetail + row.glytoucan_ac} target="_blank" rel="noopener noreferrer">{row.glytoucan_ac}</Link>
         </LineTooltip>
       ),
     },
@@ -471,7 +471,7 @@ const SiteNodeDisplay = (props) => {
             {row.end_pos}
           </span>
         ) : (<LineTooltip text="View siteview details">
-          <Link to={`${routeConstants.siteview}${uniprot_canonical_ac}/${row.start_pos}`}>
+          <Link to={`${routeConstants.siteview}${uniprot_canonical_ac}/${row.start_pos}`} target="_blank" rel="noopener noreferrer">
             {row.residue}
             {row.start_pos}
           </Link>
