@@ -685,7 +685,7 @@ const SiteNodeDisplay = (props) => {
                   </Card>
                 </div>
 
-                {/*  Glycosylation - Reported Sites with Glycan */}
+                {/*  Glycosylation - Reported Site with Glycans */}
                 {glycosylationWithImage && glycosylationWithImage.length > 0 && (<div style={{ paddingTop: "20px" }}>
                   <Card>
                     <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
@@ -718,7 +718,7 @@ const SiteNodeDisplay = (props) => {
                   </Card>
                 </div>)}
 
-                {/*  Glycosylation - Reported Sites */}
+                {/*  Glycosylation - Reported Site */}
                 {glycosylationWithoutImage && glycosylationWithoutImage.length > 0 && (<div style={{ paddingTop: "20px" }}>
                   <Card>
                     <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">

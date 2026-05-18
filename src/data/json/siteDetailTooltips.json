@@ -26,25 +26,25 @@
     },
     "glycosylation_with_glycans": {
       "urlText": "Read more...",
-      "text": "The Glycosylation section provides a detailed list of reported glycosylation sites with glycans attached to the protein.",
-      "title": "Glycosylation - Reported Sites with Glycan",
+      "text": "The Glycosylation section provides information on reported glycosylation site with glycans attached to the protein.",
+      "title": "Glycosylation - Reported Site with Glycans",
       "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
     },
     "glycosylation_reported": {
       "urlText": "Read more...",
-      "text": "The Glycosylation section provides a detailed list of reported glycosylation sites.",
-      "title": "Glycosylation - Reported Sites",
+      "text": "The Glycosylation section provides information on reported glycosylation site.",
+      "title": "Glycosylation - Reported Site",
       "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
     },
     "glycosylation_predicted": {
       "urlText": "Read more...",
-      "text": "The Glycosylation section provides a detailed list of predicted glycosylation sites.",
+      "text": "The Glycosylation section provides information on predicted glycosylation site.",
       "title": "Glycosylation - Predicted Only",
       "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
     },
     "glycosylation_mining": {
       "urlText": "Read more...",
-      "text": "The Glycosylation section provides a detailed list of glycosylation sites text mined from publications.",
+      "text": "The Glycosylation section provides information on glycosylation site text mined from publications.",
       "title": "Glycosylation - Text Mining",
       "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
     },

@@ -2785,12 +2785,12 @@
     },
     "glycosylation_with_glycans": {
       "id": "glycosylation_with_glycans",
-      "displayname": "Glycosylation - Reported Sites with Glycan",
+      "displayname": "Glycosylation - Reported Site with Glycans",
       "tooltip": " glycosylation Information with Glycans"
     },
     "glycosylation_reported": {
       "id": "glycosylation_reported",
-      "displayname": "Glycosylation - Reported Sites",
+      "displayname": "Glycosylation - Reported Site",
       "tooltip": " glycosylation Information with Reported Sites"
     },
     "glycosylation_predicted": {
