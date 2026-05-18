@@ -14,6 +14,8 @@ import { getGlycanImageUrl } from "../../data/glycan";
 import { Col, Row } from "react-bootstrap";
 import { groupEvidences } from "../../data/data-format";
 import EvidenceList from "../EvidenceList";
+import { Link } from 'react-router-dom';
+import routeConstants from "../../data/json/routeConstants";
 
 const glycanStrings = stringConstants.glycan.common;
 const glycanDirectSearch = stringConstants.glycan.direct_search;
@@ -111,9 +113,9 @@ const DiseaseNodeDisplay = (props) => {
                       {"Name"}:{" "}
                     </strong>
                     {name}{" "}
-                    (<a href={url} target="_blank" rel="noopener noreferrer">
+                    (<Link to={routeConstants.diseaseDetail + disease_id} target="_blank" rel="noopener noreferrer">
                       {disease_id}
-                    </a>)
+                    </Link>)
                   </div>
                   {description && <div>
                     <strong>
