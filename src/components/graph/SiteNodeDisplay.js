@@ -343,9 +343,17 @@ const SiteNodeDisplay = (props) => {
       setGlycosylationWithoutImage(withoutImage);
       setGlycosylationPredicted(predicted);
       setGlycosylationMining(mining);
+    } else {
+      setGlycosylationWithImage([]);
+      setGlycosylationWithoutImage([]);
+      setGlycosylationPredicted([]);
+      setGlycosylationMining([]);
     }
 
-    setDetailData(detailDataTemp)
+    setDetailData(detailDataTemp);
+    setProtDetailData({});
+    setGlycosylation(undefined);
+
     if (detailDataTemp.glycoprotein && detailDataTemp.glycoprotein.length > 0) {
       setProtDetailData(detailDataTemp.glycoprotein[0])
       setGlycosylation("Yes")

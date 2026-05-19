@@ -72,10 +72,10 @@ const ProteinNodeDisplay = (props) => {
   useEffect(() => {
 
     if (props.nodeData === undefined)
-      return
+      return;
     let detailDataTemp = props.nodeData.details;
     let nodeData = props.nodeData;
-    setDetailData(detailDataTemp)
+    setDetailData(detailDataTemp);
 
   }, [props.nodeType])
 

@@ -266,7 +266,7 @@ const BiomarkerNodeDisplay = (props) => {
     let detailDataTemp = props.nodeData.details;
     let nodeData = props.nodeData
 
-    setDetailData(detailDataTemp)
+    setDetailData(detailDataTemp);
 
     setBESTBiomarkerRole(detailDataTemp.best_biomarker_role);
     setComponents(detailDataTemp.biomarker_component);
@@ -313,6 +313,8 @@ const BiomarkerNodeDisplay = (props) => {
         }
         return condition;
       }
+    } else {
+      setConditionData([]);
     }
   }, [props.nodeType]);
 

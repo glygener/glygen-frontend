@@ -201,12 +201,12 @@ const OrganismNodeDisplay = (props) => {
   useEffect(() => {
 
     if (props.nodeData === undefined || props.nodeType !== "organism")
-      return
+      return;
     let detailDataTemp = props.nodeData.details;
     let nodeData = props.nodeData;
-    setOrganism(detailDataTemp.glygen_name)
+    setOrganism(detailDataTemp.glygen_name);
 
-    setDetailData({ "species": [detailDataTemp] })
+    setDetailData({ "species": [detailDataTemp] });
 
   }, [props.nodeType])
 

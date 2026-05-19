@@ -119,7 +119,6 @@ const GlycanNodeDisplay = (props) => {
       data.evidence = detailDataTemp.evidence;
     }
 
-
     setDetailData(data)
 
   }, [props.nodeType])
