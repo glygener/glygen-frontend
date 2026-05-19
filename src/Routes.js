@@ -148,6 +148,7 @@ const Routes = (props) => (
 
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />
+    <Route path={"*"} element={<Home/>} />
   </Switch>
 );
 
