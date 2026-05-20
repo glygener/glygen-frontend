@@ -486,9 +486,9 @@ export function KnowledgeGraphProtein() {
         }
       }
     })
-      .catch(function (error) {
+      .catch(function ({ response }) {
         let message = "Protein Knowledge Graph api call";
-        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
       });
 
   }, []);

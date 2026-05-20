@@ -353,9 +353,9 @@ export function KnowledgeGraphGlycan() {
         }
       }
     })
-      .catch(function (error) {
+      .catch(function ({ response }) {
         let message = "Glycan Knowledge Graph api call";
-        axiosError(error, id, message, setPageLoading, setAlertDialogInput);
+        axiosError(response, id, message, setPageLoading, setAlertDialogInput);
       });
 
   }, []);
