@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef } from "react";
 import { styled } from '@mui/material/styles';
 import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
@@ -14,6 +14,7 @@ import glyspaceIcon from "../../images/icons/glyspace-logo.png";
 import routeConstants from "../../data/json/routeConstants.json";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
+import IntegratedCFDEWheel from "../../components/IntegratedCFDEWheel";
 import {
   NIH_COMMONFUND_DATAECOSYSTEM,
   GLYSPACE,
@@ -144,23 +145,42 @@ export default function MainFeaturedCard(props) {
                 GlySpace Alliance
                 </a>
             </div>}
-            {GLYGEN_BUILD === "glygen" && <div className="btn-outline-white">
-              <a href={NIH_COMMONFUND_DATAECOSYSTEM} target="_blank" rel="noopener noreferrer" className="gg-btn-outline-white text-start">
-                <span
+            {GLYGEN_BUILD === "glygen" && <div cfde-id="cfde-wheel-div" className="btn-outline-white gg-btn-outline-white text-start"
+                style={{cursor: "pointer"}}
+                onClick={(event) => {
+                  const element = document.querySelector('[aria-label="Open CFDE Wheel"]');
+                  const parentElement = event.target.closest('[cfde-id]')?.getAttribute('cfde-id');
+                  if (parentElement === "cfde-wheel-div") {
+                    element.click();
+                  } 
+                }}
+              >
+                <div
                   style={{
-                    paddingRight: "15px",
-                    paddingLeft: "5px"
+                    paddingLeft: "5px",
+                    display: "inline-flex",
+                    cursor: "pointer"
                   }}
                   class="pagination-centered"
                 >
-                  <Image
-                    className="img-home"
-                    src={cfdeIcon}
-                    alt={"cfde icon"}
-                  />
+                <span 
+                    style={{
+                      height: "27px",
+                      width: "27px",
+                    }}
+                >
+                <span className="global-image-container">
+                  <IntegratedCFDEWheel/>
                 </span>                
-                Member of CFDE
-              </a>
+                </span>
+                <span 
+                    style={{
+                      paddingLeft: "15px",
+                    }}
+                >
+                CFDE Wheel
+                </span>
+              </div>
             </div>}
           </div>
         </Grid>
