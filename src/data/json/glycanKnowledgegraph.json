@@ -1,0 +1,55 @@
+{
+  "filters": [
+    {
+      "id": "node_type",
+      "label": "Node Type",
+      "order": 1,
+      "tooltip": "",
+      "options": []
+    }
+  ],
+  "node_type": {
+    "site": {
+      "id": "site",
+      "label": "Site",
+      "order": 1,
+      "disabled": false
+    },
+    "protein": {
+      "id": "protein",
+      "label": "Protein",
+      "order": 1,
+      "disabled": false
+    },
+    "motif": {
+      "id": "motif",
+      "label": "Motif",
+      "order": 2,
+      "disabled": false
+    },
+    "organism": {
+      "id": "organism",
+      "label": "Organism",
+      "order": 3,
+      "disabled": false
+    },
+    "biomarker": {
+      "id": "biomarker",
+      "label": "Biomarker",
+      "order": 4,
+      "disabled": false
+    },
+    "binding-protein": {
+      "id": "binding-protein",
+      "label": "Bound Protein",
+      "order": 5,
+      "disabled": false
+    },
+    "enzyme": {
+      "id": "enzyme",
+      "label": "Synthesizing Enzyme",
+      "order": 6,
+      "disabled": false
+    }
+  }
+}

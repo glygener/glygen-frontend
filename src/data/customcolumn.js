@@ -133,6 +133,8 @@ const MAP_COLUMN_FIELDS = {
   "pathway":"show_more",
   "snv_type":"list",
   "interactions":"list",
+  "kg_view_glycan":"kg_view_glycan",
+  "kg_view_protein":"kg_view_protein"
 }
 
 const yesNoFormater = (value, row) => {
@@ -172,6 +174,52 @@ const columnDisplayTypes = {
           {value}
         </Link>
       </LineTooltip>
+    )
+  },
+  "kg_view_glycan":{
+    dataField: "",
+    text: "",
+    sort: false,
+    selected: true,
+    headerStyle: (colum, colIndex) => {
+      return {
+        backgroundColor: "#4B85B6",
+        color: "white",
+        width: "15% !important"
+      };
+    },
+
+    formatter: (value, row) => (
+      row.kg_view_glycan ? 
+        <LineTooltip text="View knowledge graph">
+          <Link to={routeConstants.knowledgeGraphGlycan + row.glytoucan_ac}>
+            {"Graph View"}
+          </Link>
+        </LineTooltip> : 
+        <></>
+    )
+  },
+  "kg_view_protein":{
+    dataField: "",
+    text: "",
+    sort: false,
+    selected: true,
+    headerStyle: (colum, colIndex) => {
+      return {
+        backgroundColor: "#4B85B6",
+        color: "white",
+        width: "15% !important"
+      };
+    },
+
+    formatter: (value, row) => (
+      row.kg_view_protein ? 
+        <LineTooltip text="View knowledge graph">
+          <Link to={routeConstants.knowledgeGraphProtein + row.uniprot_canonical_ac}>
+            {"Graph View"}
+          </Link>
+        </LineTooltip> : 
+        <></>
     )
   },
   "image_url":{

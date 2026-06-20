@@ -212,19 +212,19 @@ const CustomColumns = props => {
                 "order": col.order
               })
             }
-            if (usrSelColsPresent && colUsr && !colUserSelArr[col.id]) {
+            if (usrSelColsPresent && (colUsr || col.default || col.immutable) && !colUserSelArr[col.id]) {
               colUserSelItems.push({
                 "id": col.id,
                 "label": col.label,
                 "immutable": col.immutable,
                 "property_name": col.property_name,
                 "tooltip": col.tooltip,
-                "order": colUsr.order
+                "order": colUsr && colUsr.order ? colUsr.order : col.order
               })
             }
 
             colArr[col.id] = col.default ? col.default : col.immutable ? col.immutable : col.default;
-            colUserSelArr[col.id] = colUsr ? true : false;
+            colUserSelArr[col.id] = colUsr || col.default || col.immutable ? true : false;
           }
 
           let sortedItems = colItems.sort((obj1, obj2) => obj1.order - obj2.order);

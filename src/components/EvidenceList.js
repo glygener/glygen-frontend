@@ -18,16 +18,18 @@ const EvidenceList = props => {
         </Row>
       )}
       {props.inlineWithName && (
-        <Row style={{ marginBottom: "5px" }}>
-            <Col xs={"auto"} sm={"auto"} style={{ marginBottom: "10px"}}>
-              {name && <span >{name}</span>}
-            </Col>
-            {Object.keys(evidences).map((db, index) => (
-              <Col xs={"auto"} sm={"auto"} className={"inline-evidence"} style={{ marginTop: "-10px" }} key={db}>
-                <GlygenBadge key={index} text={db} expandList={evidences[db]} />
+        <li>
+          <Row style={{ marginBottom: "5px" }}>
+              <Col xs={"auto"} sm={"auto"} style={{ marginBottom: "10px"}}>
+                {name && <span >{name}</span>}
               </Col>
-            ))}
-        </Row>
+              {Object.keys(evidences).map((db, index) => (
+                <Col xs={"auto"} sm={"auto"} className={"inline-evidence"} style={{ marginTop: "-10px" }} key={db}>
+                  <GlygenBadge key={index} text={db} expandList={evidences[db]} />
+                </Col>
+              ))}
+          </Row>
+        </li>
       )}
       {!props.inline && !props.inlineWithName && (
         <span>

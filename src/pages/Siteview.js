@@ -43,6 +43,13 @@ import LineTooltip from "../components/tooltip/LineTooltip";
 import CollapsibleText from "../components/CollapsibleText";
 import FormControl from "@mui/material/FormControl";
 import CardToggle from "../components/cards/CardToggle";
+import AccordionMUI from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import CollapsableReference from "../components/CollapsableReference";
+import Typography from '@mui/material/Typography';
+import CardLoader from "../components/load/CardLoader";
+import { FiBookOpen } from "react-icons/fi";
 
 function addCommas(nStr) {
   nStr += "";
@@ -79,13 +86,21 @@ const items = [
     label: stringConstants.sidebar.snv.displayname,
     id: "Single-Nucleotide-Variation",
   },
-  { 
-    label: stringConstants.sidebar.mutagenesis.displayname, 
-    id: "Mutagenesis" 
+  {
+    label: stringConstants.sidebar.mutagenesis.displayname,
+    id: "Mutagenesis"
   },
+  {
+    label: stringConstants.sidebar.cross_ref.displayname,
+    id: "Cross-References"
+  },
+  {
+    label: stringConstants.sidebar.publication.displayname,
+    id: "Publications"
+  }
 ];
 
-const sortByPosition = function(a, b) {
+const sortByPosition = function (a, b) {
   if (parseInt(a.position) < parseInt(b.position)) {
     return -1;
   } else if (parseInt(b.position) < parseInt(a.position)) {
@@ -94,7 +109,7 @@ const sortByPosition = function(a, b) {
   return 0;
 };
 
-const sortByStartPos = function(a, b) {
+const sortByStartPos = function (a, b) {
   if (a.start_pos < b.start_pos) {
     return -1;
   } else if (b.start_pos < a.start_pos) {
@@ -261,9 +276,8 @@ const SequenceLocationViewer = ({
                         ? `translateY(${item.offset}px)`
                         : "none"
                     }}
-                    className={`${item.highlight}${
-                      item.current ? " char-current" : ""
-                    }`}
+                    className={`${item.highlight}${item.current ? " char-current" : ""
+                      }`}
                   >
                     {item.character}
                   </span>
@@ -280,6 +294,76 @@ const SequenceLocationViewer = ({
   );
 };
 
+
+const getItemsCrossRefWithCategory = (data) => {
+  let itemscrossRefCategory = [];
+  //check data.
+  if (data.crossref) {
+    for (let crossrefitem of data.crossref) {
+      if (crossrefitem.categories === undefined) {
+        crossrefitem.categories = ["Other"]
+      }
+      if (crossrefitem.database === undefined) {
+        crossrefitem.database = "";
+      }
+      for (let category of crossrefitem.categories) {
+        let categoryItem = itemscrossRefCategory.filter(item => item.category === category)[0];
+        if (!categoryItem) {
+          categoryItem = {
+            category: category,
+            database: []
+          }
+          itemscrossRefCategory.push(categoryItem);
+        }
+        let databaseItem = categoryItem.database.filter(item => item.database === crossrefitem.database)[0];
+        if (!databaseItem) {
+          databaseItem = {
+            database: crossrefitem.database,
+            links: [
+              {
+                url: crossrefitem.url,
+                id: crossrefitem.id,
+              },
+            ]
+          }
+          categoryItem.database.push(databaseItem);
+        } else {
+          databaseItem.links.push({
+            url: crossrefitem.url,
+            id: crossrefitem.id,
+          });
+        }
+      }
+    }
+
+    for (let crossrefitem of itemscrossRefCategory) {
+      crossrefitem.database.sort(function (a, b) {
+        if (a.database.toLowerCase() > b.database.toLowerCase()) {
+          return 1;
+        }
+        if (b.database.toLowerCase() > a.database.toLowerCase()) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+
+    itemscrossRefCategory.sort(function (a, b) {
+      if (a.category === "Other") return 1;
+      if (b.category === "Other") return -1;
+      if (a.category.toLowerCase() > b.category.toLowerCase()) {
+        return 1;
+      }
+      if (b.category.toLowerCase() > a.category.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  return itemscrossRefCategory;
+};
+
 const Siteview = props => {
   let { id, position } = useParams();
 
@@ -291,6 +375,21 @@ const Siteview = props => {
   const [pageLoading, setPageLoading] = useState(true);
   const [dataStatus, setDataStatus] = useState("Fetching Data.");
   const [sideBarData, setSidebarData] = useState(items);
+  const [publicationSort, setPublicationSort] = useState("date");
+  const [publicationDirection, setPublicationDirection] = useState("desc");
+  const [publicationTotal, setPublicationTotal] = useState(undefined);
+  const [itemsCrossRef, setItemsCrossRef] = useState([]);
+  const [showCategories, setShowCategories] = useState(false);
+  const [cardLoadingPub, setCardLoadingPub] = useState(false);
+
+  const [expandedCategories, setExpandedCategories] = useReducer(
+    (state, newState) => ({
+      ...state,
+      ...newState,
+    }), {
+    catInd: [0]
+  }
+  );
   const [alertDialogInput, setAlertDialogInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
@@ -312,7 +411,15 @@ const Siteview = props => {
         setPageLoading(false);
         setDataStatus("No data available.");
       } else {
+        setItemsCrossRef(getItemsCrossRefWithCategory(data));
         setDetailData(data);
+
+        if (data.section_stats) {
+          let publ = data.section_stats.filter(obj => obj.table_id === "publication");
+          let publStat = publ[0].table_stats.filter(obj => obj.field === "total");
+          setPublicationTotal(publStat[0]?.count);
+        }
+
         setPageLoading(false);
         setDataStatus("No data available.");
         let newSidebarData = items;
@@ -336,6 +443,12 @@ const Siteview = props => {
         }
         if (!data.mutagenesis || data.mutagenesis.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Mutagenesis", true);
+        }
+        if (!data.crossref || data.crossref.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Cross-References", true);
+        }
+        if (!data.publication || data.publication.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Publications", true);
         }
         setSidebarData(newSidebarData);
       }
@@ -365,37 +478,37 @@ const Siteview = props => {
   useEffect(() => {
     if (detailData.glycosylation) {
       detailData.glycosylation = detailData.glycosylation.map(glycosylation => ({
-          ...glycosylation,
-          position: detailData.start_pos,
-        }))
+        ...glycosylation,
+        position: detailData.start_pos,
+      }))
     }
 
     if (detailData.snv) {
       detailData.snv = detailData.snv.map(snv => ({
-          ...snv,
-          position: detailData.start_pos,
-        }))
+        ...snv,
+        position: detailData.start_pos,
+      }))
     }
 
     if (detailData.mutagenesis) {
       detailData.mutagenesis = detailData.mutagenesis.map(mutagenesis => ({
-          ...mutagenesis,
-          position: detailData.start_pos,
-        }))
+        ...mutagenesis,
+        position: detailData.start_pos,
+      }))
     }
 
     if (detailData.phosphorylation) {
       detailData.phosphorylation = detailData.phosphorylation.map(phosphorylation => ({
-          ...phosphorylation,
-          position: detailData.start_pos,
-        }))
+        ...phosphorylation,
+        position: detailData.start_pos,
+      }))
     }
 
     if (detailData.glycation) {
       detailData.glycation = detailData.glycation.map(glycation => ({
-          ...glycation,
-          position: detailData.start_pos,
-        }))
+        ...glycation,
+        position: detailData.start_pos,
+      }))
     }
 
     const pickLabel = type => {
@@ -423,7 +536,7 @@ const Siteview = props => {
         siteType => !["site_annotation"].includes(siteType.type)
       );
       const filteredRangeSites = filteredSites.map(
-        siteType => {return {"type" : siteType.type, "site_list" : siteType.site_list.filter(site => site.start_pos === site.end_pos)}}
+        siteType => { return { "type": siteType.type, "site_list": siteType.site_list.filter(site => site.start_pos === site.end_pos) } }
       );
       const mappedFilterSites = filteredRangeSites.map(siteType =>
         siteType.site_list.map(site => ({
@@ -501,13 +614,13 @@ const Siteview = props => {
           width: "15%",
         };
       },
-      formatter: (value, row) => 
-      value ? (
-        <LineTooltip text="View glycan details">
-          <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
-        </LineTooltip>
-      ) : (
-        "Not Reported"
+      formatter: (value, row) =>
+        value ? (
+          <LineTooltip text="View glycan details">
+            <Link to={routeConstants.glycanDetail + row.glytoucan_ac}>{row.glytoucan_ac}</Link>
+          </LineTooltip>
+        ) : (
+          "Not Reported"
         ),
     },
     {
@@ -517,8 +630,8 @@ const Siteview = props => {
       formatter: (value, row) => row.glytoucan_ac ? (
         <div className="img-wrapper">
           <img className="img-cartoon" src={getGlycanImageUrl(row.glytoucan_ac)} alt="Glycan img" />
-        </div>) : ( <></>
-        ),
+        </div>) : (<></>
+      ),
       headerStyle: (colum, colIndex) => {
         return {
           textAlign: "left",
@@ -541,8 +654,8 @@ const Siteview = props => {
       formatter: (value, row) =>
         value ? (
           <span>
-              {row.residue}
-              {row.position}
+            {row.residue}
+            {row.position}
           </span>
         ) : (
           "Not Reported"
@@ -602,8 +715,8 @@ const Siteview = props => {
       formatter: (value, row) =>
         value ? (
           <span>
-              {row.residue}
-              {row.position}
+            {row.residue}
+            {row.position}
           </span>
         ) : (
           "Not Reported"
@@ -654,8 +767,8 @@ const Siteview = props => {
       formatter: (value, row) =>
         value ? (
           <span>
-              {row.residue}
-              {row.position}
+            {row.residue}
+            {row.position}
           </span>
         ) : (
           "Not Reported"
@@ -732,13 +845,13 @@ const Siteview = props => {
         };
       },
       formatter: (value, row) =>
-      value ? (
-        <span>
+        value ? (
+          <span>
             {row.position}
-        </span>
-      ) : (
-        "Not Reported"
-      ),
+          </span>
+        ) : (
+          "Not Reported"
+        ),
     },
     {
       dataField: "sequence",
@@ -813,13 +926,13 @@ const Siteview = props => {
       text: proteinStrings.position.name,
       sort: true,
       formatter: (value, row) =>
-      value ? (
-        <span>
+        value ? (
+          <span>
             {row.position}
-        </span>
-      ) : (
-        "Not Reported"
-      ),
+          </span>
+        ) : (
+          "Not Reported"
+        ),
     },
     {
       dataField: "sequence",
@@ -848,6 +961,49 @@ const Siteview = props => {
     },
   ];
 
+  const paperColumns = [
+    {
+      headerStyle: (colum, colIndex) => {
+        return { display: "none" };
+      },
+      formatter: (cell, row) => {
+        return (
+          <div>
+            <div>
+              <h5 style={{ marginBottom: "3px" }}>
+                <strong>{row.title}</strong>{" "}
+              </h5>
+            </div>
+            <div>{row.authors}</div>
+            <div>
+              {row.journal} <span>&nbsp;</span>(
+              {row.date})
+            </div>
+            <div>
+              {row.reference.map((ref, ind) => (
+                <div key={ind}>
+                  <FiBookOpen />
+                  <span style={{ paddingLeft: "15px" }}>
+                    {ref.type}:
+                  </span>{" "}
+                  <Link
+                    to={`${routeConstants.publicationDetail}${ref.type}/${ref.id}`}
+                  >
+                    <>{ref.id}</>
+                  </Link>{" "}
+                </div>
+              ))}
+            </div>
+            <EvidenceList
+              inline={true}
+              evidences={groupEvidences(row.evidence)}
+            />
+          </div>
+        );
+      }
+    }
+  ];
+
   const {
     uniprot,
     mass,
@@ -860,7 +1016,8 @@ const Siteview = props => {
     snv,
     mutagenesis,
     phosphorylation,
-    glycation
+    glycation,
+    publication
   } = detailData;
 
   const setSidebarItemState = (items, itemId, disabledState) => {
@@ -896,6 +1053,22 @@ const Siteview = props => {
 
   function toggleCollapse(name, value) {
     setCollapsed({ [name]: !value });
+  }
+
+  /**
+ * Function to handle on change event for category accordian.
+ **/
+  function handleCategories(event, expanded, catInd) {
+    let catArr = expandedCategories;
+    if (expanded) {
+      catArr.catInd.push(catInd);
+    } else {
+      const ind = catArr.catInd.indexOf(catInd);
+      if (ind > -1) {
+        catArr.catInd.splice(ind, 1);
+      }
+    }
+    setExpandedCategories(catArr)
   }
 
   // ===================================== //
@@ -1015,7 +1188,7 @@ const Siteview = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.general.title}
@@ -1029,7 +1202,7 @@ const Siteview = props => {
                       {stringConstants.sidebar.general.displayname}
                     </h4>
                     <div className="float-end">
-                      <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1176,19 +1349,19 @@ const Siteview = props => {
                                 {organismEvidence[orgEvi].glygen_name}
                               </div>
                               <div>
-                                  <strong>{proteinStrings.reference_species.name}: </strong>
-                                  {orgEvi} {"["}
-                                  {/* <LineTooltip text="View details on NCBI"> */}
-                                  <a
-                                    href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {organismEvidence[orgEvi].taxid}
-                                  </a>
-                                  {/* </LineTooltip> */}
-                                  {"]"}
-                                  <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
+                                <strong>{proteinStrings.reference_species.name}: </strong>
+                                {orgEvi} {"["}
+                                {/* <LineTooltip text="View details on NCBI"> */}
+                                <a
+                                  href={`https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${organismEvidence[orgEvi].taxid}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {organismEvidence[orgEvi].taxid}
+                                </a>
+                                {/* </LineTooltip> */}
+                                {"]"}
+                                <EvidenceList evidences={organismEvidence[orgEvi].evidence} />
                               </div>
                             </div>
                           ))}
@@ -1208,7 +1381,7 @@ const Siteview = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.sequence.title}
@@ -1222,7 +1395,7 @@ const Siteview = props => {
                       {stringConstants.sidebar.sequence.displayname}
                     </h4>
                     <div className="float-end">
-                      <CardToggle cardid="sequence" toggle={collapsed.sequence} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="sequence" toggle={collapsed.sequence} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1244,15 +1417,15 @@ const Siteview = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-                {/*  Glycosylation */}
-                <Accordion
+              {/*  Glycosylation */}
+              <Accordion
                 id="Glycosylation"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
 
                       <HelpTooltip
@@ -1268,7 +1441,7 @@ const Siteview = props => {
                     </h4>
                     <div className="float-end">
 
-                    <span className="gg-download-btn-width text-end">
+                      <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
                             {
@@ -1277,7 +1450,7 @@ const Siteview = props => {
                               format: "csv",
                               data: "site_section",
                               section: "glycosylation",
-                            }  
+                            }
                           ]}
                           dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
@@ -1286,33 +1459,33 @@ const Siteview = props => {
                         />
                       </span>
 
-                      <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="glycosylation" toggle={collapsed.glycosylation} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {glycosylation && glycosylation.length > 0 && (
-                          <ClientServerPaginatedTableFullScreen
-                            data={glycosylation}
-                            columns={glycoSylationColumns}
-                            viewPort={true}
-                            title="Glycosylation"
-                            download={
-                              {
-                                  types:[
-                                    {
-                                      display: "Glycosylation (*.csv)",
-                                      type: "glycosylation_csv",
-                                      format: "csv",
-                                      data: "site_section",
-                                      section: "glycosylation",
-                                    }
-                                  ],
-                                dataId:id + "." + selectedPosition + "." + selectedPosition,
-                                itemType:"site_section"
-                              }
+                        <ClientServerPaginatedTableFullScreen
+                          data={glycosylation}
+                          columns={glycoSylationColumns}
+                          viewPort={true}
+                          title="Glycosylation"
+                          download={
+                            {
+                              types: [
+                                {
+                                  display: "Glycosylation (*.csv)",
+                                  type: "glycosylation_csv",
+                                  format: "csv",
+                                  data: "site_section",
+                                  section: "glycosylation",
+                                }
+                              ],
+                              dataId: id + "." + selectedPosition + "." + selectedPosition,
+                              itemType: "site_section"
                             }
-                          />
+                          }
+                        />
                       )}
 
                       {(!glycosylation || glycosylation.length === 0) && <p>{dataStatus}</p>}
@@ -1328,7 +1501,7 @@ const Siteview = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.phosphorylation.title}
@@ -1352,7 +1525,7 @@ const Siteview = props => {
                               format: "csv",
                               data: "site_section",
                               section: "phosphorylation",
-                            }  
+                            }
                           ]}
                           dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
@@ -1361,7 +1534,7 @@ const Siteview = props => {
                         />
                       </span>
 
-                      <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="phosphorylation" toggle={collapsed.phosphorylation} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1374,17 +1547,17 @@ const Siteview = props => {
                           title="Phosphorylation"
                           download={
                             {
-                                types:[
-                                  {
-                                    display: "Phosphorylation (*.csv)",
-                                    type: "phosphorylation_csv",
-                                    format: "csv",
-                                    data: "site_section",
-                                    section: "phosphorylation",
-                                  }
-                                ],
-                              dataId:id + "." + selectedPosition + "." + selectedPosition,
-                              itemType:"site_section"
+                              types: [
+                                {
+                                  display: "Phosphorylation (*.csv)",
+                                  type: "phosphorylation_csv",
+                                  format: "csv",
+                                  data: "site_section",
+                                  section: "phosphorylation",
+                                }
+                              ],
+                              dataId: id + "." + selectedPosition + "." + selectedPosition,
+                              itemType: "site_section"
                             }
                           }
                         />
@@ -1402,7 +1575,7 @@ const Siteview = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.glycation.title}
@@ -1420,13 +1593,13 @@ const Siteview = props => {
                       <span className="gg-download-btn-width text-end">
                         <DownloadButton
                           types={[
-                          {
+                            {
                               display: "Glycation (*.csv)",
                               type: "glycation_csv",
                               format: "csv",
                               data: "site_section",
                               section: "glycation",
-                            }  
+                            }
                           ]}
                           dataId={id + "." + selectedPosition + "." + selectedPosition}
                           itemType="site_section"
@@ -1435,7 +1608,7 @@ const Siteview = props => {
                         />
                       </span>
 
-                      <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="glycation" toggle={collapsed.glycation} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1448,17 +1621,17 @@ const Siteview = props => {
                           title="Glycation"
                           download={
                             {
-                                types:[
-                                  {
-                                    display: "Glycation (*.csv)",
-                                    type: "glycation_csv",
-                                    format: "csv",
-                                    data: "site_section",
-                                    section: "glycation",
-                                  }  
-                                ],
-                              dataId:id + "." + selectedPosition + "." + selectedPosition,
-                              itemType:"site_section"
+                              types: [
+                                {
+                                  display: "Glycation (*.csv)",
+                                  type: "glycation_csv",
+                                  format: "csv",
+                                  data: "site_section",
+                                  section: "glycation",
+                                }
+                              ],
+                              dataId: id + "." + selectedPosition + "." + selectedPosition,
+                              itemType: "site_section"
                             }
                           }
                         />
@@ -1468,15 +1641,15 @@ const Siteview = props => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-               {/*  SNV (Single-Nucleotide-Variation)*/}
-               <Accordion
+              {/*  SNV (Single-Nucleotide-Variation)*/}
+              <Accordion
                 id="Single-Nucleotide-Variation"
                 defaultActiveKey="0"
                 className="panel-width"
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.snv.title}
@@ -1506,33 +1679,33 @@ const Siteview = props => {
                           enable={(snv && snv.length > 0)}
                         />
                       </span>
-                      <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="mutation" toggle={collapsed.mutation} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       {snv && snv.length !== 0 && (
-                          <ClientServerPaginatedTableFullScreen
-                              data={snv}
-                              columns={mutationColumns}
-                              viewPort={true}
-                              title="Single Nucleotide Variation"
-                              download={
+                        <ClientServerPaginatedTableFullScreen
+                          data={snv}
+                          columns={mutationColumns}
+                          viewPort={true}
+                          title="Single Nucleotide Variation"
+                          download={
+                            {
+                              types: [
                                 {
-                                    types:[
-                                      {
-                                        display: "Single Nucleotide Variation (*.csv)",
-                                        type: "snv_mutations_csv",
-                                        format: "csv",
-                                        data: "site_section",
-                                        section: "snv_mutations",
-                                      }  
-                                    ],
-                                  dataId:id + "." + selectedPosition + "." + selectedPosition,
-                                  itemType:"site_section"
+                                  display: "Single Nucleotide Variation (*.csv)",
+                                  type: "snv_mutations_csv",
+                                  format: "csv",
+                                  data: "site_section",
+                                  section: "snv_mutations",
                                 }
-                              }
-                            />
+                              ],
+                              dataId: id + "." + selectedPosition + "." + selectedPosition,
+                              itemType: "site_section"
+                            }
+                          }
+                        />
                       )}
 
                       {(!snv || snv.length === 0) && <p>{dataStatus}</p>}
@@ -1549,7 +1722,7 @@ const Siteview = props => {
                 style={{ padding: "20px 0" }}
               >
                 <Card>
-                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
                         title={DetailTooltips.site.mutagenesis.title}
@@ -1583,7 +1756,7 @@ const Siteview = props => {
                         />
                       </span>
 
-                      <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="mutagenesis" toggle={collapsed.mutagenesis} eventKey="0" toggleCollapse={toggleCollapse} />
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -1596,22 +1769,181 @@ const Siteview = props => {
                           title="Mutagenesis"
                           download={
                             {
-                                types:[
-                                  {
-                                    display: "Mutagenesis (*.csv)",
-                                    type: "mutagenesis_csv",
-                                    format: "csv",
-                                    data: "site_section",
-                                    section: "mutagenesis",
-                                  }  
-                                ],
-                              dataId:id + "." + selectedPosition + "." + selectedPosition,
-                              itemType:"site_section"
+                              types: [
+                                {
+                                  display: "Mutagenesis (*.csv)",
+                                  type: "mutagenesis_csv",
+                                  format: "csv",
+                                  data: "site_section",
+                                  section: "mutagenesis",
+                                }
+                              ],
+                              dataId: id + "." + selectedPosition + "." + selectedPosition,
+                              itemType: "site_section"
                             }
                           }
                         />
                       )}
                       {(!mutagenesis || mutagenesis.length === 0) && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* Cross References */}
+              <Accordion
+                id="Cross-References"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.site.cross_references.title}
+                        text={DetailTooltips.site.cross_references.text}
+                        urlText={DetailTooltips.site.cross_references.urlText}
+                        url={DetailTooltips.site.cross_references.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.cross_ref.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <Button
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                        type="button"
+                        className="gg-btn-blue"
+                        onClick={() => { setShowCategories(!showCategories); setExpandedCategories({ catInd: [] }) }}
+                      >
+                        {showCategories ? "Hide All" : "Show All"}
+                      </Button>
+                      <CardToggle cardid="crossref" toggle={collapsed.crossref} eventKey="0" toggleCollapse={toggleCollapse} />
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {itemsCrossRef && itemsCrossRef.length ? (
+                        <div>
+                          {itemsCrossRef.map((dbItem, catInd) => (
+                            <AccordionMUI disableGutters={true} key={"catDiv" + catInd}
+                              expanded={showCategories ? !expandedCategories.catInd.includes(catInd) : expandedCategories.catInd.includes(catInd)}
+                              onChange={(event, expanded) => handleCategories(event, showCategories ? !expanded : expanded, catInd)}
+                            >
+                              <AccordionSummary
+                                style={{ backgroundColor: "#f5f8fa", height: "50px" }}
+                                expandIcon={<ExpandMoreIcon className="gg-blue-color" />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                              >
+                                <Typography className="gg-blue-color">{dbItem.category}</Typography>
+                              </AccordionSummary>
+                              <AccordionDetails style={{ paddingBottom: "0px" }}>
+                                <ul className="list-style-none">
+                                  {dbItem.database.map((crossRef, dbInd) => (
+                                    <li key={dbInd}>
+                                      <CollapsableReference
+                                        database={crossRef.database}
+                                        links={crossRef.links}
+                                      />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </AccordionDetails>
+                            </AccordionMUI>
+                          ))}
+                        </div>
+                      ) : (
+                        <span>{dataStatus}</span>
+                      )}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+
+              {/* publication */}
+              <Accordion
+                id="Publications"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <CardLoader pageLoading={cardLoadingPub} />
+                  <Card.Header style={{ paddingTop: "12px", paddingBottom: "12px" }} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={DetailTooltips.site.publications.title}
+                        text={DetailTooltips.site.publications.text}
+                        urlText={DetailTooltips.site.publications.urlText}
+                        url={DetailTooltips.site.publications.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {stringConstants.sidebar.publication.displayname}
+                    </h4>
+                    <div className="float-end">
+                      <span className="Sorted">Sort By</span>
+                      <select
+                        className="select-dropdown pt-0 pubselect"
+                        value={publicationSort}
+                        onChange={event =>
+                          setPublicationSort(event.target.value)
+                        }
+                      >
+                        <option value="title">Title</option>
+                        <option value="date">Date</option>
+                        <option value="journal">Journal</option>
+                        <option value="authors">Author List</option>
+                      </select>{" "}
+                      <select
+                        className="select-dropdown pt-0"
+                        value={publicationDirection}
+                        onChange={event =>
+                          setPublicationDirection(event.target.value)
+                        }
+                      >
+                        <option value="asc">Asc</option>
+                        <option value="desc">Desc</option>
+                      </select>
+                      <CardToggle cardid="publication" toggle={collapsed.publication} eventKey="0" toggleCollapse={toggleCollapse} />
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse
+                    eventKey="0"
+                    out={(collapsed.publication = "false")}
+                  >
+                    <Card.Body className="card-padding-zero">
+                      <div className="m-3">
+                        {publicationTotal !== undefined && publication && publication.length > 0 && <ClientServerPaginatedTable
+                          data={publication}
+                          columns={paperColumns}
+                          tableHeader={'paper-table-header'}
+                          wrapperClasses={"table-responsive table-height-auto"}
+                          defaultSizePerPage={200}
+                          defaultSortField={"date"}
+                          defaultSortOrder={"desc"}
+                          record_type={"site"}
+                          table_id={"publication"}
+                          record_id={id + "." + selectedPosition}
+                          serverPagination={true}
+                          totalDataSize={publicationTotal}
+                          currentSort={publicationSort}
+                          currentSortOrder={publicationDirection}
+                          setAlertDialogInput={setAlertDialogInput}
+                          setCardLoading={setCardLoadingPub}
+                        />}
+                      </div>
+                      {!publication || publication.length == 0 && (
+                        <p className="no-data-msg-publication">
+                          {dataStatus}
+                        </p>
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

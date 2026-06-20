@@ -506,11 +506,11 @@ const IdMapping = (props) => {
                   idMapSearchData.recordType === "any" || idMapSearchData.inputNamespace === "any"
                     ? []
                     : [
-                        ...Object.keys(initData[idMapSearchData.recordType].namespace).map(
+                        ...initData[idMapSearchData.recordType].namespace[idMapSearchData.inputNamespace].target_list.map(
                           (toId) => {
                             return {
-                              id: toId,
-                              name: toId,
+                              id: toId.target,
+                              name: toId.target,
                             };
                           }
                         ),
@@ -586,7 +586,7 @@ const IdMapping = (props) => {
             <ExampleExploreControl
               setInputValue={funcInputIdlistOnChange}
               inputValue={
-                idMapSearchData.recordType === "any" || idMapSearchData.inputNamespace === "any"
+                idMapSearchData.recordType === "any" || idMapSearchData.inputNamespace === "any" || idMapSearchData.outputNamespace === "any"
                   ? []
                   : [
                       {
@@ -595,7 +595,7 @@ const IdMapping = (props) => {
                           name: `Example for ${idMapSearchData.inputNamespace}: `,
                           id: initData[idMapSearchData.recordType].namespace[
                             idMapSearchData.inputNamespace
-                          ].example_id_list.join(", "),
+                          ]?.target_list.find(obj => obj.target === idMapSearchData.outputNamespace)?.example_id_list?.join(", "),
                         },
                       },
                     ]

@@ -13,14 +13,14 @@
 				"url": "https://www.linkedin.com/in/rajamazumder"
 			},
 			{
-				"name": "Michael Tiemeyer",
+				"name": "Rene Ranzinger",
 				"position": "Principal Investigator",
 				"department": "",
 				"institution": "The University of Georgia",
 				"location": "Athens, GA",
-				"image": "/team/Michael-Tiemeyer.jpg",
-				"imageText": "Michael Tiemeyer image",
-				"url": "https://ccrc.uga.edu/team/michael-tiemeyer/"
+				"image": "/team/Rene-Ranzinger.jpeg",
+				"imageText": "Rene Ranzinger image",
+				"url": ""
 			}
 		]
 	},
@@ -120,14 +120,14 @@
 			"subheading": "Software Development and Data Integration",
 			"people": [
 				{
-					"name": "Rene Ranzinger",
+					"name": "Michael Tiemeyer",
 					"position": "Co-Investigator",
 					"department": "",
 					"institution": "The University of Georgia",
 					"location": "Athens, GA",
-					"image": "/team/Rene-Ranzinger.jpeg",
-					"imageText": "Rene Ranzinger image",
-					"url": ""
+					"image": "/team/Michael-Tiemeyer.jpg",
+					"imageText": "Michael Tiemeyer image",
+					"url": "https://ccrc.uga.edu/team/michael-tiemeyer/"
 				},
 				{
 					"name": "Robel Kahsay",
@@ -240,21 +240,62 @@
 					"url": "https://www.linkedin.com/in/cyrusay/"
 				},
 				{
-					"name": "Swathi Murali Srinivasan",
-					"position": "Science and Social Media Outreach Manager",
+					"name": "Shovan Bhowmik",
+					"position": "Bioinformatics Programmer",
 					"department": "",
-					"institution": "The George Washington University",
-					"location": "Washington, DC",
-					"image": "/team/Swathi_Murali_Srinivasan.jpg",
-					"imageText": "Swathi Murali Srinivasan image",
-					"url": "https://www.linkedin.com/in/swathimuralisrinivasan/"
+					"institution": "The University of Delaware",
+					"location": "Newark, DE",
+					"image": "/team/Shovan-Bhowmik.jpg",
+					"imageText": "Shovan Bhowmik image",
+					"url": "https://www.linkedin.com/in/shovon-bhowmik-a15403171/"
 				}
 			]
 		}
 	},
+	"epi": {
+		"heading": "Emeritus Principal Investigators",
+		"people": [
+			{
+				"name": "William York",
+				"position": "Emeritus Principal Investigator",
+				"department": "",
+				"institution": "The University of Georgia",
+				"location": "Athens, GA",
+				"image": "/team/Will-York.png",
+				"imageText": "Will York image",
+				"url": "https://ccrc.uga.edu/team/william-york/",
+				"dateLeft1": "Left project May 2022",
+				"orderID1": 202205
+			}
+		]
+	},
 	"formerMembers": {
 		"heading": "Former Members",
 		"people": [
+			{
+				"name": "Rehma Malik",
+				"position": "Science and Social Media Outreach Manager",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Pic_Default.jpg",
+				"imageText": "Rehma Malik image",
+				"url": "",
+				"dateLeft": "Left project Mar 2026",
+				"orderID": 202603
+			},
+			{
+				"name": "Swathi Murali Srinivasan",
+				"position": "Science and Social Media Outreach Manager",
+				"department": "",
+				"institution": "The George Washington University",
+				"location": "Washington, DC",
+				"image": "/team/Swathi_Murali_Srinivasan.jpg",
+				"imageText": "Swathi Murali Srinivasan image",
+				"url": "https://www.linkedin.com/in/swathimuralisrinivasan/",
+				"dateLeft": "Left project May 2025",
+				"orderID": 202505
+			},
 			{
 				"name": "Michael Cherry",
 				"position": "",
@@ -265,7 +306,7 @@
 				"imageText": "Michael-Cherry image",
 				"url": "https://cherrylab.stanford.edu/",
 				"dateLeft": "Left project Mar 2025",
-				"orderID": 202409
+				"orderID": 202503
 			},
 			{
 				"name": "Luke Johnson",

@@ -16,15 +16,13 @@ const CollapsibleEvidenceArray = (props) => {
         <Row>
           {displayedItems.map((obj, index) => (
             <span key={index} xs={12} sm={12} style={{ marginBottom: "2px", verticalAlign: "middle", alignItems: "center" }}>
-              <li>
-                <span>
-                  <EvidenceList
-                    name={obj.name}
-                    inlineWithName={true}
-                    evidences={groupEvidences(obj.evidence)}
-                  />
-                </span>
-              </li>
+              <span>
+                <EvidenceList
+                  name={obj.name}
+                  inlineWithName={true}
+                  evidences={groupEvidences(obj.evidence)}
+                />
+              </span>
             </span>
           ))}
         </Row>

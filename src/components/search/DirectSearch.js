@@ -44,7 +44,7 @@ const DirectSearch = (props) => {
     execute(fieldType, fieldValue, nodeType, operator, fieldPath) {
       let json = this.dq.getJson(fieldType, fieldValue, nodeType, operator, fieldPath);
       console.log(JSON.stringify(json));
-      this.executeSearch(json, props.navigateTo);
+      this.executeSearch(json, props.navigateTo, props.byLinkage);
     }
   }
 

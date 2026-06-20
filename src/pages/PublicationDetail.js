@@ -76,10 +76,6 @@ const items = [
     id: "Biomarkers",
   },
   {
-    label: stringConstants.sidebar.tissue.displayname,
-    id: "Tissue"
-  },
-  {
     label: stringConstants.sidebar.expression.displayname,
     id: "Expression",
   },
@@ -283,10 +279,6 @@ const PublicationDetail = (props) => {
         }
         if (!detailDataTemp.mutagenesis || detailDataTemp.mutagenesis.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Mutagenesis", true);
-        }
-
-        if (!detailDataTemp.glycan_tissue || detailDataTemp.glycan_tissue.length === 0) {
-          newSidebarData = setSidebarItemState(newSidebarData, "Tissue", true);
         }
 
         if (!detailDataTemp.glycan_expression || detailDataTemp.glycan_expression.length === 0) {
@@ -836,7 +828,6 @@ const PublicationDetail = (props) => {
           "Not Reported"
         ),
     },
-
     {
       dataField: "glytoucan_ac",
       text: proteinStrings.glytoucan_ac.shortName,
@@ -884,6 +875,21 @@ const PublicationDetail = (props) => {
         ) : (
           "Not Reported"
         ),
+    },
+    {
+      dataField: "species.glygen_name",
+      text: glycanStrings.organism.shortName,
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return { backgroundColor: "#4B85B6", color: "white", width: "20%" };
+      },
+      formatter: (value, row) => (
+        <>
+        {row.species && (<span className="nowrap">
+          {row.species.glygen_name}
+          </span>)}
+        </>
+      )
     },
     {
       dataField: "start_pos",
@@ -2755,85 +2761,6 @@ const PublicationDetail = (props) => {
               </Card>
             </Accordion>
 
-            {/* Tissue */}
-            <Accordion
-              id="Tissue"
-              defaultActiveKey="0"
-              className="panel-width"
-              style={{ padding: "20px 0" }}
-            >
-              <Card>
-                <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
-                  <span className="gg-green d-inline">
-                    <HelpTooltip
-                      title={DetailTooltips.publication.tissue.title}
-                      text={DetailTooltips.publication.tissue.text}
-                      urlText={
-                        DetailTooltips.publication.tissue.urlText
-                      }
-                      url={DetailTooltips.publication.tissue.url}
-                      helpIcon="gg-helpicon-detail"
-                    />
-                  </span>
-                  <h4 className="gg-green d-inline">
-                    {stringConstants.sidebar.tissue.displayname}
-                  </h4>
-                  <div className="float-end">
-                    <span className="gg-download-btn-width text-end">
-                      <DownloadButton
-                        types={[
-                          {
-                            display: "Tissue (*.csv)",
-                            type: "tissue_csv",
-                            format: "csv",
-                            fileName: "tissue",
-                            data: "publication_section",
-                            section: "tissue",
-                          }
-                        ]}
-                        dataId={downloadId}
-                        itemType="publication_section"
-                        showBlueBackground={true}
-                        enable={tissue && tissue.length > 0}
-                      />
-                    </span>
-                    <CardToggle cardid="tissue" toggle={collapsed.tissue} eventKey="0" toggleCollapse={toggleCollapse}/>
-                  </div>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    {tissue && tissue.length !== 0 && (
-                      <ClientServerPaginatedTableFullScreen
-                        idField={"tissue.name"}
-                        data={tissue}
-                        columns={tissueColumns}
-                        defaultSortField={"tissue.name"}
-                        onClickTarget={"#tissue"}
-                        viewPort={true}
-                        title="Tissue"
-                        download={
-                          {
-                              types:[
-                                {
-                                  display: "Tissue (*.csv)",
-                                  type: "tissue_csv",
-                                  format: "csv",
-                                  fileName: "tissue",
-                                  data: "publication_section",
-                                  section: "tissue",
-                                }
-                              ],
-                              dataId:downloadId,
-                              itemType:"publication_section"
-                          }
-                        }
-                      />
-                    )}
-                    {!tissue && <p>{dataStatus}</p>}
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
 
             {/* Expression */}
             <Accordion

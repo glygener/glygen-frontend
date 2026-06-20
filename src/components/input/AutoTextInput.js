@@ -35,7 +35,7 @@ export default function AutoTextInput(props) {
 			return undefined;
 		}
 		if (props.inputValue) {
-			getTypeahed(props.typeahedID, props.fieldList, props.inputValue).then((response) => inputValueRef.current.trim() !== '' ? setOptions(response.data) : setOptions([]))
+			getTypeahed(props.typeahedID, props.fieldList, props.inputValue).then((response) => inputValueRef.current.trim() !== '' ? Array.isArray(response.data) ? setOptions(response.data) : setOptions([]) : setOptions([]))
 			.catch(function (error) {});
 		}
 

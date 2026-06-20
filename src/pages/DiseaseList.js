@@ -120,7 +120,7 @@ const DiseaseList = props => {
         return { width: "20%" };
       },
       formatter: (value, row) => (
-        <>
+        (value && value.length > 0) && <>
           <CollapsableTextArray data={value.map(obj => obj.name + " (" +obj.id + ")")} maxItems={5} />
         </>
       )

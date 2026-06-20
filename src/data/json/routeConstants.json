@@ -52,6 +52,8 @@
   "diseaseDetail": "/disease/",
   "batchRetrieval": "/batch-retrieval/",
   "batchRetrievalResult": "/batch-retrieval-result/",
+  "knowledgeGraphGlycan": "/knowledge-graph-glycan/",
+  "knowledgeGraphProtein": "/knowledge-graph-protein/",
   "home": "/home/",
   "default": "/"
 }

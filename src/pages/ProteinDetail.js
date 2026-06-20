@@ -185,6 +185,16 @@ function openProtvistaPage(uniprot_canonical_ac) {
   var url = "https://www.uniprot.org/uniprot/" + str + "/protvista";
   window.open(url);
 }
+
+  /**
+   *  opens uniprot_canonical_ac in graph view
+   * @param {object} uniprot_canonical_ac- uniprot canonical accession.
+   **/
+  function handleOpenGraphView(uniprot_canonical_ac) {
+    var url = routeConstants.knowledgeGraphProtein + uniprot_canonical_ac;
+    window.open(url);
+  }
+
 const sortByPosition = function (a, b) {
   if (a.start_pos < b.start_pos) {
     return -1;
@@ -624,8 +634,8 @@ const ProteinDetail = (props) => {
         }
 
         if (data.gene_names) {
-          let geneNamesRecTemp = formatNamesDataBasedOnType(data.gene_names, "recommended");
-          let geneNamesSynTemp = formatNamesDataBasedOnType(data.gene_names, "synonym");
+          let geneNamesRecTemp = formatNamesDataBasedOnTypeWithEvidence(data.gene_names, "recommended");
+          let geneNamesSynTemp = formatNamesDataBasedOnTypeWithEvidence(data.gene_names, "synonym");
 
           setGeneNamesRec(geneNamesRecTemp);
           setGeneNamesSyn(geneNamesSynTemp)
@@ -640,8 +650,8 @@ const ProteinDetail = (props) => {
 
           let protein_names = data.protein_names.filter(obj => !enzyme_annotation.includes(obj.name))
 
-          let proteinNamesRecTemp = formatNamesDataBasedOnType(protein_names, "recommended");
-          let proteinNamesSynTemp = formatNamesDataBasedOnType(protein_names, "synonym");
+          let proteinNamesRecTemp = formatNamesDataBasedOnTypeWithEvidence(protein_names, "recommended");
+          let proteinNamesSynTemp = formatNamesDataBasedOnTypeWithEvidence(protein_names, "synonym");
 
           setProteinNamesRec(proteinNamesRecTemp);
           setProteinNamesSyn(proteinNamesSynTemp)
@@ -1017,6 +1027,7 @@ const ProteinDetail = (props) => {
     keywords,
     function: functions,
     cluster_types,
+    tool_support,
     history,
   } = detailData;
   // alert(detailData.sequence)
@@ -1084,6 +1095,12 @@ function formatNamesDataBasedOnType(data, type) {
         });
       }
     });
+    return items;
+  }
+
+  function formatNamesDataBasedOnTypeWithEvidence(data, type) {
+    let items = [];
+    items = data.filter(obj => obj.type === type);
     return items;
   }
 
@@ -2505,6 +2522,29 @@ function formatNamesDataBasedOnType(data, type) {
                       {stringConstants.sidebar.general.displayname}
                     </h4>
                     <div className="float-end">
+                      <span>
+                        <Button
+                          type="button"
+                          className="gg-btn-blue"
+                          style={{
+                            height: "42px"
+                          }}
+                          disabled={
+                            tool_support && tool_support.graph_view === "yes"
+                              ? false
+                              : true
+                          }
+                          onClick={() => {
+                            handleOpenGraphView(
+                              uniprot && uniprot.uniprot_canonical_ac
+                            );
+                          }}
+                        >
+                          <span>
+                          </span>
+                          Graph View
+                        </Button>
+                      </span>
                       <CardToggle cardid="general" toggle={collapsed.general} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>

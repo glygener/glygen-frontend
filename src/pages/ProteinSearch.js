@@ -66,6 +66,7 @@ const ProteinSearch = props => {
       proGlycosylationSubType: "",
       proBiomarkerDisease: "",
       proBiomarkerType: { id: "", name: "" },
+      proProteinOfInterest: { id: "", name: "" },
       proAdvSearchValError: [
         false,
         false,
@@ -484,6 +485,17 @@ const ProteinSearch = props => {
                       id: data.cache_info.query.biomarker.type,
                       name: data.cache_info.query.biomarker.type.charAt(0).toUpperCase() + data.cache_info.query.biomarker.type.slice(1)
                     },
+                  proProteinOfInterest:
+                    data.cache_info.query.poi_type === undefined
+                  ? {
+                      id: advancedSearch.poi_type.placeholderId,
+                      name: advancedSearch.poi_type.placeholderName
+                    }
+                  : {
+                      id: data.cache_info.query.poi_type,
+                      name: data.cache_info.query.poi_type.charAt(0).toUpperCase() + data.cache_info.query.poi_type.slice(1)
+                    }
+                    
                 });
 
                 setProActTabKey("Advanced-Search");
@@ -573,6 +585,7 @@ const ProteinSearch = props => {
    * @param {string} input_binding_glycan_id user input
    * @param {string} input_biomarker_disease - input_biomarker_disease value.
 	 * @param {object} input_biomarker_type - input_biomarker_type value.
+   * @param {object} input_protein_of_interest - input_protein_of_interest value.
    * @return {string} returns json
    */
   function searchJson(
@@ -599,7 +612,8 @@ const ProteinSearch = props => {
     input_attached_glycan_id,
     input_binding_glycan_id,
     input_biomarker_disease,
-    input_biomarker_type
+    input_biomarker_type,
+    input_protein_of_interest
   ) {
     var uniprot_id = input_protein_id;
     if (uniprot_id) {
@@ -707,6 +721,7 @@ const ProteinSearch = props => {
         ? input_binding_glycan_id
         : undefined,
       [commonProteinData.biomarker.id]: biomarker ? biomarker	: undefined,
+      [commonProteinData.poi_type.id]: input_protein_of_interest ? input_protein_of_interest	: undefined,
     };
     return formjson;
   }
@@ -741,7 +756,8 @@ const ProteinSearch = props => {
       proAdvSearchData.proAttachedGlycanId,
       proAdvSearchData.proBindingGlycanId,
       proAdvSearchData.proBiomarkerDisease,
-      proAdvSearchData.proBiomarkerType.id
+      proAdvSearchData.proBiomarkerType.id,
+      proAdvSearchData.proProteinOfInterest.id
     );
     logActivity("user", id, "Performing Advanced Search");
     let message = "Advanced Search query=" + JSON.stringify(formObject);

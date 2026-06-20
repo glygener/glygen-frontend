@@ -208,6 +208,14 @@ const ProteinAdvancedSearch = (props) => {
 	}
 
 	/**
+	 * Function to set protein of interest value.
+	 * @param {string} value - input protein of interest value.
+	 **/
+	const proProteinOfInterestOnChange = (value, name) => {
+		props.setProAdvSearchData({ proProteinOfInterest: {id: value, name: name} });
+	}
+
+	/**
 	 * Function to set glycosylation sub type value.
 	 * @param {string} value - input glycosylation evidence sub type value.
 	 **/
@@ -293,6 +301,7 @@ const ProteinAdvancedSearch = (props) => {
 			proBindingGlycanId: '',
 			proBiomarkerDisease: "",
 			proBiomarkerType: { id: "", name: "" },
+			proProteinOfInterest: { id: "", name: "" },
 			proAdvSearchValError: [false, false, false, false, false,
 				false, false, false, false, false, false, false, false]
 		});
@@ -881,6 +890,29 @@ const ProteinAdvancedSearch = (props) => {
 							placeholderName={advancedSearch.biomarker_type.placeholderName}
 							menu={props.initData.biomarker_types.map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
 							setInputValue={proBiomarkerTypeOnChange}
+						/>
+					</FormControl>
+				</Grid>
+				{/* Protein of Interest */}
+				<Grid item size={{ xs: 12, sm: 10 }}>
+					<FormControl
+						fullWidth
+						variant='outlined'
+					>
+						<Typography className={'search-lbl'} gutterBottom>
+							<HelpTooltip
+                                title={commonProteinData.poi_type.tooltip.title}
+                                text={commonProteinData.poi_type.tooltip.text}
+                            />
+                            {commonProteinData.poi_type.name}
+						</Typography>
+						<SelectControl
+							inputValue={props.inputValue.proProteinOfInterest.id}
+							placeholder={advancedSearch.poi_type.placeholder}
+							placeholderId={advancedSearch.poi_type.placeholderId}
+							placeholderName={advancedSearch.poi_type.placeholderName}
+							menu={props.initData.poi_types.map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
+							setInputValue={proProteinOfInterestOnChange}
 						/>
 					</FormControl>
 				</Grid>

@@ -50,6 +50,8 @@ import DiseaseList from "./pages/DiseaseList";
 import DiseaseDetail from "./pages/DiseaseDetail";
 import BatchRetrieval from "./pages/BatchRetrieval";
 import BatchRetrievalResult from "./pages/BatchRetrievalResult"
+import KnowledgeGraphGlycan from "./pages/KnowledgeGraphGlycan"
+import KnowledgeGraphProtein from "./pages/KnowledgeGraphProtein"
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -99,6 +101,8 @@ const Routes = (props) => (
     <Route path={routeConstants.outreach} element={<Outreach/>} />
     <Route path={routeConstants.frameworks} element={<Frameworks/>} />
     <Route path={routeConstants.media} element={<Media/>} />
+    <Route path={`${routeConstants.knowledgeGraphGlycan}:id`} element={<KnowledgeGraphGlycan/>} />
+    <Route path={`${routeConstants.knowledgeGraphProtein}:id`} element={<KnowledgeGraphProtein/>} />
     <Route path={`${routeConstants.orthologsList}:id/:searchId`} element={<OrthologsList/>} />
     <Route path={`${routeConstants.locusList}:id/:searchId`} element={<LocusList/>} />
     <Route path={`${routeConstants.quickSearch}:id/:questionId`} element={<QuickSearch/>} />
@@ -144,6 +148,7 @@ const Routes = (props) => (
 
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />
+    <Route path={"*"} element={<Home/>} />
   </Switch>
 );
 

@@ -528,7 +528,7 @@ const nodeTemplate = (node, options) => {
     {
       dataField: "evidence",
       text: proteinStrings.evidence.name,
-      sort: true,
+      sort: false,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white", width: "25%" };
       },
@@ -558,7 +558,7 @@ const nodeTemplate = (node, options) => {
       ),
     },
     {
-      dataField: "biomarker_canonical_id	",
+      dataField: "biomarker_canonical_id",
       text: "Biomarker Canonical Id",
       sort: true,
       selected: true,
@@ -576,7 +576,7 @@ const nodeTemplate = (node, options) => {
      {
       dataField: "best_biomarker_role",
       text: "Best Biomarker Role	",
-      sort: true,
+      sort: false,
       selected: true,
       headerStyle: (colum, colIndex) => {
         return { backgroundColor: "#4B85B6", color: "white" };

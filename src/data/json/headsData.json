@@ -727,5 +727,31 @@
         "content": ""
       }
     ]
+  },
+   "proteinKnowledgeGraph": {
+    "title": "Protein Knowledge Graph | Knowledge Graph for #uniprot_canonical_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Protein knowledge graph about selected protein."
+      },
+      {
+        "name": "keywords",
+        "content": "Protein, knowledge graph."
+      }
+    ]
+  },
+  "glycanKnowledgeGraph": {
+    "title": "Glycan Knowledge Graph | Knowledge Graph for #glytoucan_ac | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Glycan knowledge graph about selected glycan."
+      },
+      {
+        "name": "keywords",
+        "content": "Glycan, knowledge graph."
+      }
+    ]
   }
 }

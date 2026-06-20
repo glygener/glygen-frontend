@@ -39,7 +39,7 @@ export default function MultilineAutoTextInput(props) {
     }
 
       if (props.inputValue) {
-          getTypeahed(props.typeahedID, undefined, props.inputValue.substring(props.inputValue.lastIndexOf(",") + 1)).then(response => inputValueRef.current.trim() !== '' ? setOptions(response.data) : setOptions([]))
+          getTypeahed(props.typeahedID, undefined, props.inputValue.substring(props.inputValue.lastIndexOf(",") + 1)).then(response => inputValueRef.current.trim() !== '' ? Array.isArray(response.data) ? setOptions(response.data) : setOptions([]) : setOptions([]))
 			    .catch(function (error) {});
       }
 

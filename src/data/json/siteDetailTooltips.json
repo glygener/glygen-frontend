@@ -24,6 +24,30 @@
       "title": "Glycosylation",
       "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
     },
+    "glycosylation_with_glycans": {
+      "urlText": "Read more...",
+      "text": "The Glycosylation section provides information on reported glycosylation site with glycans attached to the protein.",
+      "title": "Glycosylation - Reported Site with Glycans",
+      "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
+    },
+    "glycosylation_reported": {
+      "urlText": "Read more...",
+      "text": "The Glycosylation section provides information on reported glycosylation site.",
+      "title": "Glycosylation - Reported Site",
+      "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
+    },
+    "glycosylation_predicted": {
+      "urlText": "Read more...",
+      "text": "The Glycosylation section provides information on predicted glycosylation site.",
+      "title": "Glycosylation - Predicted Only",
+      "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
+    },
+    "glycosylation_mining": {
+      "urlText": "Read more...",
+      "text": "The Glycosylation section provides information on glycosylation site text mined from publications.",
+      "title": "Glycosylation - Text Mining",
+      "url": "https://wiki.glygen.org/index.php/Site_details/Glycosylation"
+    },
     "snv": {
       "urlText": "Read more...",
       "text": "The Single Nucleotide Variation (SNV) section provides information on disease and non-disease associated mutations on the site of the protein. These are most commonly nonsynonymous mutations which cause a different amino acid to be produced at a given position.",
@@ -41,6 +65,18 @@
       "text": "The Mutagenesis section provides a list of experimental change of the amino acid on the site of the protein together with a description of the effects of the change.",
       "title": "Mutagenesis",
       "url": "https://wiki.glygen.org/index.php/Site_details/Mutagenesis"
+    },
+    "cross_references": {
+      "urlText": "Read more...",
+      "text": "The Cross References section provides a list of database entries and links for the glycan in other databases.",
+      "title": "Cross References",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/Cross_references"
+    },
+    "publications": {
+      "urlText": "Read more...",
+      "text": "The Publications section contains publications where the given glycan was mentioned. The publication information comes from multiple data sources.",
+      "title": "Publications",
+      "url": "https://wiki.glygen.org/index.php/Glycan_details/Publications"
     }
   }
 }

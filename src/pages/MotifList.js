@@ -116,7 +116,7 @@ const MotifList = props => {
 	* @param {boolean} selected - true if sample query is executed.
 	* @param {boolean} selected - true if sample query is executed.
   **/
-  function executeSuperSearchQuery(superSearchQuery, navigateTo) {
+  function executeSuperSearchQuery(superSearchQuery, navigateTo, byLinkage) {
 
     superSearchQuery = {
       concept_query_list : [superSearchQuery]
@@ -142,8 +142,10 @@ const MotifList = props => {
             );
           }
         }
-        if (navigateTo === "glycan") {
-          if (searchData.results_summary.glycan.list_id === "") {
+        if (navigateTo === "glycan" && byLinkage === "motif") {
+          if (searchData.results_summary.glycan === undefined || searchData.results_summary.glycan.bylinkage === undefined ||
+              searchData.results_summary.glycan.bylinkage.motif === undefined || searchData.results_summary.glycan.bylinkage.motif.list_id === undefined ||
+              searchData.results_summary.glycan.bylinkage.motif.list_id === "") {
             let error = {
               id: "no_data",
               error_code: "directSearchError"
@@ -152,7 +154,7 @@ const MotifList = props => {
           } else {
             setPageLoading(false);
             navigate(
-              routeConstants.glycanList + searchData.results_summary.glycan.list_id + "/sups"
+              routeConstants.glycanList + searchData.results_summary.glycan.bylinkage.motif.list_id + "/sups"
             );
           }
         }
@@ -257,6 +259,7 @@ const MotifList = props => {
             operator="$eq"
             fieldPath= "motif_ac"
             navigateTo = "glycan"
+            byLinkage = "motif"
             executeSearch={executeSuperSearchQuery}
           />}
         </div>

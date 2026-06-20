@@ -80,6 +80,21 @@ export function sortIgnoreCase(a, b) {
  * @param {object} a input value.
  * @param {object} b input value.
  **/
+export function sortByWeight(a, b) {
+  if (a.weight > b.weight) {
+    return -1;
+  }
+  if (b.weight > a.weight) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * Function to sort based on order.
+ * @param {object} a input value.
+ * @param {object} b input value.
+ **/
 export function sortByOrder(a, b) {
   return a.order - b.order;
 }
