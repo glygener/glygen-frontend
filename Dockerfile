@@ -9,7 +9,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 RUN npm install --silent
-RUN npm install git+ssh://github.com/MaayanLab/cfde-wheel.git
 # RUN npm install react-scripts@3.4.0 -g --silent
 RUN npm install google-maps-react@2.0.6 --silent --legacy-peer-deps
 RUN npm install react-bootstrap-table-next@4.0.3 --silent --legacy-peer-deps
