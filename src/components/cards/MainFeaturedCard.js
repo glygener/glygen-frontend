@@ -178,7 +178,7 @@ export default function MainFeaturedCard(props) {
                       paddingLeft: "15px",
                     }}
                 >
-                CFDE Wheel
+                CFDE
                 </span>
               </div>
             </div>}
