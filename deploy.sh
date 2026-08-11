@@ -69,7 +69,7 @@ compose_deploy() {
     local extra_file="$2"
     local up_mode="$3"
 
-    "${DOCKER_COMPOSE[@]}" -f docker-compose.yml -f "${extra_file}" --project-name "${project_name}" rm --force
+    docker rm -f "${project_name}"
     "${DOCKER_COMPOSE[@]}" -f docker-compose.yml -f "${extra_file}" --project-name "${project_name}" up "${up_mode}" --build
     docker image prune --force
 }
