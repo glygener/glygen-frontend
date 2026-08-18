@@ -2345,6 +2345,19 @@ const GlycanDetail = props => {
                           }}
                         />
                       </span>
+                      <span>
+                        <Link to={ structureMenu.length > 1 ? `${routeConstants.compare3DView}glycan/${id}/${id}`: `${routeConstants.compare3DView}glycan/${id}` }
+                          style={structureUrl === "" ? { pointerEvents: 'none' } : {}}>
+                          <Button
+                            type="button"
+                            style={{ marginLeft: "10px" }}
+                            className="gg-btn-blue"
+                            disabled={structureUrl === ""}
+                          >
+                             Compare 3D View
+                          </Button>
+                        </Link>
+                      </span>
                       <span className="gg-download-btn-width text-end">
                         <DownloadFile
                           id={id}

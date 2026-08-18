@@ -52,6 +52,7 @@ import BatchRetrieval from "./pages/BatchRetrieval";
 import BatchRetrievalResult from "./pages/BatchRetrievalResult"
 import KnowledgeGraphGlycan from "./pages/KnowledgeGraphGlycan"
 import KnowledgeGraphProtein from "./pages/KnowledgeGraphProtein"
+import Compare3DView from "./pages/Compare3DView"
 
 /**
  * Defines route path for Glygen. Use routeConstants from routeConstants.json.
@@ -145,6 +146,10 @@ const Routes = (props) => (
     <Route path={`${routeConstants.diseaseSearch}:id`} element={<DiseaseSearch/>} />
     <Route path={routeConstants.diseaseSearch} element={<DiseaseSearch/>} />
     <Route path={`${routeConstants.diseaseDetail}:id`} element={<DiseaseDetail/>} />
+    <Route path={`${routeConstants.compare3DView}:type/:id1/:id2`} element={<Compare3DView/>} />
+    <Route path={`${routeConstants.compare3DView}:type/:id1`} element={<Compare3DView/>} />
+    <Route path={`${routeConstants.compare3DView}:type`} element={<Compare3DView/>} />
+    <Route path={routeConstants.compare3DView} element={<Compare3DView/>} />
 
     <Route path={routeConstants.home} element={<Home/>} />
     <Route path={routeConstants.default} element={<Home/>} />

@@ -59,6 +59,15 @@
           }
         }
       ],
+      "examples1": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "G36191CD"
+          }
+        }
+      ],
       "subsumption": [
         {
           "id": "any",

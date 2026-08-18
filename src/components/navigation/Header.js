@@ -273,6 +273,14 @@ export default function Header(props) {
                   Sequence Format Converter
                 </NavDropdown.Item>
                 <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
+                <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="3D View Comparisons">
+                  <NavDropdown.Item as={NavLink} to={routeConstants.compare3DView + "glycan"}>
+                    Glycan
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to={routeConstants.compare3DView + "protein"}>
+                    Protein
+                  </NavDropdown.Item>
+                </NavDropdown>
                 <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="Third Party Tools">
                   <NavDropdown.Item href={CFDE_GENE_PAGES} target="_blank" rel="noopener noreferrer">
                     Gene and Drug Landing Page Aggregator

@@ -753,5 +753,18 @@
         "content": "Glycan, knowledge graph."
       }
     ]
+  },
+  "compare3DView": {
+    "title": "GlyGen 3D View Comparison | glygen.org",
+    "meta": [
+      {
+        "name": "description",
+        "content": "Visualizing and comparing 3D glycan, protein models."
+      },
+      {
+        "name": "keywords",
+        "content": "Glycan, Protein, 3D view comparison."
+      }
+    ]
   }
 }

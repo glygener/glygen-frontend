@@ -112,6 +112,15 @@
             "id": "P14210"
           }
         }
+      ],
+      "examples1": [
+        {
+          "orderID": 100,
+          "example": {
+            "name": "Example",
+            "id": "P62979-1"
+          }
+        }
       ]
     },
     "refseq_ac": {
