@@ -635,7 +635,7 @@ export function Compare3DView() {
                         />
                         <ExampleExploreControl
                           setInputValue={(val) => { proteinIdChange1(val); setProteinID1(val) }}
-                          inputValue={advancedSearch.uniprot_canonical_ac.examples}
+                          inputValue={advancedSearch.uniprot_canonical_ac.examples1}
                         />
                       </FormControl>
                     </Grid>
@@ -779,7 +779,7 @@ export function Compare3DView() {
                       />
                       <ExampleExploreControl
                         setInputValue={(val) => { proteinIdChange2(val); setProteinID2(val) }}
-                        inputValue={advancedSearch.uniprot_canonical_ac.examples1}
+                        inputValue={advancedSearch.uniprot_canonical_ac.examples2}
                       />
                     </FormControl>
                   </div>}
