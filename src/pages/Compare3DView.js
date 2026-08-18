@@ -526,7 +526,7 @@ export function Compare3DView() {
 
               if (menu.length > 0) {
                 let i = 0;
-                if (proteinID1 === proteinID2)
+                if (glycanID1 === glycanID2)
                   i = menu.length > 1 ? 1 : 0;
 
                 setStructure2(menu[i].id);
