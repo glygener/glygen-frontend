@@ -273,7 +273,7 @@ export default function Header(props) {
                   Sequence Format Converter
                 </NavDropdown.Item>
                 <NavDropdown.Divider className="ms-2 me-2" style={{backgroundColor:"#eff1f4"}}/>
-                <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="3D View Comparisons">
+                <NavDropdown className={"dropdown-navbar-submenu gg-dropdown-navbar-submenu dropend"} id="basic-nav-dropdown" title="3D View Comparison">
                   <NavDropdown.Item as={NavLink} to={routeConstants.compare3DView + "glycan"}>
                     Glycan
                   </NavDropdown.Item>
