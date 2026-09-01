@@ -46,6 +46,7 @@ import proteinSearchData from '../data/json/proteinSearch';
 import ExampleExploreControl from '../components/example/ExampleExploreControl.js';
 import glycanSearchData from "../data/json/glycanSearch";
 import { sortByOrder } from "../utils/common.js";
+import { display } from "@mui/system";
 
 export function Compare3DView() {
   let { type, id1, id2 } = useParams();
@@ -566,7 +567,7 @@ export function Compare3DView() {
           <h2>
             {" "}
             <span>
-              3D View comparison
+              3D Multiview
             </span>
           </h2>
         </div>
@@ -704,6 +705,22 @@ export function Compare3DView() {
                       </FormControl>
                     </Grid>
                   </div>
+
+                  <div className="pb-4">
+                    <div className="text-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadFile
+                          id={id1}
+                          url={structureUrl1}
+                          enable={structureUrl1 !== ""}
+                          mimeType={"text/plain"}
+                          itemType={"url_file_download"}
+                          fileName={structure1 +".pdb"}
+                        />
+                      </span>
+                  </div>
+                </div>
+
                   <Grid item>
                     {moleculeType === "protein" && <Row>
                       {tool_support1 && tool_support1.pdb === "yes" && structureUrl1 ?
@@ -741,9 +758,7 @@ export function Compare3DView() {
                         )}
                     </Row>}
                   </Grid>
-
                 </Grid>
-
 
                 {/* Protein Id */}
                 <Grid item size={{ xs: 5.6, sm: 5.6 }}>
@@ -843,6 +858,22 @@ export function Compare3DView() {
                       />
                     </FormControl>
                   </div>
+
+                  <div className="pb-4">
+                    <div className="text-end">
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadFile
+                          id={id2}
+                          url={structureUrl2}
+                          enable={structureUrl2 !== ""}
+                          mimeType={"text/plain"}
+                          itemType={"url_file_download"}
+                          fileName={structure2 +".pdb"}
+                        />
+                      </span>
+                    </div>
+                  </div>
+
                   {moleculeType === "protein" && <Row>
                     {tool_support2 && tool_support2.pdb === "yes" && structureUrl2 ?
                       (<div>
