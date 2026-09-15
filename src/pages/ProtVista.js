@@ -253,7 +253,7 @@ useEffect(() => {
               accession: data.uniprot.uniprot_canonical_ac,
               type: bsites.start_aa,
               click: "block",
-              title: bsites.start_aa + "-" + bsites.start_pos + " to " + bsites.end_aa + "-" + bsites.end_pos,
+              title: bsites.start_aa + "-" + bsites.start_pos,
               tooltipContent:
                 "<div className=marker>Ligand: " +
                 met + "<sup>" + supScrp + "</sup>" +
