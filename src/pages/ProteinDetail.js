@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext, useRef } from "react";
 import { getProteinDetail } from "../data/protein";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -72,6 +72,8 @@ import GlyGenNotificationContext from "../components/GlyGenNotificationContext.j
 import { addIDsToStore } from "../data/idCartApi"
 import CollapsableTextArray from "../components/CollapsableTextArray";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -471,6 +473,7 @@ const ProteinDetail = (props) => {
   const [sequenceFeatures, setSequenceFeatures] = useState(undefined);
   const {showTotalCartIdsNotification} = useContext(GlyGenNotificationContext);
 
+  const [glycoLens, setGlycoLens] = useState(false);
 
   useEffect(() => {
     setNonExistent(null);
@@ -1058,6 +1061,7 @@ const ProteinDetail = (props) => {
     binding_sites,
     phosphorylation,
     glycation,
+    lectin_list,
     disease,
     sequence,
     go_annotation,
@@ -1989,13 +1993,11 @@ function formatNamesDataBasedOnType(data, type) {
       text: "Residues",
       sort: true,
       formatter: (value, row) =>
-      value ?  (row.sites.map(obj =>
-        <LineTooltip text="View siteview details">
-          <Link to={`${routeConstants.siteview}${id}/${obj.position}`}>
+      value ?  (row.sites.map((obj, index, arr) =>
+        <span>
             {obj.amino_acid}
-            {obj.position}{" "}
-          </Link>
-        </LineTooltip>))
+            {obj.position}{index === arr.length -1 ? "" : "; "}
+        </span>))
         : (
         "Not Reported"
       )    
@@ -2016,7 +2018,7 @@ function formatNamesDataBasedOnType(data, type) {
       }
     },
     {
-      dataField: "note",
+      dataField: "uniprotkb_ligand_comment",
       text: "Notes",
       sort: true,
       headerStyle: (colum, colIndex) => {
@@ -2024,7 +2026,7 @@ function formatNamesDataBasedOnType(data, type) {
           width: "20%",
         };
       },
-      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+      formatter: (value, row) => <CollapsibleText text={row.uniprotkb_ligand_comment} lines={2} />,
     },
   ];
 
@@ -2066,7 +2068,7 @@ function formatNamesDataBasedOnType(data, type) {
             {row.end_pos}
           </span>
         ) : (
-          "Not Reported"
+          ""
         )
     },
     {
@@ -2090,15 +2092,15 @@ function formatNamesDataBasedOnType(data, type) {
         };
       },
        formatter: (value, row) =>
-        value ?  (row.glycosite_overlap.map(obj =>
+        value ?  (row.glycosite_overlap.map((obj, index, arr) =>
           <LineTooltip text="View siteview details">
             <Link to={`${routeConstants.siteview}${id}/${obj.position}`}>
               {obj.amino_acid}
-              {obj.position}{" "}
+              {obj.position}{index === arr.length -1 ? "" : "; "}
             </Link>
           </LineTooltip>))
          : (
-          "Not Reported"
+          ""
         )
     },
   ];
@@ -2850,6 +2852,33 @@ function formatNamesDataBasedOnType(data, type) {
 													<p className="no-data-msg">{dataStatus}</p>
 												)} */}
                       </div>
+
+                      {lectin_list && lectin_list.length && (
+                        <div>
+                          <span>
+                              <strong>{"Lectin Class"}:&nbsp;</strong>
+                          </span>
+                          <span className="ps-0">
+                            {lectin_list.map((lectin, ind) => (
+                              <span
+                                key={lectin.lectin_class}
+                              >
+                                <span>
+                                  {lectin.lectin_class}
+                                </span>
+                                <span>
+                                  <EvidenceList
+                                    inline={true} key={"evidence" + ind}
+                                    evidences={groupEvidences(
+                                      lectin.evidence ? lectin.evidence : []
+                                    )}
+                                  />
+                                </span>
+                              </span>
+                            ))}{" "}
+                          </span>
+                        </div>
+                      )}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
@@ -3739,6 +3768,27 @@ function formatNamesDataBasedOnType(data, type) {
                       Domain
                     </h4>
                     <div className="float-end">
+                      <span className="text-end gg-download-btn-width pb-3">
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={glycoLens}
+                              onChange={() => {
+                                try {
+                                  setGlycoLens(!glycoLens);
+                                } catch(error) {
+                                }
+                              }}
+                              name="checkedB"
+                              color="primary"
+                            />
+                          }
+                          label="GlycoLens"
+                          classes={{
+                            root:"gg-txt-blue"
+                          }}
+                        />
+                      </span>
                       <span>
                         <Link to={`${routeConstants.protVista}${id}`}>
                           <Button
@@ -3776,7 +3826,7 @@ function formatNamesDataBasedOnType(data, type) {
                     <Card.Body>
                       {domain_list && domain_list.length !== 0 && (
                         <ClientServerPaginatedTableFullScreen
-                          data={domain_list}
+                          data={domain_list.filter(obj => glycoLens ? obj.glycosite_overlap && obj.glycosite_overlap.length > 0: true)}
                           columns={domainColumns}
                           onClickTarget={"#domain"}
                           defaultSortField={"start_pos"}

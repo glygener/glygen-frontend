@@ -1004,7 +1004,7 @@ useEffect(() => {
                   <nightingale-navigation
                     id="navigation"
                     class={`nav-track glycotrack`}
-                    length={data.sequence.length * 1.4}
+                    length={data.sequence.length}
                     display-start={1}
                     display-end={data.sequence.length}
                     ruler-start={1}
