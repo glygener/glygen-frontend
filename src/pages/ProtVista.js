@@ -60,58 +60,7 @@ const ProtVista = () => {
   const oGlycanWithImage = useRef(null);
   const oGlycanWithoutImage = useRef(null);
   const nSequon = useRef(null);
-
-  const metal0Data = useRef(null);
-  const metal1Data = useRef(null);
-  const metal2Data = useRef(null);
-  const metal3Data = useRef(null);
-  const metal4Data = useRef(null);
-  const metal5Data = useRef(null);
-  const metal6Data = useRef(null);
-  const metal7Data = useRef(null);
-  const metal8Data = useRef(null);
-  const metal9Data = useRef(null);
-  const metal10Data = useRef(null);
-  const metal11Data = useRef(null);
-  const metal12Data = useRef(null);
-  const metal13Data = useRef(null);
-  const metal14Data = useRef(null);
-  const metal15Data = useRef(null);
-  const metal16Data = useRef(null);
-  const metal17Data = useRef(null);
-  const metal18Data = useRef(null);
-  const metal19Data = useRef(null);
-  const metal20Data = useRef(null);
-  const metal21Data = useRef(null);
-
-  const metalRefs = {
-    metal0Data : metal0Data,
-    metal1Data : metal1Data,
-    metal2Data : metal2Data,
-    metal3Data : metal3Data,
-    metal4Data : metal4Data,
-    metal5Data : metal5Data,
-    metal6Data : metal6Data,
-    metal7Data : metal7Data,
-    metal8Data : metal8Data,
-    metal9Data : metal9Data,
-    metal10Data : metal10Data,
-    metal11Data : metal11Data,
-    metal12Data : metal12Data,
-    metal13Data : metal13Data,
-    metal14Data : metal14Data,
-    metal15Data : metal15Data,
-    metal16Data : metal16Data,
-    metal17Data : metal17Data,
-    metal18Data : metal18Data,
-    metal19Data : metal19Data,
-    metal20Data : metal20Data,
-    metal21Data : metal21Data
-  }
-
-
-
-  // const metalArrRef = useRef([]); 
+  const metalArrRefs = useRef([]); 
 
   const metalData = useRef(null);
   const [metalTypes, setMetalTypes] = useState([])
@@ -232,7 +181,6 @@ useEffect(() => {
     }
     let uniMetTypes = [...new Set(metalTypesTemp)];
     setMetalTypes(uniMetTypes);
-    console.log(uniMetTypes)
 
     var metTemp = 
     {
@@ -827,6 +775,64 @@ useEffect(() => {
       });
   };
 
+    const addTooltipToArrayReference = (ref) => {
+    let currentTooltip;
+    ref &&
+      ref.addEventListener("change", (event) => {
+        const { eventType, feature, coords } = event.detail;
+        if (eventType === "click") {
+          if (event.detail.feature.click !== "block") {
+            if (currentTooltip) {
+              document.body.removeChild(currentTooltip);
+              currentTooltip = null; 
+            }
+            const route = routeConstants.siteview + id + "/" + event.detail.feature.start;
+            navigate(route);
+          } else {
+            return;
+          } 
+        } 
+        if (eventType === "mouseover") {
+          if (currentTooltip) {
+            document.body.removeChild(currentTooltip);
+            currentTooltip = null;
+          } 
+          currentTooltip = document.createElement("protvista-tooltip");
+          // set attributes
+          currentTooltip.title = feature.title;
+          currentTooltip.visible = true;
+          const [x, y] = coords;
+          currentTooltip.x = x;
+          currentTooltip.y = y;
+          currentTooltip.innerHTML = feature.tooltipContent;
+          // add the component to the document
+          document.body.appendChild(currentTooltip);
+          const closeButton = document.createElement("button");
+          closeButton.innerHTML = "X";
+          closeButton.className = "tooltip-close";
+
+          const onCloseButton = () => {
+            // remove the click listener
+            closeButton.removeEventListener("click", onCloseButton);
+
+            //cleanup tooltip
+            if (currentTooltip) {
+              document.body.removeChild(currentTooltip);
+              currentTooltip = null;
+            }
+          };
+
+          closeButton.addEventListener("click", onCloseButton);
+          currentTooltip.appendChild(closeButton);
+        } else if (eventType === "mouseout") {
+          if (currentTooltip) {
+            document.body.removeChild(currentTooltip);
+            currentTooltip = null;
+          }
+        }
+      });
+  };
+
     setPageLoading(true);
     let formattedData = setupProtvista(data);
 
@@ -864,10 +870,6 @@ useEffect(() => {
       mData.push(...data)
     })
 
-    // for (let i = 0; i < formattedData.metalCombData.length; i++) {
-    //   mData.push(...formattedData.metalCombData[i])
-    // }
-
     if (metalData && metalData.current) {
       metalData.current.data = [
         ...mData
@@ -875,12 +877,12 @@ useEffect(() => {
     }
 
     for (let i = 0; i < metalTypes.length > 0; i++) {
-      if (metalRefs["metal" + i + "Data"].current) {
-        metalRefs["metal" + i + "Data"].current.data = formattedData.metalCombData[i];
+      if (metalArrRefs.current[i]) {
+        metalArrRefs.current[i].data = formattedData.metalCombData[i];
         setTracksShown({
           [metalTypes[i] + "Data"]: formattedData.metalCombData[i].length > 0,
         });
-        addTooltipToReference(metalRefs["metal" + i + "Data"]);
+        addTooltipToArrayReference(metalArrRefs.current[i]);
       }
     }
 
@@ -928,8 +930,6 @@ useEffect(() => {
     addTooltipToReference(oGlycanWithoutImage);
     addTooltipToReference(nSequon);
     addTooltipToReference(metalData);
-    addTooltipToReference(metal0Data);
-    addTooltipToReference(metal1Data);
     addTooltipToReference(domainData);
     addTooltipToReference(phosphorylationData);
     addTooltipToReference(glycationData);
@@ -1141,20 +1141,24 @@ useEffect(() => {
                     id="id-nightingale-track"
                   />
 
-                  {metalTypes && metalTypes.length > 0 && metalTypes.map ((type, index) => <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden")
-                    }
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    ref={metalRefs["metal" + index + "Data"]} 
-                    width={data.sequence.length}
-                    height="60"
-                  />)}
+                  {metalTypes && metalTypes.length > 0 && metalTypes.map ((type, index) => 
+                    <nightingale-track 
+                      id={"ptrack1" + "type"}
+                      class={
+                        `nav-track glycotrack ` +
+                        (expandedMetal ? "" : " hidden")
+                      }
+                      length={data.sequence.length}
+                      display-start={1}
+                      display-end={data.sequence.length}
+                      layout="non-overlapping"
+                        ref={(node) => {
+                          if (node) metalArrRefs.current[index] = node;
+                        }}
+                      width={data.sequence.length}
+                      height="60"
+                    />
+                  )}
                   <nightingale-track
                     class={
                       `nav-track glycotrack` + (highlighted === "domain" ? " highlight" : "")
