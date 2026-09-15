@@ -1230,7 +1230,7 @@ useEffect(() => {
                     height="60"
                   />
                   {/* } */}
-                   <nightingale-track 
+                   {metalTypes.length > 2 && <nightingale-track 
                     id={"ptrack1" + "type2"}
                     class={
                       `nav-track glycotrack ` +
@@ -1247,8 +1247,8 @@ useEffect(() => {
                     ref={metal2Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                   <nightingale-track 
+                  />}
+                   {metalTypes.length > 3 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1265,8 +1265,8 @@ useEffect(() => {
                     ref={metal3Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                   <nightingale-track 
+                  />}
+                   {metalTypes.length > 4 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1283,8 +1283,8 @@ useEffect(() => {
                     ref={metal4Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                  <nightingale-track 
+                  />}
+                  {metalTypes.length > 5 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1301,8 +1301,8 @@ useEffect(() => {
                     ref={metal5Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                  <nightingale-track 
+                  />}
+                  {metalTypes.length > 6 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1319,8 +1319,8 @@ useEffect(() => {
                     ref={metal6Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                   <nightingale-track 
+                  />}
+                   {metalTypes.length > 7 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1337,8 +1337,8 @@ useEffect(() => {
                     ref={metal7Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                  <nightingale-track 
+                  />}
+                  {metalTypes.length > 8 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1355,9 +1355,9 @@ useEffect(() => {
                     ref={metal8Data} 
                     width={data.sequence.length}
                     height="60"
-                  />
+                  />}
 
-                  <nightingale-track 
+                  {metalTypes.length > 9 && <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
@@ -1374,7 +1374,7 @@ useEffect(() => {
                     ref={metal9Data} 
                     width={data.sequence.length}
                     height="60"
-                  />               
+                  />    }           
 
                   <nightingale-track
                     class={
