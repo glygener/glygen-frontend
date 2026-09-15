@@ -2,7 +2,7 @@ import "../../css/protvista.css";
 import { FaAngleRight, FaAngleDown } from "react-icons/fa";
 import React from "react";
 
-const ProtvistaSidebar = ({ data, handleExpand, expanded, tracksShown }) => {
+const ProtvistaSidebar = ({ data, handleExpand, handleExpand2, expanded, metalTypes, expanded2, tracksShown }) => {
   return (
     <div class="main menu">
       <nav class="main-nav sidebarpadding">
@@ -101,6 +101,34 @@ const ProtvistaSidebar = ({ data, handleExpand, expanded, tracksShown }) => {
               title="Consensus sequence for N-glycosylation"
             >
               N-Glycan-Sequon
+            </a>
+          </li>
+          <li className="nav-itemss nav-track nav-combinetrack legendlist">
+            <a class="nav-links " href="#" onClick={handleExpand2}>
+              Binding Metal &nbsp;&nbsp;{" "}
+              <span class="sizefor">{expanded2 ? <FaAngleDown /> : <FaAngleRight />}</span>
+            </a>
+          </li>
+          {metalTypes && metalTypes.length > 0 && metalTypes.map(type => <li
+            id="reported_Nglycan"
+            className={
+              "nav-itemss nav-track indentsubnav glycotrack legendlist" +
+              (expanded2 ? "" : " hidden")
+            }
+          >
+            <a
+              href="#"
+              class="nav-links"
+              data-toggle="tooltip"
+              title="N-Glycans reported at indicated site!"
+            >
+              {type}
+            </a>
+          </li>)}
+
+          <li class="nav-item1 nav-nav  legendlist glycotrack">
+            <a class="nav-links" href="#">
+              Domain
             </a>
           </li>
           <li class="nav-item1 nav-nav  legendlist glycotrack">

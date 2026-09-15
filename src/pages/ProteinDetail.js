@@ -112,6 +112,14 @@ const items = [
     id: "Names",
   },
   { label: stringConstants.sidebar.function.displayname, id: "Function" },
+  {
+    label: "Metal Binding",
+    id: "Metal-Binding",
+  },
+  {
+    label: "Domain",
+    id: "Domain",
+  },
   { label: stringConstants.sidebar.sequence.displayname, id: "Sequence" },
   {
     label: stringConstants.sidebar.snv.displayname,
@@ -326,6 +334,7 @@ const ProteinDetail = (props) => {
   const [sideBarData, setSidebarData] = useState(items);
   const [glycosylationPredicted, setGlycosylationPredicted] = useState([]);
   const [glycosylationMining, setGlycosylationMining] = useState([]);
+  const [metalBinding, setMetalBinding] = useState([]);
   const [glycosylationWithImage, setGlycosylationWithImage] = useState([]);
   const [glycosylationWithImageTotal, setGlycosylationWithImageTotal] = useState(undefined);
   const [glycosylationWithoutImageTotal, setGlycosylationWithoutImageTotal] = useState(undefined);
@@ -524,6 +533,12 @@ const ProteinDetail = (props) => {
         if (!detailDataTemp.glycation || detailDataTemp.glycation.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Glycation", true);
         }
+        if (!detailDataTemp.binding_sites || detailDataTemp.binding_sites.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Metal-Binding", true);
+        }
+        if (!detailDataTemp.domain_list || detailDataTemp.domain_list.length === 0) {
+          newSidebarData = setSidebarItemState(newSidebarData, "Domain", true);
+        }
         if (!detailDataTemp.gene || detailDataTemp.gene.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Names", true);
         }
@@ -694,6 +709,31 @@ const ProteinDetail = (props) => {
           setGlycosylationMining(mining);
           setGlycosylationTabSelected(selectTab);
           
+        }
+
+        if (data.binding_sites) {
+          let bind_sites = [];
+          let map = new Map();
+          for (let i = 0; i < data.binding_sites.length > 0; i++) {
+            let temp = map.has(data.binding_sites[i].ligand + data.binding_sites[i].ligand_label) ? map.get(data.binding_sites[i].ligand + data.binding_sites[i].ligand_label) : data.binding_sites[i];
+            if (temp.ligand_merge === undefined) {
+              temp.ligand_merge = temp.ligand + temp.ligand_label;
+              temp.sites = [];
+              map.set(temp.ligand_merge, temp)
+              bind_sites.push(temp)
+            }
+            
+            for (let j = 0; j <  data.binding_sites[i].evidence.length; j++) {
+              let evTemp = data.binding_sites[i].evidence[j];
+              const isNotPresent = !temp.evidence.some(ev => ev.id === evTemp.id);
+              if (isNotPresent) {
+                temp.evidence.push(evTemp);
+              }
+
+            }
+            temp.sites.push({position: data.binding_sites[i].start_pos, amino_acid: data.binding_sites[i].start_aa})
+          }
+          setMetalBinding(bind_sites);
         }
 
         if (data.section_stats) {
@@ -1014,6 +1054,8 @@ const ProteinDetail = (props) => {
     snv,
     refseq,
     mutagenesis,
+    domain_list,
+    binding_sites,
     phosphorylation,
     glycation,
     disease,
@@ -1928,6 +1970,139 @@ function formatNamesDataBasedOnType(data, type) {
       formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
     },
   ];
+
+  const metalBindingColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "sites",
+      text: "Residues",
+      sort: true,
+      formatter: (value, row) =>
+      value ?  (row.sites.map(obj =>
+        <LineTooltip text="View siteview details">
+          <Link to={`${routeConstants.siteview}${id}/${obj.position}`}>
+            {obj.amino_acid}
+            {obj.position}{" "}
+          </Link>
+        </LineTooltip>))
+        : (
+        "Not Reported"
+      )    
+    },
+    {
+      dataField: "ligand",
+      text: "Ligand",
+      sort: true,
+      formatter: (value, row) => {
+        let met = value.split('(')[0];
+        let openPar = value.indexOf('(');
+        let closePar = value.indexOf(')');
+        let supScrp = "";
+        if (openPar !== -1 && closePar !== -1) {
+          supScrp = value.substring(openPar + 1, closePar);
+        }
+        return <span>{met}<sup>{supScrp}</sup>[{row.chebi_lig_id}]</span>;
+      }
+    },
+    {
+      dataField: "note",
+      text: "Notes",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.comment} lines={2} />,
+    },
+  ];
+
+    const mapDm = new Map();
+    mapDm.set("domain_extent_annotation", "Domain");
+    mapDm.set("motif_annotation", "Motif");
+    mapDm.set("nucleotide_binding_annotation", "DNA binding");
+
+  const domainColumns = [
+    {
+      dataField: "evidence",
+      text: proteinStrings.evidence.name,
+      headerStyle: (colum, colIndex) => {
+        return {
+          // width: "15%",
+        };
+      },
+      formatter: (cell, row) => {
+        return <EvidenceList evidences={groupEvidences(cell)} />;
+      },
+    },
+    {
+      dataField: "ann_type",
+      text: proteinStrings.type.name,
+      sort: true,
+      formatter: (value, row) => (value ? <>{mapDm.has(row.ann_type.toLowerCase()) ? mapDm.get(row.ann_type.toLowerCase()) : row.ann_type}</> : "No data available"),
+    },
+    {
+      dataField: "start_aa",
+      text: "Residue",
+      sort: true,
+      formatter: (value, row) =>
+        value ? (
+          <span>
+            {row.start_aa}
+            {row.start_pos}
+            {" to "}
+            {row.end_aa}
+            {row.end_pos}
+          </span>
+        ) : (
+          "Not Reported"
+        )
+    },
+    {
+      dataField: "uniprotkb_annotation",
+      text: "Annotation Comment",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+      formatter: (value, row) => <CollapsibleText text={row.uniprotkb_annotation} lines={2} />,
+    },
+    {
+      dataField: "glycosite_overlap",
+      text: "Overlapping Glycosites",
+      sort: true,
+      headerStyle: (colum, colIndex) => {
+        return {
+          width: "20%",
+        };
+      },
+       formatter: (value, row) =>
+        value ?  (row.glycosite_overlap.map(obj =>
+          <LineTooltip text="View siteview details">
+            <Link to={`${routeConstants.siteview}${id}/${obj.position}`}>
+              {obj.amino_acid}
+              {obj.position}{" "}
+            </Link>
+          </LineTooltip>))
+         : (
+          "Not Reported"
+        )
+    },
+  ];
+
   const glycationColumns = [
     {
       dataField: "evidence",
@@ -2116,6 +2291,8 @@ function formatNamesDataBasedOnType(data, type) {
       viewer: true,
       names_synonyms: true,
       phosphorylation: true,
+      metal_binding: true,
+      domain: true,
       glycation: true,
       function: true,
       glycanLigands: true,
@@ -3448,6 +3625,182 @@ function formatNamesDataBasedOnType(data, type) {
                         </Table>
                       </div>
                       {!functions && <p className="no-data-msg-publication">{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+               {/* Metal Binding */}
+              <Accordion
+                id="Metal-Binding"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={"Metal Binding"}
+                        // text={DetailTooltips.protein.glycation.text}
+                        // urlText={DetailTooltips.protein.glycation.urlText}
+                        // url={DetailTooltips.protein.glycation.url}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {/* {stringConstants.sidebar.glycation.displayname} */}
+                      Metal Binding
+                    </h4>
+                    <div className="float-end">
+                      <span>
+                        <Link to={`${routeConstants.protVista}${id}`}>
+                          <Button
+                            type="button"
+                            style={{ marginLeft: "5px" }}
+                            className="gg-btn-blue"
+                          >
+                            <FaSearchPlus /> ProtVista
+                          </Button>
+                        </Link>
+                      </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Metal Binding (*.csv)",
+                              type: "metal_binding_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "metal_binding",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={binding_sites && binding_sites.length > 0}
+                        />
+                      </span>
+
+                      <CardToggle cardid="glycation" toggle={collapsed.metal_binding} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {binding_sites && binding_sites.length !== 0 && (
+                        <ClientServerPaginatedTableFullScreen
+                          data={metalBinding}
+                          columns={metalBindingColumns}
+                          onClickTarget={"#metal_binding"}
+                          defaultSortField={"start_pos"}
+                          defaultSortOrder="asc"
+                          viewPort={true}
+                          title="Metal Binding"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Metal Binding (*.csv)",
+                                    type: "metal_binding_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "metal_binding",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
+                        />
+                      )}
+                      {!binding_sites && <p>{dataStatus}</p>}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+               {/* Domain */}
+              <Accordion
+                id="Domain"
+                defaultActiveKey="0"
+                className="panel-width"
+                style={{ padding: "20px 0" }}
+              >
+                <Card>
+                  <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
+                    <span className="gg-green d-inline">
+                      <HelpTooltip
+                        title={"Domain"}
+                        // text={DetailTooltips.protein.glycation.text}
+                        helpIcon="gg-helpicon-detail"
+                      />
+                    </span>
+                    <h4 className="gg-green d-inline">
+                      {/* {stringConstants.sidebar.glycation.displayname} */}
+                      Domain
+                    </h4>
+                    <div className="float-end">
+                      <span>
+                        <Link to={`${routeConstants.protVista}${id}`}>
+                          <Button
+                            type="button"
+                            style={{ marginLeft: "5px" }}
+                            className="gg-btn-blue"
+                          >
+                            <FaSearchPlus /> ProtVista
+                          </Button>
+                        </Link>
+                      </span>
+
+                      <span className="gg-download-btn-width text-end">
+                        <DownloadButton
+                          types={[
+                            {
+                              display: "Domain (*.csv)",
+                              type: "domain_csv",
+                              format: "csv",
+                              data: "protein_section",
+                              section: "domain",
+                            }
+                          ]}
+                          dataId={id}
+                          itemType="protein_section"
+                          showBlueBackground={true}
+                          enable={domain_list && domain_list.length > 0}
+                        />
+                      </span>
+
+                      <CardToggle cardid="domain_list" toggle={collapsed.domain} eventKey="0" toggleCollapse={toggleCollapse}/>
+                    </div>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      {domain_list && domain_list.length !== 0 && (
+                        <ClientServerPaginatedTableFullScreen
+                          data={domain_list}
+                          columns={domainColumns}
+                          onClickTarget={"#domain"}
+                          defaultSortField={"start_pos"}
+                          defaultSortOrder="asc"
+                          viewPort={true}
+                          title="Domain"
+                          download={
+                            {
+                                types:[
+                                  {
+                                    display: "Domain (*.csv)",
+                                    type: "domain_csv",
+                                    format: "csv",
+                                    data: "protein_section",
+                                    section: "domain",
+                                  }
+                                ],
+                                dataId:id,
+                                itemType:"protein_section"
+                            }
+                          }
+                        />
+                      )}
+                      {!domain_list && <p>{dataStatus}</p>}
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>

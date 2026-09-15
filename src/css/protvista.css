@@ -116,7 +116,20 @@
   padding-top: 10px;
   cursor: pointer;
 }
-
+/* rectangle */
+.super10 {
+  /* color: #fff; */
+  font-size: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+/* hexagon */
+.super11 {
+  color: #3c8d42;
+  font-size: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+}
 #glycotrack,
 #glycotrack1 {
   height: 60px;

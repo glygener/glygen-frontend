@@ -21,6 +21,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
+import { index } from "d3";
 
 if (!customElements.get('nightingale-manager')) {
   window.customElements.define("nightingale-manager", NightingaleManager);
@@ -51,6 +52,7 @@ const ProtVista = () => {
 
 
   const [expanded, setExpanded] = useState(false);
+  const [expandedMetal, setExpandedMetal] = useState(false);
   const [highlighted, setHighlighted] = useState(null);
 
   const nGlycanWithImage = useRef(null);
@@ -58,6 +60,42 @@ const ProtVista = () => {
   const oGlycanWithImage = useRef(null);
   const oGlycanWithoutImage = useRef(null);
   const nSequon = useRef(null);
+
+  const metal0Data = useRef(null);
+  const metal1Data = useRef(null);
+  const metal2Data = useRef(null);
+  const metal3Data = useRef(null);
+  const metal4Data = useRef(null);
+  const metal5Data = useRef(null);
+  const metal6Data = useRef(null);
+  const metal7Data = useRef(null);
+  const metal8Data = useRef(null);
+  const metal9Data = useRef(null);
+  const metal10Data = useRef(null);
+  const metal11Data = useRef(null);
+
+  const metalRefs = {
+    metal0Data : metal0Data,
+    metal1Data : metal1Data,
+    metal2Data : metal2Data,
+    metal3Data : metal3Data,
+    metal4Data : metal4Data,
+    metal5Data : metal5Data,
+    metal6Data : metal6Data,
+    metal7Data : metal7Data,
+    metal8Data : metal8Data,
+    metal9Data : metal9Data,
+    metal10Data : metal10Data,
+    metal11Data : metal11Data
+  }
+
+
+
+  // const metalArrRef = useRef([]); 
+
+  const metalData = useRef(null);
+  const [metalTypes, setMetalTypes] = useState([])
+  const domainData = useRef(null);
   const phosphorylationData = useRef(null);
   const glycationData = useRef(null);
   const mutationsData = useRef(null);
@@ -74,6 +112,24 @@ const ProtVista = () => {
     }
   );
 
+const stringToHexColor = (str) => {
+  let hash = 0;
+  
+  // 1. Generate a hash code from the string
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // 2. Convert the hash into a 6-digit hex code
+  let color = '#';
+  for (let i = 0; i < 3; i++) {
+    // Extract 8 bits at a time and format as a 2-digit hex
+    const value = (hash >> (i * 8)) & 0xFF;
+    color += value.toString(16).padStart(2, '0');
+  }
+  
+  return color;
+};
  
 
 useEffect(() => {
@@ -149,6 +205,40 @@ useEffect(() => {
         shape: "bridge",
       },
     ];
+
+    let metalTypesTemp = [];
+    if (data.binding_sites) {
+      metalTypesTemp = data.binding_sites.map(site => site.ligand ? site.ligand.split('(')[0] : "")
+    }
+    let uniMetTypes = [...new Set(metalTypesTemp)];
+    setMetalTypes(uniMetTypes);
+    console.log(uniMetTypes)
+
+    var metTemp = 
+    {
+      type: "Binding-sites",
+      residues: [],
+      color: "red",
+      shape: "hexagon",
+    };
+
+    var metals = []
+    var metalMap = new Map();
+    if (uniMetTypes.length > 0) {
+      uniMetTypes.forEach((type, index) => {
+        let temp = JSON.parse(JSON.stringify(metTemp));
+        temp.type = type;
+        metals.push(temp);
+        metalMap.set(type, index);
+      })
+    }
+
+    var domainP = {
+      type: "domainP",
+      residues: [],
+      color: "#3c8d42",
+      shape: "rectangle",
+    };
     var phosphorylationP = {
       type: "PhosphorylationP",
       residues: [],
@@ -173,6 +263,37 @@ useEffect(() => {
       color: "purple",
       shape: "bridge",
     };
+
+    if (data.binding_sites) {
+      for (let bsites of data.binding_sites) {
+        if (bsites.start_pos === undefined) continue;
+        let met = bsites.ligand.split('(')[0];
+
+        const openPar = bsites.ligand.indexOf('(');
+        const closePar = bsites.ligand.indexOf(')');
+        let supScrp = "";
+        if (openPar !== -1 && closePar !== -1) {
+          supScrp = bsites.ligand.substring(openPar + 1, closePar);
+        }
+
+        if (metalMap.has(met)) {
+            metals[Number(metalMap.get(met))].residues.push({
+              start: bsites.start_pos,
+              end: bsites.end_pos,
+              color:  stringToHexColor(bsites.ligand_label + bsites.ligand),
+              shape: metals[0].shape,
+              accession: data.uniprot.uniprot_canonical_ac,
+              type: bsites.start_aa,
+              click: "block",
+              title: bsites.start_aa + "-" + bsites.start_pos + " to " + bsites.end_aa + "-" + bsites.end_pos,
+              tooltipContent:
+                "<div className=marker>Ligand: " +
+                met + "<sup>" + supScrp + "</sup>" +
+                "</div>",
+            });
+        } 
+      }
+    }
 
     if (data.glycosylation) {
       for (let glyco of data.glycosylation) {
@@ -314,6 +435,33 @@ useEffect(() => {
             });
           }
         } 
+      }
+    }
+
+    let mapDm = new Map();
+    mapDm.set("domain_extent_annotation", "Domain");
+    mapDm.set("motif_annotation", "Motif");
+    mapDm.set("nucleotide_binding_annotation", "DNA binding");
+
+    if (data.domain_list) {
+      for (let domain of data.domain_list) {
+        domainP.residues.push({
+          start: domain.start_pos,
+          end: domain.end_pos,
+          color: domainP.color,
+          shape: domainP.shape,
+          accession: data.uniprot.uniprot_canonical_ac,
+          type: domain.residue,
+          click: "block",
+          title: domain.start_aa + "-" + domain.start_pos + " to " + domain.end_aa + "-" + domain.end_pos,
+          tooltipContent:
+            "<div className=marker>" + (domain.ann_type ? "Type: " : "") +
+            (mapDm.has(domain.ann_type.toLowerCase()) ? mapDm.get(domain.ann_type.toLowerCase()) : domain.ann_type) +
+            "</div>" +
+            "<div className=marker>Annotation comment: " +
+            domain.uniprotkb_annotation +
+            "</div>",
+        });
       }
     }
 
@@ -466,6 +614,57 @@ useEffect(() => {
       })
     );
 
+     // TO CHECK MULTILE GLYCOSYLATION AT SAME POINT
+    let metalsCombined = [];
+    for (let i in metals) {
+      var combinedMetalsResiduesMap = {};
+      for (let v of metals[i].residues) {
+        if (!combinedMetalsResiduesMap[v.start + ":" + v.end]) {
+          v["count"] = 1;
+          combinedMetalsResiduesMap[v.start + ":" + v.end] = v;
+        } else {
+          combinedMetalsResiduesMap[v.start + ":" + v.end].count += 1;
+        }
+      }
+      metalsCombined.push(
+        Object.values(combinedMetalsResiduesMap).map(function (v) {
+          v["tooltipContent"] +=
+            v["count"] > 1
+              ? ""
+              // "<div className=marker>Click marker to show " +
+              //   (v["count"] - 1) +
+              //   " more at this site.</div>"
+              : "";
+          return v;
+        })
+      );
+    }
+
+
+     // TO CHECK MULTILE DOMAIN AT SAME POINT
+    let domainCombined = [];
+    var combinedDomainoResiduesMap = {};
+    for (let v of domainP.residues) {
+      if (!combinedDomainoResiduesMap[v.start + ":" + v.end]) {
+        v["count"] = 1;
+        combinedDomainoResiduesMap[v.start + ":" + v.end] = v;
+      } else {
+      combinedDomainoResiduesMap[v.start + ":" + v.end].count += 1;
+      }
+    }
+    domainCombined.push(
+      Object.values(combinedDomainoResiduesMap).map(function (v) {
+        v["tooltipContent"] +=
+          v["count"] > 1
+            ? ""
+            // "<div className=marker>Click marker to show " +
+            //   (v["count"] - 1) +
+            //   " more at this site.</div>"
+            : "";
+        return v;
+      })
+    );
+
     // TO CHECK MULTILE GLYCATION AT SAME POINT
     let glycatCombined = [];
     var combinedGlycatResiduesMap = {};
@@ -542,6 +741,8 @@ useEffect(() => {
       oGlycanWithoutImage: glycosCombined[3],
       nSequon: glycosCombined[4],
       phosphorylationData: phosphoCombined[0],
+      metalCombData: metalsCombined,
+      domainData: domainCombined[0],
       glycationData: glycatCombined[0],
       mutationsData: mutationsCombined[0],
       mutagenesisData: mutagenesisCombined[0],
@@ -638,6 +839,110 @@ useEffect(() => {
       ];
     }
 
+    let mData = [] 
+    formattedData.metalCombData.map((data) => {
+      mData.push(...data)
+    })
+
+    // for (let i = 0; i < formattedData.metalCombData.length; i++) {
+    //   mData.push(...formattedData.metalCombData[i])
+    // }
+
+    if (metalData && metalData.current) {
+      metalData.current.data = [
+        ...mData
+      ];
+    }
+
+      if (metal0Data.current) {
+
+        metal0Data.current.data = formattedData.metalCombData[0];
+        setTracksShown({
+          [metalTypes[0] + "Data"]: formattedData.metalCombData[0].length > 0,
+        });
+        addTooltipToReference(metal0Data);
+      }
+
+      if (metal1Data.current) {
+        metal1Data.current.data = formattedData.metalCombData[1];
+        setTracksShown({
+          [metalTypes[1] + "Data"]: formattedData.metalCombData[1].length > 0,
+        });
+        addTooltipToReference(metal1Data);
+      }
+
+      if (metal2Data.current  && metalTypes.length > 2) {
+        metal2Data.current.data = formattedData.metalCombData[2];
+        setTracksShown({
+          [metalTypes[2] + "Data"]: formattedData.metalCombData[2].length > 0,
+        });
+        addTooltipToReference(metal2Data);
+      }
+
+      if (metal3Data.current && metalTypes.length > 3) {
+        metal3Data.current.data = formattedData.metalCombData[3];
+        setTracksShown({
+          [metalTypes[3] + "Data"]: formattedData.metalCombData[3].length > 0,
+        });
+        addTooltipToReference(metal3Data);
+      }
+
+      if (metal4Data.current  && metalTypes.length > 4) {
+        metal4Data.current.data = formattedData.metalCombData[4];
+        setTracksShown({
+          [metalTypes[4] + "Data"]: formattedData.metalCombData[4].length > 0,
+        });
+        addTooltipToReference(metal4Data);
+      }
+
+      if (metal5Data.current && metalTypes.length > 5) {
+        metal5Data.current.data = formattedData.metalCombData[5];
+        setTracksShown({
+          [metalTypes[5] + "Data"]: formattedData.metalCombData[5].length > 0,
+        });
+        addTooltipToReference(metal5Data);
+      }
+
+      if (metal6Data.current  && metalTypes.length > 6) {
+        metal6Data.current.data = formattedData.metalCombData[6];
+        setTracksShown({
+          [metalTypes[6] + "Data"]: formattedData.metalCombData[6].length > 0,
+        });
+        addTooltipToReference(metal6Data);
+      }
+
+      if (metal7Data.current && metalTypes.length > 7) {
+        metal7Data.current.data = formattedData.metalCombData[7];
+        setTracksShown({
+          [metalTypes[7] + "Data"]: formattedData.metalCombData[7].length > 0,
+        });
+        addTooltipToReference(metal7Data);
+      }
+
+      if (metal8Data.current  && metalTypes.length > 8) {
+        metal8Data.current.data = formattedData.metalCombData[8];
+        setTracksShown({
+          [metalTypes[8] + "Data"]: formattedData.metalCombData[8].length > 0,
+        });
+        addTooltipToReference(metal8Data);
+      }
+
+      if (metal9Data.current && metalTypes.length > 9) {
+        metal9Data.current.data = formattedData.metalCombData[9];
+        setTracksShown({
+          [metalTypes[9] + "Data"]: formattedData.metalCombData[9].length > 0,
+        });
+        addTooltipToReference(metal9Data);
+      }
+
+    if (domainData.current) {
+      domainData.current.data = formattedData.domainData;
+
+      setTracksShown({
+        domainData: formattedData.domainData.length > 0,
+      });
+    }
+
     if (phosphorylationData.current) {
       phosphorylationData.current.data = formattedData.phosphorylationData;
 
@@ -673,6 +978,10 @@ useEffect(() => {
     addTooltipToReference(oGlycanWithImage);
     addTooltipToReference(oGlycanWithoutImage);
     addTooltipToReference(nSequon);
+    addTooltipToReference(metalData);
+    addTooltipToReference(metal0Data);
+    addTooltipToReference(metal1Data);
+    addTooltipToReference(domainData);
     addTooltipToReference(phosphorylationData);
     addTooltipToReference(glycationData);
     addTooltipToReference(mutationsData);
@@ -727,13 +1036,16 @@ useEffect(() => {
             <ProtvistaSidebar
               tracksShown={tracksShown}
               expanded={expanded}
+              metalTypes={metalTypes}
+              expanded2={expandedMetal}
               handleExpand={() => setExpanded(!expanded)}
+              handleExpand2={() => setExpandedMetal(!expandedMetal)}
             />
           </Col>
 
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
-              <div style={{height: expanded ? "740px" : "440px"}}>
+              <div style={{height: expanded ? "1040px" : "740px"}}>
                 <nightingale-manager
                   width={data.sequence.length}
                   class={`nav-track-manager`}
@@ -781,7 +1093,7 @@ useEffect(() => {
                     width={data.sequence.length}
                     height={expanded ? "0": "80"}
                     id="id-nightingale-track"
-                  />
+                  />                  
                 <nightingale-overlay for="root"></nightingale-overlay> 
                   <nightingale-track 
                     id="ptrack1"
@@ -851,6 +1163,228 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={nSequon}
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  {/* Blank Track */}
+                  <nightingale-track
+                    class={`nav-track glycotrack emptytrack` + (expandedMetal ? "" : " hidden")}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    width={data.sequence.length}
+                    height="80"
+                  />
+                  <nightingale-track
+                    class={
+                      `nav-track nav-combinetrack hover-style glycotrack1` +
+                      (expandedMetal ? " hidden" : "") +
+                      (highlighted === "metal_binding" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={metalData}
+                    width={data.sequence.length}
+                    height={expandedMetal ? "0": "80"}
+                    id="id-nightingale-track"
+                  />
+                                    {/* {metalTypes && metalTypes.length > 0 && metalTypes.map((type, index) =>  */}
+
+                 {/* {metalTypes.length > 0 &&  */}
+                  <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden")
+                    }
+                    style={{ display: metalTypes.length > 0 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={metal0Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  {/* } */}
+                  {/* )} */}
+                  {/* {metalTypes.length > 1 &&  */}
+                  <nightingale-track 
+                    id={"ptrack1" + "type1"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden")
+                    }
+                    style={{ display: metalTypes.length > 1 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal1Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  {/* } */}
+                   <nightingale-track 
+                    id={"ptrack1" + "type2"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 2 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal2Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                   <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 3 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal3Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                   <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 4 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal4Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 5 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal5Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 6 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal6Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                   <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 7 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal7Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+                  <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 8 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal8Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />
+
+                  <nightingale-track 
+                    id={"ptrack1" + "type"}
+                    class={
+                      `nav-track glycotrack ` +
+                      (expandedMetal ? "" : " hidden") +
+                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
+                    }
+                    style={{ display: metalTypes.length > 9 ? "block" : "none" }}
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    // ref={metalArrRef.current.get(type)}
+                    // ref={el => metalArrRef.current[index] = el} 
+                    ref={metal9Data} 
+                    width={data.sequence.length}
+                    height="60"
+                  />               
+
+                  <nightingale-track
+                    class={
+                      `nav-track glycotrack` + (highlighted === "domain" ? " highlight" : "")
+                    }
+                    length={data.sequence.length}
+                    display-start={1}
+                    display-end={data.sequence.length}
+                    layout="non-overlapping"
+                    ref={domainData}
                     width={data.sequence.length}
                     height="60"
                   />
@@ -988,6 +1522,32 @@ useEffect(() => {
                     &#9646;
                     <span className="superx">
                       <>N-Glycan-Sequon</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                  className="super8 hover"
+                  onMouseEnter={() => setHighlighted("metal_binding")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#x2B21;
+                    <span className="superx">
+                      <>Metal Binding (different colors)</>
+                    </span>
+                  </Col>
+                </Row>
+              </span>
+              <span
+                  className="super11 hover"
+                  onMouseEnter={() => setHighlighted("domain")}
+              >
+                <Row>
+                  <Col sm={3} md={3}>
+                    &#9646;
+                    <span className="superx">
+                      <>Domain</>
                     </span>
                   </Col>
                 </Row>
