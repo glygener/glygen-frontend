@@ -73,6 +73,16 @@ const ProtVista = () => {
   const metal9Data = useRef(null);
   const metal10Data = useRef(null);
   const metal11Data = useRef(null);
+  const metal12Data = useRef(null);
+  const metal13Data = useRef(null);
+  const metal14Data = useRef(null);
+  const metal15Data = useRef(null);
+  const metal16Data = useRef(null);
+  const metal17Data = useRef(null);
+  const metal18Data = useRef(null);
+  const metal19Data = useRef(null);
+  const metal20Data = useRef(null);
+  const metal21Data = useRef(null);
 
   const metalRefs = {
     metal0Data : metal0Data,
@@ -86,7 +96,17 @@ const ProtVista = () => {
     metal8Data : metal8Data,
     metal9Data : metal9Data,
     metal10Data : metal10Data,
-    metal11Data : metal11Data
+    metal11Data : metal11Data,
+    metal12Data : metal12Data,
+    metal13Data : metal13Data,
+    metal14Data : metal14Data,
+    metal15Data : metal15Data,
+    metal16Data : metal16Data,
+    metal17Data : metal17Data,
+    metal18Data : metal18Data,
+    metal19Data : metal19Data,
+    metal20Data : metal20Data,
+    metal21Data : metal21Data
   }
 
 
@@ -854,86 +874,15 @@ useEffect(() => {
       ];
     }
 
-      if (metal0Data.current) {
-
-        metal0Data.current.data = formattedData.metalCombData[0];
+    for (let i = 0; i < metalTypes.length > 0; i++) {
+      if (metalRefs["metal" + i + "Data"].current) {
+        metalRefs["metal" + i + "Data"].current.data = formattedData.metalCombData[i];
         setTracksShown({
-          [metalTypes[0] + "Data"]: formattedData.metalCombData[0].length > 0,
+          [metalTypes[i] + "Data"]: formattedData.metalCombData[i].length > 0,
         });
-        addTooltipToReference(metal0Data);
+        addTooltipToReference(metalRefs["metal" + i + "Data"]);
       }
-
-      if (metal1Data.current) {
-        metal1Data.current.data = formattedData.metalCombData[1];
-        setTracksShown({
-          [metalTypes[1] + "Data"]: formattedData.metalCombData[1].length > 0,
-        });
-        addTooltipToReference(metal1Data);
-      }
-
-      if (metal2Data.current  && metalTypes.length > 2) {
-        metal2Data.current.data = formattedData.metalCombData[2];
-        setTracksShown({
-          [metalTypes[2] + "Data"]: formattedData.metalCombData[2].length > 0,
-        });
-        addTooltipToReference(metal2Data);
-      }
-
-      if (metal3Data.current && metalTypes.length > 3) {
-        metal3Data.current.data = formattedData.metalCombData[3];
-        setTracksShown({
-          [metalTypes[3] + "Data"]: formattedData.metalCombData[3].length > 0,
-        });
-        addTooltipToReference(metal3Data);
-      }
-
-      if (metal4Data.current  && metalTypes.length > 4) {
-        metal4Data.current.data = formattedData.metalCombData[4];
-        setTracksShown({
-          [metalTypes[4] + "Data"]: formattedData.metalCombData[4].length > 0,
-        });
-        addTooltipToReference(metal4Data);
-      }
-
-      if (metal5Data.current && metalTypes.length > 5) {
-        metal5Data.current.data = formattedData.metalCombData[5];
-        setTracksShown({
-          [metalTypes[5] + "Data"]: formattedData.metalCombData[5].length > 0,
-        });
-        addTooltipToReference(metal5Data);
-      }
-
-      if (metal6Data.current  && metalTypes.length > 6) {
-        metal6Data.current.data = formattedData.metalCombData[6];
-        setTracksShown({
-          [metalTypes[6] + "Data"]: formattedData.metalCombData[6].length > 0,
-        });
-        addTooltipToReference(metal6Data);
-      }
-
-      if (metal7Data.current && metalTypes.length > 7) {
-        metal7Data.current.data = formattedData.metalCombData[7];
-        setTracksShown({
-          [metalTypes[7] + "Data"]: formattedData.metalCombData[7].length > 0,
-        });
-        addTooltipToReference(metal7Data);
-      }
-
-      if (metal8Data.current  && metalTypes.length > 8) {
-        metal8Data.current.data = formattedData.metalCombData[8];
-        setTracksShown({
-          [metalTypes[8] + "Data"]: formattedData.metalCombData[8].length > 0,
-        });
-        addTooltipToReference(metal8Data);
-      }
-
-      if (metal9Data.current && metalTypes.length > 9) {
-        metal9Data.current.data = formattedData.metalCombData[9];
-        setTracksShown({
-          [metalTypes[9] + "Data"]: formattedData.metalCombData[9].length > 0,
-        });
-        addTooltipToReference(metal9Data);
-      }
+    }
 
     if (domainData.current) {
       domainData.current.data = formattedData.domainData;
@@ -989,7 +938,7 @@ useEffect(() => {
     setPageLoading(false);
 
     // eslint-disable-next-line
-  }, [data]);
+  }, [data, expandedMetal]);
 
   return (
     <>
@@ -1191,191 +1140,21 @@ useEffect(() => {
                     height={expandedMetal ? "0": "80"}
                     id="id-nightingale-track"
                   />
-                                    {/* {metalTypes && metalTypes.length > 0 && metalTypes.map((type, index) =>  */}
 
-                 {/* {metalTypes.length > 0 &&  */}
-                  <nightingale-track 
+                  {metalTypes && metalTypes.length > 0 && metalTypes.map ((type, index) => <nightingale-track 
                     id={"ptrack1" + "type"}
                     class={
                       `nav-track glycotrack ` +
                       (expandedMetal ? "" : " hidden")
                     }
-                    style={{ display: metalTypes.length > 0 ? "block" : "none" }}
                     length={data.sequence.length}
                     display-start={1}
                     display-end={data.sequence.length}
                     layout="non-overlapping"
-                    ref={metal0Data} 
+                    ref={metalRefs["metal" + index + "Data"]} 
                     width={data.sequence.length}
                     height="60"
-                  />
-                  {/* } */}
-                  {/* )} */}
-                  {/* {metalTypes.length > 1 &&  */}
-                  <nightingale-track 
-                    id={"ptrack1" + "type1"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden")
-                    }
-                    style={{ display: metalTypes.length > 1 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal1Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />
-                  {/* } */}
-                   {metalTypes.length > 2 && <nightingale-track 
-                    id={"ptrack1" + "type2"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 2 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal2Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                   {metalTypes.length > 3 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 3 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal3Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                   {metalTypes.length > 4 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 4 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal4Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                  {metalTypes.length > 5 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 5 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal5Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                  {metalTypes.length > 6 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 6 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal6Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                   {metalTypes.length > 7 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 7 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal7Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-                  {metalTypes.length > 8 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 8 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal8Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />}
-
-                  {metalTypes.length > 9 && <nightingale-track 
-                    id={"ptrack1" + "type"}
-                    class={
-                      `nav-track glycotrack ` +
-                      (expandedMetal ? "" : " hidden") +
-                      (highlighted === "Ntrack_withImage" ? " highlight" : "")
-                    }
-                    style={{ display: metalTypes.length > 9 ? "block" : "none" }}
-                    length={data.sequence.length}
-                    display-start={1}
-                    display-end={data.sequence.length}
-                    layout="non-overlapping"
-                    // ref={metalArrRef.current.get(type)}
-                    // ref={el => metalArrRef.current[index] = el} 
-                    ref={metal9Data} 
-                    width={data.sequence.length}
-                    height="60"
-                  />    }           
-
+                  />)}
                   <nightingale-track
                     class={
                       `nav-track glycotrack` + (highlighted === "domain" ? " highlight" : "")
