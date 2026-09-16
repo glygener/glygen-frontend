@@ -2821,7 +2821,7 @@ function formatNamesDataBasedOnType(data, type) {
                           )}
                         </>
                       )}
-                      <div>
+                      <div style={{ marginBottom: "5px" }}>
                         {organismEvidence &&
                           // For every organism object
                           Object.keys(organismEvidence).map((orgEvi) => (
@@ -2860,21 +2860,24 @@ function formatNamesDataBasedOnType(data, type) {
                           </span>
                           <span className="ps-0">
                             {lectin_list.map((lectin, ind) => (
-                              <span
-                                key={lectin.lectin_class}
-                              >
-                                <span>
-                                  {lectin.lectin_class}
+                              <>
+                                <span
+                                  key={lectin.lectin_class}
+                                >
+                                  <span>
+                                    {lectin.lectin_class}
+                                  </span>
+                                  <span>
+                                    <EvidenceList
+                                      inline={true} key={"evidence" + ind}
+                                      evidences={groupEvidences(
+                                        lectin.evidence ? lectin.evidence : []
+                                      )}
+                                    />
+                                  </span>
                                 </span>
-                                <span>
-                                  <EvidenceList
-                                    inline={true} key={"evidence" + ind}
-                                    evidences={groupEvidences(
-                                      lectin.evidence ? lectin.evidence : []
-                                    )}
-                                  />
-                                </span>
-                              </span>
+                                <div style={{ marginBottom: "5px" }}/>
+                              </>
                             ))}{" "}
                           </span>
                         </div>
