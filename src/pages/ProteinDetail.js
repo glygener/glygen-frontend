@@ -2092,13 +2092,13 @@ function formatNamesDataBasedOnType(data, type) {
         };
       },
        formatter: (value, row) =>
-        value ?  (row.glycosite_overlap.map((obj, index, arr) =>
+        value ?  (row.glycosite_overlap.map((obj, index, arr) => <>
           <LineTooltip text="View siteview details">
             <Link to={`${routeConstants.siteview}${id}/${obj.position}`}>
               {obj.amino_acid}
-              {obj.position}{index === arr.length -1 ? "" : "; "}
+              {obj.position}
             </Link>
-          </LineTooltip>))
+          </LineTooltip>{index === arr.length -1 ? "" : "; "}</>))
          : (
           ""
         )
@@ -3826,7 +3826,7 @@ function formatNamesDataBasedOnType(data, type) {
                     <Card.Body>
                       {domain_list && domain_list.length !== 0 && (
                         <ClientServerPaginatedTableFullScreen
-                          data={domain_list.filter(obj => glycoLens ? obj.glycosite_overlap && obj.glycosite_overlap.length > 0: true)}
+                          data={domain_list.filter(obj => glycoLens ? obj.glycosite_overlap && obj.glycosite_overlap.length > 0 : true)}
                           columns={domainColumns}
                           onClickTarget={"#domain"}
                           defaultSortField={"start_pos"}

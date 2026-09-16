@@ -147,6 +147,7 @@
 .nav-links {
   /* padding-top: 50px; */
   margin-left: 15px !important;
+  cursor: pointer;
 }
 .indentsubnav {
   padding-bottom: -10px;
