@@ -36,6 +36,8 @@ const ServerPaginatedTable = props => {
   } = props;
 
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState(defaultSortField);
+  const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [firstLoad, setFirstLoad] = useState(false);
   const [firstLoadHandle, setFirstLoadHandle] = useState(false);
   const [sizePerPage, setSizePerPage] = useState(defaultSizePerPage);
@@ -63,8 +65,8 @@ useEffect(() => {
     record_id,
     (page - 1) * sizePerPage + 1,
     sizePerPage,
-    currentSort || defaultSortField,
-    currentSortOrder || defaultSortOrder,
+    currentSort || sortField,
+    currentSortOrder || sortOrder,
     appliedFilters
   )
     .then(({ data }) => {
@@ -122,8 +124,8 @@ useEffect(() => {
     record_id,
     (page - 1) * sizePerPage + 1,
     sizePerPage,
-    currentSort,
-    currentSortOrder,
+    currentSort || sortField,
+    currentSortOrder || sortOrder,
     appliedFilters
   )
     .then(({ data }) => {
@@ -171,6 +173,8 @@ const handleTableChange = (
     }
 
   setPage(page);
+  setSortField(sortField);
+  setSortOrder(sortOrder);
   setSizePerPage(sizePerPage);
   setCardLoading(true);
   getTableList(

@@ -166,6 +166,8 @@ const SiteList = (props) => {
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(SITE_COLUMNS);
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState("hit_score");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState(0);
   const [pageLoading, setPageLoading] = useState(true);
@@ -257,8 +259,8 @@ const SiteList = (props) => {
       getSuperSearchList(id,
         (page - 1) * sizePerPage + 1,
           sizePerPage,
-          "hit_score",
-          "desc",
+          sortField,
+          sortOrder,
           appliedFilters,
           cols
         )
@@ -323,6 +325,8 @@ const SiteList = (props) => {
       return;
     }
     setPage(page);
+    setSortField(sortField);
+    setSortOrder(sortOrder);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
     let cols = userSelectedColumns.map(col => col.id);

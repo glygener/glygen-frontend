@@ -38,6 +38,8 @@ const BiomarkerList = props => {
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(BIOMARKER_COLUMNS);
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState("hit_score");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [availableFilters, setAvailableFilters] = useState([]);
   const [sizePerPage, setSizePerPage] = useState(20);
@@ -60,8 +62,8 @@ const BiomarkerList = props => {
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
-      "hit_score",
-      "desc",
+      sortField,
+      sortOrder,
       appliedFilters
     )
       .then(({ data }) => {
@@ -100,6 +102,8 @@ const BiomarkerList = props => {
       return;
     }
     setPage(page);
+    setSortField(sortField);
+    setSortOrder(sortOrder);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
     getBiomarkerList(

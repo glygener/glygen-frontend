@@ -73,6 +73,8 @@ const ProteinList = props => {
   const [pagination, setPagination] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(PROTEIN_COLUMNS);
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState("hit_score");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [availableFilters, setAvailableFilters] = useState([]);
   const [sizePerPage, setSizePerPage] = useState(20);
@@ -178,8 +180,8 @@ const ProteinList = props => {
       id,
       (page - 1) * sizePerPage + 1,
       sizePerPage,
-      "hit_score",
-      "desc",
+      sortField,
+      sortOrder,
       appliedFilters,
       cols
     )
@@ -244,7 +246,9 @@ const ProteinList = props => {
     if (pageLoading) {
       return;
     }
-    setPage(page);
+    setSortField(sortField);
+    setSortOrder(sortOrder);
+    set(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
     let cols = userSelectedColumns.map(col => col.id);

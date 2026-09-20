@@ -35,6 +35,7 @@ import GlyGenNotificationContext from "../components/GlyGenNotificationContext.j
 import ListIDNameDialog from "../components/idcart/ListIDNameDialog";
 import { addIDsToStore } from "../data/idCartApi"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { setFips } from "node:crypto";
 
 const GlycanList = props => {
   let { id } = useParams();
@@ -236,6 +237,8 @@ const GlycanList = props => {
   const [availableFilters, setAvailableFilters] = useState([]);
   const [selectedColumns, setSelectedColumns] = useState(GLYCAN_COLUMNS);
   const [page, setPage] = useState(1);
+  const [sortField, setSortField] = useState("hit_score");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [sizePerPage, setSizePerPage] = useState(20);
   const [totalSize, setTotalSize] = useState();
   const [pageLoading, setPageLoading] = useState(true);
@@ -389,7 +392,7 @@ const GlycanList = props => {
     logActivity("user", id);
     let cols = userSelectedColumns.map(col => col.id);
     getDisplayColumnList(userSelectedColumns, setSelectedColumns, columnSpecDispTypes);
-    getGlycanList(id, 1, sizePerPage, "hit_score", "desc", appliedFilters, cols)
+    getGlycanList(id, 1, sizePerPage, sortField, sortOrder, appliedFilters, cols)
       .then(({ data }) => {
         if (data.error_code) {
           let message = "list api call";
@@ -463,6 +466,8 @@ const GlycanList = props => {
     }
 
     setPage(page);
+    setSortField(sortField);
+    setSortOrder(sortOrder);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
     let cols = userSelectedColumns.map(col => col.id);
