@@ -1,0 +1,7 @@
+{
+  "domain_ann_type": {
+   "domain_extent_annotation": "Domain",
+   "motif_annotation": "Motif",
+   "nucleotide_binding_annotation": "DNA binding"
+  }
+}

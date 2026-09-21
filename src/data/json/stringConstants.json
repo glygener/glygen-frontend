@@ -925,6 +925,18 @@
         "tooltip": {},
         "id": "gtype"
       },
+      "annotation_comment": {
+        "name": "Annotation Comment",
+        "shortName": "Annotation Comment",
+        "tooltip": {},
+        "id": "annotation_comment"
+      },
+      "overlapping_glycosites": {
+        "name": "Overlapping Glycosites",
+        "shortName": "Overlapping Glycosites",
+        "tooltip": {},
+        "id": "overlapping_glycosites"
+      },
       "subtype": {
         "name": "Subtype",
         "shortName": "Subtype",
@@ -1167,6 +1179,24 @@
         "shortName": "position",
         "tooltip": {},
         "id": "position"
+      },
+      "residues": {
+        "name": "Residues",
+        "shortName": "Residues",
+        "tooltip": {},
+        "id": "residues"
+      },
+      "ligand": {
+        "name": "Ligand",
+        "shortName": "Ligand",
+        "tooltip": {},
+        "id": "ligand"
+      },
+      "notes": {
+        "name": "Notes",
+        "shortName": "Notes",
+        "tooltip": {},
+        "id": "notes"
       },
       "residue": {
         "name": "Residue",
@@ -2977,6 +3007,18 @@
       "displayname": "Biomarkers",
       "tooltip": "Biomarkers information",
       "name": "Biomarkers "
+    },
+    "metal_binding": {
+      "id": "metal_binding",
+      "displayname": "Metal Binding",
+      "tooltip": "Metal Binding information",
+      "name": "Metal Binding"
+    },
+    "domain": {
+      "id": "domain",
+      "displayname": "Domain",
+      "tooltip": "Domain",
+      "name": "Domain"
     }
   },
   "download": {

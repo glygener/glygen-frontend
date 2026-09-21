@@ -25,6 +25,8 @@ import { logActivity } from "../data/logging";
 import PageLoader from "../components/load/PageLoader";
 import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
+import { NavLink } from "react-router-dom";
+import routeConstants from "../data/json/routeConstants";
 
 export function KnowledgeGraphGlycan() {
   let { id } = useParams();
@@ -690,7 +692,25 @@ export function KnowledgeGraphGlycan() {
                   </div>
                 </Col>
                 <Col sm={2} md={2}>
-                  <div className="icons-content pt-1">
+                  <div className="pt-3">
+                    <ol className="legendlists nowrap">
+                      <Row>
+                        <Col sm={2} md={2}>
+                          <NavLink to={`${routeConstants.glycanDetail}${id}`}
+                            style={id === "" ? { pointerEvents: 'none' } : {}}>
+                            <Button
+                              type="button"
+                              className="gg-btn-blue"
+                              disabled={id === ""}
+                            >
+                              Glycan Details
+                            </Button>
+                          </NavLink>
+                        </Col>
+                      </Row>
+                    </ol>
+                  </div>
+                  <div className="icons-content">
                     <ol className="legendlists nowrap">
                       <span
                         className="glycan"

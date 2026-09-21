@@ -21,7 +21,7 @@ import DialogAlert from "../components/alert/DialogAlert";
 import { axiosError } from "../data/axiosError";
 import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
-import { index } from "d3";
+import proteinDetailData from "../data/json/proteinDetailData.json";
 
 if (!customElements.get('nightingale-manager')) {
   window.customElements.define("nightingale-manager", NightingaleManager);
@@ -38,6 +38,8 @@ if (!customElements.get('nightingale-track')) {
 if (!customElements.get('protvista-tooltip')) {
   window.customElements.define("protvista-tooltip", ProtvistaTooltip);
 }
+
+const domainAnnType = proteinDetailData.domain_ann_type;
 
 const ProtVista = () => {
   let { id, Protvistadisplay } = useParams();
@@ -63,7 +65,7 @@ const ProtVista = () => {
   const metalArrRefs = useRef([]); 
 
   const metalData = useRef(null);
-  const [metalTypes, setMetalTypes] = useState([])
+  const [metalTypes, setMetalTypes] = useState([{ion: "", charge: ""}])
   const domainData = useRef(null);
   const phosphorylationData = useRef(null);
   const glycationData = useRef(null);
@@ -177,9 +179,20 @@ useEffect(() => {
 
     let metalTypesTemp = [];
     if (data.binding_sites) {
-      metalTypesTemp = data.binding_sites.map(site => site.ligand ? site.ligand.split('(')[0] : "")
+      metalTypesTemp = data.binding_sites.map(site => {
+        let met = site.ligand.split('(')[0];
+        const openPar = site.ligand.indexOf('(');
+        const closePar = site.ligand.indexOf(')');
+        let supScrp = "";
+        if (openPar !== -1 && closePar !== -1) {
+          supScrp = site.ligand.substring(openPar + 1, closePar);
+        }
+
+        let type = site.ligand ? { ion: met, charge: supScrp } : {ion: "", charge: ""};
+        return type;
+      })
     }
-    let uniMetTypes = [...new Set(metalTypesTemp)];
+    let uniMetTypes = [...new Map(metalTypesTemp.map(type => [type.ion, type])).values()];
     setMetalTypes(uniMetTypes);
 
     var metTemp = 
@@ -195,9 +208,9 @@ useEffect(() => {
     if (uniMetTypes.length > 0) {
       uniMetTypes.forEach((type, index) => {
         let temp = JSON.parse(JSON.stringify(metTemp));
-        temp.type = type;
+        temp.type = type.ion;
         metals.push(temp);
-        metalMap.set(type, index);
+        metalMap.set(type.ion, index);
       })
     }
 
@@ -257,7 +270,9 @@ useEffect(() => {
               tooltipContent:
                 "<div className=marker>Ligand: " +
                 met + "<sup>" + supScrp + "</sup>" +
-                "</div>",
+                "</div>" + 
+                (bsites.uniprotkb_ligand_comment ? "<div className=marker>Comment: " + bsites.uniprotkb_ligand_comment + "</div>": "") +
+                "",
             });
         } 
       }
@@ -406,11 +421,6 @@ useEffect(() => {
       }
     }
 
-    let mapDm = new Map();
-    mapDm.set("domain_extent_annotation", "Domain");
-    mapDm.set("motif_annotation", "Motif");
-    mapDm.set("nucleotide_binding_annotation", "DNA binding");
-
     if (data.domain_list) {
       for (let domain of data.domain_list) {
         domainP.residues.push({
@@ -424,11 +434,10 @@ useEffect(() => {
           title: domain.start_aa + "-" + domain.start_pos + " to " + domain.end_aa + "-" + domain.end_pos,
           tooltipContent:
             "<div className=marker>" + (domain.ann_type ? "Type: " : "") +
-            (mapDm.has(domain.ann_type.toLowerCase()) ? mapDm.get(domain.ann_type.toLowerCase()) : domain.ann_type) +
+            (domainAnnType[domain.ann_type.toLowerCase()] ? domainAnnType[domain.ann_type.toLowerCase()] : domain.ann_type) +
             "</div>" +
-            "<div className=marker>Annotation comment: " +
-            domain.uniprotkb_annotation +
-            "</div>",
+            (domain.uniprotkb_annotation ? "<div className=marker>Name: " + domain.uniprotkb_annotation + "</div>": "") +
+            "",
         });
       }
     }
@@ -880,7 +889,7 @@ useEffect(() => {
       if (metalArrRefs.current[i]) {
         metalArrRefs.current[i].data = formattedData.metalCombData[i];
         setTracksShown({
-          [metalTypes[i] + "Data"]: formattedData.metalCombData[i].length > 0,
+          [metalTypes[i].ion + "Data"]: formattedData.metalCombData[i].length > 0,
         });
         addTooltipToArrayReference(metalArrRefs.current[i]);
       }

@@ -73,6 +73,13 @@ export const getGlycanDetail = accessionId => {
   return getJson(url);
 };
 
+export const getGlycanSectionDetail = (glytoucan_ac, section) => {
+  const queryParams = {"glytoucan_ac": glytoucan_ac, "section": section}
+  const queryParamString = JSON.stringify(queryParams);
+  const url = `/glycan/section/?query=${queryParamString}`;
+  return getJson(url);
+};
+
 export const getGlycanGraph = accessionId => {
   const url = `/glycan/graph/${accessionId}/`;
   return getJson(url);

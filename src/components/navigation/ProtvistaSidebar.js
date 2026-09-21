@@ -116,12 +116,12 @@ const ProtvistaSidebar = ({ data, handleExpand, handleExpand2, expanded, metalTy
               data-toggle="tooltip"
               title="N-Glycans reported at indicated site!"
             >
-              {type}
+              {type.ion}<sup>{type.charge}</sup>
             </a>
           </li>)}
           <li class="nav-item1 nav-nav  legendlist glycotrack">
             <a class="nav-links" >
-              Domain
+              Domain and Region
             </a>
           </li>
           <li class="nav-item1 nav-nav  legendlist glycotrack">

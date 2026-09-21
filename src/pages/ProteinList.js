@@ -248,7 +248,7 @@ const ProteinList = props => {
     }
     setSortField(sortField);
     setSortOrder(sortOrder);
-    set(page);
+    setPage(page);
     setSizePerPage(sizePerPage);
     setPageLoading(true);
     let cols = userSelectedColumns.map(col => col.id);

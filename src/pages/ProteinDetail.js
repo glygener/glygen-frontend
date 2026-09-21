@@ -74,6 +74,7 @@ import CollapsableTextArray from "../components/CollapsableTextArray";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import proteinDetailData from "../data/json/proteinDetailData.json";
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -93,6 +94,7 @@ const glycanStrings = stringConstants.glycan.common;
 const proteinStrings = stringConstants.protein.common;
 const biomarkerStrings = stringConstants.biomarker.common;
 const proteinDirectSearch = stringConstants.protein.direct_search;
+const domainAnnType = proteinDetailData.domain_ann_type;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
@@ -1990,7 +1992,7 @@ function formatNamesDataBasedOnType(data, type) {
     },
     {
       dataField: "sites",
-      text: "Residues",
+      text: proteinStrings.residues.name,
       sort: true,
       formatter: (value, row) =>
       value ?  (row.sites.map((obj, index, arr) =>
@@ -2004,7 +2006,7 @@ function formatNamesDataBasedOnType(data, type) {
     },
     {
       dataField: "ligand",
-      text: "Ligand",
+      text: proteinStrings.ligand.name,
       sort: true,
       formatter: (value, row) => {
         let met = value.split('(')[0];
@@ -2014,12 +2016,12 @@ function formatNamesDataBasedOnType(data, type) {
         if (openPar !== -1 && closePar !== -1) {
           supScrp = value.substring(openPar + 1, closePar);
         }
-        return <span>{met}<sup>{supScrp}</sup>[{row.chebi_lig_id}]</span>;
+        return <span>{met}<sup>{supScrp}</sup>[<a href={"https://www.ebi.ac.uk/chebi/" + row.chebi_lig_id} target="_blank" rel="noopener noreferrer">{row.chebi_lig_id}</a>]</span>;
       }
     },
     {
       dataField: "uniprotkb_ligand_comment",
-      text: "Notes",
+      text: proteinStrings.notes.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
@@ -2029,11 +2031,6 @@ function formatNamesDataBasedOnType(data, type) {
       formatter: (value, row) => <CollapsibleText text={row.uniprotkb_ligand_comment} lines={2} />,
     },
   ];
-
-    const mapDm = new Map();
-    mapDm.set("domain_extent_annotation", "Domain");
-    mapDm.set("motif_annotation", "Motif");
-    mapDm.set("nucleotide_binding_annotation", "DNA binding");
 
   const domainColumns = [
     {
@@ -2052,11 +2049,11 @@ function formatNamesDataBasedOnType(data, type) {
       dataField: "ann_type",
       text: proteinStrings.type.name,
       sort: true,
-      formatter: (value, row) => (value ? <>{mapDm.has(row.ann_type.toLowerCase()) ? mapDm.get(row.ann_type.toLowerCase()) : row.ann_type}</> : "No data available"),
+      formatter: (value, row) => (value ? <>{domainAnnType[row.ann_type.toLowerCase()] ? domainAnnType[row.ann_type.toLowerCase()] : row.ann_type}</> : "No data available"),
     },
     {
       dataField: "start_aa",
-      text: "Residue",
+      text: proteinStrings.residue.name,
       sort: true,
       formatter: (value, row) =>
         value ? (
@@ -2073,7 +2070,7 @@ function formatNamesDataBasedOnType(data, type) {
     },
     {
       dataField: "uniprotkb_annotation",
-      text: "Annotation Comment",
+      text: proteinStrings.annotation_comment.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
@@ -2084,7 +2081,7 @@ function formatNamesDataBasedOnType(data, type) {
     },
     {
       dataField: "glycosite_overlap",
-      text: "Overlapping Glycosites",
+      text: proteinStrings.overlapping_glycosites.name,
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
@@ -3672,16 +3669,15 @@ function formatNamesDataBasedOnType(data, type) {
                   <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={"Metal Binding"}
-                        // text={DetailTooltips.protein.glycation.text}
-                        // urlText={DetailTooltips.protein.glycation.urlText}
-                        // url={DetailTooltips.protein.glycation.url}
+                        title={DetailTooltips.protein.metal_binding.title}
+                        text={DetailTooltips.protein.metal_binding.text}
+                        urlText={DetailTooltips.protein.metal_binding.urlText}
+                        url={DetailTooltips.protein.metal_binding.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
                     <h4 className="gg-green d-inline">
-                      {/* {stringConstants.sidebar.glycation.displayname} */}
-                      Metal Binding
+                      {stringConstants.sidebar.metal_binding.displayname}
                     </h4>
                     <div className="float-end">
                       <span>
@@ -3714,7 +3710,7 @@ function formatNamesDataBasedOnType(data, type) {
                         />
                       </span>
 
-                      <CardToggle cardid="glycation" toggle={collapsed.metal_binding} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="metal-binding" toggle={collapsed.metal_binding} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -3761,14 +3757,15 @@ function formatNamesDataBasedOnType(data, type) {
                   <Card.Header style={{paddingTop:"12px", paddingBottom:"12px"}} className="panelHeadBgr">
                     <span className="gg-green d-inline">
                       <HelpTooltip
-                        title={"Domain"}
-                        // text={DetailTooltips.protein.glycation.text}
+                        title={DetailTooltips.protein.domain.title}
+                        text={DetailTooltips.protein.domain.text}
+                        urlText={DetailTooltips.protein.domain.urlText}
+                        url={DetailTooltips.protein.domain.url}
                         helpIcon="gg-helpicon-detail"
                       />
                     </span>
                     <h4 className="gg-green d-inline">
-                      {/* {stringConstants.sidebar.glycation.displayname} */}
-                      Domain
+                      {stringConstants.sidebar.domain.displayname}
                     </h4>
                     <div className="float-end">
                       <span className="text-end gg-download-btn-width pb-3">
@@ -3822,7 +3819,7 @@ function formatNamesDataBasedOnType(data, type) {
                         />
                       </span>
 
-                      <CardToggle cardid="domain_list" toggle={collapsed.domain} eventKey="0" toggleCollapse={toggleCollapse}/>
+                      <CardToggle cardid="domain" toggle={collapsed.domain} eventKey="0" toggleCollapse={toggleCollapse}/>
                     </div>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">

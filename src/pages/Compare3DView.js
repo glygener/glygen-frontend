@@ -33,8 +33,8 @@ import DialogAlert from "../components/alert/DialogAlert.js";
 import { axiosError } from "../data/axiosError.js";
 import stringConstants from "../data/json/stringConstants";
 import AutoTextInput from "../components/input/AutoTextInput.js";
-import { getProteinDetail } from "../data/protein.js";
-import { getGlycanDetail } from "../data/glycan.js"
+import { getProteinSectionDetail } from "../data/protein.js";
+import { getGlycanSectionDetail } from "../data/glycan.js"
 import routeConstants from "../data/json/routeConstants";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -250,7 +250,7 @@ export function Compare3DView() {
     setPageLoading(true);
     logActivity("user", proteinID1);
 
-    getProteinDetail(proteinID1).then(({ data }) => {
+    getProteinSectionDetail(proteinID1, "structures").then(({ data }) => {
       if (data.code) {
         let message = "Glycan Knowledge Graph api call";
         logActivity("user", proteinID1, "No results. " + message);
@@ -281,13 +281,13 @@ export function Compare3DView() {
           }
 
 
-          if (data.structures && data.structures.length > 0) {
-            let menu = data.structures.sort(sortMenu).map(item => { return { id: item.pdb_id, name: `${item.type === "experimental" ? "PDB ID" : "AlphaFold ID"}: ${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})` } });
+          if (data && data.length > 0) {
+            let menu = data.sort(sortMenu).map(item => { return { id: item.pdb_id, name: `${item.type === "experimental" ? "PDB ID" : "AlphaFold ID"}: ${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})` } });
             setStructureMenu1(menu);
 
             let structureMap1 = new Map();
-            for (let i = 0; i < data.structures.length; i++) {
-              structureMap1.set(data.structures[i].pdb_id, { type: data.structures[i].type, url: data.structures[i].url, url_external: data.structures[i].url_external });
+            for (let i = 0; i < data.length; i++) {
+              structureMap1.set(data[i].pdb_id, { type: data[i].type, url: data[i].url, url_external: data[i].url_external });
             }
             structureMap1.set("", { type: "", url: "", url_external: "" });
             setStructureMap1(structureMap1);
@@ -341,7 +341,7 @@ export function Compare3DView() {
     setPageLoading(true);
     logActivity("user", proteinID2);
 
-    getProteinDetail(proteinID2).then(({ data }) => {
+    getProteinSectionDetail(proteinID2, "structures").then(({ data }) => {
       if (data.code) {
         let message = "Glycan Knowledge Graph api call";
         logActivity("user", proteinID2, "No results. " + message);
@@ -372,13 +372,13 @@ export function Compare3DView() {
           }
 
 
-          if (data.structures && data.structures.length > 0) {
-            let menu = data.structures.sort(sortMenu).map(item => { return { id: item.pdb_id, name: `${item.type === "experimental" ? "PDB ID" : "AlphaFold ID"}: ${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})` } });
+          if (data && data.length > 0) {
+            let menu = data.sort(sortMenu).map(item => { return { id: item.pdb_id, name: `${item.type === "experimental" ? "PDB ID" : "AlphaFold ID"}: ${item.pdb_id.toUpperCase()} (Amino acid: ${item.start_pos} - ${item.end_pos})` } });
             setStructureMenu2(menu);
 
             let structureMap2 = new Map();
-            for (let i = 0; i < data.structures.length; i++) {
-              structureMap2.set(data.structures[i].pdb_id, { type: data.structures[i].type, url: data.structures[i].url, url_external: data.structures[i].url_external });
+            for (let i = 0; i < data.length; i++) {
+              structureMap2.set(data[i].pdb_id, { type: data[i].type, url: data[i].url, url_external: data[i].url_external });
             }
             structureMap2.set("", { type: "", url: "", url_external: "" });
             setStructureMap2(structureMap2);
@@ -434,16 +434,15 @@ export function Compare3DView() {
     setPageLoading(true);
     logActivity("user", glycanID1);
 
-    getGlycanDetail(glycanID1).then(({ data }) => {
+    getGlycanSectionDetail(glycanID1, "structures").then(({ data }) => {
       if (data.code) {
         let message = "Glycan Knowledge Graph api call";
         logActivity("user", glycanID1, "No results. " + message);
         setPageLoading(false);
       } else {
         if (data) {
-
-          if (data.structures && data.structures.length > 0) {
-            let structures = data.structures[0];
+          if (data && data.length > 0) {
+            let structures = data[0];
             if (structures.length > 0) {
               let menu = structures.sort(sortByOrder).map(item => { return { id: item.type + "_" + item.structure_id, name: `${item.method} (${item.structure_id})` } });
               setStructureMenu1(menu);
@@ -504,16 +503,15 @@ export function Compare3DView() {
     setPageLoading(true);
     logActivity("user", glycanID2);
 
-    getGlycanDetail(glycanID2).then(({ data }) => {
+    getGlycanSectionDetail(glycanID2, "structures").then(({ data }) => {
       if (data.code) {
         let message = "Glycan Knowledge Graph api call";
         logActivity("user", glycanID2, "No results. " + message);
         setPageLoading(false);
       } else {
         if (data) {
-
-          if (data.structures && data.structures.length > 0) {
-            let structures = data.structures[0];
+          if (data && data.length > 0) {
+            let structures = data[0];
             if (structures.length > 0) {
               let menu = structures.sort(sortByOrder).map(item => { return { id: item.type + "_" + item.structure_id, name: `${item.method} (${item.structure_id})` } });
               setStructureMenu2(menu);

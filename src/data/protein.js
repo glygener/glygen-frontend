@@ -92,6 +92,14 @@ export const getProteinDetail = (accessionId, noPagination) => {
   return getJson(url);
 };
 
+export const getProteinSectionDetail = (uniprot_canonical_ac, section) => {
+  let url = '';
+  const queryParams = {"uniprot_canonical_ac": uniprot_canonical_ac, "section": section}
+  const queryParamString = JSON.stringify(queryParams);
+  url = `/protein/section/?query=${queryParamString}`;
+  return getJson(url);
+};
+
 export const getProteinGraph = accessionId => {
   const url = `/protein/graph/${accessionId}/`;
   return getJson(url);

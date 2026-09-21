@@ -35,7 +35,6 @@ import GlyGenNotificationContext from "../components/GlyGenNotificationContext.j
 import ListIDNameDialog from "../components/idcart/ListIDNameDialog";
 import { addIDsToStore } from "../data/idCartApi"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { setFips } from "node:crypto";
 
 const GlycanList = props => {
   let { id } = useParams();

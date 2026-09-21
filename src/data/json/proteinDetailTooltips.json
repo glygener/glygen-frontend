@@ -66,6 +66,18 @@
       "title": "Expression Disease",
       "url": "https://wiki.glygen.org/index.php/Protein_details/Expression_disease"
     },
+    "metal_binding": {
+      "urlText": "",
+      "text": "",
+      "title": "Metal Binding",
+      "url": ""
+    },
+    "domain": {
+      "urlText": "",
+      "text": "",
+      "title": "Domain",
+      "url": ""
+    },
     "glycation": {
       "urlText": "Read more...",
       "text": "The Glycation section provides a detailed list of sites with non-enzymatic, covalently linked glycans, including the type of attachment and the location on the amino acid sequence.",

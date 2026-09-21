@@ -26,8 +26,8 @@ const ThreeDViewer = props => {
         };
         spec.config = [
           [PluginConfig.Structure.SaccharideCompIdMapType, "default"],
-       [PluginConfig.Structure.SaccharideCompIdMapType, "glycam"],
-       [PluginConfig.Structure.dynamicBonds, true],
+      [PluginConfig.Structure.SaccharideCompIdMapType, "glycam"],
+      [PluginConfig.Structure.dynamicBonds, true],
       ];
         plugin.current = await createPluginUI(//parentRef.current, renderReact18, spec
           {
