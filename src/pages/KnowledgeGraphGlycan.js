@@ -559,6 +559,18 @@ export function KnowledgeGraphGlycan() {
         />
         <div className="gg-baseline list-page-container">
           <div className="sidebar-page-outreach p-4">
+            <div className="text-end p-3 pe-4">
+              <NavLink to={`${routeConstants.glycanDetail}${id}`}
+                style={id === "" ? { pointerEvents: 'none' } : {}}>
+                <Button
+                  type="button"
+                  className="gg-btn-blue"
+                  disabled={id === ""}
+                >
+                  Glycan Details
+                </Button>
+              </NavLink>
+            </div>
             <div
               style={{
                 border: "1px solid",
@@ -692,24 +704,6 @@ export function KnowledgeGraphGlycan() {
                   </div>
                 </Col>
                 <Col sm={2} md={2}>
-                  <div className="pt-3">
-                    <ol className="legendlists nowrap">
-                      <Row>
-                        <Col sm={2} md={2}>
-                          <NavLink to={`${routeConstants.glycanDetail}${id}`}
-                            style={id === "" ? { pointerEvents: 'none' } : {}}>
-                            <Button
-                              type="button"
-                              className="gg-btn-blue"
-                              disabled={id === ""}
-                            >
-                              Glycan Details
-                            </Button>
-                          </NavLink>
-                        </Col>
-                      </Row>
-                    </ol>
-                  </div>
                   <div className="icons-content">
                     <ol className="legendlists nowrap">
                       <span
