@@ -1007,7 +1007,7 @@ useEffect(() => {
 
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
-              <div style={{height: expanded ? "1040px" : "740px"}}>
+              <div>
                 <nightingale-manager
                   class={`nav-track-manager`}
                   reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
