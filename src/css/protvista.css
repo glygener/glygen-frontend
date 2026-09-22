@@ -37,10 +37,20 @@
 .nav-track > .container {
   padding-left: 0px !important;
   padding-right: 0px !important;
+  max-width: none !important;
 }
 .nav-track-manager > .container {
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+nightingale-navigation {
+    .handle {
+        fill: var(--gg-blue);
+        stroke: black;
+        stroke-width: 0.5px;
+        height: 33px;
+    }
 }
 
 .hidden {

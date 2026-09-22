@@ -83,15 +83,19 @@ const ProtVista = () => {
     }
   );
 
+/**
+ * Utility function to map string value to hex color code.
+ * @param {string} str - input string.
+ **/
 const stringToHexColor = (str) => {
   let hash = 0;
   
-  // 1. Generate a hash code from the string
+  // Generate a hash code from the string
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   
-  // 2. Convert the hash into a 6-digit hex code
+  // Convert the hash into a 6-digit hex code
   let color = '#';
   for (let i = 0; i < 3; i++) {
     // Extract 8 bits at a time and format as a 2-digit hex
@@ -1005,7 +1009,6 @@ useEffect(() => {
             {data && data.sequence && data.sequence.length && (
               <div style={{height: expanded ? "1040px" : "740px"}}>
                 <nightingale-manager
-                  width={data.sequence.length}
                   class={`nav-track-manager`}
                   reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
                   id="manager"
@@ -1016,8 +1019,6 @@ useEffect(() => {
                     length={data.sequence.length}
                     display-start={1}
                     display-end={data.sequence.length}
-                    ruler-start={1}
-                    width={data.sequence.length}
                     height="60"
                   /> 
                   <nightingale-sequence
@@ -1025,7 +1026,6 @@ useEffect(() => {
                     class="nav-track"
                     length={data.sequence.length}
                     sequence={data.sequence.sequence}
-                    width={data.sequence.length}
                     height="60"
                   /> 
                   {/* Blank Track */}
@@ -1035,7 +1035,6 @@ useEffect(() => {
                     display-start={1}
                     display-end={data.sequence.length}
                     layout="non-overlapping"
-                    width={data.sequence.length}
                     height="80"
                   />
                   <nightingale-track
@@ -1048,7 +1047,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={allTrack}
-                    width={data.sequence.length}
                     height={expanded ? "0": "80"}
                     id="id-nightingale-track"
                   />                  
@@ -1065,7 +1063,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={nGlycanWithImage}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1079,7 +1076,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={nGlycanWithoutImage}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1093,7 +1089,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={oGlycanWithImage}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1107,7 +1102,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={oGlycanWithoutImage}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1121,7 +1115,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={nSequon}
-                    width={data.sequence.length}
                     height="60"
                   />
                   {/* Blank Track */}
@@ -1131,7 +1124,6 @@ useEffect(() => {
                     display-start={1}
                     display-end={data.sequence.length}
                     layout="non-overlapping"
-                    width={data.sequence.length}
                     height="80"
                   />
                   <nightingale-track
@@ -1145,7 +1137,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={metalData}
-                    width={data.sequence.length}
                     height={expandedMetal ? "0": "80"}
                     id="id-nightingale-track"
                   />
@@ -1161,10 +1152,9 @@ useEffect(() => {
                       display-start={1}
                       display-end={data.sequence.length}
                       layout="non-overlapping"
-                        ref={(node) => {
-                          if (node) metalArrRefs.current[index] = node;
-                        }}
-                      width={data.sequence.length}
+                      ref={(node) => {
+                        if (node) metalArrRefs.current[index] = node;
+                      }}
                       height="60"
                     />
                   )}
@@ -1177,7 +1167,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={domainData}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1189,7 +1178,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={phosphorylationData}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1199,7 +1187,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={glycationData}
-                    width={data.sequence.length}
                     height="60"
                   />
 
@@ -1210,7 +1197,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={mutationsData}
-                    width={data.sequence.length}
                     height="60"
                   />
                   <nightingale-track
@@ -1222,7 +1208,6 @@ useEffect(() => {
                     display-end={data.sequence.length}
                     layout="non-overlapping"
                     ref={mutagenesisData}
-                    width={data.sequence.length}
                     height="60"
                   />
                 </nightingale-manager>
