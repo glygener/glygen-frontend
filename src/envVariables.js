@@ -61,3 +61,6 @@ export const GLYTABLEMAKER = "https://glygen.ccrc.uga.edu/tablemaker/";
 export const GLYCAN_IMAGE_EXTRACTOR = "https://extractor.glyomics.org/";
 export const GLYMAGE = "https://glymage.glyomics.org/";
 export const SEQUENCE_FORMAT_COVERTER = "https://converter.glyomics.org/";
+export const GLYCOMOTIF = "https://glycomotif.glyomics.org/";
+export const PMID_MOTIF = "https://pubmed.ncbi.nlm.nih.gov/19756298/";
+export const GLYGEN_MOTIF_COLLECTION = "https://glycomotif.glyomics.org/glycomotif/GGM";

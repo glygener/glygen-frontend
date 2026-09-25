@@ -21,6 +21,7 @@ import routeConstants from "../data/json/routeConstants";
 import { Col } from "react-bootstrap";
 import DirectSearch from "../components/search/DirectSearch.js";
 import { getSuperSearch } from '../data/supersearch';
+import { GLYCOMOTIF, PMID_MOTIF, GLYGEN_MOTIF_COLLECTION } from "../envVariables";
 
 const glycanStrings = stringConstants.glycan.common;
 const motifStrings = stringConstants.motif.common;
@@ -307,18 +308,34 @@ const MotifList = props => {
         />
         <section>
           <div className="content-box-md">
-            <Row>
-              <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
-                <div className="horizontal-heading">
-                  <h5>Look At</h5>
-                  <h2>
-                    List of <strong>Motifs</strong>
-                  </h2>
-                </div>
-              </Grid>
-            </Row>
+            <Grid item size= {{ xs: 12, sm: 12 }} className="text-center">
+              <div className="horizontal-heading">
+                <h5>Look At</h5>
+                <h2>
+                  List of <strong>Motifs</strong>
+                </h2>
+              </div>
+            </Grid>
           </div>
-
+          <div className="pb-1 ps-3 pe-3">
+            The GlyGen glycan motif collection is actively maintained and curated through the{" "}
+            <a href={GLYCOMOTIF} target="_blank" rel="noopener noreferrer">
+              GlycoMotif
+            </a>{" "}
+            project. Motifs are derived from the glycan determinant repertoire described by Cummings (2009), "The repertoire of glycan determinants in the human glycome"{" "}(
+            <a href={PMID_MOTIF} target="_blank" rel="noopener noreferrer">
+              PMID: 19756298
+            </a>),{" "}
+            and have been expanded through incorporation of motif collections from additional community glycoinformatics resources and expert curation. Each motif is assigned a
+            stable identifier and mapped to corresponding glycan structures within GlyGen, enabling motif-based search, classification, and analysis.{" "}
+            <div>
+              See also{" "}
+              <a href={GLYGEN_MOTIF_COLLECTION} target="_blank" rel="noopener noreferrer">
+                GlyGen motif collection
+              </a>{" "}
+              on GlycoMotif.{" "}
+            </div>
+          </div>
           <div className="text-end">
             <DownloadButton
               types={[
