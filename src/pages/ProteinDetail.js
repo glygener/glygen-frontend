@@ -1278,7 +1278,7 @@ function formatNamesDataBasedOnType(data, type) {
           </span>
         ) : (<LineTooltip text="View siteview details">
               <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
-                {row.residue}
+                {row.residue || row.start_aa}
                 {row.start_pos}
               </Link>
             </LineTooltip>)
@@ -1288,7 +1288,7 @@ function formatNamesDataBasedOnType(data, type) {
       // formatter: (value, row) => (
       //   <LineTooltip text="View siteview details">
       //     <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
-      //       {row.residue} {row.start_pos}
+      //       {row.residue || row.start_aa} {row.start_pos}
       //     </Link>
       //   </LineTooltip>
     },

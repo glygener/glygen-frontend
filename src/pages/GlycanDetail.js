@@ -100,10 +100,10 @@ const items = [
     label: stringConstants.sidebar.subsumption.displayname,
     id: "Subsumption"
   },
-  {
-    label: stringConstants.sidebar.biomarkers.displayname,
-    id: "Biomarkers"
-  },
+  // {
+  //   label: stringConstants.sidebar.biomarkers.displayname,
+  //   id: "Biomarkers"
+  // },
   {
     label: stringConstants.sidebar.expression.displayname,
     id: "Expression"
@@ -694,16 +694,16 @@ const GlycanDetail = props => {
             true
           );
         }
-        if (
-          !detailDataTemp.biomarkers ||
-          detailDataTemp.biomarkers.length === 0
-        ) {
-          newSidebarData = setSidebarItemState(
-            newSidebarData,
-            "Biomarkers",
-            true
-          );
-        }
+        // if (
+        //   !detailDataTemp.biomarkers ||
+        //   detailDataTemp.biomarkers.length === 0
+        // ) {
+        //   newSidebarData = setSidebarItemState(
+        //     newSidebarData,
+        //     "Biomarkers",
+        //     true
+        //   );
+        // }
         if (
           !detailDataTemp.iupac &&
           !detailDataTemp.wurcs &&
@@ -2973,7 +2973,7 @@ const GlycanDetail = props => {
               </Accordion>
 
               {/*  Biomarkers */}
-              <Accordion
+              {false && <Accordion
                 id="Biomarkers"
                 defaultActiveKey="0"
                 className="panel-width"
@@ -3046,7 +3046,7 @@ const GlycanDetail = props => {
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
-              </Accordion>
+              </Accordion>}
 
               {/* Expression */}
               <Accordion

@@ -240,11 +240,11 @@ export default function Footer() {
                   Tutorials and How to
                 </a>
               </div>
-              <div>
+              {/* <div>
                 <a href={GLYGEN_DOC} target="_blank" rel="noopener noreferrer">
                   Documentation
                 </a>
-              </div>
+              </div> */}
               <div>
                 <Link to={routeConstants.contactUs}>Contact Us</Link>
               </div>

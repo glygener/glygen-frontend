@@ -888,7 +888,7 @@ const ProteinAdvancedSearch = (props) => {
 							placeholder={advancedSearch.biomarker_type.placeholder}
 							placeholderId={advancedSearch.biomarker_type.placeholderId}
 							placeholderName={advancedSearch.biomarker_type.placeholderName}
-							menu={props.initData.biomarker_types.map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
+							menu={props.initData.biomarker_types.filter(type => type != "").map(a => {return {name:a.charAt(0).toUpperCase() + a.slice(1), id:a}})}
 							setInputValue={proBiomarkerTypeOnChange}
 						/>
 					</FormControl>

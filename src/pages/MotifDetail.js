@@ -52,10 +52,10 @@ const biomarkerStrings = stringConstants.biomarker.common;
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
   { label: stringConstants.sidebar.glycans.displayname, id: "Glycans-With-This-Motif" },
-  {
-    label: stringConstants.sidebar.biomarkers.displayname,
-    id: "Biomarkers"
-  },
+  // {
+  //   label: stringConstants.sidebar.biomarkers.displayname,
+  //   id: "Biomarkers"
+  // },
   {
     label: stringConstants.sidebar.digital_seq.displayname,
     id: "Digital-Sequence"
@@ -240,9 +240,9 @@ const MotifDetail = (props) => {
         if (!data.results || data.results.length === 0) {
           newSidebarData = setSidebarItemState(newSidebarData, "Glycans-With-This-Motif", true);
         }
-        if (!data.biomarkers || data.biomarkers.length === 0) {
-          newSidebarData = setSidebarItemState(newSidebarData, "Biomarkers", true);
-        }
+        // if (!data.biomarkers || data.biomarkers.length === 0) {
+        //   newSidebarData = setSidebarItemState(newSidebarData, "Biomarkers", true);
+        // }
         if (!data.iupac && !data.wurcs && !data.glycoct && !data.inchi && !data.glycam && !data.smiles_isomeric) {
           newSidebarData = setSidebarItemState(newSidebarData, "Digital-Sequence", true);
         }
@@ -843,7 +843,7 @@ const MotifDetail = (props) => {
               </Accordion>
 
               {/*  Biomarkers */}
-              <Accordion
+              {false && <Accordion
                 id="Biomarkers"
                 defaultActiveKey="0"
                 className="panel-width"
@@ -916,7 +916,7 @@ const MotifDetail = (props) => {
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
-              </Accordion>
+              </Accordion>}
 
               {/* Digital Sequence */}
               <Accordion

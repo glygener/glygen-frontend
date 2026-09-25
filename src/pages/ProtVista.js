@@ -535,6 +535,7 @@ useEffect(() => {
           shape: glycos[4].shape,
           accession: data.uniprot.uniprot_canonical_ac,
           type: "N-Glycan-Sequon",
+          click: "block",
           title: site_annotation.start_pos + "-" + site_annotation.end_pos,
           tooltipContent:
             "<span className=marker>" +
