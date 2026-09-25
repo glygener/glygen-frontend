@@ -28,6 +28,7 @@ import idMappingImg from "../images/home/id-mapping-img.svg";
 import gnomeBrowserImg from "../images/home/gnome-browser-img.svg";
 import apiImg from "../images/home/api-img.svg";
 import dataImg from "../images/home/data-img.svg";
+import glyTableMakerImg from "../images/home/gly-table-maker-img.svg"
 import sparqlImg from "../images/home/sparql-img.svg";
 import glygenSandBoxlImg from "../images/home/GlyGen-SandBox-img.svg";
 import glycanStructureDictionaryImg from "../images/home/Glycan-Structure-Dictionary-img.svg"
@@ -42,7 +43,8 @@ import {
   GLYGEN_SPARQL,
   GNOME_BROWSER,
   GLYGEN_SANDBOX,
-  GLYGEN_GSD
+  GLYGEN_GSD,
+  GLYTABLEMAKER
 } from "../envVariables";
 import routeConstants from "../data/json/routeConstants.json";
 import { logActivity } from "../data/logging";
@@ -179,6 +181,15 @@ const featuredCards = [
     image: idMappingImg,
     imageText: "GlyGen Mapper",
     to: routeConstants.idMapping,
+  },
+  {
+    title: "GlyTableMaker",
+    description:
+      "GlyTableMaker is a tool to deposit glycans / glycoproteins, assign metadata for them, and generate tables (e.g. CSV).",
+    image: glyTableMakerImg,
+    imageText: "GlyTableMaker",
+    href: GLYTABLEMAKER,
+    target: "_blank",
   },
   {
     title: "Data",
