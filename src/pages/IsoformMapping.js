@@ -475,7 +475,7 @@ const IsoformMapping = (props) => {
                 if (query.sequence) {
                   if (query.intable && query.intable.length > 0) {
                     let intable = query.intable.slice(1);
-                    intable = intable.map(temp => { return {"amino_acid_position": temp[0], "amino_acid": temp[1]} })
+                    intable = intable.map((temp, ind) => { return {"id": ind, "amino_acid_position": temp[0], "amino_acid": temp[1]} })
                     setDataSequence(intable && intable.length > 0 ? intable : dataSequence);
                   }
                   setInputValue({ "proSequence" : (query.sequence ? query.sequence : "")});
@@ -483,7 +483,7 @@ const IsoformMapping = (props) => {
                 } else {
                   if (query.intable && query.intable.length > 0) {
                     let intable = query.intable.slice(1);
-                    intable = intable.map(temp => { return {"accession" : temp[0], "amino_acid_position": temp[1], "amino_acid": temp[2]} })
+                    intable = intable.map((temp, ind) => { return {"id": ind, "accession" : temp[0], "amino_acid_position": temp[1], "amino_acid": temp[2]} })
                     setData(intable && intable.length > 0 ? intable : data);
                   }
                   setGlyActTabKey('Accession-Site-Based');
