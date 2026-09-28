@@ -2559,12 +2559,12 @@
     "superSearchError": {
       "id": "superSearchError",
       "title": "Super Search Error - Enter Valid Input",
-      "message": "Sorry, we couldn't process search request. Please enter valid input."
+      "message": "Sorry, we couldn't process search request. Please enter a valid input."
     },
     "blastSearchError": {
       "id": "blastSearchError",
       "title": "Blast Search Error - No Results Found",
-      "message": "Sorry, we couldn't process blast request. Please enter valid input."
+      "message": "Sorry, we couldn't process blast request. Please enter a valid input."
     },
     "blastSearchUniProtAccError": {
       "id": "blastSearchUniProtAccError",
@@ -2594,17 +2594,17 @@
     "isoformSearchError": {
       "id": "isoformSearchError",
       "title": "Isoform Mapper Search Error - No Results Found",
-      "message": "Sorry, we couldn't process isoform mapper search request. Please enter valid input."
+      "message": "Sorry, we couldn't process isoform mapper search request. Please enter a valid input."
     },
     "batchRetrievalError": {
       "id": "batchRetrievalError",
       "title": "Batch Retrieval Error - No Results Found",
-      "message": "Sorry, we couldn't process batch retrieval request. Please enter valid input."
+      "message": "Sorry, we couldn't process batch retrieval request. Please enter a valid input."
     },
     "no-isoform-accessions-found": {
       "id": "no-isoform-accessions-found",
       "title": "Isoform Mapper Search Error - Enter Valid Sequence",
-      "message": "Sorry, we couldn't process isoform mapper search request. Please enter valid Sequence."
+      "message": "Sorry, we couldn't process isoform mapper search request. Please enter a valid Sequence."
     },
     "row-count-exceeds-1000": {
       "id": "row-count-exceeds-1000",

@@ -796,7 +796,7 @@ const GlycanAdvancedSearch = props => {
         </Grid>
 
         {/* Biomarker Disease */}
-				<Grid item size={{ xs: 12, sm: 10 }}>
+				{false && <Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl fullWidth variant='outlined'>
 						<Typography
 							className={'search-lbl'}
@@ -823,9 +823,9 @@ const GlycanAdvancedSearch = props => {
 							inputValue={advancedSearch.biomarker_disease.examples}
 						/>
 					</FormControl>
-				</Grid>
+				</Grid>}
 				{/* Biomarker Type */}
-				<Grid item size={{ xs: 12, sm: 10 }}>
+				{false && <Grid item size={{ xs: 12, sm: 10 }}>
 					<FormControl
 						fullWidth
 						variant='outlined'
@@ -846,7 +846,7 @@ const GlycanAdvancedSearch = props => {
 							setInputValue={glyBiomarkerTypeOnChange}
 						/>
 					</FormControl>
-				</Grid>
+				</Grid>}
 
         {/* Buttons Buttom */}
         <Grid item size={{ xs: 12, sm: 10 }}>

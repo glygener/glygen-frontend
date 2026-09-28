@@ -184,6 +184,7 @@ const SiteList = (props) => {
   const [listCacheId, setListCacheId] = useState("");
   const [open, setOpen] = React.useState(false);
   const [userSelectedColumns, setUserSelectedColumns] = useState([]);
+  const [filterReset, setFilterReset] = useState(0);
 
   function toggleDrawer(newOpen) {
     setOpen(newOpen);
@@ -414,7 +415,9 @@ const SiteList = (props) => {
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters
@@ -424,13 +427,17 @@ const SiteList = (props) => {
                 availableOptions={availableFilters}
                 selectedOptions={appliedFilters}
                 onFilterChange={handleFilterChange}
+                filterReset={filterReset}
+                setFilterReset={setFilterReset}
               />
               <div className="reset-filter-btn-container ">
                 <Button
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters

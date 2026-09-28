@@ -1156,7 +1156,7 @@ const GlycanSearch = (props) => {
 			let error = status.error ? status.error === "Motif is too big" ? "Structure is too big. " : status.error + ". ": "";
 			logActivity("user", "", "No results. " + message + " " + error);
 			setDialogLoading(false);
-			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter valid input."});
+			setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter a valid input."});
 			window.scrollTo(0, 0);
 		  }
         }  else {
@@ -1224,7 +1224,7 @@ const GlycanSearch = (props) => {
 				let error = response.data["error"] ? response.data["error"] === "Motif is too big" ?  "Structure is too big. " : response.data["error"] + ". " : "";
 				logActivity("error", "", "No results. " + message + " " + error);
 				setDialogLoading(false);
-				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter valid input."});
+				setAlertTextInput({"show": true, "id": (glyActTabKey === "Structure-Search" ? stringConstants.errors.structureSearchError.id : stringConstants.errors.substructureSearchError.id), custom : error + "Please enter a valid input."});
 				window.scrollTo(0, 0);
 			}  
 		} else {

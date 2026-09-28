@@ -94,6 +94,7 @@ const ProteinList = props => {
   const [columns, setColumns] = useState();
   const [searchQuery, setSearchQuery] = useState();
   const [queryType, setQueryType] = useState();
+  const [filterReset, setFilterReset] = useState(0);
 
   function toggleDrawer(newOpen) {
     setOpen(newOpen);
@@ -369,7 +370,9 @@ const ProteinList = props => {
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    setAppliedFilters([]);
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters
@@ -379,13 +382,17 @@ const ProteinList = props => {
                 availableOptions={availableFilters}
                 selectedOptions={appliedFilters}
                 onFilterChange={handleFilterChange}
+                filterReset={filterReset}
+                setFilterReset={setFilterReset}
               />
               <div className="reset-filter-btn-container ">
                 <Button
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    setAppliedFilters([]);
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters

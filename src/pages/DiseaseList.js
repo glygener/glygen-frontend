@@ -146,6 +146,8 @@ const DiseaseList = props => {
     (state, newState) => ({ ...state, ...newState }),
     { show: false, id: "" }
   );
+  const [filterReset, setFilterReset] = useState(0);
+  
   const navigate = useNavigate();
 
 function HeaderwithsameStyle(colum, colIndex) {
@@ -328,7 +330,9 @@ function HeaderwithsameStyle(colum, colIndex) {
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters
@@ -338,13 +342,17 @@ function HeaderwithsameStyle(colum, colIndex) {
                 availableOptions={availableFilters}
                 selectedOptions={appliedFilters}
                 onFilterChange={handleFilterChange}
+                filterReset={filterReset}
+                setFilterReset={setFilterReset}
               />
               <div className="reset-filter-btn-container ">
                 <Button
                   type="button"
                   className="gg-btn-blue reset-filter-btn"
                   onClick={() => {
-                    window.location.reload();
+                    if (appliedFilters.length > 0) {
+                      setFilterReset(appliedFilters.length);
+                    }
                   }}
                 >
                   Reset Filters
