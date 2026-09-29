@@ -27,34 +27,34 @@ network-biom-dev:
 	@docker network ls --format='{{ .Name }}' | grep ^${GLYGEN_NETWORK_BIOM_DEV}$$ > /dev/null 2>&1 || docker network create ${GLYGEN_NETWORK_BIOM_DEV};
 
 prod: network
-	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend up --no-start --build
+	@docker compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.prod.yml --project-name glygen-frontend up --no-start --build
 	@docker image prune --force
 
 beta: network-beta
-	@docker-compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta up --no-start --build
+	@docker compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.beta.yml --project-name glygen-frontend-beta up --no-start --build
 	@docker image prune --force
 
 test: network-test
-	@docker-compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test up --no-start --build
+	@docker compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.test.yml --project-name glygen-frontend-test up --no-start --build
 	@docker image prune --force
 
 dev: network-dev
-	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev stop
-	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev up -d --build
+	@docker compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev stop
+	@docker compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.dev.yml --project-name glygen-frontend-dev up -d --build
 	@docker image prune --force
 
 biom-prod: network-biom-prod
-	@docker-compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod up --no-start --build
+	@docker compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.biom-prod.yml --project-name glygen-frontend-biom-prod up --no-start --build
 	@docker image prune --force
 
 biom-dev: network-biom-dev
-	@docker-compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev rm --force
-	@docker-compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev up --no-start --build
+	@docker compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev rm --force
+	@docker compose -f docker-compose.yml -f docker-compose.biom-dev.yml --project-name glygen-frontend-biom-dev up --no-start --build
 	@docker image prune --force
 
 clean:
