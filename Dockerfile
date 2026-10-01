@@ -69,5 +69,6 @@ COPY --from=build /app/build /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /var/www
 RUN chmod -R o+r *
+RUN find * -type d -exec chmod o+x {} +
 EXPOSE $PORT
 CMD ["nginx", "-g", "daemon off;"]
