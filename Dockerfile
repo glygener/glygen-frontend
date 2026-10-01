@@ -67,6 +67,7 @@ RUN npm run build
 FROM nginx:1.22.1-alpine
 COPY --from=build /app/build /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /var/www
 RUN chmod -R o+r *
 EXPOSE $PORT
 CMD ["nginx", "-g", "daemon off;"]
