@@ -2141,6 +2141,7 @@ const PublicationDetail = (props) => {
                                   table_id={"glycosylation_reported_with_glycan"}
                                   record_id={id}
                                   serverPagination={true}
+                                  showFilters={true}
                                   totalDataSize={glycosylationWithImageTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingGly}
@@ -2196,6 +2197,7 @@ const PublicationDetail = (props) => {
                                     table_id={"glycosylation_reported"}
                                     record_id={id}
                                     serverPagination={true}
+                                    showFilters={true}
                                     totalDataSize={glycosylationWithoutImageTotal}
                                     setAlertDialogInput={setAlertDialogInput}
                                     setCardLoading={setCardLoadingGly}
@@ -2250,6 +2252,7 @@ const PublicationDetail = (props) => {
                                   table_id={"glycosylation_automatic_literature_mining"}
                                   record_id={id}
                                   serverPagination={true}
+                                  showFilters={true}
                                   totalDataSize={glycosylationAutoLitMinTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingGly}

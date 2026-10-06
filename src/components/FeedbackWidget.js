@@ -21,7 +21,7 @@ const FeedbackWidget = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [fname, setFName] = useState("");
-  const [lname, setLName] = useState("None Given");
+  const [lname, setLName] = useState("");
   const [subject, setSubject] = useState(defaultSubject);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -51,7 +51,7 @@ const FeedbackWidget = (props) => {
     setContactUsErrorMessage();
 
     let firstName = fname;
-    let lastName = "not given";
+    let lastName = "";
 
     let temp = fname.trim();
     let index = temp.indexOf(" ");
@@ -288,6 +288,67 @@ const FeedbackWidget = (props) => {
                     {"Name is required."}
                   </FormHelperText>
                 )}
+                </Col>
+
+                <Col sm={0} md={0} lg={0} 
+                    style={{ marginBottom: "15px",
+                        width: '0px',
+                        height: '0px',
+                        padding: '0px',
+                        margin: '0px',
+                        visibility: 'hidden'
+                  }}>
+                    <Typography
+                      sx={{
+                        width: '0px',
+                        height: '0px',
+                        padding: '0px',
+                        margin: '0px',
+                        visibility: 'hidden'
+                      }}
+                    >
+                      <strong>Last name *</strong>
+                    </Typography>
+                    <OutlinedInput
+                      id="outlined-full-width"
+                      // required
+                      sx={{
+                        width: '0px',
+                        height: '0px',
+                        padding: '0px',
+                        margin: '0px',
+                        visibility: 'hidden'
+                      }}
+                      name="lname"
+                      value={lname}
+                      placeholder="Please enter your last name."
+                      // error={(formValidated || lNameValidated) && lname === ""}
+                      onChange={(e) => {
+                        setLName(e.target.value);
+                        setContactUsResponseMessage();
+                        setContactUsErrorMessage();
+                      }}
+                      onBlur={() => setLNameValidated(true)}
+                      // helperText={
+                      //   (formValidated || lNameValidated) && lname === "" && "Last name is required."
+                      // }
+                      onInput={(e) => onlyText(e)}
+                      style={{ margin: "5px 0 0 0" }}
+                      classes={{
+                        input: 'input-auto',
+                      }}
+                      fullWidth
+                      margin="dense"
+                      variant="outlined"
+                      inputProps={{
+                        maxLength: 64,
+                      }}
+                    />
+                    {/* {(formValidated || lNameValidated) && (lname === "") && (
+                      <FormHelperText error>
+                        {"Last name is required."}
+                      </FormHelperText>
+                    )} */}
                 </Col>
 
                 <Col sm={12} md={12} lg={12} style={{ marginBottom: "15px" }}>

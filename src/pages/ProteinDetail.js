@@ -1293,6 +1293,27 @@ function formatNamesDataBasedOnType(data, type) {
       //   </LineTooltip>
     },
     {
+      dataField: "icn3d_view",
+      text: "iCn3D",
+      sort: false,
+      headerStyle: (colum, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+        };
+      },
+      formatter: (value, row) =>
+        row.icn3d_view ? 
+        (<LineTooltip text="View iCn3D page">
+            <a href={row.icn3d_view.url} target="_blank" rel="noopener noreferrer">
+              {row.icn3d_view.label}
+            </a>
+          </LineTooltip>
+        ) : (
+          ""
+        ),
+    },
+    {
       dataField: "mining_tool_list",
       text: "Tool",
       sort: true,
@@ -2961,6 +2982,10 @@ function formatNamesDataBasedOnType(data, type) {
                             <div className="text-muted">
                               <strong><sup>2</sup></strong><span> Displayed using <a href={"https://molstar.org/viewer-docs/"} target="_blank" rel="noopener noreferrer">Mol*</a></span>
                             </div>
+                            <div className="text-muted">
+                              <strong><sup>3</sup></strong><span> View {structure} in <a href={structureType === "experimental" ? `https://www.ncbi.nlm.nih.gov/Structure/icn3d/?mmdbid=${structure}&bu=1` : 
+                              `https://www.ncbi.nlm.nih.gov/Structure/icn3d/?afmem=off&afid=${typeof id === 'string' ? id.replace(/-.*$/, '') : ''}`} target="_blank" rel="noopener noreferrer">iCn3D</a></span>
+                            </div>
                           </div>)
                           : (
                             <p className="no-data-msg">{dataStatus}</p>
@@ -3700,7 +3725,7 @@ function formatNamesDataBasedOnType(data, type) {
                               type: "metal_binding_csv",
                               format: "csv",
                               data: "protein_section",
-                              section: "metal_binding",
+                              section: "binding_sites",
                             }
                           ]}
                           dataId={id}
@@ -3732,7 +3757,7 @@ function formatNamesDataBasedOnType(data, type) {
                                     type: "metal_binding_csv",
                                     format: "csv",
                                     data: "protein_section",
-                                    section: "metal_binding",
+                                    section: "binding_sites",
                                   }
                                 ],
                                 dataId:id,
@@ -3809,7 +3834,7 @@ function formatNamesDataBasedOnType(data, type) {
                               type: "domain_csv",
                               format: "csv",
                               data: "protein_section",
-                              section: "domain",
+                              section: "domain_list",
                             }
                           ]}
                           dataId={id}
@@ -3841,7 +3866,7 @@ function formatNamesDataBasedOnType(data, type) {
                                     type: "domain_csv",
                                     format: "csv",
                                     data: "protein_section",
-                                    section: "domain",
+                                    section: "domain_list",
                                   }
                                 ],
                                 dataId:id,
@@ -4058,6 +4083,7 @@ function formatNamesDataBasedOnType(data, type) {
                                   table_id={"snv_disease"}
                                   record_id={id}
                                   serverPagination={true}
+                                  showFilters={true}
                                   totalDataSize={mutataionWithdiseaseTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingSnv}
@@ -4106,6 +4132,7 @@ function formatNamesDataBasedOnType(data, type) {
                                   table_id={"snv_non_disease"}
                                   record_id={id}
                                   serverPagination={true}
+                                  showFilters={true}
                                   totalDataSize={mutataionWithoutdiseaseTotal}
                                   setAlertDialogInput={setAlertDialogInput}
                                   setCardLoading={setCardLoadingSnv}

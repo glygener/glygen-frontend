@@ -141,9 +141,9 @@ const ContactForm = (props) => {
         <h4>Send Message</h4>
         <p>We'd love to hear from you.</p>
         <Row>
-          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
+          <Col sm={12} md={12} lg={12} style={{ marginBottom: "15px" }}>
             <Typography>
-              <strong>First name * </strong>
+              <strong>Name * </strong>
             </Typography>
             <OutlinedInput
               id="outlined-full-width"
@@ -152,7 +152,7 @@ const ContactForm = (props) => {
               type="text"
               name="fname"
               value={fname}
-              placeholder="Please enter your first name."
+              placeholder="Please enter your name."
               error={(formValidated || fNameValidated) && fname === ""}
               onChange={(e) => {
                 setFName(e.target.value);
@@ -177,22 +177,44 @@ const ContactForm = (props) => {
             />
             {(formValidated || fNameValidated) && (fname === "") && (
               <FormHelperText error>
-                {"First name is required."}
+                {"Name is required."}
               </FormHelperText>
             )}
           </Col>
-          <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
-            <Typography>
+          <Col sm={0} md={0} lg={0} 
+            style={{ marginBottom: "15px",
+                width: '0px',
+                height: '0px',
+                padding: '0px',
+                margin: '0px',
+                visibility: 'hidden'
+          }}>
+            <Typography
+              sx={{
+                width: '0px',
+                height: '0px',
+                padding: '0px',
+                margin: '0px',
+                visibility: 'hidden'
+              }}
+            >
               <strong>Last name *</strong>
             </Typography>
             <OutlinedInput
               id="outlined-full-width"
-              required
+              // required
               type="text"
+              sx={{
+                width: '0px',
+                height: '0px',
+                padding: '0px',
+                margin: '0px',
+                visibility: 'hidden'
+              }}
               name="lname"
               value={lname}
               placeholder="Please enter your last name."
-              error={(formValidated || lNameValidated) && lname === ""}
+              // error={(formValidated || lNameValidated) && lname === ""}
               onChange={(e) => {
                 setLName(e.target.value);
                 setContactUsResponseMessage();
@@ -214,11 +236,11 @@ const ContactForm = (props) => {
                 maxLength: 64,
               }}
             />
-            {(formValidated || lNameValidated) && (lname === "") && (
+            {/* {(formValidated || lNameValidated) && (lname === "") && (
               <FormHelperText error>
                 {"Last name is required."}
               </FormHelperText>
-            )}
+            )} */}
           </Col>
           <Col sm={12} md={6} lg={6} style={{ marginBottom: "15px" }}>
             <Typography>
