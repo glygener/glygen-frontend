@@ -1294,7 +1294,7 @@ function formatNamesDataBasedOnType(data, type) {
     },
     {
       dataField: "icn3d_view",
-      text: "iCn3D",
+      text: "View Data",
       sort: false,
       headerStyle: (colum, colIndex) => {
         return {
