@@ -105,6 +105,26 @@ const SequenceRow = ({ uniprot_id, uniprot_ac, clickThruUrl, rowData, start, sel
                 type="mutation"
                 selectedHighlights={selectedHighlights}
               />
+               <RowHighlight
+                rowData={rowData}
+                type="n_glyco_sequon_gain"
+                selectedHighlights={selectedHighlights}
+              />
+              <RowHighlight
+                rowData={rowData}
+                type="n_glyco_sequon_loss"
+                selectedHighlights={selectedHighlights}
+              />
+               <RowHighlight
+                rowData={rowData}
+                type="o_glyco_site_loss"
+                selectedHighlights={selectedHighlights}
+              />
+               <RowHighlight
+                rowData={rowData}
+                type="snv_non_glyco"
+                selectedHighlights={selectedHighlights}
+              />
               <RowHighlight
                 rowData={rowData}
                 type="site_annotation"
@@ -251,6 +271,10 @@ const SequenceDataDisplay = ({ sequenceData, selectedHighlights, multiSequence }
               n_link_glycosylation: false,
               o_link_glycosylation: false,
               mutation: false,
+              n_glyco_sequon_gain: false,
+              n_glyco_sequon_loss: false,
+              o_glyco_site_loss: false,
+              snv_non_glyco: false,
               site_annotation: false,
               phosphorylation: false,
               glycation: false,

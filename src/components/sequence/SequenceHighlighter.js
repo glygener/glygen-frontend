@@ -13,15 +13,15 @@ import FormControl from "@mui/material/FormControl";
 /**
  * Higlight selecter control for highlighting protein sequence sites.
  */
-const HiglightSelecter = ({ count = 0, selectedHighlights, type, label, onSelect, className, showNumbers }) => {
+const HiglightSelecter = ({ count = 0, disabled = false, selectedHighlights, type, typeMaster, label, onSelect, className, showNumbers }) => {
   return (
     <label style={{marginBottom: "0.5rem"}}>
       <input
         type="checkbox"
         name="checkbox"
-        disabled={count < 1}
-        checked={selectedHighlights[type]}
-        onClick={() => onSelect(type)}
+        disabled={count < 1 || disabled}
+        checked={selectedHighlights[type] || selectedHighlights[typeMaster]}
+        onClick={() => typeMaster ? !selectedHighlights[typeMaster] && onSelect(type) : onSelect(type)}
       />
       &nbsp;
       <span className={className}>{label}</span>
@@ -157,6 +157,10 @@ const SequenceHighlighter = ({
     let muArr = [];
     let glycaArr = [];
     let highlightDataArr = [];
+    let n_gl_sequon_gainArr = [];
+    let n_gl_sequon_lossArr = [];
+    let o_gl_site_lossArr = [];
+    let snv_non_glArr = [];
 
     let glycoN = 0;
     let glycoO = 0;
@@ -164,6 +168,10 @@ const SequenceHighlighter = ({
     let siAn = 0;
     let mu = 0;
     let glyca = 0;
+    let n_gl_sequon_gain = 0;
+    let n_gl_sequon_loss = 0;
+    let o_gl_site_loss = 0;
+    let snv_non_gl = 0
 
     details && details.map((det) => {
       phArr = getPhosphorylationHighlightData(det.phosphorylation, flatDataStructure);
@@ -171,6 +179,10 @@ const SequenceHighlighter = ({
       glycoOArr = getOLinkGlycanMapHighlights(det.o_glycosylation ? det.o_glycosylation : det.glycosylation, flatDataStructure);
       siAnArr = getSequonHighlightData(det.site_annotation);
       muArr = getMutationHighlightData(det.snv, flatDataStructure);
+      n_gl_sequon_gainArr = getMutationHighlightData(det.n_glyco_sequon_gain, flatDataStructure);
+      n_gl_sequon_lossArr = getMutationHighlightData(det.n_glyco_sequon_loss, flatDataStructure);
+      o_gl_site_lossArr = getMutationHighlightData(det.o_glyco_site_loss, flatDataStructure);
+      snv_non_glArr = getMutationHighlightData(det.snv_non_glyco, flatDataStructure);
       glycaArr = getGlycationHighlightData(det.glycation, flatDataStructure);
 
       if (phArr.length > 0){
@@ -184,6 +196,18 @@ const SequenceHighlighter = ({
       }
       if (siAnArr.length > 0){
         siAn = siAnArr.length
+      }
+      if (n_gl_sequon_gainArr.length > 0){
+        n_gl_sequon_gain = n_gl_sequon_gainArr.length
+      }
+      if (n_gl_sequon_lossArr.length > 0){
+        n_gl_sequon_loss = n_gl_sequon_lossArr.length
+      }
+      if (o_gl_site_lossArr.length > 0){
+        o_gl_site_loss = o_gl_site_lossArr.length
+      }
+      if (snv_non_glArr.length > 0){
+        snv_non_gl = snv_non_glArr.length
       }
       if (muArr.length > 0){
         mu = muArr.length
@@ -201,6 +225,10 @@ const SequenceHighlighter = ({
       "site_annotation" : siAn,
       "glycation" : glyca,
       "mutation" : mu,
+      "n_glyco_sequon_gain": n_gl_sequon_gain,
+      "n_glyco_sequon_loss": n_gl_sequon_loss,
+      "o_glyco_site_loss": o_gl_site_loss,
+      "snv_non_glyco": snv_non_gl
     }
 
     setHighlightsCount(highlightData);
@@ -239,8 +267,58 @@ const SequenceHighlighter = ({
               count={highlightsCount["mutation"] ? highlightsCount["mutation"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
+              disabled={!(highlightsCount["n_glyco_sequon_gain"] && highlightsCount["n_glyco_sequon_loss"]
+                 && highlightsCount["o_glyco_site_loss"] && highlightsCount["snv_non_glyco"])}
               type="mutation"
               label="Variation from mutation"
+              className={"sequnce3"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li className="ps-3">
+            <HiglightSelecter
+              count={highlightsCount["n_glyco_sequon_gain"] ? highlightsCount["n_glyco_sequon_gain"] : 0}
+              selectedHighlights={selectedHighlights}
+              showNumbers={showNumbers}
+              type="n_glyco_sequon_gain"
+              typeMaster="mutation"
+              label="N-glyco sequon gain"
+              className={"sequnce3"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li className="ps-3">
+            <HiglightSelecter
+              count={highlightsCount["n_glyco_sequon_loss"] ? highlightsCount["n_glyco_sequon_loss"] : 0}
+              selectedHighlights={selectedHighlights}
+              showNumbers={showNumbers}
+              type="n_glyco_sequon_loss"
+              typeMaster="mutation"
+              label="N-glyco sequon loss"
+              className={"sequnce3"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li className="ps-3">
+            <HiglightSelecter
+              count={highlightsCount["o_glyco_site_loss"] ? highlightsCount["o_glyco_site_loss"] : 0}
+              selectedHighlights={selectedHighlights}
+              showNumbers={showNumbers}
+              type="o_glyco_site_loss"
+              typeMaster="mutation"
+              label="O-glyco site loss"
+              className={"sequnce3"}
+              onSelect={handleSelectHighlight}
+            />
+          </li>
+          <li className="ps-3">
+            <HiglightSelecter
+              count={highlightsCount["snv_non_glyco"] ? highlightsCount["snv_non_glyco"] : 0}
+              selectedHighlights={selectedHighlights}
+              showNumbers={showNumbers}
+              type="snv_non_glyco"
+              typeMaster="mutation"
+              label="Non glyco mutation"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
             />

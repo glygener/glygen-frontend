@@ -428,6 +428,10 @@ const ProteinDetail = (props) => {
     mutation: false,
     n_link_glycosylation: false,
     o_link_glycosylation: false,
+    n_glyco_sequon_gain: false,
+    n_glyco_sequon_loss: false,
+    o_glyco_site_loss: false,
+    snv_non_glyco: false,
     phosphorylation: false,
     glycation: false,
     text_search: false,
@@ -954,6 +958,37 @@ const ProteinDetail = (props) => {
         }
 
         if (data.sequence_features) {
+          let sites_snv_non_glyco = undefined;
+          if (data.sequence_features.snv_sites) {
+            for (let i = 0; i < data.sequence_features.snv_sites.length; i++) {
+              let site = data.sequence_features.snv_sites[i];
+              let add = true;
+
+              if (data.sequence_features.sites_with_n_glyco_sequon_gain && 
+                data.sequence_features.sites_with_n_glyco_sequon_gain.length > 0 &&
+                data.sequence_features.sites_with_n_glyco_sequon_gain.includes(site)) {                
+                add = false;
+              }
+              if (data.sequence_features.sites_with_n_glyco_sequon_loss && 
+                data.sequence_features.sites_with_n_glyco_sequon_loss.length > 0 &&
+                data.sequence_features.sites_with_n_glyco_sequon_loss.includes(site)) {                
+                add = false;
+              }
+              if (data.sequence_features.sites_with_o_glyco_site_loss && 
+                data.sequence_features.sites_with_o_glyco_site_loss.length > 0 && 
+                data.sequence_features.sites_with_o_glyco_site_loss.includes(site)) {                
+                add = false;
+              }
+
+              if (add) {
+                if (!sites_snv_non_glyco) {
+                  sites_snv_non_glyco = []
+                }
+                sites_snv_non_glyco.push(site);
+              }
+            }
+          }
+          data.sequence_features.sites_snv_non_glyco = sites_snv_non_glyco;
           setSequenceFeatures(data.sequence_features)
         }
 
@@ -3937,6 +3972,10 @@ function formatNamesDataBasedOnType(data, type) {
                                     n_glycosylation: sequenceFeatures.n_linked_sites,
                                     o_glycosylation: sequenceFeatures.o_linked_sites,
                                     snv: sequenceFeatures.snv_sites,
+                                    n_glyco_sequon_gain: sequenceFeatures.sites_with_n_glyco_sequon_gain,
+                                    n_glyco_sequon_loss: sequenceFeatures.sites_with_n_glyco_sequon_loss,
+                                    o_glyco_site_loss: sequenceFeatures.sites_with_o_glyco_site_loss,
+                                    snv_non_glyco: sequenceFeatures.sites_snv_non_glyco,
                                     // site_annotation: sequenceFeatures.sequon_annotation_sites,
                                     phosphorylation: sequenceFeatures.phosphorylation_sites,
                                     glycation: sequenceFeatures.glycation_sites,
@@ -3966,6 +4005,10 @@ function formatNamesDataBasedOnType(data, type) {
                                   n_glycosylation: sequenceFeatures.n_linked_sites,
                                   o_glycosylation: sequenceFeatures.o_linked_sites,
                                   snv: sequenceFeatures.snv_sites,
+                                  n_glyco_sequon_gain: sequenceFeatures.sites_with_n_glyco_sequon_gain,
+                                  n_glyco_sequon_loss: sequenceFeatures.sites_with_n_glyco_sequon_loss,
+                                  o_glyco_site_loss: sequenceFeatures.sites_with_o_glyco_site_loss,
+                                  snv_non_glyco: sequenceFeatures.sites_snv_non_glyco,
                                   // site_annotation: sequenceFeatures.sequon_annotation_sites,
                                   phosphorylation: sequenceFeatures.phosphorylation_sites,
                                   glycation: sequenceFeatures.glycation_sites,

@@ -26,6 +26,26 @@
 	background: #02E402;
 }
 
+.highlight-highlight[data-type="n_glyco_sequon_gain"] .highlight-highlight-area {
+	/* background: rgb(131, 235, 131); */
+	background: #02E402;
+}
+
+.highlight-highlight[data-type="n_glyco_sequon_loss"] .highlight-highlight-area {
+	/* background: rgb(131, 235, 131); */
+	background: #02E402;
+}
+
+.highlight-highlight[data-type="o_glyco_site_loss"] .highlight-highlight-area {
+	/* background: rgb(131, 235, 131); */
+	background: #02E402;
+}
+
+.highlight-highlight[data-type="snv_non_glyco"] .highlight-highlight-area {
+	/* background: rgb(131, 235, 131); */
+	background: #02E402;
+}
+
 .highlight-highlight[data-type="o_link_glycosylation"]
 	.highlight-highlight-area {
 	border-bottom: 3px solid blue;

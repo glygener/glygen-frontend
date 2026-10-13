@@ -23,6 +23,10 @@ const SequenceViewer = ({
   const [siteAnnotationMapHighlights, setSiteAnnotationMapHighlights] = useState(new Map());
   const [glycationMapHighlights, setGlycationMapHighlights] = useState(new Map());
   const [mutationMapHighlights, setMutationMapHighlights] = useState(new Map());
+  const [nGlycoSequonGainMapHighlights, setNGlycoSequonGainMapHighlights] = useState(new Map());
+  const [nGlycoSequonLossMapHighlights, setNGlycoSequonLossMapHighlights] = useState(new Map());
+  const [oGlycoSiteLossMapHighlights, setOGlycoSiteLossMapHighlights] = useState(new Map());
+  const [snvNonGlycoMapHighlights, setSNVNonGlycoMapHighlights] = useState(new Map());
   const [phosphorylationMapHighlights, setPhosphorylationMapHighlights] = useState(new Map());
   const [nLinkGlycanMapHighlights, setNLinkGlycanMapHighlights] = useState(new Map());
   const [oLinkGlycanMapHighlights, setOLinkGlycanMapHighlights] = useState(new Map());
@@ -74,6 +78,10 @@ function buildHighlightData(sequences, consensus) {
         var site_annotation = siteAnnotationMapHighlights[uniprot_ac];
         var glycation = glycationMapHighlights[uniprot_ac];
         var mutation = mutationMapHighlights[uniprot_ac];
+        var nGlycoSequonGain = nGlycoSequonGainMapHighlights[uniprot_ac];
+        var nGlycoSequonLoss = nGlycoSequonLossMapHighlights[uniprot_ac];
+        var oGlycoSiteLoss = oGlycoSiteLossMapHighlights[uniprot_ac];
+        var snvNonGlyco = snvNonGlycoMapHighlights[uniprot_ac];
         var phosphorylation = phosphorylationMapHighlights[uniprot_ac];
         var nLinkGlycan = nLinkGlycanMapHighlights[uniprot_ac];
         var oLinkGlycan = oLinkGlycanMapHighlights[uniprot_ac];
@@ -91,6 +99,10 @@ function buildHighlightData(sequences, consensus) {
             n_link_glycosylation: isHighlighted(position, nLinkGlycan, sequence[x]),
             o_link_glycosylation: isHighlighted(position, oLinkGlycan, sequence[x]),
             mutation: isHighlighted(position, mutation, sequence[x]),
+            n_glyco_sequon_gain: isHighlighted(position, nGlycoSequonGain, sequence[x]),
+            n_glyco_sequon_loss: isHighlighted(position, nGlycoSequonLoss, sequence[x]),
+            o_glyco_site_loss: isHighlighted(position, oGlycoSiteLoss, sequence[x]),
+            snv_non_glyco: isHighlighted(position, snvNonGlyco, sequence[x]),
             site_annotation: isHighlighted(position, site_annotation, sequence[x]),
             phosphorylation: isHighlighted(position, phosphorylation, sequence[x]),
             glycation: isHighlighted(position, glycation, sequence[x]),
@@ -109,6 +121,10 @@ function buildHighlightData(sequences, consensus) {
             n_link_glycosylation: false,
             o_link_glycosylation: false,
             mutation: false,
+            n_glyco_sequon_gain: false,
+            n_glyco_sequon_loss: false,
+            o_glyco_site_loss: false,
+            snv_non_glyco: false,
             site_annotation: false,
             phosphorylation: false,
             glycation: false,
@@ -131,6 +147,10 @@ function buildHighlightData(sequences, consensus) {
     let phMap = new Map();
     let siAnMap = new Map();
     let muMap = new Map();
+    let nGlSeGaMap = new Map();
+    let nGlSeLoMap = new Map();
+    let oGlSeGaMap = new Map();
+    let snvNonGlMap = new Map();
     let glycaMap = new Map();
 
     details && details.map((det) => {
@@ -139,12 +159,20 @@ function buildHighlightData(sequences, consensus) {
       glycoOMap[det.uniprot_canonical_ac] = getOLinkGlycanMapHighlights(det.o_glycosylation ? det.o_glycosylation : det.glycosylation, flatDataStructure);
       siAnMap[det.uniprot_canonical_ac] = getSequonHighlightData(det.site_annotation);
       muMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.snv, flatDataStructure);
+      nGlSeGaMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.n_glyco_sequon_gain, flatDataStructure);
+      nGlSeLoMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.n_glyco_sequon_loss, flatDataStructure);
+      oGlSeGaMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.o_glyco_site_loss, flatDataStructure);
+      snvNonGlMap[det.uniprot_canonical_ac] = getMutationHighlightData(det.snv_non_glyco, flatDataStructure);
       glycaMap[det.uniprot_canonical_ac] = getGlycationHighlightData(det.glycation, flatDataStructure);
     });
 
     setSiteAnnotationMapHighlights(siAnMap);
     setGlycationMapHighlights(glycaMap);
     setMutationMapHighlights(muMap);
+    setNGlycoSequonGainMapHighlights(nGlSeGaMap);
+    setNGlycoSequonLossMapHighlights(nGlSeLoMap);
+    setOGlycoSiteLossMapHighlights(oGlSeGaMap);
+    setSNVNonGlycoMapHighlights(snvNonGlMap);
     setPhosphorylationMapHighlights(phMap);
     setNLinkGlycanMapHighlights(glycoNMap);
     setOLinkGlycanMapHighlights(glycoOMap);
