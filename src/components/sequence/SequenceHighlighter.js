@@ -13,15 +13,32 @@ import FormControl from "@mui/material/FormControl";
 /**
  * Higlight selecter control for highlighting protein sequence sites.
  */
-const HiglightSelecter = ({ count = 0, disabled = false, selectedHighlights, type, typeMaster, label, onSelect, className, showNumbers }) => {
+const HiglightSelecter = ({ count = 0, selectedHighlights, type, typeMaster, typeChildArr, label, onSelect, onMultiSelect, className, showNumbers }) => {
   return (
     <label style={{marginBottom: "0.5rem"}}>
       <input
         type="checkbox"
         name="checkbox"
-        disabled={count < 1 || disabled}
-        checked={selectedHighlights[type] || selectedHighlights[typeMaster]}
-        onClick={() => typeMaster ? !selectedHighlights[typeMaster] && onSelect(type) : onSelect(type)}
+        disabled={count < 1}
+        checked={(selectedHighlights[type] && count > 0)}
+        onClick={() => { 
+          if (onMultiSelect) {
+            let temp = {...selectedHighlights};
+            temp[type] = !selectedHighlights[type];
+            if (typeMaster && selectedHighlights[typeMaster]) {
+              temp[typeMaster] = !selectedHighlights[typeMaster];
+            }
+            
+            if (typeChildArr && typeChildArr.length > 0) {
+              for (let i = 0; i < typeChildArr.length; i++) {
+                temp[typeChildArr[i]] = !selectedHighlights[type] ? true : false;
+              }
+            }
+            onMultiSelect({...temp});
+          } else {
+            onSelect(type)
+          }
+        }}
       />
       &nbsp;
       <span className={className}>{label}</span>
@@ -126,7 +143,8 @@ const SequenceHighlighter = ({
   setSequenceTemplateText,
   consensusMenu,
   showNumbers,
-  flatDataStructure
+  flatDataStructure,
+  multiSequence
 }) => {
 
   const [highlightsCount, setHighlightsCount] = useState({});
@@ -136,6 +154,10 @@ const SequenceHighlighter = ({
       ...selectedHighlights,
       [type]: !selectedHighlights[type],
     });
+  };
+
+  const handleMultiSelectHighlight = (typeObj) => {
+    setSelectedHighlights(typeObj);
   };
 
   const handleSelectHighlightFlag = (type, flag) => {
@@ -267,62 +289,67 @@ const SequenceHighlighter = ({
               count={highlightsCount["mutation"] ? highlightsCount["mutation"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
-              disabled={!(highlightsCount["n_glyco_sequon_gain"] && highlightsCount["n_glyco_sequon_loss"]
-                 && highlightsCount["o_glyco_site_loss"] && highlightsCount["snv_non_glyco"])}
+              typeChildArr={["n_glyco_sequon_gain", "n_glyco_sequon_loss",
+                 "o_glyco_site_loss", "snv_non_glyco"]}
               type="mutation"
               label="Variation from mutation"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
+              onMultiSelect={handleMultiSelectHighlight}
             />
           </li>
-          <li className="ps-3">
+          {!multiSequence && <li className="ps-3">
             <HiglightSelecter
               count={highlightsCount["n_glyco_sequon_gain"] ? highlightsCount["n_glyco_sequon_gain"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
               type="n_glyco_sequon_gain"
               typeMaster="mutation"
-              label="N-glyco sequon gain"
+              label="N-gain"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
+              onMultiSelect={handleMultiSelectHighlight}
             />
-          </li>
-          <li className="ps-3">
+          </li>}
+          {!multiSequence && <li className="ps-3">
             <HiglightSelecter
               count={highlightsCount["n_glyco_sequon_loss"] ? highlightsCount["n_glyco_sequon_loss"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
               type="n_glyco_sequon_loss"
               typeMaster="mutation"
-              label="N-glyco sequon loss"
+              label="N-loss"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
+              onMultiSelect={handleMultiSelectHighlight}
             />
-          </li>
-          <li className="ps-3">
+          </li>}
+          {!multiSequence && <li className="ps-3">
             <HiglightSelecter
               count={highlightsCount["o_glyco_site_loss"] ? highlightsCount["o_glyco_site_loss"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
               type="o_glyco_site_loss"
               typeMaster="mutation"
-              label="O-glyco site loss"
+              label="O-loss"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
+              onMultiSelect={handleMultiSelectHighlight}
             />
-          </li>
-          <li className="ps-3">
+          </li>}
+          {!multiSequence && <li className="ps-3">
             <HiglightSelecter
               count={highlightsCount["snv_non_glyco"] ? highlightsCount["snv_non_glyco"] : 0}
               selectedHighlights={selectedHighlights}
               showNumbers={showNumbers}
               type="snv_non_glyco"
               typeMaster="mutation"
-              label="Non glyco mutation"
+              label="Non-glycosylated"
               className={"sequnce3"}
               onSelect={handleSelectHighlight}
+              onMultiSelect={handleMultiSelectHighlight}
             />
-          </li>
+          </li>}
           {/* <li>
             <HiglightSelecter
               count={highlightsCount["site_annotation"] ? highlightsCount["site_annotation"] : 0}

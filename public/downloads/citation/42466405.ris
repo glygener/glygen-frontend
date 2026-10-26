@@ -1,0 +1,56 @@
+TY  - INPR
+AU  - Bhowmik, Shovan
+AU  - Ross, Karen
+AU  - Chen, Chuming
+AU  - Wu, Cathy
+AU  - Vijay-Shanker, K
+AD  - Department of Computer and Information Sciences, University of Delaware,
+      Newark, Delaware, United States.; Department of Biochemistry and Molecular
+      & Cellular Biology, Georgetown University Medical Center, Washington,
+      D.C., United States.; Department of Computer and Information Sciences,
+      University of Delaware, Newark, Delaware, United States.; Center for
+      Bioinformatics and Computational Biology, University of Delaware, Newark,
+      Delaware, United States.
+TI  - GenPTM: A generalizable framework for protein post-translational
+      modification information extraction from the scientific literature
+T2  - Res. Sq.
+PY  - 2026
+DA  - 2026/7/8
+AB  - Background: Protein post-translational modification (PTM) plays a pivotal
+      role in cellular activities and biological processes. Although several
+      databases curate PTM information, most cover only a limited number of
+      PTMs. Although the scientific literature continues to accumulate a vast
+      amount of PTM-related knowledge, these databases are not updated
+      regularly. This growing information gap highlights the need for automated
+      information extraction (IE) systems that can identify modified proteins
+      and their specific amino acid sites directly from the literature. While
+      numerous PTMs have been reported in scientific articles, most existing
+      tools are designed only for a few specific PTMs, and developing separate
+      systems for every PTM is not feasible. Methods: To address this challenge,
+      we developed GenPTM, a generalized and adaptable IE tool that identifies
+      modified proteins and sites from PubMed abstracts using a unified text
+      representation strategy. GenPTM replaces PTM-specific modification and
+      chemical group mentions with generic placeholders, allowing the model to
+      focus on shared textual patterns that express modification events. A
+      BiomedBERT-based classifier is fine-tuned to determine whether a candidate
+      protein or site is truly modified, and a post-processing module assembles
+      the final protein, site, or protein-site pair predictions. Results:
+      Trained on five major PTM types (e.g., Ubiquitination, Phosphorylation)
+      and evaluated on eight additional PTMs, including PTMs that are not
+      frequently mentioned (e.g., Citrullination, AMPylation), GenPTM achieves
+      F1-scores ranging from 92% to 96% across all PTMs for three different
+      evaluation categories. Conclusions: These results exhibit strong
+      generalization capability of GenPTM by providing a viable solution for
+      PTM-agnostic IE and automated PTM knowledge discovery in proteomics.
+DO  - 10.21203/rs.3.rs-9580737/v1
+UR  - http://dx.doi.org/10.21203/rs.3.rs-9580737/v1
+UR  - https://www.ncbi.nlm.nih.gov/pubmed/42466405
+UR  - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13370902
+KW  - BERT
+KW  - BioNLP
+KW  - Information Extraction
+KW  - Phosphorylation
+KW  - Post-Translational Modification
+KW  - Relation Extraction
+KW  - Text-Mining
+ER  - 

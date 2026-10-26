@@ -68,15 +68,18 @@
     },
     "metal_binding": {
       "urlText": "",
-      "text": "",
+      "text": "The Metal Binding section displays interactions between protein residues and metal ions. Each row represents a metal ligand and its associated binding site(s). Ligand names are shown with their corresponding ChEBI identifiers and links to the related ChEBI entries.",
       "title": "Metal Binding",
       "url": ""
     },
     "domain": {
       "urlText": "",
-      "text": "",
+      "text": "The Domain section shows functional regions within the protein sequence. Toggle GlycoLens to display all annotated domains or only those associated with glycosylation sites. Annotations include domains, sequence motifs, and DNA-binding regions.",
       "title": "Domain",
       "url": ""
+    },
+    "glycolens": {
+      "text": "Toggle the view to show all data or only data that overlaps a glycosite."
     },
     "glycation": {
       "urlText": "Read more...",

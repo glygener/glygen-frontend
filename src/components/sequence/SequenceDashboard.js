@@ -52,6 +52,7 @@ const SequenceDashboard = (props) => {
                 setSequenceTemplateText={props.setSequenceTemplateText}
                 consensusMenu={props.consensusMenu}
                 showNumbers={props.showNumbers}
+                multiSequence={true}
               />
             </div>
           </Col>

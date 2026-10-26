@@ -75,6 +75,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import proteinDetailData from "../data/json/proteinDetailData.json";
+import Badge from '@mui/material/Badge';
 
 const SimpleHelpTooltip = (props) => {
   const { data } = props;
@@ -95,6 +96,7 @@ const proteinStrings = stringConstants.protein.common;
 const biomarkerStrings = stringConstants.biomarker.common;
 const proteinDirectSearch = stringConstants.protein.direct_search;
 const domainAnnType = proteinDetailData.domain_ann_type;
+const glycoEffect = proteinDetailData.glycoeffect;
 
 const items = [
   { label: stringConstants.sidebar.general.displayname, id: "General" },
@@ -1551,7 +1553,6 @@ function formatNamesDataBasedOnType(data, type) {
     {
       dataField: "start_pos",
       text: proteinStrings.startpos.name,
-
       sort: true,
       headerStyle: (colum, colIndex) => {
         return {
@@ -1596,6 +1597,36 @@ function formatNamesDataBasedOnType(data, type) {
         <>
           {row.sequence_org} → {row.sequence_mut}
         </>
+      ),
+    },
+    {
+      dataField: "glycoeffect",
+      text: "Glycoeffect",
+      style: { whiteSpace: "nowrap" },
+      headerStyle: (column, colIndex) => {
+        return {
+          backgroundColor: "#4B85B6",
+          color: "white",
+          width: "25%",
+        };
+      },
+      formatter: (value, row) => (
+        <div className="ps-5">
+          {value && value.map((gleff, index) => (
+            <div key={index}>
+              <Badge badgeContent={glycoEffect[gleff].text}
+                sx={{
+                  '& .MuiBadge-badge': {
+                    backgroundColor: `${glycoEffect[gleff].color}`,
+                    color: "white",
+                    padding: "10px",
+                    fontSize: "inherit"
+                  },
+                }}
+              />
+            </div>
+          ))}
+        </div>
       ),
     },
     {
@@ -1651,13 +1682,6 @@ function formatNamesDataBasedOnType(data, type) {
       dataField: "start_pos",
       text: proteinStrings.startpos.name,
       sort: true,
-      defaultSortField: "start_pos",
-      sortFunc: (a, b, order, start_pos) => {
-        if (order === "asc") {
-          return b - a;
-        }
-        return a - b; // desc
-      },
       formatter: (value, row) => (
         <>{row.start_pos === row.end_pos ? <LineTooltip text="View siteview details">
           <Link to={`${routeConstants.siteview}${id}/${row.start_pos}`}>
@@ -3828,27 +3852,29 @@ function formatNamesDataBasedOnType(data, type) {
                       {stringConstants.sidebar.domain.displayname}
                     </h4>
                     <div className="float-end">
-                      <span className="text-end gg-download-btn-width pb-3">
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={glycoLens}
-                              onChange={() => {
-                                try {
-                                  setGlycoLens(!glycoLens);
-                                } catch(error) {
-                                }
-                              }}
-                              name="checkedB"
-                              color="primary"
-                            />
-                          }
-                          label="GlycoLens"
-                          classes={{
-                            root:"gg-txt-blue"
-                          }}
-                        />
-                      </span>
+                      <LineTooltip text={DetailTooltips.protein.glycolens.text}>                      
+                        <span className="text-end gg-download-btn-width pb-3">
+                          <FormControlLabel
+                            control={
+                              <Switch
+                                checked={glycoLens}
+                                onChange={() => {
+                                  try {
+                                    setGlycoLens(!glycoLens);
+                                  } catch(error) {
+                                  }
+                                }}
+                                name="checkedB"
+                                color="primary"
+                              />
+                            }
+                            label="GlycoLens"
+                            classes={{
+                              root:"gg-txt-blue"
+                            }}
+                          />
+                        </span>
+                      </LineTooltip>
                       <span>
                         <Link to={`${routeConstants.protVista}${id}`}>
                           <Button
@@ -4023,6 +4049,7 @@ function formatNamesDataBasedOnType(data, type) {
                               sequenceTemplateText={sequenceTemplateText}
                               setSequenceTemplateText={setSequenceTemplateText}
                               consensusMenu={consensusMenu}
+                              multiSequence={false}
                             />
                           )}
                         </Grid>
@@ -4275,8 +4302,6 @@ function formatNamesDataBasedOnType(data, type) {
                           columns={mutagenesisColumns}
                           idField={"index"}
                           onClickTarget={"#mutagenesis"}
-                          defaultSortField={"start_pos"}
-                          defaultSortOrder="asc"
                           viewPort={true}
                           title="Mutagenesis"
                           download={

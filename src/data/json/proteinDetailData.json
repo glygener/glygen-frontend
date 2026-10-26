@@ -3,5 +3,19 @@
    "domain_extent_annotation": "Domain",
    "motif_annotation": "Motif",
    "nucleotide_binding_annotation": "DNA binding"
+  },
+  "glycoeffect": {
+    "n-glyco-sequon-loss": { 
+      "text": "N-loss",
+      "color": "red"
+    },
+    "n-glyco-sequon-gain": {
+        "text": "N-gain",
+        "color": "green"
+    },
+      "o-glyco-site-loss": {
+      "text": "O-loss",
+      "color": "orange"
+    }
   }
 }

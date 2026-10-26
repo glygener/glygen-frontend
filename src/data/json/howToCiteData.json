@@ -23,6 +23,24 @@
 	],
 	"ourPapers": [
 		{
+			"heading": "GenPTM: A Generalizable Framework for Protein Post-Translational Modification Information Extraction from the Scientific Literature.",
+			"authors": "Bhowmik Shovan, Karen Ross, Chuming Chen, Cathy Wu, and K. Vijay-Shanker.",
+			"publisher": "Glycobiology. 2025.",
+			"pmid": "PMID:",
+			"website": {
+				"name": "42466405",
+				"url": "https://pubmed.ncbi.nlm.nih.gov/42466405/"
+			},
+			"citeimage": "display",
+			"bibtex": "/downloads/citation/42466405.bib",
+			"bibtexlabel": "BibTeX",
+			"endnote": "/downloads/citation/42466405.enw",
+			"endnotelabel": "EndNote",
+			"ris": "/downloads/citation/42466405.ris",
+			"rislabel": "RIS",
+			"period": "."
+		},
+		{
 			"heading": "GlycoSiteMiner: an ML/AI-assisted literature mining-based pipeline for extracting glycosylation sites from PubMed abstractsGlycoSiteMiner: an ML/AI-assisted literature mining-based pipeline for extracting glycosylation sites from PubMed abstracts.",
 			"authors": "Robel Kahsay, Urnisha Bhuiyan, Cyrus Chun Hong Au, Nathan Edwards, Luke Johnson, Sujeet Kulkarni, Karina Martinez, Rene Ranzinger, K Vijay-Shanker, Jeet Vora, Kate Warner, Michael Tiemeyer, Raja Mazumder.",
 			"publisher": "Glycobiology. 2025.",

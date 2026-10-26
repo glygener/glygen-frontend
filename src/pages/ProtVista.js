@@ -1005,10 +1005,9 @@ useEffect(() => {
               handleExpand2={() => setExpandedMetal(!expandedMetal)}
             />
           </Col>
-
           <Col xs={12} sm={12} xl={10} className="prot-body-content">
             {data && data.sequence && data.sequence.length && (
-              <div>
+              <div style={{height: String(600 + (expanded ? 300 : 0) + (expandedMetal ? 80 + (metalTypes && metalTypes.length > 0) ? metalTypes.length * 60 : 0 : 0)) + "px"}}>
                 <nightingale-manager
                   class={`nav-track-manager`}
                   reflected-attributes="length display-start display-end highlight-start highlight-end variantfilters"
