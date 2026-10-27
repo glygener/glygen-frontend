@@ -239,29 +239,29 @@
       <text x="261" y="245">Asn294</text>
       <text x="358" y="245">Homo sapiens</text>
       <!-- row 2 -->
-      <text x="28" y="271">Q9Y6R7</text>
-      <text x="138" y="271">G00023MO</text>
-      <rect x="248" y="264" width="8" height="8" fill="#0072bc" stroke="#1a3a55" stroke-width="0.7"/>
-      <text x="261" y="271">Asn89</text>
-      <text x="358" y="271">Homo sapiens</text>
+      <text x="28" y="271">P79762</text>
+      <text x="138" y="271">G00031MO</text>
+      <rect x="248" y="264" width="8" height="8" fill="#ffd400" stroke="#1a3a55" stroke-width="0.7"/>
+      <text x="261" y="271">Thr168</text>
+      <text x="358" y="271">Chicken</text>
       <!-- row 3 -->
       <text x="28" y="297">P07766</text>
-      <text x="138" y="297">G65412KX</text>
+      <text x="138" y="297">G49108TO</text>
       <rect x="248" y="290" width="8" height="8" fill="#0072bc" stroke="#1a3a55" stroke-width="0.7"/>
-      <text x="261" y="297">Asn45</text>
-      <text x="358" y="297">Mus musculus</text>
+      <text x="261" y="297">Ser55</text>
+      <text x="358" y="297">Homo sapiens</text>
       <!-- row 4 -->
       <text x="28" y="323">O43852</text>
-      <text x="138" y="323">G00987VT</text>
-      <circle cx="252" cy="319" r="4.3" fill="#ffd400" stroke="#8a6c00" stroke-width="0.7"/>
-      <text x="261" y="323">Ser212</text>
+      <text x="138" y="323">G57321FI</text>
+      <rect x="248" y="316" width="8" height="8" fill="#ffd400" stroke="#1a3a55" stroke-width="0.7"/>
+      <text x="261" y="323">Ser19</text>
       <text x="358" y="323">Homo sapiens</text>
       <!-- row 5 -->
-      <text x="28" y="349">P29459</text>
-      <text x="138" y="349">G34521QP</text>
+      <text x="28" y="349">Q01705</text>
+      <text x="138" y="349">G49108TO</text>
       <rect x="248" y="342" width="8" height="8" fill="#0072bc" stroke="#1a3a55" stroke-width="0.7"/>
-      <text x="261" y="349">Asn78</text>
-      <text x="358" y="349">Rattus norvegicus</text>
+      <text x="261" y="349">Thr405</text>
+      <text x="358" y="349">Mus musculus</text>
     </g>
   </g>
 </svg>
